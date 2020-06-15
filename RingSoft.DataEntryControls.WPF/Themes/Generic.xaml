@@ -1,0 +1,16 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPF"
+    xmlns:dataEntryGrid="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid">
+
+
+    <Style TargetType="{x:Type dataEntryGrid:DataEntryGrid}"
+           BasedOn = "{StaticResource {x:Type DataGrid}}">
+    </Style>
+
+    <Style TargetType="{x:Type local:BaseWindow}"
+           BasedOn = "{StaticResource {x:Type Window}}">
+    </Style>
+
+</ResourceDictionary>

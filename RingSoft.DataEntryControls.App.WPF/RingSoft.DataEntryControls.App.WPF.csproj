@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RingSoft.DataEntryControls.Engine\RingSoft.DataEntryControls.Engine.csproj" />
+    <ProjectReference Include="..\RingSoft.DataEntryControls.WPF\RingSoft.DataEntryControls.WPF.csproj" />
+  </ItemGroup>
+
+</Project>
