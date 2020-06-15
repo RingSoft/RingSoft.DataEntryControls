@@ -28,5 +28,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             return base.GetCellProps(columnId);
         }
+
+        public override void SetCellValue(DataEntryGridCellProps value)
+        {
+            var column = (SalesEntryGridColumns) value.ColumnId;
+            switch (column)
+            {
+                case SalesEntryGridColumns.Item:
+                    if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
+                        ProductValue = autoFillCellProps.AutoFillValue;
+                    break;
+            }
+            base.SetCellValue(value);
+        }
     }
 }

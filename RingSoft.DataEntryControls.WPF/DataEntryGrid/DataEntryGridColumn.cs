@@ -75,6 +75,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     return;
 
                 _alignment = value;
+                CellTemplate = CreateCellTemplate();
                 OnPropertyChanged(nameof(Alignment));
             }
         }

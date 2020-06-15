@@ -110,9 +110,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             get => base.RowHeight;
             set
             {
-                if (Math.Abs(base.RowHeight - value) < 0)
-                    return;
-
                 base.RowHeight = value;
                 DesignerFillGrid();
             }
@@ -302,6 +299,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             DesignerFillGrid();
+
             base.OnRenderSizeChanged(sizeInfo);
         }
 
@@ -312,8 +310,25 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             _dataSourceTable.Rows.Clear();
 
+            UpdateLayout();
+            
+            if (ActualHeight < 15)
+                return;
+
+            if (double.IsNaN(ColumnHeaderHeight) && Columns.Any())
+            {
+                if (ActualHeight < 30)
+                    return;
+            }
+            else if (!double.IsNaN(ColumnHeaderHeight))
+            {
+                if (ActualHeight < ColumnHeaderHeight + 20)
+                    return;
+            }
+
             AddDesignerRow();
             var lastRowIndex = _dataSourceTable.Rows.Count - 1;
+
             UpdateLayout();
             var dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
 
@@ -322,6 +337,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 AddDesignerRow();
                 lastRowIndex++;
                 UpdateLayout();
+
                 dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
             }
         }
@@ -329,6 +345,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private void AddDesignerRow()
         {
             var designerRow = _dataSourceTable.NewRow();
+
             foreach (var column in Columns)
             {
                 if (column is DataEntryGridCheckBoxColumn)
@@ -342,6 +359,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
 
             _dataSourceTable.Rows.Add(designerRow);
+
         }
 
         protected override void OnCurrentCellChanged(EventArgs e)

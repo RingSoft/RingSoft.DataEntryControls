@@ -43,6 +43,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             AutoFillControl.Setup = AutoFillCellProps.AutoFillSetup;
             AutoFillControl.Value = AutoFillCellProps.AutoFillValue;
+
+            AutoFillControl.ControlDirty += (sender, args) => OnControlDirty();
         }
     }
 }

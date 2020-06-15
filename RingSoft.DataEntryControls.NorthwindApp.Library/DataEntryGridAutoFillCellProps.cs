@@ -10,7 +10,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public AutoFillValue AutoFillValue { get; }
 
-        public const int AutoFillControlHostId = 50;
+        public override string Text
+        {
+            get
+            {
+                if (AutoFillValue != null)
+                    return AutoFillValue.Text;
+
+                return string.Empty;
+            }
+        }
+
+        public const int AutoFillControlHostId = 51;
 
         public DataEntryGridAutoFillCellProps(DataEntryGridRow row, int columnId, AutoFillSetup setup, AutoFillValue value) : base(row, columnId)
         {
