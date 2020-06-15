@@ -169,6 +169,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        private SalesEntryDetailsGridManager _detailsGridManager;
+
+        public SalesEntryDetailsGridManager DetailsGridManager
+        {
+            get => _detailsGridManager;
+            set
+            {
+                if (_detailsGridManager == value)
+                    return;
+
+                _detailsGridManager = value;
+                OnPropertyChanged(nameof(DetailsGridManager), false);
+            }
+        }
+
         private decimal? _freight;
         public decimal? Freight
         {
@@ -347,6 +362,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             CustomersAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.CustomerId));
             EmployeeAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.EmployeeId));
             ShipViaAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.ShipVia));
+            DetailsGridManager = new SalesEntryDetailsGridManager(this);
 
             base.Initialize();
         }

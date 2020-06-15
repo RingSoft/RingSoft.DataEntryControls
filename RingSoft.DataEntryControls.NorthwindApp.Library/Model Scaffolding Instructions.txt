@@ -1,10 +1,9 @@
+Run from Package Manager:
 Install-Package Microsoft.EntityFrameworkCore
 Install-Package Microsoft.EntityFrameworkCore.Tools
-Install-Package Microsoft.EntityFrameworkCore.Design
+Install-Package Microsoft.EntityFrameworkCore.Design--In App project.
 
 Install-Package Microsoft.EntityFrameworkCore.SqlServer
-
-Run from Package Manager:
 Scaffold-DbContext "Server=.\SQLExpress;Database=RSDEC_Northwind;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model
 
 Install-Package Microsoft.EntityFrameworkCore.Sqlite
