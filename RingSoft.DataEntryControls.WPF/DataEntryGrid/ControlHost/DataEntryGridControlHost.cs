@@ -19,8 +19,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        public override DataTemplate GetEditingControlDataTemplate()
+        public override DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps)
         {
+            CellProps = cellProps;
+
             var factory = new FrameworkElementFactory(typeof(TControl));
             factory.AddHandler(FrameworkElement.LoadedEvent, new RoutedEventHandler(Loaded));
             SetupFrameworkElementFactory(factory);

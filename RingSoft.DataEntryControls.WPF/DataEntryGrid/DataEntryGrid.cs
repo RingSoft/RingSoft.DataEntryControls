@@ -626,8 +626,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         ControlHostFactory = new DataEntryGridHostFactory();
                     EditingControlHost = ControlHostFactory.GetControlHost(this, cellProps.EditingControlId);
 
-                    dataEntryGridColumn.CellEditingTemplate = EditingControlHost.GetEditingControlDataTemplate();
-                    EditingControlHost.CellProps = cellProps;
+                    dataEntryGridColumn.CellEditingTemplate = EditingControlHost.GetEditingControlDataTemplate(cellProps);
                     EditingControlHost.ControlDirty += EditingControl_ControlDirty;
                     EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
                 }
