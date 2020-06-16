@@ -8,7 +8,7 @@
         xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        CloseOnEscape="False"
+        CloseOnEscape="True"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.RowDefinitions>

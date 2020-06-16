@@ -117,6 +117,7 @@ namespace RingSoft.DataEntryControls.App.WPF
         {
             NonInventoryCode = saleDetail.StockNumber;
             Price = saleDetail.Price;
+            base.LoadSale_DetailRow(saleDetail);
         }
     }
 }

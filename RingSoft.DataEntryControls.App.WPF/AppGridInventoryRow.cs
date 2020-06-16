@@ -128,6 +128,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             StockNumber = saleDetail.StockNumber;
             Location = saleDetail.Location;
             Price = saleDetail.Price;
+            base.LoadSale_DetailRow(saleDetail);
         }
     }
 }

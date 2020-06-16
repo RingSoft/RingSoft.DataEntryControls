@@ -667,6 +667,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 if (!EditingControlHost.HasDataChanged())
                 {
                     EditingControlHost = null;
+                    base.OnCellEditEnding(e);
                     return;
                 }
 
@@ -713,9 +714,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
+            var canProcessKey = true;
             if (EditingControlHost != null)
             {
-                var canProcessKey = EditingControlHost.CanGridProcessKey(e.Key);
+                canProcessKey = EditingControlHost.CanGridProcessKey(e.Key);
                 var currentRowIndex = Items.IndexOf(CurrentCell.Item);
                 var currentColumnIndex = base.Columns.IndexOf(CurrentCell.Column);
 
@@ -810,6 +812,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         ProcessTab();
                         e.Handled = true;
+                    }
+                    break;
+                case Key.Escape:
+                    if (canProcessKey)
+                    {
+                        if (CancelEdit())
+                            //Send Escape key again so window can close on Escape after cell edit mode has ended.
+                            SendKey(Key.Escape);
                     }
                     break;
             }
