@@ -89,6 +89,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set { SetValue(EnterToTabProperty, value); }
         }
 
+        public static readonly DependencyProperty CancelEditOnEscapeProperty =
+            DependencyProperty.Register(nameof(CancelEditOnEscape), typeof(bool), typeof(DataEntryGrid));
+
+        public bool CancelEditOnEscape
+        {
+            get { return (bool)GetValue(CancelEditOnEscapeProperty); }
+            set { SetValue(CancelEditOnEscapeProperty, value); }
+        }
+
+
         public new ObservableCollection<DataEntryGridColumn> Columns { get; set; } = new ObservableCollection<DataEntryGridColumn>();
 
         public new bool CanUserAddRows { get; set; } = true;
@@ -125,6 +135,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _deletingRow;
         private NextTabFocusCell _nextTabFocusCell;
         private bool _tabbingRight;
+        private bool _escapeKeyPressed;
 
         static DataEntryGrid()
         {
@@ -655,7 +666,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
-            if (_deletingRow)
+            if (_deletingRow || _escapeKeyPressed)
             {
                 EditingControlHost = null;
                 return;
@@ -817,10 +828,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 case Key.Escape:
                     if (canProcessKey)
                     {
-                        if (CancelEdit())
-                            //Send Escape key again so window can close on Escape after cell edit mode has ended.
-                            SendKey(Key.Escape);
+                        if (CancelEditOnEscape)
+                        {
+                            _escapeKeyPressed = true;
+                            if (CancelEdit())
+                                //Send Escape key again so window can close on Escape after cell edit mode has ended.
+                                SendKey(Key.Escape);
+                            _escapeKeyPressed = false;
+                        }
+                        else
+                        {
+                            e.Handled = true;
+                        }
                     }
+
                     break;
             }
 

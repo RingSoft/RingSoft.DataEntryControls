@@ -93,6 +93,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public void ResetColumnHeader()
         {
+            if (_defaultColumnHeader == null)
+                _defaultColumnHeader = base.Header;
+
             Header = _defaultColumnHeader;
         }
 

@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
@@ -54,6 +55,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
 
             Control.ControlDirty += (sender, args) => OnControlDirty();
+        }
+
+        public override bool CanGridProcessKey(Key key)
+        {
+            switch (key)
+            {
+                case Key.Escape:
+                case Key.Up:
+                case Key.Down:
+                    if (Control.ContainsBoxIsOpen)
+                        return false;
+                    break;
+            }
+            return base.CanGridProcessKey(key);
         }
     }
 }

@@ -11,6 +11,7 @@
         <Style TargetType="deg:DataEntryGrid">
             <Setter Property="ControlHostFactory" Value="{StaticResource AppGridEditHostFactory}"/>
             <Setter Property="EnterToTab" Value="True"/>
+            <Setter Property="CancelEditOnEscape" Value="True"/>
             <Setter Property="GridLinesVisibility" Value="None"/>
             <Setter Property="AlternationCount" Value="2"/>
         </Style>
