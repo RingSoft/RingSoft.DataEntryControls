@@ -420,6 +420,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             PostalCode = order.ShipPostalCode;
             Country = order.ShipCountry;
 
+            DetailsGridManager.LoadFromEntity(order);
+
             RefreshTotalControls();
             _customerDirty = false;
         }

@@ -1,4 +1,6 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -31,6 +33,38 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         protected override DataEntryGridRow GetNewRow()
         {
             return new SalesEntryDetailsProductRow(this);
+        }
+
+        public void LoadFromEntity(Orders order)
+        {
+            ClearRows(false);
+            SalesEntryDetailsRow newRow = null;
+            foreach (var orderDetail in order.OrderDetails)
+            {
+                var lineType = (SalesEntryDetailsLineTypes) orderDetail.LineType;
+                switch (lineType)
+                {
+                    case SalesEntryDetailsLineTypes.Product:
+                        newRow = new SalesEntryDetailsProductRow(this);
+                        break;
+                    case SalesEntryDetailsLineTypes.NonInventoryCode:
+                        break;
+                    case SalesEntryDetailsLineTypes.SpecialOrder:
+                        break;
+                    case SalesEntryDetailsLineTypes.Comment:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                if (newRow != null)
+                {
+                    newRow.LoadFromOrderDetail(orderDetail);
+                    AddRow(newRow);
+                }
+            }
+
+            AddRow(GetNewRow());
         }
     }
 }

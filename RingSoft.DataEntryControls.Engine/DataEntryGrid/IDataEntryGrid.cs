@@ -9,5 +9,7 @@
         void UpdateRow(DataEntryGridRow gridRow, int rowIndex);
 
         void RefreshDataSource();
+
+        bool CancelEdit();
     }
 }

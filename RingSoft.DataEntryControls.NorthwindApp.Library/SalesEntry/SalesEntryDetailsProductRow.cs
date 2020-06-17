@@ -1,4 +1,5 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.AutoFill;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
@@ -6,8 +7,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     public class SalesEntryDetailsProductRow : SalesEntryDetailsValueRow
     {
         public override SalesEntryDetailsLineTypes LineType => SalesEntryDetailsLineTypes.Product;
-
         public AutoFillValue ProductValue { get; private set; }
+
+        public decimal Discount { get; private set; }
 
         private AutoFillSetup _productAutoFillSetup;
 
@@ -24,6 +26,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             {
                 case SalesEntryGridColumns.Item:
                     return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
+                case SalesEntryGridColumns.Discount:
+                    return new DataEntryGridTextCellProps(this, columnId){Text = Discount.ToString("C")};
             }
 
             return base.GetCellProps(columnId);
@@ -40,6 +44,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     break;
             }
             base.SetCellValue(value);
+        }
+
+        public override void LoadFromOrderDetail(OrderDetails orderDetail)
+        {
+            if (orderDetail.Product != null)
+            {
+                var productPrimaryKey =
+                    AppGlobals.LookupContext.Products.GetPrimaryKeyValueFromEntity(orderDetail.Product);
+                ProductValue = new AutoFillValue(productPrimaryKey, orderDetail.Product.ProductName);
+            }
+
+            if (orderDetail.Discount != null)
+                Discount = (decimal) orderDetail.Discount;
+
+            base.LoadFromOrderDetail(orderDetail);
         }
     }
 }

@@ -60,6 +60,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             return context.Orders.Include(i => i.Customer)
                 .Include(i => i.Employee)
                 .Include(i => i.Shipper)
+                .Include(i => i.OrderDetails)
+                .ThenInclude(t => t.NonInventoryCode)
+                .Include(i => i.OrderDetails)
+                .ThenInclude(t => t.Product)
+                .ThenInclude(t => t.NonInventoryCode)
                 .FirstOrDefault(f => f.OrderId == orderId);
         }
 
