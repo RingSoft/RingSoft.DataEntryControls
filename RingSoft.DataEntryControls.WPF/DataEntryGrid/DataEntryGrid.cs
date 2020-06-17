@@ -132,10 +132,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private DataTable _dataSourceTable = new DataTable("DataSource");
         private bool _controlLoaded;
         private bool _cancellingEdit;
-        private bool _deletingRow;
         private NextTabFocusCell _nextTabFocusCell;
         private bool _tabbingRight;
-        private bool _escapeKeyPressed;
+        private bool _skipEditValidation;
 
         static DataEntryGrid()
         {
@@ -160,7 +159,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             var rowIndex = GetCurrentRowIndex();
             if (rowIndex < 0)
+            {
+                EditingControlHost = null;
                 GridHasFocus = false;
+            }
         }
 
         private void DataEntryGrid_GotFocus(object sender, RoutedEventArgs e)
@@ -666,9 +668,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
-            if (_deletingRow || _escapeKeyPressed)
+            var currentRowIndex = GetCurrentRowIndex();
+            if (_skipEditValidation || currentRowIndex < 0)
             {
                 EditingControlHost = null;
+                base.OnCellEditEnding(e);
                 return;
             }
             if (e.Column is DataEntryGridColumn && EditingControlHost != null &&
@@ -721,6 +725,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var result = base.CancelEdit(editingUnit);
             _cancellingEdit = false;
             return result;
+        }
+
+        public bool CancelEdit(bool skipValidation)
+        {
+            _skipEditValidation = skipValidation;
+            var result = CancelEdit();
+            _skipEditValidation = false;
+            return result;
+        }
+
+        public void ResetGridFocus()
+        {
+            if (GridHasFocus)
+                TabRight(0, -1);
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -830,11 +848,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         if (CancelEditOnEscape)
                         {
-                            _escapeKeyPressed = true;
-                            if (CancelEdit())
+                            if (CancelEdit(true))
                                 //Send Escape key again so window can close on Escape after cell edit mode has ended.
                                 SendKey(Key.Escape);
-                            _escapeKeyPressed = false;
                         }
                         else
                         {
@@ -871,6 +887,24 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private void TabRight(int startRowIndex, int startColumnIndex)
         {
             _tabbingRight = true;
+
+            if (CancelEdit())
+            {
+                if (_nextTabFocusCell != null)
+                {
+                    SetFocusToCell(_nextTabFocusCell.RowIndex, _nextTabFocusCell.ColumnIndex);
+                    _tabbingRight = false;
+                    _nextTabFocusCell = null;
+                    return;
+                }
+            }
+            else
+            {
+                _tabbingRight = false;
+                _nextTabFocusCell = null;
+                return;
+            }
+
             var lastColumnIndex = Columns.Count - 1;
             var lastRowIndex = Items.Count - 1;
             startColumnIndex++;
@@ -902,6 +936,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void TabLeft(int startRowIndex, int startColumnIndex)
         {
+            if (!CancelEdit())
+                return;
+
             var lastColumnIndex = Columns.Count - 1;
             startColumnIndex--;
 
@@ -935,9 +972,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
-                _deletingRow = true;
-                CancelEdit();
-                _deletingRow = false;
+                
+                CancelEdit(true);
+                
                 Manager.RemoveRow(rowIndex);
                 SetFocusToCell(rowIndex, columnIndex);
             }
@@ -971,11 +1008,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
            
             if (CancelEdit(DataGridEditingUnit.Cell))
             {
-                if (_tabbingRight && _nextTabFocusCell != null)
-                {
-                    rowIndex = _nextTabFocusCell.RowIndex;
-                    columnIndex = _nextTabFocusCell.ColumnIndex;
-                }
                 rowIndex = ScrubRowIndex(rowIndex);
                 columnIndex = ScrubColumnIndex(columnIndex);
 

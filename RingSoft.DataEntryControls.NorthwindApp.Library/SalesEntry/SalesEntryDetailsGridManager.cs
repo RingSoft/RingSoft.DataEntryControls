@@ -37,10 +37,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public void LoadFromEntity(Orders order)
         {
-            ClearRows(false);
-            SalesEntryDetailsRow newRow = null;
+            PreLoadGridFromEntity();
+
             foreach (var orderDetail in order.OrderDetails)
             {
+                SalesEntryDetailsRow newRow = null;
                 var lineType = (SalesEntryDetailsLineTypes) orderDetail.LineType;
                 switch (lineType)
                 {
@@ -64,7 +65,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 }
             }
 
-            AddRow(GetNewRow());
+            PostLoadGridFromEntity();
         }
     }
 }

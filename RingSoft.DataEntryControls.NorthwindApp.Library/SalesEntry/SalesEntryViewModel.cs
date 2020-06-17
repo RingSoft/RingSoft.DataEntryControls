@@ -519,6 +519,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 }
             }
 
+            DetailsGridManager.SetupForNewRecord();
             _customerDirty = false;
         }
 

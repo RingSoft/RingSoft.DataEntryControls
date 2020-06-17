@@ -67,7 +67,7 @@ namespace RingSoft.DataEntryControls.App.WPF
 
             ClearGridButton.Click += (sender, args) =>
             {
-                GridManager.ClearRows();
+                GridManager.SetupForNewRecord();
             };
 
             LoadGridButton.Click += (sender, args) =>

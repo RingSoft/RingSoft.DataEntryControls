@@ -10,6 +10,8 @@
 
         void RefreshDataSource();
 
-        bool CancelEdit();
+        bool CancelEdit(bool skipValidation);
+
+        void ResetGridFocus();
     }
 }

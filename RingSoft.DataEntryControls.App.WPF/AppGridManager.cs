@@ -59,7 +59,7 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public void LoadSaleDetails(IEnumerable<SaleDetail> saleDetails)
         {
-            ClearRows(false);
+            PreLoadGridFromEntity();
 
             foreach (var saleDetail in saleDetails)
             {
@@ -69,7 +69,7 @@ namespace RingSoft.DataEntryControls.App.WPF
                 AddRow(newRow);
             }
 
-            InsertNewRow();
+            PostLoadGridFromEntity();
         }
 
         public AppGridRow GetNewAppGridRow(AppGridLineTypes lineType)

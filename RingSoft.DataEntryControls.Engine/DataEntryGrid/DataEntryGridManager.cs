@@ -38,14 +38,31 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         protected abstract DataEntryGridRow GetNewRow();
 
-        public void ClearRows(bool addRowToBottom = true)
+        private void ClearRows(bool addRowToBottom = true)
         {
-            Grid.CancelEdit();
+            Grid?.CancelEdit(true);
 
             _rows.Clear();
 
             if (addRowToBottom)
                 InsertNewRow();
+        }
+
+        public void SetupForNewRecord()
+        {
+            ClearRows();
+            Grid?.ResetGridFocus();
+        }
+
+        protected void PreLoadGridFromEntity()
+        {
+            ClearRows(false);
+        }
+
+        protected void PostLoadGridFromEntity()
+        {
+            InsertNewRow();
+            Grid?.ResetGridFocus();
         }
 
         public void InsertNewRow(int startIndex = -1)
