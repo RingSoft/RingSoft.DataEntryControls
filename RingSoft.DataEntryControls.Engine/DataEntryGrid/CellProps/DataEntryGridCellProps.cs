@@ -22,6 +22,8 @@
 
         public int NextTabFocusColumnId { get; set; } = -1;
 
+        public bool SkipValidation { get; set; }
+
         public DataEntryGridCellProps(DataEntryGridRow row, int columnId)
         {
             Row = row;

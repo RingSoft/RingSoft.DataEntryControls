@@ -53,19 +53,23 @@ namespace RingSoft.DataEntryControls.App.WPF
                         var changeLineType = true;
                         if (!IsNew)
                         {
-                            var message =
-                                "Changing the line type will erase all the current row's data.  Do you wish to continue?";
-                            if (!AppGridManager.UserInterface.ShowYesNoMessage(message, "Change Line Type"))
-                            {
+                            if (value.SkipValidation)
                                 changeLineType = false;
-                                comboBoxCellProps.ValidationResult = false;
-                                comboBoxCellProps.SelectedItem =
-                                    comboBoxCellProps.ComboBoxSetup.GetItem((int) LineType);
+                            else 
+                            {
+                                var message =
+                                    "Changing the line type will erase all the current row's data.  Do you wish to continue?";
+                                if (!AppGridManager.UserInterface.ShowYesNoMessage(message, "Change Line Type"))
+                                {
+                                    changeLineType = false;
+                                    comboBoxCellProps.ValidationResult = false;
+                                    comboBoxCellProps.SelectedItem =
+                                        comboBoxCellProps.ComboBoxSetup.GetItem((int) LineType);
+                                }
                             }
 
-
                         }
-
+                        
                         if (changeLineType)
                         {
                             if (newLineType == AppGridLineTypes.Comment)
