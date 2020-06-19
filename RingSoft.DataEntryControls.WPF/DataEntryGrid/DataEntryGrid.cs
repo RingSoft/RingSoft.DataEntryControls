@@ -873,8 +873,22 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
-            if (!CancelEdit())
-                e.Handled = true;
+            var currentRowIndex = GetCurrentRowIndex();
+            var currentColumnIndex = GetCurrentColumnIndex();
+
+            HitTestResult hitTestResult =
+                VisualTreeHelper.HitTest(this, e.GetPosition(this));
+            var cell = hitTestResult.VisualHit.GetParentOfType<DataGridCell>();
+            var row = hitTestResult.VisualHit.GetParentOfType<DataGridRow>();
+
+            if (row != null && cell != null)
+            {
+                var mouseRowIndex = Items.IndexOf(row.Item);
+                var mouseColumnIndex = base.Columns.IndexOf(cell.Column);
+
+                if (!CancelEdit())
+                    e.Handled = true;
+            }
 
             base.OnPreviewMouseDown(e);
         }
