@@ -70,5 +70,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             }
             return base.CanGridProcessKey(key);
         }
+
+        public override void ProcessValidationFail(DataEntryGridCellProps cellProps)
+        {
+            var autoFillCellProps = (DataEntryGridAutoFillCellProps) cellProps;
+            Control.Value = autoFillCellProps.AutoFillValue;
+            base.ProcessValidationFail(cellProps);
+        }
     }
 }

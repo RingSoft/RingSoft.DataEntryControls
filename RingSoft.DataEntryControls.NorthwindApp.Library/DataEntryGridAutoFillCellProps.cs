@@ -8,7 +8,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
     {
         public AutoFillSetup AutoFillSetup { get; }
 
-        public AutoFillValue AutoFillValue { get; }
+        public AutoFillValue AutoFillValue { get; set; }
 
         public override string Text
         {

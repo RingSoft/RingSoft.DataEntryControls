@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.AutoFill;
 
@@ -40,7 +41,43 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             {
                 case SalesEntryGridColumns.Item:
                     if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
-                        ProductValue = autoFillCellProps.AutoFillValue;
+                    {
+                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
+                        if (!validProduct)
+                        {
+                            if (!value.SkipValidation)
+                            {
+                                var correctedValue =
+                                    SalesEntryDetailsManager.ViewModel.SalesEntryView.CorrectInvalidProduct(
+                                        autoFillCellProps.AutoFillValue);
+
+                                switch (correctedValue.ReturnCode)
+                                {
+                                    case InvalidProductResultReturnCodes.Cancel:
+                                        break;
+                                    case InvalidProductResultReturnCodes.NewProduct:
+                                        break;
+                                    case InvalidProductResultReturnCodes.NewNonInventory:
+                                        break;
+                                    case InvalidProductResultReturnCodes.NewSpecialOrder:
+                                        break;
+                                    case InvalidProductResultReturnCodes.NewComment:
+                                        break;
+                                    default:
+                                        throw new ArgumentOutOfRangeException();
+                                }
+                            }
+
+                            if (!validProduct)
+                            {
+                                autoFillCellProps.AutoFillValue = ProductValue;
+                                autoFillCellProps.ValidationResult = false;
+                            }
+                        }
+                        if (validProduct)
+                            ProductValue = autoFillCellProps.AutoFillValue;
+                    }
+
                     break;
             }
             base.SetCellValue(value);

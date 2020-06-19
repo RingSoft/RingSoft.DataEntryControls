@@ -83,6 +83,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
                     break;
                 case Key.Escape:
+                case Key.Enter:
                     if (Control.IsDropDownOpen)
                         return false;
                     break;

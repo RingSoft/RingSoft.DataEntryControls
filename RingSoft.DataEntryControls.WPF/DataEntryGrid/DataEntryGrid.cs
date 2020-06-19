@@ -669,7 +669,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
             var currentRowIndex = GetCurrentRowIndex();
-            var currentColumnIndex = GetCurrentColumnIndex();
             if (_undoEdit)
             {
                 EditingControlHost = null;
@@ -700,12 +699,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     EditingControlHost.ProcessValidationFail(cellValue);
                     e.Cancel = true;
                     base.OnCellEditEnding(e);
-                    if (rowIndex != currentRowIndex || e.Column.DisplayIndex != currentColumnIndex)
-                    {
-                        CurrentCell = new DataGridCellInfo(Items[rowIndex], Columns[e.Column.DisplayIndex]);
-                        //EditingControlHost.Control.Focus();
-                    }
-
                     return;
                 }
 
@@ -851,7 +844,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     e.Handled = true;
                     break;
                 case Key.Enter:
-                    if (EnterToTab)
+                    if (canProcessKey && EnterToTab)
                     {
                         ProcessTab();
                         e.Handled = true;
@@ -876,6 +869,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
 
             base.OnPreviewKeyDown(e);
+        }
+
+        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
+        {
+            if (!CancelEdit())
+                e.Handled = true;
+
+            base.OnPreviewMouseDown(e);
         }
 
         private void ProcessTab()

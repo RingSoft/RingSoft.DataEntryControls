@@ -7,10 +7,17 @@ using System;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
+    public interface ISalesEntryMaintenanceView : IDbMaintenanceView
+    {
+        InvalidProductResult CorrectInvalidProduct(AutoFillValue invalidProductValue);
+    }
+
     public class SalesEntryViewModel : DbMaintenanceViewModel<Orders>
     {
         public override TableDefinition<Orders> TableDefinition =>
             AppGlobals.LookupContext.Orders;
+
+        public ISalesEntryMaintenanceView SalesEntryView { get; private set; }
 
         private int _orderId;
         public int OrderId
@@ -359,6 +366,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override void Initialize()
         {
+            SalesEntryView = View as ISalesEntryMaintenanceView ??
+                             throw new ArgumentException(
+                                 $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");
+
             CustomersAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.CustomerId));
             EmployeeAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.EmployeeId));
             ShipViaAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.ShipVia));
