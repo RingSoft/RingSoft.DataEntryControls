@@ -137,6 +137,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                     return MessageButtons.No;
             }
 
+            
             return MessageButtons.Cancel;
         }
 

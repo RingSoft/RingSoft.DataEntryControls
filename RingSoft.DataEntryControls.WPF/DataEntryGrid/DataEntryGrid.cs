@@ -135,6 +135,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private NextTabFocusCell _nextTabFocusCell;
         private bool _tabbingRight;
         private bool _undoEdit;
+        private bool _skipValidation;
+        private bool _cancelEditPending;
 
         static DataEntryGrid()
         {
@@ -161,6 +163,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (rowIndex < 0)
             {
                 EditingControlHost = null;
+                GridHasFocus = false;
+            }
+
+            //For some reason, when a new row is added at the bottom when the editing control is dirty, it prevents OnCellEditEnding from being run and the current row index to be set to -1 when grid looses focus via mouse click.  This hack covers that situation.
+            if (EditingControlHost != null && _cancelEditPending)
+            {
+                _skipValidation = true;
+                CancelEdit();
+                _skipValidation = false;
                 GridHasFocus = false;
             }
         }
@@ -663,11 +674,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             var currentRowIndex = Items.IndexOf(CurrentCell.Item);
             if (currentRowIndex >= Items.Count - 1)
-                Manager.InsertNewRow();
+            {
+                if (CanUserAddRows)
+                {
+                    Manager.InsertNewRow();
+                    _cancelEditPending = true;  //See OnLostFocus for more information.
+                }
+            }
         }
 
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
+            _cancelEditPending = false;
             var currentRowIndex = GetCurrentRowIndex();
             if (_undoEdit)
             {
@@ -689,12 +707,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     return;
                 }
 
+                var skipValidation = currentRowIndex < 0 || _skipValidation;
                 var cellValue = EditingControlHost.GetCellValue();
-                cellValue.SkipValidation = currentRowIndex < 0;
+                cellValue.SkipValidation = skipValidation;
                 var dataEntryGridRow = Manager.Rows[rowIndex];
                 dataEntryGridRow.SetCellValue(cellValue);
 
-                if (!cellValue.ValidationResult && currentRowIndex >= 0)
+                if (!cellValue.ValidationResult && !skipValidation)
                 {
                     EditingControlHost.ProcessValidationFail(cellValue);
                     e.Cancel = true;
@@ -706,7 +725,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
 
                 EditingControlHost = null;
-                if (currentRowIndex < 0)
+                if (skipValidation)
                     SelectedCells.Clear();
             }
             base.OnCellEditEnding(e);
@@ -878,16 +897,29 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             HitTestResult hitTestResult =
                 VisualTreeHelper.HitTest(this, e.GetPosition(this));
-            var cell = hitTestResult.VisualHit.GetParentOfType<DataGridCell>();
-            var row = hitTestResult.VisualHit.GetParentOfType<DataGridRow>();
 
-            if (row != null && cell != null)
+            if (hitTestResult == null)
             {
-                var mouseRowIndex = Items.IndexOf(row.Item);
-                var mouseColumnIndex = base.Columns.IndexOf(cell.Column);
+                _skipValidation = true;
+                CancelEdit();
+                _skipValidation = false;
+            }
+            else
+            {
+                var cell = hitTestResult.VisualHit.GetParentOfType<DataGridCell>();
+                var row = hitTestResult.VisualHit.GetParentOfType<DataGridRow>();
 
-                if (!CancelEdit())
-                    e.Handled = true;
+                if (row != null && cell != null)
+                {
+                    var mouseRowIndex = Items.IndexOf(row.Item);
+                    var mouseColumnIndex = base.Columns.IndexOf(cell.Column);
+
+                    if (!(mouseRowIndex == currentRowIndex && mouseColumnIndex == currentColumnIndex))
+                    {
+                        if (!CancelEdit())
+                            e.Handled = true;
+                    }
+                }
             }
 
             base.OnPreviewMouseDown(e);

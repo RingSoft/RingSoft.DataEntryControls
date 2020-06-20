@@ -53,8 +53,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Control.Setup = AutoFillCellProps.AutoFillSetup;
             Control.Value = AutoFillCellProps.AutoFillValue;
 
-
             Control.ControlDirty += (sender, args) => OnControlDirty();
+            Control.LostFocus += (sender, args) =>
+            {
+
+            };
         }
 
         public override bool CanGridProcessKey(Key key)
