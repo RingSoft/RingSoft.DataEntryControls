@@ -125,18 +125,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        public bool GridHasFocus { get; private set; }
-
         public DataEntryGridControlHostBase EditingControlHost { get; private set; }
 
         private DataTable _dataSourceTable = new DataTable("DataSource");
         private bool _controlLoaded;
+        private bool _gridHasFocus;
         private bool _cancellingEdit;
         private NextTabFocusCell _nextTabFocusCell;
         private bool _tabbingRight;
         private bool _undoEdit;
-        private bool _skipValidation;
-        private bool _cancelEditPending;
 
         static DataEntryGrid()
         {
@@ -159,20 +156,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void DataEntryGrid_LostFocus(object sender, RoutedEventArgs e)
         {
-            var rowIndex = GetCurrentRowIndex();
-            if (rowIndex < 0)
+            if (!IsKeyboardFocusWithin)
             {
-                EditingControlHost = null;
-                GridHasFocus = false;
-            }
+                //For some reason, when a new row is added at the bottom when the editing control is dirty, it prevents OnCellEditEnding from being run and the current row index to be set to -1 when grid looses focus via mouse click.  This hack covers that situation.
+                if (EditingControlHost != null)
+                    CancelEdit();
 
-            //For some reason, when a new row is added at the bottom when the editing control is dirty, it prevents OnCellEditEnding from being run and the current row index to be set to -1 when grid looses focus via mouse click.  This hack covers that situation.
-            if (EditingControlHost != null && _cancelEditPending)
-            {
-                _skipValidation = true;
-                CancelEdit();
-                _skipValidation = false;
-                GridHasFocus = false;
+                _gridHasFocus = false;
             }
         }
 
@@ -188,20 +178,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         var lastRowIndex = Items.Count - 1;
                         var lastColumnIndex = Columns.Count - 1;
-                        if (!GridHasFocus)
+                        if (!_gridHasFocus)
                         {
                             //Shift+Tab from outside the grid.  Set active cell to next editable cell from cell on Last Row, Last Column.
-                            GridHasFocus = true; //Set to avoid double tab.
+                            _gridHasFocus = true; //Set to avoid double tab.
                             TabLeft(lastRowIndex, lastColumnIndex + 1);
                             beginEdit = false;
                         }
                     }
                     else
                     {
-                        if (!GridHasFocus)
+                        if (!_gridHasFocus)
                         {
                             //Tab from outside the grid.  Set active cell to next editable cell from cell on First Row, First Column.
-                            GridHasFocus = true; //Set to avoid double tab.
+                            _gridHasFocus = true; //Set to avoid double tab.
                             TabRight(0, -1);
                             beginEdit = false;
                         }
@@ -213,7 +203,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 BeginEdit();
             }
 
-            GridHasFocus = true;
+            _gridHasFocus = true;
         }
 
         private void OnLoad()
@@ -676,17 +666,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (currentRowIndex >= Items.Count - 1)
             {
                 if (CanUserAddRows)
-                {
                     Manager.InsertNewRow();
-                    _cancelEditPending = true;  //See OnLostFocus for more information.
-                }
             }
         }
 
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
-            _cancelEditPending = false;
-            var currentRowIndex = GetCurrentRowIndex();
             if (_undoEdit)
             {
                 EditingControlHost = null;
@@ -702,12 +687,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 {
                     EditingControlHost = null;
                     base.OnCellEditEnding(e);
-                    if (currentRowIndex < 0)
+                    if (!IsKeyboardFocusWithin)
                         SelectedCells.Clear();
                     return;
                 }
 
-                var skipValidation = currentRowIndex < 0 || _skipValidation;
+                var skipValidation = !IsKeyboardFocusWithin;
                 var cellValue = EditingControlHost.GetCellValue();
                 cellValue.SkipValidation = skipValidation;
                 var dataEntryGridRow = Manager.Rows[rowIndex];
@@ -763,7 +748,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public void ResetGridFocus()
         {
-            if (GridHasFocus)
+            if (IsKeyboardFocusWithin)
                 TabRight(0, -1);
         }
 
@@ -898,13 +883,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             HitTestResult hitTestResult =
                 VisualTreeHelper.HitTest(this, e.GetPosition(this));
 
-            if (hitTestResult == null)
-            {
-                _skipValidation = true;
-                CancelEdit();
-                _skipValidation = false;
-            }
-            else
+            if (hitTestResult != null)
             {
                 var cell = hitTestResult.VisualHit.GetParentOfType<DataGridCell>();
                 var row = hitTestResult.VisualHit.GetParentOfType<DataGridRow>();

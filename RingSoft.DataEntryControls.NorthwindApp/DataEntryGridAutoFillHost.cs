@@ -1,9 +1,9 @@
-﻿using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
 using RingSoft.DbLookup.Controls.WPF;
+using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -54,10 +54,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Control.Value = AutoFillCellProps.AutoFillValue;
 
             Control.ControlDirty += (sender, args) => OnControlDirty();
-            Control.LostFocus += (sender, args) =>
-            {
-
-            };
         }
 
         public override bool CanGridProcessKey(Key key)
