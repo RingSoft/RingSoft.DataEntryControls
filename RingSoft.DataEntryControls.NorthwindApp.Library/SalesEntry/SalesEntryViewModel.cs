@@ -370,9 +370,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");
 
-            CustomersAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.CustomerId));
-            EmployeeAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.EmployeeId));
-            ShipViaAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.ShipVia));
+            CustomersAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.CustomerId))
+            {
+                AllowLookupAdd = false,
+                AllowLookupView = false
+            };
+            EmployeeAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.EmployeeId))
+            {
+                AllowLookupAdd = false,
+                AllowLookupView = false
+            };
+            ShipViaAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.ShipVia))
+            {
+                AllowLookupAdd = false,
+                AllowLookupView = false
+            };
             DetailsGridManager = new SalesEntryDetailsGridManager(this);
 
             base.Initialize();

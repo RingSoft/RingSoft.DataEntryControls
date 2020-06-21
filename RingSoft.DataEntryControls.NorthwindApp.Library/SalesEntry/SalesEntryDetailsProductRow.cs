@@ -68,7 +68,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                                 }
                             }
 
-                            if (!validProduct)
+                            //if (!validProduct)
                             {
                                 autoFillCellProps.AutoFillValue = ProductValue;
                                 autoFillCellProps.ValidationResult = false;

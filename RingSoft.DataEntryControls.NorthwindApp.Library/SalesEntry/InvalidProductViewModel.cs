@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DbLookup.AutoFill;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {

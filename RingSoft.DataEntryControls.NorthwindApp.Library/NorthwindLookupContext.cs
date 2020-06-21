@@ -35,6 +35,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public LookupDefinition<ShipperLookup, Shippers> ShippersLookup { get; private set; }
 
+        public LookupDefinition<SupplierLookup, Suppliers> SuppliersLookup { get; private set; }
+
+        public LookupDefinition<CategoryLookup, Categories> CategoriesLookup { get; private set; }
+
 
         private readonly SqliteDataProcessor _dataProcessor;
 
@@ -94,6 +98,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             ShippersLookup.AddVisibleColumnDefinition(p => p.Phone, "Phone", p => p.Phone, 25);
 
             Shippers.HasLookupDefinition(ShippersLookup);
+
+            SuppliersLookup = new LookupDefinition<SupplierLookup, Suppliers>(Suppliers);
+            SuppliersLookup.AddVisibleColumnDefinition(p => p.CompanyName, "Company Name", p => p.CompanyName, 60);
+            SuppliersLookup.AddVisibleColumnDefinition(p => p.ContactName, "Contact", p => p.ContactName, 40);
+            Suppliers.HasLookupDefinition(SuppliersLookup);
+
+            CategoriesLookup = new LookupDefinition<CategoryLookup, Categories>(Categories);
+            CategoriesLookup.AddVisibleColumnDefinition(p => p.CategoryName, "Category Name", p => p.CategoryName, 40);
+            CategoriesLookup.AddVisibleColumnDefinition(p => p.Description, "Description", p => p.Description, 60);
+            Categories.HasLookupDefinition(CategoriesLookup);
         }
 
         protected override void SetupModel()
