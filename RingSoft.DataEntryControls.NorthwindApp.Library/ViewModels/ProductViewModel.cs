@@ -84,6 +84,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private AutoFillValue _categoryAutoFillValue;
+
+        public AutoFillValue CategoryAutoFillValue
+        {
+            get => _categoryAutoFillValue;
+            set
+            {
+                if (_supplierAutoFillValue == value)
+                    return;
+
+                _categoryAutoFillValue = value;
+                OnPropertyChanged(nameof(CategoryAutoFillValue));
+            }
+        }
+
         protected override void Initialize()
         {
             SupplierAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.SupplierId))

@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RingSoft.DataEntryControls.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RingSoft.DataEntryControls.App.WPF", "RingSoft.DataEntryControls.App.WPF\RingSoft.DataEntryControls.App.WPF.csproj", "{A62A6A10-A4F9-481C-AEEC-9CA3A7021019}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RingSoft.DataEntryControls.WPFToolKitCore", "RingSoft.DataEntryControls.WPFToolKitCore\RingSoft.DataEntryControls.WPFToolKitCore.csproj", "{24F9563F-F5D9-4C76-8F60-F350BA0BADF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RingSoft.DataEntryControls.WPFToolKit", "RingSoft.DataEntryControls.WPFToolKit\RingSoft.DataEntryControls.WPFToolKit.csproj", "{214B513B-CAEF-4748-A2EA-D71BA31CC5A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{A62A6A10-A4F9-481C-AEEC-9CA3A7021019}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A62A6A10-A4F9-481C-AEEC-9CA3A7021019}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A62A6A10-A4F9-481C-AEEC-9CA3A7021019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F9563F-F5D9-4C76-8F60-F350BA0BADF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24F9563F-F5D9-4C76-8F60-F350BA0BADF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24F9563F-F5D9-4C76-8F60-F350BA0BADF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24F9563F-F5D9-4C76-8F60-F350BA0BADF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214B513B-CAEF-4748-A2EA-D71BA31CC5A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214B513B-CAEF-4748-A2EA-D71BA31CC5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214B513B-CAEF-4748-A2EA-D71BA31CC5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214B513B-CAEF-4748-A2EA-D71BA31CC5A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
