@@ -9,4 +9,9 @@
     <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RingSoft.DataEntryControls.Engine\RingSoft.DataEntryControls.Engine.csproj" />
+    <ProjectReference Include="..\RingSoft.DataEntryControls.WPF\RingSoft.DataEntryControls.WPF.csproj" />
+  </ItemGroup>
+
 </Project>
