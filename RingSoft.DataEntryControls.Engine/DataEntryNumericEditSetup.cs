@@ -35,6 +35,55 @@ namespace RingSoft.DataEntryControls.Engine
         /// </value>
         public string NumberFormatString { get; set; }
 
+        public int MaxDigits { get; set; } = 18;
+
+        public decimal MaxValue { get; set; }
+
+        public void InitializeFromType(Type type)
+        {
+            if (type == typeof(decimal)
+                || type == typeof(decimal?)
+                || type == typeof(double)
+                || type == typeof(double?)
+                || type == typeof(float)
+                || type == typeof(float?))
+            {
+                DecimalCount = 2;
+                MaxDigits = 18;
+                MaxValue = decimal.MaxValue;
+            }
+            else if (type == typeof(int)
+                     || type == typeof(int?))
+            {
+                DecimalCount = 0;
+                MaxDigits = int.MaxValue.ToString().Length;
+                MaxValue = int.MaxValue;
+            }
+            else if (type == typeof(long)
+                     || type == typeof(long?))
+
+            {
+                DecimalCount = 0;
+                MaxDigits = long.MaxValue.ToString().Length;
+                MaxValue = long.MaxValue;
+            }
+            else if (type == typeof(byte)
+                     || type == typeof(byte?))
+            {
+                DecimalCount = 0;
+                MaxDigits = 3;
+                MaxValue = byte.MaxValue;
+            }
+            else if (type == typeof(short)
+                     || type == typeof(short?))
+            {
+                DecimalCount = 0;
+                MaxDigits = short.MaxValue.ToString().Length;
+                MaxValue = short.MaxValue;
+            }
+
+        }
+
         public string GetNumberFormatString()
         {
             var result = NumberFormatString;

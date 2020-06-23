@@ -13,4 +13,7 @@
            BasedOn = "{StaticResource {x:Type Window}}">
     </Style>
 
+    <Style TargetType="{x:Type local:DropDownEditControl}"
+           BasedOn="{StaticResource {x:Type Control}}">
+    </Style>
 </ResourceDictionary>

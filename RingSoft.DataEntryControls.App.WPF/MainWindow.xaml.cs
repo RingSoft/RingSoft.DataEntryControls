@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.WPF;
-using RingSoft.DataEntryControls.WPFToolKitCore;
 
 namespace RingSoft.DataEntryControls.App.WPF
 {
@@ -28,8 +24,6 @@ namespace RingSoft.DataEntryControls.App.WPF
     {
         private AppGridManager _gridManager;
 
-        private IDecimalEditControl TestEditControl { get; } = new DataEntryDecimalEditControl();
-
         public AppGridManager GridManager
         {
             get => _gridManager;
@@ -46,10 +40,6 @@ namespace RingSoft.DataEntryControls.App.WPF
         public MainWindow()
         {
             InitializeComponent();
-
-            EditHost.Children.Add(TestEditControl.EditControl);
-            TestEditControl.EditControl.Width = 150;
-            TestEditControl.NumericSetup = new DataEntryNumericEditSetup(){NumericType = NumericTypes.Currency};
 
             GridManager = new AppGridManager(this);
 
@@ -71,7 +61,6 @@ namespace RingSoft.DataEntryControls.App.WPF
                     Price = 5
                 });
             }
-
 
             GridManager.LoadSaleDetails(saleDetails);
 
