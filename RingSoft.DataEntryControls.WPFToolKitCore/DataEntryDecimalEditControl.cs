@@ -1,8 +1,7 @@
-﻿using System.Windows;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.WPF;
 using System.Windows.Controls;
 using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.WPF;
 using Xceed.Wpf.Toolkit;
 
 namespace RingSoft.DataEntryControls.WPFToolKitCore
@@ -52,6 +51,11 @@ namespace RingSoft.DataEntryControls.WPFToolKitCore
             set => TextBox.SelectionLength = value;
         }
 
+        public void OnInvalidChar()
+        {
+            System.Media.SystemSounds.Exclamation.Play();
+        }
+
         private DataEntryNumericEditSetup _numericEditSetup;
 
         public DataEntryNumericEditSetup NumericSetup
@@ -87,9 +91,8 @@ namespace RingSoft.DataEntryControls.WPFToolKitCore
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
                 return;
 
-            if (Processor.ProcessChar(e.Text[0]))
+            if (!Processor.IsValidChar(e.Text[0]))
                 e.Handled = true;
-
         }
     }
 }
