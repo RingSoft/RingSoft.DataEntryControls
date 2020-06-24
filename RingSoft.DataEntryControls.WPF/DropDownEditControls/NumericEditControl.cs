@@ -1,9 +1,16 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using RingSoft.DataEntryControls.Engine;
+using System;
+using System.Windows;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
 {
+    public enum NumericEditTypes
+    {
+        Decimal = 0,
+        WholeNumber = 1
+    }
+
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///
@@ -35,6 +42,54 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public abstract class NumericEditControl : DropDownEditControl
     {
+        public abstract NumericEditTypes EditType { get; }
+
+        public static readonly DependencyProperty SetupProperty =
+            DependencyProperty.Register(nameof(Setup), typeof(DataEntryNumericEditSetup), typeof(NumericEditControl),
+                new FrameworkPropertyMetadata(SetupChangedCallback));
+
+        private DataEntryNumericEditSetup Setup
+        {
+            get { return (DataEntryNumericEditSetup)GetValue(SetupProperty); }
+            set { SetValue(SetupProperty, value); }
+        }
+
+        private static void SetupChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var numericEditControl = (NumericEditControl)obj;
+            switch (numericEditControl.EditType)
+            {
+                case NumericEditTypes.Decimal:
+                    break;
+                case NumericEditTypes.WholeNumber:
+                    numericEditControl.Setup.Precision = 0;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            numericEditControl.Precision = numericEditControl.Setup.Precision;
+            numericEditControl.MaximumValue = numericEditControl.Setup.MaximumValue;
+            numericEditControl.MinimumValue = numericEditControl.Setup.MinimumValue;
+            numericEditControl.NumberFormatString = numericEditControl.Setup.GetNumberFormatString();
+        }
+
+        public static readonly DependencyProperty PrecisionProperty =
+            DependencyProperty.Register(nameof(Precision), typeof(int), typeof(NumericEditControl));
+
+        private int Precision
+        {
+            get { return (int)GetValue(PrecisionProperty); }
+            set { SetValue(PrecisionProperty, value); }
+        }
+
+        public decimal MaximumValue { get; set;}
+
+        public decimal MinimumValue { get; set; }
+
+        public string NumberFormatString { get; set; }
+
         static NumericEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl), new FrameworkPropertyMetadata(typeof(NumericEditControl)));

@@ -17,7 +17,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// <value>
         /// The decimal count.
         /// </value>
-        public int DecimalCount { get; set; } = 2;
+        public int Precision { get; set; } = 2;
 
         /// <summary>
         /// Gets or sets the type of the number.
@@ -35,9 +35,9 @@ namespace RingSoft.DataEntryControls.Engine
         /// </value>
         public string NumberFormatString { get; set; }
 
-        public int MaxDigits { get; set; } = 18;
+        public decimal MaximumValue { get; set; }
 
-        public decimal MaxValue { get; set; }
+        public decimal MinimumValue { get; set; }
 
         public void InitializeFromType(Type type)
         {
@@ -48,40 +48,39 @@ namespace RingSoft.DataEntryControls.Engine
                 || type == typeof(float)
                 || type == typeof(float?))
             {
-                DecimalCount = 2;
-                MaxDigits = 18;
-                MaxValue = decimal.MaxValue;
+                Precision = 2;
+                MaximumValue = decimal.MaxValue;
+                MinimumValue = decimal.MinValue;
             }
             else if (type == typeof(int)
                      || type == typeof(int?))
             {
-                DecimalCount = 0;
-                MaxDigits = int.MaxValue.ToString().Length;
-                MaxValue = int.MaxValue;
+                Precision = 0;
+                MaximumValue = int.MaxValue;
+                MinimumValue = int.MinValue;
             }
             else if (type == typeof(long)
                      || type == typeof(long?))
 
             {
-                DecimalCount = 0;
-                MaxDigits = long.MaxValue.ToString().Length;
-                MaxValue = long.MaxValue;
+                Precision = 0;
+                MaximumValue = long.MaxValue;
+                MinimumValue = long.MinValue;
             }
             else if (type == typeof(byte)
                      || type == typeof(byte?))
             {
-                DecimalCount = 0;
-                MaxDigits = 3;
-                MaxValue = byte.MaxValue;
+                Precision = 0;
+                MaximumValue = byte.MaxValue;
+                MinimumValue = byte.MinValue;
             }
             else if (type == typeof(short)
                      || type == typeof(short?))
             {
-                DecimalCount = 0;
-                MaxDigits = short.MaxValue.ToString().Length;
-                MaxValue = short.MaxValue;
+                Precision = 0;
+                MaximumValue = short.MaxValue;
+                MinimumValue = short.MinValue;
             }
-
         }
 
         public string GetNumberFormatString()
@@ -92,13 +91,13 @@ namespace RingSoft.DataEntryControls.Engine
                 switch (NumericType)
                 {
                     case NumericTypes.Number:
-                        result = $"N{DecimalCount}";
+                        result = $"N{Precision}";
                         break;
                     case NumericTypes.Currency:
-                        result = $"C{DecimalCount}";
+                        result = $"C{Precision}";
                         break;
                     case NumericTypes.Percent:
-                        result = $"P{DecimalCount}";
+                        result = $"P{Precision}";
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

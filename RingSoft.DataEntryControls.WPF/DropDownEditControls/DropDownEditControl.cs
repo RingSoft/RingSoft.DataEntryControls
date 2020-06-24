@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -75,6 +76,12 @@ namespace RingSoft.DataEntryControls.WPF
                 if (_dropDownButton != null)
                     _dropDownButton.Click += _dropDownButton_Click;
             }
+        }
+
+        static DropDownEditControl()
+        {
+            FocusableProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
         }
 
         public override void OnApplyTemplate()

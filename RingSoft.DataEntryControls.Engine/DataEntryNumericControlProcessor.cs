@@ -33,7 +33,7 @@
                 case '9':
                     return true;
                 case '.':
-                    if (Setup.DecimalCount <= 0)
+                    if (Setup.Precision <= 0)
                         break;
 
                     if (!Control.Text.IsNullOrEmpty())

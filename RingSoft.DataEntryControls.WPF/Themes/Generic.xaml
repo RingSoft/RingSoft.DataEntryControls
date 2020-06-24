@@ -4,6 +4,10 @@
     xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPF"
     xmlns:dataEntryGrid="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DecimalEditControlTemplate.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
 
     <Style TargetType="{x:Type dataEntryGrid:DataEntryGrid}"
            BasedOn = "{StaticResource {x:Type DataGrid}}">
@@ -17,7 +21,8 @@
            BasedOn="{StaticResource {x:Type Control}}">
     </Style>
 
-    <Style TargetType="{x:Type local:NumericEditControl}"
+    <Style TargetType="{x:Type local:NumericEditControl}" x:Key="NumericEditStyle"
            BasedOn="{StaticResource {x:Type local:DropDownEditControl}}">
     </Style>
+
 </ResourceDictionary>
