@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RingSoft.DataEntryControls.App.WPF"
         xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
+        xmlns:xctk="clr-namespace:RingSoft.DataEntryControls.WPFToolKitCore;assembly=RingSoft.DataEntryControls.WPFToolKitCore"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         CloseOnEscape="False"
@@ -22,7 +23,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--<StackPanel x:Name="EditHost" Orientation="Horizontal"/>-->
-        <dec:DecimalEditControl Height="20"/>
+        <xctk:XceedDecimalEditControl/>
         <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Manager="{Binding Path=GridManager}" CancelEditOnEscape="False">
             <deg:DataEntryGrid.Columns>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>

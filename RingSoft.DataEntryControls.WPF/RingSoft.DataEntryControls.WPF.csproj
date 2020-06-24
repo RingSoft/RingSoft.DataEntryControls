@@ -6,7 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\calculator16.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RingSoft.DataEntryControls.Engine\RingSoft.DataEntryControls.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\calculator16.png" />
   </ItemGroup>
 
 </Project>

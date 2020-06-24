@@ -72,9 +72,12 @@ namespace RingSoft.DataEntryControls.WPF
                     _dropDownButton.Click -= _dropDownButton_Click;
 
                 _dropDownButton = value;
-                
+
                 if (_dropDownButton != null)
+                {
+                    _dropDownButton.IsTabStop = false;
                     _dropDownButton.Click += _dropDownButton_Click;
+                }
             }
         }
 

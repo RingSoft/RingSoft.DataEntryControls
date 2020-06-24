@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Xceed.Wpf.Toolkit;
+using RingSoft.DataEntryControls.WPF;
 
 namespace RingSoft.DataEntryControls.WPFToolKitCore
 {
@@ -30,10 +30,14 @@ namespace RingSoft.DataEntryControls.WPFToolKitCore
     /// Step 2)
     /// Go ahead and use your control in the XAML file.
     ///
-    ///     <MyNamespace:DataEntryDateTimePicker/>
+    ///     <MyNamespace:XceedDecimalEditControl/>
     ///
     /// </summary>
-    public class DataEntryDateTimePicker : DateTimePicker
+    public class XceedDecimalEditControl : DecimalEditControl
     {
+        static XceedDecimalEditControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(XceedDecimalEditControl), new FrameworkPropertyMetadata(typeof(XceedDecimalEditControl)));
+        }
     }
 }
