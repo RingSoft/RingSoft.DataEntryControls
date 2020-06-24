@@ -1,6 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using RingSoft.DataEntryControls.WPF;
+﻿using RingSoft.DataEntryControls.WPF;
+using System.Windows;
+using System.Windows.Controls.Primitives;
+using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 namespace RingSoft.DataEntryControls.WPFToolKitCore
 {
@@ -33,11 +34,19 @@ namespace RingSoft.DataEntryControls.WPFToolKitCore
     ///     <MyNamespace:XceedDecimalEditControl/>
     ///
     /// </summary>
+
+    [TemplatePart(Name = "Calculator", Type = typeof(XceedCalculatorControl))]
     public class XceedDecimalEditControl : DecimalEditControl
     {
         static XceedDecimalEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(XceedDecimalEditControl), new FrameworkPropertyMetadata(typeof(XceedDecimalEditControl)));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            CalculatorControl = GetTemplateChild("Calculator") as IDropDownCalculator;
+            base.OnApplyTemplate();
         }
     }
 }

@@ -23,7 +23,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--<StackPanel x:Name="EditHost" Orientation="Horizontal"/>-->
-        <xctk:XceedDecimalEditControl/>
+        <xctk:XceedDecimalEditControl Width="150"/>
         <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Manager="{Binding Path=GridManager}" CancelEditOnEscape="False">
             <deg:DataEntryGrid.Columns>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>

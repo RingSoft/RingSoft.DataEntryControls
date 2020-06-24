@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
                     xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPFToolKitCore">
     <Style TargetType="{x:Type local:XceedDecimalEditControl}">
         <Setter Property="Template">
@@ -8,16 +9,25 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox Name="TextBox" Height="20"/>
-                            <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Height="20" Width="20">
-                                <Image Source="/RingSoft.DataEntryControls.WPF;component/Resources/calculator16.png"></Image>
-                            </Button>
-                        </Grid>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Name="TextBox" Height="20"/>
+                                <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16" VerticalAlignment="Stretch">
+                                    <Image
+                                        Source="/RingSoft.DataEntryControls.WPF;component/Resources/calculator16.png">
+                                    </Image>
+                                </Button>
+                            </Grid>
+                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom">
+                                <Grid>
+                                    <local:XceedCalculatorControl x:Name="Calculator"/>
+                                </Grid>
+                            </Popup>
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

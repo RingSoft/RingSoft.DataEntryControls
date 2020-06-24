@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -37,9 +39,67 @@ namespace RingSoft.DataEntryControls.WPF
     {
         public override NumericEditTypes EditType => NumericEditTypes.Decimal;
 
+        private IDropDownCalculator _calculatorControl;
+
+        public IDropDownCalculator CalculatorControl
+        {
+            get => _calculatorControl;
+            set
+            {
+                if (_calculatorControl != null)
+                {
+                    _calculatorControl.ValueChanged -= _calculatorControl_ValueChanged;
+                }
+
+                _calculatorControl = value;
+                
+                if (_calculatorControl != null)
+                {
+                    _calculatorControl.ValueChanged += _calculatorControl_ValueChanged;
+                }
+            }
+        }
+
         static DecimalEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(typeof(DecimalEditControl)));
+        }
+
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                base.OnPreviewKeyDown(e);
+                return;
+            }
+
+            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                base.OnPreviewKeyDown(e);
+                return;
+            }
+
+            if (e.Key == Key.F4)
+            {
+                OnDropDownButtonClick();
+                e.Handled = true;
+            }
+
+            base.OnPreviewKeyDown(e);
+        }
+
+        protected override void OnDropDownButtonClick()
+        {
+            base.OnDropDownButtonClick();
+
+            if (CalculatorControl != null && Popup != null && Popup.IsOpen)
+            {
+                CalculatorControl.Control.Focus();
+            }
+        }
+
+        private void _calculatorControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
         }
     }
 }
