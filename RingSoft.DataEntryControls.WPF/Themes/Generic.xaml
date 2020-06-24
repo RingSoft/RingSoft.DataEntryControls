@@ -16,4 +16,8 @@
     <Style TargetType="{x:Type local:DropDownEditControl}"
            BasedOn="{StaticResource {x:Type Control}}">
     </Style>
+
+    <Style TargetType="{x:Type local:NumericEditControl}"
+           BasedOn="{StaticResource {x:Type local:DropDownEditControl}}">
+    </Style>
 </ResourceDictionary>

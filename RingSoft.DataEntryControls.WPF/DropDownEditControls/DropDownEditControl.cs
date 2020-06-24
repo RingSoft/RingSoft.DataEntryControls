@@ -92,17 +92,29 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _textBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (ProcessKey(e.Key))
+                e.Handled = true;
         }
 
         private void _textBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (ProcessKeyChar(e.Text[0]))
+                e.Handled = true;
         }
 
         protected virtual void OnDropDownButtonClick()
         {
 
+        }
+
+        protected virtual bool ProcessKeyChar(char keyChar)
+        {
+            return false;
+        }
+
+        protected virtual bool ProcessKey(System.Windows.Input.Key key)
+        {
+            return false;
         }
     }
 }
