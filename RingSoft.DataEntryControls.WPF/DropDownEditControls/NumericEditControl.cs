@@ -78,13 +78,20 @@ namespace RingSoft.DataEntryControls.WPF
         public static readonly DependencyProperty PrecisionProperty =
             DependencyProperty.Register(nameof(Precision), typeof(int), typeof(NumericEditControl));
 
-        private int Precision
+        public int Precision
         {
             get { return (int)GetValue(PrecisionProperty); }
             set { SetValue(PrecisionProperty, value); }
         }
 
-        public decimal MaximumValue { get; set;}
+        public static readonly DependencyProperty MaximumValueProperty =
+            DependencyProperty.Register(nameof(MaximumValue), typeof(int), typeof(NumericEditControl));
+
+        public decimal MaximumValue
+        {
+            get { return (int)GetValue(MaximumValueProperty); }
+            set { SetValue(MaximumValueProperty, value); }
+        }
 
         public decimal MinimumValue { get; set; }
 

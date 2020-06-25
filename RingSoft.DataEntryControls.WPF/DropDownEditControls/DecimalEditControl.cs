@@ -60,9 +60,33 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        private decimal? _value;
+
+        public decimal? Value
+        {
+            get => _value;
+            set
+            {
+                if (_value == value)
+                    return;
+
+                _value = value;
+                if (_value == null)
+                {
+                    TextBox.Text = string.Empty;
+                }
+                else
+                {
+                    var newValue = (decimal) _value;
+                    TextBox.Text = newValue.ToString(NumberFormatString);
+                }
+            }
+        }
+
         static DecimalEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(typeof(DecimalEditControl)));
+            PrecisionProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(2));
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -94,12 +118,17 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (CalculatorControl != null && Popup != null && Popup.IsOpen)
             {
+                CalculatorControl.Precision = Precision;
+                if (Value != null)
+                    CalculatorControl.Value = Value;
+
                 CalculatorControl.Control.Focus();
             }
         }
 
         private void _calculatorControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            Value = CalculatorControl.Value;
         }
     }
 }
