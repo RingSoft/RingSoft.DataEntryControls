@@ -37,11 +37,27 @@ namespace RingSoft.DataEntryControls.App.WPF
             }
         }
 
+        private decimal _calcValue;
+
+        public decimal CalcValue
+        {
+            get => _calcValue;
+            set
+            {
+                if (_calcValue == value)
+                    return;
+
+                _calcValue = value;
+                OnPropertyChanged(nameof(CalcValue));
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
 
             GridManager = new AppGridManager(this);
+            CalcValue = (decimal)21.32;
 
             var saleDetails = new List<SaleDetail>();
 

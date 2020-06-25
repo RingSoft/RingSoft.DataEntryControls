@@ -1,5 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using System;
+using System.ComponentModel;
 using System.Windows;
 
 // ReSharper disable once CheckNamespace
@@ -48,7 +49,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(Setup), typeof(DataEntryNumericEditSetup), typeof(NumericEditControl),
                 new FrameworkPropertyMetadata(SetupChangedCallback));
 
-        private DataEntryNumericEditSetup Setup
+        public DataEntryNumericEditSetup Setup
         {
             get { return (DataEntryNumericEditSetup)GetValue(SetupProperty); }
             set { SetValue(SetupProperty, value); }
@@ -85,17 +86,31 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty MaximumValueProperty =
-            DependencyProperty.Register(nameof(MaximumValue), typeof(int), typeof(NumericEditControl));
+            DependencyProperty.Register(nameof(MaximumValue), typeof(decimal), typeof(NumericEditControl));
 
         public decimal MaximumValue
         {
-            get { return (int)GetValue(MaximumValueProperty); }
+            get { return (decimal)GetValue(MaximumValueProperty); }
             set { SetValue(MaximumValueProperty, value); }
         }
 
-        public decimal MinimumValue { get; set; }
+        public static readonly DependencyProperty MinimumValueProperty =
+            DependencyProperty.Register(nameof(MinimumValue), typeof(decimal), typeof(NumericEditControl));
 
-        public string NumberFormatString { get; set; }
+        public decimal MinimumValue
+        {
+            get { return (decimal)GetValue(MinimumValueProperty); }
+            set { SetValue(MinimumValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty NumberFormatStringProperty =
+            DependencyProperty.Register(nameof(NumberFormatString), typeof(string), typeof(NumericEditControl));
+
+        public string NumberFormatString
+        {
+            get { return (string)GetValue(NumberFormatStringProperty); }
+            set { SetValue(NumberFormatStringProperty, value); }
+        }
 
         static NumericEditControl()
         {

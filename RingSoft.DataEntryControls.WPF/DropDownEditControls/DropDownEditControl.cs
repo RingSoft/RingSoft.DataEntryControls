@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -41,6 +42,36 @@ namespace RingSoft.DataEntryControls.WPF
     [TemplatePart(Name = "Popup", Type = typeof(Popup))]
     public abstract class DropDownEditControl : Control
     {
+        public static readonly DependencyProperty TextAlignmentProperty =
+            DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(TextAlignmentChangedCallback));
+
+        public TextAlignment TextAlignment
+        {
+            get { return (TextAlignment)GetValue(TextAlignmentProperty); }
+            set { SetValue(TextAlignmentProperty, value); }
+        }
+
+        private static void TextAlignmentChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl.TextBox != null)
+                dropDownEditControl.TextBox.TextAlignment = dropDownEditControl.TextAlignment;
+        }
+
+        private string _designText;
+
+        public string DesignText
+        {
+            get => _designText;
+            set
+            {
+                _designText = value;
+                SetDesignText();
+            }
+        }
+
         private TextBox _textBox;
         public TextBox TextBox
         {
@@ -109,6 +140,17 @@ namespace RingSoft.DataEntryControls.WPF
             Popup = GetTemplateChild("Popup") as Popup;
 
             base.OnApplyTemplate();
+
+            if (TextBox != null)
+                TextBox.TextAlignment = TextAlignment;
+
+            SetDesignText();
+        }
+
+        private void SetDesignText()
+        {
+            if (DesignerProperties.GetIsInDesignMode(this) && TextBox != null)
+                TextBox.Text = DesignText;
         }
 
         private void _dropDownButton_Click(object sender, RoutedEventArgs e)

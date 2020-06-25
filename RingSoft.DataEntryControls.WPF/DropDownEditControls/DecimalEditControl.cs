@@ -35,6 +35,8 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:DecimalEditControl/>
     ///
     /// </summary>
+
+    [TemplatePart(Name = "Calculator", Type = typeof(IDropDownCalculator))]
     public class DecimalEditControl : NumericEditControl
     {
         public override NumericEditTypes EditType => NumericEditTypes.Decimal;
@@ -60,33 +62,63 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        private decimal? _value;
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(decimal?), typeof(DecimalEditControl),
+                new FrameworkPropertyMetadata(ValueChangedCallback));
 
         public decimal? Value
         {
-            get => _value;
-            set
-            {
-                if (_value == value)
-                    return;
-
-                _value = value;
-                if (_value == null)
-                {
-                    TextBox.Text = string.Empty;
-                }
-                else
-                {
-                    var newValue = (decimal) _value;
-                    TextBox.Text = newValue.ToString(NumberFormatString);
-                }
-            }
+            get { return (decimal?)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
+
+        private static void ValueChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var decimalEditControl = (DecimalEditControl) obj;
+            decimalEditControl.SetValue();
+        }
+
+        private decimal? _pendingNewValue;
 
         static DecimalEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(typeof(DecimalEditControl)));
             PrecisionProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(2));
+            NumberFormatStringProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata("N2"));
+            TextAlignmentProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(TextAlignment.Right));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            CalculatorControl = GetTemplateChild("Calculator") as IDropDownCalculator;
+            base.OnApplyTemplate();
+
+            if (_pendingNewValue != null)
+                SetValue();
+
+            _pendingNewValue = null;
+        }
+
+        private void SetValue()
+        {
+            if (TextBox == null)
+            {
+                _pendingNewValue = Value;
+            }
+            else
+            {
+                if (Value == null)
+                {
+                    TextBox.Text = string.Empty;
+                }
+                else
+                {
+                    var newValue = (decimal) Value;
+                    TextBox.Text = newValue.ToString(NumberFormatString);
+                }
+            }
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
