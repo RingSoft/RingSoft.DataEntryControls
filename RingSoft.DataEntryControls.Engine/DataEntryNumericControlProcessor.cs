@@ -1,16 +1,38 @@
-﻿namespace RingSoft.DataEntryControls.Engine
+﻿using System;
+using System.Globalization;
+
+namespace RingSoft.DataEntryControls.Engine
 {
+    public enum ProcessCharResults
+    {
+        Processed = 0,
+        Ignored = 1,
+        ValidationFailed = 2
+    }
+
+    public class ValueChangedArgs
+    {
+        public string NewValue { get; }
+
+        public ValueChangedArgs(string newValue)
+        {
+            NewValue = newValue;
+        }
+    }
+
+    public class NumericTextProperties
+    {
+        public string LeftText { get; set; }
+        public string SelectedText { get; set; }
+        public string RightText { get; set; }
+        public int DecimalPosition { get; set; } = -1;
+    }
+
     public class DataEntryNumericControlProcessor
     {
-        private class NumericText
-        {
-            public string LeftText { get; set; }
-            public string SelectedText { get; set; }
-            public string RightText { get; set; }
-            public int DecimalPosition { get; set; } = -1;
-        }
-
         public INumericControl Control { get; }
+
+        public event EventHandler<ValueChangedArgs> ValueChanged;
 
         private DataEntryNumericEditSetup _setup;
 
@@ -19,17 +41,20 @@
             Control = control;
         }
 
-        public bool ValidateChar(DataEntryNumericEditSetup setup, char keyChar)
+        public ProcessCharResults ProcessChar(DataEntryNumericEditSetup setup, char keyChar)
         {
+            var stringChar = keyChar.ToString();
             _setup = setup;
             switch (keyChar)
             {
                 case '\b':
+                    OnBackspaceKeyDown();
+                    return ProcessCharResults.Processed;
                 case '\u001b':  //Escape
                 case '\t':
                 case '\r':
                 case '\n':
-                    return true;
+                    return ProcessCharResults.Ignored;
                 case '0':
                 case '1':
                 case '2':
@@ -40,49 +65,160 @@
                 case '7':
                 case '8':
                 case '9':
-                    return ValidateNumber(keyChar);
-                case '.':
-                    return ValidateDecimal(keyChar);
+                    return ProcessNumber(keyChar);
             }
 
-            Control.OnInvalidChar();
-            return false;
+            if (stringChar == NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator)
+                return ProcessDecimal(keyChar);
+
+            return ProcessNonNumericChar(keyChar);
         }
 
-        private NumericText GetNumericText()
+        protected NumericTextProperties GetNumericTextProperties()
         {
-            return new NumericText()
+            return new NumericTextProperties()
             {
                 LeftText = Control.Text.LeftStr(Control.SelectionStart),
                 SelectedText = Control.Text.MidStr(Control.SelectionStart, Control.SelectionLength),
-                RightText = Control.Text.GetRightText(Control.SelectionStart, Control.SelectionLength),
-                DecimalPosition = Control.Text.IndexOf('.')
+                RightText = Control.Text.GetRightText(Control.SelectionStart, Control.SelectionLength)
             };
         }
-        private bool ValidateNumber(char number)
+
+        private int GetDecimalPosition(string numberText)
         {
-            var numericText = GetNumericText();
+            return numberText.IndexOf(NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator, StringComparison.Ordinal);
+        }
+
+        protected virtual ProcessCharResults ProcessNonNumericChar(char keyChar)
+        {
+            return ProcessCharResults.ValidationFailed;
+        }
+
+        protected virtual ProcessCharResults ProcessNumber(char numberChar)
+        {
+            if (!ValidateNumber(numberChar))
+                return ProcessCharResults.ValidationFailed;
+
+            var numericTextProperties = GetNumericTextProperties();
+            var newText = numericTextProperties.LeftText + numberChar + numericTextProperties.RightText;
+            var newValue = newText = StripNonNumericCharacters(newText);
+
+            newText = ProcessNewText(newText);
+
+            var oldSymbolCount = CountNumberSymbols(Control.Text);
+            var newSymbolCount = CountNumberSymbols(newText);
+
+            var newSelectionStart = Control.SelectionStart + 1;
+            var selectionIncrement = newSymbolCount - oldSymbolCount;
+            if (selectionIncrement > 0)
+                newSelectionStart += selectionIncrement;
+
+            Control.Text = newText;
+            Control.SelectionStart = newSelectionStart;
+            OnValueChanged(newValue);
+
+            return ProcessCharResults.Processed;
+        }
+
+        private string ProcessNewText(string newText)
+        {
+            var wholeNumberText = newText;
+            var decimalText = string.Empty;
+
+            var decimalPosition = GetDecimalPosition(newText);
+            if (decimalPosition >= 0)
+            {
+                wholeNumberText = newText.LeftStr(decimalPosition);
+                decimalText = newText.GetRightText(decimalPosition, 0);
+            }
+
+            var wholeNumber = decimal.Parse(wholeNumberText);
+            switch (_setup.EditFormatType)
+            {
+                case NumericEditFormatTypes.Number:
+                    wholeNumberText = wholeNumber.ToString("N0");
+                    newText = wholeNumberText + decimalText;
+                    break;
+                case NumericEditFormatTypes.Currency:
+                    wholeNumberText = FormatLeftOfDecimalCurrency(wholeNumber);
+                    newText = wholeNumberText + decimalText;
+                    newText = AddCurrencySymbolToRightOfNumberText(newText);
+                    break;
+                case NumericEditFormatTypes.Percent:
+                    var percentNumber = decimal.Parse(newText);
+                    newText = percentNumber.ToString($"P{_setup.Precision}");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return newText;
+        }
+
+        protected virtual string FormatLeftOfDecimalCurrency(decimal number)
+        {
+            return number.ToString("C0");
+        }
+
+        protected virtual string AddCurrencySymbolToRightOfNumberText(string numberText)
+        {
+            return numberText;
+        }
+
+        private bool ValidateNumber(char numberChar)
+        {
+            var numericText = GetNumericTextProperties();
             
-            var newText = numericText.LeftText + number + numericText.RightText;
+            var newText = numericText.LeftText + numberChar + numericText.RightText;
             return ValidateNewText(newText);
+        }
+
+        protected virtual ProcessCharResults ProcessDecimal(char decimalChar)
+        {
+            if (!ValidateDecimal(decimalChar))
+                return ProcessCharResults.ValidationFailed;
+
+            var numericProperties = GetNumericTextProperties();
+            var newText = numericProperties.LeftText + decimalChar + numericProperties.RightText;
+
+            var newValue = newText = StripNonNumericCharacters(newText);
+
+            newText = ProcessNewText(newText);
+
+            var oldSymbolCount = CountNumberSymbols(Control.Text);
+            var newSymbolCount = CountNumberSymbols(newText);
+
+            var newSelectionStart = Control.SelectionStart + 1;
+            var selectionIncrement = newSymbolCount - oldSymbolCount;
+            newSelectionStart += selectionIncrement;
+
+            Control.Text = newText;
+            Control.SelectionStart = newSelectionStart;
+            OnValueChanged(newValue);
+
+            return ProcessCharResults.Processed;
+        }
+
+        public virtual string StripNonNumericCharacters(string formattedText)
+        {
+            return formattedText.NumTextToString();
+        }
+
+        public virtual int CountNumberSymbols(string formattedText)
+        {
+            return formattedText.CountNumberSymbols();
         }
 
         private bool ValidateDecimal(char decimalChar)
         {
             if (_setup.Precision <= 0)
-            {
-                Control.OnInvalidChar();
                 return false;
-            }
 
-            var numericText = GetNumericText();
+            var numericText = GetNumericTextProperties();
             var checkNewText = numericText.LeftText + numericText.RightText;
 
             if (checkNewText.Contains(decimalChar.ToString()))
-            {
-                Control.OnInvalidChar();
                 return false;
-            }
 
             var newText = numericText.LeftText + decimalChar.ToString() + numericText.RightText;
             return ValidateNewText(newText);
@@ -90,34 +226,40 @@
 
         private bool ValidateNewText(string newText)
         {
-            newText = newText.NumTextToString();
-            var decimalPosition = newText.IndexOf('.');
+            newText = StripNonNumericCharacters(newText);
+            var decimalPosition = GetDecimalPosition(newText);
             if (decimalPosition >= 0)
             {
                 var decimalText = newText.GetRightText(decimalPosition + 1, 0);
                 if (decimalText.Length > _setup.Precision)
-                {
-                    Control.OnInvalidChar();
                     return false;
-                }
             }
 
             if (decimal.TryParse(newText, out var newValue))
             {
                 if (_setup.MaximumValue > 0 && newValue > _setup.MaximumValue)
-                {
-                    Control.OnInvalidChar();
                     return false;
-                }
 
                 if (_setup.MinimumValue > 0 && newValue < _setup.MinimumValue)
-                {
-                    Control.OnInvalidChar();
                     return false;
-                }
             }
 
             return true;
+        }
+
+        public virtual void OnBackspaceKeyDown()
+        {
+
+        }
+
+        public virtual void OnDeleteKeyDown()
+        {
+
+        }
+
+        public virtual void OnValueChanged(string newValue)
+        {
+            ValueChanged?.Invoke(this, new ValueChangedArgs(newValue));
         }
     }
 }

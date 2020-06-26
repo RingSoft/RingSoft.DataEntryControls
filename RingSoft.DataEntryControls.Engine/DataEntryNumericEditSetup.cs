@@ -2,7 +2,15 @@
 
 namespace RingSoft.DataEntryControls.Engine
 {
-    public enum NumericTypes
+    public enum DataEntryModes
+    {
+        FormatOnEntry = 0,
+        ValidateOnly = 1,
+        RawEntry = 2
+    }
+
+
+    public enum NumericEditFormatTypes
     {
         Number = 0,
         Currency = 1,
@@ -20,12 +28,12 @@ namespace RingSoft.DataEntryControls.Engine
         public int Precision { get; set; } = 2;
 
         /// <summary>
-        /// Gets or sets the type of the number.
+        /// Gets or sets the format type of the numeric edit control.
         /// </summary>
         /// <value>
-        /// The type of the number.
+        /// The format type of the numeric edit control.
         /// </value>
-        public NumericTypes NumericType { get; set; }
+        public NumericEditFormatTypes EditFormatType { get; set; }
 
         /// <summary>
         /// Gets the number format string.  Default value is empty.
@@ -38,6 +46,8 @@ namespace RingSoft.DataEntryControls.Engine
         public decimal MaximumValue { get; set; }
 
         public decimal MinimumValue { get; set; }
+
+        public DataEntryModes DataEntryMode { get; set; }
 
         public void InitializeFromType(Type type)
         {
@@ -88,15 +98,15 @@ namespace RingSoft.DataEntryControls.Engine
             var result = NumberFormatString;
             if (result.IsNullOrEmpty())
             {
-                switch (NumericType)
+                switch (EditFormatType)
                 {
-                    case NumericTypes.Number:
+                    case NumericEditFormatTypes.Number:
                         result = $"N{Precision}";
                         break;
-                    case NumericTypes.Currency:
+                    case NumericEditFormatTypes.Currency:
                         result = $"C{Precision}";
                         break;
-                    case NumericTypes.Percent:
+                    case NumericEditFormatTypes.Percent:
                         result = $"P{Precision}";
                         break;
                     default:

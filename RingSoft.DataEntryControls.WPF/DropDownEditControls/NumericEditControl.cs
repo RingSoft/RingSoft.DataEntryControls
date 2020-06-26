@@ -45,6 +45,25 @@ namespace RingSoft.DataEntryControls.WPF
     {
         public abstract NumericEditTypes EditType { get; }
 
+        public static readonly DependencyProperty DataEntryModeProperty =
+            DependencyProperty.Register(nameof(DataEntryMode), typeof(DataEntryModes), typeof(NumericEditControl));
+
+        public DataEntryModes DataEntryMode
+        {
+            get { return (DataEntryModes)GetValue(DataEntryModeProperty); }
+            set { SetValue(DataEntryModeProperty, value); }
+        }
+
+        public static readonly DependencyProperty EditFormatTypeProperty =
+            DependencyProperty.Register(nameof(EditFormatType), typeof(NumericEditFormatTypes), typeof(NumericEditControl));
+
+        public NumericEditFormatTypes EditFormatType
+        {
+            get { return (NumericEditFormatTypes)GetValue(EditFormatTypeProperty); }
+            set { SetValue(EditFormatTypeProperty, value); }
+        }
+
+
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(DataEntryNumericEditSetup), typeof(NumericEditControl),
                 new FrameworkPropertyMetadata(SetupChangedCallback));
@@ -65,6 +84,7 @@ namespace RingSoft.DataEntryControls.WPF
                     break;
                 case NumericEditTypes.WholeNumber:
                     numericEditControl.Setup.Precision = 0;
+                    numericEditControl.Setup.EditFormatType = NumericEditFormatTypes.Number;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -170,17 +190,15 @@ namespace RingSoft.DataEntryControls.WPF
         public NumericEditControl()
         {
             _numericProcessor = new DataEntryNumericControlProcessor(this);
-        }
-
-        public void OnInvalidChar()
-        {
-            System.Media.SystemSounds.Exclamation.Play();
+            _numericProcessor.ValueChanged += (sender, args) => OnValueChanged(args.NewValue);
         }
 
         private DataEntryNumericEditSetup GetSetup()
         {
             return new DataEntryNumericEditSetup()
             {
+                DataEntryMode = DataEntryMode,
+                EditFormatType = EditFormatType,
                 MaximumValue = MaximumValue,
                 MinimumValue = MinimumValue,
                 Precision = Precision,
@@ -190,10 +208,46 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override bool ProcessKeyChar(char keyChar)
         {
-            if (!_numericProcessor.ValidateChar(GetSetup(), keyChar))
-                return true;
+            switch (DataEntryMode)
+            {
+                case DataEntryModes.FormatOnEntry:
+                case DataEntryModes.ValidateOnly:
+                    switch (_numericProcessor.ProcessChar(GetSetup(), keyChar))
+                    {
+                        case ProcessCharResults.Ignored:
+                            return false;
+                        case ProcessCharResults.Processed:
+                            return true;
+                        case ProcessCharResults.ValidationFailed:
+                            System.Media.SystemSounds.Exclamation.Play();
+                            return true;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                case DataEntryModes.RawEntry:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return base.ProcessKeyChar(keyChar);
+        }
+
+        protected override void OnTextChanged(string newText)
+        {
+            switch (DataEntryMode)
+            {
+                case DataEntryModes.FormatOnEntry:
+                    break;
+                case DataEntryModes.ValidateOnly:
+                case DataEntryModes.RawEntry:
+                    OnValueChanged(newText);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            base.OnTextChanged(newText);
         }
     }
 }

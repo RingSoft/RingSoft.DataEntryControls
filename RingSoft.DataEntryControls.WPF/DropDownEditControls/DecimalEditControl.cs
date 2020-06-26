@@ -92,6 +92,17 @@ namespace RingSoft.DataEntryControls.WPF
             TextAlignmentProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(TextAlignment.Right));
         }
 
+        public DecimalEditControl()
+        {
+            LostFocus += DecimalEditControl_LostFocus;
+        }
+
+        private void DecimalEditControl_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!IsKeyboardFocusWithin)
+                SetValue();
+        }
+
         public override void OnApplyTemplate()
         {
             // ReSharper disable once SuspiciousTypeConversion.Global

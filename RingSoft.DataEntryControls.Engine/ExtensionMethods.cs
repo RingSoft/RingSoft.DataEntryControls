@@ -100,11 +100,10 @@ namespace RingSoft.DataEntryControls.Engine
             return returnString;
         }
 
-        public static int CountTextForNumSymbols(this string text)
+        public static int CountNumberSymbols(this string text)
         {
             var searchString = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator;
             searchString += NumberFormatInfo.CurrentInfo.CurrencySymbol;
-            searchString += NumberFormatInfo.CurrentInfo.PercentSymbol;
 
             return text.CountTextForChars(searchString);
         }
