@@ -9,6 +9,16 @@ using RingSoft.DataEntryControls.Engine;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
 {
+    public class ValueChangedArgs
+    {
+        public string NewValue { get; }
+
+        public ValueChangedArgs(string newValue)
+        {
+            NewValue = newValue;
+        }
+    }
+
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///
@@ -85,6 +95,7 @@ namespace RingSoft.DataEntryControls.WPF
                     _textBox.PreviewTextInput -= _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown -= _textBox_PreviewKeyDown;
                     _textBox.GotFocus -= _textBox_GotFocus;
+                    _textBox.TextChanged -= _textBox_TextChanged;
                 }
 
                 _textBox = value;
@@ -94,6 +105,7 @@ namespace RingSoft.DataEntryControls.WPF
                     _textBox.PreviewTextInput += _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown += _textBox_PreviewKeyDown;
                     _textBox.GotFocus += _textBox_GotFocus;
+                    _textBox.TextChanged += _textBox_TextChanged;
                 }
             }
         }
@@ -178,6 +190,11 @@ namespace RingSoft.DataEntryControls.WPF
         {
             _textBox.SelectionStart = 0;
             _textBox.SelectionLength = _textBox.Text.Length;
+        }
+
+        private void _textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            OnValueChanged(TextBox.Text);
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)

@@ -1,18 +1,5 @@
-﻿using System;
-using System.Globalization;
-
-namespace RingSoft.DataEntryControls.Engine
+﻿namespace RingSoft.DataEntryControls.Engine
 {
-    public class ValueChangedArgs
-    {
-        public string NewValue { get; }
-
-        public ValueChangedArgs(string newValue)
-        {
-            NewValue = newValue;
-        }
-    }
-
     public class DataEntryNumericControlProcessor
     {
         private class NumericText
@@ -25,8 +12,6 @@ namespace RingSoft.DataEntryControls.Engine
 
         public INumericControl Control { get; }
 
-        public event EventHandler<ValueChangedArgs> ValueChanged;
-
         private DataEntryNumericEditSetup _setup;
 
         public DataEntryNumericControlProcessor(INumericControl control)
@@ -34,19 +19,17 @@ namespace RingSoft.DataEntryControls.Engine
             Control = control;
         }
 
-        public bool ProcessChar(DataEntryNumericEditSetup setup, char keyChar)
+        public bool ValidateChar(DataEntryNumericEditSetup setup, char keyChar)
         {
             _setup = setup;
             switch (keyChar)
             {
                 case '\b':
-                    ProcessBackspace(setup);
-                    return true;
                 case '\u001b':  //Escape
                 case '\t':
                 case '\r':
                 case '\n':
-                    return false;
+                    return true;
                 case '0':
                 case '1':
                 case '2':
@@ -57,15 +40,13 @@ namespace RingSoft.DataEntryControls.Engine
                 case '7':
                 case '8':
                 case '9':
-                    ProcessNumber(keyChar);
-                    return true;
+                    return ValidateNumber(keyChar);
                 case '.':
-                    ProcessDecimal(keyChar);
-                    return true;
+                    return ValidateDecimal(keyChar);
             }
 
             Control.OnInvalidChar();
-            return true;
+            return false;
         }
 
         private NumericText GetNumericText()
@@ -78,74 +59,42 @@ namespace RingSoft.DataEntryControls.Engine
                 DecimalPosition = Control.Text.IndexOf('.')
             };
         }
-        private void ProcessNumber(char number)
+        private bool ValidateNumber(char number)
         {
             var numericText = GetNumericText();
             
             var newText = numericText.LeftText + number + numericText.RightText;
-            ValidateAndSetText(newText, 1);
+            return ValidateNewText(newText);
         }
 
-        private void ProcessDecimal(char decimalChar)
+        private bool ValidateDecimal(char decimalChar)
         {
             if (_setup.Precision <= 0)
             {
                 Control.OnInvalidChar();
-                return;
+                return false;
             }
 
-            ProcessNumber(decimalChar);
+            var numericText = GetNumericText();
+            var checkNewText = numericText.LeftText + numericText.RightText;
+
+            if (checkNewText.Contains(decimalChar.ToString()))
+            {
+                Control.OnInvalidChar();
+                return false;
+            }
+
+            var newText = numericText.LeftText + decimalChar.ToString() + numericText.RightText;
+            return ValidateNewText(newText);
         }
 
-        private void ValidateAndSetText(string newText, int selectionStartChange)
+        private bool ValidateNewText(string newText)
         {
-            var oldSymbolCount = newText.CountTextForNumSymbols();
             newText = newText.NumTextToString();
             var decimalPosition = newText.IndexOf('.');
-            var decimalText = string.Empty;
-
-            if (!ValidateNewText(newText, decimalPosition, ref decimalText))
-                return;
-
-            var displayText = newText;
-            var newSelectionStart = Control.SelectionStart + selectionStartChange;
-            if (!_setup.NumberFormatString.IsNullOrEmpty())
-            {
-                displayText = string.Empty;
-                var startIndex = decimalPosition < 0 ? newText.Length - 1 : decimalPosition - 1;
-                var groupIndex = 0;
-                for (int i = startIndex; i >= 0; i--)
-                {
-                    if (groupIndex == 3)
-                    {
-                        displayText = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator + displayText;
-                        groupIndex = 0;
-                    }
-
-                    var cChar = newText[i];
-                    displayText = cChar + displayText;
-                    groupIndex++;
-                }
-
-                if (decimalPosition >= 0)
-                    displayText += "." + decimalText;
-
-                var newSymbolCount = displayText.CountTextForNumSymbols();
-                if (newSymbolCount > oldSymbolCount)
-                    newSelectionStart += newSymbolCount - oldSymbolCount;
-            }
-
-            Control.Text = displayText;
-            Control.SelectionStart = newSelectionStart;
-            Control.SelectionLength = 0;
-            OnValueChanged(newText);
-        }
-
-        private bool ValidateNewText(string newText, int decimalPosition, ref string decimalText)
-        {
             if (decimalPosition >= 0)
             {
-                decimalText = newText.GetRightText(decimalPosition + 1, 0);
+                var decimalText = newText.GetRightText(decimalPosition + 1, 0);
                 if (decimalText.Length > _setup.Precision)
                 {
                     Control.OnInvalidChar();
@@ -169,21 +118,6 @@ namespace RingSoft.DataEntryControls.Engine
             }
 
             return true;
-        }
-
-        public void ProcessBackspace(DataEntryNumericEditSetup setup)
-        {
-            _setup = setup;
-        }
-
-        public void ProcessDelete(DataEntryNumericEditSetup setup)
-        {
-            _setup = setup;
-        }
-
-        private void OnValueChanged(string newValue)
-        {
-            ValueChanged?.Invoke(this, new ValueChangedArgs(newValue));
         }
     }
 }

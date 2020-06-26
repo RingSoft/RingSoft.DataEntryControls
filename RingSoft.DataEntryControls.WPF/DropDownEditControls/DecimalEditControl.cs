@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 // ReSharper disable once CheckNamespace
@@ -167,6 +168,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnValueChanged(string newValue)
         {
+            newValue = newValue.NumTextToString();
             _textSettingValue = true;
 
             if (decimal.TryParse(newValue, out var newResult))

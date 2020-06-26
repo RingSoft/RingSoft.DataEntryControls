@@ -70,7 +70,6 @@ namespace RingSoft.DataEntryControls.WPF
                     throw new ArgumentOutOfRangeException();
             }
 
-            numericEditControl.NumericType = numericEditControl.Setup.NumericType;
             numericEditControl.Precision = numericEditControl.Setup.Precision;
             numericEditControl.MaximumValue = numericEditControl.Setup.MaximumValue;
             numericEditControl.MinimumValue = numericEditControl.Setup.MinimumValue;
@@ -111,15 +110,6 @@ namespace RingSoft.DataEntryControls.WPF
         {
             get { return (string)GetValue(NumberFormatStringProperty); }
             set { SetValue(NumberFormatStringProperty, value); }
-        }
-
-        public static readonly DependencyProperty NumericTypeProperty =
-            DependencyProperty.Register(nameof(NumericType), typeof(NumericTypes), typeof(NumericEditControl));
-
-        public NumericTypes NumericType
-        {
-            get { return (NumericTypes)GetValue(NumericTypeProperty); }
-            set { SetValue(NumericTypeProperty, value); }
         }
 
         public string Text
@@ -180,7 +170,6 @@ namespace RingSoft.DataEntryControls.WPF
         public NumericEditControl()
         {
             _numericProcessor = new DataEntryNumericControlProcessor(this);
-            _numericProcessor.ValueChanged += (sender, args) => OnValueChanged(args.NewValue);
         }
 
         public void OnInvalidChar()
@@ -192,7 +181,6 @@ namespace RingSoft.DataEntryControls.WPF
         {
             return new DataEntryNumericEditSetup()
             {
-                NumericType = NumericType,
                 MaximumValue = MaximumValue,
                 MinimumValue = MinimumValue,
                 Precision = Precision,
@@ -202,24 +190,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override bool ProcessKeyChar(char keyChar)
         {
-            if (_numericProcessor.ProcessChar(GetSetup(), keyChar))
+            if (!_numericProcessor.ValidateChar(GetSetup(), keyChar))
                 return true;
 
             return base.ProcessKeyChar(keyChar);
-        }
-
-        protected override bool ProcessKey(Key key)
-        {
-            switch (key)
-            {
-                case Key.Delete:
-                    _numericProcessor.ProcessDelete(GetSetup());
-                    return true;
-                case Key.Back:
-                    _numericProcessor.ProcessBackspace(GetSetup());
-                    return true;
-            }
-            return base.ProcessKey(key);
         }
     }
 }
