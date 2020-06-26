@@ -76,10 +76,12 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var decimalEditControl = (DecimalEditControl) obj;
-            decimalEditControl.SetValue();
+            if (!decimalEditControl._textSettingValue)
+                decimalEditControl.SetValue();
         }
 
         private decimal? _pendingNewValue;
+        private bool _textSettingValue;
 
         static DecimalEditControl()
         {
@@ -161,6 +163,18 @@ namespace RingSoft.DataEntryControls.WPF
         private void _calculatorControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             Value = CalculatorControl.Value;
+        }
+
+        public override void OnValueChanged(string newValue)
+        {
+            _textSettingValue = true;
+
+            if (decimal.TryParse(newValue, out var newResult))
+                Value = newResult;
+
+            _textSettingValue = false;
+
+            base.OnValueChanged(newValue);
         }
     }
 }

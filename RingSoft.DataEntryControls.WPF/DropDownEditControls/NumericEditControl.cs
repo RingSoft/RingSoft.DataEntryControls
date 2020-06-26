@@ -1,7 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using System;
-using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -41,7 +41,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:NumericEditControl/>
     ///
     /// </summary>
-    public abstract class NumericEditControl : DropDownEditControl
+    public abstract class NumericEditControl : DropDownEditControl, INumericControl
     {
         public abstract NumericEditTypes EditType { get; }
 
@@ -70,6 +70,7 @@ namespace RingSoft.DataEntryControls.WPF
                     throw new ArgumentOutOfRangeException();
             }
 
+            numericEditControl.NumericType = numericEditControl.Setup.NumericType;
             numericEditControl.Precision = numericEditControl.Setup.Precision;
             numericEditControl.MaximumValue = numericEditControl.Setup.MaximumValue;
             numericEditControl.MinimumValue = numericEditControl.Setup.MinimumValue;
@@ -112,9 +113,113 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(NumberFormatStringProperty, value); }
         }
 
+        public static readonly DependencyProperty NumericTypeProperty =
+            DependencyProperty.Register(nameof(NumericType), typeof(NumericTypes), typeof(NumericEditControl));
+
+        public NumericTypes NumericType
+        {
+            get { return (NumericTypes)GetValue(NumericTypeProperty); }
+            set { SetValue(NumericTypeProperty, value); }
+        }
+
+        public string Text
+        {
+            get
+            {
+                if (TextBox == null)
+                    return string.Empty;
+
+                return TextBox.Text;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.Text = value;
+            }
+        }
+
+        public int SelectionStart
+        {
+            get
+            {
+                if (TextBox == null)
+                    return 0;
+
+                return TextBox.SelectionStart;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.SelectionStart = value;
+            }
+        }
+
+        public int SelectionLength
+        {
+            get
+            {
+                if (TextBox == null)
+                    return 0;
+
+                return TextBox.SelectionLength;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.SelectionLength = value;
+            }
+        }
+
+        private DataEntryNumericControlProcessor _numericProcessor;
+
         static NumericEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl), new FrameworkPropertyMetadata(typeof(NumericEditControl)));
+        }
+
+        public NumericEditControl()
+        {
+            _numericProcessor = new DataEntryNumericControlProcessor(this);
+            _numericProcessor.ValueChanged += (sender, args) => OnValueChanged(args.NewValue);
+        }
+
+        public void OnInvalidChar()
+        {
+            System.Media.SystemSounds.Exclamation.Play();
+        }
+
+        private DataEntryNumericEditSetup GetSetup()
+        {
+            return new DataEntryNumericEditSetup()
+            {
+                NumericType = NumericType,
+                MaximumValue = MaximumValue,
+                MinimumValue = MinimumValue,
+                Precision = Precision,
+                NumberFormatString = NumberFormatString
+            };
+        }
+
+        protected override bool ProcessKeyChar(char keyChar)
+        {
+            if (_numericProcessor.ProcessChar(GetSetup(), keyChar))
+                return true;
+
+            return base.ProcessKeyChar(keyChar);
+        }
+
+        protected override bool ProcessKey(Key key)
+        {
+            switch (key)
+            {
+                case Key.Delete:
+                    _numericProcessor.ProcessDelete(GetSetup());
+                    return true;
+                case Key.Back:
+                    _numericProcessor.ProcessBackspace(GetSetup());
+                    return true;
+            }
+            return base.ProcessKey(key);
         }
     }
 }

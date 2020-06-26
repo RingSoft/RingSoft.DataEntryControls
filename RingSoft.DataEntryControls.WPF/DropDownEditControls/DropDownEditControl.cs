@@ -1,8 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -118,6 +120,8 @@ namespace RingSoft.DataEntryControls.WPF
 
         public Popup Popup { get; set; }
 
+        public event EventHandler<ValueChangedArgs> ValueChanged;
+
         static DropDownEditControl()
         {
             FocusableProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
@@ -205,6 +209,11 @@ namespace RingSoft.DataEntryControls.WPF
         protected virtual bool ProcessKey(System.Windows.Input.Key key)
         {
             return false;
+        }
+
+        public virtual void OnValueChanged(string newValue)
+        {
+            ValueChanged?.Invoke(this, new ValueChangedArgs(newValue));
         }
     }
 }

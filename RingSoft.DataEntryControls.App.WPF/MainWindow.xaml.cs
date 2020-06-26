@@ -57,7 +57,6 @@ namespace RingSoft.DataEntryControls.App.WPF
             InitializeComponent();
 
             GridManager = new AppGridManager(this);
-            CalcValue = (decimal)21.32;
 
             var saleDetails = new List<SaleDetail>();
 

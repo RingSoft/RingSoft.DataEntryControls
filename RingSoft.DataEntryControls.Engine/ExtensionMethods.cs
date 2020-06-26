@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
 
 namespace RingSoft.DataEntryControls.Engine
 {
@@ -57,6 +59,71 @@ namespace RingSoft.DataEntryControls.Engine
             int intVal;
             int.TryParse(value, out intVal);
             return (intVal != 0);
+        }
+
+        public static string GetRightText(this string text, int selectionStart, int selectionLength)
+        {
+            if (text.IsNullOrEmpty())
+                return string.Empty;
+
+            return text.RightStr(text.Length - (selectionLength + selectionStart));
+        }
+
+        /// <summary>
+        /// Removes all currency, percent, and thousands separator text from the text.
+        /// </summary>
+        /// <param name="text">The text to process.</param>
+        /// <returns>Text without numeric symbols.</returns>
+        public static string NumTextToString(this string text)
+        {
+            var stripText = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator;
+            stripText += NumberFormatInfo.CurrentInfo.CurrencySymbol;
+            stripText += NumberFormatInfo.CurrentInfo.PercentSymbol;
+            return StripText(text, stripText);
+        }
+
+        /// <summary>
+        /// Strips the text of all the characters in the stripString.
+        /// </summary>
+        /// <param name="text">The text to process.</param>
+        /// <param name="stripString">The characters to strip.</param>
+        /// <returns>The text without the characters in stripString.</returns>
+        public static string StripText(this string text, string stripString)
+        {
+            if (text.IsNullOrEmpty())
+                return text;
+
+            string returnString = text;
+            foreach (char cChar in stripString)
+                returnString = returnString.Replace(cChar.ToString(), "");
+
+            return returnString;
+        }
+
+        public static int CountTextForNumSymbols(this string text)
+        {
+            var searchString = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator;
+            searchString += NumberFormatInfo.CurrentInfo.CurrencySymbol;
+            searchString += NumberFormatInfo.CurrentInfo.PercentSymbol;
+
+            return text.CountTextForChars(searchString);
+        }
+
+        public static int CountTextForChars(this string text, string searchString)
+        {
+            var result = 0;
+            if (text.IsNullOrEmpty())
+                return result;
+
+            if (searchString.IsNullOrEmpty())
+                return result;
+
+            foreach (var cChar in searchString)
+            {
+                result += text.Count(c => c.Equals(cChar));
+            }
+
+            return result;
         }
     }
 }
