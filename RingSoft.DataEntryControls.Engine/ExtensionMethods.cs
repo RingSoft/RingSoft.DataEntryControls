@@ -77,8 +77,9 @@ namespace RingSoft.DataEntryControls.Engine
         public static string NumTextToString(this string text)
         {
             var stripText = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator;
-            stripText += NumberFormatInfo.CurrentInfo.CurrencySymbol;
+            stripText += NumberFormatInfo.CurrentInfo.NumberGroupSeparator;
             stripText += NumberFormatInfo.CurrentInfo.PercentSymbol;
+            stripText += NumberFormatInfo.CurrentInfo.CurrencySymbol;
             return StripText(text, stripText);
         }
 
@@ -98,14 +99,6 @@ namespace RingSoft.DataEntryControls.Engine
                 returnString = returnString.Replace(cChar.ToString(), "");
 
             return returnString;
-        }
-
-        public static int CountNumberSymbols(this string text)
-        {
-            var searchString = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator;
-            searchString += NumberFormatInfo.CurrentInfo.CurrencySymbol;
-
-            return text.CountTextForChars(searchString);
         }
 
         public static int CountTextForChars(this string text, string searchString)

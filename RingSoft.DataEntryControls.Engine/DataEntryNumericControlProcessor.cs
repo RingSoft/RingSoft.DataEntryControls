@@ -101,17 +101,26 @@ namespace RingSoft.DataEntryControls.Engine
 
             var numericTextProperties = GetNumericTextProperties();
             var newText = numericTextProperties.LeftText + numberChar + numericTextProperties.RightText;
+
+            var oldCurrencyPosition =
+                newText.IndexOf(NumberFormatInfo.CurrentInfo.CurrencySymbol, StringComparison.Ordinal);
+            var oldSymbolCount = CountNumberSymbols(newText);
+
             var newValue = newText = StripNonNumericCharacters(newText);
 
             newText = ProcessNewText(newText);
 
-            var oldSymbolCount = CountNumberSymbols(Control.Text);
+            var newCurrencyPosition =
+                newText.IndexOf(NumberFormatInfo.CurrentInfo.CurrencySymbol, StringComparison.Ordinal);
             var newSymbolCount = CountNumberSymbols(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
             var selectionIncrement = newSymbolCount - oldSymbolCount;
             if (selectionIncrement > 0)
                 newSelectionStart += selectionIncrement;
+
+            if (newCurrencyPosition == 0 && oldCurrencyPosition == -1)
+                newSelectionStart++;
 
             Control.Text = newText;
             Control.SelectionStart = newSelectionStart;
@@ -168,8 +177,11 @@ namespace RingSoft.DataEntryControls.Engine
         private bool ValidateNumber(char numberChar)
         {
             var numericText = GetNumericTextProperties();
-            
-            var newText = numericText.LeftText + numberChar + numericText.RightText;
+            var newText = StripNonNumericCharacters(numericText.LeftText + numberChar + numericText.RightText);
+
+            if (newText == "00")
+                return false;
+
             return ValidateNewText(newText);
         }
 
@@ -180,17 +192,30 @@ namespace RingSoft.DataEntryControls.Engine
 
             var numericProperties = GetNumericTextProperties();
             var newText = numericProperties.LeftText + decimalChar + numericProperties.RightText;
+            var oldCurrencyPosition =
+                newText.IndexOf(NumberFormatInfo.CurrentInfo.CurrencySymbol, StringComparison.Ordinal);
+            var oldSymbolCount = CountNumberSymbols(newText);
 
+            var selectionIncrement = 0;
             var newValue = newText = StripNonNumericCharacters(newText);
+            if (newValue == decimalChar.ToString())
+            {
+                newValue = newText = $"0{decimalChar}";
+                selectionIncrement++;
+            }
 
             newText = ProcessNewText(newText);
 
-            var oldSymbolCount = CountNumberSymbols(Control.Text);
+            var newCurrencyPosition =
+                newText.IndexOf(NumberFormatInfo.CurrentInfo.CurrencySymbol, StringComparison.Ordinal);
             var newSymbolCount = CountNumberSymbols(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
-            var selectionIncrement = newSymbolCount - oldSymbolCount;
+            selectionIncrement += newSymbolCount - oldSymbolCount;
             newSelectionStart += selectionIncrement;
+
+            if (newCurrencyPosition == 0 && oldCurrencyPosition == -1)
+                newSelectionStart++;
 
             Control.Text = newText;
             Control.SelectionStart = newSelectionStart;
@@ -206,7 +231,11 @@ namespace RingSoft.DataEntryControls.Engine
 
         public virtual int CountNumberSymbols(string formattedText)
         {
-            return formattedText.CountNumberSymbols();
+            var searchString = NumberFormatInfo.CurrentInfo.NumberGroupSeparator;
+            if (_setup.EditFormatType == NumericEditFormatTypes.Currency)
+                searchString = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator;
+
+            return formattedText.CountTextForChars(searchString);
         }
 
         private bool ValidateDecimal(char decimalChar)
@@ -249,7 +278,37 @@ namespace RingSoft.DataEntryControls.Engine
 
         public virtual void OnBackspaceKeyDown()
         {
+            if (Control.SelectionStart > 0)
+            {
+                if (Control.SelectionLength == 0)
+                {
+                    Control.SelectionStart--;
+                    Control.SelectionLength = 1;
+                }
+            }
 
+            if (Control.SelectionLength > 0)
+            {
+                var numericTextProperties = GetNumericTextProperties();
+                var newText = numericTextProperties.LeftText + numericTextProperties.RightText;
+                var newValue = newText = StripNonNumericCharacters(newText);
+
+                if (newText.IsNullOrEmpty())
+                {
+                    newValue = "0";
+                }
+                else
+                {
+                    newText = ProcessNewText(newText);
+                }
+
+                var selectionStart = Control.SelectionStart;
+                Control.Text = newText;
+                Control.SelectionStart = selectionStart;
+                Control.SelectionLength = 0;
+
+                OnValueChanged(newValue);
+            }
         }
 
         public virtual void OnDeleteKeyDown()

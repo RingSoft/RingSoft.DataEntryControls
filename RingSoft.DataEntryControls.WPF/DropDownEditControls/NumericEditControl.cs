@@ -233,6 +233,32 @@ namespace RingSoft.DataEntryControls.WPF
             return base.ProcessKeyChar(keyChar);
         }
 
+        protected override bool ProcessKey(Key key)
+        {
+            switch (DataEntryMode)
+            {
+                case DataEntryModes.FormatOnEntry:
+                    switch (key)
+                    {
+                        case Key.Space:
+                            return ProcessKeyChar(' ');
+                        case Key.Back:
+                            _numericProcessor.OnBackspaceKeyDown();
+                            return true;
+                        case Key.Delete:
+                            _numericProcessor.OnDeleteKeyDown();
+                            return true;
+                    }
+                    break;
+                case DataEntryModes.ValidateOnly:
+                case DataEntryModes.RawEntry:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return base.ProcessKey(key);
+        }
+
         protected override void OnTextChanged(string newText)
         {
             switch (DataEntryMode)
