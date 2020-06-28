@@ -74,12 +74,15 @@ namespace RingSoft.DataEntryControls.Engine
         /// </summary>
         /// <param name="text">The text to process.</param>
         /// <returns>Text without numeric symbols.</returns>
-        public static string NumTextToString(this string text)
+        public static string NumTextToString(this string text, CultureInfo culture = null)
         {
-            var stripText = NumberFormatInfo.CurrentInfo.CurrencyGroupSeparator;
-            stripText += NumberFormatInfo.CurrentInfo.NumberGroupSeparator;
-            stripText += NumberFormatInfo.CurrentInfo.PercentSymbol;
-            stripText += NumberFormatInfo.CurrentInfo.CurrencySymbol;
+            if (culture == null)
+                culture = CultureInfo.CurrentCulture;
+
+            var stripText = culture.NumberFormat.CurrencyGroupSeparator;
+            stripText += culture.NumberFormat.NumberGroupSeparator;
+            stripText += culture.NumberFormat.PercentSymbol;
+            stripText += culture.NumberFormat.CurrencySymbol;
             return StripText(text, stripText);
         }
 

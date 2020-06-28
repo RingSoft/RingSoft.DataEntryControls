@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace RingSoft.DataEntryControls.Engine
 {
@@ -15,6 +16,12 @@ namespace RingSoft.DataEntryControls.Engine
         Number = 0,
         Currency = 1,
         Percent = 2
+    }
+
+    public enum CurrencySymbolLocations
+    {
+        Prefix = 0,
+        Suffix = 1
     }
 
     public class DataEntryNumericEditSetup
@@ -43,11 +50,15 @@ namespace RingSoft.DataEntryControls.Engine
         /// </value>
         public string NumberFormatString { get; set; }
 
-        public decimal MaximumValue { get; set; }
+        public decimal? MaximumValue { get; set; }
 
-        public decimal MinimumValue { get; set; }
+        public decimal? MinimumValue { get; set; }
 
         public DataEntryModes DataEntryMode { get; set; }
+
+        public CurrencySymbolLocations CurrencySymbolLocation { get; set; }
+
+        public CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
 
         public void InitializeFromType(Type type)
         {
@@ -119,7 +130,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public string FormatValue(decimal value)
         {
-            return value.ToString(GetNumberFormatString());
+            return value.ToString(GetNumberFormatString(), Culture.NumberFormat);
         }
     }
 }
