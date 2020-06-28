@@ -56,9 +56,49 @@ namespace RingSoft.DataEntryControls.Engine
 
         public DataEntryModes DataEntryMode { get; set; }
 
-        public CurrencySymbolLocations CurrencySymbolLocation { get; set; }
+        public CurrencySymbolLocations CurrencySymbolLocation { get; private set; }
 
-        public CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+        public string CurrencyText { get; private set; }
+
+        private CultureInfo _culture;
+
+        public CultureInfo Culture
+        {
+            get => _culture;
+            set
+            {
+                if (Equals(_culture, value))
+                    return;
+
+                _culture = value;
+                SetupCurrencyInfo();
+            }
+        }
+
+        public DataEntryNumericEditSetup()
+        {
+            Culture = CultureInfo.CurrentCulture;
+        }
+
+        public void SetupCurrencyInfo()
+        {
+            var value = 0;
+            var text = value.ToString("C0", Culture.NumberFormat);
+
+            var symbolLocation = text.IndexOf(Culture.NumberFormat.CurrencySymbol, StringComparison.Ordinal);
+            var digitLocation = text.IndexOf("0", StringComparison.Ordinal);
+
+            if (symbolLocation == 0)
+            {
+                CurrencySymbolLocation = CurrencySymbolLocations.Prefix;
+                CurrencyText = text.LeftStr(digitLocation);
+            }
+            else
+            {
+                CurrencySymbolLocation = CurrencySymbolLocations.Suffix;
+                CurrencyText = text.GetRightText(digitLocation, 1);
+            }
+        }
 
         public void InitializeFromType(Type type)
         {

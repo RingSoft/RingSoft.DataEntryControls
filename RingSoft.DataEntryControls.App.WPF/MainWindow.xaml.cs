@@ -75,7 +75,8 @@ namespace RingSoft.DataEntryControls.App.WPF
 
             GridManager = new AppGridManager(this);
 
-            var culture = new CultureInfo("sv-SE");
+            var culture = new CultureInfo("de-CH");
+            //var culture = new CultureInfo("sv-SE");
             NumericSetup = new DataEntryNumericEditSetup()
             {
                 Culture = culture,

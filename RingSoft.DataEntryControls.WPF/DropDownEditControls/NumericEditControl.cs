@@ -260,7 +260,6 @@ namespace RingSoft.DataEntryControls.WPF
                 MinimumValue = MinimumValue,
                 Precision = Precision,
                 NumberFormatString = NumberFormatString,
-                CurrencySymbolLocation = CurrencySymbolLocation,
                 Culture = Culture
             };
         }
