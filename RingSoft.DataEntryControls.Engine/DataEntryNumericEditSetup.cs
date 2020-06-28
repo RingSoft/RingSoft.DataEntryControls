@@ -18,7 +18,7 @@ namespace RingSoft.DataEntryControls.Engine
         Percent = 2
     }
 
-    public enum CurrencySymbolLocations
+    public enum NumberSymbolLocations
     {
         Prefix = 0,
         Suffix = 1
@@ -56,32 +56,30 @@ namespace RingSoft.DataEntryControls.Engine
 
         public DataEntryModes DataEntryMode { get; set; }
 
-        public CurrencySymbolLocations CurrencySymbolLocation { get; private set; }
+        public NumberSymbolLocations CurrencySymbolLocation { get; private set; }
 
         public string CurrencyText { get; private set; }
 
-        private CultureInfo _culture;
+        public NumberSymbolLocations PercentSymbolLocation { get; private set; }
 
-        public CultureInfo Culture
+        public string PercentText { get; private set; }
+
+        public string CultureId
         {
-            get => _culture;
-            set
-            {
-                if (Equals(_culture, value))
-                    return;
-
-                _culture = value;
-                SetupCurrencyInfo();
-            }
+            set => SetupNumericInfo(value);
         }
+        
+        public CultureInfo Culture { get; private set; }
 
         public DataEntryNumericEditSetup()
         {
-            Culture = CultureInfo.CurrentCulture;
+            SetupNumericInfo(CultureInfo.CurrentCulture.Name);
         }
 
-        public void SetupCurrencyInfo()
+        public void SetupNumericInfo(string cultureId)
         {
+            Culture = new CultureInfo(cultureId);
+
             var value = 0;
             var text = value.ToString("C0", Culture.NumberFormat);
 
@@ -90,13 +88,28 @@ namespace RingSoft.DataEntryControls.Engine
 
             if (symbolLocation == 0)
             {
-                CurrencySymbolLocation = CurrencySymbolLocations.Prefix;
+                CurrencySymbolLocation = NumberSymbolLocations.Prefix;
                 CurrencyText = text.LeftStr(digitLocation);
             }
             else
             {
-                CurrencySymbolLocation = CurrencySymbolLocations.Suffix;
+                CurrencySymbolLocation = NumberSymbolLocations.Suffix;
                 CurrencyText = text.GetRightText(digitLocation, 1);
+            }
+
+            text = value.ToString("P0", Culture.NumberFormat);
+            symbolLocation = text.IndexOf(Culture.NumberFormat.PercentSymbol, StringComparison.Ordinal);
+            digitLocation = text.IndexOf("0", StringComparison.Ordinal);
+
+            if (symbolLocation == 0)
+            {
+                PercentSymbolLocation = NumberSymbolLocations.Prefix;
+                PercentText = text.LeftStr(digitLocation);
+            }
+            else
+            {
+                PercentSymbolLocation = NumberSymbolLocations.Suffix;
+                PercentText = text.GetRightText(digitLocation, 1);
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace RingSoft.DataEntryControls.Engine
 {
@@ -26,6 +25,12 @@ namespace RingSoft.DataEntryControls.Engine
         public string SelectedText { get; set; }
         public string RightText { get; set; }
         public int DecimalPosition { get; set; } = -1;
+        public int SymbolIndex { get; set; } = -1;
+        public NumberSymbolLocations SymbolLocation { get; set; }
+        public string SymbolText { get; set; }
+        public int GroupSeparatorCount { get; set; }
+        public string NewWholeNumberText { get; set; }
+        public string NewDecimalText { get; set; }
     }
 
     public class DataEntryNumericControlProcessor
@@ -73,19 +78,65 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessNonNumericChar(keyChar);
         }
 
-        protected NumericTextProperties GetNumericTextProperties()
+        protected NumericTextProperties GetNumericTextProperties(string charText)
         {
-            return new NumericTextProperties()
+            var result = new NumericTextProperties()
             {
                 LeftText = Control.Text.LeftStr(Control.SelectionStart),
                 SelectedText = Control.Text.MidStr(Control.SelectionStart, Control.SelectionLength),
-                RightText = Control.Text.GetRightText(Control.SelectionStart, Control.SelectionLength)
+                RightText = Control.Text.GetRightText(Control.SelectionStart, Control.SelectionLength),
+                GroupSeparatorCount = CountNumberGroupCharacter(Control.Text)
             };
+
+            switch (_setup.EditFormatType)
+            {
+                case NumericEditFormatTypes.Currency:
+                    result.SymbolText = _setup.CurrencyText;
+                    result.SymbolIndex = Control.Text.IndexOf(result.SymbolText, StringComparison.Ordinal);
+                    result.SymbolLocation = _setup.CurrencySymbolLocation;
+                    break;
+                case NumericEditFormatTypes.Number:
+                    break;
+                case NumericEditFormatTypes.Percent:
+                    result.SymbolText = _setup.PercentText;
+                    result.SymbolIndex = Control.Text.IndexOf(result.SymbolText, StringComparison.Ordinal);
+                    result.SymbolLocation = _setup.PercentSymbolLocation;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            var selectedTextDecimalPosition = GetDecimalPosition(result.SelectedText);
+            if (selectedTextDecimalPosition < 0)
+                result.DecimalPosition = GetDecimalPosition(Control.Text);
+
+            var newText = result.LeftText + charText + result.RightText;
+            newText = StripNonNumericCharacters(newText);
+            result.NewWholeNumberText = newText;
+
+            var newDecimalPosition = GetDecimalPosition(newText);
+            if (newDecimalPosition >= 0)
+            {
+                result.NewWholeNumberText = newText.LeftStr(newDecimalPosition);
+                result.NewDecimalText = newText.GetRightText(newDecimalPosition, 1);
+            }
+            return result;
         }
 
         private int GetDecimalPosition(string numberText)
         {
-            return numberText.IndexOf(_setup.Culture.NumberFormat.CurrencyDecimalSeparator, StringComparison.Ordinal);
+            switch (_setup.EditFormatType)
+            {
+                case NumericEditFormatTypes.Currency:
+                    return numberText.IndexOf(_setup.Culture.NumberFormat.CurrencyDecimalSeparator,
+                        StringComparison.Ordinal);
+                case NumericEditFormatTypes.Number:
+                case NumericEditFormatTypes.Percent:
+                    return numberText.IndexOf(_setup.Culture.NumberFormat.NumberDecimalSeparator,
+                        StringComparison.Ordinal);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         protected virtual ProcessCharResults ProcessNonNumericChar(char keyChar)
@@ -95,18 +146,18 @@ namespace RingSoft.DataEntryControls.Engine
 
         protected virtual ProcessCharResults ProcessNumberDigit(char numberChar)
         {
-            if (!ValidateNumber(numberChar))
+            var numericTextProperties = GetNumericTextProperties(numberChar.ToString());
+            if (!ValidateNumber(numericTextProperties))
                 return ProcessCharResults.ValidationFailed;
 
             if (_setup.DataEntryMode != DataEntryModes.FormatOnEntry)
                 return ProcessCharResults.Ignored;
 
-            var numericTextProperties = GetNumericTextProperties();
             var newText = numericTextProperties.LeftText + numberChar + numericTextProperties.RightText;
 
             var oldCurrencyPosition =
                 newText.IndexOf(_setup.Culture.NumberFormat.CurrencySymbol, StringComparison.Ordinal);
-            var oldSymbolCount = CountNumberSymbols(newText);
+            var oldSymbolCount = CountNumberGroupCharacter(newText);
 
             var newValue = newText = StripNonNumericCharacters(newText);
 
@@ -114,7 +165,7 @@ namespace RingSoft.DataEntryControls.Engine
 
             var newCurrencyPosition =
                 newText.IndexOf(_setup.Culture.NumberFormat.CurrencySymbol, StringComparison.Ordinal);
-            var newSymbolCount = CountNumberSymbols(newText);
+            var newSymbolCount = CountNumberGroupCharacter(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
             var selectionIncrement = newSymbolCount - oldSymbolCount;
@@ -190,26 +241,23 @@ namespace RingSoft.DataEntryControls.Engine
             return newText;
         }
 
-        private bool ValidateNumber(char numberChar)
+        private bool ValidateNumber(NumericTextProperties numericTextProperties)
         {
-            var numericText = GetNumericTextProperties();
-            var newText = StripNonNumericCharacters(numericText.LeftText + numberChar + numericText.RightText);
-
-            if (newText == "00")
+            if (numericTextProperties.NewWholeNumberText == "00")
                 return false;
 
-            return ValidateNewText(newText);
+            return ValidateNewText(numericTextProperties);
         }
 
         public virtual ProcessCharResults ProcessDecimal(DataEntryNumericEditSetup setup)
         {
             _setup = setup;
             var decimalString = _setup.Culture.NumberFormat.CurrencyDecimalSeparator;
+            var numericProperties = GetNumericTextProperties(decimalString);
 
-            if (!ValidateDecimal(decimalString))
+            if (!ValidateDecimal(numericProperties))
                 return ProcessCharResults.ValidationFailed;
 
-            var numericProperties = GetNumericTextProperties();
             var newText = numericProperties.LeftText + decimalString + numericProperties.RightText;
 
             if (_setup.DataEntryMode == DataEntryModes.ValidateOnly)
@@ -223,7 +271,7 @@ namespace RingSoft.DataEntryControls.Engine
             var oldCurrencyPosition =
                 newText.IndexOf(_setup.Culture.NumberFormat.CurrencySymbol, StringComparison.Ordinal);
 
-            var oldSymbolCount = CountNumberSymbols(newText);
+            var oldSymbolCount = CountNumberGroupCharacter(newText);
 
             var selectionIncrement = 0;
             var newValue = newText = StripNonNumericCharacters(newText);
@@ -237,7 +285,7 @@ namespace RingSoft.DataEntryControls.Engine
 
             var newCurrencyPosition =
                 newText.IndexOf(_setup.Culture.NumberFormat.CurrencySymbol, StringComparison.Ordinal);
-            var newSymbolCount = CountNumberSymbols(newText);
+            var newSymbolCount = CountNumberGroupCharacter(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
             selectionIncrement += newSymbolCount - oldSymbolCount;
@@ -259,7 +307,7 @@ namespace RingSoft.DataEntryControls.Engine
             return formattedText.NumTextToString(_setup.Culture);
         }
 
-        public virtual int CountNumberSymbols(string formattedText)
+        public virtual int CountNumberGroupCharacter(string formattedText)
         {
             var searchString = _setup.Culture.NumberFormat.NumberGroupSeparator;
             if (_setup.EditFormatType == NumericEditFormatTypes.Currency)
@@ -268,31 +316,31 @@ namespace RingSoft.DataEntryControls.Engine
             return formattedText.CountTextForChars(searchString);
         }
 
-        private bool ValidateDecimal(string decimalString)
+        private bool ValidateDecimal(NumericTextProperties numericTextProperties)
         {
-            if (_setup.Precision <= 0)
-                return false;
+            //TODO:ValidateDecimal
+            //if (_setup.Precision <= 0)
+            //    return false;
 
-            var numericText = GetNumericTextProperties();
-            var checkNewText = numericText.LeftText + numericText.RightText;
+            //var numericText = GetNumericTextProperties();
+            //var checkNewText = numericText.LeftText + numericText.RightText;
 
-            if (checkNewText.Contains(decimalString))
-                return false;
+            //if (checkNewText.Contains(decimalString))
+            //    return false;
 
-            var newText = numericText.LeftText + decimalString + numericText.RightText;
-            return ValidateNewText(newText);
+            //var newText = numericText.LeftText + decimalString + numericText.RightText;
+            //return ValidateNewText(newText);
+            return true;
         }
 
-        private bool ValidateNewText(string newText)
+        private bool ValidateNewText(NumericTextProperties numericTextProperties)
         {
-            newText = StripNonNumericCharacters(newText);
-            var decimalPosition = GetDecimalPosition(newText);
-            if (decimalPosition >= 0)
-            {
-                var decimalText = newText.GetRightText(decimalPosition + 1, 0);
-                if (decimalText.Length > _setup.Precision)
-                    return false;
-            }
+            if (numericTextProperties.NewDecimalText.Length > _setup.Precision)
+                return false;
+
+            var newText = numericTextProperties.NewWholeNumberText;
+            if (numericTextProperties.NewDecimalText.Length > 0)
+                newText = $"{newText}.{numericTextProperties.NewDecimalText}";
 
             if (decimal.TryParse(newText, out var newValue))
             {
@@ -320,9 +368,9 @@ namespace RingSoft.DataEntryControls.Engine
 
             if (Control.SelectionLength > 0)
             {
-                var numericTextProperties = GetNumericTextProperties();
+                var numericTextProperties = GetNumericTextProperties(string.Empty);
                 var newText = numericTextProperties.LeftText + numericTextProperties.RightText;
-                var oldSymbolCount = CountNumberSymbols(newText);
+                var oldSymbolCount = CountNumberGroupCharacter(newText);
 
                 var newValue = newText = StripNonNumericCharacters(newText);
 
@@ -335,7 +383,7 @@ namespace RingSoft.DataEntryControls.Engine
                     newText = ProcessNewText(newText);
                 }
 
-                var newSymbolCount = CountNumberSymbols(newText);
+                var newSymbolCount = CountNumberGroupCharacter(newText);
 
                 var selectionStart = Control.SelectionStart;
                 selectionStart -= oldSymbolCount - newSymbolCount;

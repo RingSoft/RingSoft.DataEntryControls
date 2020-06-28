@@ -71,7 +71,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public DataEntryNumericEditSetup Setup
         {
-            get { return (DataEntryNumericEditSetup)GetValue(SetupProperty); }
+            private get { return (DataEntryNumericEditSetup)GetValue(SetupProperty); }
             set { SetValue(SetupProperty, value); }
         }
 
@@ -95,8 +95,7 @@ namespace RingSoft.DataEntryControls.WPF
             numericEditControl.Precision = numericEditControl.Setup.Precision;
             numericEditControl.MaximumValue = numericEditControl.Setup.MaximumValue;
             numericEditControl.MinimumValue = numericEditControl.Setup.MinimumValue;
-            numericEditControl.NumberFormatString = numericEditControl.Setup.GetNumberFormatString();
-            numericEditControl.CurrencySymbolLocation = numericEditControl.Setup.CurrencySymbolLocation;
+            numericEditControl.NumberFormatString = numericEditControl.Setup.NumberFormatString;
             numericEditControl.Culture = numericEditControl.Setup.Culture;
         }
 
@@ -136,23 +135,25 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(NumberFormatStringProperty, value); }
         }
 
-        public static readonly DependencyProperty CurrencySymbolLocationProperty =
-            DependencyProperty.Register(nameof(CurrencySymbolLocation), typeof(CurrencySymbolLocations), typeof(NumericEditControl));
+        public static readonly DependencyProperty CultureIdProperty =
+            DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(NumericEditControl),
+                new FrameworkPropertyMetadata(CultureIdChangedCallback));
 
-        public CurrencySymbolLocations CurrencySymbolLocation
+        public string CultureId
         {
-            get { return (CurrencySymbolLocations)GetValue(CurrencySymbolLocationProperty); }
-            set { SetValue(CurrencySymbolLocationProperty, value); }
+            get { return (string)GetValue(CultureIdProperty); }
+            set { SetValue(CultureIdProperty, value); }
         }
 
-        public static readonly DependencyProperty CultureProperty =
-            DependencyProperty.Register(nameof(Culture), typeof(CultureInfo), typeof(NumericEditControl));
-
-        public CultureInfo Culture
+        private static void CultureIdChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
         {
-            get { return (CultureInfo)GetValue(CultureProperty); }
-            set { SetValue(CultureProperty, value); }
+            var numericEditControl = (NumericEditControl) obj;
+            var culture = new CultureInfo(numericEditControl.CultureId);
+            numericEditControl.Culture = culture;
         }
+
+        public CultureInfo Culture { get; private set; }
 
         public string Text
         {
@@ -208,11 +209,13 @@ namespace RingSoft.DataEntryControls.WPF
         static NumericEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl), new FrameworkPropertyMetadata(typeof(NumericEditControl)));
-            CultureProperty.OverrideMetadata(typeof(NumericEditControl), new FrameworkPropertyMetadata(CultureInfo.CurrentCulture));
         }
 
         public NumericEditControl()
         {
+            if (Culture == null)
+                Culture = CultureInfo.CurrentCulture;
+
             _numericProcessor = new DataEntryNumericControlProcessor(this);
             _numericProcessor.ValueChanged += (sender, args) => OnValueChanged(args.NewValue);
 
@@ -239,12 +242,13 @@ namespace RingSoft.DataEntryControls.WPF
 
             _settingText = true;
 
+            var setup = GetSetup();
             if (newValue == null)
                 TextBox.Text = string.Empty;
             else
             {
                 var value = (decimal) newValue;
-                TextBox.Text = value.ToString(NumberFormatString, Culture.NumberFormat);
+                TextBox.Text = value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
             }
 
             _settingText = false;
@@ -260,7 +264,7 @@ namespace RingSoft.DataEntryControls.WPF
                 MinimumValue = MinimumValue,
                 Precision = Precision,
                 NumberFormatString = NumberFormatString,
-                Culture = Culture
+                CultureId = Culture.Name
             };
         }
 

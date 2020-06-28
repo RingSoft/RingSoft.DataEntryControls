@@ -17,14 +17,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <!--<StackPanel x:Name="EditHost" Orientation="Horizontal"/>-->
-        <xctk:XceedDecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" Setup="{Binding Path=NumericSetup}" />
-        <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Manager="{Binding Path=GridManager}" CancelEditOnEscape="False">
+        <xctk:XceedDecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" EditFormatType="Currency" HorizontalAlignment="Left"/>
+        <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}" CancelEditOnEscape="False">
             <deg:DataEntryGrid.Columns>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>
@@ -34,8 +29,9 @@
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
             </deg:DataEntryGrid.Columns>
         </deg:DataEntryGrid>
-        <Button x:Name="ClearGridButton" Grid.Row="2" Grid.Column="0" Content="Clear Grid"/>
-        <Button x:Name="LoadGridButton" Grid.Row="2" Grid.Column="1" Content="Load Grid"/>
-
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <Button x:Name="ClearGridButton" Content="_Clear Grid"/>
+        <Button x:Name="LoadGridButton" Content="_Load Grid"/>
+        </StackPanel>
     </Grid>
 </dec:BaseWindow>

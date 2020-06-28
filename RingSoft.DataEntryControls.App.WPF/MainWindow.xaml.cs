@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.WPFToolKitCore;
 
 namespace RingSoft.DataEntryControls.App.WPF
 {
@@ -39,21 +40,6 @@ namespace RingSoft.DataEntryControls.App.WPF
             }
         }
 
-        private DataEntryNumericEditSetup _numericSetup;
-
-        public DataEntryNumericEditSetup NumericSetup
-        {
-            get => _numericSetup;
-            set
-            {
-                if (_numericSetup == value)
-                    return;
-
-                _numericSetup = value;
-                OnPropertyChanged(nameof(NumericSetup));
-            }
-        }
-
         private decimal _calcValue;
 
         public decimal CalcValue
@@ -74,16 +60,6 @@ namespace RingSoft.DataEntryControls.App.WPF
             InitializeComponent();
 
             GridManager = new AppGridManager(this);
-
-            var culture = new CultureInfo("de-CH");
-            //var culture = new CultureInfo("sv-SE");
-            NumericSetup = new DataEntryNumericEditSetup()
-            {
-                Culture = culture,
-                EditFormatType = NumericEditFormatTypes.Currency,
-                //DataEntryMode = DataEntryModes.ValidateOnly,
-                Precision = culture.NumberFormat.CurrencyDecimalDigits
-            };
 
             var saleDetails = new List<SaleDetail>();
 

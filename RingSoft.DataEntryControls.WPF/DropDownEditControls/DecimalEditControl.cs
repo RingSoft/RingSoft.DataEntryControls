@@ -88,7 +88,6 @@ namespace RingSoft.DataEntryControls.WPF
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(typeof(DecimalEditControl)));
             PrecisionProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(2));
-            NumberFormatStringProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata("N2"));
             TextAlignmentProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(TextAlignment.Right));
         }
 
