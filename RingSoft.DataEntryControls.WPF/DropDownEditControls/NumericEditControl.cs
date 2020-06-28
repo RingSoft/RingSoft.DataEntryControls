@@ -307,9 +307,23 @@ namespace RingSoft.DataEntryControls.WPF
                         case Key.Delete:
                             _numericProcessor.OnDeleteKeyDown(GetSetup());
                             return true;
+                        case Key.Decimal:
+                            if (_numericProcessor.ProcessDecimal(GetSetup()) == ProcessCharResults.ValidationFailed)
+                                System.Media.SystemSounds.Exclamation.Play();
+
+                            return true;
                     }
                     break;
                 case DataEntryModes.ValidateOnly:
+                    switch (key)
+                    {
+                        case Key.Decimal:
+                            if (_numericProcessor.ProcessDecimal(GetSetup()) == ProcessCharResults.ValidationFailed)
+                                System.Media.SystemSounds.Exclamation.Play();
+
+                            return true;
+                    }
+                    break;
                 case DataEntryModes.RawEntry:
                     break;
                 default:

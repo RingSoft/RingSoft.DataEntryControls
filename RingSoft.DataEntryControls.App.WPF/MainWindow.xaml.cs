@@ -80,6 +80,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             {
                 Culture = culture,
                 EditFormatType = NumericEditFormatTypes.Currency,
+                //DataEntryMode = DataEntryModes.ValidateOnly,
                 Precision = culture.NumberFormat.CurrencyDecimalDigits
             };
 

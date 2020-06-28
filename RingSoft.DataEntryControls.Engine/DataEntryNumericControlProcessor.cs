@@ -70,9 +70,6 @@ namespace RingSoft.DataEntryControls.Engine
                     return ProcessNumberDigit(keyChar);
             }
 
-            if (stringChar == _setup.Culture.NumberFormat.CurrencyDecimalSeparator)
-                return ProcessDecimal(keyChar);
-
             return ProcessNonNumericChar(keyChar);
         }
 
@@ -204,25 +201,35 @@ namespace RingSoft.DataEntryControls.Engine
             return ValidateNewText(newText);
         }
 
-        protected virtual ProcessCharResults ProcessDecimal(char decimalChar)
+        public virtual ProcessCharResults ProcessDecimal(DataEntryNumericEditSetup setup)
         {
-            if (!ValidateDecimal(decimalChar))
+            _setup = setup;
+            var decimalString = _setup.Culture.NumberFormat.CurrencyDecimalSeparator;
+
+            if (!ValidateDecimal(decimalString))
                 return ProcessCharResults.ValidationFailed;
 
-            if (_setup.DataEntryMode != DataEntryModes.FormatOnEntry)
-                return ProcessCharResults.Ignored;
-
             var numericProperties = GetNumericTextProperties();
-            var newText = numericProperties.LeftText + decimalChar + numericProperties.RightText;
+            var newText = numericProperties.LeftText + decimalString + numericProperties.RightText;
+
+            if (_setup.DataEntryMode == DataEntryModes.ValidateOnly)
+            {
+                var valSelectionStart = Control.SelectionStart;
+                Control.Text = newText;
+                Control.SelectionStart = valSelectionStart + 1;
+                return ProcessCharResults.Processed;
+            }
+
             var oldCurrencyPosition =
                 newText.IndexOf(_setup.Culture.NumberFormat.CurrencySymbol, StringComparison.Ordinal);
+
             var oldSymbolCount = CountNumberSymbols(newText);
 
             var selectionIncrement = 0;
             var newValue = newText = StripNonNumericCharacters(newText);
-            if (newValue == decimalChar.ToString())
+            if (newValue == decimalString.ToString())
             {
-                newValue = newText = $"0{decimalChar}";
+                newValue = newText = $"0{decimalString}";
                 selectionIncrement++;
             }
 
@@ -261,7 +268,7 @@ namespace RingSoft.DataEntryControls.Engine
             return formattedText.CountTextForChars(searchString);
         }
 
-        private bool ValidateDecimal(char decimalChar)
+        private bool ValidateDecimal(string decimalString)
         {
             if (_setup.Precision <= 0)
                 return false;
@@ -269,10 +276,10 @@ namespace RingSoft.DataEntryControls.Engine
             var numericText = GetNumericTextProperties();
             var checkNewText = numericText.LeftText + numericText.RightText;
 
-            if (checkNewText.Contains(decimalChar.ToString()))
+            if (checkNewText.Contains(decimalString))
                 return false;
 
-            var newText = numericText.LeftText + decimalChar.ToString() + numericText.RightText;
+            var newText = numericText.LeftText + decimalString + numericText.RightText;
             return ValidateNewText(newText);
         }
 

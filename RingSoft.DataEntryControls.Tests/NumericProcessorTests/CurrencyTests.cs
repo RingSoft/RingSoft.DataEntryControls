@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual(6, control.SelectionStart, "Fourth Digit");
             Assert.AreEqual(1234, (double)processor.Value, "Fourth Digit Value");
 
-            processor.ProcessChar(_setup, '.');
+            processor.ProcessDecimal(_setup);
             Assert.AreEqual("$1,234.", control.Text, "Decimal Point");
             Assert.AreEqual(7, control.SelectionStart, "Decimal Point");
             Assert.AreEqual(1234, (double)processor.Value, "Decimal Point Value");
@@ -148,28 +148,28 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             };
             var processor = new DataEntryNumericControlProcessor(control);
 
-            var result = processor.ProcessChar(_setup, '.');
+            var result = processor.ProcessDecimal(_setup);
             Assert.AreEqual(ProcessCharResults.ValidationFailed, result, "Validate Decimal Add Second Decimal Point");
 
             result = processor.ProcessChar(_setup, '7');
             Assert.AreEqual(ProcessCharResults.ValidationFailed, result, "Validate Decimal Add Third Decimal Digit");
         }
 
-        [TestMethod]
-        public void CurrencyNumber_AddDigitBeforeCurrencySymbol()
-        {
-            var control = new TestNumericControl()
-            {
-                Text = "$1,234,567.89",
-                SelectionStart = 0,
-                SelectionLength = 0
-            };
-            var processor = new DataEntryNumericControlProcessor(control);
+        //[TestMethod]
+        //public void CurrencyNumber_AddDigitBeforeCurrencySymbol()
+        //{
+        //    var control = new TestNumericControl()
+        //    {
+        //        Text = "$1,234,567.89",
+        //        SelectionStart = 0,
+        //        SelectionLength = 0
+        //    };
+        //    var processor = new DataEntryNumericControlProcessor(control);
 
-            processor.ProcessChar(_setup, '1');
-            Assert.AreEqual("$11,234,567.89", control.Text, "Add Digit Before Currency Symbol");
-            Assert.AreEqual(2, control.SelectionStart, "Add Digit Before Currency Symbol");
-            Assert.AreEqual(11234567.89, (double)processor.Value, "Add Digit Before Currency Symbol");
-        }
+        //    processor.ProcessChar(_setup, '1');
+        //    Assert.AreEqual("$11,234,567.89", control.Text, "Add Digit Before Currency Symbol");
+        //    Assert.AreEqual(2, control.SelectionStart, "Add Digit Before Currency Symbol");
+        //    Assert.AreEqual(11234567.89, (double)processor.Value, "Add Digit Before Currency Symbol");
+        //}
     }
 }
