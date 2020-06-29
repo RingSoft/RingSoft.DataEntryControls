@@ -159,11 +159,9 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnValueChanged(string newValue)
         {
-            newValue = newValue.NumTextToString();
             _textSettingValue = true;
 
-            if (decimal.TryParse(newValue, out var newResult))
-                Value = newResult;
+            Value = newValue.ToDecimal(Culture);
 
             _textSettingValue = false;
 
