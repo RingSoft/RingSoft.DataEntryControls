@@ -20,24 +20,29 @@ namespace RingSoft.DataEntryControls.Engine
         }
     }
 
-    public class NumericTextProperties
-    {
-        public string CharacterBeingProcessed { get; set; }
-        public string LeftText { get; set; }
-        public string SelectedText { get; set; }
-        public string RightText { get; set; }
-        public int DecimalPosition { get; set; } = -1;
-        public bool SymbolExists { get; set; }
-        public NumberSymbolLocations SymbolLocation { get; set; }
-        public string SymbolText { get; set; }
-        public int GroupSeparatorCount { get; set; }
-        public string NewWholeNumberText { get; set; }
-        public string NewDecimalText { get; set; }
-        public int NegativeSignIndex { get; set; } = -1;
-    }
-
     public class DataEntryNumericControlProcessor
     {
+        private class NumericTextProperties
+        {
+            public string CharacterBeingProcessed { get; set; }
+            public string LeftText { get; set; }
+            public string SelectedText { get; set; }
+            public string RightText { get; set; }
+            public int DecimalPosition { get; set; } = -1;
+            public bool SymbolExists { get; set; }
+            public SymbolProperties SymbolProperties { get; set; }
+            public int GroupSeparatorCount { get; set; }
+            public string NewWholeNumberText { get; set; }
+            public string NewDecimalText { get; set; }
+            public int NegativeSignIndex { get; set; } = -1;
+        }
+
+        private class SymbolProperties
+        {
+            public NumberSymbolLocations SymbolLocation { get; set; }
+            public string SymbolText { get; set; }
+        }
+
         public INumericControl Control { get; }
 
         public decimal Value { get; private set; }
@@ -105,7 +110,30 @@ namespace RingSoft.DataEntryControls.Engine
             return newText;
         }
 
-        protected NumericTextProperties GetNumericTextProperties(string charText)
+        private SymbolProperties GetSymbolProperties()
+        {
+            var result = new SymbolProperties();
+
+            switch (_setup.EditFormatType)
+            {
+                case NumericEditFormatTypes.Currency:
+                    result.SymbolText = _setup.CurrencyText;
+                    result.SymbolLocation = _setup.CurrencySymbolLocation;
+                    break;
+                case NumericEditFormatTypes.Number:
+                    break;
+                case NumericEditFormatTypes.Percent:
+                    result.SymbolText = _setup.PercentText;
+                    result.SymbolLocation = _setup.PercentSymbolLocation;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return result;
+        }
+
+        private NumericTextProperties GetNumericTextProperties(string charText)
         {
             return GetNumericPropertiesForText(Control.Text, Control.SelectionStart, Control.SelectionLength, charText);
         }
@@ -118,23 +146,20 @@ namespace RingSoft.DataEntryControls.Engine
                 CharacterBeingProcessed = charText,
                 LeftText = controlText.LeftStr(selectionStart),
                 SelectedText = controlText.MidStr(selectionStart, selectionLength),
-                RightText = controlText.GetRightText(selectionStart, selectionLength)
+                RightText = controlText.GetRightText(selectionStart, selectionLength),
+                SymbolProperties = GetSymbolProperties()
             };
 
             var newText = result.LeftText + charText + result.RightText;
             switch (_setup.EditFormatType)
             {
                 case NumericEditFormatTypes.Currency:
-                    result.SymbolText = _setup.CurrencyText;
-                    result.SymbolLocation = _setup.CurrencySymbolLocation;
-                    result.SymbolExists = newText.IndexOf(result.SymbolText, StringComparison.Ordinal) >= 0;
+                    result.SymbolExists = newText.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal) >= 0;
                     break;
                 case NumericEditFormatTypes.Number:
                     break;
                 case NumericEditFormatTypes.Percent:
-                    result.SymbolText = _setup.PercentText;
-                    result.SymbolLocation = _setup.PercentSymbolLocation;
-                    result.SymbolExists = newText.IndexOf(result.SymbolText, StringComparison.Ordinal) >= 0;
+                    result.SymbolExists = newText.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal) >= 0;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -195,11 +220,11 @@ namespace RingSoft.DataEntryControls.Engine
 
         private int UpdateSelectionStart(NumericTextProperties numericTextProperties, int newSelectionStart)
         {
-            switch (numericTextProperties.SymbolLocation)
+            switch (numericTextProperties.SymbolProperties.SymbolLocation)
             {
                 case NumberSymbolLocations.Prefix:
-                    if (!numericTextProperties.SymbolExists && !numericTextProperties.SymbolText.IsNullOrEmpty())
-                        newSelectionStart += numericTextProperties.SymbolText.Length;
+                    if (!numericTextProperties.SymbolExists && !numericTextProperties.SymbolProperties.SymbolText.IsNullOrEmpty())
+                        newSelectionStart += numericTextProperties.SymbolProperties.SymbolText.Length;
                     break;
                 case NumberSymbolLocations.Suffix:
                     break;
@@ -210,7 +235,7 @@ namespace RingSoft.DataEntryControls.Engine
             return newSelectionStart;
         }
 
-        public string GetNewValue(NumericTextProperties numericTextProperties)
+        private string GetNewValue(NumericTextProperties numericTextProperties)
         {
             var result = numericTextProperties.NewWholeNumberText;
             if (!numericTextProperties.NewDecimalText.IsNullOrEmpty())
@@ -278,8 +303,8 @@ namespace RingSoft.DataEntryControls.Engine
             }
 
             var symbolPosition = -1;
-            if (!numericTextProperties.SymbolText.IsNullOrEmpty())
-                symbolPosition = wholeNumberText.IndexOf(numericTextProperties.SymbolText,
+            if (!numericTextProperties.SymbolProperties.SymbolText.IsNullOrEmpty())
+                symbolPosition = wholeNumberText.IndexOf(numericTextProperties.SymbolProperties.SymbolText,
                     StringComparison.Ordinal);
 
             if (symbolPosition > 0)
@@ -294,7 +319,7 @@ namespace RingSoft.DataEntryControls.Engine
                 result = wholeNumberText + decimalText;
 
             if (symbolPosition > 0)
-                result += numericTextProperties.SymbolText;
+                result += numericTextProperties.SymbolProperties.SymbolText;
 
             return result;
         }
@@ -407,9 +432,29 @@ namespace RingSoft.DataEntryControls.Engine
         public virtual void OnBackspaceKeyDown(DataEntryNumericEditSetup setup)
         {
             _setup = setup;
+            var symbolProperties = GetSymbolProperties();
+            var symbolIndex = -1;
+            if (!symbolProperties.SymbolText.IsNullOrEmpty())
+                symbolIndex = Control.Text.IndexOf(symbolProperties.SymbolText, StringComparison.Ordinal);
+
             if (Control.SelectionStart > 0)
             {
-                if (Control.SelectionLength == 0)
+                switch (symbolProperties.SymbolLocation)
+                {
+                    case NumberSymbolLocations.Prefix:
+                        var firstDigitIndex = symbolIndex + symbolProperties.SymbolText.Length + 1;
+                        if (Control.SelectionStart < firstDigitIndex && Control.SelectionStart > symbolIndex)
+                        {
+                            Control.SelectionStart = symbolIndex;
+                            return;
+                        }
+                        break;
+                    case NumberSymbolLocations.Suffix:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                if (Control.SelectionLength == 0 && Control.SelectionStart > 0)
                 {
                     Control.SelectionStart--;
                     Control.SelectionLength = 1;
@@ -420,7 +465,7 @@ namespace RingSoft.DataEntryControls.Engine
             {
                 var numericTextProperties = GetNumericTextProperties(string.Empty);
                 var newText = numericTextProperties.LeftText + numericTextProperties.RightText;
-                var oldSymbolCount = CountNumberGroupSeparators(newText);
+                var oldGroupSeparatorCount = CountNumberGroupSeparators(newText);
 
                 var newValue = newText = StripNonNumericCharacters(newText);
 
@@ -436,7 +481,7 @@ namespace RingSoft.DataEntryControls.Engine
                 var newSymbolCount = CountNumberGroupSeparators(newText);
 
                 var selectionStart = Control.SelectionStart;
-                selectionStart -= oldSymbolCount - newSymbolCount;
+                selectionStart -= oldGroupSeparatorCount - newSymbolCount;
                 if (selectionStart < 0)
                     selectionStart = 0;
 
