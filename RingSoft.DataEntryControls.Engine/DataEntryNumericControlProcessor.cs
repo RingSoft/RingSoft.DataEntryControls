@@ -32,7 +32,7 @@ namespace RingSoft.DataEntryControls.Engine
         public int GroupSeparatorCount { get; set; }
         public string NewWholeNumberText { get; set; }
         public string NewDecimalText { get; set; }
-        public bool IsNegative { get; set; }
+        public int NegativeSignIndex { get; set; } = -1;
     }
 
     public class DataEntryNumericControlProcessor
@@ -83,21 +83,13 @@ namespace RingSoft.DataEntryControls.Engine
         public string FormatTextForEntry(DataEntryNumericEditSetup setup, string controlText)
         {
             _setup = setup;
-            var value = decimal.Parse(controlText,
-                System.Globalization.NumberStyles.AllowParentheses |
-                System.Globalization.NumberStyles.AllowLeadingWhite |
-                System.Globalization.NumberStyles.AllowTrailingWhite |
-                System.Globalization.NumberStyles.AllowThousands |
-                System.Globalization.NumberStyles.AllowDecimalPoint |
-                System.Globalization.NumberStyles.AllowCurrencySymbol |
-                System.Globalization.NumberStyles.AllowLeadingSign, _setup.Culture);
-
+            var value = controlText.ToDecimal(_setup.Culture);
             var decimalText = value.ToString(CultureInfo.InvariantCulture);
 
             var numericTextProperties =
-                GetNumericPropertiesForText(decimalText, decimalText.Length - 1, 0, string.Empty);
+                GetNumericPropertiesForText(decimalText, decimalText.Length, 0, string.Empty);
 
-            var newText = GetFormattedText(new NumericTextProperties());
+            var newText = GetFormattedText(numericTextProperties);
             return newText;
         }
 
@@ -141,6 +133,8 @@ namespace RingSoft.DataEntryControls.Engine
 
             var newText = result.LeftText + charText + result.RightText;
             newText = StripNonNumericCharacters(newText);
+            result.NegativeSignIndex = newText.IndexOf('-');
+
             result.NewWholeNumberText = newText;
 
             var newDecimalPosition = GetDecimalPosition(newText);
@@ -221,22 +215,29 @@ namespace RingSoft.DataEntryControls.Engine
             if ((wholeNumberText + decimalText).IsNullOrEmpty())
                 return result;
 
-            var wholeNumber = (decimal)0;
-            if (!wholeNumberText.IsNullOrEmpty())
-                wholeNumber = decimal.Parse(wholeNumberText);
+            var wholeNumber = wholeNumberText.ToDecimal(_setup.Culture);
+            var isNegative = wholeNumber < 0;
+            if (isNegative)
+                wholeNumber *= -1;
 
             switch (_setup.EditFormatType)
             {
                 case NumericEditFormatTypes.Number:
                     wholeNumberText = wholeNumber.ToString("N0", _setup.Culture);
+                    if (!decimalText.IsNullOrEmpty())
+                        decimalText = $"{_setup.Culture.NumberFormat.NumberDecimalSeparator}{decimalText}";
                     break;
                 case NumericEditFormatTypes.Currency:
                     wholeNumberText = wholeNumber.ToString("C0", _setup.Culture);
+                    if (!decimalText.IsNullOrEmpty())
+                        decimalText = $"{_setup.Culture.NumberFormat.CurrencyDecimalSeparator}{decimalText}";
                     break;
                 case NumericEditFormatTypes.Percent:
                     var percentNumber = decimal.Parse(numericTextProperties.NewWholeNumberText);
                     percentNumber = percentNumber / 100;
-                    result = percentNumber.ToString($"P{_setup.Precision}", _setup.Culture.NumberFormat);
+                    wholeNumberText = percentNumber.ToString("P0", _setup.Culture.NumberFormat);
+                    if (!decimalText.IsNullOrEmpty())
+                        decimalText = $"{_setup.Culture.NumberFormat.NumberDecimalSeparator}{decimalText}";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -247,6 +248,9 @@ namespace RingSoft.DataEntryControls.Engine
 
             if (symbolPosition > 0)
                 wholeNumberText = wholeNumberText.LeftStr(symbolPosition);
+
+            if (isNegative)
+                wholeNumberText = $"-{wholeNumberText}";
 
             result = wholeNumberText + decimalText;
 

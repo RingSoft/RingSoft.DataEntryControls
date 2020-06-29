@@ -120,5 +120,23 @@ namespace RingSoft.DataEntryControls.Engine
 
             return result;
         }
+
+        public static decimal ToDecimal(this string text, CultureInfo culture = null)
+        {
+            if (culture == null)
+                culture = CultureInfo.CurrentCulture;
+
+            decimal.TryParse(text,
+                NumberStyles.AllowParentheses |
+                NumberStyles.AllowLeadingWhite |
+                NumberStyles.AllowTrailingWhite |
+                NumberStyles.AllowThousands |
+                NumberStyles.AllowDecimalPoint |
+                NumberStyles.AllowCurrencySymbol |
+                NumberStyles.AllowLeadingSign,
+                culture, out var result);
+
+            return result;
+        }
     }
 }
