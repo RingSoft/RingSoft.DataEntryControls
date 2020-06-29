@@ -83,7 +83,15 @@ namespace RingSoft.DataEntryControls.Engine
         public string FormatTextForEntry(DataEntryNumericEditSetup setup, string controlText)
         {
             _setup = setup;
-            var value = decimal.Parse(controlText, _setup.Culture.NumberFormat);
+            var value = decimal.Parse(controlText,
+                System.Globalization.NumberStyles.AllowParentheses |
+                System.Globalization.NumberStyles.AllowLeadingWhite |
+                System.Globalization.NumberStyles.AllowTrailingWhite |
+                System.Globalization.NumberStyles.AllowThousands |
+                System.Globalization.NumberStyles.AllowDecimalPoint |
+                System.Globalization.NumberStyles.AllowCurrencySymbol |
+                System.Globalization.NumberStyles.AllowLeadingSign, _setup.Culture);
+
             var decimalText = value.ToString(CultureInfo.InvariantCulture);
 
             var numericTextProperties =
