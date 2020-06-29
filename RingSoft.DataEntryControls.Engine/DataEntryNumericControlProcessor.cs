@@ -86,6 +86,17 @@ namespace RingSoft.DataEntryControls.Engine
             var value = controlText.ToDecimal(_setup.Culture);
             var decimalText = value.ToString(CultureInfo.InvariantCulture);
 
+            switch (_setup.DataEntryMode)
+            {
+                case DataEntryModes.FormatOnEntry:
+                    break;
+                case DataEntryModes.ValidateOnly:
+                case DataEntryModes.RawEntry:
+                    return decimalText;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             var numericTextProperties =
                 GetNumericPropertiesForText(decimalText, decimalText.Length, 0, string.Empty);
 

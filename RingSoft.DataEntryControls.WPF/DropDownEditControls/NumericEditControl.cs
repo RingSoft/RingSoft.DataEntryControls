@@ -230,9 +230,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void SetText(string text)
         {
-            text = text.NumTextToString(Culture);
-            decimal.TryParse(text, out var newResult);
-            SetText(newResult);
+            SetText(text.ToDecimal(Culture));
         }
 
         protected void SetText(decimal? newValue)
@@ -250,8 +248,9 @@ namespace RingSoft.DataEntryControls.WPF
                 var value = (decimal) newValue;
                 var newText = value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
                 if (TextBox.IsFocused)
-                    newText = _numericProcessor.FormatTextForEntry(setup, newText);
-                TextBox.Text = newText;
+                    OnFocusedSetText(newText, setup);
+                else 
+                    TextBox.Text = newText;
             }
 
             _settingText = false;
@@ -259,8 +258,16 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void OnTextBoxGotFocus()
         {
-            TextBox.Text = _numericProcessor.FormatTextForEntry(GetSetup(), TextBox.Text);
+            OnFocusedSetText(TextBox.Text, GetSetup());
             base.OnTextBoxGotFocus();
+        }
+
+        private void OnFocusedSetText(string newText, DataEntryNumericEditSetup setup)
+        {
+            if (TextBox != null)
+            {
+                TextBox.Text = _numericProcessor.FormatTextForEntry(setup, newText);
+            }
         }
 
         private DataEntryNumericEditSetup GetSetup()
