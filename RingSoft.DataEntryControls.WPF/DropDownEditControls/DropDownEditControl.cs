@@ -176,8 +176,13 @@ namespace RingSoft.DataEntryControls.WPF
                 e.Handled = true;
         }
 
+        protected virtual void OnTextBoxGotFocus()
+        {
+
+        }
         private void _textBox_GotFocus(object sender, RoutedEventArgs e)
         {
+            OnTextBoxGotFocus();
             _textBox.SelectionStart = 0;
             _textBox.SelectionLength = _textBox.Text.Length;
         }

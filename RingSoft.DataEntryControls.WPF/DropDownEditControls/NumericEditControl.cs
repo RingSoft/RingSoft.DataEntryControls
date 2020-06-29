@@ -248,10 +248,19 @@ namespace RingSoft.DataEntryControls.WPF
             else
             {
                 var value = (decimal) newValue;
-                TextBox.Text = value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
+                var newText = value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
+                if (TextBox.IsFocused)
+                    newText = _numericProcessor.FormatTextForEntry(setup, newText);
+                TextBox.Text = newText;
             }
 
             _settingText = false;
+        }
+
+        protected override void OnTextBoxGotFocus()
+        {
+            TextBox.Text = _numericProcessor.FormatTextForEntry(GetSetup(), TextBox.Text);
+            base.OnTextBoxGotFocus();
         }
 
         private DataEntryNumericEditSetup GetSetup()
