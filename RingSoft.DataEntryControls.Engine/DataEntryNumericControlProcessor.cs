@@ -437,13 +437,30 @@ namespace RingSoft.DataEntryControls.Engine
             if (!symbolProperties.SymbolText.IsNullOrEmpty())
                 symbolIndex = Control.Text.IndexOf(symbolProperties.SymbolText, StringComparison.Ordinal);
 
+            var firstDigitIndex = symbolIndex + symbolProperties.SymbolText.Length;
             if (Control.SelectionStart > 0)
             {
                 switch (symbolProperties.SymbolLocation)
                 {
                     case NumberSymbolLocations.Prefix:
-                        var firstDigitIndex = symbolIndex + symbolProperties.SymbolText.Length + 1;
-                        if (Control.SelectionStart < firstDigitIndex && Control.SelectionStart > symbolIndex)
+                        if (Control.SelectionStart <= firstDigitIndex && Control.SelectionLength > 0)
+                        {
+                            if (Control.SelectionStart + Control.SelectionLength > firstDigitIndex)
+                            {
+                                //User selects digits next to symbol.  Reset selection start to be the first digit.
+                                //Select text that was selected beyond the first digit.
+                                var newSelectionLength =
+                                    (Control.SelectionStart + Control.SelectionLength) - firstDigitIndex;
+                                Control.SelectionStart = firstDigitIndex;
+                                Control.SelectionLength = newSelectionLength;
+                            }
+                            else
+                            {
+                                Control.SelectionStart = firstDigitIndex;
+                                Control.SelectionLength = 0;
+                            }
+                        }
+                        if (Control.SelectionStart <= firstDigitIndex && Control.SelectionStart > symbolIndex && Control.SelectionLength == 0)
                         {
                             Control.SelectionStart = symbolIndex;
                             return;
@@ -476,12 +493,17 @@ namespace RingSoft.DataEntryControls.Engine
                 else
                 {
                     newText = GetFormattedText(numericTextProperties);
+                    if (numericTextProperties.NewWholeNumberText == "0" &&
+                        numericTextProperties.NewDecimalText.IsNullOrEmpty() &&
+                        numericTextProperties.DecimalPosition >= 0)
+                        newText = string.Empty;
                 }
 
                 var newSymbolCount = CountNumberGroupSeparators(newText);
 
                 var selectionStart = Control.SelectionStart;
-                selectionStart -= oldGroupSeparatorCount - newSymbolCount;
+                if (selectionStart > firstDigitIndex)
+                    selectionStart -= oldGroupSeparatorCount - newSymbolCount;
                 if (selectionStart < 0)
                     selectionStart = 0;
 
