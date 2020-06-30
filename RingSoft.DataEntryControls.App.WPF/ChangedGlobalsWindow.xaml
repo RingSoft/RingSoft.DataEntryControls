@@ -8,6 +8,6 @@
         mc:Ignorable="d"
         Title="ChangedGlobalsWindow" Height="450" Width="800">
     <Grid>
-        <xctk:XceedDecimalEditControl Width="100" EditFormatType="Currency"/>
+        <!--<xctk:XceedDecimalEditControl Width="100" EditFormatType="Currency"/>-->
     </Grid>
 </dec:BaseWindow>

@@ -9,6 +9,6 @@
     <UserControl.Resources>
     </UserControl.Resources>
     <Grid>
-        <local:XceedDecimalEditControl Height="30"/>
+        <!--<local:XceedDecimalEditControl Height="30"/>-->
     </Grid>
 </UserControl>

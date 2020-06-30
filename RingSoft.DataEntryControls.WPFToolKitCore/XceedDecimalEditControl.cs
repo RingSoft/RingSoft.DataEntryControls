@@ -35,9 +35,9 @@ namespace RingSoft.DataEntryControls.WPFToolKitCore
 
     public class XceedDecimalEditControl : DecimalEditControl
     {
-        static XceedDecimalEditControl()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(XceedDecimalEditControl), new FrameworkPropertyMetadata(typeof(XceedDecimalEditControl)));
-        }
+        //static XceedDecimalEditControl()
+        //{
+        //    DefaultStyleKeyProperty.OverrideMetadata(typeof(XceedDecimalEditControl), new FrameworkPropertyMetadata(typeof(XceedDecimalEditControl)));
+        //}
     }
 }

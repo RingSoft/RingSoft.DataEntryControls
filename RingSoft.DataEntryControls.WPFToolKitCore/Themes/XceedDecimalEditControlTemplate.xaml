@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+                    xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
                     xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPFToolKitCore">
-    <Style TargetType="{x:Type local:XceedDecimalEditControl}">
+    <Style TargetType="{x:Type dec:DecimalEditControl}" x:Key="XceedDecimalEditControl">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:XceedDecimalEditControl}">
+                <ControlTemplate TargetType="{x:Type dec:DecimalEditControl}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">

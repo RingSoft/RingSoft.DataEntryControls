@@ -3,35 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RingSoft.DataEntryControls.App.WPF"
              xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
-             xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-             xmlns:xctk="clr-namespace:RingSoft.DataEntryControls.WPFToolKitCore;assembly=RingSoft.DataEntryControls.WPFToolKitCore">
+             xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF">
     <Application.Resources>
-        <dec:EnumConverter x:Key="EnumConverter"/>
-        <local:AppGridEditHostFactory x:Key="AppGridEditHostFactory"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/RingSoft.DataEntryControls.WPFToolKitCore;component/Themes/XceedDecimalEditControlTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <dec:EnumConverter x:Key="EnumConverter" />
+            <local:AppGridEditHostFactory x:Key="AppGridEditHostFactory" />
 
-        <Style TargetType="xctk:XceedDecimalEditControl">
-            <Setter Property="CultureId" Value="{Binding Source={x:Static local:Globals.CultureId}}"/>
-            <Setter Property="Precision" Value="{Binding Source={x:Static local:Globals.Precision}}"/>
-        </Style>
-        <Style TargetType="deg:DataEntryGrid">
-            <Setter Property="ControlHostFactory" Value="{StaticResource AppGridEditHostFactory}"/>
-            <Setter Property="EnterToTab" Value="True"/>
-            <Setter Property="CancelEditOnEscape" Value="True"/>
-            <Setter Property="GridLinesVisibility" Value="None"/>
-            <Setter Property="AlternationCount" Value="2"/>
-        </Style>
-        <Style TargetType="{x:Type DataGridRow}">
-            <Style.Triggers>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Setter Property="Background" Value="Aqua" />
-                </Trigger>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                    <Setter Property="Background" Value="White" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
+            <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource XceedDecimalEditControl}">
+                <Setter Property="CultureId" Value="{Binding Source={x:Static local:Globals.CultureId}}" />
+                <Setter Property="Precision" Value="{Binding Source={x:Static local:Globals.Precision}}" />
+            </Style>
+            <Style TargetType="deg:DataEntryGrid">
+                <Setter Property="ControlHostFactory" Value="{StaticResource AppGridEditHostFactory}" />
+                <Setter Property="EnterToTab" Value="True" />
+                <Setter Property="CancelEditOnEscape" Value="True" />
+                <Setter Property="GridLinesVisibility" Value="None" />
+                <Setter Property="AlternationCount" Value="2" />
+            </Style>
+            <Style TargetType="{x:Type DataGridRow}">
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                        <Setter Property="Background" Value="Aqua" />
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                        <Setter Property="Background" Value="White" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
