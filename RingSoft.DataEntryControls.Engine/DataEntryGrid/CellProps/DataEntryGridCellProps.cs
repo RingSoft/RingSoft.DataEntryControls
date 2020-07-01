@@ -7,6 +7,7 @@
         public const int ComboBoxHostId = 1;
         public const int CheckBoxHostId = 2;
         public const int ButtonHostId = 3;
+        public const int DecimalEditHostId = 4;
 
         public abstract int EditingControlId { get; }
 

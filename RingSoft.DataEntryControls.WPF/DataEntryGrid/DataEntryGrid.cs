@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
@@ -647,6 +648,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
 
             base.OnBeginningEdit(e);
+        }
+
+        protected override void OnPreparingCellForEdit(DataGridPreparingCellForEditEventArgs e)
+        {
+            var element = e.EditingElement;
+
+            element.Dispatcher.BeginInvoke(
+                DispatcherPriority.Input,
+                new Action(() => element.MoveFocus(
+                    new TraversalRequest(FocusNavigationDirection.First))));
+
+            base.OnPreparingCellForEdit(e);
         }
 
         private void EditingControlHost_UpdateSource(object sender, DataEntryGridCellProps e)

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
-using System.Globalization;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using System;
+using System.Drawing;
 
 namespace RingSoft.DataEntryControls.App.WPF
 {
@@ -15,8 +14,11 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public double Price { get; set; }
 
+        public DataEntryNumericEditSetup PriceSetup { get; } = Globals.GetNumericEditSetup();
+
         public AppGridNonInventoryRow(AppGridManager manager) : base(manager)
         {
+            PriceSetup.EditFormatType = NumericEditFormatTypes.Currency;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -36,7 +38,7 @@ namespace RingSoft.DataEntryControls.App.WPF
                     };
                     break;
                 case AppGridColumns.Price:
-                    result = new DataEntryGridTextCellProps(this, columnId) { Text = Price.ToString(CultureInfo.InvariantCulture)};
+                    result = new DataEntryGridDecimalCellProps(this, columnId, PriceSetup, (decimal)Price);
                     break;
             }
 
@@ -60,8 +62,9 @@ namespace RingSoft.DataEntryControls.App.WPF
                 case AppGridColumns.Location:
                     break;
                 case AppGridColumns.Price:
-                    double.TryParse(value.Text, out var price);
-                    Price = price;
+                    var decimalCellProps = (DataEntryGridDecimalCellProps)value;
+                    if (decimalCellProps.Value != null)
+                        Price = (double)decimalCellProps.Value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

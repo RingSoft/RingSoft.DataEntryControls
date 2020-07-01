@@ -181,9 +181,14 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
-        public string FormatValue(decimal value)
+        public string FormatValue(decimal? value)
         {
-            return value.ToString(GetNumberFormatString(), Culture.NumberFormat);
+            if (value == null)
+                return string.Empty;
+
+            var newValue = (decimal) value;
+
+            return newValue.ToString(GetNumberFormatString(), Culture.NumberFormat);
         }
     }
 }
