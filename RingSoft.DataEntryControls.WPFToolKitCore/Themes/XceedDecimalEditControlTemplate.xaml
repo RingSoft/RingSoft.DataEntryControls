@@ -22,7 +22,7 @@
                                     </Image>
                                 </Button>
                             </Grid>
-                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom">
+                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
                                 <Grid>
                                     <local:XceedCalculatorControl x:Name="Calculator"/>
                                 </Grid>

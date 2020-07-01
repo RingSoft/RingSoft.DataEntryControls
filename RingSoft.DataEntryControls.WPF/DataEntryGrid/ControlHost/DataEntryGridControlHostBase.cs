@@ -16,6 +16,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public DataEntryGridCellProps CellProps { get; internal set; }
 
+        public abstract bool IsDropDownOpen { get; }
+
         public event EventHandler ControlDirty;
 
         public event EventHandler<DataEntryGridCellProps> UpdateSource;

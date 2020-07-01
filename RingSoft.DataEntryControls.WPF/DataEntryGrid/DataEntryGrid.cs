@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -888,6 +889,22 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewKeyDown(e);
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (EditingControlHost != null)
+            {
+                if (!EditingControlHost.CanGridProcessKey(e.Key))
+                {
+                    //This is so calculator on decimal edit control can process enter key and prevents grid from cancelling edit on Enter.
+                    //We don't set handled because otherwise the calculator won't update the edit control when the user presses Enter to
+                    //get the results of a calculation.
+                    return;
+                }
+            }
+
+            base.OnKeyDown(e);
+        }
+
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
             var currentRowIndex = GetCurrentRowIndex();
@@ -900,7 +917,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 var cell = hitTestResult.VisualHit.GetParentOfType<DataGridCell>();
                 var row = hitTestResult.VisualHit.GetParentOfType<DataGridRow>();
-
                 if (row != null && cell != null)
                 {
                     var mouseRowIndex = Items.IndexOf(row.Item);
@@ -908,8 +924,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                     if (!(mouseRowIndex == currentRowIndex && mouseColumnIndex == currentColumnIndex))
                     {
-                        if (!CancelEdit())
-                            e.Handled = true;
+                        if (!(EditingControlHost != null && EditingControlHost.IsDropDownOpen))
+                        {
+                            if (!CancelEdit())
+                                e.Handled = true;
+                        }
                     }
                 }
             }

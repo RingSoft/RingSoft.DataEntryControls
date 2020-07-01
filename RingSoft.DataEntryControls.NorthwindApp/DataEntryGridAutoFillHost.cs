@@ -9,11 +9,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 {
     public class DataEntryGridAutoFillHost : DataEntryGridControlHost<AutoFillControl>
     {
+        public override bool IsDropDownOpen => Control.ContainsBoxIsOpen;
+
         public DataEntryGridAutoFillCellProps AutoFillCellProps { get; private set; }
 
-                public DataEntryGridAutoFillHost(DataEntryGrid grid) : base(grid)
+        public DataEntryGridAutoFillHost(DataEntryGrid grid) : base(grid)
         {
         }
+
+                
 
         public override DataEntryGridCellProps GetCellValue()
         {

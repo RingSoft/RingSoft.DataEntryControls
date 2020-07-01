@@ -5,6 +5,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
     public class DataEntryGridDecimalControlHost : DataEntryGridControlHost<DecimalEditControl>
     {
+        public override bool IsDropDownOpen => Control.Popup != null && Control.Popup.IsOpen;
+
         public DataEntryGridDecimalCellProps DecimalCellProps { get; private set; }
         public DataEntryGridDecimalControlHost(DataEntryGrid grid) : base(grid)
         {
@@ -81,6 +83,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                             return true;
                         return false;
                     }
+                    break;
+                case Key.Enter:
+                    if (Control.Popup != null && Control.Popup.IsOpen)
+                        return false;
                     break;
             }
             return base.CanGridProcessKey(key);

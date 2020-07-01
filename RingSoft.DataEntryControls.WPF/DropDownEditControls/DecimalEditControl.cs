@@ -42,6 +42,16 @@ namespace RingSoft.DataEntryControls.WPF
     {
         public override NumericEditTypes EditType => NumericEditTypes.Decimal;
 
+        private Expander _expander;
+
+        public Expander Expander
+        {
+            get => _expander;
+            set
+            {
+                _expander = value;
+            }
+        }
         private IDropDownCalculator _calculatorControl;
 
         public IDropDownCalculator CalculatorControl
@@ -95,6 +105,7 @@ namespace RingSoft.DataEntryControls.WPF
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
             CalculatorControl = GetTemplateChild("Calculator") as IDropDownCalculator;
+            Expander = GetTemplateChild("Expander") as Expander;
             base.OnApplyTemplate();
 
             if (_pendingNewValue != null)

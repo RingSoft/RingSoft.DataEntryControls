@@ -7,6 +7,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
     public class DataEntryGridTextBoxHost : DataEntryGridControlHost<TextBox>
     {
+        public override bool IsDropDownOpen => false;
+
         public DataEntryGridTextBoxHost(DataEntryGrid grid) : base(grid)
         {
         }

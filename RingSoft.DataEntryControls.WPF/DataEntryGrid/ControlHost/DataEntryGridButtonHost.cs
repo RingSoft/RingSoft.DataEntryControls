@@ -7,6 +7,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
     {
         public DataEntryGridButtonCellProps ButtonCellProps { get; private set; }
 
+        public override bool IsDropDownOpen => false;
+
         private bool _hasDataChanged;
 
         public DataEntryGridButtonHost(DataEntryGrid grid) : base(grid)

@@ -40,9 +40,9 @@ namespace RingSoft.DataEntryControls.App.WPF
             }
         }
 
-        private decimal _calcValue;
+        private decimal? _calcValue;
 
-        public decimal CalcValue
+        public decimal? CalcValue
         {
             get => _calcValue;
             set
@@ -91,6 +91,14 @@ namespace RingSoft.DataEntryControls.App.WPF
             LoadGridButton.Click += (sender, args) =>
             {
                 GridManager.LoadSaleDetails(saleDetails);
+            };
+
+            TestButton.Click += (sender, args) =>
+            {
+                var win = new DummyWindow();
+                win.Owner = this;
+                win.ShowInTaskbar = false;
+                win.ShowDialog();
             };
         }
 

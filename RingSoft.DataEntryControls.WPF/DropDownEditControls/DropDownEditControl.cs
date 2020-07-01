@@ -172,8 +172,9 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _textBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            if (ProcessKeyChar(e.Text[0]))
-                e.Handled = true;
+            if (e.Text.Length > 0)
+                if (ProcessKeyChar(e.Text[0]))
+                    e.Handled = true;
         }
 
         protected virtual void OnTextBoxGotFocus()

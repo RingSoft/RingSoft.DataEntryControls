@@ -11,6 +11,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         private bool _selectingItem;
         public DataEntryGridComboBoxCellProps ComboBoxCellProps { get; private set; }
 
+        public override bool IsDropDownOpen => Control.IsDropDownOpen;
+
         public DataEntryGridComboBoxHost(DataEntryGrid grid) : base(grid)
         {
         }
