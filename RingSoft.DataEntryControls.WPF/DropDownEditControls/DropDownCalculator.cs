@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 // ReSharper disable once CheckNamespace
@@ -35,16 +36,84 @@ namespace RingSoft.DataEntryControls.WPF
     ///
     /// </summary>
     
-    public class DropDownCalculator : Control, IDropDownCalculator
+    [TemplatePart(Name = "TapeTextBlock", Type = typeof(TextBlock))]
+    [TemplatePart(Name = "EntryTextBlock", Type = typeof(TextBlock))]
+    public class DropDownCalculator : Control, IDropDownCalculator, ICalculatorControl
     {
+        public TextBlock TapeTextBlock { get; set; }
+
+        public TextBlock EntryTextBlock { get; set; }
+
+        public Control Control => this;
+
+        private decimal? _value;
+
+        public decimal? Value
+        {
+            get => _value;
+            set
+            {
+                var oldValue = _value;
+                _value = value;
+
+                SetEntryText(_value);
+                ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, _value));
+            }
+        }
+
+        public int Precision { get; set; }
+
+        public string TapeText
+        {
+            get
+            {
+                if (TapeTextBlock == null)
+                    return string.Empty;
+
+                return TapeTextBlock.Text;
+            }
+            set
+            {
+                if (TapeTextBlock != null)
+                    TapeTextBlock.Text = value;
+            }
+        }
+
+        public string EntryText
+        {
+            get
+            {
+                if (EntryTextBlock == null)
+                    return string.Empty;
+
+                return EntryTextBlock.Text;
+            }
+            set
+            {
+                if (EntryTextBlock != null)
+                    EntryTextBlock.Text = value;
+            }
+        }
+
+
+        public event RoutedPropertyChangedEventHandler<object> ValueChanged;
+
         static DropDownCalculator()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownCalculator), new FrameworkPropertyMetadata(typeof(DropDownCalculator)));
         }
 
-        public Control Control => this;
-        public decimal? Value { get; set; }
-        public int Precision { get; set; }
-        public event RoutedPropertyChangedEventHandler<object> ValueChanged;
+        public override void OnApplyTemplate()
+        {
+            TapeTextBlock = GetTemplateChild(nameof(TapeTextBlock)) as TextBlock;
+            EntryTextBlock = GetTemplateChild(nameof(EntryTextBlock)) as TextBlock;
+            
+            base.OnApplyTemplate();
+        }
+
+        protected void SetEntryText(decimal? value)
+        {
+
+        }
     }
 }

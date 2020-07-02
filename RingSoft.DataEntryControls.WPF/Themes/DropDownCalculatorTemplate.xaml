@@ -20,15 +20,15 @@
                                 BorderBrush="Black"
                                 BorderThickness="2" Width="120">
                         <StackPanel>
-                            <TextBlock x:Name="TapeTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="10" FontSize="8" TextAlignment="Right" Text="0" Margin="5,0,5,0" />
-                            <TextBlock x:Name="EntryTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="20" FontSize="16" FontWeight="Bold" TextAlignment="Right" Text="0" Margin="5,0,5,5"/>
+                            <TextBlock x:Name="TapeTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="20" FontSize="12" TextAlignment="Right" Text="0" Margin="5,0,5,0" />
+                            <TextBlock x:Name="EntryTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="30" FontSize="16" FontWeight="Bold" TextAlignment="Right" Text="0" Margin="5,0,5,5"/>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="18" />
-                                    <RowDefinition Height="18" />
-                                    <RowDefinition Height="18" />
-                                    <RowDefinition Height="18" />
-                                    <RowDefinition Height="18" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="30" />

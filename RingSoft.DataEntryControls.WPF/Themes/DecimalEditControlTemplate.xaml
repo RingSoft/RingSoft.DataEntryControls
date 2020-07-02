@@ -22,10 +22,9 @@
                                     </Image>
                                 </Button>
                             </Grid>
-                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="True" Placement="Bottom" AllowsTransparency="True">
+                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
                                 <Grid>
                                     <local:DropDownCalculator x:Name="Calculator"/>
-                                    <!--<local:DummyCalculator x:Name="Calculator"/>-->
                                 </Grid>
                             </Popup>
                         </StackPanel>
