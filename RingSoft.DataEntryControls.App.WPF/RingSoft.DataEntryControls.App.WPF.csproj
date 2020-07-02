@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RingSoft.DataEntryControls.Engine\RingSoft.DataEntryControls.Engine.csproj" />
-    <ProjectReference Include="..\RingSoft.DataEntryControls.WPFToolKitCore\RingSoft.DataEntryControls.WPFToolKitCore.csproj" />
     <ProjectReference Include="..\RingSoft.DataEntryControls.WPF\RingSoft.DataEntryControls.WPF.csproj" />
   </ItemGroup>
 

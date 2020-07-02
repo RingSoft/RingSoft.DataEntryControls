@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using Xceed.Wpf.Toolkit;
 
 namespace RingSoft.DataEntryControls.App.WPF
 {
@@ -41,7 +40,7 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public Popup Popup { get; set; }
 
-        public Calculator Calculator { get; set; }
+        //public Calculator Calculator { get; set; }
 
         static DummyControl()
         {
@@ -53,7 +52,7 @@ namespace RingSoft.DataEntryControls.App.WPF
         {
             TextBox = GetTemplateChild(nameof(TextBox)) as TextBox;
             Popup = GetTemplateChild(nameof(Popup)) as Popup;
-            Calculator = GetTemplateChild(nameof(Calculator)) as Calculator;
+            //Calculator = GetTemplateChild(nameof(Calculator)) as Calculator;
 
             base.OnApplyTemplate();
 
@@ -65,8 +64,8 @@ namespace RingSoft.DataEntryControls.App.WPF
             if (e.Key == Key.F4)
             {
                 Popup.IsOpen = !Popup.IsOpen;
-                Calculator.Value = (decimal)298.32;
-                Calculator.Focus();
+                //Calculator.Value = (decimal)298.32;
+                //Calculator.Focus();
             }
         }
     }

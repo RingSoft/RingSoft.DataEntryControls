@@ -9,9 +9,26 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <TextBox Name="TextBox" Height="20"/>
-                        </Grid>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Name="TextBox" Height="20"/>
+                                <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16" VerticalAlignment="Stretch">
+                                    <Image
+                                        Source="/RingSoft.DataEntryControls.WPF;component/Resources/calculator16.png">
+                                    </Image>
+                                </Button>
+                            </Grid>
+                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="True" Placement="Bottom" AllowsTransparency="True">
+                                <Grid>
+                                    <local:DropDownCalculator x:Name="Calculator"/>
+                                    <!--<local:DummyCalculator x:Name="Calculator"/>-->
+                                </Grid>
+                            </Popup>
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -34,11 +35,16 @@ namespace RingSoft.DataEntryControls.WPF
     ///
     /// </summary>
     
-    public class DropDownCalculator : Control
+    public class DropDownCalculator : Control, IDropDownCalculator
     {
         static DropDownCalculator()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownCalculator), new FrameworkPropertyMetadata(typeof(DropDownCalculator)));
         }
+
+        public Control Control => this;
+        public decimal? Value { get; set; }
+        public int Precision { get; set; }
+        public event RoutedPropertyChangedEventHandler<object> ValueChanged;
     }
 }

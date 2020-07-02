@@ -6,6 +6,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DecimalEditControlTemplate.xaml"/>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DropDownCalculatorTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 

@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:RingSoft.DataEntryControls.App.WPF"
         xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-        xmlns:xctk="clr-namespace:RingSoft.DataEntryControls.WPFToolKitCore;assembly=RingSoft.DataEntryControls.WPFToolKitCore"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         CloseOnEscape="False"

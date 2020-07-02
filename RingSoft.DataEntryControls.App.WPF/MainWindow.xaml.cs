@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.WPFToolKitCore;
 
 namespace RingSoft.DataEntryControls.App.WPF
 {
