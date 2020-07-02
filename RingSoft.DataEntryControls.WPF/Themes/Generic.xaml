@@ -24,5 +24,4 @@
     <Style TargetType="{x:Type local:NumericEditControl}" x:Key="NumericEditStyle"
            BasedOn="{StaticResource {x:Type local:DropDownEditControl}}">
     </Style>
-
 </ResourceDictionary>
