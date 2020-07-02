@@ -1,6 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     xmlns:local="clr-namespace:RingSoft.DataEntryControls.App.WPF">
 
 
@@ -12,8 +13,10 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel>
-                            <TextBlock x:Name="DummyTextBlock" Height="30" Width="100" HorizontalAlignment="Left" Background="White"/>
-                            <TextBox x:Name="DummyTextBox"/>
+                            <TextBox x:Name="TextBox"/>
+                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
+                                <xctk:Calculator x:Name="Calculator"/>
+                            </Popup>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>

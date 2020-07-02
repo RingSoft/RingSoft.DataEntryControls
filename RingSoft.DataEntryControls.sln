@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RingSoft.DataEntryControls.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RingSoft.DataEntryControls.WPFToolKit", "RingSoft.DataEntryControls.WPFToolKit\RingSoft.DataEntryControls.WPFToolKit.csproj", "{214B513B-CAEF-4748-A2EA-D71BA31CC5A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RingSoft.DataEntryControls.Tests", "RingSoft.DataEntryControls.Tests\RingSoft.DataEntryControls.Tests.csproj", "{D5CD4EC5-7E2A-4139-AB77-06FF7ACD794C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RingSoft.DataEntryControls.Tests", "RingSoft.DataEntryControls.Tests\RingSoft.DataEntryControls.Tests.csproj", "{D5CD4EC5-7E2A-4139-AB77-06FF7ACD794C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXceedApp", "TestXceedApp\TestXceedApp.csproj", "{02FF4F8D-7BD0-4DEB-9896-15FFFDA83235}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xceed.Wpf.Toolkit", "Xceed.Wpf.Toolkit\Xceed.Wpf.Toolkit.csproj", "{72E591D6-8F83-4D8C-8F67-9C325E623234}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{D5CD4EC5-7E2A-4139-AB77-06FF7ACD794C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5CD4EC5-7E2A-4139-AB77-06FF7ACD794C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5CD4EC5-7E2A-4139-AB77-06FF7ACD794C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02FF4F8D-7BD0-4DEB-9896-15FFFDA83235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02FF4F8D-7BD0-4DEB-9896-15FFFDA83235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02FF4F8D-7BD0-4DEB-9896-15FFFDA83235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02FF4F8D-7BD0-4DEB-9896-15FFFDA83235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

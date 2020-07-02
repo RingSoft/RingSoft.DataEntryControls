@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace RingSoft.DataEntryControls.App.WPF
 {
@@ -32,12 +35,13 @@ namespace RingSoft.DataEntryControls.App.WPF
     ///     <MyNamespace:CustomCalculator/>
     ///
     /// </summary>
-    [TemplatePart(Name = "DummyTextBlock", Type = typeof(TextBlock))]
-    [TemplatePart(Name = "DummyTextBox", Type = typeof(TextBox))]
     public class DummyControl : Control
     {
-        public TextBlock DummyTextBlock { get; set; }
-        public TextBox DummyTextBox { get; set; }
+        public TextBox TextBox { get; set; }
+
+        public Popup Popup { get; set; }
+
+        public Calculator Calculator { get; set; }
 
         static DummyControl()
         {
@@ -47,15 +51,23 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public override void OnApplyTemplate()
         {
-            DummyTextBlock = GetTemplateChild("DummyTextBlock") as TextBlock;
-            DummyTextBox = GetTemplateChild("DummyTextBox") as TextBox;
+            TextBox = GetTemplateChild(nameof(TextBox)) as TextBox;
+            Popup = GetTemplateChild(nameof(Popup)) as Popup;
+            Calculator = GetTemplateChild(nameof(Calculator)) as Calculator;
 
             base.OnApplyTemplate();
 
-            DummyTextBox.TextChanged += (sender, args) =>
+            TextBox.KeyDown += DummyTextBox_KeyDown;
+        }
+
+        private void DummyTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.F4)
             {
-                DummyTextBlock.Text = DummyTextBox.Text;
-            };
+                Popup.IsOpen = !Popup.IsOpen;
+                Calculator.Value = (decimal)298.32;
+                Calculator.Focus();
+            }
         }
     }
 }
