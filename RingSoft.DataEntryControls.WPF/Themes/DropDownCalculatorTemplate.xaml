@@ -7,10 +7,12 @@
     </Style>
     <Style TargetType="Button" x:Key="CalcProcessButtonStyle">
         <Setter Property="Background" Value="#FFD1D7E8"/>
+        <Setter Property="IsTabStop" Value="False"/>
     </Style>
     <Style TargetType="Button" x:Key="CalcNumberButtonStyle">
         <Setter Property="Background" Value="FloralWhite"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="IsTabStop" Value="False"/>
     </Style>
     <Style TargetType="{x:Type local:DropDownCalculator}">
         <Setter Property="Template">

@@ -15,11 +15,22 @@ namespace RingSoft.DataEntryControls.Engine
         Backspace = 7
     }
 
+    public enum CalculatorOperators
+    {
+        Add = 0,
+        Subtract = 1,
+        Multiply =  2,
+        Divide = 3
+    }
+
     public class CalculatorProcessor
     {
         public ICalculatorControl Control { get; }
 
         public int Precision { get; set; } = -1;
+
+        private CalculatorOperators? _lastOperator;
+        private decimal _currentValue;
 
         public CalculatorProcessor(ICalculatorControl control)
         {
@@ -123,6 +134,63 @@ namespace RingSoft.DataEntryControls.Engine
         private void ProcessCe()
         {
             SetValue(0);
+        }
+
+        private void ProcessOperator(CalculatorOperators calculatorOperator)
+        {
+            AddToTape(calculatorOperator);
+
+            if (_lastOperator == null)
+            {
+                _lastOperator = calculatorOperator;
+                return;
+            }
+
+            var entryValue = Control.EntryText.ToDecimal();
+            switch (calculatorOperator)
+            {
+                case CalculatorOperators.Add:
+                    _currentValue += entryValue;
+                    break;
+                case CalculatorOperators.Subtract:
+                    _currentValue -= entryValue;
+                    break;
+                case CalculatorOperators.Multiply:
+                    _currentValue *= entryValue;
+                    break;
+                case CalculatorOperators.Divide:
+                    _currentValue /= entryValue;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
+            }
+
+            SetValue(_currentValue);
+        }
+
+        private void AddToTape(CalculatorOperators calculatorOperator)
+        {
+            var operatorText = string.Empty;
+
+            switch (calculatorOperator)
+            {
+                case CalculatorOperators.Add:
+                    operatorText = "+";
+                    break;
+                case CalculatorOperators.Subtract:
+                    operatorText = "-";
+                    break;
+                case CalculatorOperators.Multiply:
+                    operatorText = "X";
+                    break;
+                case CalculatorOperators.Divide:
+                    operatorText = "/";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
+            }
+
+            Control.TapeText += $" {Control.EntryText} {operatorText}";
         }
     }
 }
