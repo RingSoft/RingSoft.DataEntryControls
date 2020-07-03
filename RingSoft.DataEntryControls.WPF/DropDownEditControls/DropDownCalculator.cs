@@ -56,7 +56,7 @@ namespace RingSoft.DataEntryControls.WPF
                 var oldValue = _value;
                 _value = value;
 
-                SetEntryText(_value);
+                _processor.SetValue(value);
                 ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, _value));
             }
         }
@@ -95,12 +95,18 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-
         public event RoutedPropertyChangedEventHandler<object> ValueChanged;
+
+        private CalculatorProcessor _processor;
 
         static DropDownCalculator()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownCalculator), new FrameworkPropertyMetadata(typeof(DropDownCalculator)));
+        }
+
+        public DropDownCalculator()
+        {
+            _processor = new CalculatorProcessor(this);
         }
 
         public override void OnApplyTemplate()
