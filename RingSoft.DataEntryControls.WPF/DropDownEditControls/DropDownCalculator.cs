@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
@@ -56,12 +57,16 @@ namespace RingSoft.DataEntryControls.WPF
                 var oldValue = _value;
                 _value = value;
 
-                _processor.SetValue(value);
+                Processor.SetValue(value);
                 ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, _value));
             }
         }
 
-        public int Precision { get; set; }
+        public int Precision
+        {
+            get => Processor.Precision;
+            set => Processor.Precision = value;
+        }
 
         public string TapeText
         {
@@ -95,9 +100,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        public event RoutedPropertyChangedEventHandler<object> ValueChanged;
+        protected CalculatorProcessor Processor { get; }
 
-        private CalculatorProcessor _processor;
+        public event RoutedPropertyChangedEventHandler<object> ValueChanged;
 
         static DropDownCalculator()
         {
@@ -106,7 +111,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public DropDownCalculator()
         {
-            _processor = new CalculatorProcessor(this);
+            Processor = new CalculatorProcessor(this);
         }
 
         public override void OnApplyTemplate()
@@ -117,9 +122,19 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnApplyTemplate();
         }
 
-        protected void SetEntryText(decimal? value)
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-
+            var keyChar = e.Key.GetCharFromKey();
+            if (!Processor.ProcessChar(keyChar))
+            {
+                switch (e.Key)
+                {
+                    case Key.Delete:
+                        Processor.ProcessButton(CalculatorButtons.CeButton);
+                        break;
+                }
+            }
+            base.OnPreviewKeyDown(e);
         }
     }
 }

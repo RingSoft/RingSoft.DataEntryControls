@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
+        xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:RingSoft.DataEntryControls.App.WPF"
         mc:Ignorable="d"
         Title="DummyWindow" Height="450" Width="800">
@@ -13,7 +14,8 @@
 
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <dec:DropDownCalculator/>
+            <!--<dec:DropDownCalculator/>-->
+            <xctk:Calculator Precision="2"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>

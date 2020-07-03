@@ -2,11 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPF">
     <Style TargetType="TextBlock" x:Key="CalcTextBlockStyle">
-        <Setter Property="Background" Value="Azure"/>
+        <Setter Property="Background" Value="#FFA1E5EC"/>
         <Setter Property="Foreground" Value="Black"/>
     </Style>
     <Style TargetType="Button" x:Key="CalcProcessButtonStyle">
-        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Background" Value="#FFD1D7E8"/>
     </Style>
     <Style TargetType="Button" x:Key="CalcNumberButtonStyle">
         <Setter Property="Background" Value="FloralWhite"/>
@@ -16,25 +16,25 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DropDownCalculator}">
-                    <Border Background="Azure"
+                    <Border Background="#FFA1E5EC"
                                 BorderBrush="Black"
-                                BorderThickness="2" Width="120">
+                                BorderThickness="2" Width="160">
                         <StackPanel>
                             <TextBlock x:Name="TapeTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="20" FontSize="12" TextAlignment="Right" Margin="5,0,5,0" />
                             <TextBlock x:Name="EntryTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="30" FontSize="16" FontWeight="Bold" TextAlignment="Right" Margin="5,0,5,5"/>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="40" />
                                 </Grid.ColumnDefinitions>
                                 <Button x:Name="CeButton" Style="{StaticResource CalcProcessButtonStyle}" Content="CE"/>
                                 <Button x:Name="ClrButton" Grid.Row="0" Grid.Column="1" Style="{StaticResource CalcProcessButtonStyle}" Content="C"/>
