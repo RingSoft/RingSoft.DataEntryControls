@@ -120,7 +120,22 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        public Popup Popup { get; set; }
+        private Popup _popup;
+
+        public Popup Popup
+        {
+            get => _popup;
+            set
+            {
+                if (_popup != null)
+                    _popup.Closed -= _popup_Closed;
+
+                _popup = value;
+                
+                if (_popup != null)
+                    _popup.Closed += _popup_Closed;
+            }
+        }
 
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
@@ -177,15 +192,20 @@ namespace RingSoft.DataEntryControls.WPF
                     e.Handled = true;
         }
 
+        private void _popup_Closed(object sender, EventArgs e)
+        {
+            if (IsKeyboardFocusWithin && TextBox != null)
+                TextBox.Focus();
+        }
+
         protected virtual void OnTextBoxGotFocus()
         {
-
+            _textBox.SelectionStart = 0;
+            _textBox.SelectionLength = _textBox.Text.Length;
         }
         private void _textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             OnTextBoxGotFocus();
-            _textBox.SelectionStart = 0;
-            _textBox.SelectionLength = _textBox.Text.Length;
         }
 
         private void _textBox_TextChanged(object sender, TextChangedEventArgs e)

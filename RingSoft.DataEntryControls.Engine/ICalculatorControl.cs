@@ -5,6 +5,6 @@
         string TapeText { get; set; }
         string EntryText { get; set; }
         int Precision { get; }
-        decimal? Value { get; set; }
+        void OnValueChanged(decimal? oldValue, decimal? newValue);
     }
 }

@@ -15,14 +15,21 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <!--<dec:DropDownCalculator/>-->
-            <xctk:Calculator x:Name="Calculator" Precision="2"/>
+            <xctk:CalculatorUpDown x:Name="Calculator" Precision="2" Width="200"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="200" Header="Test">
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <dec:DropDownCalculator/>
+                            <xctk:CalculatorUpDown/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="200" Header="Test2">
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <xctk:CalculatorUpDown/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

@@ -47,19 +47,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         public Control Control => this;
 
-        private decimal? _value;
-
         public decimal? Value
         {
-            get => _value;
-            set
-            {
-                var oldValue = _value;
-                _value = value;
-
-                Processor.SetValue(value);
-                ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, _value));
-            }
+            get => Processor.ComittedValue;
+            set => Processor.InitializeValue(value);
         }
 
         public int Precision
@@ -138,6 +129,11 @@ namespace RingSoft.DataEntryControls.WPF
                 }
             }
             base.OnPreviewKeyDown(e);
+        }
+
+        public void OnValueChanged(decimal? oldValue, decimal? newValue)
+        {
+            ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, newValue));
         }
     }
 }

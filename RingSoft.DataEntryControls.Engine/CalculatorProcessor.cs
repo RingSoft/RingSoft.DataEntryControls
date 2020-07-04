@@ -30,16 +30,44 @@ namespace RingSoft.DataEntryControls.Engine
 
         public int Precision { get; set; } = -1;
 
+        public decimal? ComittedValue { get; private set; }
+
         private CalculatorOperators? _lastOperator;
         private decimal _currentValue;
         private decimal? _valueAtOperator;
+        private decimal? _initialValue;
+        private decimal? _valueAtEquals;
+        private bool _equalsProcessed;
 
         public CalculatorProcessor(ICalculatorControl control)
         {
             Control = control;
         }
 
-        public void SetValue(decimal? value)
+        public void InitializeValue(decimal? value)
+        {
+            if (ComittedValue != value)
+            {
+                Reset();
+                SetEqualsValue(value);
+            }
+        }
+
+        private void Reset()
+        {
+            _currentValue = 0;
+            _valueAtEquals = _valueAtOperator = null;
+            _lastOperator = null;
+            Control.TapeText = string.Empty;
+            _equalsProcessed = false;
+        }
+
+        private void SetEntryText(decimal? value)
+        {
+            Control.EntryText = FormatValue(value);
+        }
+
+        private string FormatValue(decimal? value)
         {
             var text = "0";
             if (value != null)
@@ -54,13 +82,13 @@ namespace RingSoft.DataEntryControls.Engine
                     wholeNumberText = text.LeftStr(decimalIndex);
                     decimalText = text.GetRightText(decimalIndex, 1);
                 }
+
                 var wholeNumber = wholeNumberText.ToDecimal();
                 text = wholeNumber.ToString("N0", CultureInfo.CurrentCulture);
                 if (!decimalText.IsNullOrEmpty())
                     text += $".{decimalText}";
             }
-
-            Control.EntryText = text;
+            return text;
         }
 
         public bool ProcessChar(char keyChar)
@@ -96,13 +124,18 @@ namespace RingSoft.DataEntryControls.Engine
                     ProcessOperator(CalculatorOperators.Divide);
                     return true;
                 case '=':
-                    ProcessOperator(CalculatorOperators.Equals);
+                    ProcessEquals();
                     return true;
             }
 
             if (keyChar.ToString() == NumberFormatInfo.CurrentInfo.NumberDecimalSeparator)
             {
                 ProcessDecimal();
+                return true;
+            }
+            else if (keyChar.ToString().ToUpperInvariant() == "C")
+            {
+                ProcessCButton();
                 return true;
             }
 
@@ -116,7 +149,7 @@ namespace RingSoft.DataEntryControls.Engine
                 case CalculatorButtons.CButton:
                     break;
                 case CalculatorButtons.CeButton:
-                    ProcessCe();
+                    ProcessCeButton();
                     break;
                 case CalculatorButtons.Backspace:
                     break;
@@ -128,13 +161,19 @@ namespace RingSoft.DataEntryControls.Engine
         private void ProcessDigit(string digit)
         {
             var newText = digit;
-            if (_valueAtOperator == null)
+            if (_valueAtOperator == null && _initialValue == null)
                 newText = Control.EntryText + digit;
             else
                 _valueAtOperator = null;
 
+            if (_initialValue != null)
+            {
+                Control.TapeText = string.Empty;
+                _initialValue = null;
+            }
+
             var number = newText.ToDecimal();
-            SetValue(number);
+            SetEntryText(number);
         }
 
         private void ProcessDecimal()
@@ -143,10 +182,12 @@ namespace RingSoft.DataEntryControls.Engine
                 Control.EntryText += NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
         }
 
-        private void ProcessCe()
+        public void ProcessCeButton()
         {
-            _currentValue = 0;
-            SetValue(_currentValue);
+            if (_equalsProcessed)
+                Control.TapeText = string.Empty;
+
+            SetEntryText(0);
         }
 
         private void ProcessOperator(CalculatorOperators calculatorOperator)
@@ -161,21 +202,60 @@ namespace RingSoft.DataEntryControls.Engine
                 PerformOperation(calculatorOperator, entryValue);
             }
 
-            if (calculatorOperator == CalculatorOperators.Equals)
+            _lastOperator = calculatorOperator;
+            _valueAtOperator = entryValue;
+            _valueAtEquals = null;
+            _equalsProcessed = false;
+        }
+
+        private void ProcessEquals()
+        {
+            var lastOperator = CalculatorOperators.Equals;
+            if (_lastOperator != null)
+                lastOperator = (CalculatorOperators)_lastOperator;
+
+            var entryValue = Control.EntryText.ToDecimal();
+
+            if (_valueAtEquals != null)
             {
-                Control.Value = _currentValue;
+                Control.TapeText = string.Empty;
+                _currentValue = entryValue;
+                AddToTape(lastOperator);
+                AddToTape(CalculatorOperators.Equals, _valueAtEquals);
+                if (_valueAtEquals != null)
+                {
+                    var valueAtEquals = (decimal) _valueAtEquals;
+                    PerformOperation(lastOperator, valueAtEquals);
+                }
             }
             else
             {
-                _lastOperator = calculatorOperator;
+                if (_lastOperator == null)
+                    Control.TapeText = string.Empty;
+
+                AddToTape(CalculatorOperators.Equals);
+                PerformOperation(lastOperator, entryValue);
+
+                if (lastOperator != CalculatorOperators.Equals)
+                    _valueAtEquals = entryValue;
             }
 
-            _valueAtOperator = entryValue;
+            SetEqualsValue(_currentValue);
+            _equalsProcessed = true;
         }
+
+        private void SetEqualsValue(decimal? value)
+        {
+            var oldValue = ComittedValue;
+            ComittedValue = _initialValue = value;
+            SetEntryText(value);
+            Control.OnValueChanged(oldValue, value);
+        }
+
 
         private void PerformOperation(CalculatorOperators currentOperator, decimal entryValue)
         {
-            switch (_lastOperator)
+            switch (currentOperator)
             {
                 case CalculatorOperators.Add:
                     _currentValue += entryValue;
@@ -190,17 +270,22 @@ namespace RingSoft.DataEntryControls.Engine
                     _currentValue /= entryValue;
                     break;
                 case CalculatorOperators.Equals:
+                    _currentValue = entryValue;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(_lastOperator), _lastOperator, null);
             }
 
-            if (currentOperator != CalculatorOperators.Equals)
-                SetValue(_currentValue);
+            SetEntryText(_currentValue);
         }
 
-        private void AddToTape(CalculatorOperators calculatorOperator)
+        private void AddToTape(CalculatorOperators calculatorOperator, decimal? entryValue = null)
         {
+            var entryText = Control.EntryText;
+            if (entryValue != null)
+            {
+                entryText = FormatValue(entryValue);
+            }
             string operatorText;
 
             switch (calculatorOperator)
@@ -224,7 +309,13 @@ namespace RingSoft.DataEntryControls.Engine
                     throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
             }
 
-            Control.TapeText += $" {Control.EntryText} {operatorText}";
+            Control.TapeText += $" {entryText} {operatorText}";
+        }
+
+        public void ProcessCButton()
+        {
+            Reset();
+            SetEqualsValue(0);
         }
     }
 }

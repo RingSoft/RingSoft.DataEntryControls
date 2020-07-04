@@ -187,6 +187,9 @@ namespace RingSoft.DataEntryControls.Engine
 
         private int GetDecimalPosition(string numberText)
         {
+            if (numberText.IsNullOrEmpty())
+                return -1;
+
             return numberText.IndexOf(GetDecimalPointString(), StringComparison.Ordinal);
         }
 
