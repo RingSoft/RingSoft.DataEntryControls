@@ -15,7 +15,7 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <!--<dec:DropDownCalculator/>-->
-            <xctk:Calculator Precision="2"/>
+            <xctk:Calculator x:Name="Calculator" Precision="2"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>

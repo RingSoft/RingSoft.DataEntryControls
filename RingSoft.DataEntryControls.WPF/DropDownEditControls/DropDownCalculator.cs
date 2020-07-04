@@ -103,7 +103,7 @@ namespace RingSoft.DataEntryControls.WPF
         protected CalculatorProcessor Processor { get; }
 
         public event RoutedPropertyChangedEventHandler<object> ValueChanged;
-
+        
         static DropDownCalculator()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownCalculator), new FrameworkPropertyMetadata(typeof(DropDownCalculator)));
@@ -129,6 +129,9 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 switch (e.Key)
                 {
+                    case Key.Enter:
+                        Processor.ProcessChar('=');
+                        break;
                     case Key.Delete:
                         Processor.ProcessButton(CalculatorButtons.CeButton);
                         break;

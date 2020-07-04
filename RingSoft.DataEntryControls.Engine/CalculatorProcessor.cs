@@ -20,7 +20,8 @@ namespace RingSoft.DataEntryControls.Engine
         Add = 0,
         Subtract = 1,
         Multiply =  2,
-        Divide = 3
+        Divide = 3,
+        Equals = 4
     }
 
     public class CalculatorProcessor
@@ -31,6 +32,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         private CalculatorOperators? _lastOperator;
         private decimal _currentValue;
+        private decimal? _valueAtOperator;
 
         public CalculatorProcessor(ICalculatorControl control)
         {
@@ -81,6 +83,21 @@ namespace RingSoft.DataEntryControls.Engine
                 case '9':
                     ProcessDigit(keyChar.ToString());
                     return true;
+                case '+':
+                    ProcessOperator(CalculatorOperators.Add);
+                    return true;
+                case '-':
+                    ProcessOperator(CalculatorOperators.Subtract);
+                    return true;
+                case '*':
+                    ProcessOperator(CalculatorOperators.Multiply);
+                    return true;
+                case '/':
+                    ProcessOperator(CalculatorOperators.Divide);
+                    return true;
+                case '=':
+                    ProcessOperator(CalculatorOperators.Equals);
+                    return true;
             }
 
             if (keyChar.ToString() == NumberFormatInfo.CurrentInfo.NumberDecimalSeparator)
@@ -96,16 +113,6 @@ namespace RingSoft.DataEntryControls.Engine
         {
             switch (button)
             {
-                case CalculatorButtons.Equals:
-                    break;
-                case CalculatorButtons.Add:
-                    break;
-                case CalculatorButtons.Subtract:
-                    break;
-                case CalculatorButtons.Multiply:
-                    break;
-                case CalculatorButtons.Divide:
-                    break;
                 case CalculatorButtons.CButton:
                     break;
                 case CalculatorButtons.CeButton:
@@ -120,7 +127,12 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessDigit(string digit)
         {
-            var newText = Control.EntryText + digit;
+            var newText = digit;
+            if (_valueAtOperator == null)
+                newText = Control.EntryText + digit;
+            else
+                _valueAtOperator = null;
+
             var number = newText.ToDecimal();
             SetValue(number);
         }
@@ -133,21 +145,37 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessCe()
         {
-            SetValue(0);
+            _currentValue = 0;
+            SetValue(_currentValue);
         }
 
         private void ProcessOperator(CalculatorOperators calculatorOperator)
         {
             AddToTape(calculatorOperator);
+            var entryValue = Control.EntryText.ToDecimal();
 
             if (_lastOperator == null)
+                _currentValue = entryValue;
+            else 
             {
-                _lastOperator = calculatorOperator;
-                return;
+                PerformOperation(calculatorOperator, entryValue);
             }
 
-            var entryValue = Control.EntryText.ToDecimal();
-            switch (calculatorOperator)
+            if (calculatorOperator == CalculatorOperators.Equals)
+            {
+                Control.Value = _currentValue;
+            }
+            else
+            {
+                _lastOperator = calculatorOperator;
+            }
+
+            _valueAtOperator = entryValue;
+        }
+
+        private void PerformOperation(CalculatorOperators currentOperator, decimal entryValue)
+        {
+            switch (_lastOperator)
             {
                 case CalculatorOperators.Add:
                     _currentValue += entryValue;
@@ -161,16 +189,19 @@ namespace RingSoft.DataEntryControls.Engine
                 case CalculatorOperators.Divide:
                     _currentValue /= entryValue;
                     break;
+                case CalculatorOperators.Equals:
+                    break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
+                    throw new ArgumentOutOfRangeException(nameof(_lastOperator), _lastOperator, null);
             }
 
-            SetValue(_currentValue);
+            if (currentOperator != CalculatorOperators.Equals)
+                SetValue(_currentValue);
         }
 
         private void AddToTape(CalculatorOperators calculatorOperator)
         {
-            var operatorText = string.Empty;
+            string operatorText;
 
             switch (calculatorOperator)
             {
@@ -185,6 +216,9 @@ namespace RingSoft.DataEntryControls.Engine
                     break;
                 case CalculatorOperators.Divide:
                     operatorText = "/";
+                    break;
+                case CalculatorOperators.Equals:
+                    operatorText = "=";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
