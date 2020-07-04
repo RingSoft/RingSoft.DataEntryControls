@@ -192,14 +192,25 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessOperator(CalculatorOperators calculatorOperator)
         {
-            AddToTape(calculatorOperator);
             var entryValue = Control.EntryText.ToDecimal();
-
-            if (_lastOperator == null)
-                _currentValue = entryValue;
-            else 
+            if (_equalsProcessed)
             {
-                PerformOperation(calculatorOperator, entryValue);
+                //Pressed operator button right after equals button
+                Control.TapeText = string.Empty;
+                _currentValue = entryValue;
+                AddToTape(calculatorOperator);
+                _initialValue = null;
+            }
+            else
+            {
+                AddToTape(calculatorOperator);
+
+                if (_lastOperator == null)
+                    _currentValue = entryValue;
+                else
+                {
+                    PerformOperation(calculatorOperator, entryValue);
+                }
             }
 
             _lastOperator = calculatorOperator;
