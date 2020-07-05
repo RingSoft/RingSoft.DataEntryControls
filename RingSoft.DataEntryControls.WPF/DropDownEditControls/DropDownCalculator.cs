@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.WPF.DropDownEditControls;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -36,14 +36,143 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:DropDownCalculator/>
     ///
     /// </summary>
-    
+
+    [TemplatePart(Name = "MemoryStatusTextBlock", Type = typeof(TextBlock))]
     [TemplatePart(Name = "TapeTextBlock", Type = typeof(TextBlock))]
     [TemplatePart(Name = "EntryTextBlock", Type = typeof(TextBlock))]
+    [TemplatePart(Name = "McButton", Type = typeof(Button))]
+    [TemplatePart(Name = "MrButton", Type = typeof(Button))]
+    [TemplatePart(Name = "MAddButton", Type = typeof(Button))]
+    [TemplatePart(Name = "MSubtractButton", Type = typeof(Button))]
+    [TemplatePart(Name = "MsButton", Type = typeof(Button))]
+
+    [TemplatePart(Name = "PlusMinusButton", Type = typeof(Button))]
+    [TemplatePart(Name = "EqualsButton", Type = typeof(Button))]
     public class DropDownCalculator : Control, IDropDownCalculator, ICalculatorControl
     {
+        public TextBlock MemoryStatusTextBlock { get; set; }
         public TextBlock TapeTextBlock { get; set; }
-
         public TextBlock EntryTextBlock { get; set; }
+
+        private Button _mcButton;
+
+        public Button McButton
+        {
+            get => _mcButton;
+            set
+            {
+                if (_mcButton != null)
+                    _mcButton.Click -= _mcButton_Click;
+
+                _mcButton = value;
+
+                if (_mcButton != null)
+                    _mcButton.Click += _mcButton_Click;
+            }
+        }
+
+        private Button _mrButton;
+
+        public Button MrButton
+        {
+            get => _mrButton;
+            set
+            {
+                if (_mrButton != null)
+                    _mrButton.Click -= _mrButton_Click;
+
+                _mrButton = value;
+
+                if (_mrButton != null)
+                    _mrButton.Click += _mrButton_Click;
+            }
+        }
+
+        private Button _mAddButton;
+
+        public Button MAddButton
+        {
+            get => _mAddButton;
+            set
+            {
+                if (_mAddButton != null)
+                    _mAddButton.Click -= _mAddButton_Click;
+
+                _mAddButton = value;
+
+                if (_mAddButton != null)
+                    _mAddButton.Click += _mAddButton_Click;
+            }
+        }
+
+        private Button _mSubtractButton;
+
+        public Button MSubtractButton
+        {
+            get => _mSubtractButton;
+            set
+            {
+                if (_mSubtractButton != null)
+                    _mSubtractButton.Click -= _mSubtractButton_Click;
+
+                _mSubtractButton = value;
+
+                if (_mSubtractButton != null)
+                    _mSubtractButton.Click += _mSubtractButton_Click;
+            }
+        }
+
+        private Button _msButton;
+
+        public Button MsButton
+        {
+            get => _msButton;
+            set
+            {
+                if (_msButton != null)
+                    _msButton.Click -= _msButton_Click;
+
+                _msButton = value;
+                
+                if (_msButton != null)
+                    _msButton.Click += _msButton_Click;
+            }
+        }
+
+        private Button _plusMinusButton;
+
+        public Button PlusMinusButton
+        {
+            get => _plusMinusButton;
+            set
+            {
+                if (_plusMinusButton != null)
+                    _plusMinusButton.Click -= _plusMinusButton_Click;
+
+                _plusMinusButton = value;
+
+                if (_plusMinusButton != null)
+                    _plusMinusButton.Click += _plusMinusButton_Click;
+            }
+        }
+
+        private Button _equalsButton;
+
+        public Button EqualsButton
+        {
+            get => _equalsButton;
+            set
+            {
+                if (_equalsButton != null)
+                    _equalsButton.Click -= _equalsButton_Click;
+
+                _equalsButton = value;
+
+                if (_equalsButton != null)
+                    _equalsButton.Click += _equalsButton_Click;
+            }
+        }
+
 
         public Control Control => this;
 
@@ -107,9 +236,21 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnApplyTemplate()
         {
+            MemoryStatusTextBlock = GetTemplateChild(nameof(MemoryStatusTextBlock)) as TextBlock;
             TapeTextBlock = GetTemplateChild(nameof(TapeTextBlock)) as TextBlock;
             EntryTextBlock = GetTemplateChild(nameof(EntryTextBlock)) as TextBlock;
-            
+
+            McButton = GetTemplateChild(nameof(McButton)) as Button;
+            MrButton = GetTemplateChild(nameof(MrButton)) as Button;
+            MAddButton = GetTemplateChild(nameof(MAddButton)) as Button;
+            MSubtractButton = GetTemplateChild(nameof(MSubtractButton)) as Button;
+            MsButton = GetTemplateChild(nameof(MsButton)) as Button;
+
+            PlusMinusButton = GetTemplateChild(nameof(PlusMinusButton)) as Button;
+            EqualsButton = GetTemplateChild(nameof(EqualsButton)) as Button;
+
+            OnMemoryChanged();
+
             base.OnApplyTemplate();
         }
 
@@ -122,6 +263,7 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     case Key.Enter:
                         Processor.ProcessChar('=');
+                        e.Handled = true;
                         break;
                     case Key.Delete:
                         Processor.ProcessButton(CalculatorButtons.CeButton);
@@ -131,9 +273,61 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnPreviewKeyDown(e);
         }
 
+        private void _mcButton_Click(object sender, RoutedEventArgs e)
+        {
+            Processor.ProcessMemoryClear();
+        }
+
+        private void _mrButton_Click(object sender, RoutedEventArgs e)
+        {
+            Processor.ProcessMemoryRecall();
+        }
+
+        private void _mAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Processor.ProcessMemoryAdd();
+        }
+
+        private void _mSubtractButton_Click(object sender, RoutedEventArgs e)
+        {
+            Processor.ProcessMemorySubtract();
+        }
+
+        private void _msButton_Click(object sender, RoutedEventArgs e)
+        {
+            Processor.ProcessMemoryStore();
+        }
+
+        private void _plusMinusButton_Click(object sender, RoutedEventArgs e)
+        {
+            Processor.ProcessPlusMinusButton();
+        }
+
+        private void _equalsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Processor.ProcessChar('=');
+        }
+
         public void OnValueChanged(decimal? oldValue, decimal? newValue)
         {
             ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, newValue));
+        }
+
+        public void OnMemoryChanged()
+        {
+            if (MemoryStatusTextBlock != null)
+            {
+                if (Processor.Memory != null)
+                    MemoryStatusTextBlock.Visibility = Visibility.Visible;
+                else
+                    MemoryStatusTextBlock.Visibility = Visibility.Collapsed;
+            }
+
+            if (McButton != null)
+                McButton.IsEnabled = Processor.Memory != null;
+
+            if (MrButton != null)
+                MrButton.IsEnabled = Processor.Memory != null;
         }
     }
 }

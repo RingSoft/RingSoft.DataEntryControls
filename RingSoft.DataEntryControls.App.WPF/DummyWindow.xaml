@@ -9,13 +9,13 @@
         mc:Ignorable="d"
         Title="DummyWindow" Height="450" Width="800">
     <Window.Resources>
-        
+
     </Window.Resources>
 
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <!--<dec:DropDownCalculator/>-->
-            <xctk:CalculatorUpDown x:Name="Calculator" Precision="2" Width="200"/>
+            <dec:DropDownCalculator x:Name="CalculatorDec"/>
+            <!--<xctk:CalculatorUpDown x:Name="Calculator" Precision="2" Width="200"/>-->
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>

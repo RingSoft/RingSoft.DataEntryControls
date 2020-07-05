@@ -8,11 +8,13 @@
     <Style TargetType="Button" x:Key="CalcProcessButtonStyle">
         <Setter Property="Background" Value="#FFD1D7E8"/>
         <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
     </Style>
     <Style TargetType="Button" x:Key="CalcNumberButtonStyle">
         <Setter Property="Background" Value="FloralWhite"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
     </Style>
     <Style TargetType="{x:Type local:DropDownCalculator}">
         <Setter Property="Template">
@@ -22,15 +24,37 @@
                                 BorderBrush="Black"
                                 BorderThickness="2" Width="160">
                         <StackPanel>
-                            <TextBlock x:Name="TapeTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="20" FontSize="12" TextAlignment="Right" Margin="5,0,5,0" />
+                            <Grid Margin="5,0,5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="MemoryStatusTextBlock" Style="{StaticResource CalcTextBlockStyle}" Text="M" Foreground="White"/>
+                                <TextBlock x:Name="TapeTextBlock" Grid.Column="1" Style="{StaticResource CalcTextBlockStyle}"
+                                               Height="20" FontSize="12" TextAlignment="Right"/>
+                            </Grid>
                             <TextBlock x:Name="EntryTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="30" FontSize="16" FontWeight="Bold" TextAlignment="Right" Margin="5,0,5,5"/>
                             <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="McButton" Style="{StaticResource CalcProcessButtonStyle}" Content="MC"/>
+                                <Button x:Name="MrButton" Grid.Column="1" Style="{StaticResource CalcProcessButtonStyle}" Content="MR"/>
+                                <Button x:Name="MAddButton" Grid.Column="2" Style="{StaticResource CalcProcessButtonStyle}" Content="M+"/>
+                                <Button x:Name="MSubtractButton" Grid.Column="3" Style="{StaticResource CalcProcessButtonStyle}" Content="M-"/>
+                                <Button x:Name="MsButton" Grid.Column="4" Style="{StaticResource CalcProcessButtonStyle}" Content="MS"/>
+                            </Grid>
+                            <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="40" />
@@ -57,7 +81,8 @@
                                 <Button x:Name="Button3" Grid.Row="3" Grid.Column="2" Style="{StaticResource CalcNumberButtonStyle}" Content="3"/>
                                 <Button x:Name="AdditionButton" Grid.Row="3" Grid.Column="3" Style="{StaticResource CalcProcessButtonStyle}" Content="+"/>
 
-                                <Button x:Name="Button0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CalcNumberButtonStyle}" Content="0"/>
+                                <Button x:Name="PlusMinusButton" Grid.Row="4" Grid.Column="0" Style="{StaticResource CalcNumberButtonStyle}" Content="+/-"/>
+                                <Button x:Name="Button0" Grid.Row="4" Grid.Column="1" Style="{StaticResource CalcNumberButtonStyle}" Content="0"/>
                                 <Button x:Name="DecimalButton" Grid.Row="4" Grid.Column="2" Style="{StaticResource CalcNumberButtonStyle}" Content="."/>
                                 <Button x:Name="EqualsButton" Grid.Row="4" Grid.Column="3" Style="{StaticResource CalcProcessButtonStyle}" Content="="/>
 

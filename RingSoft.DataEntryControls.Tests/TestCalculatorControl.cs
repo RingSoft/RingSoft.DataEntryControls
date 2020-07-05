@@ -10,5 +10,10 @@ namespace RingSoft.DataEntryControls.Tests
         {
             
         }
+
+        public void OnMemoryChanged()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

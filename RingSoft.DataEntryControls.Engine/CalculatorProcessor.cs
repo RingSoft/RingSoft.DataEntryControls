@@ -32,12 +32,15 @@ namespace RingSoft.DataEntryControls.Engine
 
         public decimal? ComittedValue { get; private set; }
 
+        public decimal? Memory { get; private set; }
+
         private CalculatorOperators? _lastOperator;
         private decimal _currentValue;
         private decimal? _valueAtOperator;
         private decimal? _initialValue;
         private decimal? _valueAtEquals;
         private bool _equalsProcessed;
+        private decimal? _memory;
 
         public CalculatorProcessor(ICalculatorControl control)
         {
@@ -172,7 +175,9 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessEntryValue(decimal number)
         {
-            _equalsProcessed = false;
+            if (_valueAtEquals == null)
+                _equalsProcessed = false;//Otherwise it performs calculation after operator.
+
             _valueAtOperator = null;
             if (_initialValue != null)
             {
@@ -333,6 +338,56 @@ namespace RingSoft.DataEntryControls.Engine
         {
             Reset();
             SetEqualsValue(0);
+        }
+
+        public void ProcessPlusMinusButton()
+        {
+            var entryValue = Control.EntryText.ToDecimal();
+            entryValue *= -1;
+            SetEntryText(entryValue);
+        }
+
+        public void ProcessMemoryStore()
+        {
+            Memory = Control.EntryText.ToDecimal();
+            Control.OnMemoryChanged();
+        }
+
+        public void ProcessMemoryClear()
+        {
+            Memory = null;
+            Control.OnMemoryChanged();
+        }
+
+        public void ProcessMemoryRecall()
+        {
+            if (Memory != null)
+            {
+                var memory = (decimal) Memory;
+                ProcessEntryValue(memory);
+            }
+        }
+
+        public void ProcessMemoryAdd()
+        {
+            decimal newMemory = 0;
+            if (Memory != null)
+                newMemory = (decimal) Memory;
+
+            newMemory += Control.EntryText.ToDecimal();
+            Memory = newMemory;
+            Control.OnMemoryChanged();
+        }
+
+        public void ProcessMemorySubtract()
+        {
+            decimal newMemory = 0;
+            if (Memory != null)
+                newMemory = (decimal)Memory;
+
+            newMemory -= Control.EntryText.ToDecimal();
+            Memory = newMemory;
+            Control.OnMemoryChanged();
         }
     }
 }
