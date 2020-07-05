@@ -166,13 +166,20 @@ namespace RingSoft.DataEntryControls.Engine
             else
                 _valueAtOperator = null;
 
+            var number = newText.ToDecimal();
+            ProcessEntryValue(number);
+        }
+
+        private void ProcessEntryValue(decimal number)
+        {
+            _equalsProcessed = false;
+            _valueAtOperator = null;
             if (_initialValue != null)
             {
                 Control.TapeText = string.Empty;
                 _initialValue = null;
             }
 
-            var number = newText.ToDecimal();
             SetEntryText(number);
         }
 
@@ -199,7 +206,6 @@ namespace RingSoft.DataEntryControls.Engine
                 Control.TapeText = string.Empty;
                 _currentValue = entryValue;
                 AddToTape(calculatorOperator);
-                _initialValue = null;
             }
             else
             {
@@ -216,7 +222,7 @@ namespace RingSoft.DataEntryControls.Engine
             _lastOperator = calculatorOperator;
             _valueAtOperator = entryValue;
             _valueAtEquals = null;
-            _equalsProcessed = false;
+            _initialValue = null; //Once we press any operator, initial value should be reset so tape doesn't get cleared when entering digits.
         }
 
         private void ProcessEquals()

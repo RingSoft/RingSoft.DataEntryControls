@@ -177,6 +177,42 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar('+');
             Assert.AreEqual(" 8 +", control.TapeText);
             Assert.AreEqual("8", control.EntryText);
+
+            processor.ProcessChar('+');
+            Assert.AreEqual(" 8 +", control.TapeText);
+            Assert.AreEqual("8", control.EntryText);
+
+            processor.ProcessChar('1');
+            Assert.AreEqual(" 8 +", control.TapeText);
+            Assert.AreEqual("1", control.EntryText);
+
+            processor.ProcessChar('+');
+            Assert.AreEqual(" 8 + 1 +", control.TapeText);
+            Assert.AreEqual("9", control.EntryText);
+        }
+
+        [TestMethod]
+        public void Calculator_AddToInitialValue()
+        {
+            var control = new TestCalculatorControl();
+            var processor = new CalculatorProcessor(control);
+
+            processor.InitializeValue(100);
+            Assert.AreEqual("100", control.EntryText);
+            Assert.AreEqual(100, processor.ComittedValue);
+
+            processor.ProcessChar('+');
+            Assert.AreEqual(" 100 +", control.TapeText);
+            Assert.AreEqual("100", control.EntryText);
+
+            processor.ProcessChar('1');
+            Assert.AreEqual(" 100 +", control.TapeText);
+            Assert.AreEqual("1", control.EntryText);
+
+            processor.ProcessChar('=');
+            Assert.AreEqual(" 100 + 1 =", control.TapeText);
+            Assert.AreEqual("101", control.EntryText);
+            Assert.AreEqual(101, processor.ComittedValue);
         }
     }
 }
