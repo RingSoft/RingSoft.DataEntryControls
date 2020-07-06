@@ -16,10 +16,10 @@
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
     </Style>
-    <Style TargetType="{x:Type local:DropDownCalculator}">
+    <Style TargetType="{x:Type local:Calculator}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:DropDownCalculator}">
+                <ControlTemplate TargetType="{x:Type local:Calculator}">
                     <Border Background="#FFA1E5EC"
                                 BorderBrush="Black"
                                 BorderThickness="2" Width="160">

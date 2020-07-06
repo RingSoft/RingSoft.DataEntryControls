@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.WPF
 
     [TemplatePart(Name = "PlusMinusButton", Type = typeof(Button))]
     [TemplatePart(Name = "EqualsButton", Type = typeof(Button))]
-    public class DropDownCalculator : Control, IDropDownCalculator, ICalculatorControl
+    public class Calculator : Control, IDropDownCalculator, ICalculatorControl
     {
         public TextBlock MemoryStatusTextBlock { get; set; }
         public TextBlock TapeTextBlock { get; set; }
@@ -277,12 +277,12 @@ namespace RingSoft.DataEntryControls.WPF
 
         public event RoutedPropertyChangedEventHandler<object> ValueChanged;
         
-        static DropDownCalculator()
+        static Calculator()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownCalculator), new FrameworkPropertyMetadata(typeof(DropDownCalculator)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Calculator), new FrameworkPropertyMetadata(typeof(Calculator)));
         }
 
-        public DropDownCalculator()
+        public Calculator()
         {
             Processor = new CalculatorProcessor(this);
         }
