@@ -32,7 +32,29 @@ namespace RingSoft.DataEntryControls.Engine
 
         public decimal? ComittedValue { get; private set; }
 
-        public decimal? Memory { get; private set; }
+        private decimal? _memory;
+
+        public decimal? Memory
+        {
+            get => _memory;
+            private set
+            {
+                _memory = value;
+                OnMemoryChanged();
+            }
+        }
+
+        private bool _calculationError;
+
+        public bool CalculationError
+        {
+            get => _calculationError;
+            private set
+            {
+                _calculationError = value;
+                OnCalculationStatusChanged();
+            }
+        }
 
         private CalculatorOperators? _lastOperator;
         private decimal _currentValue;
@@ -40,7 +62,7 @@ namespace RingSoft.DataEntryControls.Engine
         private decimal? _initialValue;
         private decimal? _valueAtEquals;
         private bool _equalsProcessed;
-        private bool _calculationError;
+        private bool _enteringData;
 
         public CalculatorProcessor(ICalculatorControl control)
         {
@@ -60,6 +82,7 @@ namespace RingSoft.DataEntryControls.Engine
             {
                 Reset();
                 SetEqualsValue(value);
+                _enteringData = true;
             }
         }
 
@@ -70,12 +93,12 @@ namespace RingSoft.DataEntryControls.Engine
             _lastOperator = null;
             Control.EquationText = string.Empty;
             _equalsProcessed = false;
-            _calculationError = false;
+            CalculationError = false;
         }
 
         private void SetEntryText(decimal? value)
         {
-            if (_calculationError)
+            if (CalculationError)
                 Reset();
 
             Control.EntryText = FormatValue(value);
@@ -84,7 +107,7 @@ namespace RingSoft.DataEntryControls.Engine
         private decimal GetEntryValue()
         {
             decimal result = 0;
-            if (!_calculationError)
+            if (!CalculationError)
                 result = Control.EntryText.ToDecimal();
 
             return result;
@@ -184,13 +207,14 @@ namespace RingSoft.DataEntryControls.Engine
         private void ProcessDigit(string digit)
         {
             var newText = digit;
-            if (!_calculationError && _valueAtOperator == null && _initialValue == null)
+            if (!CalculationError && _valueAtOperator == null && _initialValue == null)
                 newText = Control.EntryText + digit;
             else
                 _valueAtOperator = null;
 
             var number = newText.ToDecimal();
             ProcessEntryValue(number);
+            _enteringData = true;
         }
 
         private void ProcessEntryValue(decimal number)
@@ -210,7 +234,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessDecimal()
         {
-            if (_calculationError)
+            if (CalculationError)
                 return;
 
             if (!Control.EntryText.Contains(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))
@@ -227,8 +251,10 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessOperator(CalculatorOperators calculatorOperator)
         {
-            if (_calculationError)
+            if (CalculationError)
                 return;
+
+            _enteringData = false;
 
             var entryValue = GetEntryValue();
             if (_equalsProcessed)
@@ -260,12 +286,13 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessEquals()
         {
-            if (_calculationError)
+            if (CalculationError)
             {
                 SetEqualsValue(0);
                 Reset();
                 return;
             }
+            _enteringData = false;
 
             var lastOperator = CalculatorOperators.Equals;
             if (_lastOperator != null)
@@ -341,7 +368,7 @@ namespace RingSoft.DataEntryControls.Engine
                 case CalculatorOperators.Divide:
                     if (entryValue.Equals(0))
                     {
-                        _calculationError = true;
+                        CalculationError = true;
                         Control.EntryText = "Div / 0!";
                         return false;
                     }
@@ -407,13 +434,11 @@ namespace RingSoft.DataEntryControls.Engine
         public void ProcessMemoryStore()
         {
             Memory = GetEntryValue();
-            OnMemoryChanged();
         }
 
         public void ProcessMemoryClear()
         {
             Memory = null;
-            OnMemoryChanged();
         }
 
         public void ProcessMemoryRecall()
@@ -434,7 +459,6 @@ namespace RingSoft.DataEntryControls.Engine
 
             newMemory += GetEntryValue();
             Memory = newMemory;
-            OnMemoryChanged();
         }
 
         public void ProcessMemorySubtract()
@@ -445,14 +469,56 @@ namespace RingSoft.DataEntryControls.Engine
 
             newMemory -= GetEntryValue();
             Memory = newMemory;
-            OnMemoryChanged();
         }
 
-        public void OnMemoryChanged()
+        private void OnMemoryChanged()
         {
             Control.MemoryStatusVisible = Memory != null;
 
             Control.MemoryRecallEnabled = Control.MemoryClearEnabled = Memory != null;
+        }
+
+        private void OnCalculationStatusChanged()
+        {
+            Control.MemoryPlusEnabled = Control.MemoryMinusEnabled = Control.MemoryStoreEnabled = !CalculationError;
+        }
+
+        public void ProcessBackspace()
+        {
+            if (_valueAtEquals != null)
+            {
+                Control.EquationText = string.Empty;
+                return;
+            }
+
+            if (CalculationError)
+            {
+                SetEntryText(0);
+                return;
+            }
+
+            if (_enteringData)
+            {
+                if (Control.EntryText != "0")
+                {
+                    var decimalIndex = Control.EntryText.IndexOf(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator,
+                        StringComparison.Ordinal);
+
+                    if (decimalIndex < 0)
+                    {
+                        var newValue = GetEntryValue();
+                        var wholeText = newValue.ToString(CultureInfo.InvariantCulture);
+                        wholeText = wholeText.LeftStr(wholeText.Length - 1);
+                        newValue = wholeText.ToDecimal();
+                        SetEntryText(newValue);
+                    }
+                    else
+                    {
+                        var newText = Control.EntryText.LeftStr(Control.EntryText.Length - 1);
+                        Control.EntryText = newText;
+                    }
+                }
+            }
         }
     }
 }

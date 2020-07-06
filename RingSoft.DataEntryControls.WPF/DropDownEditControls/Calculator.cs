@@ -252,6 +252,54 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public bool MemoryStoreEnabled
+        {
+            get
+            {
+                if (MsButton != null)
+                    return MsButton.IsEnabled;
+
+                return false;
+            }
+            set
+            {
+                if (MsButton != null)
+                    MsButton.IsEnabled = value;
+            }
+        }
+
+        public bool MemoryPlusEnabled
+        {
+            get
+            {
+                if (MAddButton != null)
+                    return MAddButton.IsEnabled;
+
+                return false;
+            }
+            set
+            {
+                if (MAddButton != null)
+                    MAddButton.IsEnabled = value;
+            }
+        }
+
+        public bool MemoryMinusEnabled
+        {
+            get
+            {
+                if (MSubtractButton != null)
+                    return MSubtractButton.IsEnabled;
+
+                return false;
+            }
+            set
+            {
+                if (MSubtractButton != null)
+                    MSubtractButton.IsEnabled = value;
+            }
+        }
+
         public bool MemoryStatusVisible
         {
             get
@@ -320,6 +368,9 @@ namespace RingSoft.DataEntryControls.WPF
                         break;
                     case Key.Delete:
                         Processor.ProcessButton(CalculatorButtons.CeButton);
+                        break;
+                    case Key.Back:
+                        Processor.ProcessBackspace();
                         break;
                 }
             }
