@@ -30,7 +30,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock x:Name="MemoryStatusTextBlock" Style="{StaticResource CalcTextBlockStyle}" Text="M" Foreground="White"/>
-                                <TextBlock x:Name="TapeTextBlock" Grid.Column="1" Style="{StaticResource CalcTextBlockStyle}"
+                                <TextBlock x:Name="EquationTextBlock" Grid.Column="1" Style="{StaticResource CalcTextBlockStyle}"
                                                Height="20" FontSize="12" TextAlignment="Right"/>
                             </Grid>
                             <TextBlock x:Name="EntryTextBlock" Style="{StaticResource CalcTextBlockStyle}" Height="30" FontSize="16" FontWeight="Bold" TextAlignment="Right" Margin="5,0,5,5"/>

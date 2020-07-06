@@ -68,7 +68,7 @@ namespace RingSoft.DataEntryControls.Engine
             _currentValue = 0;
             _valueAtEquals = _valueAtOperator = null;
             _lastOperator = null;
-            Control.TapeText = string.Empty;
+            Control.EquationText = string.Empty;
             _equalsProcessed = false;
             _calculationError = false;
         }
@@ -201,7 +201,7 @@ namespace RingSoft.DataEntryControls.Engine
             _valueAtOperator = null;
             if (_initialValue != null)
             {
-                Control.TapeText = string.Empty;
+                Control.EquationText = string.Empty;
                 _initialValue = null;
             }
 
@@ -220,7 +220,7 @@ namespace RingSoft.DataEntryControls.Engine
         public void ProcessCeButton()
         {
             if (_equalsProcessed)
-                Control.TapeText = string.Empty;
+                Control.EquationText = string.Empty;
 
             SetEntryText(0);
         }
@@ -234,13 +234,13 @@ namespace RingSoft.DataEntryControls.Engine
             if (_equalsProcessed)
             {
                 //Pressed operator button right after equals button
-                Control.TapeText = string.Empty;
+                Control.EquationText = string.Empty;
                 _currentValue = entryValue;
-                AddToTape(calculatorOperator);
+                AddToEquationText(calculatorOperator);
             }
             else
             {
-                AddToTape(calculatorOperator);
+                AddToEquationText(calculatorOperator);
 
                 if (_lastOperator == null)
                     _currentValue = entryValue;
@@ -275,10 +275,10 @@ namespace RingSoft.DataEntryControls.Engine
 
             if (_valueAtEquals != null)
             {
-                Control.TapeText = string.Empty;
+                Control.EquationText = string.Empty;
                 _currentValue = entryValue;
-                AddToTape(lastOperator);
-                AddToTape(CalculatorOperators.Equals, _valueAtEquals);
+                AddToEquationText(lastOperator);
+                AddToEquationText(CalculatorOperators.Equals, _valueAtEquals);
                 if (_valueAtEquals != null)
                 {
                     var valueAtEquals = (decimal) _valueAtEquals;
@@ -289,9 +289,9 @@ namespace RingSoft.DataEntryControls.Engine
             else
             {
                 if (_lastOperator == null)
-                    Control.TapeText = string.Empty;
+                    Control.EquationText = string.Empty;
 
-                AddToTape(CalculatorOperators.Equals);
+                AddToEquationText(CalculatorOperators.Equals);
                 if (!PerformOperation(lastOperator, entryValue))
                     return;
 
@@ -358,7 +358,7 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
-        private void AddToTape(CalculatorOperators calculatorOperator, decimal? entryValue = null)
+        private void AddToEquationText(CalculatorOperators calculatorOperator, decimal? entryValue = null)
         {
             var entryText = Control.EntryText;
             if (entryValue != null)
@@ -388,7 +388,7 @@ namespace RingSoft.DataEntryControls.Engine
                     throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
             }
 
-            Control.TapeText += $" {entryText} {operatorText}";
+            Control.EquationText += $" {entryText} {operatorText}";
         }
 
         public void ProcessCButton()

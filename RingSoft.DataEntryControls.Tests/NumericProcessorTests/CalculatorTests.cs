@@ -18,7 +18,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("5", control.EntryText);
             
             processor.ProcessChar('+');
-            Assert.AreEqual(" 5 +", control.TapeText);
+            Assert.AreEqual(" 5 +", control.EquationText);
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('3');
@@ -31,7 +31,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("3,210", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 5 + 3,210 =", control.TapeText);
+            Assert.AreEqual(" 5 + 3,210 =", control.EquationText);
             Assert.AreEqual("3,215", control.EntryText);
             Assert.AreEqual(3215, processor.ComittedValue);
         }
@@ -48,24 +48,24 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 5 +", control.TapeText);
+            Assert.AreEqual(" 5 +", control.EquationText);
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('3');
             Assert.AreEqual("3", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 5 + 3 =", control.TapeText);
+            Assert.AreEqual(" 5 + 3 =", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
             Assert.AreEqual(8, processor.ComittedValue);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 8 + 3 =", control.TapeText);
+            Assert.AreEqual(" 8 + 3 =", control.EquationText);
             Assert.AreEqual("11", control.EntryText);
             Assert.AreEqual(11, processor.ComittedValue);
 
             processor.ProcessCeButton();
-            Assert.AreEqual("", control.TapeText);
+            Assert.AreEqual("", control.EquationText);
             Assert.AreEqual("0", control.EntryText);
             Assert.AreEqual(11, processor.ComittedValue);
 
@@ -73,7 +73,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 5 + 3 =", control.TapeText);
+            Assert.AreEqual(" 5 + 3 =", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
             Assert.AreEqual(8, processor.ComittedValue);
         }
@@ -90,31 +90,31 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 5 +", control.TapeText);
+            Assert.AreEqual(" 5 +", control.EquationText);
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('3');
             Assert.AreEqual("3", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 5 + 3 +", control.TapeText);
+            Assert.AreEqual(" 5 + 3 +", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
 
             processor.ProcessChar('8');
             Assert.AreEqual("8", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 5 + 3 + 8 =", control.TapeText);
+            Assert.AreEqual(" 5 + 3 + 8 =", control.EquationText);
             Assert.AreEqual("16", control.EntryText);
             Assert.AreEqual(16, processor.ComittedValue);
 
             processor.ProcessCeButton();
-            Assert.AreEqual("", control.TapeText);
+            Assert.AreEqual("", control.EquationText);
             Assert.AreEqual("0", control.EntryText);
             Assert.AreEqual(16, processor.ComittedValue);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 0 + 8 =", control.TapeText);
+            Assert.AreEqual(" 0 + 8 =", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
             Assert.AreEqual(8, processor.ComittedValue);
         }
@@ -133,14 +133,14 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 5 +", control.TapeText);
+            Assert.AreEqual(" 5 +", control.EquationText);
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('3');
             Assert.AreEqual("3", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 5 + 3 =", control.TapeText);
+            Assert.AreEqual(" 5 + 3 =", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
             Assert.AreEqual(8, processor.ComittedValue);
         }
@@ -163,31 +163,31 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 5 +", control.TapeText);
+            Assert.AreEqual(" 5 +", control.EquationText);
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('3');
             Assert.AreEqual("3", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 5 + 3 =", control.TapeText);
+            Assert.AreEqual(" 5 + 3 =", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
             Assert.AreEqual(8, processor.ComittedValue);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 8 +", control.TapeText);
+            Assert.AreEqual(" 8 +", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 8 +", control.TapeText);
+            Assert.AreEqual(" 8 +", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
 
             processor.ProcessChar('1');
-            Assert.AreEqual(" 8 +", control.TapeText);
+            Assert.AreEqual(" 8 +", control.EquationText);
             Assert.AreEqual("1", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 8 + 1 +", control.TapeText);
+            Assert.AreEqual(" 8 + 1 +", control.EquationText);
             Assert.AreEqual("9", control.EntryText);
         }
 
@@ -209,14 +209,14 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 5 +", control.TapeText);
+            Assert.AreEqual(" 5 +", control.EquationText);
             Assert.AreEqual("5", control.EntryText);
 
             processor.ProcessChar('3');
             Assert.AreEqual("3", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 5 + 3 =", control.TapeText);
+            Assert.AreEqual(" 5 + 3 =", control.EquationText);
             Assert.AreEqual("8", control.EntryText);
             Assert.AreEqual(8, processor.ComittedValue);
 
@@ -224,7 +224,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("2", control.EntryText);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 2 +", control.TapeText);
+            Assert.AreEqual(" 2 +", control.EquationText);
             Assert.AreEqual("2", control.EntryText);
         }
 
@@ -239,15 +239,15 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual(100, processor.ComittedValue);
 
             processor.ProcessChar('+');
-            Assert.AreEqual(" 100 +", control.TapeText);
+            Assert.AreEqual(" 100 +", control.EquationText);
             Assert.AreEqual("100", control.EntryText);
 
             processor.ProcessChar('1');
-            Assert.AreEqual(" 100 +", control.TapeText);
+            Assert.AreEqual(" 100 +", control.EquationText);
             Assert.AreEqual("1", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 100 + 1 =", control.TapeText);
+            Assert.AreEqual(" 100 + 1 =", control.EquationText);
             Assert.AreEqual("101", control.EntryText);
             Assert.AreEqual(101, processor.ComittedValue);
         }
@@ -263,7 +263,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar('5');
             processor.ProcessChar('5');
             processor.ProcessChar('+');
-            Assert.AreEqual(" 455 +", control.TapeText);
+            Assert.AreEqual(" 455 +", control.EquationText);
             Assert.AreEqual("455", control.EntryText);
 
             processor.ProcessChar('1');
@@ -271,7 +271,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             Assert.AreEqual("-1", control.EntryText);
 
             processor.ProcessChar('=');
-            Assert.AreEqual(" 455 + -1 =", control.TapeText);
+            Assert.AreEqual(" 455 + -1 =", control.EquationText);
             Assert.AreEqual("454", control.EntryText);
             Assert.AreEqual(454, processor.ComittedValue);
         }

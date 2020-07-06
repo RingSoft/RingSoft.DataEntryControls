@@ -2,7 +2,7 @@
 {
     public interface ICalculatorControl
     {
-        string TapeText { get; set; }
+        string EquationText { get; set; }
         string EntryText { get; set; }
         bool MemoryRecallEnabled { get; set; }
         bool MemoryClearEnabled { get; set; }

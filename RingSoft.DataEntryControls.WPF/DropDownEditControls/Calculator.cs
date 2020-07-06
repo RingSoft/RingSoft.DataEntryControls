@@ -38,7 +38,7 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
 
     [TemplatePart(Name = "MemoryStatusTextBlock", Type = typeof(TextBlock))]
-    [TemplatePart(Name = "TapeTextBlock", Type = typeof(TextBlock))]
+    [TemplatePart(Name = "EquationTextBlock", Type = typeof(TextBlock))]
     [TemplatePart(Name = "EntryTextBlock", Type = typeof(TextBlock))]
     [TemplatePart(Name = "McButton", Type = typeof(Button))]
     [TemplatePart(Name = "MrButton", Type = typeof(Button))]
@@ -51,7 +51,7 @@ namespace RingSoft.DataEntryControls.WPF
     public class Calculator : Control, IDropDownCalculator, ICalculatorControl
     {
         public TextBlock MemoryStatusTextBlock { get; set; }
-        public TextBlock TapeTextBlock { get; set; }
+        public TextBlock EquationTextBlock { get; set; }
         public TextBlock EntryTextBlock { get; set; }
 
         private Button _mcButton;
@@ -188,19 +188,19 @@ namespace RingSoft.DataEntryControls.WPF
             set => Processor.Precision = value;
         }
 
-        public string TapeText
+        public string EquationText
         {
             get
             {
-                if (TapeTextBlock == null)
+                if (EquationTextBlock == null)
                     return string.Empty;
 
-                return TapeTextBlock.Text;
+                return EquationTextBlock.Text;
             }
             set
             {
-                if (TapeTextBlock != null)
-                    TapeTextBlock.Text = value;
+                if (EquationTextBlock != null)
+                    EquationTextBlock.Text = value;
             }
         }
 
@@ -290,7 +290,7 @@ namespace RingSoft.DataEntryControls.WPF
         public override void OnApplyTemplate()
         {
             MemoryStatusTextBlock = GetTemplateChild(nameof(MemoryStatusTextBlock)) as TextBlock;
-            TapeTextBlock = GetTemplateChild(nameof(TapeTextBlock)) as TextBlock;
+            EquationTextBlock = GetTemplateChild(nameof(EquationTextBlock)) as TextBlock;
             EntryTextBlock = GetTemplateChild(nameof(EntryTextBlock)) as TextBlock;
 
             McButton = GetTemplateChild(nameof(McButton)) as Button;
