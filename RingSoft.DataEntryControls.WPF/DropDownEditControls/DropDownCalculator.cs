@@ -179,7 +179,7 @@ namespace RingSoft.DataEntryControls.WPF
         public decimal? Value
         {
             get => Processor.ComittedValue;
-            set => Processor.InitializeValue(value);
+            set => Processor.ReinitializeValue(value);
         }
 
         public int Precision
@@ -302,7 +302,7 @@ namespace RingSoft.DataEntryControls.WPF
             PlusMinusButton = GetTemplateChild(nameof(PlusMinusButton)) as Button;
             EqualsButton = GetTemplateChild(nameof(EqualsButton)) as Button;
 
-            Processor.OnMemoryChanged();
+            Processor.Initialize();
 
             base.OnApplyTemplate();
         }

@@ -13,7 +13,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             InitializeComponent();
 
             Grid.ItemsSource = _gridSource.DefaultView;
-            //CalculatorDec.Value = (decimal)-2345.67;
+            CalculatorDec.Value = (decimal)-2345.67;
         }
     }
 }

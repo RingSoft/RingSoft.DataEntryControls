@@ -47,7 +47,14 @@ namespace RingSoft.DataEntryControls.Engine
             Control = control;
         }
 
-        public void InitializeValue(decimal? value)
+        public void Initialize()
+        {
+            OnMemoryChanged();
+            Reset();
+            SetEntryText(ComittedValue);
+        }
+
+        public void ReinitializeValue(decimal? value)
         {
             if (ComittedValue != value)
             {

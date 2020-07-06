@@ -12,7 +12,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var control = new TestCalculatorControl();
             var processor = new CalculatorProcessor(control);
 
-            processor.InitializeValue(null);
+            processor.ReinitializeValue(null);
             
             processor.ProcessChar('5');
             Assert.AreEqual("5", control.EntryText);
@@ -42,7 +42,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var control = new TestCalculatorControl();
             var processor = new CalculatorProcessor(control);
 
-            processor.InitializeValue(null);
+            processor.ReinitializeValue(null);
 
             processor.ProcessChar('5');
             Assert.AreEqual("5", control.EntryText);
@@ -84,7 +84,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var control = new TestCalculatorControl();
             var processor = new CalculatorProcessor(control);
 
-            processor.InitializeValue(null);
+            processor.ReinitializeValue(null);
 
             processor.ProcessChar('5');
             Assert.AreEqual("5", control.EntryText);
@@ -125,7 +125,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var control = new TestCalculatorControl();
             var processor = new CalculatorProcessor(control);
 
-            processor.InitializeValue(100);
+            processor.ReinitializeValue(100);
             Assert.AreEqual("100", control.EntryText);
             Assert.AreEqual(100, processor.ComittedValue);
 
@@ -151,7 +151,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var control = new TestCalculatorControl();
             var processor = new CalculatorProcessor(control);
 
-            processor.InitializeValue(100);
+            processor.ReinitializeValue(100);
             Assert.AreEqual("100", control.EntryText);
             Assert.AreEqual(100, processor.ComittedValue);
 
@@ -197,7 +197,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var control = new TestCalculatorControl();
             var processor = new CalculatorProcessor(control);
 
-            processor.InitializeValue(100);
+            processor.ReinitializeValue(100);
             Assert.AreEqual("100", control.EntryText);
             Assert.AreEqual(100, processor.ComittedValue);
 
@@ -234,7 +234,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var control = new TestCalculatorControl();
             var processor = new CalculatorProcessor(control);
 
-            processor.InitializeValue(100);
+            processor.ReinitializeValue(100);
             Assert.AreEqual("100", control.EntryText);
             Assert.AreEqual(100, processor.ComittedValue);
 
