@@ -3,18 +3,6 @@ using System.Globalization;
 
 namespace RingSoft.DataEntryControls.Engine
 {
-    public enum CalculatorButtons
-    {
-        Equals = 0,
-        Add = 1,
-        Subtract = 2,
-        Multiply = 3,
-        Divide = 4,
-        CButton = 5,
-        CeButton = 6,
-        Backspace = 7
-    }
-
     public enum CalculatorOperators
     {
         Add = 0,
@@ -188,22 +176,6 @@ namespace RingSoft.DataEntryControls.Engine
             return false;
         }
 
-        public void ProcessButton(CalculatorButtons button)
-        {
-            switch (button)
-            {
-                case CalculatorButtons.CButton:
-                    break;
-                case CalculatorButtons.CeButton:
-                    ProcessCeButton();
-                    break;
-                case CalculatorButtons.Backspace:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(button), button, null);
-            }
-        }
-
         private void ProcessDigit(string digit)
         {
             var newText = digit;
@@ -232,7 +204,7 @@ namespace RingSoft.DataEntryControls.Engine
             SetEntryText(number);
         }
 
-        private void ProcessDecimal()
+        public void ProcessDecimal()
         {
             if (CalculationError)
                 return;
