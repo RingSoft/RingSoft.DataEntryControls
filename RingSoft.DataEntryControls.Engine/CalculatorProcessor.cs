@@ -40,7 +40,7 @@ namespace RingSoft.DataEntryControls.Engine
         private decimal? _initialValue;
         private decimal? _valueAtEquals;
         private bool _equalsProcessed;
-        private decimal? _memory;
+        private bool _calculationError;
 
         public CalculatorProcessor(ICalculatorControl control)
         {
@@ -63,11 +63,24 @@ namespace RingSoft.DataEntryControls.Engine
             _lastOperator = null;
             Control.TapeText = string.Empty;
             _equalsProcessed = false;
+            _calculationError = false;
         }
 
         private void SetEntryText(decimal? value)
         {
+            if (_calculationError)
+                Reset();
+
             Control.EntryText = FormatValue(value);
+        }
+
+        private decimal GetEntryValue()
+        {
+            decimal result = 0;
+            if (!_calculationError)
+                result = Control.EntryText.ToDecimal();
+
+            return result;
         }
 
         private string FormatValue(decimal? value)
@@ -164,7 +177,7 @@ namespace RingSoft.DataEntryControls.Engine
         private void ProcessDigit(string digit)
         {
             var newText = digit;
-            if (_valueAtOperator == null && _initialValue == null)
+            if (!_calculationError && _valueAtOperator == null && _initialValue == null)
                 newText = Control.EntryText + digit;
             else
                 _valueAtOperator = null;
@@ -190,6 +203,9 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessDecimal()
         {
+            if (_calculationError)
+                return;
+
             if (!Control.EntryText.Contains(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))
                 Control.EntryText += NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
         }
@@ -204,7 +220,10 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessOperator(CalculatorOperators calculatorOperator)
         {
-            var entryValue = Control.EntryText.ToDecimal();
+            if (_calculationError)
+                return;
+
+            var entryValue = GetEntryValue();
             if (_equalsProcessed)
             {
                 //Pressed operator button right after equals button
@@ -220,7 +239,9 @@ namespace RingSoft.DataEntryControls.Engine
                     _currentValue = entryValue;
                 else
                 {
-                    PerformOperation(calculatorOperator, entryValue);
+                    var lastOperator = (CalculatorOperators) _lastOperator;
+                    if (!PerformOperation(lastOperator, entryValue))
+                        return;
                 }
             }
 
@@ -232,11 +253,18 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessEquals()
         {
+            if (_calculationError)
+            {
+                SetEqualsValue(0);
+                Reset();
+                return;
+            }
+
             var lastOperator = CalculatorOperators.Equals;
             if (_lastOperator != null)
                 lastOperator = (CalculatorOperators)_lastOperator;
 
-            var entryValue = Control.EntryText.ToDecimal();
+            var entryValue = GetEntryValue();
 
             if (_valueAtEquals != null)
             {
@@ -247,7 +275,8 @@ namespace RingSoft.DataEntryControls.Engine
                 if (_valueAtEquals != null)
                 {
                     var valueAtEquals = (decimal) _valueAtEquals;
-                    PerformOperation(lastOperator, valueAtEquals);
+                    if (!PerformOperation(lastOperator, valueAtEquals))
+                        return;
                 }
             }
             else
@@ -256,7 +285,8 @@ namespace RingSoft.DataEntryControls.Engine
                     Control.TapeText = string.Empty;
 
                 AddToTape(CalculatorOperators.Equals);
-                PerformOperation(lastOperator, entryValue);
+                if (!PerformOperation(lastOperator, entryValue))
+                    return;
 
                 if (lastOperator != CalculatorOperators.Equals)
                     _valueAtEquals = entryValue;
@@ -268,6 +298,19 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void SetEqualsValue(decimal? value)
         {
+            if (Precision >= 0 && value != null)
+            {
+                var newValue = (decimal)value;
+                var text = newValue.ToString(CultureInfo.CurrentCulture);
+                var decimalIndex = text.IndexOf(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator,
+                    StringComparison.Ordinal);
+                if (decimalIndex >= 0)
+                {
+                    var decimalText = text.GetRightText(decimalIndex, 1);
+                    if (decimalText.Length > Precision)
+                        value = Math.Round(newValue, Precision);
+                }
+            }
             var oldValue = ComittedValue;
             ComittedValue = _initialValue = value;
             SetEntryText(value);
@@ -275,7 +318,7 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
 
-        private void PerformOperation(CalculatorOperators currentOperator, decimal entryValue)
+        private bool PerformOperation(CalculatorOperators currentOperator, decimal entryValue)
         {
             switch (currentOperator)
             {
@@ -289,6 +332,12 @@ namespace RingSoft.DataEntryControls.Engine
                     _currentValue *= entryValue;
                     break;
                 case CalculatorOperators.Divide:
+                    if (entryValue.Equals(0))
+                    {
+                        _calculationError = true;
+                        Control.EntryText = "Div / 0!";
+                        return false;
+                    }
                     _currentValue /= entryValue;
                     break;
                 case CalculatorOperators.Equals:
@@ -299,6 +348,7 @@ namespace RingSoft.DataEntryControls.Engine
             }
 
             SetEntryText(_currentValue);
+            return true;
         }
 
         private void AddToTape(CalculatorOperators calculatorOperator, decimal? entryValue = null)
@@ -342,21 +392,21 @@ namespace RingSoft.DataEntryControls.Engine
 
         public void ProcessPlusMinusButton()
         {
-            var entryValue = Control.EntryText.ToDecimal();
+            var entryValue = GetEntryValue();
             entryValue *= -1;
             SetEntryText(entryValue);
         }
 
         public void ProcessMemoryStore()
         {
-            Memory = Control.EntryText.ToDecimal();
-            Control.OnMemoryChanged();
+            Memory = GetEntryValue();
+            OnMemoryChanged();
         }
 
         public void ProcessMemoryClear()
         {
             Memory = null;
-            Control.OnMemoryChanged();
+            OnMemoryChanged();
         }
 
         public void ProcessMemoryRecall()
@@ -365,6 +415,7 @@ namespace RingSoft.DataEntryControls.Engine
             {
                 var memory = (decimal) Memory;
                 ProcessEntryValue(memory);
+                _initialValue = memory;
             }
         }
 
@@ -374,9 +425,9 @@ namespace RingSoft.DataEntryControls.Engine
             if (Memory != null)
                 newMemory = (decimal) Memory;
 
-            newMemory += Control.EntryText.ToDecimal();
+            newMemory += GetEntryValue();
             Memory = newMemory;
-            Control.OnMemoryChanged();
+            OnMemoryChanged();
         }
 
         public void ProcessMemorySubtract()
@@ -385,9 +436,16 @@ namespace RingSoft.DataEntryControls.Engine
             if (Memory != null)
                 newMemory = (decimal)Memory;
 
-            newMemory -= Control.EntryText.ToDecimal();
+            newMemory -= GetEntryValue();
             Memory = newMemory;
-            Control.OnMemoryChanged();
+            OnMemoryChanged();
+        }
+
+        public void OnMemoryChanged()
+        {
+            Control.MemoryStatusVisible = Memory != null;
+
+            Control.MemoryRecallEnabled = Control.MemoryClearEnabled = Memory != null;
         }
     }
 }

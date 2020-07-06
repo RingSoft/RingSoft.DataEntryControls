@@ -220,6 +220,59 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public bool MemoryRecallEnabled
+        {
+            get
+            {
+                if (MrButton != null)
+                    return MrButton.IsEnabled;
+
+                return false;
+            }
+            set
+            {
+                if (MrButton != null)
+                    MrButton.IsEnabled = value;
+            }
+        }
+
+        public bool MemoryClearEnabled
+        {
+            get
+            {
+                if (McButton != null)
+                    return McButton.IsEnabled;
+
+                return false;
+            }
+            set
+            {
+                if (McButton != null)
+                    McButton.IsEnabled = value;
+            }
+        }
+
+        public bool MemoryStatusVisible
+        {
+            get
+            {
+                if (MemoryStatusTextBlock != null)
+                    return MemoryStatusTextBlock.Visibility == Visibility.Visible;
+
+                return false;
+            }
+            set
+            {
+                if (MemoryStatusTextBlock != null)
+                {
+                    if (value)
+                        MemoryStatusTextBlock.Visibility = Visibility.Visible;
+                    else
+                        MemoryStatusTextBlock.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
         protected CalculatorProcessor Processor { get; }
 
         public event RoutedPropertyChangedEventHandler<object> ValueChanged;
@@ -249,7 +302,7 @@ namespace RingSoft.DataEntryControls.WPF
             PlusMinusButton = GetTemplateChild(nameof(PlusMinusButton)) as Button;
             EqualsButton = GetTemplateChild(nameof(EqualsButton)) as Button;
 
-            OnMemoryChanged();
+            Processor.OnMemoryChanged();
 
             base.OnApplyTemplate();
         }
@@ -311,23 +364,6 @@ namespace RingSoft.DataEntryControls.WPF
         public void OnValueChanged(decimal? oldValue, decimal? newValue)
         {
             ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, newValue));
-        }
-
-        public void OnMemoryChanged()
-        {
-            if (MemoryStatusTextBlock != null)
-            {
-                if (Processor.Memory != null)
-                    MemoryStatusTextBlock.Visibility = Visibility.Visible;
-                else
-                    MemoryStatusTextBlock.Visibility = Visibility.Collapsed;
-            }
-
-            if (McButton != null)
-                McButton.IsEnabled = Processor.Memory != null;
-
-            if (MrButton != null)
-                MrButton.IsEnabled = Processor.Memory != null;
         }
     }
 }
