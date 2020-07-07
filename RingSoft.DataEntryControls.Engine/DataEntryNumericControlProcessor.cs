@@ -29,12 +29,14 @@ namespace RingSoft.DataEntryControls.Engine
             public string SelectedText { get; set; }
             public string RightText { get; set; }
             public int DecimalPosition { get; set; } = -1;
-            public bool SymbolExists { get; set; }
             public SymbolProperties SymbolProperties { get; set; }
             public int GroupSeparatorCount { get; set; }
             public string NewWholeNumberText { get; set; }
             public string NewDecimalText { get; set; }
             public int NegativeSignIndex { get; set; } = -1;
+            public int SymbolIndex { get; set; }
+            public int FirstDigitIndex { get; set; }
+            public int EndIndex { get; set; }
         }
 
         private class SymbolProperties
@@ -129,7 +131,6 @@ namespace RingSoft.DataEntryControls.Engine
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
             return result;
         }
 
@@ -150,20 +151,32 @@ namespace RingSoft.DataEntryControls.Engine
                 SymbolProperties = GetSymbolProperties()
             };
 
-            var newText = result.LeftText + charText + result.RightText;
-            switch (_setup.EditFormatType)
+            result.SymbolIndex = Control.Text.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal);
+
+            if (result.SymbolIndex >= 0)
             {
-                case NumericEditFormatTypes.Currency:
-                    result.SymbolExists = newText.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal) >= 0;
-                    break;
-                case NumericEditFormatTypes.Number:
-                    break;
-                case NumericEditFormatTypes.Percent:
-                    result.SymbolExists = newText.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal) >= 0;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                switch (result.SymbolProperties.SymbolLocation)
+                {
+                    case NumberSymbolLocations.Prefix:
+                        result.FirstDigitIndex = result.SymbolIndex + result.SymbolProperties.SymbolText.Length;
+                        result.EndIndex = Control.Text.Length;
+                        break;
+                    case NumberSymbolLocations.Suffix:
+                        result.FirstDigitIndex = 0;
+                        result.EndIndex = result.SymbolIndex;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+            else
+            {
+                result.FirstDigitIndex = 0;
+                result.EndIndex = Control.Text.Length;
+            }
+
+
+            var newText = result.LeftText + charText + result.RightText;
 
             var selectedTextDecimalPosition = GetDecimalPosition(result.SelectedText);
             if (selectedTextDecimalPosition < 0)
@@ -182,6 +195,10 @@ namespace RingSoft.DataEntryControls.Engine
                 result.NewWholeNumberText = newText.LeftStr(newDecimalPosition);
                 result.NewDecimalText = newText.GetRightText(newDecimalPosition, 1);
             }
+
+            if (result.NewWholeNumberText == "-")
+                result.NewWholeNumberText = "0";
+
             return result;
         }
 
@@ -226,7 +243,7 @@ namespace RingSoft.DataEntryControls.Engine
             switch (numericTextProperties.SymbolProperties.SymbolLocation)
             {
                 case NumberSymbolLocations.Prefix:
-                    if (!numericTextProperties.SymbolExists && !numericTextProperties.SymbolProperties.SymbolText.IsNullOrEmpty())
+                    if (numericTextProperties.SymbolIndex < 0 && !numericTextProperties.SymbolProperties.SymbolText.IsNullOrEmpty())
                         newSelectionStart += numericTextProperties.SymbolProperties.SymbolText.Length;
                     break;
                 case NumberSymbolLocations.Suffix:
@@ -438,35 +455,54 @@ namespace RingSoft.DataEntryControls.Engine
                 return ProcessCharResults.ValidationFailed;
 
             _setup = setup;
-            if (!ScrubSelectionProperties())
+            var numericTextProperties = GetNumericTextProperties(string.Empty);
+
+            if (!ScrubBackspace(numericTextProperties))
                 return ProcessCharResults.Processed;
 
-            if (Control.SelectionLength == 0 && Control.SelectionStart > 0)
+            ScrubSelectionProperties(numericTextProperties);
+
+            if (!ScrubBackspace(numericTextProperties))
+                return ProcessCharResults.Processed;
+
+            if (Control.SelectionLength == 0)
             {
                 Control.SelectionStart--;
                 Control.SelectionLength = 1;
             }
 
-            ReplaceSelectedText();
+            DeleteSelectedText();
 
             return ProcessCharResults.Processed;
         }
 
-        private void ReplaceSelectedText()
+        private bool ScrubBackspace(NumericTextProperties numericTextProperties)
         {
+            if (Control.SelectionLength == 0)
+            {
+                if (Control.SelectionStart == numericTextProperties.FirstDigitIndex)
+                {
+                    if (numericTextProperties.NegativeSignIndex < 0)
+                        Control.SelectionStart = 0;
+                    else
+                        Control.SelectionStart = numericTextProperties.NegativeSignIndex + 1;
+
+                    return false;
+                }
+                else if (Control.SelectionStart > numericTextProperties.EndIndex)
+                {
+                    Control.SelectionStart = numericTextProperties.EndIndex;
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        private void DeleteSelectedText()
+        {
+            var numericTextProperties = GetNumericTextProperties(string.Empty);
             if (Control.SelectionLength > 0)
             {
-                var numericTextProperties = GetNumericTextProperties(string.Empty);
-
-                var symbolIndex = -1;
-                if (!numericTextProperties.SymbolProperties.SymbolText.IsNullOrEmpty())
-                    symbolIndex = Control.Text.IndexOf(numericTextProperties.SymbolProperties.SymbolText,
-                        StringComparison.Ordinal);
-
-                var firstDigitIndex = 0;
-                if (numericTextProperties.SymbolProperties.SymbolLocation == NumberSymbolLocations.Prefix)
-                    firstDigitIndex = symbolIndex + numericTextProperties.SymbolProperties.SymbolText.Length;
-
                 var newText = numericTextProperties.LeftText + numericTextProperties.RightText;
                 var oldGroupSeparatorCount = CountNumberGroupSeparators(newText);
 
@@ -487,8 +523,7 @@ namespace RingSoft.DataEntryControls.Engine
                     {
                         newText = GetFormattedText(numericTextProperties);
                         if (numericTextProperties.NewWholeNumberText == "0" &&
-                            numericTextProperties.NewDecimalText.IsNullOrEmpty() &&
-                            numericTextProperties.DecimalPosition >= 0)
+                            numericTextProperties.NewDecimalText.IsNullOrEmpty())
                             newText = string.Empty;
                     }
                 }
@@ -496,7 +531,7 @@ namespace RingSoft.DataEntryControls.Engine
                 var newGroupSeparatorCount = CountNumberGroupSeparators(newText);
 
                 var selectionStart = Control.SelectionStart;
-                if (selectionStart > firstDigitIndex)
+                if (selectionStart > numericTextProperties.FirstDigitIndex)
                     selectionStart -= oldGroupSeparatorCount - newGroupSeparatorCount;
                 if (selectionStart < 0)
                     selectionStart = 0;
@@ -509,86 +544,65 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
-        private bool ScrubSelectionProperties()
+        private void ScrubSelectionProperties(NumericTextProperties numericTextProperties)
         {
-            var symbolProperties = GetSymbolProperties();
-            var symbolIndex = -1;
-            if (!symbolProperties.SymbolText.IsNullOrEmpty())
-                symbolIndex = Control.Text.IndexOf(symbolProperties.SymbolText, StringComparison.Ordinal);
-
-            var firstDigitIndex = 0;
-            if (symbolProperties.SymbolLocation == NumberSymbolLocations.Prefix)
-                firstDigitIndex = symbolIndex + symbolProperties.SymbolText.Length;
-
-            switch (symbolProperties.SymbolLocation)
+            if (Control.SelectionLength > 0)
             {
-                case NumberSymbolLocations.Prefix:
-                    if (Control.SelectionStart <= firstDigitIndex && Control.SelectionLength > 0)
-                    {
-                        if (Control.SelectionStart + Control.SelectionLength > firstDigitIndex)
-                        {
-                            //User selects digits next to symbol.  Reset selection start to be the first digit.
-                            //Select text that was selected beyond the first digit.
-                            var newSelectionLength =
-                                (Control.SelectionStart + Control.SelectionLength) - firstDigitIndex;
-                            Control.SelectionStart = firstDigitIndex;
-                            Control.SelectionLength = newSelectionLength;
-                        }
-                        else
-                        {
-                            Control.SelectionStart = firstDigitIndex;
-                            Control.SelectionLength = 0;
-                        }
-                    }
-                    if (Control.SelectionStart <= firstDigitIndex && Control.SelectionStart > symbolIndex && Control.SelectionLength == 0)
-                    {
-                        Control.SelectionStart = symbolIndex;
-                        return false;
-                    }
-                    break;
-                case NumberSymbolLocations.Suffix:
-                    if (Control.SelectionStart + Control.SelectionLength > symbolIndex && Control.SelectionLength > 0)
-                    {
-                        //User selects digits next to symbol.  Select text that was selected before symbol.
-                        var newSelectionLength = symbolIndex - Control.SelectionStart;
-                        if (newSelectionLength < 0)
-                            newSelectionLength = 0;
-                        Control.SelectionLength = newSelectionLength;
-                        if (Control.SelectionLength == 0)
-                            return false;
-                    }
-                    if (Control.SelectionStart > symbolIndex)
-                    {
-                        Control.SelectionStart = symbolIndex;
-                        Control.SelectionLength = 0;
-                        return false;
-                    }
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                if (Control.SelectionLength == Control.Text.Length)
+                    return;
 
-            return true;
+                if (Control.SelectionStart < numericTextProperties.FirstDigitIndex)
+                {
+                    if (Control.SelectionStart + Control.SelectionLength > numericTextProperties.FirstDigitIndex)
+                    {
+                        //User selects digits next to symbol.  Reset selection start to be the first digit.
+                        //Select text that was selected beyond the first digit.
+                        var newSelectionLength =
+                            (Control.SelectionStart + Control.SelectionLength) - numericTextProperties.FirstDigitIndex;
+                        Control.SelectionLength = newSelectionLength;
+                    }
+                    else
+                    {
+                        Control.SelectionLength = 0;
+                    }
+                    Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                }
+
+                if (Control.SelectionStart + Control.SelectionLength > numericTextProperties.EndIndex)
+                {
+                    //User selects digits next to symbol.  Select text that was selected before symbol.
+                    var newSelectionLength = numericTextProperties.EndIndex - Control.SelectionStart;
+                    if (newSelectionLength < 0)
+                        newSelectionLength = 0;
+                    Control.SelectionLength = newSelectionLength;
+                }
+            }
         }
 
         public virtual ProcessCharResults OnDeleteKeyDown(DataEntryNumericEditSetup setup)
         {
             _setup = setup;
 
-            if (Control.SelectionStart == Control.Text.Length - 1 && Control.SelectionLength == 0)
-                return ProcessCharResults.ValidationFailed;
+            //var symbolProperties = GetSymbolProperties();
+            //var symbolIndex = GetSymbolIndex(symbolProperties);
 
-            _setup = setup;
-            if (!ScrubSelectionProperties())
-                return ProcessCharResults.Processed;
+            //var endIndex = Control.Text.Length - 1;
 
-            if (Control.SelectionLength == 0 && Control.SelectionStart > 0)
-            {
-                //Control.SelectionStart++;
-                Control.SelectionLength = 1;
-            }
+            //if (symbolIndex >= 0 && symbolProperties.SymbolLocation == NumberSymbolLocations.Suffix)
+            //    endIndex = symbolIndex;
 
-            ReplaceSelectedText();
+            //if (Control.SelectionStart == endIndex && Control.SelectionLength == 0)
+            //    return ProcessCharResults.ValidationFailed;
+
+            //if (!ScrubSelectionProperties(false, string.Empty))
+            //    return ProcessCharResults.Processed;
+
+            //if (Control.SelectionLength == 0)
+            //{
+            //    Control.SelectionLength = 1;
+            //}
+
+            //DeleteSelectedText();
 
             return ProcessCharResults.Processed;
         }

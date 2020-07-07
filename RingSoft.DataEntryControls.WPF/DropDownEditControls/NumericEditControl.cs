@@ -325,7 +325,8 @@ namespace RingSoft.DataEntryControls.WPF
                                 System.Media.SystemSounds.Exclamation.Play();
                             return true;
                         case Key.Delete:
-                            _numericProcessor.OnDeleteKeyDown(GetSetup());
+                            if (_numericProcessor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
+                                System.Media.SystemSounds.Exclamation.Play();
                             return true;
                         case Key.Decimal:
                             if (_numericProcessor.ProcessDecimal(GetSetup()) == ProcessCharResults.ValidationFailed)
