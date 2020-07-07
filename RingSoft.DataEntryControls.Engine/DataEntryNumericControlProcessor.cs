@@ -30,7 +30,8 @@ namespace RingSoft.DataEntryControls.Engine
             public string RightText { get; set; }
             public int DecimalPosition { get; set; } = -1;
             public SymbolProperties SymbolProperties { get; set; }
-            public int GroupSeparatorCount { get; set; }
+            public int OldGroupSeparatorCount { get; set; }
+            public int NewGroupSeparatorCount { get; set; }
             public string NewWholeNumberText { get; set; }
             public string NewDecimalText { get; set; }
             public int NegativeSignIndex { get; set; } = -1;
@@ -182,7 +183,7 @@ namespace RingSoft.DataEntryControls.Engine
             if (selectedTextDecimalPosition < 0)
                 result.DecimalPosition = GetDecimalPosition(controlText);
 
-            result.GroupSeparatorCount = CountNumberGroupSeparators(newText);
+            result.OldGroupSeparatorCount = CountNumberGroupSeparators(newText);
 
             newText = StripNonNumericCharacters(newText);
             result.NegativeSignIndex = newText.IndexOf('-');
@@ -224,7 +225,7 @@ namespace RingSoft.DataEntryControls.Engine
             var newGroupSeparatorCount = CountNumberGroupSeparators(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
-            var selectionIncrement = newGroupSeparatorCount - numericTextProperties.GroupSeparatorCount;
+            var selectionIncrement = newGroupSeparatorCount - numericTextProperties.OldGroupSeparatorCount;
             if (selectionIncrement > 0)
                 newSelectionStart += selectionIncrement;
 
@@ -389,7 +390,7 @@ namespace RingSoft.DataEntryControls.Engine
             var newSymbolCount = CountNumberGroupSeparators(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
-            selectionIncrement += newSymbolCount - numericProperties.GroupSeparatorCount;
+            selectionIncrement += newSymbolCount - numericProperties.OldGroupSeparatorCount;
             newSelectionStart += selectionIncrement;
 
             newSelectionStart = UpdateSelectionStart(numericProperties, newSelectionStart);
@@ -411,11 +412,17 @@ namespace RingSoft.DataEntryControls.Engine
 
         public virtual int CountNumberGroupSeparators(string formattedText)
         {
-            var searchString = _setup.Culture.NumberFormat.NumberGroupSeparator;
-            if (_setup.EditFormatType == NumericEditFormatTypes.Currency)
-                searchString = _setup.Culture.NumberFormat.CurrencyGroupSeparator;
+            var searchString = GetGroupSeparatorString();
 
             return formattedText.CountTextForChars(searchString);
+        }
+
+        private string GetGroupSeparatorString()
+        {
+            if (_setup.EditFormatType == NumericEditFormatTypes.Currency)
+                return _setup.Culture.NumberFormat.CurrencyGroupSeparator;
+
+            return _setup.Culture.NumberFormat.NumberGroupSeparator;
         }
 
         private bool ValidateDecimal(NumericTextProperties numericTextProperties)
@@ -465,14 +472,47 @@ namespace RingSoft.DataEntryControls.Engine
             if (!ScrubBackspace(numericTextProperties))
                 return ProcessCharResults.Processed;
 
+            var groupSeparator = GetGroupSeparatorString();
+            var groupSeparatorAtLeft = false;
             if (Control.SelectionLength == 0)
             {
-                Control.SelectionStart--;
-                Control.SelectionLength = 1;
+                if (Control.SelectionStart > 0)
+                {
+                    
+                    var leftText = Control.Text.MidStr(Control.SelectionStart - groupSeparator.Length,
+                        groupSeparator.Length);
+                    if (leftText == groupSeparator)
+                    {
+                        Control.SelectionStart -= groupSeparator.Length + 1;
+                        Control.SelectionLength = groupSeparator.Length + 1;
+                        groupSeparatorAtLeft = true;
+                    }
+                }
+                if (Control.SelectionLength == 0)
+                {
+                    Control.SelectionStart--;
+                    Control.SelectionLength = 1;
+                }
             }
 
             DeleteSelectedText();
 
+            if (groupSeparatorAtLeft)
+            {
+                var newTextProperties = GetNumericTextProperties(string.Empty);
+                if (Control.SelectionStart > newTextProperties.FirstDigitIndex)
+                {
+                    if (newTextProperties.NegativeSignIndex < 0)
+                    {
+                        Control.SelectionStart -= groupSeparator.Length;
+                    }
+                    else
+                    {
+                        if (Control.SelectionStart != newTextProperties.NegativeSignIndex + 1)
+                            Control.SelectionStart -= groupSeparator.Length;
+                    }
+                }
+            }
             return ProcessCharResults.Processed;
         }
 
@@ -498,6 +538,7 @@ namespace RingSoft.DataEntryControls.Engine
 
             return true;
         }
+
         private void DeleteSelectedText()
         {
             var numericTextProperties = GetNumericTextProperties(string.Empty);
@@ -582,29 +623,60 @@ namespace RingSoft.DataEntryControls.Engine
         public virtual ProcessCharResults OnDeleteKeyDown(DataEntryNumericEditSetup setup)
         {
             _setup = setup;
+            var numericTextProperties = GetNumericTextProperties(string.Empty);
 
-            //var symbolProperties = GetSymbolProperties();
-            //var symbolIndex = GetSymbolIndex(symbolProperties);
+            if (Control.SelectionStart == numericTextProperties.EndIndex)
+                return ProcessCharResults.ValidationFailed;
 
-            //var endIndex = Control.Text.Length - 1;
 
-            //if (symbolIndex >= 0 && symbolProperties.SymbolLocation == NumberSymbolLocations.Suffix)
-            //    endIndex = symbolIndex;
+            if (!ScrubDelete(numericTextProperties))
+                return ProcessCharResults.Processed;
 
-            //if (Control.SelectionStart == endIndex && Control.SelectionLength == 0)
-            //    return ProcessCharResults.ValidationFailed;
+            ScrubSelectionProperties(numericTextProperties);
 
-            //if (!ScrubSelectionProperties(false, string.Empty))
-            //    return ProcessCharResults.Processed;
+            if (!ScrubDelete(numericTextProperties))
+                return ProcessCharResults.Processed;
 
-            //if (Control.SelectionLength == 0)
-            //{
-            //    Control.SelectionLength = 1;
-            //}
+            if (Control.SelectionLength == 0)
+            {
+                Control.SelectionLength = 1;
+                if (Control.SelectionStart + Control.SelectionLength == numericTextProperties.DecimalPosition)
+                    Control.SelectionLength += GetDecimalPointString().Length;
+            }
 
-            //DeleteSelectedText();
+            DeleteSelectedText();
 
             return ProcessCharResults.Processed;
+        }
+
+        private bool ScrubDelete(NumericTextProperties numericTextProperties)
+        {
+            if (Control.SelectionStart + Control.SelectionLength <= numericTextProperties.FirstDigitIndex)
+            {
+                if (Control.SelectionStart < numericTextProperties.FirstDigitIndex)
+                {
+                    if (numericTextProperties.NegativeSignIndex < 0)
+                    {
+                        Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                        Control.SelectionLength = 0;
+                        return false;
+                    }
+
+                    //Negative
+                    if (Control.SelectionStart > 0)
+                    {
+                        Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                        Control.SelectionLength = 0;
+                        return false;
+                    }
+                }
+                else if (Control.SelectionLength == 0 && Control.SelectionStart > numericTextProperties.EndIndex)
+                {
+                    Control.SelectionStart = numericTextProperties.EndIndex;
+                    return false;
+                }
+            }
+            return true;
         }
 
         public virtual void OnValueChanged(string newValue)
