@@ -321,7 +321,8 @@ namespace RingSoft.DataEntryControls.WPF
                         case Key.Space:
                             return ProcessKeyChar(' ');
                         case Key.Back:
-                            _numericProcessor.OnBackspaceKeyDown(GetSetup());
+                            if (_numericProcessor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
+                                System.Media.SystemSounds.Exclamation.Play();
                             return true;
                         case Key.Delete:
                             _numericProcessor.OnDeleteKeyDown(GetSetup());

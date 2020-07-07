@@ -432,15 +432,21 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
-        public virtual void OnBackspaceKeyDown(DataEntryNumericEditSetup setup)
+        public virtual ProcessCharResults OnBackspaceKeyDown(DataEntryNumericEditSetup setup)
         {
+            if (Control.SelectionStart == 0 && Control.SelectionLength == 0)
+                return ProcessCharResults.ValidationFailed;
+
             _setup = setup;
             var symbolProperties = GetSymbolProperties();
             var symbolIndex = -1;
             if (!symbolProperties.SymbolText.IsNullOrEmpty())
                 symbolIndex = Control.Text.IndexOf(symbolProperties.SymbolText, StringComparison.Ordinal);
 
-            var firstDigitIndex = symbolIndex + symbolProperties.SymbolText.Length;
+            var firstDigitIndex = 0;
+            if (symbolProperties.SymbolLocation == NumberSymbolLocations.Prefix)
+                firstDigitIndex = symbolIndex + symbolProperties.SymbolText.Length;
+
             if (Control.SelectionStart > 0)
             {
                 switch (symbolProperties.SymbolLocation)
@@ -466,10 +472,25 @@ namespace RingSoft.DataEntryControls.Engine
                         if (Control.SelectionStart <= firstDigitIndex && Control.SelectionStart > symbolIndex && Control.SelectionLength == 0)
                         {
                             Control.SelectionStart = symbolIndex;
-                            return;
+                            return ProcessCharResults.Processed;
                         }
                         break;
                     case NumberSymbolLocations.Suffix:
+                        if (Control.SelectionStart + Control.SelectionLength > symbolIndex)
+                        {
+                            //User selects digits next to symbol.  Reset selection start to be the first digit.
+                            //Select text that was selected before symbol.
+                            var newSelectionLength = symbolIndex - Control.SelectionStart;
+                            if (newSelectionLength < 0)
+                                newSelectionLength = 0;
+                            Control.SelectionLength = newSelectionLength;
+                        }
+                        if (Control.SelectionStart > symbolIndex)
+                        {
+                            Control.SelectionStart = symbolIndex;
+                            Control.SelectionLength = 0;
+                            return ProcessCharResults.Processed;
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -502,13 +523,17 @@ namespace RingSoft.DataEntryControls.Engine
                         newText = string.Empty;
                 }
 
-                var newSymbolCount = CountNumberGroupSeparators(newText);
+                var newGroupSeparatorCount = CountNumberGroupSeparators(newText);
 
                 var selectionStart = Control.SelectionStart;
                 if (selectionStart > firstDigitIndex)
-                    selectionStart -= oldGroupSeparatorCount - newSymbolCount;
+                    selectionStart -= oldGroupSeparatorCount - newGroupSeparatorCount;
                 if (selectionStart < 0)
                     selectionStart = 0;
+                //else if (numericTextProperties.SymbolExists &&
+                //         numericTextProperties.SymbolProperties.SymbolLocation == NumberSymbolLocations.Suffix &&
+                //         selectionStart > symbolIndex)
+                //    selectionStart = symbolIndex;
 
                 Control.Text = newText;
                 Control.SelectionStart = selectionStart;
@@ -516,6 +541,8 @@ namespace RingSoft.DataEntryControls.Engine
 
                 OnValueChanged(newValue);
             }
+
+            return ProcessCharResults.Processed;
         }
 
         public virtual void OnDeleteKeyDown(DataEntryNumericEditSetup setup)
