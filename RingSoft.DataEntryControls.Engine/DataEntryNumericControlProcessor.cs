@@ -28,10 +28,9 @@ namespace RingSoft.DataEntryControls.Engine
             public string LeftText { get; set; }
             public string SelectedText { get; set; }
             public string RightText { get; set; }
-            public int DecimalPosition { get; set; } = -1;
+            public int DecimalIndex { get; set; } = -1;
             public SymbolProperties SymbolProperties { get; set; }
-            public int OldGroupSeparatorCount { get; set; }
-            public int NewGroupSeparatorCount { get; set; }
+            public int GroupSeparatorCount { get; set; }
             public string NewWholeNumberText { get; set; }
             public string NewDecimalText { get; set; }
             public int NegativeSignIndex { get; set; } = -1;
@@ -152,7 +151,7 @@ namespace RingSoft.DataEntryControls.Engine
                 SymbolProperties = GetSymbolProperties()
             };
 
-            result.SymbolIndex = Control.Text.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal);
+            result.SymbolIndex = controlText.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal);
 
             if (result.SymbolIndex >= 0)
             {
@@ -160,7 +159,7 @@ namespace RingSoft.DataEntryControls.Engine
                 {
                     case NumberSymbolLocations.Prefix:
                         result.FirstDigitIndex = result.SymbolIndex + result.SymbolProperties.SymbolText.Length;
-                        result.EndIndex = Control.Text.Length;
+                        result.EndIndex = controlText.Length;
                         break;
                     case NumberSymbolLocations.Suffix:
                         result.FirstDigitIndex = 0;
@@ -173,20 +172,22 @@ namespace RingSoft.DataEntryControls.Engine
             else
             {
                 result.FirstDigitIndex = 0;
-                result.EndIndex = Control.Text.Length;
+                result.EndIndex = controlText.Length;
             }
 
 
             var newText = result.LeftText + charText + result.RightText;
-
             var selectedTextDecimalPosition = GetDecimalPosition(result.SelectedText);
             if (selectedTextDecimalPosition < 0)
-                result.DecimalPosition = GetDecimalPosition(controlText);
+                result.DecimalIndex = GetDecimalPosition(controlText);
 
-            result.OldGroupSeparatorCount = CountNumberGroupSeparators(newText);
+            result.GroupSeparatorCount = CountNumberGroupSeparators(newText);
 
             newText = StripNonNumericCharacters(newText);
             result.NegativeSignIndex = newText.IndexOf('-');
+
+            if (result.NegativeSignIndex >= 0 && result.FirstDigitIndex == 0)
+                result.FirstDigitIndex = result.NegativeSignIndex + 1;
 
             result.NewWholeNumberText = newText;
 
@@ -225,11 +226,11 @@ namespace RingSoft.DataEntryControls.Engine
             var newGroupSeparatorCount = CountNumberGroupSeparators(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
-            var selectionIncrement = newGroupSeparatorCount - numericTextProperties.OldGroupSeparatorCount;
+            var selectionIncrement = newGroupSeparatorCount - numericTextProperties.GroupSeparatorCount;
             if (selectionIncrement > 0)
                 newSelectionStart += selectionIncrement;
 
-            newSelectionStart = UpdateSelectionStart(numericTextProperties, newSelectionStart);
+            newSelectionStart = UpdateSelectionStart(newText, numericTextProperties, newSelectionStart);
 
             Control.Text = newText;
             Control.SelectionStart = newSelectionStart;
@@ -239,18 +240,12 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.Processed;
         }
 
-        private int UpdateSelectionStart(NumericTextProperties numericTextProperties, int newSelectionStart)
+        private int UpdateSelectionStart(string newText, NumericTextProperties numericTextProperties, int newSelectionStart)
         {
-            switch (numericTextProperties.SymbolProperties.SymbolLocation)
+            if ((numericTextProperties.LeftText + numericTextProperties.RightText).IsNullOrEmpty())
             {
-                case NumberSymbolLocations.Prefix:
-                    if (numericTextProperties.SymbolIndex < 0 && !numericTextProperties.SymbolProperties.SymbolText.IsNullOrEmpty())
-                        newSelectionStart += numericTextProperties.SymbolProperties.SymbolText.Length;
-                    break;
-                case NumberSymbolLocations.Suffix:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                var newTextProperties = GetNumericPropertiesForText(newText, newSelectionStart, 0, string.Empty);
+                newSelectionStart = newTextProperties.EndIndex;
             }
 
             return newSelectionStart;
@@ -390,10 +385,10 @@ namespace RingSoft.DataEntryControls.Engine
             var newSymbolCount = CountNumberGroupSeparators(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
-            selectionIncrement += newSymbolCount - numericProperties.OldGroupSeparatorCount;
+            selectionIncrement += newSymbolCount - numericProperties.GroupSeparatorCount;
             newSelectionStart += selectionIncrement;
 
-            newSelectionStart = UpdateSelectionStart(numericProperties, newSelectionStart);
+            newSelectionStart = UpdateSelectionStart(newText, numericProperties, newSelectionStart);
 
             Control.Text = newText;
             Control.SelectionStart = newSelectionStart;
@@ -430,7 +425,7 @@ namespace RingSoft.DataEntryControls.Engine
             if (_setup.Precision <= 0)
                 return false;
 
-            if (numericTextProperties.DecimalPosition >= 0)
+            if (numericTextProperties.DecimalIndex >= 0)
                 return false;
 
             return ValidateNewText(numericTextProperties);
@@ -555,8 +550,8 @@ namespace RingSoft.DataEntryControls.Engine
                 }
                 else
                 {
-                    if (numericTextProperties.DecimalPosition >= 0 &&
-                        Control.SelectionStart >= numericTextProperties.DecimalPosition + 1)
+                    if (numericTextProperties.DecimalIndex >= 0 &&
+                        Control.SelectionStart >= numericTextProperties.DecimalIndex + 1)
                     {
                         newText = numericTextProperties.LeftText + numericTextProperties.RightText;
                     }
@@ -637,14 +632,33 @@ namespace RingSoft.DataEntryControls.Engine
             if (!ScrubDelete(numericTextProperties))
                 return ProcessCharResults.Processed;
 
+
+            var groupSeparator = GetGroupSeparatorString();
             if (Control.SelectionLength == 0)
             {
-                Control.SelectionLength = 1;
-                if (Control.SelectionStart + Control.SelectionLength == numericTextProperties.DecimalPosition)
-                    Control.SelectionLength += GetDecimalPointString().Length;
+                if (Control.SelectionStart < numericTextProperties.EndIndex)
+                {
+
+                    var rightText = Control.Text.MidStr(Control.SelectionStart,
+                        groupSeparator.Length);
+                    if (rightText == groupSeparator)
+                    {
+                        Control.SelectionLength = groupSeparator.Length + 1;
+                    }
+                }
+                if (Control.SelectionLength == 0)
+                {
+                    Control.SelectionLength = 1;
+                    if (Control.SelectionStart + Control.SelectionLength == numericTextProperties.DecimalIndex)
+                        Control.SelectionLength += GetDecimalPointString().Length;
+                }
             }
 
             DeleteSelectedText();
+
+            var newTextProperties = GetNumericTextProperties(string.Empty);
+            if (Control.SelectionStart < newTextProperties.FirstDigitIndex)
+                Control.SelectionStart = newTextProperties.FirstDigitIndex;
 
             return ProcessCharResults.Processed;
         }

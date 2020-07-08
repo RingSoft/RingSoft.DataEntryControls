@@ -13,8 +13,8 @@ namespace RingSoft.DataEntryControls.App.WPF
         {
             //var culture = new CultureInfo("pt-BR"); //Format = R$ 1.234,56
             //var culture = new CultureInfo("ja-JP");  //0 decimals.  Format = ¥1,234
-            //var culture = new CultureInfo("sv-SE"); //Format = 1.234,56 kr
-            var culture = CultureInfo.CurrentCulture;
+            var culture = new CultureInfo("sv-SE"); //Format = 1 234,56 kr
+            //var culture = CultureInfo.CurrentCulture;
 
             Globals.CultureId = culture.Name;
             Globals.Precision = culture.NumberFormat.CurrencyDecimalDigits;
