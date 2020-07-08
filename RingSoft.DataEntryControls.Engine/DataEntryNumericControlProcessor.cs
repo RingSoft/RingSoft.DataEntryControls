@@ -87,6 +87,9 @@ namespace RingSoft.DataEntryControls.Engine
                     return ProcessNegativeChar();
             }
 
+            if (keyChar.ToString() == NumberFormatInfo.CurrentInfo.NumberDecimalSeparator)
+                return ProcessDecimal(setup);
+
             return ProcessCharResults.ValidationFailed;
         }
 
@@ -223,6 +226,9 @@ namespace RingSoft.DataEntryControls.Engine
             if (_setup.DataEntryMode != DataEntryModes.FormatOnEntry)
                 return ProcessCharResults.Ignored;
 
+            ScrubDataEntrySelectionStart(numericTextProperties, numberChar.ToString());
+            numericTextProperties = GetNumericTextProperties(numberChar.ToString());
+
             var newText = GetFormattedText(numericTextProperties);
 
             var newGroupSeparatorCount = CountNumberGroupSeparators(newText);
@@ -240,6 +246,25 @@ namespace RingSoft.DataEntryControls.Engine
             OnValueChanged(GetNewValue(numericTextProperties));
 
             return ProcessCharResults.Processed;
+        }
+
+        private void ScrubDataEntrySelectionStart(NumericTextProperties numericTextProperties, string numberChar)
+        {
+            ScrubSelectionProperties(numericTextProperties);
+
+            if (Control.SelectionLength == 0)
+            {
+                if (Control.SelectionStart < numericTextProperties.FirstDigitIndex)
+                {
+                    if (Control.SelectionStart >= numericTextProperties.SymbolIndex && numberChar != "-")
+                        Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                    else if (Control.SelectionStart == 0 && numberChar != "-")
+                        Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                }
+
+                if (Control.SelectionStart > numericTextProperties.EndIndex)
+                    Control.SelectionStart = numericTextProperties.EndIndex;
+            }
         }
 
         private int UpdateSelectionStart(string newText, NumericTextProperties numericTextProperties, int newSelectionStart)
@@ -360,12 +385,12 @@ namespace RingSoft.DataEntryControls.Engine
                 Control.SelectionStart++;
                 return ProcessCharResults.Processed;
             }
-            var numericProperties = GetNumericTextProperties(decimalString);
+            var numericTextProperties = GetNumericTextProperties(decimalString);
 
-            if (!ValidateDecimal(numericProperties))
+            if (!ValidateDecimal(numericTextProperties))
                 return ProcessCharResults.ValidationFailed;
 
-            var newText = numericProperties.LeftText + decimalString + numericProperties.RightText;
+            var newText = numericTextProperties.LeftText + decimalString + numericTextProperties.RightText;
 
             if (_setup.DataEntryMode == DataEntryModes.ValidateOnly)
             {
@@ -378,24 +403,27 @@ namespace RingSoft.DataEntryControls.Engine
             var selectionIncrement = 0;
             if (newText == decimalString)
             {
-                numericProperties.NewWholeNumberText = "0";
+                numericTextProperties.NewWholeNumberText = "0";
                 selectionIncrement++;
             }
 
-            newText = GetFormattedText(numericProperties);
+            ScrubDataEntrySelectionStart(numericTextProperties, decimalString);
+            numericTextProperties = GetNumericTextProperties(decimalString);
+
+            newText = GetFormattedText(numericTextProperties);
 
             var newSymbolCount = CountNumberGroupSeparators(newText);
 
             var newSelectionStart = Control.SelectionStart + 1;
-            selectionIncrement += newSymbolCount - numericProperties.GroupSeparatorCount;
+            selectionIncrement += newSymbolCount - numericTextProperties.GroupSeparatorCount;
             newSelectionStart += selectionIncrement;
 
-            newSelectionStart = UpdateSelectionStart(newText, numericProperties, newSelectionStart);
+            newSelectionStart = UpdateSelectionStart(newText, numericTextProperties, newSelectionStart);
 
             Control.Text = newText;
             Control.SelectionStart = newSelectionStart;
             Control.SelectionLength = 0;
-            OnValueChanged(GetNewValue(numericProperties));
+            OnValueChanged(GetNewValue(numericTextProperties));
 
             return ProcessCharResults.Processed;
         }
