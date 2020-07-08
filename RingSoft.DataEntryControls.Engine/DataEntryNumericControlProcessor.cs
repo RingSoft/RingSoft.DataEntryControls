@@ -83,6 +83,8 @@ namespace RingSoft.DataEntryControls.Engine
                 case '8':
                 case '9':
                     return ProcessNumberDigit(keyChar);
+                case '-':
+                    return ProcessNegativeChar();
             }
 
             return ProcessCharResults.ValidationFailed;
@@ -520,7 +522,12 @@ namespace RingSoft.DataEntryControls.Engine
                     if (numericTextProperties.NegativeSignIndex < 0)
                         Control.SelectionStart = 0;
                     else
+                    {
+                        if (Control.SelectionStart == 1)
+                            return true;
+
                         Control.SelectionStart = numericTextProperties.NegativeSignIndex + 1;
+                    }
 
                     return false;
                 }
@@ -691,6 +698,55 @@ namespace RingSoft.DataEntryControls.Engine
                 }
             }
             return true;
+        }
+
+        private ProcessCharResults ProcessNegativeChar()
+        {
+            if (_setup.MinimumValue != null && _setup.MinimumValue >= 0)
+                return ProcessCharResults.ValidationFailed;
+
+            var numericTextProperties = GetNumericTextProperties("");
+            if (numericTextProperties.NegativeSignIndex >= 0)
+                return ProcessCharResults.ValidationFailed;
+
+            if (Control.SelectionStart > numericTextProperties.FirstDigitIndex)
+                return ProcessCharResults.ValidationFailed;
+
+            if ((numericTextProperties.LeftText + numericTextProperties.RightText).IsNullOrEmpty())
+            {
+                SetEmptyNegativeText(numericTextProperties);
+            }
+            else
+            {
+                return ProcessNumberDigit('-');
+            }
+
+            return ProcessCharResults.Processed;
+        }
+
+        private void SetEmptyNegativeText(NumericTextProperties numericTextProperties)
+        {
+            Control.SelectionLength = 0;
+            if (!numericTextProperties.SymbolProperties.SymbolText.IsNullOrEmpty())
+            {
+                Control.Text = $"-{numericTextProperties.SymbolProperties.SymbolText}";
+                switch (numericTextProperties.SymbolProperties.SymbolLocation)
+                {
+                    case NumberSymbolLocations.Prefix:
+                        Control.SelectionStart = Control.Text.Length;
+                        break;
+                    case NumberSymbolLocations.Suffix:
+                        Control.SelectionStart = 1;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            else
+            {
+                Control.Text = "-";
+                Control.SelectionStart = 1;
+            }
         }
 
         public virtual void OnValueChanged(string newValue)
