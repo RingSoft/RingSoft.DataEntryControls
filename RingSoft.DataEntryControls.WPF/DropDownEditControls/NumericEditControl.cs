@@ -319,7 +319,8 @@ namespace RingSoft.DataEntryControls.WPF
                     switch (key)
                     {
                         case Key.Space:
-                            return ProcessKeyChar(' ');
+                            System.Media.SystemSounds.Exclamation.Play();
+                            return true;
                         case Key.Back:
                             if (_numericProcessor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
                                 System.Media.SystemSounds.Exclamation.Play();
@@ -328,23 +329,9 @@ namespace RingSoft.DataEntryControls.WPF
                             if (_numericProcessor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
                                 System.Media.SystemSounds.Exclamation.Play();
                             return true;
-                        case Key.Decimal:
-                            if (_numericProcessor.ProcessDecimal(GetSetup()) == ProcessCharResults.ValidationFailed)
-                                System.Media.SystemSounds.Exclamation.Play();
-
-                            return true;
                     }
                     break;
                 case DataEntryModes.ValidateOnly:
-                    switch (key)
-                    {
-                        case Key.Decimal:
-                            if (_numericProcessor.ProcessDecimal(GetSetup()) == ProcessCharResults.ValidationFailed)
-                                System.Media.SystemSounds.Exclamation.Play();
-
-                            return true;
-                    }
-                    break;
                 case DataEntryModes.RawEntry:
                     break;
                 default:
@@ -361,17 +348,22 @@ namespace RingSoft.DataEntryControls.WPF
                 return;
             }
 
+            _settingText = true;
             switch (DataEntryMode)
             {
                 case DataEntryModes.FormatOnEntry:
-                    break;
                 case DataEntryModes.ValidateOnly:
+                    if (!_numericProcessor.PasteText(GetSetup(), newText))
+                        System.Media.SystemSounds.Exclamation.Play();
+                    break;
                 case DataEntryModes.RawEntry:
                     OnValueChanged(newText);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            _settingText = false;
 
             base.OnTextChanged(newText);
         }

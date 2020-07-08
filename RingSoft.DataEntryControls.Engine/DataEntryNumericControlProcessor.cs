@@ -65,8 +65,6 @@ namespace RingSoft.DataEntryControls.Engine
             switch (keyChar)
             {
                 case '\b':
-                    OnBackspaceKeyDown(setup);
-                    return ProcessCharResults.Processed;
                 case '\u001b':  //Escape
                 case '\t':
                 case '\r':
@@ -85,9 +83,11 @@ namespace RingSoft.DataEntryControls.Engine
                     return ProcessNumberDigit(keyChar);
                 case '-':
                     return ProcessNegativeChar();
+                case ' ':
+                    return ProcessCharResults.Ignored;
             }
 
-            if (keyChar.ToString() == NumberFormatInfo.CurrentInfo.NumberDecimalSeparator)
+            if (stringChar == NumberFormatInfo.CurrentInfo.NumberDecimalSeparator)
                 return ProcessDecimal(setup);
 
             return ProcessCharResults.ValidationFailed;
@@ -256,10 +256,18 @@ namespace RingSoft.DataEntryControls.Engine
             {
                 if (Control.SelectionStart < numericTextProperties.FirstDigitIndex)
                 {
-                    if (Control.SelectionStart >= numericTextProperties.SymbolIndex && numberChar != "-")
-                        Control.SelectionStart = numericTextProperties.FirstDigitIndex;
-                    else if (Control.SelectionStart == 0 && numberChar != "-")
-                        Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                    if (numberChar == "-")
+                    {
+                        if (Control.SelectionStart > numericTextProperties.SymbolIndex)
+                            Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                    }
+                    else
+                    {
+                        if (Control.SelectionStart >= numericTextProperties.SymbolIndex)
+                            Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                        else if (Control.SelectionStart == 0)
+                            Control.SelectionStart = numericTextProperties.FirstDigitIndex;
+                    }
                 }
 
                 if (Control.SelectionStart > numericTextProperties.EndIndex)
@@ -775,6 +783,40 @@ namespace RingSoft.DataEntryControls.Engine
                 Control.Text = "-";
                 Control.SelectionStart = 1;
             }
+        }
+
+        public bool PasteText(DataEntryNumericEditSetup setup, string newText)
+        {
+            _setup = setup;
+
+            if (newText.IsNullOrEmpty())
+            {
+                Control.Text = string.Empty;
+                Control.SelectionStart = 0;
+                Control.SelectionLength = 0;
+                OnValueChanged(string.Empty);
+                return true;
+            }
+            if (!newText.TryParseDecimal(out var result, _setup.Culture))
+            {
+                newText = "0";
+                Control.Text = FormatTextForEntry(setup, newText);
+                Control.SelectionStart = 0;
+                Control.SelectionLength = Control.Text.Length;
+                OnValueChanged(newText);
+                return false;
+            }
+
+            if (_setup.DataEntryMode == DataEntryModes.FormatOnEntry)
+            {
+                Control.Text = FormatTextForEntry(setup, newText);
+                Control.SelectionStart = 0;
+                Control.SelectionLength = Control.Text.Length;
+            }
+
+            newText = result.ToString(_setup.Culture);
+            OnValueChanged(newText);
+            return true;
         }
 
         public virtual void OnValueChanged(string newValue)

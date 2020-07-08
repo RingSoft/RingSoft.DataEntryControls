@@ -82,7 +82,7 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 if (_textBox != null)
                 {
-                    _textBox.PreviewTextInput -= _textBox_PreviewTextInput;
+                    //_textBox.PreviewTextInput -= _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown -= _textBox_PreviewKeyDown;
                     _textBox.GotFocus -= _textBox_GotFocus;
                     _textBox.TextChanged -= _textBox_TextChanged;
@@ -92,7 +92,7 @@ namespace RingSoft.DataEntryControls.WPF
 
                 if (_textBox != null)
                 {
-                    _textBox.PreviewTextInput += _textBox_PreviewTextInput;
+                    //_textBox.PreviewTextInput += _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown += _textBox_PreviewKeyDown;
                     _textBox.GotFocus += _textBox_GotFocus;
                     _textBox.TextChanged += _textBox_TextChanged;
@@ -139,6 +139,8 @@ namespace RingSoft.DataEntryControls.WPF
 
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
+        private bool _processingKey;
+
         static DropDownEditControl()
         {
             FocusableProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
@@ -181,15 +183,21 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _textBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            _processingKey = true;
+
             if (ProcessKey(e.Key))
                 e.Handled = true;
-        }
 
-        private void _textBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            if (e.Text.Length > 0)
-                if (ProcessKeyChar(e.Text[0]))
+            if (!(Keyboard.IsKeyDown(Key.LeftAlt)
+                  || Keyboard.IsKeyDown(Key.RightAlt)
+                  || Keyboard.IsKeyDown(Key.LeftCtrl)
+                  || Keyboard.IsKeyDown(Key.RightCtrl)))
+            {
+                if (ProcessKeyChar(e.Key.GetCharFromKey()))
                     e.Handled = true;
+            }
+
+            _processingKey = false;
         }
 
         private void _popup_Closed(object sender, EventArgs e)
@@ -210,7 +218,8 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            OnTextChanged(TextBox.Text);
+            if (!_processingKey)
+                OnTextChanged(TextBox.Text);
         }
 
         protected virtual void OnTextChanged(string newText)

@@ -123,10 +123,16 @@ namespace RingSoft.DataEntryControls.Engine
 
         public static decimal ToDecimal(this string text, CultureInfo culture = null)
         {
+            text.TryParseDecimal(out var result, culture);
+            return result;
+        }
+
+        public static bool TryParseDecimal(this string text, out decimal resultDecimal, CultureInfo culture = null)
+        {
             if (culture == null)
                 culture = CultureInfo.CurrentCulture;
 
-            decimal.TryParse(text,
+            return decimal.TryParse(text,
                 NumberStyles.AllowParentheses |
                 NumberStyles.AllowLeadingWhite |
                 NumberStyles.AllowTrailingWhite |
@@ -134,9 +140,7 @@ namespace RingSoft.DataEntryControls.Engine
                 NumberStyles.AllowDecimalPoint |
                 NumberStyles.AllowCurrencySymbol |
                 NumberStyles.AllowLeadingSign,
-                culture, out var result);
-
-            return result;
+                culture, out resultDecimal);
         }
     }
 }
