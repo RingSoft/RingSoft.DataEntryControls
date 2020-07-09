@@ -172,7 +172,9 @@ namespace RingSoft.DataEntryControls.WPF
         {
             _textSettingValue = true;
 
-            Value = newValue.ToDecimal(Culture);
+            var decimalValue = newValue.ToDecimal(Culture);
+            
+            Value = decimalValue;
 
             _textSettingValue = false;
 

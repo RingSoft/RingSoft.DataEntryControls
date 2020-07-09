@@ -132,7 +132,12 @@ namespace RingSoft.DataEntryControls.Engine
             if (culture == null)
                 culture = CultureInfo.CurrentCulture;
 
-            return decimal.TryParse(text,
+            var percent = false;
+            if (!text.IsNullOrEmpty())
+                percent = text.Contains(culture.NumberFormat.PercentSymbol);
+
+            text = text.NumTextToString(culture);
+            var result = decimal.TryParse(text,
                 NumberStyles.AllowParentheses |
                 NumberStyles.AllowLeadingWhite |
                 NumberStyles.AllowTrailingWhite |
@@ -141,6 +146,11 @@ namespace RingSoft.DataEntryControls.Engine
                 NumberStyles.AllowCurrencySymbol |
                 NumberStyles.AllowLeadingSign,
                 culture, out resultDecimal);
+
+            if (percent)
+                resultDecimal /= 100;
+
+            return result;
         }
     }
 }

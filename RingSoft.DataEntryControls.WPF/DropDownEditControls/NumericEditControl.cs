@@ -266,7 +266,9 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (TextBox != null)
             {
+                _settingText = true;
                 TextBox.Text = _numericProcessor.FormatTextForEntry(setup, newText);
+                _settingText = false;
             }
         }
 

@@ -109,6 +109,9 @@ namespace RingSoft.DataEntryControls.Engine
                     throw new ArgumentOutOfRangeException();
             }
 
+            if (_setup.EditFormatType == NumericEditFormatTypes.Percent)
+                value *= 100;
+
             var decimalText = value.ToString(_setup.Culture);
             var numericTextProperties =
                 GetNumericPropertiesForText(decimalText, decimalText.Length, 0, string.Empty);
@@ -128,6 +131,7 @@ namespace RingSoft.DataEntryControls.Engine
                     result.SymbolLocation = _setup.CurrencySymbolLocation;
                     break;
                 case NumericEditFormatTypes.Number:
+                    result.SymbolText = string.Empty;
                     break;
                 case NumericEditFormatTypes.Percent:
                     result.SymbolText = _setup.PercentText;
@@ -156,7 +160,9 @@ namespace RingSoft.DataEntryControls.Engine
                 SymbolProperties = GetSymbolProperties()
             };
 
-            result.SymbolIndex = controlText.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal);
+            result.SymbolIndex = -1;
+            if (!result.SymbolProperties.SymbolText.IsNullOrEmpty())
+                result.SymbolIndex = controlText.IndexOf(result.SymbolProperties.SymbolText, StringComparison.Ordinal);
 
             if (result.SymbolIndex >= 0)
             {
@@ -343,8 +349,7 @@ namespace RingSoft.DataEntryControls.Engine
                         decimalText = $"{_setup.Culture.NumberFormat.CurrencyDecimalSeparator}{decimalText}";
                     break;
                 case NumericEditFormatTypes.Percent:
-                    var percentNumber = decimal.Parse(numericTextProperties.NewWholeNumberText);
-                    percentNumber = percentNumber / 100;
+                    var percentNumber = wholeNumber / 100;
                     wholeNumberText = percentNumber.ToString("P0", _setup.Culture.NumberFormat);
                     if (!decimalText.IsNullOrEmpty())
                         decimalText = $"{_setup.Culture.NumberFormat.NumberDecimalSeparator}{decimalText}";
@@ -831,6 +836,13 @@ namespace RingSoft.DataEntryControls.Engine
         public virtual void OnValueChanged(string newValue)
         {
             decimal.TryParse(newValue, out var decimalValue);
+
+            if (_setup.EditFormatType == NumericEditFormatTypes.Percent)
+            {
+                decimalValue /= 100;
+                newValue = decimalValue.ToString(_setup.Culture);
+            }
+
             Value = decimalValue;
 
             ValueChanged?.Invoke(this, new ValueChangedArgs(newValue));

@@ -218,7 +218,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!_processingKey)
+            if (!_processingKey && !DesignerProperties.GetIsInDesignMode(this))
                 OnTextChanged(TextBox.Text);
         }
 
