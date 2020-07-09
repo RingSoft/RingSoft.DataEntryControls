@@ -229,14 +229,18 @@ namespace RingSoft.DataEntryControls.Engine
         protected virtual ProcessCharResults ProcessNumberDigit(char numberChar)
         {
             var numericTextProperties = GetNumericTextProperties(numberChar.ToString());
+
+            if (_setup.DataEntryMode == DataEntryModes.FormatOnEntry)
+            {
+                ScrubDataEntrySelectionStart(numericTextProperties, numberChar.ToString());
+                numericTextProperties = GetNumericTextProperties(numberChar.ToString());
+            }
+
             if (!ValidateNumber(numericTextProperties))
                 return ProcessCharResults.ValidationFailed;
 
             if (_setup.DataEntryMode != DataEntryModes.FormatOnEntry)
                 return ProcessCharResults.Ignored;
-
-            ScrubDataEntrySelectionStart(numericTextProperties, numberChar.ToString());
-            numericTextProperties = GetNumericTextProperties(numberChar.ToString());
 
             var newText = GetFormattedText(numericTextProperties);
 
@@ -391,7 +395,7 @@ namespace RingSoft.DataEntryControls.Engine
             return ValidateNewText(numericTextProperties);
         }
 
-        public virtual ProcessCharResults ProcessDecimal(DataEntryNumericEditSetup setup)
+        private ProcessCharResults ProcessDecimal(DataEntryNumericEditSetup setup)
         {
             _setup = setup;
             var decimalString = GetDecimalPointString();
