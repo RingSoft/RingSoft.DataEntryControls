@@ -797,7 +797,16 @@ namespace RingSoft.DataEntryControls.Engine
                 OnValueChanged(string.Empty);
                 return true;
             }
-            if (!newText.TryParseDecimal(out var result, _setup.Culture))
+
+            bool validationPassed = newText.TryParseDecimal(out var result, _setup.Culture);
+
+            if (validationPassed)
+            {
+                var numericTextProperties = GetNumericPropertiesForText(newText, 0, 0, string.Empty);
+                validationPassed = ValidateNewText(numericTextProperties);
+            }
+
+            if (!validationPassed)
             {
                 newText = "0";
                 Control.Text = FormatTextForEntry(setup, newText);
