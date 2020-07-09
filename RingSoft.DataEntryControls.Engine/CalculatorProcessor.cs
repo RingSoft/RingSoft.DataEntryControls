@@ -191,6 +191,13 @@ namespace RingSoft.DataEntryControls.Engine
 
         private void ProcessEntryValue(decimal number)
         {
+            PreProcessEntryValue();
+
+            SetEntryText(number);
+        }
+
+        private void PreProcessEntryValue()
+        {
             if (_valueAtEquals == null)
                 _equalsProcessed = false;//Otherwise it performs calculation after operator.
 
@@ -200,17 +207,32 @@ namespace RingSoft.DataEntryControls.Engine
                 Control.EquationText = string.Empty;
                 _initialValue = null;
             }
-
-            SetEntryText(number);
         }
 
         public void ProcessDecimal()
         {
-            if (CalculationError)
-                return;
+            var newText = $"0{NumberFormatInfo.CurrentInfo.NumberDecimalSeparator}";
+            if (!CalculationError && _valueAtOperator == null && _initialValue == null)
+            {
+                if (Control.EntryText.Contains(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))
+                    newText = string.Empty;
+                else 
+                    newText = Control.EntryText += NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+            }
+            else
+            {
+                _valueAtOperator = null;
+            }
 
-            if (!Control.EntryText.Contains(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))
-                Control.EntryText += NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+            if (!newText.IsNullOrEmpty())
+            {
+                PreProcessEntryValue();
+
+                if (CalculationError)
+                    Reset();
+                Control.EntryText = newText;
+            }
+            _enteringData = true;
         }
 
         public void ProcessCeButton()

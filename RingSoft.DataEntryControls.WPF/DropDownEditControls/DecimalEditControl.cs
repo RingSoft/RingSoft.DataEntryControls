@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
@@ -155,9 +157,19 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (CalculatorControl != null && Popup != null && Popup.IsOpen)
             {
-                CalculatorControl.Precision = Precision;
+                var precision = Precision;
+
+                CalculatorControl.Precision = precision;
                 if (Value != null)
-                    CalculatorControl.Value = Value;
+                {
+                    var calcValue = (decimal)Value;
+                    if (EditFormatType == NumericEditFormatTypes.Percent)
+                    {
+                        calcValue *= 100;
+                        calcValue = Math.Round(calcValue, Precision);
+                    }
+                    CalculatorControl.Value = calcValue;
+                }
 
                 CalculatorControl.Control.Focus();
             }
@@ -165,7 +177,12 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _calculatorControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            Value = CalculatorControl.Value;
+            var newValue = CalculatorControl.Value;
+
+            if (EditFormatType == NumericEditFormatTypes.Percent)
+                newValue /= 100;
+
+            Value = newValue;
         }
 
         public override void OnValueChanged(string newValue)
@@ -173,7 +190,7 @@ namespace RingSoft.DataEntryControls.WPF
             _textSettingValue = true;
 
             var decimalValue = newValue.ToDecimal(Culture);
-            
+
             Value = decimalValue;
 
             _textSettingValue = false;

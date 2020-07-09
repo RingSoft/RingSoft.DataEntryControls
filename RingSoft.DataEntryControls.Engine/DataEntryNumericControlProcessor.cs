@@ -110,7 +110,10 @@ namespace RingSoft.DataEntryControls.Engine
             }
 
             if (_setup.EditFormatType == NumericEditFormatTypes.Percent)
+            {
                 value *= 100;
+                value = Math.Round(value, _setup.Precision);
+            }
 
             var decimalText = value.ToString(_setup.Culture);
             var numericTextProperties =
@@ -835,7 +838,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public virtual void OnValueChanged(string newValue)
         {
-            decimal.TryParse(newValue, out var decimalValue);
+            var decimalValue = newValue.ToDecimal(_setup.Culture);
 
             if (_setup.EditFormatType == NumericEditFormatTypes.Percent)
             {

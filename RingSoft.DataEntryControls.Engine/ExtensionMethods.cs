@@ -134,9 +134,12 @@ namespace RingSoft.DataEntryControls.Engine
 
             var percent = false;
             if (!text.IsNullOrEmpty())
+            {
                 percent = text.Contains(culture.NumberFormat.PercentSymbol);
+                if (percent)
+                    text = text.StripText(culture.NumberFormat.PercentSymbol);
+            }
 
-            text = text.NumTextToString(culture);
             var result = decimal.TryParse(text,
                 NumberStyles.AllowParentheses |
                 NumberStyles.AllowLeadingWhite |
