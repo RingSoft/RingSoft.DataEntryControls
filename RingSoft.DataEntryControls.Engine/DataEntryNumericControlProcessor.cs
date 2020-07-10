@@ -109,7 +109,7 @@ namespace RingSoft.DataEntryControls.Engine
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (_setup.EditFormatType == NumericEditFormatTypes.Percent)
+            if (_setup.EditFormatType == DecimalEditFormatTypes.Percent)
             {
                 value *= 100;
                 value = Math.Round(value, _setup.Precision);
@@ -129,14 +129,14 @@ namespace RingSoft.DataEntryControls.Engine
 
             switch (_setup.EditFormatType)
             {
-                case NumericEditFormatTypes.Currency:
+                case DecimalEditFormatTypes.Currency:
                     result.SymbolText = _setup.CurrencyText;
                     result.SymbolLocation = _setup.CurrencySymbolLocation;
                     break;
-                case NumericEditFormatTypes.Number:
+                case DecimalEditFormatTypes.Number:
                     result.SymbolText = string.Empty;
                     break;
-                case NumericEditFormatTypes.Percent:
+                case DecimalEditFormatTypes.Percent:
                     result.SymbolText = _setup.PercentText;
                     result.SymbolLocation = _setup.PercentSymbolLocation;
                     break;
@@ -316,10 +316,10 @@ namespace RingSoft.DataEntryControls.Engine
             var decimalPoint = _setup.Culture.NumberFormat.CurrencyDecimalSeparator;
             switch (_setup.EditFormatType)
             {
-                case NumericEditFormatTypes.Currency:
+                case DecimalEditFormatTypes.Currency:
                     break;
-                case NumericEditFormatTypes.Number:
-                case NumericEditFormatTypes.Percent:
+                case DecimalEditFormatTypes.Number:
+                case DecimalEditFormatTypes.Percent:
                     decimalPoint = _setup.Culture.NumberFormat.NumberDecimalSeparator;
                     break;
                 default:
@@ -345,17 +345,17 @@ namespace RingSoft.DataEntryControls.Engine
 
             switch (_setup.EditFormatType)
             {
-                case NumericEditFormatTypes.Number:
+                case DecimalEditFormatTypes.Number:
                     wholeNumberText = wholeNumber.ToString("N0", _setup.Culture);
                     if (!decimalText.IsNullOrEmpty())
                         decimalText = $"{_setup.Culture.NumberFormat.NumberDecimalSeparator}{decimalText}";
                     break;
-                case NumericEditFormatTypes.Currency:
+                case DecimalEditFormatTypes.Currency:
                     wholeNumberText = wholeNumber.ToString("C0", _setup.Culture);
                     if (!decimalText.IsNullOrEmpty())
                         decimalText = $"{_setup.Culture.NumberFormat.CurrencyDecimalSeparator}{decimalText}";
                     break;
-                case NumericEditFormatTypes.Percent:
+                case DecimalEditFormatTypes.Percent:
                     var percentNumber = wholeNumber / 100;
                     wholeNumberText = percentNumber.ToString("P0", _setup.Culture.NumberFormat);
                     if (!decimalText.IsNullOrEmpty())
@@ -464,7 +464,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         private string GetGroupSeparatorString()
         {
-            if (_setup.EditFormatType == NumericEditFormatTypes.Currency)
+            if (_setup.EditFormatType == DecimalEditFormatTypes.Currency)
                 return _setup.Culture.NumberFormat.CurrencyGroupSeparator;
 
             return _setup.Culture.NumberFormat.NumberGroupSeparator;
@@ -844,7 +844,7 @@ namespace RingSoft.DataEntryControls.Engine
         {
             var decimalValue = newValue.ToDecimal(_setup.Culture);
 
-            if (_setup.EditFormatType == NumericEditFormatTypes.Percent)
+            if (_setup.EditFormatType == DecimalEditFormatTypes.Percent)
             {
                 decimalValue /= 100;
                 newValue = decimalValue.ToString(_setup.Culture);

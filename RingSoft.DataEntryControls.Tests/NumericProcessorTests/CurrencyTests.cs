@@ -14,7 +14,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             _setup = new DecimalEditControlSetup()
             {
                 DataEntryMode = DataEntryModes.FormatOnEntry,
-                EditFormatType = NumericEditFormatTypes.Currency,
+                EditFormatType = DecimalEditFormatTypes.Currency,
                 Precision = 2,
                 CultureId = "pt-BR"
             };
@@ -186,7 +186,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             var setup = new DecimalEditControlSetup()
             {
                 DataEntryMode = DataEntryModes.FormatOnEntry,
-                EditFormatType = NumericEditFormatTypes.Currency,
+                EditFormatType = DecimalEditFormatTypes.Currency,
                 Precision = 2,
                 CultureId = "sv-SE"
             };

@@ -135,11 +135,11 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty EditFormatTypeProperty =
-            DependencyProperty.Register(nameof(EditFormatType), typeof(NumericEditFormatTypes), typeof(DecimalEditControl));
+            DependencyProperty.Register(nameof(EditFormatType), typeof(DecimalEditFormatTypes), typeof(DecimalEditControl));
 
-        public NumericEditFormatTypes EditFormatType
+        public DecimalEditFormatTypes EditFormatType
         {
-            get { return (NumericEditFormatTypes)GetValue(EditFormatTypeProperty); }
+            get { return (DecimalEditFormatTypes)GetValue(EditFormatTypeProperty); }
             set { SetValue(EditFormatTypeProperty, value); }
         }
 
@@ -212,7 +212,7 @@ namespace RingSoft.DataEntryControls.WPF
                 if (Value != null)
                 {
                     var calcValue = (decimal)Value;
-                    if (EditFormatType == NumericEditFormatTypes.Percent)
+                    if (EditFormatType == DecimalEditFormatTypes.Percent)
                     {
                         calcValue *= 100;
                         calcValue = Math.Round(calcValue, Precision);
@@ -228,7 +228,7 @@ namespace RingSoft.DataEntryControls.WPF
         {
             var newValue = CalculatorControl.Value;
 
-            if (EditFormatType == NumericEditFormatTypes.Percent)
+            if (EditFormatType == DecimalEditFormatTypes.Percent)
                 newValue /= 100;
 
             Value = newValue;
