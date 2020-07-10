@@ -1,10 +1,8 @@
-﻿using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
+using System;
+using System.Windows;
+using System.Windows.Input;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF

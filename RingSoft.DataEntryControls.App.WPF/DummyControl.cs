@@ -59,7 +59,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             TextBox.KeyDown += DummyTextBox_KeyDown;
         }
 
-        private void DummyTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void DummyTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F4)
             {

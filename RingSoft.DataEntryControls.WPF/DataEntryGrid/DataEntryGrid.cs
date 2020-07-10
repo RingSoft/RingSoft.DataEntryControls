@@ -1,4 +1,7 @@
-﻿using System;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -6,13 +9,9 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
-using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
 using Color = System.Drawing.Color;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid

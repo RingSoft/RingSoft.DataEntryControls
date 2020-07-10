@@ -181,7 +181,7 @@ namespace RingSoft.DataEntryControls.WPF
             OnDropDownButtonClick();
         }
 
-        private void _textBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void _textBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             _processingKey = true;
 
@@ -253,7 +253,7 @@ namespace RingSoft.DataEntryControls.WPF
             return false;
         }
 
-        protected virtual bool ProcessKey(System.Windows.Input.Key key)
+        protected virtual bool ProcessKey(Key key)
         {
             return false;
         }

@@ -73,6 +73,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// Removes all currency, percent, and thousands separator text from the text.
         /// </summary>
         /// <param name="text">The text to process.</param>
+        /// <param name="culture">The culture that contains the format characters.</param>
         /// <returns>Text without numeric symbols.</returns>
         public static string NumTextToString(this string text, CultureInfo culture = null)
         {

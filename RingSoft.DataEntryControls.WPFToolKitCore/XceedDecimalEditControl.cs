@@ -1,5 +1,4 @@
 ﻿using RingSoft.DataEntryControls.WPF;
-using System.Windows;
 
 namespace RingSoft.DataEntryControls.WPFToolKitCore
 {

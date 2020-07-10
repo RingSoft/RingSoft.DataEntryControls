@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.WPF.DropDownEditControls
 {

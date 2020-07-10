@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <None Remove="Resources\calculator16.png" />
+    <None Remove="Resources\datepicker16.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +16,13 @@
 
   <ItemGroup>
     <Resource Include="Resources\calculator16.png" />
+    <Resource Include="Resources\datepicker16.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Themes\DateEditControlTemplate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

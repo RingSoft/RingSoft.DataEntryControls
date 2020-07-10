@@ -1,9 +1,8 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System;
 using System.Drawing;
-using System.Globalization;
-using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.App.WPF
 {
