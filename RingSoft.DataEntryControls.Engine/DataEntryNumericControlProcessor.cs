@@ -51,14 +51,14 @@ namespace RingSoft.DataEntryControls.Engine
 
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
-        private DataEntryNumericEditSetup _setup;
+        private DecimalEditControlSetup _setup;
 
         public DataEntryNumericControlProcessor(INumericControl control)
         {
             Control = control;
         }
 
-        public ProcessCharResults ProcessChar(DataEntryNumericEditSetup setup, char keyChar)
+        public ProcessCharResults ProcessChar(DecimalEditControlSetup setup, char keyChar)
         {
             var stringChar = keyChar.ToString();
             _setup = setup;
@@ -93,7 +93,7 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.ValidationFailed;
         }
 
-        public string FormatTextForEntry(DataEntryNumericEditSetup setup, string controlText)
+        public string FormatTextForEntry(DecimalEditControlSetup setup, string controlText)
         {
             _setup = setup;
             var value = controlText.ToDecimal(_setup.Culture);
@@ -395,7 +395,7 @@ namespace RingSoft.DataEntryControls.Engine
             return ValidateNewText(numericTextProperties);
         }
 
-        private ProcessCharResults ProcessDecimal(DataEntryNumericEditSetup setup)
+        private ProcessCharResults ProcessDecimal(DecimalEditControlSetup setup)
         {
             _setup = setup;
             var decimalString = GetDecimalPointString();
@@ -501,7 +501,7 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
-        public virtual ProcessCharResults OnBackspaceKeyDown(DataEntryNumericEditSetup setup)
+        public virtual ProcessCharResults OnBackspaceKeyDown(DecimalEditControlSetup setup)
         {
             if (Control.SelectionStart == 0 && Control.SelectionLength == 0)
                 return ProcessCharResults.ValidationFailed;
@@ -670,7 +670,7 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
-        public virtual ProcessCharResults OnDeleteKeyDown(DataEntryNumericEditSetup setup)
+        public virtual ProcessCharResults OnDeleteKeyDown(DecimalEditControlSetup setup)
         {
             _setup = setup;
             var numericTextProperties = GetNumericTextProperties(string.Empty);
@@ -797,7 +797,7 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
-        public bool PasteText(DataEntryNumericEditSetup setup, string newText)
+        public bool PasteText(DecimalEditControlSetup setup, string newText)
         {
             _setup = setup;
 

@@ -55,77 +55,6 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(DataEntryModeProperty, value); }
         }
 
-        public static readonly DependencyProperty EditFormatTypeProperty =
-            DependencyProperty.Register(nameof(EditFormatType), typeof(NumericEditFormatTypes), typeof(NumericEditControl));
-
-        public NumericEditFormatTypes EditFormatType
-        {
-            get { return (NumericEditFormatTypes)GetValue(EditFormatTypeProperty); }
-            set { SetValue(EditFormatTypeProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty SetupProperty =
-            DependencyProperty.Register(nameof(Setup), typeof(DataEntryNumericEditSetup), typeof(NumericEditControl),
-                new FrameworkPropertyMetadata(SetupChangedCallback));
-
-        public DataEntryNumericEditSetup Setup
-        {
-            private get { return (DataEntryNumericEditSetup)GetValue(SetupProperty); }
-            set { SetValue(SetupProperty, value); }
-        }
-
-        private static void SetupChangedCallback(DependencyObject obj,
-            DependencyPropertyChangedEventArgs args)
-        {
-            var numericEditControl = (NumericEditControl)obj;
-            switch (numericEditControl.EditType)
-            {
-                case NumericEditTypes.Decimal:
-                    break;
-                case NumericEditTypes.WholeNumber:
-                    numericEditControl.Setup.Precision = 0;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            numericEditControl.DataEntryMode = numericEditControl.Setup.DataEntryMode;
-            numericEditControl.EditFormatType = numericEditControl.Setup.EditFormatType;
-            numericEditControl.Precision = numericEditControl.Setup.Precision;
-            numericEditControl.MaximumValue = numericEditControl.Setup.MaximumValue;
-            numericEditControl.MinimumValue = numericEditControl.Setup.MinimumValue;
-            numericEditControl.NumberFormatString = numericEditControl.Setup.NumberFormatString;
-            numericEditControl.Culture = numericEditControl.Setup.Culture;
-        }
-
-        public static readonly DependencyProperty PrecisionProperty =
-            DependencyProperty.Register(nameof(Precision), typeof(int), typeof(NumericEditControl));
-
-        public int Precision
-        {
-            get { return (int)GetValue(PrecisionProperty); }
-            set { SetValue(PrecisionProperty, value); }
-        }
-
-        public static readonly DependencyProperty MaximumValueProperty =
-            DependencyProperty.Register(nameof(MaximumValue), typeof(decimal?), typeof(NumericEditControl));
-
-        public decimal? MaximumValue
-        {
-            get { return (decimal?)GetValue(MaximumValueProperty); }
-            set { SetValue(MaximumValueProperty, value); }
-        }
-
-        public static readonly DependencyProperty MinimumValueProperty =
-            DependencyProperty.Register(nameof(MinimumValue), typeof(decimal?), typeof(NumericEditControl));
-
-        public decimal? MinimumValue
-        {
-            get { return (decimal?)GetValue(MinimumValueProperty); }
-            set { SetValue(MinimumValueProperty, value); }
-        }
-
         public static readonly DependencyProperty NumberFormatStringProperty =
             DependencyProperty.Register(nameof(NumberFormatString), typeof(string), typeof(NumericEditControl));
 
@@ -153,7 +82,7 @@ namespace RingSoft.DataEntryControls.WPF
             numericEditControl.Culture = culture;
         }
 
-        public CultureInfo Culture { get; private set; }
+        public CultureInfo Culture { get; protected internal set; }
 
         public string Text
         {
@@ -262,7 +191,7 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnTextBoxGotFocus();
         }
 
-        private void OnFocusedSetText(string newText, DataEntryNumericEditSetup setup)
+        private void OnFocusedSetText(string newText, DecimalEditControlSetup setup)
         {
             if (TextBox != null)
             {
@@ -272,18 +201,18 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        private DataEntryNumericEditSetup GetSetup()
+        private DecimalEditControlSetup GetSetup()
         {
-            return new DataEntryNumericEditSetup()
-            {
-                DataEntryMode = DataEntryMode,
-                EditFormatType = EditFormatType,
-                MaximumValue = MaximumValue,
-                MinimumValue = MinimumValue,
-                Precision = Precision,
-                NumberFormatString = NumberFormatString,
-                CultureId = Culture.Name
-            };
+            var result = new DecimalEditControlSetup();
+            PopulateSetup(result);
+            return result;
+        }
+
+        protected virtual void PopulateSetup(DecimalEditControlSetup setup)
+        {
+            setup.DataEntryMode = DataEntryMode;
+            setup.NumberFormatString = NumberFormatString;
+            setup.CultureId = Culture.Name;
         }
 
         protected override bool ProcessKeyChar(char keyChar)

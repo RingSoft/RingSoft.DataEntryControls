@@ -44,16 +44,6 @@ namespace RingSoft.DataEntryControls.WPF
     {
         public override NumericEditTypes EditType => NumericEditTypes.Decimal;
 
-        private Expander _expander;
-
-        public Expander Expander
-        {
-            get => _expander;
-            set
-            {
-                _expander = value;
-            }
-        }
         private IDropDownCalculator _calculatorControl;
 
         public IDropDownCalculator CalculatorControl
@@ -75,6 +65,57 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public static readonly DependencyProperty PrecisionProperty =
+            DependencyProperty.Register(nameof(Precision), typeof(int), typeof(DecimalEditControl));
+
+        public int Precision
+        {
+            get { return (int)GetValue(PrecisionProperty); }
+            set { SetValue(PrecisionProperty, value); }
+        }
+
+        public static readonly DependencyProperty MaximumValueProperty =
+            DependencyProperty.Register(nameof(MaximumValue), typeof(decimal?), typeof(DecimalEditControl));
+
+        public decimal? MaximumValue
+        {
+            get { return (decimal?)GetValue(MaximumValueProperty); }
+            set { SetValue(MaximumValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty MinimumValueProperty =
+            DependencyProperty.Register(nameof(MinimumValue), typeof(decimal?), typeof(DecimalEditControl));
+
+        public decimal? MinimumValue
+        {
+            get { return (decimal?)GetValue(MinimumValueProperty); }
+            set { SetValue(MinimumValueProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty SetupProperty =
+            DependencyProperty.Register(nameof(Setup), typeof(DecimalEditControlSetup), typeof(DecimalEditControl),
+                new FrameworkPropertyMetadata(SetupChangedCallback));
+
+        public DecimalEditControlSetup Setup
+        {
+            private get { return (DecimalEditControlSetup)GetValue(SetupProperty); }
+            set { SetValue(SetupProperty, value); }
+        }
+
+        private static void SetupChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var decimalEditControl = (DecimalEditControl)obj;
+            decimalEditControl.DataEntryMode = decimalEditControl.Setup.DataEntryMode;
+            decimalEditControl.EditFormatType = decimalEditControl.Setup.EditFormatType;
+            decimalEditControl.Precision = decimalEditControl.Setup.Precision;
+            decimalEditControl.MaximumValue = decimalEditControl.Setup.MaximumValue;
+            decimalEditControl.MinimumValue = decimalEditControl.Setup.MinimumValue;
+            decimalEditControl.NumberFormatString = decimalEditControl.Setup.NumberFormatString;
+            decimalEditControl.Culture = decimalEditControl.Setup.Culture;
+        }
+
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(decimal?), typeof(DecimalEditControl),
                 new FrameworkPropertyMetadata(ValueChangedCallback));
@@ -93,6 +134,15 @@ namespace RingSoft.DataEntryControls.WPF
                 decimalEditControl.SetValue();
         }
 
+        public static readonly DependencyProperty EditFormatTypeProperty =
+            DependencyProperty.Register(nameof(EditFormatType), typeof(NumericEditFormatTypes), typeof(DecimalEditControl));
+
+        public NumericEditFormatTypes EditFormatType
+        {
+            get { return (NumericEditFormatTypes)GetValue(EditFormatTypeProperty); }
+            set { SetValue(EditFormatTypeProperty, value); }
+        }
+
         private decimal? _pendingNewValue;
         private bool _textSettingValue;
 
@@ -107,7 +157,6 @@ namespace RingSoft.DataEntryControls.WPF
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
             CalculatorControl = GetTemplateChild("Calculator") as IDropDownCalculator;
-            Expander = GetTemplateChild("Expander") as Expander;
             base.OnApplyTemplate();
 
             if (_pendingNewValue != null)
@@ -183,6 +232,15 @@ namespace RingSoft.DataEntryControls.WPF
                 newValue /= 100;
 
             Value = newValue;
+        }
+
+        protected override void PopulateSetup(DecimalEditControlSetup setup)
+        {
+            setup.EditFormatType = EditFormatType;
+            setup.MaximumValue = MaximumValue;
+            setup.MinimumValue = MinimumValue;
+            setup.Precision = Precision;
+            base.PopulateSetup(setup);
         }
 
         public override void OnValueChanged(string newValue)

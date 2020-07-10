@@ -17,7 +17,7 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public double Price { get; private set; }
 
-        public DataEntryNumericEditSetup PriceSetup { get; } = Globals.GetNumericEditSetup();
+        public DecimalEditControlSetup PriceSetup { get; } = Globals.GetNumericEditSetup();
 
         private bool _childrenAdded;
         public AppGridInventoryRow(AppGridManager manager) : base(manager)

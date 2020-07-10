@@ -7,7 +7,7 @@ namespace RingSoft.DataEntryControls.WPF
     {
         Control EditControl { get; }
 
-        DataEntryNumericEditSetup NumericSetup { get; set; }
+        DecimalEditControlSetup NumericSetup { get; set; }
 
         decimal? Value { get; set; }
     }

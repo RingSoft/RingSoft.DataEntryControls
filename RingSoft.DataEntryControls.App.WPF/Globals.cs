@@ -11,9 +11,9 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public static int Precision { get; set; }
 
-        public static DataEntryNumericEditSetup GetNumericEditSetup()
+        public static DecimalEditControlSetup GetNumericEditSetup()
         {
-            return new DataEntryNumericEditSetup()
+            return new DecimalEditControlSetup()
             {
                 CultureId = CultureId,
                 Precision = Precision

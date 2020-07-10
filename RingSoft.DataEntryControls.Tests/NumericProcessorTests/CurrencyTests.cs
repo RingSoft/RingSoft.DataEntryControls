@@ -6,12 +6,12 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
     [TestClass]
     public class CurrencyTests
     {
-        private static DataEntryNumericEditSetup _setup;
+        private static DecimalEditControlSetup _setup;
 
         [ClassInitialize]
         public static void Setup(TestContext testContext)
         {
-            _setup = new DataEntryNumericEditSetup()
+            _setup = new DecimalEditControlSetup()
             {
                 DataEntryMode = DataEntryModes.FormatOnEntry,
                 EditFormatType = NumericEditFormatTypes.Currency,
@@ -183,7 +183,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
         [TestMethod]
         public void CurrencyNumber_AddDigitAfterSuffixCurrencySymbol()
         {
-            var setup = new DataEntryNumericEditSetup()
+            var setup = new DecimalEditControlSetup()
             {
                 DataEntryMode = DataEntryModes.FormatOnEntry,
                 EditFormatType = NumericEditFormatTypes.Currency,

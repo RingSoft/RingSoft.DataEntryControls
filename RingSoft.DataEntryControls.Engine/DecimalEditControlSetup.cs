@@ -24,7 +24,7 @@ namespace RingSoft.DataEntryControls.Engine
         Suffix = 1
     }
 
-    public class DataEntryNumericEditSetup
+    public class DecimalEditControlSetup
     {
         /// <summary>
         /// Gets or sets the number of digits to the right of the decimal point.
@@ -71,7 +71,7 @@ namespace RingSoft.DataEntryControls.Engine
         
         public CultureInfo Culture { get; private set; }
 
-        public DataEntryNumericEditSetup()
+        public DecimalEditControlSetup()
         {
             SetupNumericInfo(CultureInfo.CurrentCulture.Name);
         }
