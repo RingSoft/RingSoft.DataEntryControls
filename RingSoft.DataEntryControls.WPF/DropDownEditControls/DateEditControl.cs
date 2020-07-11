@@ -1,8 +1,8 @@
-﻿using System;
-using System.Globalization;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.WPF.DropDownEditControls;
+using System;
 using System.Windows;
 using System.Windows.Input;
-using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -37,7 +37,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///
     /// </summary>
     [TemplatePart(Name = "Calendar", Type = typeof(IDropDownCalendar))]
-    public class DateEditControl : DropDownEditControl
+    public class DateEditControl : DropDownEditControl, IDateEditControl
     {
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(DateTime?), typeof(DateEditControl),
@@ -56,6 +56,69 @@ namespace RingSoft.DataEntryControls.WPF
             if (!dateEditControl._textSettingValue)
                 dateEditControl.SetValue();
         }
+
+        public static readonly DependencyProperty EntryFormatProperty =
+            DependencyProperty.Register(nameof(EntryFormat), typeof(string), typeof(DateEditControl),
+                new FrameworkPropertyMetadata(EntryFormatChangedCallback));
+
+        public string EntryFormat
+        {
+            get { return (string)GetValue(EntryFormatProperty); }
+            set { SetValue(EntryFormatProperty, value); }
+        }
+
+        private static void EntryFormatChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dateEditControl = (DateEditControl)obj;
+            DateEditControlSetup.ValidateEntryFormat(dateEditControl.EntryFormat);
+        }
+
+        public static readonly DependencyProperty DisplayFormatProperty =
+            DependencyProperty.Register(nameof(DisplayFormat), typeof(string), typeof(DateEditControl),
+                new FrameworkPropertyMetadata(DisplayFormatChangedCallback));
+
+        public string DisplayFormat
+        {
+            get { return (string)GetValue(DisplayFormatProperty); }
+            set { SetValue(DisplayFormatProperty, value); }
+        }
+
+        private static void DisplayFormatChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dateEditControl = (DateEditControl)obj;
+            DateEditControlSetup.ValidateDateFormat(dateEditControl.DisplayFormat);
+        }
+
+        public static readonly DependencyProperty DateFormatTypeProperty =
+            DependencyProperty.Register(nameof(DateFormatType), typeof(DateFormatTypes), typeof(DateEditControl));
+
+        public DateFormatTypes DateFormatType
+        {
+            get { return (DateFormatTypes)GetValue(DateFormatTypeProperty); }
+            set { SetValue(DateFormatTypeProperty, value); }
+        }
+
+        public static readonly DependencyProperty SetupProperty =
+            DependencyProperty.Register(nameof(Setup), typeof(DateEditControlSetup), typeof(DateEditControl),
+                new FrameworkPropertyMetadata(SetupChangedCallback));
+
+        public DateEditControlSetup Setup
+        {
+            private get { return (DateEditControlSetup)GetValue(SetupProperty); }
+            set { SetValue(SetupProperty, value); }
+        }
+
+        private static void SetupChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dateEditControl = (DateEditControl)obj;
+            dateEditControl.DateFormatType = dateEditControl.Setup.DateFormatType;
+            dateEditControl.DisplayFormat = dateEditControl.Setup.DisplayFormat;
+            dateEditControl.EntryFormat = dateEditControl.Setup.EntryFormat;
+        }
+
 
         private IDropDownCalendar _calendar;
 
@@ -80,12 +143,67 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public string Text
+        {
+            get
+            {
+                if (TextBox == null)
+                    return string.Empty;
+
+                return TextBox.Text;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.Text = value;
+            }
+        }
+
+        public int SelectionStart
+        {
+            get
+            {
+                if (TextBox == null)
+                    return 0;
+
+                return TextBox.SelectionStart;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.SelectionStart = value;
+            }
+        }
+
+        public int SelectionLength
+        {
+            get
+            {
+                if (TextBox == null)
+                    return 0;
+
+                return TextBox.SelectionLength;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.SelectionLength = value;
+            }
+        }
+
         private DateTime? _pendingNewValue;
         private bool _textSettingValue;
+        private DateEditProcessor _processor;
 
         static DateEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DateEditControl), new FrameworkPropertyMetadata(typeof(DateEditControl)));
+        }
+
+        public DateEditControl()
+        {
+            _processor = new DateEditProcessor(this);
+            _processor.ValueChanged += _processor_ValueChanged;
         }
 
         public override void OnApplyTemplate()
@@ -97,6 +215,16 @@ namespace RingSoft.DataEntryControls.WPF
                 SetValue();
 
             _pendingNewValue = null;
+        }
+
+        private DateEditControlSetup GetSetup()
+        {
+            return new DateEditControlSetup()
+            {
+                DateFormatType = DateFormatType,
+                DisplayFormat = DisplayFormat,
+                EntryFormat = EntryFormat
+            };
         }
 
         private void SetValue()
@@ -118,36 +246,17 @@ namespace RingSoft.DataEntryControls.WPF
 
             _textSettingValue = true;
 
-            //var setup = GetSetup();
+            var setup = GetSetup();
             if (newValue == null)
                 TextBox.Text = string.Empty;
             else
             {
                 var value = (DateTime)newValue;
-                var newText = value.ToString(CultureInfo.CurrentCulture); // value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
-                if (TextBox.IsFocused)
-                    OnFocusedSetText(newText);
-                else
-                    TextBox.Text = newText;
+                var newText = value.ToString(setup.GetDisplayFormat());
+                TextBox.Text = newText;
             }
 
             _textSettingValue = false;
-        }
-
-        protected override void OnTextBoxGotFocus()
-        {
-            OnFocusedSetText(TextBox.Text);
-            base.OnTextBoxGotFocus();
-        }
-
-        private void OnFocusedSetText(string newText)
-        {
-            if (TextBox != null)
-            {
-                _textSettingValue = true;
-                TextBox.Text = newText; //_numericProcessor.FormatTextForEntry(setup, newText);
-                _textSettingValue = false;
-            }
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -195,18 +304,67 @@ namespace RingSoft.DataEntryControls.WPF
             OnDropDownButtonClick();
         }
 
-        public override void OnValueChanged(string newValue)
+        protected override bool ProcessKeyChar(char keyChar)
         {
+            switch (_processor.ProcessChar(GetSetup(), keyChar))
+            {
+                case ProcessCharResults.Ignored:
+                    return false;
+                case ProcessCharResults.Processed:
+                    return true;
+                case ProcessCharResults.ValidationFailed:
+                    System.Media.SystemSounds.Exclamation.Play();
+                    return true;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        protected override bool ProcessKey(Key key)
+        {
+            switch (key)
+            {
+                case Key.Space:
+                    System.Media.SystemSounds.Exclamation.Play();
+                    return true;
+                case Key.Back:
+                    if (_processor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
+                        System.Media.SystemSounds.Exclamation.Play();
+                    return true;
+                case Key.Delete:
+                    if (_processor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
+                        System.Media.SystemSounds.Exclamation.Play();
+                    return true;
+            }
+            return base.ProcessKey(key);
+        }
+
+        protected override void OnTextChanged(string newText)
+        {
+            if (_textSettingValue)
+            {
+                base.OnTextChanged(newText);
+                return;
+            }
+
             _textSettingValue = true;
 
-            DateTime.TryParse(newValue, out var dateValue);
-
-            Value = dateValue;
+            if (!_processor.PasteText(GetSetup(), newText))
+                System.Media.SystemSounds.Exclamation.Play();
 
             _textSettingValue = false;
 
-            base.OnValueChanged(newValue);
+            base.OnTextChanged(newText);
         }
 
+
+        private void _processor_ValueChanged(object sender, EventArgs e)
+        {
+            _textSettingValue = true;
+
+            Value = _processor.Value;
+
+            _textSettingValue = false;
+        }
     }
 }
