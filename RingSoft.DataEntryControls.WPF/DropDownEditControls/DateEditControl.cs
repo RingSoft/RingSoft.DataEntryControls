@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
@@ -64,18 +65,23 @@ namespace RingSoft.DataEntryControls.WPF
             set
             {
                 if (_calendar != null)
-                    _calendar.ValueChanged -= _calendar_ValueChanged;
+                {
+                    _calendar.SelectedDateChanged -= _calendar_SelectedDateChanged;
+                    _calendar.DatePicked -= _calendar_DatePicked;
+                }
 
                 _calendar = value;
 
                 if (_calendar != null)
-                    _calendar.ValueChanged += _calendar_ValueChanged;
+                {
+                    _calendar.SelectedDateChanged += _calendar_SelectedDateChanged;
+                    _calendar.DatePicked += _calendar_DatePicked;
+                }
             }
         }
 
         private DateTime? _pendingNewValue;
         private bool _textSettingValue;
-        private bool _settingText;
 
         static DateEditControl()
         {
@@ -110,7 +116,7 @@ namespace RingSoft.DataEntryControls.WPF
             if (TextBox == null)
                 return;
 
-            _settingText = true;
+            _textSettingValue = true;
 
             //var setup = GetSetup();
             if (newValue == null)
@@ -118,14 +124,14 @@ namespace RingSoft.DataEntryControls.WPF
             else
             {
                 var value = (DateTime)newValue;
-                var newText = value.ToString(); // value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
+                var newText = value.ToString(CultureInfo.CurrentCulture); // value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
                 if (TextBox.IsFocused)
                     OnFocusedSetText(newText);
                 else
                     TextBox.Text = newText;
             }
 
-            _settingText = false;
+            _textSettingValue = false;
         }
 
         protected override void OnTextBoxGotFocus()
@@ -138,9 +144,9 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (TextBox != null)
             {
-                _settingText = true;
+                _textSettingValue = true;
                 TextBox.Text = newText; //_numericProcessor.FormatTextForEntry(setup, newText);
-                _settingText = false;
+                _textSettingValue = false;
             }
         }
 
@@ -173,13 +179,20 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (Calendar != null && Popup != null && Popup.IsOpen)
             {
+                Calendar.SelectedDate = Value ?? DateTime.Today;
                 Calendar.Control.Focus();
             }
         }
 
-        private void _calendar_ValueChanged(object sender, EventArgs e)
+        private void _calendar_SelectedDateChanged(object sender, EventArgs e)
         {
-            Value = Calendar.Value;
+            Value = Calendar.SelectedDate;
+        }
+
+        private void _calendar_DatePicked(object sender, EventArgs e)
+        {
+            Value = Calendar.SelectedDate;
+            OnDropDownButtonClick();
         }
 
         public override void OnValueChanged(string newValue)

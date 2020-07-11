@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace RingSoft.DataEntryControls.WPF.DropDownEditControls
@@ -8,9 +7,10 @@ namespace RingSoft.DataEntryControls.WPF.DropDownEditControls
     {
         Control Control { get; }
 
-        DateTime? Value { get; set; }
+        DateTime? SelectedDate { get; set; }
 
-        event EventHandler ValueChanged;
+        event EventHandler SelectedDateChanged;
 
+        event EventHandler DatePicked;
     }
 }

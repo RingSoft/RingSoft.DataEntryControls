@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 
 // ReSharper disable once CheckNamespace
@@ -47,12 +49,20 @@ namespace RingSoft.DataEntryControls.WPF
             set
             {
                 if (_calendar != null)
+                {
                     _calendar.SelectedDatesChanged -= _calendar_SelectedDatesChanged;
+                    _calendar.PreviewMouseUp -= _calendar_PreviewMouseUp;
+                    _calendar.PreviewKeyDown -= _calendar_PreviewKeyDown;
+                }
 
                 _calendar = value;
 
                 if (_calendar != null)
+                {
                     _calendar.SelectedDatesChanged += _calendar_SelectedDatesChanged;
+                    _calendar.PreviewMouseUp += _calendar_PreviewMouseUp;
+                    _calendar.PreviewKeyDown += _calendar_PreviewKeyDown;
+                }
             }
         }
 
@@ -75,7 +85,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public Control Control => this;
 
-        public DateTime? Value
+        public DateTime? SelectedDate
         {
             get => Calendar?.SelectedDate;
             set
@@ -83,13 +93,18 @@ namespace RingSoft.DataEntryControls.WPF
                 _settingValue = true;
 
                 if (Calendar != null)
+                {
                     Calendar.SelectedDate = value;
+                    if (value != null)
+                        Calendar.DisplayDate = (DateTime) value;
+                }
 
                 _settingValue = false;
             }
         }
 
-        public event EventHandler ValueChanged;
+        public event EventHandler SelectedDateChanged;
+        public event EventHandler DatePicked;
 
         private bool _settingValue;
 
@@ -107,15 +122,19 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (TodayButton != null)
                 TodayButton.IsTabStop = false;
+        }
 
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
             Calendar?.Focus();
+            base.OnGotFocus(e);
         }
 
         private void _calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!_settingValue)
             {
-                ValueChanged?.Invoke(this, EventArgs.Empty);
+                SelectedDateChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -123,8 +142,28 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (Calendar != null)
             {
-                Calendar.SelectedDate = DateTime.Today;
+                Calendar.SelectedDate = Calendar.DisplayDate = DateTime.Today;
                 Calendar.Focus();
+            }
+        }
+
+        private void _calendar_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject originalSource = e.OriginalSource as DependencyObject;
+            CalendarDayButton day = originalSource.GetParentOfType<CalendarDayButton>();
+            if (day != null)
+            {
+                DatePicked?.Invoke(this, EventArgs.Empty);
+                e.Handled = true;
+            }
+        }
+
+        private void _calendar_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                DatePicked?.Invoke(this, EventArgs.Empty);
+                e.Handled = true;
             }
         }
     }
