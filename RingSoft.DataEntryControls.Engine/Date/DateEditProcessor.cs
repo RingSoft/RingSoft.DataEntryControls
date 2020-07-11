@@ -1,6 +1,7 @@
 ﻿using System;
+using RingSoft.DataEntryControls.Engine.Date.Segments;
 
-namespace RingSoft.DataEntryControls.Engine
+namespace RingSoft.DataEntryControls.Engine.Date
 {
     public class DateEditProcessor
     {
@@ -88,6 +89,8 @@ namespace RingSoft.DataEntryControls.Engine
 
         private ProcessCharResults ProcessNumberDigit(char keyChar)
         {
+            CheckDeleteAll();
+
             return ProcessCharResults.ValidationFailed;
         }
 
@@ -129,6 +132,23 @@ namespace RingSoft.DataEntryControls.Engine
             _setup = setup;
             return false;
         }
+
+        internal void ReplaceDateCharAdvance(char newChar, int segmentEnd)
+        {
+            var newText = Control.Text.LeftStr(Control.SelectionStart)
+                            + newChar
+                            + Control.Text.RightStr((Control.Text.Length - Control.SelectionStart) - 1);
+
+            var selStart = Control.SelectionStart;
+            Control.Text = newText;
+
+            Control.SelectionStart = selStart + 1;
+            if (Control.SelectionStart > segmentEnd)
+                if (Control.SelectionStart < Control.Text.Length - 1)
+                    Control.SelectionStart++;
+        }
+
+        //internal DateSegmentMonth GetDateSegmentMonth()
 
         private void OnValueChanged(DateTime? newValue)
         {

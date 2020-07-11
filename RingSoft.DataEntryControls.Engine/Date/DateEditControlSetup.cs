@@ -1,5 +1,6 @@
 ﻿using System;
 
+// ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.Engine
 {
     public enum DateFormatTypes

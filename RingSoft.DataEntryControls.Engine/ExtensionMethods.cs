@@ -156,5 +156,13 @@ namespace RingSoft.DataEntryControls.Engine
 
             return result;
         }
+
+        public static int ToInt(this string text, CultureInfo culture = null)
+        {
+            if (culture == null)
+                culture = CultureInfo.CurrentCulture;
+
+            return int.Parse(text, culture.NumberFormat);
+        }
     }
 }

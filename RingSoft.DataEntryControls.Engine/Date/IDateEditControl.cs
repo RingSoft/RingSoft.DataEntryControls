@@ -1,4 +1,5 @@
-﻿namespace RingSoft.DataEntryControls.Engine
+﻿// ReSharper disable once CheckNamespace
+namespace RingSoft.DataEntryControls.Engine
 {
     public interface IDateEditControl
     {

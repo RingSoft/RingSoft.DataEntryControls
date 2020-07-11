@@ -3,6 +3,7 @@ using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 using System;
 using System.Windows;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine.Date;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
