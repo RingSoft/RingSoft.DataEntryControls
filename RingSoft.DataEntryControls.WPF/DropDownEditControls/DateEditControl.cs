@@ -218,6 +218,8 @@ namespace RingSoft.DataEntryControls.WPF
         {
             _processor = new DateEditProcessor(this);
             _processor.ValueChanged += _processor_ValueChanged;
+
+            LostFocus += (sender, args) => OnLostFocusSetText(GetSetup(), Value);
         }
 
         public override void OnApplyTemplate()
@@ -258,17 +260,40 @@ namespace RingSoft.DataEntryControls.WPF
             if (TextBox == null)
                 return;
 
-            _textSettingValue = true;
+            var popupIsOpen = false;
+            if (Popup != null)
+                popupIsOpen = Popup.IsOpen;
 
             var setup = GetSetup();
-            if (newValue == null)
-                TextBox.Text = string.Empty;
+            if (TextBox.IsFocused || popupIsOpen)
+                OnFocusedSetText(setup, newValue);
             else
-            {
-                var value = (DateTime)newValue;
-                var newText = value.ToString(setup.GetDisplayFormat());
-                TextBox.Text = newText;
-            }
+                OnLostFocusSetText(setup, newValue);
+        }
+
+        protected override void OnTextBoxGotFocus()
+        {
+            OnFocusedSetText(GetSetup(), Value);
+            base.OnTextBoxGotFocus();
+        }
+
+        private void OnFocusedSetText(DateEditControlSetup setup, DateTime? value)
+        {
+            _textSettingValue = true;
+
+            _processor.OnSetFocus(setup, value);
+
+            _textSettingValue = false;
+        }
+
+        private void OnLostFocusSetText(DateEditControlSetup setup, DateTime? value)
+        {
+            if (Popup != null && Popup.IsOpen)
+                return;
+
+            _textSettingValue = true;
+
+            _processor.OnLostFocus(setup, value);
 
             _textSettingValue = false;
         }
