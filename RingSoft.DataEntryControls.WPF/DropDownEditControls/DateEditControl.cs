@@ -71,7 +71,20 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var dateEditControl = (DateEditControl)obj;
-            DateEditControlSetup.ValidateEntryFormat(dateEditControl.EntryFormat);
+
+            if (!dateEditControl._validatingEntryFormat)
+            {
+                dateEditControl._validatingEntryFormat = true;
+
+                try
+                {
+                    dateEditControl.EntryFormat = DateEditControlSetup.ValidateEntryFormat(dateEditControl.EntryFormat);
+                }
+                finally
+                {
+                    dateEditControl._validatingEntryFormat = false;
+                }
+            }
         }
 
         public static readonly DependencyProperty DisplayFormatProperty =
@@ -193,6 +206,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private DateTime? _pendingNewValue;
         private bool _textSettingValue;
+        private bool _validatingEntryFormat;
         private DateEditProcessor _processor;
 
         static DateEditControl()
