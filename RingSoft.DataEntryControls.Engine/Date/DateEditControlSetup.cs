@@ -77,7 +77,7 @@ namespace RingSoft.DataEntryControls.Engine
 
             return format;
         }
-        private static void GetSegmentFirstLastPosition(string format, char segmentChar, out int firstSegmentIndex, out int lastSegmentIndex)
+        public static void GetSegmentFirstLastPosition(string format, char segmentChar, out int firstSegmentIndex, out int lastSegmentIndex)
         {
             firstSegmentIndex = format.IndexOf(segmentChar);
             lastSegmentIndex = format.LastIndexOf(segmentChar, format.Length - 1);

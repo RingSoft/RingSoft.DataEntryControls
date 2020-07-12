@@ -23,6 +23,7 @@
                 if (newValue > 12)
                     return false;
             }
+
             return base.SegmentProcessChar();
         }
 

@@ -187,14 +187,26 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (ProcessKey(e.Key))
                 e.Handled = true;
-
-            if (!(Keyboard.IsKeyDown(Key.LeftAlt)
-                  || Keyboard.IsKeyDown(Key.RightAlt)
-                  || Keyboard.IsKeyDown(Key.LeftCtrl)
-                  || Keyboard.IsKeyDown(Key.RightCtrl)))
+            else
             {
-                if (ProcessKeyChar(e.Key.GetCharFromKey()))
-                    e.Handled = true;
+                if (!(Keyboard.IsKeyDown(Key.LeftAlt)
+                      || Keyboard.IsKeyDown(Key.RightAlt)
+                      || Keyboard.IsKeyDown(Key.LeftCtrl)
+                      || Keyboard.IsKeyDown(Key.RightCtrl)))
+                {
+                    switch (e.Key)
+                    {
+                        case Key.Left:
+                        case Key.Right:
+                        case Key.Home:
+                        case Key.End:
+                            break;
+                        default:
+                            if (ProcessKeyChar(e.Key.GetCharFromKey()))
+                                e.Handled = true;
+                            break;
+                    }
+                }
             }
 
             _processingKey = false;

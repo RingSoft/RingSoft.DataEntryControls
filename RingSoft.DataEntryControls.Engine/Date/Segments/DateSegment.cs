@@ -24,6 +24,7 @@
 
         public virtual bool SegmentProcessChar()
         {
+            Processor.CheckDeleteAll();
             Processor.ReplaceDateCharAdvance(CharBeingProcessed, SegmentEnd);
             return true;
         }

@@ -68,30 +68,51 @@ namespace RingSoft.DataEntryControls.Engine.Date
                 case '\t':
                 case '\r':
                 case '\n':
-                    return ProcessCharResults.Ignored;
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                    return ProcessNumberDigit(keyChar);
                 case ' ':
                     return ProcessCharResults.Ignored;
+            }
+
+            var dateSegment = GetActiveSegment(keyChar);
+            if (dateSegment == null)
+                return ProcessCharResults.ValidationFailed;
+
+            if (dateSegment.SegmentProcessChar())
+            {
+                if (DateTime.TryParse(Control.Text, out var newDate))
+                {
+                    OnValueChanged(newDate);
+                }
+                return ProcessCharResults.Processed;
             }
 
             return ProcessCharResults.ValidationFailed;
         }
 
-        private ProcessCharResults ProcessNumberDigit(char keyChar)
+        internal DateSegment GetActiveSegment(char cChar)
         {
-            CheckDeleteAll();
+            var entryFormat = _setup.GetEntryFormat();
+            if (Control.SelectionStart >= entryFormat.Length)
+                return null;
 
-            return ProcessCharResults.ValidationFailed;
+            char cSegmentChar = entryFormat[Control.SelectionStart];
+            switch (cSegmentChar)
+            {
+                case 'M':
+                    return GetDateSegmentMonth(cChar);
+                case 'd':
+                    return GetDateSegmentDay(cChar);
+                case 'y':
+                    return GetDateSegmentYear(cChar);
+                case 'h':
+                case 'H':
+                    return GetDateSegmentHour(cChar);
+                case 'm':
+                case 's':
+                    return GetDateSegmentMinuteSecond(cChar);
+                case 't':
+                    return GetDateSegmentAmPm(cChar);
+            }
+            return null;
         }
 
         public ProcessCharResults OnBackspaceKeyDown(DateEditControlSetup setup)
@@ -114,7 +135,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return ProcessCharResults.ValidationFailed;
         }
 
-        private bool CheckDeleteAll()
+        public bool CheckDeleteAll()
         {
             if (Control.SelectionLength == Control.Text.Length)
             {
@@ -148,7 +169,95 @@ namespace RingSoft.DataEntryControls.Engine.Date
                     Control.SelectionStart++;
         }
 
-        //internal DateSegmentMonth GetDateSegmentMonth()
+        internal DateSegmentMonth GetDateSegmentMonth()
+        {
+            return GetDateSegmentMonth('Z');
+        }
+
+        internal DateSegmentMonth GetDateSegmentMonth(char cChar)
+        {
+            var entryFormat = _setup.GetEntryFormat();
+            char segmentFormatChar = 'M';
+
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentFormatChar, out var firstSegIndex,
+                out var lastSegIndex);
+            return new DateSegmentMonth(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
+        }
+
+        internal DateSegmentDay GetDateSegmentDay()
+        {
+            return GetDateSegmentDay('Z');
+        }
+
+        internal DateSegmentDay GetDateSegmentDay(char cChar)
+        {
+            var entryFormat = _setup.GetEntryFormat();
+            char segmentFormatChar = 'd';
+
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentFormatChar, out var firstSegIndex,
+                out var lastSegIndex);
+            return new DateSegmentDay(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
+        }
+
+        internal DateSegmentYear GetDateSegmentYear()
+        {
+            return GetDateSegmentYear('Z');
+        }
+
+        internal DateSegmentYear GetDateSegmentYear(char cChar)
+        {
+            var entryFormat = _setup.GetEntryFormat();
+            char segmentFormatChar = 'y';
+
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentFormatChar, out var firstSegIndex,
+                out var lastSegIndex);
+            return new DateSegmentYear(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
+        }
+
+        internal DateSegmentHour GetDateSegmentHour()
+        {
+            return GetDateSegmentHour('Z');
+        }
+
+        internal DateSegmentHour GetDateSegmentHour(char cChar)
+        {
+            var entryFormat = _setup.GetEntryFormat();
+            char segmentFormatChar = entryFormat[Control.SelectionStart];
+
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentFormatChar, out var firstSegIndex,
+                out var lastSegIndex);
+            return new DateSegmentHour(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
+        }
+
+        internal DateSegmentMinuteSecond GetDateSegmentMinuteSecond()
+        {
+            return GetDateSegmentMinuteSecond('Z');
+        }
+
+        internal DateSegmentMinuteSecond GetDateSegmentMinuteSecond(char cChar)
+        {
+            var entryFormat = _setup.GetEntryFormat();
+            char segmentFormatChar = entryFormat[Control.SelectionStart];
+
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentFormatChar, out var firstSegIndex,
+                out var lastSegIndex);
+            return new DateSegmentMinuteSecond(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
+        }
+
+        internal DateSegmentAmPm GetDateSegmentAmPm()
+        {
+            return GetDateSegmentAmPm('Z');
+        }
+
+        internal DateSegmentAmPm GetDateSegmentAmPm(char cChar)
+        {
+            var entryFormat = _setup.GetEntryFormat();
+            char segmentFormatChar = 't';
+
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentFormatChar, out var firstSegIndex,
+                out var lastSegIndex);
+            return new DateSegmentAmPm(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
+        }
 
         private void OnValueChanged(DateTime? newValue)
         {
