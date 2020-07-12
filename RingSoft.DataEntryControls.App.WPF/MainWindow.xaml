@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <!--<StackPanel x:Name="EditHost" Orientation="Horizontal"/>-->
         <!--<dec:DecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" EditFormatType="Currency" HorizontalAlignment="Left"/>-->
-        <dec:DateEditControl x:Name="DateEditControl" Width="200" HorizontalAlignment="Left"/>
+        <dec:DateEditControl x:Name="DateEditControl" Width="200" HorizontalAlignment="Left" DateFormatType="DateTime"/>
         <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}" CancelEditOnEscape="False">
             <deg:DataEntryGrid.Columns>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>

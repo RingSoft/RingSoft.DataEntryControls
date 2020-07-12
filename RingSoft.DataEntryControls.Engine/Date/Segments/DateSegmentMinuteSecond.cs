@@ -7,5 +7,17 @@
             formatChar)
         {
         }
+
+        public override bool SegmentProcessChar()
+        {
+            if (!ValNumeric())
+                return false;
+
+            var newValue = GetNewSegmentText().ToInt();
+            if (newValue > 59)
+                return false;
+
+            return base.SegmentProcessChar();
+        }
     }
 }

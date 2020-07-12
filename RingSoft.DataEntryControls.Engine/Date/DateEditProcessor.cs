@@ -25,7 +25,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
             var entryFormat = _setup.GetEntryFormat();
             if (value == null)
             {
-                Control.Text = NullDate();
+                Control.Text = GetNullDatePattern();
             }
             else
             {
@@ -34,13 +34,18 @@ namespace RingSoft.DataEntryControls.Engine.Date
             }
         }
 
-        private string NullDate()
+        private string GetNullDatePattern()
         {
             var entryFormat = _setup.GetEntryFormat();
             var nullDate = entryFormat;
             var segments = "MdyHhms";
+
             foreach (char segmentChar in segments)
                 nullDate = nullDate.Replace(segmentChar, '0');
+
+            if (nullDate.Contains("tt"))
+                nullDate = nullDate.Replace("tt", "AM");
+
             return nullDate;
         }
 
@@ -78,23 +83,35 @@ namespace RingSoft.DataEntryControls.Engine.Date
 
             if (dateSegment.SegmentProcessChar())
             {
-                if (DateTime.TryParse(Control.Text, out var newDate))
-                {
-                    OnValueChanged(newDate);
-                }
+                SetNewDate();
                 return ProcessCharResults.Processed;
             }
 
             return ProcessCharResults.ValidationFailed;
         }
 
-        internal DateSegment GetActiveSegment(char cChar)
+        private void SetNewDate()
+        {
+            if (DateTime.TryParse(Control.Text, out var newDate))
+            {
+                OnValueChanged(newDate);
+            }
+            else
+            {
+                OnValueChanged(null);
+            }
+        }
+
+        internal DateSegment GetActiveSegment(char cChar, int index = -1)
         {
             var entryFormat = _setup.GetEntryFormat();
             if (Control.SelectionStart >= entryFormat.Length)
                 return null;
 
-            char cSegmentChar = entryFormat[Control.SelectionStart];
+            if (index < 0)
+                index = Control.SelectionStart;
+
+            char cSegmentChar = entryFormat[index];
             switch (cSegmentChar)
             {
                 case 'M':
@@ -122,7 +139,29 @@ namespace RingSoft.DataEntryControls.Engine.Date
             if (CheckDeleteAll())
                 return ProcessCharResults.Processed;
 
-            return ProcessCharResults.ValidationFailed;
+            if (Control.SelectionStart > 0)
+            {
+                if (GetActiveSegment('Z', Control.SelectionStart - 1) == null)
+                    //We're backspacing in the divider area.  Set selection to go back 1 now.
+                    Control.SelectionStart--;
+
+                var left = "";
+                if (Control.SelectionStart > 1)
+                    left = Control.Text.LeftStr(Control.SelectionStart - 1);
+
+                var nullPattern = GetNullDatePattern();
+                var nullChar = nullPattern[Control.SelectionStart - 1];
+                var newText = left
+                                + nullChar
+                                + Control.Text.RightStr(Control.Text.Length - Control.SelectionStart);
+
+                var selectionStart = Control.SelectionStart;
+                Control.Text = newText;
+                Control.SelectionStart = selectionStart - 1;  //MS always resets SelectionStart when you change Text property.
+                SetNewDate();
+            }
+            
+            return ProcessCharResults.Processed;
         }
 
         public ProcessCharResults OnDeleteKeyDown(DateEditControlSetup setup)
@@ -139,7 +178,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
         {
             if (Control.SelectionLength == Control.Text.Length)
             {
-                Control.Text = NullDate();
+                Control.Text = GetNullDatePattern();
                 Control.SelectionStart = Control.SelectionLength = 0;
                 OnValueChanged(null);
                 return true;

@@ -59,7 +59,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             GridManager = new AppGridManager(this);
             CalcValue = (decimal)-2345.67;
             //CalcValue = (decimal)0.67;
-            DateEditControl.EntryFormat = "M/d/yy";
+            //DateEditControl.EntryFormat = "M/d/yy";
             DateEditControl.DisplayFormat = "D";
 
             var saleDetails = new List<SaleDetail>();

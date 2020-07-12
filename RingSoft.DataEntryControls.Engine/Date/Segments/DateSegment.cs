@@ -8,7 +8,7 @@
 
         public int SegmentEnd { get; }
 
-        public char CharBeingProcessed { get; }
+        public char CharBeingProcessed { get; internal set; }
 
         public char FormatChar { get; }
 
