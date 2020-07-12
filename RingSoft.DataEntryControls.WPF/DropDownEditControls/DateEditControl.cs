@@ -365,7 +365,8 @@ namespace RingSoft.DataEntryControls.WPF
             switch (key)
             {
                 case Key.Space:
-                    System.Media.SystemSounds.Exclamation.Play();
+                    if (_processor.OnSpaceKey(GetSetup()) == ProcessCharResults.ValidationFailed)
+                        System.Media.SystemSounds.Exclamation.Play();
                     return true;
                 case Key.Back:
                     if (_processor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)

@@ -164,6 +164,25 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return ProcessCharResults.Processed;
         }
 
+        public ProcessCharResults OnSpaceKey(DateEditControlSetup setup)
+        {
+            _setup = setup;
+
+            if (CheckDeleteAll())
+                return ProcessCharResults.Processed;
+
+            var nullDatePattern = GetNullDatePattern();
+            var entryFormat = _setup.GetEntryFormat();
+            if (Control.SelectionStart >= entryFormat.Length)
+                return ProcessCharResults.ValidationFailed;
+
+            char segmentChar = entryFormat[Control.SelectionStart];
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentChar, out _, out var lastSegIndex);
+            ReplaceDateCharAdvance(nullDatePattern[Control.SelectionStart], lastSegIndex);
+
+            SetNewDate();
+            return ProcessCharResults.Processed;
+        }
         public ProcessCharResults OnDeleteKeyDown(DateEditControlSetup setup)
         {
             _setup = setup;
@@ -190,6 +209,28 @@ namespace RingSoft.DataEntryControls.Engine.Date
         public bool PasteText(DateEditControlSetup setup, string newText)
         {
             _setup = setup;
+            if (DateTime.TryParse(newText, out var result))
+            {
+                Control.Text = result.ToString(_setup.GetEntryFormat());
+                Control.SelectionStart = Control.Text.Length - 1;
+                Control.SelectionLength = 0;
+                OnValueChanged(result);
+                return true;
+            }
+
+            if (Value == null)
+            {
+                Control.Text = GetNullDatePattern();
+            }
+            else
+            {
+                var currentValue = (DateTime) Value;
+                Control.Text = currentValue.ToString(_setup.GetEntryFormat());
+            }
+            Control.SelectionStart = Control.Text.Length - 1;
+            Control.SelectionLength = 0;
+            OnValueChanged(Value);
+
             return false;
         }
 

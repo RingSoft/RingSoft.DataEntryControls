@@ -30,7 +30,7 @@
                 if (newValue > 31)
                     return false;
 
-                if (yearValue > 0 && monthValue > 0)
+                if (monthValue > 0)
                     if (newValue > GetLastDay(monthValue, yearValue))
                         return false;
             }
