@@ -138,6 +138,15 @@ namespace RingSoft.DataEntryControls.WPF
             LostFocus += NumericEditControl_LostFocus;
         }
 
+        protected virtual void LoadFromSetup(NumericEditControlSetup<T> setup)
+        {
+            DataEntryMode = setup.DataEntryMode;
+            MaximumValue = setup.MaximumValue;
+            MinimumValue = setup.MinimumValue;
+            NumberFormatString = setup.NumberFormatString;
+            Culture = setup.Culture;
+        }
+
         protected abstract void SetValue();
 
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)

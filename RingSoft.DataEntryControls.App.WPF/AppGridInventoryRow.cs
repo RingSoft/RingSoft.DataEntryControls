@@ -34,6 +34,7 @@ namespace RingSoft.DataEntryControls.App.WPF
                 case AppGridColumns.Disabled:
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Date:
+                case AppGridColumns.Integer:
                     break;
                 case AppGridColumns.StockNumber:
                     result = new DataEntryGridTextCellProps(this, columnId) { Text = StockNumber };
@@ -64,6 +65,7 @@ namespace RingSoft.DataEntryControls.App.WPF
                 case AppGridColumns.LineType:
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Date:
+                case AppGridColumns.Integer:
                     break;
                 case AppGridColumns.StockNumber:
                     StockNumber = value.Text;

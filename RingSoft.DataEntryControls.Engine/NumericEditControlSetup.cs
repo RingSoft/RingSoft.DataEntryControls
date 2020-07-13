@@ -33,6 +33,12 @@ namespace RingSoft.DataEntryControls.Engine
 
         public CultureInfo Culture { get; private set; }
 
+        public NumericEditControlSetup()
+        {
+            if (Culture == null)
+                CultureId = CultureInfo.CurrentCulture.Name;
+        }
+
         protected virtual void SetupNumericInfo(string cultureId)
         {
             Culture = new CultureInfo(cultureId);

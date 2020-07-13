@@ -20,6 +20,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 return new DataEntryGridDecimalControlHost(grid);
             if (editingControlHostId == DataEntryGridCellProps.DateEditHostId)
                 return new DataEntryGridDateHost(grid);
+            if (editingControlHostId == DataEntryGridCellProps.IntegerEditHostId)
+                return new DataEntryGridIntegerControlHost(grid);
 
             throw new ArgumentException($"Data Entry Grid Control Host not found for ID: {editingControlHostId}");
         }

@@ -15,6 +15,10 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public DateEditControlSetup DateSetup { get; }
 
+        public int? IntegerValue { get; private set; }
+
+        public IntegerEditControlSetup IntegerSetup { get; }
+
         public DataEntryComboBoxSetup LineTypeComboBoxSetup { get; } = new DataEntryComboBoxSetup();
 
         public AppGridManager AppGridManager { get; }
@@ -25,6 +29,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             LineTypeComboBoxSetup.LoadFromEnum<AppGridLineTypes>();
 
             DateSetup = new DateEditControlSetup();
+            IntegerSetup = new IntegerEditControlSetup();
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -41,6 +46,8 @@ namespace RingSoft.DataEntryControls.App.WPF
                     return new DataEntryGridCheckBoxCellProps(this, columnId, CheckBoxValue);
                 case AppGridColumns.Date:
                     return new DataEntryGridDateCellProps(this, columnId, DateSetup, DateValue);
+                case AppGridColumns.Integer:
+                    return new DataEntryGridIntegerCellProps(this, columnId, IntegerSetup, IntegerValue);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -118,6 +125,10 @@ namespace RingSoft.DataEntryControls.App.WPF
                 case AppGridColumns.Date:
                     if (value is DataEntryGridDateCellProps dateCellProps)
                         DateValue = dateCellProps.Value;
+                    break;
+                case AppGridColumns.Integer:
+                    if (value is DataEntryGridIntegerCellProps integerCellProps)
+                        IntegerValue = integerCellProps.Value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

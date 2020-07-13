@@ -24,7 +24,8 @@ namespace RingSoft.DataEntryControls.App.WPF
         Location = AppGridManager.LocationColumnId,
         CheckBox = AppGridManager.CheckBoxColumnId,
         Price = AppGridManager.PriceColumnId,
-        Date = AppGridManager.DateColumnId
+        Date = AppGridManager.DateColumnId,
+        Integer = AppGridManager.IntegerColumnId
     }
 
     public interface IAppUserInterface
@@ -46,6 +47,7 @@ namespace RingSoft.DataEntryControls.App.WPF
         public const int CheckBoxColumnId = 4;
         public const int PriceColumnId = 5;
         public const int DateColumnId = 6;
+        public const int IntegerColumnId = 7;
 
         public IAppUserInterface UserInterface { get; }
 

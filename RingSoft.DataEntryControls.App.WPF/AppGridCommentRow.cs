@@ -47,6 +47,7 @@ namespace RingSoft.DataEntryControls.App.WPF
                 case AppGridColumns.Location:
                 case AppGridColumns.Price:
                 case AppGridColumns.Date:
+                case AppGridColumns.Integer:
                     result = new DataEntryGridTextCellProps(this, columnId);
                     break;
                 case AppGridColumns.StockNumber:

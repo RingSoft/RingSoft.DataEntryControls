@@ -49,11 +49,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var intEditControl = (IntegerEditControl)obj;
-            intEditControl.DataEntryMode = intEditControl.Setup.DataEntryMode;
-            intEditControl.MaximumValue = intEditControl.Setup.MaximumValue;
-            intEditControl.MinimumValue = intEditControl.Setup.MinimumValue;
-            intEditControl.NumberFormatString = intEditControl.Setup.NumberFormatString;
-            intEditControl.Culture = intEditControl.Setup.Culture;
+            intEditControl.LoadFromSetup(intEditControl.Setup);
         }
 
         private int? _pendingNewValue;
@@ -88,6 +84,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
+            setup.EditFormatType = DecimalEditFormatTypes.Number;
             setup.MaximumValue = MaximumValue;
             setup.MinimumValue = MinimumValue;
             setup.Precision = 0;

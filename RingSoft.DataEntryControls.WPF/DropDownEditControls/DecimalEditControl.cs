@@ -85,13 +85,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var decimalEditControl = (DecimalEditControl)obj;
-            decimalEditControl.DataEntryMode = decimalEditControl.Setup.DataEntryMode;
-            decimalEditControl.EditFormatType = decimalEditControl.Setup.EditFormatType;
-            decimalEditControl.Precision = decimalEditControl.Setup.Precision;
-            decimalEditControl.MaximumValue = decimalEditControl.Setup.MaximumValue;
-            decimalEditControl.MinimumValue = decimalEditControl.Setup.MinimumValue;
-            decimalEditControl.NumberFormatString = decimalEditControl.Setup.NumberFormatString;
-            decimalEditControl.Culture = decimalEditControl.Setup.Culture;
+            decimalEditControl.LoadFromSetup(decimalEditControl.Setup);
         }
 
         public static readonly DependencyProperty EditFormatTypeProperty =
@@ -122,6 +116,14 @@ namespace RingSoft.DataEntryControls.WPF
                 SetValue();
 
             _pendingNewValue = null;
+        }
+
+        protected override void LoadFromSetup(NumericEditControlSetup<decimal?> setup)
+        {
+            EditFormatType = Setup.EditFormatType;
+            Precision = Setup.Precision;
+
+            base.LoadFromSetup(setup);
         }
 
         protected override void SetValue()

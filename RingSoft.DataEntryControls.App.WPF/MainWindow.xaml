@@ -7,7 +7,7 @@
         xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="450" Width="900"
         CloseOnEscape="False"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
@@ -17,8 +17,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--<StackPanel x:Name="EditHost" Orientation="Horizontal"/>-->
-        <!--<dec:DecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" EditFormatType="Currency" HorizontalAlignment="Left" MaximumValue="10000" MinimumValue="-10000"/>-->
-        <dec:DateEditControl x:Name="DateEditControl" Width="200" HorizontalAlignment="Left" DateFormatType="DateTime" MaximumDate="01/15/2021" MinimumDate="01/15/2020"/>
+        <dec:DecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" EditFormatType="Currency" HorizontalAlignment="Left" MaximumValue="10000" MinimumValue="-10000"/>
+        <!--<dec:DateEditControl x:Name="DateEditControl" Width="200" HorizontalAlignment="Left" DateFormatType="DateTime" MaximumDate="01/15/2021" MinimumDate="01/15/2020"/>-->
         <!--<dec:IntegerEditControl HorizontalAlignment="Left" Width="100"/>-->
         <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}" CancelEditOnEscape="False">
             <deg:DataEntryGrid.Columns>
@@ -29,6 +29,7 @@
                 <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static local:AppGridManager.CheckBoxColumnId}" Header="CheckBox Column"/>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DateColumnId}" Header="Date" Width="90" DesignText="01/01/2020"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
             </deg:DataEntryGrid.Columns>
         </deg:DataEntryGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">

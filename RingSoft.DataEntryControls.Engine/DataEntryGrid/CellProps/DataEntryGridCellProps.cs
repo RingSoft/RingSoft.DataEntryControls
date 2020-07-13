@@ -9,6 +9,7 @@
         public const int ButtonHostId = 3;
         public const int DecimalEditHostId = 4;
         public const int DateEditHostId = 5;
+        public const int IntegerEditHostId = 6;
 
         public abstract int EditingControlId { get; }
 
