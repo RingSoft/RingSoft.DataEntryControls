@@ -4,6 +4,8 @@
     {
         public override int EditingControlId => TextBoxHostId;
 
+        public int MaxLength { get; set; }
+
         public DataEntryGridTextCellProps(DataEntryGridRow row, int columnId) : base(row, columnId)
         {
         }

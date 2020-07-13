@@ -27,6 +27,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         protected override void OnControlLoaded(TextBox control, DataEntryGridCellProps cellProps)
         {
+            if (cellProps is DataEntryGridTextCellProps textCellProps)
+            {
+                control.MaxLength = textCellProps.MaxLength;
+            }
+
             control.Text = cellProps.Text;
             Control.SelectAll();
 
