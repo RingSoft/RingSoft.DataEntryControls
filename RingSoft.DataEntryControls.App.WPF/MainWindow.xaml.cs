@@ -60,7 +60,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             CalcValue = (decimal)-2345.67;
             //CalcValue = (decimal)0.67;
             //DateEditControl.EntryFormat = "M/d/yy";
-            DateEditControl.DisplayFormat = "D";
+            //DateEditControl.DisplayFormat = "D";
 
             var saleDetails = new List<SaleDetail>();
 

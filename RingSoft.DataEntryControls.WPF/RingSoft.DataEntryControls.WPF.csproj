@@ -23,6 +23,9 @@
     <Page Update="Themes\DateEditControlTemplate.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\IntegerEditControlTemplate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

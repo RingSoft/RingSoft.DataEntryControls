@@ -9,6 +9,7 @@
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/CalculatorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DateEditControlTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DropDownCalendarTemplate.xaml"/>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/IntegerEditControlTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -27,5 +28,4 @@
     <Style TargetType="{x:Type local:NumericEditControl}" x:Key="NumericEditStyle"
            BasedOn="{StaticResource {x:Type local:DropDownEditControl}}">
     </Style>
-
 </ResourceDictionary>

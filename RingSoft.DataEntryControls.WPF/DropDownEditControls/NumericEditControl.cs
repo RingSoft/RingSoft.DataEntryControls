@@ -7,12 +7,6 @@ using System.Windows.Input;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
 {
-    public enum NumericEditTypes
-    {
-        Decimal = 0,
-        WholeNumber = 1
-    }
-
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///
@@ -44,8 +38,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public abstract class NumericEditControl : DropDownEditControl, INumericControl
     {
-        public abstract NumericEditTypes EditType { get; }
-
         public static readonly DependencyProperty DataEntryModeProperty =
             DependencyProperty.Register(nameof(DataEntryMode), typeof(DataEntryModes), typeof(NumericEditControl));
 

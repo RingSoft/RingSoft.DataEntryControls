@@ -15,7 +15,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Name="TextBox" Height="20"/>
+                                <TextBox Name="TextBox"/>
                                 <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16" VerticalAlignment="Stretch">
                                     <Image
                                         Source="/RingSoft.DataEntryControls.WPF;component/Resources/calculator16.png">

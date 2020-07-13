@@ -40,8 +40,6 @@ namespace RingSoft.DataEntryControls.WPF
     [TemplatePart(Name = "Calculator", Type = typeof(IDropDownCalculator))]
     public class DecimalEditControl : NumericEditControl
     {
-        public override NumericEditTypes EditType => NumericEditTypes.Decimal;
-
         private IDropDownCalculator _calculatorControl;
 
         public IDropDownCalculator CalculatorControl
