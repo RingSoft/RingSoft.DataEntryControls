@@ -49,9 +49,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return nullDate;
         }
 
-        public void OnLostFocus(DateEditControlSetup setup, DateTime? value)
+        public DateTime? OnLostFocus(DateEditControlSetup setup, DateTime? value)
         {
             _setup = setup;
+            DateTime? result = null;
+
             if (value == null)
             {
                 Control.Text = string.Empty;
@@ -59,8 +61,37 @@ namespace RingSoft.DataEntryControls.Engine.Date
             else
             {
                 var dateTimeValue = (DateTime) value;
+                result = ValidateDate(dateTimeValue);
+
+                if (result != null)
+                    dateTimeValue = (DateTime) result;
+
                 Control.Text = dateTimeValue.ToString(_setup.GetDisplayFormat());
             }
+
+            return result;
+        }
+
+        private DateTime? ValidateDate(DateTime dateValue)
+        {
+            DateTime? result = null;
+            if (_setup.MaximumDate != null)
+            {
+                if (dateValue > _setup.MaximumDate)
+                {
+                    result = _setup.MaximumDate;
+                }
+            }
+
+            if (_setup.MinimumDate != null)
+            {
+                if (dateValue < _setup.MinimumDate)
+                {
+                    result = _setup.MinimumDate;
+                }
+            }
+
+            return result;
         }
 
         public ProcessCharResults ProcessChar(DateEditControlSetup setup, char keyChar)

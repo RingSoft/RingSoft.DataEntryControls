@@ -33,27 +33,8 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:IntegerEditControl/>
     ///
     /// </summary>
-    public class IntegerEditControl : NumericEditControl
+    public class IntegerEditControl : NumericEditControl<int?>
     {
-        public static readonly DependencyProperty MaximumValueProperty =
-    DependencyProperty.Register(nameof(MaximumValue), typeof(int?), typeof(IntegerEditControl));
-
-        public int? MaximumValue
-        {
-            get { return (int?)GetValue(MaximumValueProperty); }
-            set { SetValue(MaximumValueProperty, value); }
-        }
-
-        public static readonly DependencyProperty MinimumValueProperty =
-            DependencyProperty.Register(nameof(MinimumValue), typeof(int?), typeof(IntegerEditControl));
-
-        public int? MinimumValue
-        {
-            get { return (int?)GetValue(MinimumValueProperty); }
-            set { SetValue(MinimumValueProperty, value); }
-        }
-
-
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(IntegerEditControlSetup), typeof(IntegerEditControl),
                 new FrameworkPropertyMetadata(SetupChangedCallback));
@@ -75,26 +56,7 @@ namespace RingSoft.DataEntryControls.WPF
             intEditControl.Culture = intEditControl.Setup.Culture;
         }
 
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(int?), typeof(IntegerEditControl),
-                new FrameworkPropertyMetadata(ValueChangedCallback));
-
-        public int? Value
-        {
-            get { return (int?)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
-        }
-
-        private static void ValueChangedCallback(DependencyObject obj,
-            DependencyPropertyChangedEventArgs args)
-        {
-            var intEditControl = (IntegerEditControl)obj;
-            if (!intEditControl._textSettingValue)
-                intEditControl.SetValue();
-        }
-
         private int? _pendingNewValue;
-        private bool _textSettingValue;
 
         static IntegerEditControl()
         {
@@ -111,7 +73,8 @@ namespace RingSoft.DataEntryControls.WPF
             _pendingNewValue = null;
         }
 
-        private void SetValue()
+
+        protected override void SetValue()
         {
             if (TextBox == null)
             {
@@ -122,6 +85,7 @@ namespace RingSoft.DataEntryControls.WPF
                 SetText(Value);
             }
         }
+
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
             setup.MaximumValue = MaximumValue;
@@ -132,13 +96,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnValueChanged(string newValue)
         {
-            _textSettingValue = true;
-
-            var intValue = newValue.ToInt(Culture);
-
-            Value = intValue;
-
-            _textSettingValue = false;
+            Value = newValue.ToInt(Culture);
 
             base.OnValueChanged(newValue);
         }

@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 using System;
+using System.Media;
 using System.Windows;
 using System.Windows.Input;
 
@@ -38,7 +39,7 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
 
     [TemplatePart(Name = "Calculator", Type = typeof(IDropDownCalculator))]
-    public class DecimalEditControl : NumericEditControl
+    public class DecimalEditControl : NumericEditControl<decimal?>
     {
         private IDropDownCalculator _calculatorControl;
 
@@ -70,25 +71,6 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(PrecisionProperty, value); }
         }
 
-        public static readonly DependencyProperty MaximumValueProperty =
-            DependencyProperty.Register(nameof(MaximumValue), typeof(decimal?), typeof(DecimalEditControl));
-
-        public decimal? MaximumValue
-        {
-            get { return (decimal?)GetValue(MaximumValueProperty); }
-            set { SetValue(MaximumValueProperty, value); }
-        }
-
-        public static readonly DependencyProperty MinimumValueProperty =
-            DependencyProperty.Register(nameof(MinimumValue), typeof(decimal?), typeof(DecimalEditControl));
-
-        public decimal? MinimumValue
-        {
-            get { return (decimal?)GetValue(MinimumValueProperty); }
-            set { SetValue(MinimumValueProperty, value); }
-        }
-
-
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(DecimalEditControlSetup), typeof(DecimalEditControl),
                 new FrameworkPropertyMetadata(SetupChangedCallback));
@@ -112,24 +94,6 @@ namespace RingSoft.DataEntryControls.WPF
             decimalEditControl.Culture = decimalEditControl.Setup.Culture;
         }
 
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(decimal?), typeof(DecimalEditControl),
-                new FrameworkPropertyMetadata(ValueChangedCallback));
-
-        public decimal? Value
-        {
-            get { return (decimal?)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
-        }
-
-        private static void ValueChangedCallback(DependencyObject obj,
-            DependencyPropertyChangedEventArgs args)
-        {
-            var decimalEditControl = (DecimalEditControl) obj;
-            if (!decimalEditControl._textSettingValue)
-                decimalEditControl.SetValue();
-        }
-
         public static readonly DependencyProperty EditFormatTypeProperty =
             DependencyProperty.Register(nameof(EditFormatType), typeof(DecimalEditFormatTypes), typeof(DecimalEditControl));
 
@@ -140,7 +104,6 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         private decimal? _pendingNewValue;
-        private bool _textSettingValue;
 
         static DecimalEditControl()
         {
@@ -161,7 +124,7 @@ namespace RingSoft.DataEntryControls.WPF
             _pendingNewValue = null;
         }
 
-        private void SetValue()
+        protected override void SetValue()
         {
             if (TextBox == null)
             {
@@ -171,6 +134,24 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 SetText(Value);
             }
+        }
+
+        protected decimal? ValidateValue(decimal? newValue)
+        {
+            decimal? result = null;
+            if (MaximumValue != null)
+            {
+                if (newValue > MaximumValue)
+                    result = MaximumValue;
+            }
+
+            if (MinimumValue != null)
+            {
+                if (newValue < MinimumValue)
+                    result = MinimumValue;
+            }
+
+            return result;
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -227,6 +208,12 @@ namespace RingSoft.DataEntryControls.WPF
             if (EditFormatType == DecimalEditFormatTypes.Percent)
                 newValue /= 100;
 
+            var validatedValue = ValidateValue(newValue);
+            if (validatedValue != null)
+            {
+                newValue = validatedValue;
+                SystemSounds.Exclamation.Play();
+            }
             Value = newValue;
         }
 
@@ -241,13 +228,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnValueChanged(string newValue)
         {
-            _textSettingValue = true;
-
-            var decimalValue = newValue.ToDecimal(Culture);
-
-            Value = decimalValue;
-
-            _textSettingValue = false;
+            Value = newValue.ToDecimal(Culture);
 
             base.OnValueChanged(newValue);
         }

@@ -268,7 +268,12 @@ namespace RingSoft.DataEntryControls.WPF
 
             _textSettingValue = true;
 
-            _processor.OnLostFocus(setup, value);
+            var result = _processor.OnLostFocus(setup, value);
+            if (result != null)
+            {
+                Value = result;
+                System.Media.SystemSounds.Exclamation.Play();
+            }
 
             _textSettingValue = false;
         }

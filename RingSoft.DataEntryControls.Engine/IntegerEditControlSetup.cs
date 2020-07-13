@@ -2,12 +2,8 @@
 
 namespace RingSoft.DataEntryControls.Engine
 {
-    public class IntegerEditControlSetup : NumericEditControlSetup
+    public class IntegerEditControlSetup : NumericEditControlSetup<int?>
     {
-        public int? MaximumValue { get; set; }
-
-        public int? MinimumValue { get; set; }
-
         public void InitializeFromType(Type type)
         {
             if (type == typeof(int)

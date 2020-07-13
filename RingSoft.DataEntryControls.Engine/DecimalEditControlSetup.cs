@@ -16,7 +16,7 @@ namespace RingSoft.DataEntryControls.Engine
         Suffix = 1
     }
 
-    public class DecimalEditControlSetup : NumericEditControlSetup
+    public class DecimalEditControlSetup : NumericEditControlSetup<decimal?>
     {
         /// <summary>
         /// Gets or sets the number of digits to the right of the decimal point.
@@ -33,10 +33,6 @@ namespace RingSoft.DataEntryControls.Engine
         /// The format type of the numeric edit control.
         /// </value>
         public DecimalEditFormatTypes EditFormatType { get; set; }
-
-        public decimal? MaximumValue { get; set; }
-
-        public decimal? MinimumValue { get; set; }
 
         public NumberSymbolLocations CurrencySymbolLocation { get; private set; }
 

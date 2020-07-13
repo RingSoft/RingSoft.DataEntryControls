@@ -9,7 +9,7 @@ namespace RingSoft.DataEntryControls.Engine
         RawEntry = 2
     }
 
-    public class NumericEditControlSetup
+    public class NumericEditControlSetup<T>
     {
         /// <summary>
         /// Gets the number format string.  Default value is empty.
@@ -20,6 +20,11 @@ namespace RingSoft.DataEntryControls.Engine
         public string NumberFormatString { get; set; }
 
         public DataEntryModes DataEntryMode { get; set; }
+
+        public T MaximumValue { get; set; }
+
+        public T MinimumValue { get; set; }
+
 
         public string CultureId
         {

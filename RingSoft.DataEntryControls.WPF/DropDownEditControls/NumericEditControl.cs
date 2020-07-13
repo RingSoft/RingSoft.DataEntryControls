@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using System;
 using System.Globalization;
+using System.Media;
 using System.Windows;
 using System.Windows.Input;
 
@@ -36,10 +37,10 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:NumericEditControl/>
     ///
     /// </summary>
-    public abstract class NumericEditControl : DropDownEditControl, INumericControl
+    public abstract class NumericEditControl<T> : DropDownEditControl, INumericControl
     {
         public static readonly DependencyProperty DataEntryModeProperty =
-            DependencyProperty.Register(nameof(DataEntryMode), typeof(DataEntryModes), typeof(NumericEditControl));
+            DependencyProperty.Register(nameof(DataEntryMode), typeof(DataEntryModes), typeof(NumericEditControl<T>));
 
         public DataEntryModes DataEntryMode
         {
@@ -48,7 +49,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty NumberFormatStringProperty =
-            DependencyProperty.Register(nameof(NumberFormatString), typeof(string), typeof(NumericEditControl));
+            DependencyProperty.Register(nameof(NumberFormatString), typeof(string), typeof(NumericEditControl<T>));
 
         public string NumberFormatString
         {
@@ -56,8 +57,45 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(NumberFormatStringProperty, value); }
         }
 
+        public static readonly DependencyProperty MaximumValueProperty =
+            DependencyProperty.Register(nameof(MaximumValue), typeof(T), typeof(NumericEditControl<T>));
+
+        public T MaximumValue
+        {
+            get { return (T)GetValue(MaximumValueProperty); }
+            set { SetValue(MaximumValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty MinimumValueProperty =
+            DependencyProperty.Register(nameof(MinimumValue), typeof(T), typeof(NumericEditControl<T>));
+
+        public T MinimumValue
+        {
+            get { return (T)GetValue(MinimumValueProperty); }
+            set { SetValue(MinimumValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(T), typeof(NumericEditControl<T>),
+                new FrameworkPropertyMetadata(ValueChangedCallback));
+
+        public T Value
+        {
+            get { return (T)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
+
+        private static void ValueChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var numericEditControl = (NumericEditControl<T>)obj;
+
+            if (!numericEditControl._settingText)
+                numericEditControl.SetValue();
+        }
+
         public static readonly DependencyProperty CultureIdProperty =
-            DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(NumericEditControl),
+            DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(NumericEditControl<T>),
                 new FrameworkPropertyMetadata(CultureIdChangedCallback));
 
         public string CultureId
@@ -69,7 +107,7 @@ namespace RingSoft.DataEntryControls.WPF
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
-            var numericEditControl = (NumericEditControl) obj;
+            var numericEditControl = (NumericEditControl<T>) obj;
             var culture = new CultureInfo(numericEditControl.CultureId);
             numericEditControl.Culture = culture;
         }
@@ -81,7 +119,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         static NumericEditControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl), new FrameworkPropertyMetadata(typeof(NumericEditControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl<T>), new FrameworkPropertyMetadata(typeof(NumericEditControl<T>)));
         }
 
         public NumericEditControl()
@@ -90,15 +128,24 @@ namespace RingSoft.DataEntryControls.WPF
                 Culture = CultureInfo.CurrentCulture;
 
             _numericProcessor = new DataEntryNumericControlProcessor(this);
-            _numericProcessor.ValueChanged += (sender, args) => OnValueChanged(args.NewValue);
+            _numericProcessor.ValueChanged += (sender, args) =>
+            {
+                _settingText = true;
+                OnValueChanged(args.NewValue);
+                _settingText = false;
+            };
 
             LostFocus += NumericEditControl_LostFocus;
         }
 
+        protected abstract void SetValue();
+
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!IsKeyboardFocusWithin && TextBox != null)
+            {
                 SetText(TextBox.Text);
+            }
         }
 
         private void SetText(string text)
@@ -115,7 +162,7 @@ namespace RingSoft.DataEntryControls.WPF
 
             var setup = GetSetup();
             if (newValue == null)
-                TextBox.Text = string.Empty;
+                TextBox.Text = String.Empty;
             else
             {
                 var value = (decimal) newValue;
@@ -172,7 +219,7 @@ namespace RingSoft.DataEntryControls.WPF
                         case ProcessCharResults.Processed:
                             return true;
                         case ProcessCharResults.ValidationFailed:
-                            System.Media.SystemSounds.Exclamation.Play();
+                            SystemSounds.Exclamation.Play();
                             return true;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -194,15 +241,15 @@ namespace RingSoft.DataEntryControls.WPF
                     switch (key)
                     {
                         case Key.Space:
-                            System.Media.SystemSounds.Exclamation.Play();
+                            SystemSounds.Exclamation.Play();
                             return true;
                         case Key.Back:
                             if (_numericProcessor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
-                                System.Media.SystemSounds.Exclamation.Play();
+                                SystemSounds.Exclamation.Play();
                             return true;
                         case Key.Delete:
                             if (_numericProcessor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
-                                System.Media.SystemSounds.Exclamation.Play();
+                                SystemSounds.Exclamation.Play();
                             return true;
                     }
                     break;
@@ -229,7 +276,7 @@ namespace RingSoft.DataEntryControls.WPF
                 case DataEntryModes.FormatOnEntry:
                 case DataEntryModes.ValidateOnly:
                     if (!_numericProcessor.PasteText(GetSetup(), newText))
-                        System.Media.SystemSounds.Exclamation.Play();
+                        SystemSounds.Exclamation.Play();
                     break;
                 case DataEntryModes.RawEntry:
                     OnValueChanged(newText);

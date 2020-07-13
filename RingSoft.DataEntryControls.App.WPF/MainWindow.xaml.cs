@@ -61,6 +61,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             //CalcValue = (decimal)0.67;
             //DateEditControl.EntryFormat = "M/d/yy";
             //DateEditControl.DisplayFormat = "D";
+            //DateEditControl.Value = DateTime.Parse("01/01/1980");
 
             var saleDetails = new List<SaleDetail>();
 
