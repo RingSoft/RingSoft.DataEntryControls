@@ -55,6 +55,7 @@ namespace RingSoft.DataEntryControls.App.WPF
             {
                 case AppGridColumns.LineType:
                 case AppGridColumns.CheckBox:
+                case AppGridColumns.Date:
                     break;
                 case AppGridColumns.StockNumber:
                     NonInventoryCode = value.Text;

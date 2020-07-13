@@ -42,7 +42,7 @@ namespace RingSoft.DataEntryControls.WPF
     [TemplatePart(Name = "TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "DropDownButton", Type = typeof(Button))]
     [TemplatePart(Name = "Popup", Type = typeof(Popup))]
-    public abstract class DropDownEditControl : Control
+    public abstract class DropDownEditControl : Control, IDropDownControl
     {
         public static readonly DependencyProperty TextAlignmentProperty =
             DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(DropDownEditControl),
@@ -134,6 +134,54 @@ namespace RingSoft.DataEntryControls.WPF
                 
                 if (_popup != null)
                     _popup.Closed += _popup_Closed;
+            }
+        }
+
+        public string Text
+        {
+            get
+            {
+                if (TextBox == null)
+                    return string.Empty;
+
+                return TextBox.Text;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.Text = value;
+            }
+        }
+
+        public int SelectionStart
+        {
+            get
+            {
+                if (TextBox == null)
+                    return 0;
+
+                return TextBox.SelectionStart;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.SelectionStart = value;
+            }
+        }
+
+        public int SelectionLength
+        {
+            get
+            {
+                if (TextBox == null)
+                    return 0;
+
+                return TextBox.SelectionLength;
+            }
+            set
+            {
+                if (TextBox != null)
+                    TextBox.SelectionLength = value;
             }
         }
 
@@ -268,6 +316,11 @@ namespace RingSoft.DataEntryControls.WPF
         protected virtual bool ProcessKey(Key key)
         {
             return false;
+        }
+
+        public bool IsPopupOpen()
+        {
+            return Popup != null && Popup.IsOpen;
         }
 
         public virtual void OnValueChanged(string newValue)

@@ -8,6 +8,7 @@
         public const int CheckBoxHostId = 2;
         public const int ButtonHostId = 3;
         public const int DecimalEditHostId = 4;
+        public const int DateEditHostId = 5;
 
         public abstract int EditingControlId { get; }
 

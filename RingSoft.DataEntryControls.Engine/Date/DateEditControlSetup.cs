@@ -16,6 +16,10 @@ namespace RingSoft.DataEntryControls.Engine
 
         public DateFormatTypes DateFormatType { get; set; }
 
+        public DateTime? MaximumDate { get; set; }
+
+        public DateTime? MinimumDate { get; set; }
+
         public DateEditControlSetup()
         {
             DateFormatType = DateFormatTypes.DateOnly;
@@ -109,6 +113,18 @@ namespace RingSoft.DataEntryControls.Engine
                 default:
                     throw new ArgumentOutOfRangeException(nameof(formatType), formatType, null);
             }
+        }
+
+        public string FormatValueForDisplay(DateTime? value)
+        {
+            var displayFormat = GetDisplayFormat();
+            ValidateDateFormat(displayFormat);
+
+            if (value == null)
+                return string.Empty;
+
+            var formatValue = (DateTime) value;
+            return formatValue.ToString(displayFormat);
         }
     }
 }

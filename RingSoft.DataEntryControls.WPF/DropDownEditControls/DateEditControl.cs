@@ -114,6 +114,24 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(DateFormatTypeProperty, value); }
         }
 
+        public static readonly DependencyProperty MinimumDateProperty =
+            DependencyProperty.Register(nameof(MinimumDate), typeof(DateTime?), typeof(DateEditControl));
+
+        public DateTime? MinimumDate
+        {
+            get { return (DateTime?)GetValue(MinimumDateProperty); }
+            set { SetValue(MinimumDateProperty, value); }
+        }
+
+        public static readonly DependencyProperty MaximumDateProperty =
+            DependencyProperty.Register(nameof(MaximumDate), typeof(DateTime?), typeof(DateEditControl));
+
+        public DateTime? MaximumDate
+        {
+            get { return (DateTime?)GetValue(MaximumDateProperty); }
+            set { SetValue(MaximumDateProperty, value); }
+        }
+
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(DateEditControlSetup), typeof(DateEditControl),
                 new FrameworkPropertyMetadata(SetupChangedCallback));
@@ -131,6 +149,8 @@ namespace RingSoft.DataEntryControls.WPF
             dateEditControl.DateFormatType = dateEditControl.Setup.DateFormatType;
             dateEditControl.DisplayFormat = dateEditControl.Setup.DisplayFormat;
             dateEditControl.EntryFormat = dateEditControl.Setup.EntryFormat;
+            dateEditControl.MaximumDate = dateEditControl.Setup.MaximumDate;
+            dateEditControl.MinimumDate = dateEditControl.Setup.MinimumDate;
         }
 
 
@@ -154,54 +174,6 @@ namespace RingSoft.DataEntryControls.WPF
                     _calendar.SelectedDateChanged += _calendar_SelectedDateChanged;
                     _calendar.DatePicked += _calendar_DatePicked;
                 }
-            }
-        }
-
-        public string Text
-        {
-            get
-            {
-                if (TextBox == null)
-                    return string.Empty;
-
-                return TextBox.Text;
-            }
-            set
-            {
-                if (TextBox != null)
-                    TextBox.Text = value;
-            }
-        }
-
-        public int SelectionStart
-        {
-            get
-            {
-                if (TextBox == null)
-                    return 0;
-
-                return TextBox.SelectionStart;
-            }
-            set
-            {
-                if (TextBox != null)
-                    TextBox.SelectionStart = value;
-            }
-        }
-
-        public int SelectionLength
-        {
-            get
-            {
-                if (TextBox == null)
-                    return 0;
-
-                return TextBox.SelectionLength;
-            }
-            set
-            {
-                if (TextBox != null)
-                    TextBox.SelectionLength = value;
             }
         }
 
@@ -240,7 +212,9 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 DateFormatType = DateFormatType,
                 DisplayFormat = DisplayFormat,
-                EntryFormat = EntryFormat
+                EntryFormat = EntryFormat,
+                MaximumDate = MaximumDate,
+                MinimumDate = MinimumDate
             };
         }
 
@@ -329,6 +303,9 @@ namespace RingSoft.DataEntryControls.WPF
             if (Calendar != null && Popup != null && Popup.IsOpen)
             {
                 Calendar.SelectedDate = Value ?? DateTime.Today;
+                Calendar.MaximumDate = MaximumDate;
+                Calendar.MinimumDate = MinimumDate;
+
                 Calendar.Control.Focus();
             }
         }
@@ -404,6 +381,7 @@ namespace RingSoft.DataEntryControls.WPF
             _textSettingValue = true;
 
             Value = _processor.Value;
+            OnValueChanged(Text);
 
             _textSettingValue = false;
         }

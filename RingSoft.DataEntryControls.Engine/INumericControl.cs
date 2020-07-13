@@ -1,11 +1,6 @@
 ﻿namespace RingSoft.DataEntryControls.Engine
 {
-    public interface INumericControl
+    public interface INumericControl : IDropDownControl
     {
-        string Text { get; set; }
-
-        int SelectionStart { get; set; }
-
-        int SelectionLength { get; set; }
     }
 }

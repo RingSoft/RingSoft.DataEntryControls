@@ -84,54 +84,6 @@ namespace RingSoft.DataEntryControls.WPF
 
         public CultureInfo Culture { get; protected internal set; }
 
-        public string Text
-        {
-            get
-            {
-                if (TextBox == null)
-                    return string.Empty;
-
-                return TextBox.Text;
-            }
-            set
-            {
-                if (TextBox != null)
-                    TextBox.Text = value;
-            }
-        }
-
-        public int SelectionStart
-        {
-            get
-            {
-                if (TextBox == null)
-                    return 0;
-
-                return TextBox.SelectionStart;
-            }
-            set
-            {
-                if (TextBox != null)
-                    TextBox.SelectionStart = value;
-            }
-        }
-
-        public int SelectionLength
-        {
-            get
-            {
-                if (TextBox == null)
-                    return 0;
-
-                return TextBox.SelectionLength;
-            }
-            set
-            {
-                if (TextBox != null)
-                    TextBox.SelectionLength = value;
-            }
-        }
-
         private DataEntryNumericControlProcessor _numericProcessor;
         private bool _settingText;
 

@@ -41,6 +41,10 @@ namespace RingSoft.DataEntryControls.WPF
     [TemplatePart(Name = "TodayButton", Type = typeof(Button))]
     public class DropDownCalendar : Control, IDropDownCalendar
     {
+        public DateTime? MinimumDate { get; set; }
+
+        public DateTime? MaximumDate { get; set; }
+
         private Calendar _calendar;
 
         public Calendar Calendar
@@ -122,10 +126,17 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (TodayButton != null)
                 TodayButton.IsTabStop = false;
+
         }
 
         protected override void OnGotFocus(RoutedEventArgs e)
         {
+            if (Calendar != null)
+            {
+                Calendar.DisplayDateStart = MinimumDate;
+                Calendar.DisplayDateEnd = MaximumDate;
+            }
+
             Calendar?.Focus();
             base.OnGotFocus(e);
         }

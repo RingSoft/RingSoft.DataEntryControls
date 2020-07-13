@@ -9,6 +9,10 @@ namespace RingSoft.DataEntryControls.WPF.DropDownEditControls
 
         DateTime? SelectedDate { get; set; }
 
+        DateTime? MaximumDate { get; set; }
+
+        DateTime? MinimumDate { get; set; }
+
         event EventHandler SelectedDateChanged;
 
         event EventHandler DatePicked;

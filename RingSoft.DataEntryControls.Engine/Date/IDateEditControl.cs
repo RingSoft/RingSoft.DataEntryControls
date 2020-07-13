@@ -1,12 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.Engine
 {
-    public interface IDateEditControl
+    public interface IDateEditControl : IDropDownControl
     {
-        string Text { get; set; }
-
-        int SelectionStart { get; set; }
-
-        int SelectionLength { get; set; }
     }
 }
