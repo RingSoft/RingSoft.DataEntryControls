@@ -1,16 +1,29 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.IO;
+using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
+    public enum CultureTypes
+    {
+        Current = 0,
+        Usa = 1,
+        Brazil = 2,
+        Sweden = 3,
+        Custom = 4
+    }
+
     public class RegistrySettings
     {
         public const string RegistryRoot = "Registry";
 
         public const string NumberCultureIdKey = "NumberCultureId";
+        public const string NumberCultureTypeKey = "NumberCultureType";
         public const string DateEntryFormatKey = "DateEntryFormat";
         public const string DateDisplayFormatKey = "DateDisplayFormat";
 
+        public CultureTypes NumberCultureType { get; set; }
         public string NumberCultureId { get; set; }
 
         public string DateEntryFormat { get; set; }
@@ -35,9 +48,34 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public void LoadFromRegistry()
         {
-            NumberCultureId = _registryXml.GetElementValue(NumberCultureIdKey, CultureInfo.CurrentCulture.Name);
+            var defaultCultureType = (int) CultureTypes.Current;
+            var cultureType = (CultureTypes) _registryXml
+                .GetElementValue(NumberCultureTypeKey, defaultCultureType.ToString()).ToInt();
+
+            NumberCultureId = GetCultureId(cultureType,
+                _registryXml.GetElementValue(NumberCultureIdKey, CultureInfo.CurrentCulture.Name));
+            
             DateEntryFormat = _registryXml.GetElementValue(DateEntryFormatKey, "MM/dd/yyyy");
             DateDisplayFormat = _registryXml.GetElementValue(DateDisplayFormatKey, "MM/dd/yyyy");
+        }
+
+        public static string GetCultureId(CultureTypes cultureType, string customCultureId)
+        {
+            switch (cultureType)
+            {
+                case CultureTypes.Current:
+                    return CultureInfo.CurrentCulture.Name;
+                case CultureTypes.Usa:
+                    return "en-US";
+                case CultureTypes.Brazil:
+                    return "pt-BR";
+                case CultureTypes.Sweden:
+                    return "sv-SE";
+                case CultureTypes.Custom:
+                    return customCultureId;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void SaveToRegistry()
