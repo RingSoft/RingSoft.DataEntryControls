@@ -16,10 +16,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                     return;
 
                 _numberCultureType = value;
-
-                if (!_initializing)
-                    NumberCultureId = RegistrySettings.GetCultureId(NumberCultureType, CustomCultureId);
-
                 OnPropertyChanged(nameof(NumberCultureType));
             }
         }
@@ -84,14 +80,26 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private string _customDateEntryFormat;
+
+        public string CustomDateEntryFormat
+        {
+            get => _customDateEntryFormat;
+            set
+            {
+                if (_customDateEntryFormat == value)
+                    return;
+
+                _customDateEntryFormat = value;
+                OnPropertyChanged(nameof(CustomDateEntryFormat));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private bool _initializing;
 
         public OptionsViewModel()
         {
-            _initializing = true;
-            
             RegistrySettings.LoadFromRegistryFile();
             var registrySettings = new RegistrySettings();
 
@@ -102,8 +110,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
             DateEntryFormat = registrySettings.DateEntryFormat;
             DateDisplayFormat = registrySettings.DateDisplayFormat;
-
-            _initializing = false;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
