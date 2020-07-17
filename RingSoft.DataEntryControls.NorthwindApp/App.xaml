@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:RingSoft.DataEntryControls.NorthwindApp">
     <Application.Resources>
         <local:NorthwindGridEditHostFactory x:Key="EditHostFactory"/>
+        <lc:ComparisonConverter x:Key="ComparisonConverter"/>
 
         <Style TargetType="dec:DecimalEditControl">
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
@@ -51,7 +52,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="IsEditable" Value="True"/>
         </Style>
-        <lc:ComparisonConverter x:Key="ComparisonConverter"/>
+        
         <Style TargetType="deg:DataEntryGrid">
             <Setter Property="ControlHostFactory" Value="{StaticResource EditHostFactory}"/>
             <Setter Property="EnterToTab" Value="True"/>

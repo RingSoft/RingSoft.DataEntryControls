@@ -1,0 +1,63 @@
+﻿<dec:BaseWindow x:Class="RingSoft.DataEntryControls.NorthwindApp.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
+        xmlns:vmlib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
+        xmlns:lib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
+        xmlns:local="clr-namespace:RingSoft.DataEntryControls.NorthwindApp"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
+        Title="OptionsWindow">
+    <Window.DataContext>
+        <vmlib:OptionsViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+       <Grid.RowDefinitions>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
+       </Grid.RowDefinitions> 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Numeric Culture">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Current}}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation=" Horizontal">
+                            <TextBlock Text="Current ("/>
+                            <TextBlock Text="{Binding Path=CurrentCultureName}"/>
+                            <TextBlock Text=")"/>
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+                <RadioButton Grid.Row="0" Grid.Column="1" Content="USA (en-US)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Usa}}"/>
+                <RadioButton Grid.Row="1" Grid.Column="0" Content="Brazil (pt-BR)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Brazil}}"/>
+                <RadioButton Grid.Row="1" Grid.Column="1" Content="Sweden (sv-SE)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Sweden}}"/>
+                <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <RadioButton x:Name="CustomRadioButton" DockPanel.Dock="Left" Content="Custom" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Custom}}"/>
+                    <TextBox Text="{Binding Path=CustomCultureId}" IsEnabled="{Binding ElementName=CustomRadioButton, Path=IsChecked}"/>
+                </DockPanel>
+
+            </Grid>
+        </GroupBox>
+        <Button x:Name="ApplyNumericButton" Grid.Row="0" Grid.Column="1" Height="20" Content="_Apply >>"/>
+    </Grid>
+</dec:BaseWindow>

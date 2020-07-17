@@ -1,5 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using RingSoft.DbLookup;
+using RingSoft.DbLookup.DataProcessor;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
@@ -95,6 +99,26 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private string _customDateDisplayFormat;
+
+        public string CustomDateDisplayFormat
+        {
+            get => _customDateDisplayFormat;
+            set
+            {
+                if (_customDateDisplayFormat == value)
+                    return;
+
+                _customDateDisplayFormat = value;
+                OnPropertyChanged(nameof(CustomDateDisplayFormat));
+            }
+        }
+
+        private decimal _numericValue;
+
+
+        public string CurrentCultureName => CultureInfo.CurrentCulture.Name;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -108,8 +132,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             if (NumberCultureType == CultureTypes.Custom)
                 CustomCultureId = NumberCultureId;
 
-            DateEntryFormat = registrySettings.DateEntryFormat;
-            DateDisplayFormat = registrySettings.DateDisplayFormat;
+            CustomDateEntryFormat = DateEntryFormat = registrySettings.DateEntryFormat;
+            CustomDateEntryFormat = DateDisplayFormat = registrySettings.DateDisplayFormat;
+        }
+
+        public void OnApplyNumberFormat()
+        {
+            var cultureId = RegistrySettings.GetCultureId(NumberCultureType, CustomCultureId);
+            try
+            {
+                var culture = new CultureInfo(cultureId);
+            }
+            catch (Exception e)
+            {
+                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Culture ID",
+                    RsMessageBoxIcons.Exclamation);
+                return;
+            }
+
+            NumberCultureId = cultureId;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
