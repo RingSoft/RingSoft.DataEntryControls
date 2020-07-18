@@ -9,16 +9,16 @@
         xmlns:local="clr-namespace:RingSoft.DataEntryControls.NorthwindApp"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
-        Title="OptionsWindow">
+        Title="Options">
     <Window.DataContext>
-        <vmlib:OptionsViewModel/>
+        <vmlib:OptionsViewModel x:Name="ViewModel"/>
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="RadioButton">
             <Setter Property="Margin" Value="0,0,5,0"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="5">
        <Grid.RowDefinitions>
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
@@ -28,7 +28,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Numeric Culture">
+        <GroupBox Margin="0,0,5,0" Header="Numeric Culture">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -52,12 +52,16 @@
                 <RadioButton Grid.Row="1" Grid.Column="0" Content="Brazil (pt-BR)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Brazil}}"/>
                 <RadioButton Grid.Row="1" Grid.Column="1" Content="Sweden (sv-SE)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Sweden}}"/>
                 <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                    <RadioButton x:Name="CustomRadioButton" DockPanel.Dock="Left" Content="Custom" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Custom}}"/>
-                    <TextBox Text="{Binding Path=CustomCultureId}" IsEnabled="{Binding ElementName=CustomRadioButton, Path=IsChecked}"/>
+                    <RadioButton x:Name="OtherRadioButton" DockPanel.Dock="Left" Content="Other" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Other}}"/>
+                    <TextBox Text="{Binding Path=OtherCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=OtherRadioButton, Path=IsChecked}"/>
                 </DockPanel>
 
             </Grid>
         </GroupBox>
-        <Button x:Name="ApplyNumericButton" Grid.Row="0" Grid.Column="1" Height="20" Content="_Apply >>"/>
+        <Button x:Name="ApplyNumericButton" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="_Apply >>"/>
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <Label Content="Example"/>
+            <dec:DecimalEditControl Width="120" Value="{Binding Path=NumericValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" EditFormatType="Currency" CultureId="{Binding Path=NumberCultureId, Mode=OneWay}" DesignText="$100,000,000.00"/>
+        </StackPanel>
     </Grid>
 </dec:BaseWindow>

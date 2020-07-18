@@ -34,6 +34,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             SalesEntryButton.Click += (sender, args) => ShowSalesEntryWindow();
             SalesEntryMenu.Click += (sender, args) => ShowSalesEntryWindow();
+            OptionsMenu.Click += (sender, args) => ShowOptionsWindow();
         }
 
         private void ShowSalesEntryWindow()
@@ -41,6 +42,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             var salesEntryWindow = new SalesEntryWindow();
             salesEntryWindow.Owner = this;
             salesEntryWindow.ShowDialog();
+        }
+
+        private void ShowOptionsWindow()
+        {
+            var optionsWindow = new OptionsWindow();
+            optionsWindow.Owner = this;
+            optionsWindow.ShowDialog();
         }
     }
 }

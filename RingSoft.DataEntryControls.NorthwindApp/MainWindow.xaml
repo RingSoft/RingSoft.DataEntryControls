@@ -12,6 +12,7 @@
                 <MenuItem x:Name="ExitMenu" Header="E_xit"/>
                 <MenuItem x:Name="SalesEntryMenu" Header="_Sales Entry..."/>
                 <MenuItem x:Name="PoMenu" Header="_Purchase Order..."/>
+                <MenuItem x:Name="OptionsMenu" Header="_Options..."/>
             </Menu>
             <ToolBar Background="LightSkyBlue">
                 <Button x:Name="ExitButton">

@@ -8,6 +8,8 @@
         public OptionsWindow()
         {
             InitializeComponent();
+
+            ApplyNumericButton.Click += (sender, args) => ViewModel.OnApplyNumberFormat();
         }
     }
 }

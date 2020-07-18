@@ -1,5 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Media;
 using System.Windows;
@@ -91,7 +92,9 @@ namespace RingSoft.DataEntryControls.WPF
             var numericEditControl = (NumericEditControl<T>)obj;
 
             if (!numericEditControl._settingText)
+            {
                 numericEditControl.SetValue();
+            }
         }
 
         public static readonly DependencyProperty CultureIdProperty =
@@ -110,6 +113,8 @@ namespace RingSoft.DataEntryControls.WPF
             var numericEditControl = (NumericEditControl<T>) obj;
             var culture = new CultureInfo(numericEditControl.CultureId);
             numericEditControl.Culture = culture;
+            if (!numericEditControl._settingText)
+                numericEditControl.SetValue();
         }
 
         public CultureInfo Culture { get; protected internal set; }
@@ -165,6 +170,9 @@ namespace RingSoft.DataEntryControls.WPF
         protected void SetText(decimal? newValue)
         {
             if (TextBox == null)
+                return;
+
+            if (DesignerProperties.GetIsInDesignMode(this) && !DesignText.IsNullOrEmpty())
                 return;
 
             _settingText = true;

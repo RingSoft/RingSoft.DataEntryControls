@@ -11,7 +11,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         Usa = 1,
         Brazil = 2,
         Sweden = 3,
-        Custom = 4
+        Other = 4
     }
 
     public class RegistrySettings
@@ -59,7 +59,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             DateDisplayFormat = _registryXml.GetElementValue(DateDisplayFormatKey, "MM/dd/yyyy");
         }
 
-        public static string GetCultureId(CultureTypes cultureType, string customCultureId)
+        public static string GetCultureId(CultureTypes cultureType, string otherCultureId)
         {
             switch (cultureType)
             {
@@ -71,8 +71,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                     return "pt-BR";
                 case CultureTypes.Sweden:
                     return "sv-SE";
-                case CultureTypes.Custom:
-                    return customCultureId;
+                case CultureTypes.Other:
+                    return otherCultureId;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
