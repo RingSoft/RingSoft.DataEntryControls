@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.Engine
@@ -43,7 +44,7 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
-        public static string ValidateEntryFormat(string dateFormatString)
+        public static string ValidateEntryFormat(string dateFormatString, CultureInfo culture)
         {
             ValidateDateFormat(dateFormatString);
 

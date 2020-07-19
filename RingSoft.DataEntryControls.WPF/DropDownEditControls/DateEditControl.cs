@@ -79,7 +79,7 @@ namespace RingSoft.DataEntryControls.WPF
 
                 try
                 {
-                    dateEditControl.EntryFormat = DateEditControlSetup.ValidateEntryFormat(dateEditControl.EntryFormat);
+                    DateEditControlSetup.ValidateDateFormat(dateEditControl.EntryFormat);
                 }
                 finally
                 {
