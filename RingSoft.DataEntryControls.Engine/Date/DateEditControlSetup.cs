@@ -21,9 +21,22 @@ namespace RingSoft.DataEntryControls.Engine
 
         public DateTime? MinimumDate { get; set; }
 
+        private CultureInfo _culture = CultureInfo.CurrentCulture;
+        public string CultureId
+        {
+            get => _culture.Name;
+            set
+            {
+                if (!value.IsNullOrEmpty())
+                    _culture = new CultureInfo(value);
+            }
+        }
+
         public DateEditControlSetup()
         {
             DateFormatType = DateFormatTypes.DateOnly;
+            if (CultureId.IsNullOrEmpty())
+                CultureId = CultureInfo.CurrentCulture.Name;
         }
 
         public string GetEntryFormat()
@@ -32,6 +45,7 @@ namespace RingSoft.DataEntryControls.Engine
             if (result.IsNullOrEmpty())
                 result = GetDefaultFormatForType(DateFormatType);
 
+            result = ValidateEntryFormat(result, _culture);
             return result;
         }
 
@@ -47,6 +61,31 @@ namespace RingSoft.DataEntryControls.Engine
         public static string ValidateEntryFormat(string dateFormatString, CultureInfo culture)
         {
             ValidateDateFormat(dateFormatString);
+
+            if (dateFormatString == "d")
+                dateFormatString = culture.DateTimeFormat.ShortDatePattern;
+            else if (dateFormatString == "g")
+                dateFormatString = culture.DateTimeFormat.ShortDatePattern + ' ' + culture.DateTimeFormat.ShortTimePattern;
+            else if (dateFormatString == "G")
+                dateFormatString = culture.DateTimeFormat.ShortDatePattern + ' ' + culture.DateTimeFormat.LongTimePattern;
+            else if (dateFormatString == "t")
+                dateFormatString = culture.DateTimeFormat.ShortTimePattern;
+            else if (dateFormatString == "T")
+                dateFormatString = culture.DateTimeFormat.LongTimePattern;
+            else if (dateFormatString == "D" || dateFormatString == "f"
+                                             || dateFormatString == "F"
+                                             || dateFormatString == "M"
+                                             || dateFormatString == "m"
+                                             || dateFormatString == "o"
+                                             || dateFormatString == "O"
+                                             || dateFormatString == "r"
+                                             || dateFormatString == "R"
+                                             || dateFormatString == "s"
+                                             || dateFormatString == "u"
+                                             || dateFormatString == "U"
+                                             || dateFormatString == "y"
+                                             || dateFormatString == "Y")
+                throw new Exception($"Entry DateTime format '{dateFormatString}' is not supported");
 
             var result = dateFormatString;
 
@@ -108,9 +147,9 @@ namespace RingSoft.DataEntryControls.Engine
             switch (formatType)
             {
                 case DateFormatTypes.DateOnly:
-                    return "MM/dd/yyyy";
+                    return "d";
                 case DateFormatTypes.DateTime:
-                    return "MM/dd/yyyy hh:mm:ss tt";
+                    return "G";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(formatType), formatType, null);
             }
