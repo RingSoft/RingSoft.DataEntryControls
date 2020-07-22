@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine.Date;
@@ -132,6 +133,29 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(MaximumDateProperty, value); }
         }
 
+        public static readonly DependencyProperty CultureIdProperty =
+            DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(DateEditControl),
+                new FrameworkPropertyMetadata(CultureIdChangedCallback));
+
+        public string CultureId
+        {
+            get { return (string)GetValue(CultureIdProperty); }
+            set { SetValue(CultureIdProperty, value); }
+        }
+
+        private static void CultureIdChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dateEditControl = (DateEditControl)obj;
+            var culture = new CultureInfo(dateEditControl.CultureId);
+            dateEditControl.Culture = culture;
+            if (!dateEditControl._textSettingValue)
+                dateEditControl.SetValue();
+        }
+
+        public CultureInfo Culture { get; protected internal set; }
+
+
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(DateEditControlSetup), typeof(DateEditControl),
                 new FrameworkPropertyMetadata(SetupChangedCallback));
@@ -151,6 +175,7 @@ namespace RingSoft.DataEntryControls.WPF
             dateEditControl.EntryFormat = dateEditControl.Setup.EntryFormat;
             dateEditControl.MaximumDate = dateEditControl.Setup.MaximumDate;
             dateEditControl.MinimumDate = dateEditControl.Setup.MinimumDate;
+            dateEditControl.CultureId = dateEditControl.Setup.CultureId;
         }
 
 
@@ -214,7 +239,8 @@ namespace RingSoft.DataEntryControls.WPF
                 DisplayFormat = DisplayFormat,
                 EntryFormat = EntryFormat,
                 MaximumDate = MaximumDate,
-                MinimumDate = MinimumDate
+                MinimumDate = MinimumDate,
+                CultureId = CultureId
             };
         }
 

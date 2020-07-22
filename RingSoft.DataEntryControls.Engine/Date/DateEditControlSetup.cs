@@ -27,7 +27,9 @@ namespace RingSoft.DataEntryControls.Engine
             get => _culture.Name;
             set
             {
-                if (!value.IsNullOrEmpty())
+                if (value.IsNullOrEmpty())
+                    _culture = CultureInfo.CurrentCulture;
+                else
                     _culture = new CultureInfo(value);
             }
         }
@@ -60,6 +62,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public static string ValidateEntryFormat(string dateFormatString, CultureInfo culture)
         {
+            dateFormatString = dateFormatString.Trim();
             ValidateDateFormat(dateFormatString);
 
             if (dateFormatString == "d")
