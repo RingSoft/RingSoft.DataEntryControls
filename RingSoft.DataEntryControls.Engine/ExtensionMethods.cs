@@ -162,7 +162,26 @@ namespace RingSoft.DataEntryControls.Engine
             if (culture == null)
                 culture = CultureInfo.CurrentCulture;
 
-            return int.Parse(text, culture.NumberFormat);
+            int.TryParse(text, NumberStyles.AllowParentheses |
+                               NumberStyles.AllowLeadingWhite |
+                               NumberStyles.AllowTrailingWhite |
+                               NumberStyles.AllowThousands |
+                               NumberStyles.AllowDecimalPoint |
+                               NumberStyles.AllowCurrencySymbol |
+                               NumberStyles.AllowLeadingSign, culture.NumberFormat, out var result);
+
+            return result;
+        }
+
+        public static bool TryParseDateTime(this string text, out DateTime result, CultureInfo culture = null)
+        {
+            if (culture == null)
+                culture = CultureInfo.CurrentCulture;
+
+            var parseResult = DateTime.TryParse(text, culture,
+                DateTimeStyles.AllowInnerWhite | DateTimeStyles.AllowWhiteSpaces, out result);
+
+            return parseResult;
         }
     }
 }

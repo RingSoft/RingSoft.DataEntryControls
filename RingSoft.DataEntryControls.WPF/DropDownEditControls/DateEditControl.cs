@@ -202,6 +202,8 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+
+        private bool _validateLostFocus;
         private DateTime? _pendingNewValue;
         private bool _textSettingValue;
         private bool _validatingEntryFormat;
@@ -218,6 +220,7 @@ namespace RingSoft.DataEntryControls.WPF
             _processor.ValueChanged += _processor_ValueChanged;
 
             LostFocus += (sender, args) => OnLostFocusSetText(GetSetup(), Value);
+            GotFocus += (sender, args) => _validateLostFocus = false;
         }
 
         public override void OnApplyTemplate()
@@ -298,8 +301,10 @@ namespace RingSoft.DataEntryControls.WPF
             if (result != null)
             {
                 Value = result;
-                System.Media.SystemSounds.Exclamation.Play();
             }
+
+            if ((result != null || value == null) && _validateLostFocus)
+                System.Media.SystemSounds.Exclamation.Play();
 
             _textSettingValue = false;
         }
@@ -344,6 +349,7 @@ namespace RingSoft.DataEntryControls.WPF
         private void _calendar_SelectedDateChanged(object sender, EventArgs e)
         {
             Value = Calendar.SelectedDate;
+            _validateLostFocus = true;
         }
 
         private void _calendar_DatePicked(object sender, EventArgs e)
@@ -359,6 +365,7 @@ namespace RingSoft.DataEntryControls.WPF
                 case ProcessCharResults.Ignored:
                     return false;
                 case ProcessCharResults.Processed:
+                    _validateLostFocus = true;
                     return true;
                 case ProcessCharResults.ValidationFailed:
                     System.Media.SystemSounds.Exclamation.Play();
@@ -375,14 +382,19 @@ namespace RingSoft.DataEntryControls.WPF
                 case Key.Space:
                     if (_processor.OnSpaceKey(GetSetup()) == ProcessCharResults.ValidationFailed)
                         System.Media.SystemSounds.Exclamation.Play();
+                    else if (Text != _processor.GetNullDatePattern())
+                        _validateLostFocus = true;
                     return true;
                 case Key.Back:
                     if (_processor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
                         System.Media.SystemSounds.Exclamation.Play();
+                    else if (Text != _processor.GetNullDatePattern())
+                        _validateLostFocus = true;
                     return true;
                 case Key.Delete:
                     if (_processor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
                         System.Media.SystemSounds.Exclamation.Play();
+
                     return true;
             }
             return base.ProcessKey(key);

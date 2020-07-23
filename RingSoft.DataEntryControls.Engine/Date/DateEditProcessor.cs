@@ -1,5 +1,5 @@
-﻿using System;
-using RingSoft.DataEntryControls.Engine.Date.Segments;
+﻿using RingSoft.DataEntryControls.Engine.Date.Segments;
+using System;
 
 namespace RingSoft.DataEntryControls.Engine.Date
 {
@@ -30,21 +30,21 @@ namespace RingSoft.DataEntryControls.Engine.Date
             else
             {
                 var newValue = (DateTime) value;
-                Control.Text = newValue.ToString(entryFormat);
+                Control.Text = newValue.ToString(entryFormat, _setup.Culture);
             }
         }
 
-        private string GetNullDatePattern()
+        public string GetNullDatePattern()
         {
             var entryFormat = _setup.GetEntryFormat();
             var nullDate = entryFormat;
-            var segments = "MdyHhms";
+            var segments = "Hhms";
 
             foreach (char segmentChar in segments)
                 nullDate = nullDate.Replace(segmentChar, '0');
 
             if (nullDate.Contains("tt"))
-                nullDate = nullDate.Replace("tt", "AM");
+                nullDate = nullDate.Replace("tt", _setup.Culture.DateTimeFormat.AMDesignator);
 
             return nullDate;
         }
@@ -66,7 +66,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
                 if (result != null)
                     dateTimeValue = (DateTime) result;
 
-                Control.Text = dateTimeValue.ToString(_setup.GetDisplayFormat());
+                Control.Text = dateTimeValue.ToString(_setup.GetDisplayFormat(), _setup.Culture);
             }
 
             return result;
@@ -123,7 +123,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
 
         private void SetNewDate()
         {
-            if (DateTime.TryParse(Control.Text, out var newDate))
+            if (Control.Text.TryParseDateTime(out var newDate, _setup.Culture))
             {
                 OnValueChanged(newDate);
             }
@@ -240,9 +240,9 @@ namespace RingSoft.DataEntryControls.Engine.Date
         public bool PasteText(DateEditControlSetup setup, string newText)
         {
             _setup = setup;
-            if (DateTime.TryParse(newText, out var result))
+            if (newText.TryParseDateTime(out var result, _setup.Culture))
             {
-                Control.Text = result.ToString(_setup.GetEntryFormat());
+                Control.Text = result.ToString(_setup.GetEntryFormat(), _setup.Culture);
                 Control.SelectionStart = Control.Text.Length - 1;
                 Control.SelectionLength = 0;
                 OnValueChanged(result);
@@ -256,7 +256,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
             else
             {
                 var currentValue = (DateTime) Value;
-                Control.Text = currentValue.ToString(_setup.GetEntryFormat());
+                Control.Text = currentValue.ToString(_setup.GetEntryFormat(), _setup.Culture);
             }
             Control.SelectionStart = Control.Text.Length - 1;
             Control.SelectionLength = 0;

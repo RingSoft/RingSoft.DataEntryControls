@@ -21,16 +21,17 @@ namespace RingSoft.DataEntryControls.Engine
 
         public DateTime? MinimumDate { get; set; }
 
-        private CultureInfo _culture = CultureInfo.CurrentCulture;
+        public CultureInfo Culture { get; private set; } = CultureInfo.CurrentCulture;
+
         public string CultureId
         {
-            get => _culture.Name;
+            get => Culture.Name;
             set
             {
                 if (value.IsNullOrEmpty())
-                    _culture = CultureInfo.CurrentCulture;
+                    Culture = CultureInfo.CurrentCulture;
                 else
-                    _culture = new CultureInfo(value);
+                    Culture = new CultureInfo(value);
             }
         }
 
@@ -47,7 +48,7 @@ namespace RingSoft.DataEntryControls.Engine
             if (result.IsNullOrEmpty())
                 result = GetDefaultFormatForType(DateFormatType);
 
-            result = ValidateEntryFormat(result, _culture);
+            result = ValidateEntryFormat(result, Culture);
             return result;
         }
 
