@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
@@ -80,7 +81,9 @@ namespace RingSoft.DataEntryControls.WPF
 
                 try
                 {
-                    DateEditControlSetup.ValidateDateFormat(dateEditControl.EntryFormat);
+                    DateEditControlSetup.ValidateEntryFormat(dateEditControl.EntryFormat, CultureInfo.CurrentCulture);
+                    if (!dateEditControl._textSettingValue)
+                       dateEditControl.SetValue();
                 }
                 finally
                 {
@@ -104,6 +107,8 @@ namespace RingSoft.DataEntryControls.WPF
         {
             var dateEditControl = (DateEditControl)obj;
             DateEditControlSetup.ValidateDateFormat(dateEditControl.DisplayFormat);
+            if (!dateEditControl._textSettingValue)
+                dateEditControl.SetValue();
         }
 
         public static readonly DependencyProperty DateFormatTypeProperty =

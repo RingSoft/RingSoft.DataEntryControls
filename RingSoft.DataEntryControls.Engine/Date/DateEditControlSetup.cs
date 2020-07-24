@@ -63,6 +63,9 @@ namespace RingSoft.DataEntryControls.Engine
 
         public static string ValidateEntryFormat(string dateFormatString, CultureInfo culture)
         {
+            if (dateFormatString.IsNullOrEmpty())
+                dateFormatString = string.Empty;
+
             dateFormatString = dateFormatString.Trim();
             ValidateDateFormat(dateFormatString);
 
@@ -89,7 +92,7 @@ namespace RingSoft.DataEntryControls.Engine
                                              || dateFormatString == "U"
                                              || dateFormatString == "y"
                                              || dateFormatString == "Y")
-                throw new Exception($"Entry DateTime format '{dateFormatString}' is not supported");
+                throw new Exception($"Entry DateTime format '{dateFormatString}' is not supported.  Entry formats 'd', 'g', 'G', 't', or 'T' are supported.");
 
             var result = dateFormatString;
 

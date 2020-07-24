@@ -9,9 +9,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
     public class OptionsViewModel : INotifyPropertyChanged
     {
-        private CultureTypes _numberCultureType;
+        private NumericCultureTypes _numberCultureType;
 
-        public CultureTypes NumberCultureType
+        public NumericCultureTypes NumberCultureType
         {
             get => _numberCultureType;
             set
@@ -155,7 +155,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
             NumberCultureType = registrySettings.NumberCultureType;
             NumberCultureId = registrySettings.NumberCultureId;
-            if (NumberCultureType == CultureTypes.Other)
+            if (NumberCultureType == NumericCultureTypes.Other)
                 OtherCultureId = NumberCultureId;
             NumericValue = (decimal)1234.56;
 

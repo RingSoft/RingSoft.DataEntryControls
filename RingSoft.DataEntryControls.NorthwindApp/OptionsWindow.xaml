@@ -39,7 +39,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <RadioButton IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Current}}">
+                <RadioButton IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Current}}">
                     <RadioButton.Content>
                         <StackPanel Orientation=" Horizontal">
                             <TextBlock Text="Current ("/>
@@ -48,11 +48,11 @@
                         </StackPanel>
                     </RadioButton.Content>
                 </RadioButton>
-                <RadioButton Grid.Row="0" Grid.Column="1" Content="USA (en-US)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Usa}}"/>
-                <RadioButton Grid.Row="1" Grid.Column="0" Content="Brazil (pt-BR)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Brazil}}"/>
-                <RadioButton Grid.Row="1" Grid.Column="1" Content="Sweden (sv-SE)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Sweden}}"/>
+                <RadioButton Grid.Row="0" Grid.Column="1" Content="USA (en-US)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Usa}}"/>
+                <RadioButton Grid.Row="1" Grid.Column="0" Content="Brazil (pt-BR)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Brazil}}"/>
+                <RadioButton Grid.Row="1" Grid.Column="1" Content="Sweden (sv-SE)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Sweden}}"/>
                 <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                    <RadioButton x:Name="OtherRadioButton" DockPanel.Dock="Left" Content="Other" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:CultureTypes.Other}}"/>
+                    <RadioButton x:Name="OtherRadioButton" DockPanel.Dock="Left" Content="Other" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Other}}"/>
                     <TextBox Text="{Binding Path=OtherCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=OtherRadioButton, Path=IsChecked}"/>
                 </DockPanel>
 
