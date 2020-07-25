@@ -44,6 +44,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public static string NumberCultureId { get; private set; }
 
+        public static string DateCultureId { get; private set; }
+
         public static string DateEntryFormat { get; private set; }
 
         public static string DateDisplayFormat { get; private set; }
@@ -78,6 +80,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             registry.LoadFromRegistry();
 
             NumberCultureId = registry.NumberCultureId;
+            DateCultureId = registry.DateCultureId;
             DateEntryFormat = registry.DateEntryFormat;
             DateDisplayFormat = registry.DateDisplayFormat;
         }

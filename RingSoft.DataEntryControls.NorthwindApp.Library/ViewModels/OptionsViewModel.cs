@@ -166,7 +166,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
         public void OnApplyNumberFormat()
         {
-            var cultureId = RegistrySettings.GetCultureId(NumberCultureType, OtherCultureId);
+            var cultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherCultureId);
             try
             {
                 var culture = new CultureInfo(cultureId);

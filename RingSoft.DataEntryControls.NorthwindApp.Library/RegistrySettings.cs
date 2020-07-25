@@ -20,8 +20,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         Usa = 1,
         Spain = 2,
         China = 3,
-        Other = 4,
-        Custom = 5
+        Other = 4
     }
 
     public class RegistrySettings
@@ -30,14 +29,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public const string NumberCultureIdKey = "NumberCultureId";
         public const string NumberCultureTypeKey = "NumberCultureType";
+        public const string DateCultureIdKey = "DateCultureId";
+        public const string DateCultureTypeKey = "DateCultureType";
         public const string DateEntryFormatKey = "DateEntryFormat";
         public const string DateDisplayFormatKey = "DateDisplayFormat";
 
         public NumericCultureTypes NumberCultureType { get; set; }
         public string NumberCultureId { get; set; }
-
+        public DateCultureTypes DateCultureType { get; set; }
+        public string DateCultureId { get; set; }
         public string DateEntryFormat { get; set; }
-
         public string DateDisplayFormat { get; set; }
 
         private static XmlProcessor _registryXml = new XmlProcessor(RegistryRoot);
@@ -58,18 +59,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public void LoadFromRegistry()
         {
-            var defaultCultureType = (int) NumericCultureTypes.Current;
-            var cultureType = (NumericCultureTypes) _registryXml
-                .GetElementValue(NumberCultureTypeKey, defaultCultureType.ToString()).ToInt();
+            var defaultNumericCultureType = (int) NumericCultureTypes.Current;
+            var numericCultureType = (NumericCultureTypes) _registryXml
+                .GetElementValue(NumberCultureTypeKey, defaultNumericCultureType.ToString()).ToInt();
 
-            NumberCultureId = GetCultureId(cultureType,
+            NumberCultureId = GetNumericCultureId(numericCultureType,
                 _registryXml.GetElementValue(NumberCultureIdKey, CultureInfo.CurrentCulture.Name));
-            
-            DateEntryFormat = _registryXml.GetElementValue(DateEntryFormatKey, "MM/dd/yyyy");
-            DateDisplayFormat = _registryXml.GetElementValue(DateDisplayFormatKey, "MM/dd/yyyy");
+
+            var defaultDateCultureType = (int)DateCultureTypes.Current;
+            var dateCultureType = (DateCultureTypes)_registryXml
+                .GetElementValue(DateCultureTypeKey, defaultDateCultureType.ToString()).ToInt();
+
+            DateCultureId = GetDateCultureId(dateCultureType,
+                _registryXml.GetElementValue(DateCultureIdKey, CultureInfo.CurrentCulture.Name));
+
+            DateEntryFormat = _registryXml.GetElementValue(DateEntryFormatKey, "d");
+            DateDisplayFormat = _registryXml.GetElementValue(DateDisplayFormatKey, "d");
         }
 
-        public static string GetCultureId(NumericCultureTypes cultureType, string otherCultureId)
+        public static string GetNumericCultureId(NumericCultureTypes cultureType, string otherCultureId)
         {
             switch (cultureType)
             {
@@ -85,6 +93,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                     return otherCultureId;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public static string GetDateCultureId(DateCultureTypes cultureType, string otherCultureId)
+        {
+            switch (cultureType)
+            {
+                case DateCultureTypes.Current:
+                    return CultureInfo.CurrentCulture.Name;
+                case DateCultureTypes.Usa:
+                    return "en-US";
+                case DateCultureTypes.Spain:
+                    return "es-ES";
+                case DateCultureTypes.China:
+                    return "zh-CH";
+                case DateCultureTypes.Other:
+                    return otherCultureId;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(cultureType), cultureType, null);
             }
         }
 
