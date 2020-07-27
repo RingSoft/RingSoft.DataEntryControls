@@ -52,8 +52,8 @@
                 <RadioButton Grid.Row="1" Grid.Column="0" Content="Brazil (pt-BR)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Brazil}}"/>
                 <RadioButton Grid.Row="1" Grid.Column="1" Content="Sweden (sv-SE)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Sweden}}"/>
                 <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                    <RadioButton x:Name="OtherRadioButton" DockPanel.Dock="Left" Content="Other" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Other}}"/>
-                    <TextBox Text="{Binding Path=OtherCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=OtherRadioButton, Path=IsChecked}"/>
+                    <RadioButton x:Name="OtherNumberRadioButton" DockPanel.Dock="Left" Content="Other" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Other}}"/>
+                    <TextBox Text="{Binding Path=OtherNumberCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=OtherNumberRadioButton, Path=IsChecked}"/>
                 </DockPanel>
 
             </Grid>
@@ -63,5 +63,56 @@
             <Label Content="Example"/>
             <dec:DecimalEditControl Width="120" Value="{Binding Path=NumericValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" EditFormatType="Currency" CultureId="{Binding Path=NumberCultureId, Mode=OneWay}" DesignText="$100,000,000.00"/>
         </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Grid.ColumnSpan="2" Header="Date Culture">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <RadioButton
+                        IsChecked="{Binding Path=DateCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:DateCultureTypes.Current}}">
+                        <RadioButton.Content>
+                            <StackPanel Orientation=" Horizontal">
+                                <TextBlock Text="Current (" />
+                                <TextBlock Text="{Binding Path=CurrentCultureName}" />
+                                <TextBlock Text=")" />
+                            </StackPanel>
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton Grid.Row="0" Grid.Column="1" Content="USA (en-US)"
+                                 IsChecked="{Binding Path=DateCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:DateCultureTypes.Usa}}" />
+                    <RadioButton Grid.Row="1" Grid.Column="0" Content="Spain (es-ES)"
+                                 IsChecked="{Binding Path=DateCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:DateCultureTypes.Spain}}" />
+                    <RadioButton Grid.Row="1" Grid.Column="1" Content="China (zh-CH)"
+                                 IsChecked="{Binding Path=DateCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:DateCultureTypes.China}}" />
+                    <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                        <RadioButton x:Name="OtherDateRadioButton" DockPanel.Dock="Left" Content="Other"
+                                     IsChecked="{Binding Path=DateCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:DateCultureTypes.Other}}" />
+                        <TextBox
+                            Text="{Binding Path=OtherDateCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=OtherDateRadioButton, Path=IsChecked}" />
+                    </DockPanel>
+
+                </Grid>
+            </GroupBox>
+            <Label Grid.Row="1" Grid.Column="0" Content="Date Entry Format"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=DateEntryFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Date Display Format"/>
+        </Grid>
     </Grid>
 </dec:BaseWindow>

@@ -39,18 +39,63 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private string _otherCultureId;
+        private string _otherNumberCultureId;
 
-        public string OtherCultureId
+        public string OtherNumberCultureId
         {
-            get => _otherCultureId;
+            get => _otherNumberCultureId;
             set
             {
-                if (_otherCultureId == value)
+                if (_otherNumberCultureId == value)
                     return;
 
-                _otherCultureId = value;
-                OnPropertyChanged(nameof(OtherCultureId));
+                _otherNumberCultureId = value;
+                OnPropertyChanged(nameof(OtherNumberCultureId));
+            }
+        }
+
+        private DateCultureTypes _dateCultureType;
+
+        public DateCultureTypes DateCultureType
+        {
+            get => _dateCultureType;
+            set
+            {
+                if (_dateCultureType == value)
+                    return;
+
+                _dateCultureType = value;
+                OnPropertyChanged(nameof(DateCultureType));
+            }
+        }
+
+        private string _dateCultureId;
+
+        public string DateCultureId
+        {
+            get => _dateCultureId;
+            set
+            {
+                if (_dateCultureId == value)
+                    return;
+
+                _dateCultureId = value;
+                OnPropertyChanged(nameof(DateCultureId));
+            }
+        }
+
+        private string _otherDateCultureId;
+
+        public string OtherDateCultureId
+        {
+            get => _otherDateCultureId;
+            set
+            {
+                if (_otherDateCultureId == value)
+                    return;
+
+                _otherDateCultureId = value;
+                OnPropertyChanged(nameof(OtherDateCultureId));
             }
         }
 
@@ -81,36 +126,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
                 _dateDisplayFormat = value;
                 OnPropertyChanged(nameof(DateDisplayFormat));
-            }
-        }
-
-        private string _customDateEntryFormat;
-
-        public string CustomDateEntryFormat
-        {
-            get => _customDateEntryFormat;
-            set
-            {
-                if (_customDateEntryFormat == value)
-                    return;
-
-                _customDateEntryFormat = value;
-                OnPropertyChanged(nameof(CustomDateEntryFormat));
-            }
-        }
-
-        private string _customDateDisplayFormat;
-
-        public string CustomDateDisplayFormat
-        {
-            get => _customDateDisplayFormat;
-            set
-            {
-                if (_customDateDisplayFormat == value)
-                    return;
-
-                _customDateDisplayFormat = value;
-                OnPropertyChanged(nameof(CustomDateDisplayFormat));
             }
         }
 
@@ -156,17 +171,22 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             NumberCultureType = registrySettings.NumberCultureType;
             NumberCultureId = registrySettings.NumberCultureId;
             if (NumberCultureType == NumericCultureTypes.Other)
-                OtherCultureId = NumberCultureId;
+                OtherNumberCultureId = NumberCultureId;
             NumericValue = (decimal)1234.56;
 
+            DateCultureType = registrySettings.DateCultureType;
+            DateCultureId = registrySettings.DateCultureId;
+            if (DateCultureType == DateCultureTypes.Other)
+                OtherDateCultureId = DateCultureId;
+
             DateValue = DateTime.Now;
-            CustomDateEntryFormat = DateEntryFormat = registrySettings.DateEntryFormat;
-            CustomDateDisplayFormat = DateDisplayFormat = registrySettings.DateDisplayFormat;
+            DateEntryFormat = registrySettings.DateEntryFormat;
+            DateDisplayFormat = registrySettings.DateDisplayFormat;
         }
 
         public void OnApplyNumberFormat()
         {
-            var cultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherCultureId);
+            var cultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherNumberCultureId);
             try
             {
                 var culture = new CultureInfo(cultureId);
