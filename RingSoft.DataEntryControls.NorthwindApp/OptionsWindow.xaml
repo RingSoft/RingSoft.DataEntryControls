@@ -59,7 +59,7 @@
             </Grid>
         </GroupBox>
         <Button x:Name="ApplyNumericButton" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="_Apply >>"/>
-        <StackPanel Grid.Row="0" Grid.Column="2">
+        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left">
             <Label Content="Example"/>
             <dec:DecimalEditControl Width="120" Value="{Binding Path=NumericValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" EditFormatType="Currency" CultureId="{Binding Path=NumberCultureId, Mode=OneWay}" DesignText="$100,000,000.00"/>
         </StackPanel>
@@ -110,9 +110,15 @@
 
                 </Grid>
             </GroupBox>
-            <Label Grid.Row="1" Grid.Column="0" Content="Date Entry Format"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=DateEntryFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Date Display Format"/>
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Date Entry Format"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardTextBox}" Text="{Binding Path=DateEntryFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Date Display Format"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource StandardTextBox}" Text="{Binding Path=DateDisplayFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
+        <Button x:Name="ApplyDateButton" Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="A_pply >>"/>
+        <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+            <Label Content="Example"/>
+            <dec:DateEditControl Width="200" Value="{Binding DateValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CultureId="{Binding Path=DateCultureId, Mode=OneWay}" EntryFormat="{Binding Path=DateEntryFormat, Mode=OneWay}" DisplayFormat="{Binding Path=DateDisplayFormat, Mode=OneWay}" DesignText="07/27/2020 12:00:00 PM"/>
+        </StackPanel>
     </Grid>
 </dec:BaseWindow>

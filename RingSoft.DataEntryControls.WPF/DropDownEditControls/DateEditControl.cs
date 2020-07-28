@@ -269,6 +269,9 @@ namespace RingSoft.DataEntryControls.WPF
             if (TextBox == null)
                 return;
 
+            if (DesignerProperties.GetIsInDesignMode(this) && !DesignText.IsNullOrEmpty())
+                return;
+
             var popupIsOpen = false;
             if (Popup != null)
                 popupIsOpen = Popup.IsOpen;
