@@ -187,32 +187,36 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         public void OnApplyNumberFormat()
         {
             var cultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherNumberCultureId);
+            if (!ValidateCultureId(cultureId))
+                return;
+
+            NumberCultureId = cultureId;
+        }
+
+        private static bool ValidateCultureId(string cultureId)
+        {
             try
             {
-                var culture = new CultureInfo(cultureId);
+                var unused = new CultureInfo(cultureId);
             }
             catch (Exception e)
             {
                 DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Culture ID",
                     RsMessageBoxIcons.Exclamation);
-                return;
+                return false;
             }
 
-            NumberCultureId = cultureId;
+            return true;
         }
 
         public void OnApplyDateFormat()
         {
-            try
-            {
-
-            }
-            catch (Exception e)
-            {
-                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Date Format",
-                    RsMessageBoxIcons.Exclamation);
+            var cultureId = RegistrySettings.GetDateCultureId(DateCultureType, OtherDateCultureId);
+            if (!ValidateCultureId(cultureId))
                 return;
-            }
+
+            DateCultureId = cultureId;
+            
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

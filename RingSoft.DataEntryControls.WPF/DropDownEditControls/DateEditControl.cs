@@ -106,7 +106,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var dateEditControl = (DateEditControl)obj;
-            DateEditControlSetup.ValidateDateFormat(dateEditControl.DisplayFormat);
+            DateEditControlSetup.ValidateDateFormat(dateEditControl.DisplayFormat, CultureInfo.CurrentCulture);
             if (!dateEditControl._textSettingValue)
                 dateEditControl.SetValue();
         }

@@ -67,7 +67,7 @@ namespace RingSoft.DataEntryControls.Engine
                 dateFormatString = string.Empty;
 
             dateFormatString = dateFormatString.Trim();
-            ValidateDateFormat(dateFormatString);
+            ValidateDateFormat(dateFormatString, culture);
 
             if (dateFormatString == "d")
                 dateFormatString = culture.DateTimeFormat.ShortDatePattern;
@@ -134,19 +134,22 @@ namespace RingSoft.DataEntryControls.Engine
             lastSegmentIndex = format.LastIndexOf(segmentChar, format.Length - 1);
         }
 
-        public static void ValidateDateFormat(string dateFormatString)
+        public static bool ValidateDateFormat(string dateFormatString, CultureInfo culture)
         {
             var date = new DateTime(2000, 01, 01);
-            var format = $"{{0:{dateFormatString}}}";
+            //var format = $"{{0:{dateFormatString}}}";
             try
             {
-                var dateCheckFormat = string.Format(format, date);
+                var dateCheckFormat = date.ToString(dateFormatString, culture);
                 var unused = DateTime.Parse(dateCheckFormat);
             }
             catch (Exception)
             {
                 throw new ArgumentException("Invalid date format string.");
+                return false;
             }
+
+            return true;
         }
 
         private string GetDefaultFormatForType(DateFormatTypes formatType)
@@ -165,13 +168,13 @@ namespace RingSoft.DataEntryControls.Engine
         public string FormatValueForDisplay(DateTime? value)
         {
             var displayFormat = GetDisplayFormat();
-            ValidateDateFormat(displayFormat);
+            ValidateDateFormat(displayFormat, Culture);
 
             if (value == null)
                 return string.Empty;
 
             var formatValue = (DateTime) value;
-            return formatValue.ToString(displayFormat);
+            return formatValue.ToString(displayFormat, Culture);
         }
     }
 }
