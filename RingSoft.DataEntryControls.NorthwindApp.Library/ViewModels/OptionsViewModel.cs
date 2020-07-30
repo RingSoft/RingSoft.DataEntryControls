@@ -216,6 +216,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                 return;
 
             DateCultureId = cultureId;
+
             
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

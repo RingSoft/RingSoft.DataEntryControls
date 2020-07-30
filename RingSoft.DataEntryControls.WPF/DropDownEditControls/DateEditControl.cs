@@ -81,7 +81,7 @@ namespace RingSoft.DataEntryControls.WPF
 
                 try
                 {
-                    DateEditControlSetup.ValidateEntryFormat(dateEditControl.EntryFormat, CultureInfo.CurrentCulture);
+                    DateEditControlSetup.ValidateEntryFormat(dateEditControl.EntryFormat);
                     if (!dateEditControl._textSettingValue)
                        dateEditControl.SetValue();
                 }
@@ -106,7 +106,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var dateEditControl = (DateEditControl)obj;
-            DateEditControlSetup.ValidateDateFormat(dateEditControl.DisplayFormat, CultureInfo.CurrentCulture);
+            DateEditControlSetup.ValidateDateFormat(dateEditControl.DisplayFormat);
             if (!dateEditControl._textSettingValue)
                 dateEditControl.SetValue();
         }

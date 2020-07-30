@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.Engine
             if (result.IsNullOrEmpty())
                 result = GetDefaultFormatForType(DateFormatType);
 
-            result = ValidateEntryFormat(result, Culture);
+            result = ScrubDateFormat(result, Culture);
             return result;
         }
 
@@ -61,25 +61,11 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
-        public static string ValidateEntryFormat(string dateFormatString, CultureInfo culture)
+        public static void ValidateEntryFormat(string dateFormatString)
         {
-            if (dateFormatString.IsNullOrEmpty())
-                dateFormatString = string.Empty;
+            ValidateDateFormat(dateFormatString);
 
-            dateFormatString = dateFormatString.Trim();
-            ValidateDateFormat(dateFormatString, culture);
-
-            if (dateFormatString == "d")
-                dateFormatString = culture.DateTimeFormat.ShortDatePattern;
-            else if (dateFormatString == "g")
-                dateFormatString = culture.DateTimeFormat.ShortDatePattern + ' ' + culture.DateTimeFormat.ShortTimePattern;
-            else if (dateFormatString == "G")
-                dateFormatString = culture.DateTimeFormat.ShortDatePattern + ' ' + culture.DateTimeFormat.LongTimePattern;
-            else if (dateFormatString == "t")
-                dateFormatString = culture.DateTimeFormat.ShortTimePattern;
-            else if (dateFormatString == "T")
-                dateFormatString = culture.DateTimeFormat.LongTimePattern;
-            else if (dateFormatString == "D" || dateFormatString == "f"
+            if (dateFormatString == "D" || dateFormatString == "f"
                                              || dateFormatString == "F"
                                              || dateFormatString == "M"
                                              || dateFormatString == "m"
@@ -93,6 +79,24 @@ namespace RingSoft.DataEntryControls.Engine
                                              || dateFormatString == "y"
                                              || dateFormatString == "Y")
                 throw new Exception($"Entry DateTime format '{dateFormatString}' is not supported.  Entry formats 'd', 'g', 'G', 't', or 'T' are supported.");
+        }
+
+        public static string ScrubDateFormat(string dateFormatString, CultureInfo culture)
+        {
+            if (dateFormatString.IsNullOrEmpty())
+                dateFormatString = string.Empty;
+
+            dateFormatString = dateFormatString.Trim();
+            if (dateFormatString == "d")
+                dateFormatString = culture.DateTimeFormat.ShortDatePattern;
+            else if (dateFormatString == "g")
+                dateFormatString = culture.DateTimeFormat.ShortDatePattern + ' ' + culture.DateTimeFormat.ShortTimePattern;
+            else if (dateFormatString == "G")
+                dateFormatString = culture.DateTimeFormat.ShortDatePattern + ' ' + culture.DateTimeFormat.LongTimePattern;
+            else if (dateFormatString == "t")
+                dateFormatString = culture.DateTimeFormat.ShortTimePattern;
+            else if (dateFormatString == "T")
+                dateFormatString = culture.DateTimeFormat.LongTimePattern;
 
             var result = dateFormatString;
 
@@ -134,22 +138,19 @@ namespace RingSoft.DataEntryControls.Engine
             lastSegmentIndex = format.LastIndexOf(segmentChar, format.Length - 1);
         }
 
-        public static bool ValidateDateFormat(string dateFormatString, CultureInfo culture)
+        public static void ValidateDateFormat(string dateFormatString)
         {
             var date = new DateTime(2000, 01, 01);
             //var format = $"{{0:{dateFormatString}}}";
             try
             {
-                var dateCheckFormat = date.ToString(dateFormatString, culture);
+                var dateCheckFormat = date.ToString(dateFormatString);
                 var unused = DateTime.Parse(dateCheckFormat);
             }
             catch (Exception)
             {
-                throw new ArgumentException("Invalid date format string.");
-                return false;
+                throw new Exception("Invalid date format string.");
             }
-
-            return true;
         }
 
         private string GetDefaultFormatForType(DateFormatTypes formatType)
@@ -168,7 +169,7 @@ namespace RingSoft.DataEntryControls.Engine
         public string FormatValueForDisplay(DateTime? value)
         {
             var displayFormat = GetDisplayFormat();
-            ValidateDateFormat(displayFormat, Culture);
+            ValidateDateFormat(displayFormat);
 
             if (value == null)
                 return string.Empty;
