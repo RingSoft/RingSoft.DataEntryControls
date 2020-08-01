@@ -1,9 +1,9 @@
-﻿using System;
+﻿using RingSoft.DbLookup;
+using RingSoft.DbLookup.DataProcessor;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using RingSoft.DbLookup;
-using RingSoft.DbLookup.DataProcessor;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
@@ -96,6 +96,36 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
                 _otherDateCultureId = value;
                 OnPropertyChanged(nameof(OtherDateCultureId));
+            }
+        }
+
+        private string _customDateEntryFormat;
+
+        public string CustomDateEntryFormat
+        {
+            get => _customDateEntryFormat;
+            set
+            {
+                if (_customDateEntryFormat == value)
+                    return;
+
+                _customDateEntryFormat = value;
+                OnPropertyChanged(nameof(CustomDateEntryFormat));
+            }
+        }
+
+        private string _customDateDisplayFormat;
+
+        public string CustomDateDisplayFormat
+        {
+            get => _customDateDisplayFormat;
+            set
+            {
+                if (_customDateDisplayFormat == value)
+                    return;
+
+                _customDateDisplayFormat = value;
+                OnPropertyChanged(nameof(CustomDateDisplayFormat));
             }
         }
 
@@ -216,8 +246,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                 return;
 
             DateCultureId = cultureId;
+            var customDateDisplayFormat = DateDisplayFormat;
 
-            
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

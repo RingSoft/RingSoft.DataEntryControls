@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.Engine
             if (result.IsNullOrEmpty())
                 result = GetDefaultFormatForType(DateFormatType);
 
-            result = ScrubDateFormat(result, Culture);
+            result = ScrubDateFormatForCulture(result, Culture);
             return result;
         }
 
@@ -79,9 +79,12 @@ namespace RingSoft.DataEntryControls.Engine
                                              || dateFormatString == "y"
                                              || dateFormatString == "Y")
                 throw new Exception($"Entry DateTime format '{dateFormatString}' is not supported.  Entry formats 'd', 'g', 'G', 't', or 'T' are supported.");
+
+            dateFormatString = ScrubDateFormat(dateFormatString);
+            ValidateDateFormat(dateFormatString);
         }
 
-        public static string ScrubDateFormat(string dateFormatString, CultureInfo culture)
+        public static string ScrubDateFormatForCulture(string dateFormatString, CultureInfo culture)
         {
             if (dateFormatString.IsNullOrEmpty())
                 dateFormatString = string.Empty;
@@ -98,6 +101,11 @@ namespace RingSoft.DataEntryControls.Engine
             else if (dateFormatString == "T")
                 dateFormatString = culture.DateTimeFormat.LongTimePattern;
 
+            return ScrubDateFormat(dateFormatString);
+        }
+
+        private static string ScrubDateFormat(string dateFormatString)
+        {
             var result = dateFormatString;
 
             result = ScrubFormatSegment(result, "MM");
