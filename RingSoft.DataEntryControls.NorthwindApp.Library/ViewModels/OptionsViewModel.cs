@@ -4,9 +4,18 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
+    public enum DateValidationResults
+    {
+        Success = 0,
+        CultureFail = 1,
+        DateEntryFormatFail = 2,
+        DateDisplayFormatFail = 3
+    }
+
     public class OptionsViewModel : INotifyPropertyChanged
     {
         private NumericCultureTypes _numberCultureType;
@@ -210,17 +219,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                 OtherDateCultureId = DateCultureId;
 
             DateValue = DateTime.Now;
-            DateEntryFormat = registrySettings.DateEntryFormat;
-            DateDisplayFormat = registrySettings.DateDisplayFormat;
+            CustomDateEntryFormat = DateEntryFormat = registrySettings.DateEntryFormat;
+            CustomDateDisplayFormat = DateDisplayFormat = registrySettings.DateDisplayFormat;
         }
 
-        public void OnApplyNumberFormat()
+        public bool OnApplyNumberFormat()
         {
             var cultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherNumberCultureId);
             if (!ValidateCultureId(cultureId))
-                return;
+                return false;
 
             NumberCultureId = cultureId;
+            return true;
         }
 
         private static bool ValidateCultureId(string cultureId)
@@ -239,14 +249,39 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             return true;
         }
 
-        public void OnApplyDateFormat()
+        public DateValidationResults OnApplyDateFormat()
         {
             var cultureId = RegistrySettings.GetDateCultureId(DateCultureType, OtherDateCultureId);
             if (!ValidateCultureId(cultureId))
-                return;
+                return DateValidationResults.CultureFail;
+
+            try
+            {
+                DateEditControlSetup.ValidateEntryFormat(CustomDateEntryFormat);
+            }
+            catch (Exception e)
+            {
+                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Date Entry Format",
+                    RsMessageBoxIcons.Exclamation);
+                return DateValidationResults.DateEntryFormatFail;
+            }
+
+            try
+            {
+                DateEditControlSetup.ValidateDateFormat(CustomDateDisplayFormat);
+            }
+            catch (Exception e)
+            {
+                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Date Display Format",
+                    RsMessageBoxIcons.Exclamation);
+                return DateValidationResults.DateDisplayFormatFail;
+            }
 
             DateCultureId = cultureId;
-            var customDateDisplayFormat = DateDisplayFormat;
+            DateEntryFormat = CustomDateEntryFormat;
+            DateDisplayFormat = CustomDateDisplayFormat;
+
+            return DateValidationResults.Success;
 
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

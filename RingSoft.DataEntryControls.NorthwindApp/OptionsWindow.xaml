@@ -53,7 +53,7 @@
                 <RadioButton Grid.Row="1" Grid.Column="1" Content="Sweden (sv-SE)" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Sweden}}"/>
                 <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                     <RadioButton x:Name="OtherNumberRadioButton" DockPanel.Dock="Left" Content="Other" IsChecked="{Binding Path=NumberCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:NumericCultureTypes.Other}}"/>
-                    <TextBox Text="{Binding Path=OtherNumberCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=OtherNumberRadioButton, Path=IsChecked}"/>
+                    <TextBox x:Name="OtherNumberCultureTextBox" Text="{Binding Path=OtherNumberCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=OtherNumberRadioButton, Path=IsChecked}"/>
                 </DockPanel>
 
             </Grid>
@@ -103,17 +103,15 @@
                     <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                         <RadioButton x:Name="OtherDateRadioButton" DockPanel.Dock="Left" Content="Other"
                                      IsChecked="{Binding Path=DateCultureType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static lib:DateCultureTypes.Other}}" />
-                        <TextBox
-                            Text="{Binding Path=OtherDateCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            IsEnabled="{Binding ElementName=OtherDateRadioButton, Path=IsChecked}" />
+                        <TextBox x:Name="OtherDateCultureTextBox" Text="{Binding Path=OtherDateCultureId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=OtherDateRadioButton, Path=IsChecked}" />
                     </DockPanel>
 
                 </Grid>
             </GroupBox>
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Date Entry Format"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardTextBox}" Text="{Binding Path=DateEntryFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="CustomDateEntryFormatTextBox" Style="{StaticResource StandardTextBox}" Text="{Binding Path=CustomDateEntryFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Date Display Format"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource StandardTextBox}" Text="{Binding Path=DateDisplayFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="CustomDateDisplayFormatTextBox" Style="{StaticResource StandardTextBox}" Text="{Binding Path=CustomDateDisplayFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <Button x:Name="ApplyDateButton" Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="A_pply >>"/>
         <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
