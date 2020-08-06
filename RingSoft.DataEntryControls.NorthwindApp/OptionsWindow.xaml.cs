@@ -14,7 +14,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             ApplyNumericButton.Click += (sender, args) =>
             {
-                if (!ViewModel.OnApplyNumberFormat())
+                if (ViewModel.OnApplyNumberFormat() == ValidationResults.NumberCultureFail)
                     OtherNumberCultureTextBox.Focus();
             };
 
@@ -25,15 +25,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             switch (ViewModel.OnApplyDateFormat())
             {
-                case DateValidationResults.Success:
+                case ValidationResults.Success:
                     break;
-                case DateValidationResults.CultureFail:
+                case ValidationResults.DateCultureFail:
                     OtherDateCultureTextBox.Focus();
                     break;
-                case DateValidationResults.DateEntryFormatFail:
+                case ValidationResults.DateEntryFormatFail:
                     CustomDateEntryFormatTextBox.Focus();
                     break;
-                case DateValidationResults.DateDisplayFormatFail:
+                case ValidationResults.DateDisplayFormatFail:
                     CustomDateDisplayFormatTextBox.Focus();
                     break;
                 default:

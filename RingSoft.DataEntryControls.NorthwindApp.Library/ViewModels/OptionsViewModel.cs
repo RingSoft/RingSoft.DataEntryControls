@@ -8,12 +8,13 @@ using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
-    public enum DateValidationResults
+    public enum ValidationResults
     {
         Success = 0,
-        CultureFail = 1,
-        DateEntryFormatFail = 2,
-        DateDisplayFormatFail = 3
+        NumberCultureFail = 1,
+        DateCultureFail = 2,
+        DateEntryFormatFail = 3,
+        DateDisplayFormatFail = 4
     }
 
     public class OptionsViewModel : INotifyPropertyChanged
@@ -223,14 +224,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             CustomDateDisplayFormat = DateDisplayFormat = registrySettings.DateDisplayFormat;
         }
 
-        public bool OnApplyNumberFormat()
+        public ValidationResults OnApplyNumberFormat()
+        {
+            var result = ValidateNumberFormat();
+            if (result == ValidationResults.Success)
+            {
+                var cultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherNumberCultureId);
+                NumberCultureId = cultureId;
+            }
+
+            return result;
+        }
+
+        private ValidationResults ValidateNumberFormat()
         {
             var cultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherNumberCultureId);
             if (!ValidateCultureId(cultureId))
-                return false;
+                return ValidationResults.NumberCultureFail;
 
-            NumberCultureId = cultureId;
-            return true;
+            return ValidationResults.Success;
         }
 
         private static bool ValidateCultureId(string cultureId)
@@ -249,11 +261,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             return true;
         }
 
-        public DateValidationResults OnApplyDateFormat()
+        public ValidationResults OnApplyDateFormat()
+        {
+            var result = ValidateDateFormat();
+            if (result == ValidationResults.Success)
+            {
+                var cultureId = RegistrySettings.GetDateCultureId(DateCultureType, OtherDateCultureId);
+                DateCultureId = cultureId;
+                DateEntryFormat = CustomDateEntryFormat;
+                DateDisplayFormat = CustomDateDisplayFormat;
+            }
+
+            return result;
+        }
+
+        private ValidationResults ValidateDateFormat()
         {
             var cultureId = RegistrySettings.GetDateCultureId(DateCultureType, OtherDateCultureId);
             if (!ValidateCultureId(cultureId))
-                return DateValidationResults.CultureFail;
+                return ValidationResults.DateCultureFail;
 
             try
             {
@@ -263,7 +289,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             {
                 DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Date Entry Format",
                     RsMessageBoxIcons.Exclamation);
-                return DateValidationResults.DateEntryFormatFail;
+                return ValidationResults.DateEntryFormatFail;
             }
 
             try
@@ -274,19 +300,30 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             {
                 DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Date Display Format",
                     RsMessageBoxIcons.Exclamation);
-                return DateValidationResults.DateDisplayFormatFail;
+                return ValidationResults.DateDisplayFormatFail;
             }
 
-            DateCultureId = cultureId;
-            DateEntryFormat = CustomDateEntryFormat;
-            DateDisplayFormat = CustomDateDisplayFormat;
-
-            return DateValidationResults.Success;
-
+            return ValidationResults.Success;
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public ValidationResults OnOk()
+        {
+            var result = ValidateNumberFormat();
+            if (result != ValidationResults.Success)
+                return result;
+
+            result = ValidateDateFormat();
+            if (result != ValidationResults.Success)
+                return result;
+
+            var numberCultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherNumberCultureId);
+            var dateCultureId = RegistrySettings.GetDateCultureId(DateCultureType, OtherDateCultureId);
+
+            return result;
         }
     }
 }
