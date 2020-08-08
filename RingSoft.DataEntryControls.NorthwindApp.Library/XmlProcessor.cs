@@ -2,6 +2,7 @@
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -31,6 +32,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public void SetElementValue(string name, string value)
         {
+            if (value.IsNullOrEmpty())
+                return;
+
             var element = GetElement(name);
             if (element == null)
             {

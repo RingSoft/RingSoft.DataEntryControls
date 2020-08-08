@@ -320,8 +320,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             if (result != ValidationResults.Success)
                 return result;
 
-            var numberCultureId = RegistrySettings.GetNumericCultureId(NumberCultureType, OtherNumberCultureId);
-            var dateCultureId = RegistrySettings.GetDateCultureId(DateCultureType, OtherDateCultureId);
+            var registrySettings = new RegistrySettings();
+            registrySettings.NumberCultureType = NumberCultureType;
+            registrySettings.NumberCultureId = OtherNumberCultureId;
+            registrySettings.DateCultureType = DateCultureType;
+            registrySettings.DateCultureId = OtherDateCultureId;
+            registrySettings.DateEntryFormat = CustomDateEntryFormat;
+            registrySettings.DateDisplayFormat = CustomDateDisplayFormat;
+            registrySettings.SaveToRegistry();
 
             return result;
         }

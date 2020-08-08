@@ -22,6 +22,7 @@
        <Grid.RowDefinitions>
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
        </Grid.RowDefinitions> 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -59,10 +60,7 @@
             </Grid>
         </GroupBox>
         <Button x:Name="ApplyNumericButton" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="_Apply >>"/>
-        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left">
-            <Label Content="Example"/>
-            <dec:DecimalEditControl Width="120" Value="{Binding Path=NumericValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" EditFormatType="Currency" CultureId="{Binding Path=NumberCultureId, Mode=OneWay}" DesignText="$100,000,000.00"/>
-        </StackPanel>
+        <dec:DecimalEditControl Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" Value="{Binding Path=NumericValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" EditFormatType="Currency" CultureId="{Binding Path=NumberCultureId, Mode=OneWay}" DesignText="$100,000,000.00"/>
         <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -114,9 +112,10 @@
             <TextBox Grid.Row="2" Grid.Column="1" x:Name="CustomDateDisplayFormatTextBox" Style="{StaticResource StandardTextBox}" Text="{Binding Path=CustomDateDisplayFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <Button x:Name="ApplyDateButton" Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="A_pply >>"/>
-        <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
-            <Label Content="Example"/>
-            <dec:DateEditControl Width="200" Value="{Binding DateValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CultureId="{Binding Path=DateCultureId, Mode=OneWay}" EntryFormat="{Binding Path=DateEntryFormat, Mode=OneWay}" DisplayFormat="{Binding Path=DateDisplayFormat, Mode=OneWay}" DesignText="07/27/2020 12:00:00 PM"/>
+        <dec:DateEditControl Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="200" Value="{Binding DateValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CultureId="{Binding Path=DateCultureId, Mode=OneWay}" EntryFormat="{Binding Path=DateEntryFormat, Mode=OneWay}" DisplayFormat="{Binding Path=DateDisplayFormat, Mode=OneWay}" DesignText="07/27/2020 12:00:00 PM"/>
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button x:Name="OkButton" Content="_OK" Width="50" Margin="0,0,5,0"/>
+            <Button x:Name="CancelButton" Content="_Cancel" Width="50"/>
         </StackPanel>
     </Grid>
 </dec:BaseWindow>

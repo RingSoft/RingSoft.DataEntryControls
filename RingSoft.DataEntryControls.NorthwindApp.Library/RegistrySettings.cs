@@ -60,17 +60,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public void LoadFromRegistry()
         {
             var defaultNumericCultureType = (int) NumericCultureTypes.Current;
-            var numericCultureType = (NumericCultureTypes) _registryXml
+            NumberCultureType = (NumericCultureTypes) _registryXml
                 .GetElementValue(NumberCultureTypeKey, defaultNumericCultureType.ToString()).ToInt();
 
-            NumberCultureId = GetNumericCultureId(numericCultureType,
+            NumberCultureId = GetNumericCultureId(NumberCultureType,
                 _registryXml.GetElementValue(NumberCultureIdKey, CultureInfo.CurrentCulture.Name));
 
             var defaultDateCultureType = (int)DateCultureTypes.Current;
-            var dateCultureType = (DateCultureTypes)_registryXml
+            DateCultureType = (DateCultureTypes)_registryXml
                 .GetElementValue(DateCultureTypeKey, defaultDateCultureType.ToString()).ToInt();
 
-            DateCultureId = GetDateCultureId(dateCultureType,
+            DateCultureId = GetDateCultureId(DateCultureType,
                 _registryXml.GetElementValue(DateCultureIdKey, CultureInfo.CurrentCulture.Name));
 
             DateEntryFormat = _registryXml.GetElementValue(DateEntryFormatKey, "d");
@@ -117,7 +117,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public void SaveToRegistry()
         {
+            _registryXml.SetElementValue(NumberCultureTypeKey, ((int)NumberCultureType).ToString());
             _registryXml.SetElementValue(NumberCultureIdKey, NumberCultureId);
+            _registryXml.SetElementValue(DateCultureTypeKey, ((int)DateCultureType).ToString());
+            _registryXml.SetElementValue(DateCultureIdKey, DateCultureId);
             _registryXml.SetElementValue(DateEntryFormatKey, DateEntryFormat);
             _registryXml.SetElementValue(DateDisplayFormatKey, DateDisplayFormat);
 
