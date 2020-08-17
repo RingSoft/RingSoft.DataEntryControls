@@ -247,18 +247,27 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
         private static bool ValidateCultureId(string cultureId)
         {
-            try
+            var result = !string.IsNullOrEmpty(cultureId);
+            var message = "Culture ID cannot be empty.";
+            if (result)
             {
-                var unused = new CultureInfo(cultureId);
-            }
-            catch (Exception e)
-            {
-                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Culture ID",
-                    RsMessageBoxIcons.Exclamation);
-                return false;
+                try
+                {
+                    var unused = new CultureInfo(cultureId);
+                }
+                catch (Exception e)
+                {
+                    message = e.Message;
+                    result = false;
+                }
             }
 
-            return true;
+            if (!result)
+            {
+                DbDataProcessor.UserInterface.ShowMessageBox(message, "Invalid Culture ID",
+                    RsMessageBoxIcons.Exclamation);
+            }
+            return result;
         }
 
         public ValidationResults OnApplyDateFormat()
@@ -305,10 +314,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
             return ValidationResults.Success;
         }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public ValidationResults OnOk()
         {
@@ -330,6 +335,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             registrySettings.SaveToRegistry();
 
             return result;
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

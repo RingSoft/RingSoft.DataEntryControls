@@ -1,14 +1,14 @@
 ﻿<dec:BaseWindow x:Class="RingSoft.DataEntryControls.NorthwindApp.OptionsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-        xmlns:vmlib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
-        xmlns:lib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
-        xmlns:local="clr-namespace:RingSoft.DataEntryControls.NorthwindApp"
-        mc:Ignorable="d"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:vmlib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
+                xmlns:lib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
+                xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
+                mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
+                ShowInTaskbar="False"
         Title="Options">
     <Window.DataContext>
         <vmlib:OptionsViewModel x:Name="ViewModel"/>

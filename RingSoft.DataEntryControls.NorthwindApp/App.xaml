@@ -17,6 +17,7 @@
         <Style TargetType="dec:DateEditControl">
             <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}"/>
             <Setter Property="DisplayFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateDisplayFormat}}"/>
+            <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}"/>
         </Style>
 
         <Style TargetType="Border" x:Key="ReadOnlyBorder">
