@@ -6,13 +6,19 @@
         xmlns:local="clr-namespace:RingSoft.DataEntryControls.NorthwindApp"
         xmlns:vmlib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
         xmlns:lc="clr-namespace:RingSoft.DbLookup.Controls.WPF;assembly=RingSoft.DbLookup.Controls.WPF"
+        xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
         mc:Ignorable="d"
         Title="SalesEntryWindow" Height="575" Width="800">
     <Window.DataContext>
         <vmlib:SalesEntryViewModel x:Name="SalesEntryViewModel"/>
     </Window.DataContext>
-
+    <Window.Resources>
+        <Style TargetType="dec:DateEditControl">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
     <DockPanel>
         <local:DbMaintenanceButtonsControl x:Name="ButtonsControl" DockPanel.Dock="Top"/>
         <Grid Margin="5">
@@ -46,11 +52,11 @@
             </StackPanel>
             <Label Grid.Row="2" Grid.Column="0" Content="Order Date" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <DatePicker SelectedDate="{Binding Path=OrderDate, Mode=TwoWay}"/>
+                <dec:DateEditControl Value="{Binding Path=OrderDate, Mode=TwoWay}"/>
                 <Label Content="Required Date" Style="{StaticResource ControlLabel}"/>
-                <DatePicker SelectedDate="{Binding Path=RequiredDate, Mode=TwoWay}"/>
+                <dec:DateEditControl Value="{Binding Path=RequiredDate, Mode=TwoWay}"/>
                 <Label Content="Shipped Date" Style="{StaticResource ControlLabel}"/>
-                <DatePicker SelectedDate="{Binding Path=ShippedDate, Mode=TwoWay}"/>
+                <dec:DateEditControl Value="{Binding Path=ShippedDate, Mode=TwoWay}"/>
             </StackPanel>
             <TabControl Grid.Row="3" Grid.Column="1" x:Name="TabControl" Margin="0,5,0,0" VerticalAlignment="Stretch">
                 <TabItem Header="Details">
