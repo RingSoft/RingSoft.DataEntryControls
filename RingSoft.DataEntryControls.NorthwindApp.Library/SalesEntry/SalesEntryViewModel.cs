@@ -135,8 +135,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private DateTime _requiredDate;
-        public DateTime RequiredDate
+        private DateTime? _requiredDate;
+        public DateTime? RequiredDate
         {
             get => _requiredDate;
             set
@@ -148,8 +148,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private DateTime _orderDate;
-        public DateTime OrderDate
+        private DateTime? _orderDate;
+        public DateTime? OrderDate
         {
             get => _orderDate;
             set
@@ -161,9 +161,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private DateTime _shippedDate;
+        private DateTime? _shippedDate;
 
-        public DateTime ShippedDate
+        public DateTime? ShippedDate
         {
             get => _shippedDate;
             set
@@ -355,14 +355,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private readonly DateTime _newDateTime = DateTime.Today;
-
         private bool _customerDirty;
-
-        public SalesEntryViewModel()
-        {
-            _orderDate = _requiredDate = _shippedDate = _newDateTime;
-        }
 
         protected override void Initialize()
         {
@@ -407,26 +400,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             Employee = new AutoFillValue(AppGlobals.LookupContext.Employees.GetPrimaryKeyValueFromEntity(order.Employee),
                 employeeName);
 
-            if (order.RequiredDate == null)
-                RequiredDate = _newDateTime;
-            else
-            {
-                RequiredDate = (DateTime)order.RequiredDate;
-            }
-
-            if (order.OrderDate == null)
-                OrderDate = _newDateTime;
-            else
-            {
-                OrderDate = (DateTime)order.OrderDate;
-            }
-
-            if (order.ShippedDate == null)
-                ShippedDate = _newDateTime;
-            else
-            {
-                ShippedDate = (DateTime)order.ShippedDate;
-            }
+            RequiredDate = order.RequiredDate;
+            OrderDate = order.OrderDate;
+            ShippedDate = order.ShippedDate;
 
             var shipCompanyName = string.Empty;
             if (order.ShipVia != null)
@@ -508,7 +484,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             OrderId = 0;
             Customer = Employee = ShipVia = null;
-            OrderDate = RequiredDate = ShippedDate = _newDateTime;
+            OrderDate = RequiredDate = ShippedDate = null;
             CompanyName = string.Empty;
             SubTotal = TotalDiscount = Total = 0;
             Freight = 0;

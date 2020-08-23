@@ -62,17 +62,23 @@ namespace RingSoft.DataEntryControls.WPF
                 dropDownEditControl.TextBox.TextAlignment = dropDownEditControl.TextAlignment;
         }
 
-        private string _designText;
+        public static readonly DependencyProperty DesignTextProperty =
+            DependencyProperty.Register(nameof(DesignText), typeof(string), typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(DesignTextChangedCallback));
 
         public string DesignText
         {
-            get => _designText;
-            set
-            {
-                _designText = value;
-                SetDesignText();
-            }
+            get { return (string)GetValue(DesignTextProperty); }
+            set { SetValue(DesignTextProperty, value); }
         }
+
+        private static void DesignTextChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            dropDownEditControl.SetDesignText();
+        }
+
 
         private TextBox _textBox;
         public TextBox TextBox
