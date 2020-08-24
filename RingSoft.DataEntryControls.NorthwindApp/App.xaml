@@ -14,7 +14,7 @@
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
         </Style>
 
-        <Style TargetType="dec:DateEditControl">
+        <Style TargetType="dec:DateEditControl" x:Key="DateEditControlGlobals">
             <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}"/>
             <Setter Property="DisplayFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateDisplayFormat}}"/>
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}"/>

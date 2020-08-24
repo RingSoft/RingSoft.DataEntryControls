@@ -14,7 +14,7 @@
         <vmlib:SalesEntryViewModel x:Name="SalesEntryViewModel"/>
     </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="dec:DateEditControl">
+        <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource DateEditControlGlobals}">
             <Setter Property="Width" Value="100"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="DesignText" Value="01/01/1980"/>
@@ -47,13 +47,13 @@
             </StackPanel>
             <Label Grid.Row="1" Grid.Column="0" Content="Employee" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <lc:AutoFillControl x:Name="EmployeeControl" Setup="{Binding EmployeeAutoFillSetup}" Value="{Binding Path=Employee, Mode=TwoWay}" Width="150"/>
+                <lc:AutoFillControl x:Name="EmployeeControl" Setup="{Binding EmployeeAutoFillSetup}" Width="150"/>
                 <Label Content="Ship Via" Style="{StaticResource ControlLabel}"/>
                 <lc:AutoFillControl x:Name="ShipViaControl" Setup="{Binding ShipViaAutoFillSetup}" Value="{Binding Path=ShipVia, Mode=TwoWay}" Width="150"/>
             </StackPanel>
             <Label Grid.Row="2" Grid.Column="0" Content="Order Date" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <dec:DateEditControl Value="{Binding Path=OrderDate, Mode=TwoWay}"/>
+                <dec:DateEditControl Value="{Binding Path=OrderDate, Mode=TwoWay}" />
                 <Label Content="Required Date" Style="{StaticResource ControlLabel}"/>
                 <dec:DateEditControl Value="{Binding Path=RequiredDate, Mode=TwoWay}"/>
                 <Label Content="Shipped Date" Style="{StaticResource ControlLabel}"/>
