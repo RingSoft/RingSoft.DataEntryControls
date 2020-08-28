@@ -47,7 +47,7 @@
             </StackPanel>
             <Label Grid.Row="1" Grid.Column="0" Content="Employee" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <lc:AutoFillControl x:Name="EmployeeControl" Setup="{Binding EmployeeAutoFillSetup}" Width="150"/>
+                <lc:AutoFillControl x:Name="EmployeeControl" Setup="{Binding EmployeeAutoFillSetup}" Value="{Binding Path=Employee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
                 <Label Content="Ship Via" Style="{StaticResource ControlLabel}"/>
                 <lc:AutoFillControl x:Name="ShipViaControl" Setup="{Binding ShipViaAutoFillSetup}" Value="{Binding Path=ShipVia, Mode=TwoWay}" Width="150"/>
             </StackPanel>
