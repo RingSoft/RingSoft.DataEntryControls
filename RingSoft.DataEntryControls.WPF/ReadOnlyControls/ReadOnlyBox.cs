@@ -33,11 +33,42 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:ReadOnlyBox/>
     ///
     /// </summary>
+    [TemplatePart(Name = "TextBlock", Type = typeof(TextBlock))]
     public class ReadOnlyBox : Control
     {
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(ReadOnlyBox),
+                new FrameworkPropertyMetadata(TextChangedCallback));
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        private static void TextChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var readOnlyBox = (ReadOnlyBox)obj;
+
+            if (readOnlyBox.TextBlock != null)
+            {
+                readOnlyBox.TextBlock.Text = readOnlyBox.Text;
+            }
+        }
+
+        public TextBlock TextBlock { get; set; }
+
         static ReadOnlyBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyBox), new FrameworkPropertyMetadata(typeof(ReadOnlyBox)));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            TextBlock = GetTemplateChild(nameof(TextBlock)) as TextBlock;
+
+            base.OnApplyTemplate();
         }
     }
 }
