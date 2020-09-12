@@ -88,8 +88,10 @@ namespace RingSoft.DataEntryControls.WPF
                 _text = value;
                 if (TextBlock != null)
                 {
-                    if (!(DesignerProperties.GetIsInDesignMode(this) && !DesignText.IsNullOrEmpty()))
-                        TextBlock.Text = _text;
+                    if (DesignerProperties.GetIsInDesignMode(this) && !DesignText.IsNullOrEmpty())
+                        return;
+
+                    TextBlock.Text = _text;
                 }
             }
         }

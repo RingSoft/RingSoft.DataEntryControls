@@ -8,12 +8,24 @@
         mc:Ignorable="d"
         Title="DummyWindow" Height="450" Width="800">
     <Window.Resources>
-
+        <Style TargetType="{x:Type dec:ReadOnlyBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type dec:ReadOnlyBox}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <dec:DropDownCalendar/>
+            <dec:DateEditControl Height="50"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>
