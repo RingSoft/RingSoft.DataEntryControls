@@ -9,25 +9,27 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox Name="TextBox"/>
-                                <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16" VerticalAlignment="Stretch">
-                                    <Image
-                                        Source="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png">
-                                    </Image>
-                                </Button>
-                            </Grid>
-                            <Popup x:Name="Popup" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBox Name="TextBox" VerticalAlignment="Stretch"/>
+                            <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16" VerticalAlignment="Stretch">
+                                <Image
+                                    Source="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png">
+                                </Image>
+                            </Button>
+                            <Popup x:Name="Popup" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
                                 <Grid>
                                     <local:DropDownCalendar x:Name="Calendar"/>
                                 </Grid>
                             </Popup>
-                        </StackPanel>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
