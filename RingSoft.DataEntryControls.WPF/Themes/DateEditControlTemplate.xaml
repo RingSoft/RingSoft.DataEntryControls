@@ -18,11 +18,9 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBox Name="TextBox" VerticalAlignment="Stretch"/>
-                            <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16" VerticalAlignment="Stretch">
-                                <Image
-                                    Source="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png">
-                                </Image>
+                            <TextBox Name="TextBox" VerticalContentAlignment="Center"/>
+                            <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16">
+                                <Image Source="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png"/>
                             </Button>
                             <Popup x:Name="Popup" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
                                 <Grid>

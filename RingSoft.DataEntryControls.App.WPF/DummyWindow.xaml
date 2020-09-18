@@ -25,7 +25,7 @@
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <dec:DropDownCalendar/>
-            <dec:DateEditControl Height="50"/>
+            <dec:DecimalEditControl Height="50"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>
