@@ -15,6 +15,11 @@
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Border BorderThickness="1" BorderBrush="LightGray">
+                                    <TextBlock x:Name="TextBlock" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -25,7 +30,7 @@
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <dec:DropDownCalendar/>
-            <dec:DecimalEditControl Height="50"/>
+            <dec:ReadOnlyBox DesignText="Test" Margin="5"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>

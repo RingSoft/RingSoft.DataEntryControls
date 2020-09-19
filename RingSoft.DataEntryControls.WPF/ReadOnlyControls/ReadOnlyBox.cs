@@ -106,6 +106,8 @@ namespace RingSoft.DataEntryControls.WPF
             TextBlock = GetTemplateChild(nameof(TextBlock)) as TextBlock;
 
             base.OnApplyTemplate();
+
+            SetDesignText();
         }
 
         private void SetDesignText()
