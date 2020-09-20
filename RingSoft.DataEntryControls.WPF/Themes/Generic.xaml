@@ -10,6 +10,7 @@
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DateEditControlTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DropDownCalendarTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/IntegerEditControlTemplate.xaml"/>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/ReadOnlyBoxControlTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -38,4 +39,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type local:StringReadOnlyBox}" BasedOn="{StaticResource {x:Type local:ReadOnlyBox}}"/>
+
 </ResourceDictionary>
