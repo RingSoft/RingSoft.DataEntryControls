@@ -88,13 +88,13 @@ namespace RingSoft.DataEntryControls.WPF
             decimalEditControl.LoadFromSetup(decimalEditControl.Setup);
         }
 
-        public static readonly DependencyProperty EditFormatTypeProperty =
-            DependencyProperty.Register(nameof(EditFormatType), typeof(DecimalEditFormatTypes), typeof(DecimalEditControl));
+        public static readonly DependencyProperty FormatTypeProperty =
+            DependencyProperty.Register(nameof(FormatType), typeof(DecimalEditFormatTypes), typeof(DecimalEditControl));
 
-        public DecimalEditFormatTypes EditFormatType
+        public DecimalEditFormatTypes FormatType
         {
-            get { return (DecimalEditFormatTypes)GetValue(EditFormatTypeProperty); }
-            set { SetValue(EditFormatTypeProperty, value); }
+            get { return (DecimalEditFormatTypes)GetValue(FormatTypeProperty); }
+            set { SetValue(FormatTypeProperty, value); }
         }
 
         private decimal? _pendingNewValue;
@@ -120,7 +120,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void LoadFromSetup(NumericEditControlSetup<decimal?> setup)
         {
-            EditFormatType = Setup.EditFormatType;
+            FormatType = Setup.EditFormatType;
             Precision = Setup.Precision;
 
             base.LoadFromSetup(setup);
@@ -191,7 +191,7 @@ namespace RingSoft.DataEntryControls.WPF
                 if (Value != null)
                 {
                     var calcValue = (decimal)Value;
-                    if (EditFormatType == DecimalEditFormatTypes.Percent)
+                    if (FormatType == DecimalEditFormatTypes.Percent)
                     {
                         calcValue *= 100;
                         calcValue = Math.Round(calcValue, Precision);
@@ -207,7 +207,7 @@ namespace RingSoft.DataEntryControls.WPF
         {
             var newValue = CalculatorControl.Value;
 
-            if (EditFormatType == DecimalEditFormatTypes.Percent)
+            if (FormatType == DecimalEditFormatTypes.Percent)
                 newValue /= 100;
 
             var validatedValue = ValidateValue(newValue);
@@ -221,7 +221,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
-            setup.EditFormatType = EditFormatType;
+            setup.EditFormatType = FormatType;
             setup.MaximumValue = MaximumValue;
             setup.MinimumValue = MinimumValue;
             setup.Precision = Precision;

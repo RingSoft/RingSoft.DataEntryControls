@@ -125,7 +125,7 @@
                     <TextBlock Text="{Binding Path=TotalDiscount, StringFormat= 'c'}" Style="{StaticResource ReadOnlyNumericTextBlock}"/>
                 </Border>
                 <Label Grid.Column="0" Grid.Row="2" Content="Freight" Style="{StaticResource ControlLabel}"/>
-                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" EditFormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" Height="20" HorizontalContentAlignment="Right" Margin="2.5,0,2.5,0"/>
+                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" Height="20" HorizontalContentAlignment="Right" Margin="2.5,0,2.5,0"/>
                 <Label Grid.Column="0" Grid.Row="3" Content="Total" Style="{StaticResource ControlLabel}"/>
                 <Border Grid.Column="1" Grid.Row="3" Style="{StaticResource ReadOnlyBorder}">
                     <TextBlock Text="{Binding Path=Total, StringFormat= 'c'}" Style="{StaticResource ReadOnlyNumericTextBlock}"/>

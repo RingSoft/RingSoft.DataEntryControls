@@ -86,13 +86,7 @@ namespace RingSoft.DataEntryControls.WPF
                     return;
 
                 _text = value;
-                if (TextBlock != null)
-                {
-                    if (DesignerProperties.GetIsInDesignMode(this) && !DesignText.IsNullOrEmpty())
-                        return;
-
-                    TextBlock.Text = _text;
-                }
+                SetText();
             }
         }
 
@@ -107,12 +101,24 @@ namespace RingSoft.DataEntryControls.WPF
 
             base.OnApplyTemplate();
 
+            SetText();
             SetDesignText();
+        }
+
+        private void SetText()
+        {
+            if (TextBlock != null)
+            {
+                if (DesignerProperties.GetIsInDesignMode(this) && !DesignText.IsNullOrEmpty())
+                    return;
+
+                TextBlock.Text = Text;
+            }
         }
 
         private void SetDesignText()
         {
-            if (DesignerProperties.GetIsInDesignMode(this) && TextBlock != null)
+            if (DesignerProperties.GetIsInDesignMode(this) && TextBlock != null && !DesignText.IsNullOrEmpty())
                 TextBlock.Text = DesignText;
         }
     }

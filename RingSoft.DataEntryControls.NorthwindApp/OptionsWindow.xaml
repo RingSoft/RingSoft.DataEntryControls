@@ -60,7 +60,7 @@
             </Grid>
         </GroupBox>
         <Button x:Name="ApplyNumericButton" Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="_Apply >>"/>
-        <dec:DecimalEditControl Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" Value="{Binding Path=NumericValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" EditFormatType="Currency" CultureId="{Binding Path=NumberCultureId, Mode=OneWay}" DesignText="$100,000,000.00"/>
+        <dec:DecimalEditControl Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" Value="{Binding Path=NumericValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FormatType="Currency" CultureId="{Binding Path=NumberCultureId, Mode=OneWay}" DesignText="$100,000,000.00"/>
         <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
