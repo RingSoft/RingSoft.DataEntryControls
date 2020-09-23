@@ -14,7 +14,7 @@
         <StackPanel Orientation="Vertical">
             <dec:DropDownCalendar/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>
-            <dec:DecimalEditControl DesignText="987.65" Value="123.45"/>
+            <dec:DecimalReadOnlyBox Value="12345.6" FormatType="Currency" Margin="5"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>

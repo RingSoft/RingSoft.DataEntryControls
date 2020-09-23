@@ -1,6 +1,5 @@
-﻿using System;
+﻿using RingSoft.DataEntryControls.Engine;
 using System.Windows;
-using RingSoft.DataEntryControls.Engine;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -63,7 +62,17 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void SetValue()
         {
-            throw new NotImplementedException();
+            var text = string.Empty;
+
+            if (Value != null)
+            {
+                var formatString =
+                    DecimalEditControlSetup.GetDecimalFormatString(FormatType, Precision, NumberFormatString);
+                var displayValue = (decimal) Value;
+                text = displayValue.ToString(formatString, Culture.NumberFormat);
+            }
+
+            Text = text;
         }
     }
 }

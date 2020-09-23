@@ -69,8 +69,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var readOnlyBox = (ReadOnlyBox)obj;
-            if (readOnlyBox.TextBlock != null)
-                readOnlyBox.TextBlock.TextAlignment = readOnlyBox.TextAlignment;
+            readOnlyBox.SetTextAlignment();
         }
 
         public TextBlock TextBlock { get; set; }
@@ -103,6 +102,7 @@ namespace RingSoft.DataEntryControls.WPF
 
             SetText();
             SetDesignText();
+            SetTextAlignment();
         }
 
         private void SetText()
@@ -120,6 +120,12 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (DesignerProperties.GetIsInDesignMode(this) && TextBlock != null && !DesignText.IsNullOrEmpty())
                 TextBlock.Text = DesignText;
+        }
+
+        private void SetTextAlignment()
+        {
+            if (TextBlock != null)
+                TextBlock.TextAlignment = TextAlignment;
         }
     }
 }

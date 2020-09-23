@@ -86,19 +86,25 @@ namespace RingSoft.DataEntryControls.Engine
 
         public override string GetNumberFormatString()
         {
-            var result = base.GetNumberFormatString();
+            return GetDecimalFormatString(EditFormatType, Precision, base.GetNumberFormatString());
+        }
+
+        public static string GetDecimalFormatString(DecimalEditFormatTypes formatType, int precision,
+            string customFormatString)
+        {
+            var result = customFormatString;
             if (result.IsNullOrEmpty())
             {
-                switch (EditFormatType)
+                switch (formatType)
                 {
                     case DecimalEditFormatTypes.Number:
-                        result = $"N{Precision}";
+                        result = $"N{precision}";
                         break;
                     case DecimalEditFormatTypes.Currency:
-                        result = $"C{Precision}";
+                        result = $"C{precision}";
                         break;
                     case DecimalEditFormatTypes.Percent:
-                        result = $"P{Precision}";
+                        result = $"P{precision}";
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

@@ -94,6 +94,12 @@ namespace RingSoft.DataEntryControls.WPF
                 Culture = CultureInfo.CurrentCulture;
         }
 
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            SetValue();
+        }
+
         protected abstract void SetValue();
     }
 }
