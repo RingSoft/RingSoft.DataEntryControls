@@ -63,12 +63,20 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty PrecisionProperty =
-            DependencyProperty.Register(nameof(Precision), typeof(int), typeof(DecimalEditControl));
+            DependencyProperty.Register(nameof(Precision), typeof(int), typeof(DecimalEditControl),
+                new FrameworkPropertyMetadata(2, PrecisionChangedCallback));
 
         public int Precision
         {
             get { return (int)GetValue(PrecisionProperty); }
             set { SetValue(PrecisionProperty, value); }
+        }
+
+        private static void PrecisionChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var decimalEditControl = (DecimalEditControl)obj;
+            decimalEditControl.SetValue();
         }
 
         public static readonly DependencyProperty SetupProperty =
@@ -89,7 +97,8 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty FormatTypeProperty =
-            DependencyProperty.Register(nameof(FormatType), typeof(DecimalEditFormatTypes), typeof(DecimalEditControl));
+            DependencyProperty.Register(nameof(FormatType), typeof(DecimalEditFormatTypes), typeof(DecimalEditControl),
+                new FrameworkPropertyMetadata(FormatTypeChangedCallback));
 
         public DecimalEditFormatTypes FormatType
         {
@@ -97,12 +106,18 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(FormatTypeProperty, value); }
         }
 
+        private static void FormatTypeChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var decimalEditControl = (DecimalEditControl)obj;
+            decimalEditControl.SetValue();
+        }
+
         private decimal? _pendingNewValue;
 
         static DecimalEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(typeof(DecimalEditControl)));
-            PrecisionProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(2));
             TextAlignmentProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(TextAlignment.Right));
         }
 

@@ -36,7 +36,8 @@ namespace RingSoft.DataEntryControls.WPF
     public class DecimalReadOnlyBox : NumericReadOnlyBox<decimal?>
     {
         public static readonly DependencyProperty PrecisionProperty =
-            DependencyProperty.Register(nameof(Precision), typeof(int), typeof(DecimalReadOnlyBox));
+            DependencyProperty.Register(nameof(Precision), typeof(int), typeof(DecimalReadOnlyBox),
+                new FrameworkPropertyMetadata(2, PrecisionChangedCallback));
 
         public int Precision
         {
@@ -44,8 +45,16 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(PrecisionProperty, value); }
         }
 
+        private static void PrecisionChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var decimalReadOnlyBox = (DecimalReadOnlyBox)obj;
+            decimalReadOnlyBox.SetValue();
+        }
+
         public static readonly DependencyProperty FormatTypeProperty =
-            DependencyProperty.Register(nameof(FormatType), typeof(DecimalEditFormatTypes), typeof(DecimalReadOnlyBox));
+            DependencyProperty.Register(nameof(FormatType), typeof(DecimalEditFormatTypes), typeof(DecimalReadOnlyBox),
+                new FrameworkPropertyMetadata(FormatTypeChangedCallback));
 
         public DecimalEditFormatTypes FormatType
         {
@@ -53,10 +62,16 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(FormatTypeProperty, value); }
         }
 
+        private static void FormatTypeChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var decimalReadOnlyBox = (DecimalReadOnlyBox)obj;
+            decimalReadOnlyBox.SetValue();
+        }
+
         static DecimalReadOnlyBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalReadOnlyBox), new FrameworkPropertyMetadata(typeof(DecimalReadOnlyBox)));
-            PrecisionProperty.OverrideMetadata(typeof(DecimalReadOnlyBox), new FrameworkPropertyMetadata(2));
             TextAlignmentProperty.OverrideMetadata(typeof(DecimalReadOnlyBox), new FrameworkPropertyMetadata(TextAlignment.Right));
         }
 

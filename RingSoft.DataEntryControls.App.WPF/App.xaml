@@ -13,10 +13,10 @@
             <dec:EnumConverter x:Key="EnumConverter" />
             <local:AppGridEditHostFactory x:Key="AppGridEditHostFactory" />
 
-            <Style TargetType="dec:DecimalEditControl">
+            <!--<Style TargetType="dec:DecimalEditControl">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static local:Globals.CultureId}}" />
                 <Setter Property="Precision" Value="{Binding Source={x:Static local:Globals.Precision}}" />
-            </Style>
+            </Style>-->
             <Style TargetType="deg:DataEntryGrid">
                 <Setter Property="ControlHostFactory" Value="{StaticResource AppGridEditHostFactory}" />
                 <Setter Property="EnterToTab" Value="True" />
