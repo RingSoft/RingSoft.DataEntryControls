@@ -1,4 +1,5 @@
 ﻿using System;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 
@@ -24,8 +25,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        private DecimalEditControlSetup _quantitySetup;
+        private DecimalEditControlSetup _priceSetup;
+        private DecimalEditControlSetup _extendedPriceSetup;
+
         protected SalesEntryDetailsValueRow(SalesEntryDetailsGridManager manager) : base(manager)
         {
+            _quantitySetup = AppGlobals.CreateNewDecimalEditControlSetup();
+            _priceSetup = AppGlobals.CreateNewDecimalEditControlSetup();
+            _extendedPriceSetup = AppGlobals.CreateNewDecimalEditControlSetup();
+
+            _extendedPriceSetup.EditFormatType = _priceSetup.EditFormatType = DecimalEditFormatTypes.Currency;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -34,11 +44,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.Quantity:
-                    return new DataEntryGridTextCellProps(this, columnId){Text = Quantity.ToString("N")};
+                    return new DataEntryGridDecimalCellProps(this, columnId, _quantitySetup, Quantity);
                 case SalesEntryGridColumns.Price:
-                    return new DataEntryGridTextCellProps(this, columnId) { Text = Price.ToString("C") };
+                    return new DataEntryGridDecimalCellProps(this, columnId, _priceSetup, Price);
                 case SalesEntryGridColumns.ExtendedPrice:
-                    return new DataEntryGridTextCellProps(this, columnId) { Text = ExtendedPrice.ToString("C") };
+                    return new DataEntryGridDecimalCellProps(this, columnId, _extendedPriceSetup, ExtendedPrice);
             }
 
             return base.GetCellProps(columnId);

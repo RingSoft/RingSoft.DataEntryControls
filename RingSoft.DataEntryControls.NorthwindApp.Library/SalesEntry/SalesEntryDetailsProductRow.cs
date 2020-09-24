@@ -1,4 +1,5 @@
 ﻿using System;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.AutoFill;
@@ -13,11 +14,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public decimal Discount { get; private set; }
 
         private AutoFillSetup _productAutoFillSetup;
+        private DecimalEditControlSetup _discountSetup;
 
         public SalesEntryDetailsProductRow(SalesEntryDetailsGridManager manager) : base(manager)
         {
             _productAutoFillSetup =
                 new AutoFillSetup(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId));
+            _discountSetup = AppGlobals.CreateNewDecimalEditControlSetup();
+            _discountSetup.EditFormatType = DecimalEditFormatTypes.Currency;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -28,7 +32,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Item:
                     return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
                 case SalesEntryGridColumns.Discount:
-                    return new DataEntryGridTextCellProps(this, columnId){Text = Discount.ToString("C")};
+                    return new DataEntryGridDecimalCellProps(this, columnId, _discountSetup, Discount);
             }
 
             return base.GetCellProps(columnId);

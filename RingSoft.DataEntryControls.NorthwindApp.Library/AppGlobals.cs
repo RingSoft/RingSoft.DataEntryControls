@@ -1,8 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.DataProcessor;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -83,6 +84,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             DateCultureId = registry.DateCultureId;
             DateEntryFormat = registry.DateEntryFormat;
             DateDisplayFormat = registry.DateDisplayFormat;
+        }
+
+        public static DecimalEditControlSetup CreateNewDecimalEditControlSetup()
+        {
+            return new DecimalEditControlSetup()
+            {
+                CultureId = NumberCultureId
+            };
         }
 
         public static string OpenTextFile(string fileName)
