@@ -109,7 +109,7 @@ namespace RingSoft.DataEntryControls.Engine
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (_setup.EditFormatType == DecimalEditFormatTypes.Percent)
+            if (_setup.FormatType == DecimalEditFormatTypes.Percent)
             {
                 value *= 100;
                 value = Math.Round(value, _setup.Precision);
@@ -127,7 +127,7 @@ namespace RingSoft.DataEntryControls.Engine
         {
             var result = new SymbolProperties();
 
-            switch (_setup.EditFormatType)
+            switch (_setup.FormatType)
             {
                 case DecimalEditFormatTypes.Currency:
                     result.SymbolText = _setup.CurrencyText;
@@ -314,7 +314,7 @@ namespace RingSoft.DataEntryControls.Engine
         private string GetDecimalPointString()
         {
             var decimalPoint = _setup.Culture.NumberFormat.CurrencyDecimalSeparator;
-            switch (_setup.EditFormatType)
+            switch (_setup.FormatType)
             {
                 case DecimalEditFormatTypes.Currency:
                     break;
@@ -343,7 +343,7 @@ namespace RingSoft.DataEntryControls.Engine
             if (isNegative)
                 wholeNumber *= -1;
 
-            switch (_setup.EditFormatType)
+            switch (_setup.FormatType)
             {
                 case DecimalEditFormatTypes.Number:
                     wholeNumberText = wholeNumber.ToString("N0", _setup.Culture);
@@ -464,7 +464,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         private string GetGroupSeparatorString()
         {
-            if (_setup.EditFormatType == DecimalEditFormatTypes.Currency)
+            if (_setup.FormatType == DecimalEditFormatTypes.Currency)
                 return _setup.Culture.NumberFormat.CurrencyGroupSeparator;
 
             return _setup.Culture.NumberFormat.NumberGroupSeparator;
@@ -844,7 +844,7 @@ namespace RingSoft.DataEntryControls.Engine
         {
             var decimalValue = newValue.ToDecimal(_setup.Culture);
 
-            if (_setup.EditFormatType == DecimalEditFormatTypes.Percent)
+            if (_setup.FormatType == DecimalEditFormatTypes.Percent)
             {
                 decimalValue /= 100;
                 newValue = decimalValue.ToString(_setup.Culture);

@@ -135,7 +135,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void LoadFromSetup(NumericEditControlSetup<decimal?> setup)
         {
-            FormatType = Setup.EditFormatType;
+            FormatType = Setup.FormatType;
             Precision = Setup.Precision;
 
             base.LoadFromSetup(setup);
@@ -236,7 +236,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
-            setup.EditFormatType = FormatType;
+            setup.FormatType = FormatType;
             setup.MaximumValue = MaximumValue;
             setup.MinimumValue = MinimumValue;
             setup.Precision = Precision;

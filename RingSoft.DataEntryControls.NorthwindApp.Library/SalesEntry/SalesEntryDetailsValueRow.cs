@@ -35,7 +35,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             _priceSetup = AppGlobals.CreateNewDecimalEditControlSetup();
             _extendedPriceSetup = AppGlobals.CreateNewDecimalEditControlSetup();
 
-            _extendedPriceSetup.EditFormatType = _priceSetup.EditFormatType = DecimalEditFormatTypes.Currency;
+            _extendedPriceSetup.FormatType = _priceSetup.FormatType = DecimalEditFormatTypes.Currency;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)

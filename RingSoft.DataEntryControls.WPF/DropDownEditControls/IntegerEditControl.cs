@@ -84,7 +84,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
-            setup.EditFormatType = DecimalEditFormatTypes.Number;
+            setup.FormatType = DecimalEditFormatTypes.Number;
             setup.MaximumValue = MaximumValue;
             setup.MinimumValue = MinimumValue;
             setup.Precision = 0;

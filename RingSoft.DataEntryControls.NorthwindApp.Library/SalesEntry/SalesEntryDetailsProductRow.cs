@@ -21,7 +21,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             _productAutoFillSetup =
                 new AutoFillSetup(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId));
             _discountSetup = AppGlobals.CreateNewDecimalEditControlSetup();
-            _discountSetup.EditFormatType = DecimalEditFormatTypes.Currency;
+            _discountSetup.FormatType = DecimalEditFormatTypes.Currency;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)

@@ -32,7 +32,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// <value>
         /// The format type of the numeric edit control.
         /// </value>
-        public DecimalEditFormatTypes EditFormatType { get; set; }
+        public DecimalEditFormatTypes FormatType { get; set; }
 
         public NumberSymbolLocations CurrencySymbolLocation { get; private set; }
 
@@ -86,7 +86,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public override string GetNumberFormatString()
         {
-            return GetDecimalFormatString(EditFormatType, Precision, base.GetNumberFormatString());
+            return GetDecimalFormatString(FormatType, Precision, base.GetNumberFormatString());
         }
 
         public static string GetDecimalFormatString(DecimalEditFormatTypes formatType, int precision,

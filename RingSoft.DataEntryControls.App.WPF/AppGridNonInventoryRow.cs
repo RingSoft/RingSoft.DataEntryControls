@@ -18,7 +18,7 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public AppGridNonInventoryRow(AppGridManager manager) : base(manager)
         {
-            PriceSetup.EditFormatType = DecimalEditFormatTypes.Currency;
+            PriceSetup.FormatType = DecimalEditFormatTypes.Currency;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
