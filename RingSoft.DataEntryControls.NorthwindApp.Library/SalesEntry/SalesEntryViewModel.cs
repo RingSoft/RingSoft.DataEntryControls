@@ -433,6 +433,28 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             if (Freight != null)
                 freight = (decimal) Freight;
 
+            foreach (var dataEntryGridRow in DetailsGridManager.Rows)
+            {
+                var salesEntryDetailsRow = (SalesEntryDetailsRow) dataEntryGridRow;
+                switch (salesEntryDetailsRow.LineType)
+                {
+                    case SalesEntryDetailsLineTypes.Product:
+                        if (salesEntryDetailsRow is SalesEntryDetailsProductRow productRow)
+                        {
+                            subTotal += productRow.ExtendedPrice;
+                            totalDiscount += productRow.Discount;
+                        }
+                        break;
+                    //case SalesEntryDetailsLineTypes.NonInventoryCode:
+                    //    break;
+                    //case SalesEntryDetailsLineTypes.SpecialOrder:
+                    //    break;
+                    case SalesEntryDetailsLineTypes.Comment:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
             SubTotal = subTotal;
             TotalDiscount = totalDiscount;
             Total = (SubTotal - TotalDiscount) + freight;

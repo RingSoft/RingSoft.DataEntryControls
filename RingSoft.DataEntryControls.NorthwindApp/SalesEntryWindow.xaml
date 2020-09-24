@@ -19,6 +19,11 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="DesignText" Value="01/01/1980"/>
         </Style>
+        <Style TargetType="dec:DecimalReadOnlyBox" BasedOn="{StaticResource DecimalReadOnlyBoxGlobals}">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="FormatType" Value="Currency"/>
+            <Setter Property="DesignText" Value="$1,000,000.00"/>
+        </Style>
     </Window.Resources>
     <DockPanel>
         <local:DbMaintenanceButtonsControl x:Name="ButtonsControl" DockPanel.Dock="Top"/>
@@ -36,14 +41,10 @@
             </Grid.RowDefinitions>
             <Label Content="Order ID" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
-                <Border Style="{StaticResource ReadOnlyBorder}">
-                    <TextBlock Width="70" Text="{Binding OrderId}" Style="{StaticResource ReadOnlyTextBlock}"/>
-                </Border>
+                <dec:StringReadOnlyBox Width="70" Text="{Binding OrderId}"/>
                 <Label Content="Customer" Style="{StaticResource ControlLabel}"/>
                 <lc:AutoFillControl x:Name="CustomerControl" Setup="{Binding CustomersAutoFillSetup}" Value="{Binding Path=Customer, Mode=TwoWay}" Width="100"/>
-                <Border Style="{StaticResource ReadOnlyBorder}">
-                    <TextBlock Width="200" Text="{Binding CompanyName}" Style="{StaticResource ReadOnlyTextBlock}"/>
-                </Border>
+                <dec:StringReadOnlyBox Width="200" Text="{Binding CompanyName}"/>
             </StackPanel>
             <Label Grid.Row="1" Grid.Column="0" Content="Employee" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
@@ -108,7 +109,7 @@
             <Grid Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="90"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -117,19 +118,19 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Content="Sub Total" Style="{StaticResource ControlLabel}"/>
-                <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource ReadOnlyBorder}">
+                <!--<Border Grid.Column="1" Grid.Row="0" Style="{StaticResource ReadOnlyBorder}">
                     <TextBlock Text="{Binding Path=SubTotal, StringFormat= 'c'}" Style="{StaticResource ReadOnlyNumericTextBlock}"/>
-                </Border>
+                </Border>-->
+                <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="0" Value="{Binding SubTotal}"/>
                 <Label Grid.Column="0" Grid.Row="1" Content="Total Discount" Style="{StaticResource ControlLabel}"/>
-                <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource ReadOnlyBorder}">
+                <!--<Border Grid.Column="1" Grid.Row="1" Style="{StaticResource ReadOnlyBorder}">
                     <TextBlock Text="{Binding Path=TotalDiscount, StringFormat= 'c'}" Style="{StaticResource ReadOnlyNumericTextBlock}"/>
-                </Border>
+                </Border>-->
+                <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="1" Value="{Binding TotalDiscount}"/>
                 <Label Grid.Column="0" Grid.Row="2" Content="Freight" Style="{StaticResource ControlLabel}"/>
-                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" Height="20" HorizontalContentAlignment="Right" Margin="2.5,0,2.5,0"/>
+                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" Height="20" HorizontalAlignment="Stretch"/>
                 <Label Grid.Column="0" Grid.Row="3" Content="Total" Style="{StaticResource ControlLabel}"/>
-                <Border Grid.Column="1" Grid.Row="3" Style="{StaticResource ReadOnlyBorder}">
-                    <TextBlock Text="{Binding Path=Total, StringFormat= 'c'}" Style="{StaticResource ReadOnlyNumericTextBlock}"/>
-                </Border>
+                <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="3" Value="{Binding Path=Total}"/>
             </Grid>
         </Grid>
     </DockPanel>

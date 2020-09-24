@@ -94,6 +94,11 @@ namespace RingSoft.DataEntryControls.WPF
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyBox), new FrameworkPropertyMetadata(typeof(ReadOnlyBox)));
         }
 
+        public ReadOnlyBox()
+        {
+            IsTabStop = false;
+        }
+
         public override void OnApplyTemplate()
         {
             TextBlock = GetTemplateChild(nameof(TextBlock)) as TextBlock;

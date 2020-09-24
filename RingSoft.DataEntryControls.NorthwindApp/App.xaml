@@ -21,20 +21,17 @@
         </Style>
         <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource DateEditControlGlobals}"/>
 
-        <Style TargetType="Border" x:Key="ReadOnlyBorder">
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="LightGray"/>
+        <Style TargetType="dec:ReadOnlyBox" x:Key="ReadOnlyBox">
             <Setter Property="Height" Value="20"/>
             <Setter Property="Margin" Value="2.5"/>
         </Style>
-        <Style TargetType="TextBlock" x:Key="ReadOnlyTextBlock">
-            <Setter Property="Margin" Value="5,0,5,0"/>
+        <Style TargetType="dec:StringReadOnlyBox" BasedOn="{StaticResource ReadOnlyBox}"/>
+
+        <Style TargetType="dec:DecimalReadOnlyBox" x:Key="DecimalReadOnlyBoxGlobals" BasedOn="{StaticResource ReadOnlyBox}">
+            <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}"/>
         </Style>
-        <Style TargetType="TextBlock" x:Key="ReadOnlyNumericTextBlock">
-            <Setter Property="Margin" Value="5,0,5,0"/>
-            <Setter Property="TextAlignment" Value="Right"/>
-            <Setter Property="Width" Value="75"/>
-        </Style>
+        <Style TargetType="dec:DecimalReadOnlyBox" BasedOn="{StaticResource DecimalReadOnlyBoxGlobals}"/>
+
         <Style TargetType="Label" x:Key="ControlLabel">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
