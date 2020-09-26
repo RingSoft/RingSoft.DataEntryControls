@@ -41,6 +41,11 @@
             <Setter Property="Height" Value="20"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Text" Value="Test"/>
+        </Style>
+
         <Style TargetType="PasswordBox" x:Key="StandardPasswordBox">
             <Setter Property="Height" Value="20"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
