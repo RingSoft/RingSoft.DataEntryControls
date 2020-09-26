@@ -99,6 +99,144 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private string _quantityPerUnit;
+
+        public string QuantityPerUnit
+        {
+            get => _quantityPerUnit;
+            set
+            {
+                if (_quantityPerUnit == value)
+                    return;
+
+                _quantityPerUnit = value;
+                OnPropertyChanged(nameof(QuantityPerUnit));
+            }
+        }
+
+        private decimal? _unitPrice;
+
+        public decimal? UnitPrice
+        {
+            get => _unitPrice;
+            set
+            {
+                if (_unitPrice == value)
+                    return;
+
+                _unitPrice = value;
+                OnPropertyChanged(nameof(UnitPrice));
+            }
+        }
+
+        private decimal? _unitsInStock;
+
+        public decimal? UnitsInStock
+        {
+            get => _unitsInStock;
+            set
+            {
+                if (_unitsInStock == value)
+                    return;
+
+                _unitsInStock = value;
+                OnPropertyChanged(nameof(UnitsInStock));
+            }
+        }
+
+        private decimal? _unitsOnOrder;
+
+        public decimal? UnitsOnOrder
+        {
+            get => _unitsOnOrder;
+            set
+            {
+                if (_unitsOnOrder == value)
+                    return;
+
+                _unitsOnOrder = value;
+                OnPropertyChanged(nameof(UnitsOnOrder));
+            }
+        }
+
+        private decimal? _reorderLevel;
+
+        public decimal? ReorderLevel
+        {
+            get => _reorderLevel;
+            set
+            {
+                if (_reorderLevel == value)
+                    return;
+
+                _reorderLevel = value;
+                OnPropertyChanged(nameof(ReorderLevel));
+            }
+        }
+
+        private bool _discontinued;
+
+        public bool Discontinued
+        {
+            get => _discontinued;
+            set
+            {
+                if (_discontinued == value)
+                    return;
+
+                _discontinued = value;
+
+                OnPropertyChanged(nameof(Discontinued));
+            }
+        }
+
+        private string _orderComment;
+
+        public string OrderComment
+        {
+            get => _orderComment;
+            set
+            {
+                if (_orderComment == value)
+                    return;
+
+                _orderComment = value;
+                OnPropertyChanged(nameof(OrderComment));
+            }
+        }
+
+        private string _purchaseComment;
+
+        public string PurchaseComment
+        {
+            get => _purchaseComment;
+            set
+            {
+                if (_purchaseComment == value)
+                    return;
+
+                _purchaseComment = value;
+                OnPropertyChanged(nameof(PurchaseComment));
+            }
+        }
+
+        //public int? NonInventoryCodeId { get; set; }
+
+        private byte _unitDecimals;
+
+        public byte UnitDecimals
+        {
+            get => _unitDecimals;
+            set
+            {
+                if (_unitDecimals == value)
+                    return;
+
+                _unitDecimals = value;
+                OnPropertyChanged(nameof(UnitDecimals));
+            }
+        }
+
         protected override void Initialize()
         {
             SupplierAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.SupplierId))
@@ -116,17 +254,22 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
         protected override void LoadFromEntity(Products newEntity)
         {
-            throw new System.NotImplementedException();
+            ProductId = newEntity.ProductId;
         }
 
         protected override Products GetEntityData()
         {
-            throw new System.NotImplementedException();
+            return null;
         }
 
         protected override void ClearData()
         {
-            throw new System.NotImplementedException();
+            ProductId = 0;
+            ProductName = QuantityPerUnit = OrderComment = PurchaseComment = string.Empty;
+            SupplierAutoFillValue = CategoryAutoFillValue = null;
+            UnitPrice = UnitsInStock = UnitsOnOrder = ReorderLevel = null;
+            Discontinued = false;
+            UnitDecimals = 2;
         }
 
         protected override bool SaveEntity(Products entity)

@@ -84,6 +84,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             DateCultureId = registry.DateCultureId;
             DateEntryFormat = registry.DateEntryFormat;
             DateDisplayFormat = registry.DateDisplayFormat;
+
+            LookupDefaults.SetDefaultNumberCultureId(NumberCultureId);
+            LookupDefaults.SetDefaultDateFormatId(DateCultureId);
         }
 
         public static DecimalEditControlSetup CreateNewDecimalEditControlSetup()

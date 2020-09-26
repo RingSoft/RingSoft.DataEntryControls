@@ -5,6 +5,7 @@ using RingSoft.DbLookup.DataProcessor;
 using RingSoft.DbLookup.EfCore;
 using RingSoft.DbLookup.Lookup;
 using RingSoft.DbLookup.ModelDefinition;
+using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -112,7 +113,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         protected override void SetupModel()
         {
-            
+            Products.GetFieldDefinition(p => p.UnitPrice).HasDecimalFieldType(DecimalFieldTypes.Currency);
         }
 
     }
