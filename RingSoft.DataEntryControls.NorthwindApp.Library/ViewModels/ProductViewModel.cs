@@ -220,7 +220,35 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        //public int? NonInventoryCodeId { get; set; }
+        private AutoFillSetup _nonInventoryCodeAutoFillSetup;
+
+        public AutoFillSetup NonInventoryCodeAutoFillSetup
+        {
+            get => _nonInventoryCodeAutoFillSetup;
+            set
+            {
+                if (_nonInventoryCodeAutoFillSetup == value)
+                    return;
+
+                _nonInventoryCodeAutoFillSetup = value;
+                OnPropertyChanged(nameof(NonInventoryCodeAutoFillSetup));
+            }
+        }
+
+        private AutoFillValue _nonInventoryCodeAutoFillValue;
+
+        public AutoFillValue NonInventoryCodeAutoFillValue
+        {
+            get => _nonInventoryCodeAutoFillValue;
+            set
+            {
+                if (_nonInventoryCodeAutoFillValue == value)
+                    return;
+
+                _nonInventoryCodeAutoFillValue = value;
+                OnPropertyChanged(nameof(NonInventoryCodeAutoFillValue));
+            }
+        }
 
         private byte _unitDecimals;
 

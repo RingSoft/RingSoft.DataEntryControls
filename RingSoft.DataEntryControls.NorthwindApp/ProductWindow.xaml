@@ -8,7 +8,15 @@
         xmlns:lc="clr-namespace:RingSoft.DbLookup.Controls.WPF;assembly=RingSoft.DbLookup.Controls.WPF"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         mc:Ignorable="d"
-        Title="ProductWindow" SizeToContent="Width" Height="450">
+        Title="ProductWindow" Width="500" Height="400">
+    <Window.Resources>
+        <Style TargetType="dec:StringEditControl" x:Key="CommentStringEditControl">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <vmlib:ProductViewModel x:Name="ProductViewModel"/>
     </Window.DataContext>
@@ -19,25 +27,28 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="225"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Product ID" Style="{StaticResource ControlLabel}"/>
             <dec:StringReadOnlyBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=ProductId}" DesignText="123456" Width="60" HorizontalAlignment="Left"/>
-            <Label Grid.Row="0" Grid.Column="2" Content="Product Name" Style="{StaticResource ControlLabel}"/>
-            <lc:AutoFillControl x:Name="ProductNameControl" Grid.Row="0" Grid.Column="3" DesignText="Chef Anton's Cajun Seasoning"/>
-            <Label Grid.Row="1" Grid.Column="0" Content="Supplier" Style="{StaticResource ControlLabel}"/>
-            <lc:AutoFillControl Grid.Row="1" Grid.Column="1" DesignText="New England Seafood Cannery" Setup="{Binding SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Category"/>
-            <lc:AutoFillControl Grid.Row="1" Grid.Column="3" DesignText="Grains/Cereals" Width="125" HorizontalAlignment="Left" Setup="{Binding CategoryAutoFillSetup}" Value="{Binding Path=CategoryAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TabControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+            <Label Grid.Row="1" Grid.Column="0" Content="Product Name" Style="{StaticResource ControlLabel}"/>
+            <lc:AutoFillControl x:Name="ProductNameControl" Grid.Row="1" Grid.Column="1" DesignText="Chef Anton's Cajun Seasoning"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Supplier" Style="{StaticResource ControlLabel}"/>
+            <lc:AutoFillControl Grid.Row="2" Grid.Column="1" DesignText="New England Seafood Cannery" Setup="{Binding SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Category"/>
+            <lc:AutoFillControl Grid.Row="3" Grid.Column="1" DesignText="Grains/Cereals" Width="125" HorizontalAlignment="Left" Setup="{Binding CategoryAutoFillSetup}" Value="{Binding Path=CategoryAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TabControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
                 <TabItem Header="Qty/Price">
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -48,10 +59,36 @@
                             <ColumnDefinition Width="150"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Unit Price" Style="{StaticResource ControlLabel}"/>
-                        <dec:DecimalEditControl Grid.Row="0" Grid.Column="1" Value="{Binding Path=UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="RS$ 1.000,00" FormatType="Currency"/>
+                        <dec:DecimalEditControl Grid.Row="0" Grid.Column="1" Value="{Binding Path=UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="RS$ 1.000,00" FormatType="Currency" Margin="0,2.5"/>
                         <Label Grid.Row="0" Grid.Column="2" Content="Quantity Per Unit" Style="{StaticResource ControlLabel}"/>
-                        <dec:StringEditControl Grid.Row="0" Grid.Column="3" Text="{Binding Path=QuantityPerUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="10 boxes x 8 pieces"/>
+                        <dec:StringEditControl Grid.Row="0" Grid.Column="3" Text="{Binding Path=QuantityPerUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="10 boxes x 8 pieces" Margin="0,2.5"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="Units In Stock" Style="{StaticResource ControlLabel}"/>
+                        <dec:DecimalEditControl Grid.Row="1" Grid.Column="1" Value="{Binding Path=UnitsInStock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="999,99" Margin="0,2.5"/>
+                        <Label Grid.Row="1" Grid.Column="2" Content="Units On Order" Style="{StaticResource ControlLabel}"/>
+                        <dec:DecimalEditControl Grid.Row="1" Grid.Column="3" Value="{Binding Path=UnitsOnOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="999,99" Width="100" HorizontalAlignment="Left" Margin="0,2.5"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Reorder Level"/>
+                        <dec:DecimalEditControl Grid.Row="2" Grid.Column="1" Value="{Binding Path=ReorderLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="999,99" Margin="0,2.5"/>
+                        <Label Grid.Row="2" Grid.Column="2" Content="Unit Decimals" Style="{StaticResource ControlLabel}"/>
+                        <dec:IntegerEditControl Grid.Row="2" Grid.Column="3" Value="{Binding Path=UnitDecimals, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="10" Width="50" HorizontalAlignment="Left" Margin="0,2.5" MaximumValue="10"/>
+                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
+                            <CheckBox Content="Discontinued" IsChecked="{Binding Path=Discontinued, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="2.5" />
+                            <Label Content="Non Inventory Code" Style="{StaticResource ControlLabel}"/>
+                            <lc:AutoFillControl Setup="{Binding Path=NonInventoryCodeAutoFillSetup}" Value="{Binding Path=NonInventoryCodeAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="125"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Comments">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Sales Entry Comment"/>
+                        <dec:StringEditControl Grid.Row="1" Text="{Binding Path=OrderComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CommentStringEditControl}"/>
+                        <Label Grid.Row="2" Content="Purchase Order Comment"/>
+                        <dec:StringEditControl Grid.Row="3" Text="{Binding Path=PurchaseComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CommentStringEditControl}"/>
                     </Grid>
                 </TabItem>
             </TabControl>
