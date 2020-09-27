@@ -42,6 +42,10 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
+        <Style TargetType="dec:StringEditControl">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
         <Style TargetType="PasswordBox" x:Key="StandardPasswordBox">
             <Setter Property="Height" Value="20"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
