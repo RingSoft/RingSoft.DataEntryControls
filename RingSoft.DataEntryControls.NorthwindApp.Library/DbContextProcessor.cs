@@ -83,7 +83,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public Products GetProduct(int productId)
         {
             var context = new NorthwindDbContext();
-            return context.Products.FirstOrDefault(f => f.ProductId == productId);
+            var result = context.Products.Include(i => i.Supplier)
+                .Include(i => i.Category)
+                .Include(i => i.NonInventoryCode)
+                .FirstOrDefault(f => f.ProductId == productId);
+            return result;
         }
     }
 }

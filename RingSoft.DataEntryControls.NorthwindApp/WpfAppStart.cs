@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             _mainWindow.Show();
         }
 
-        private void LookupContext_LookupAddView(object sender, DbLookup.Lookup.LookupAddViewArgs e)
+        private void LookupContext_LookupAddView(object sender, LookupAddViewArgs e)
         {
             if (e.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.Products)
             {

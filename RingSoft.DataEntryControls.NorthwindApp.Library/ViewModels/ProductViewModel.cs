@@ -24,21 +24,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private string _productName;
-
-        public string ProductName
-        {
-            get => _productName;
-            set
-            {
-                if (_productName == value)
-                    return;
-
-                _productName = value;
-                OnPropertyChanged(nameof(ProductName));
-            }
-        }
-
         private AutoFillSetup _supplierAutoFillSetup;
 
         public AutoFillSetup SupplierAutoFillSetup
@@ -283,6 +268,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         protected override void LoadFromEntity(Products newEntity)
         {
             ProductId = newEntity.ProductId;
+            var product = AppGlobals.DbContextProcessor.GetProduct(ProductId);
+            var primaryKey = AppGlobals.LookupContext.Products.GetPrimaryKeyValueFromEntity(newEntity);
+            KeyAutoFillValue = new AutoFillValue(primaryKey, product.ProductName);
+
+            primaryKey = AppGlobals.LookupContext.Suppliers.GetPrimaryKeyValueFromEntity(product.Supplier);
+            SupplierAutoFillValue = new AutoFillValue(primaryKey, product.Supplier.CompanyName);
+
+            primaryKey = AppGlobals.LookupContext.Categories.GetPrimaryKeyValueFromEntity(product.Category);
+            CategoryAutoFillValue = new AutoFillValue(primaryKey, product.Category.CategoryName);
+
+            QuantityPerUnit = product.QuantityPerUnit;
+            UnitPrice = product.UnitPrice;
+            UnitsInStock = product.UnitsInStock;
+            UnitsOnOrder = product.UnitsOnOrder;
+            ReorderLevel = product.ReorderLevel;
+            Discontinued = product.Discontinued;
+            OrderComment = product.OrderComment;
+            PurchaseComment = product.PurchaseComment;
+            UnitDecimals = product.UnitDecimals;
         }
 
         protected override Products GetEntityData()
@@ -293,7 +297,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         protected override void ClearData()
         {
             ProductId = 0;
-            ProductName = QuantityPerUnit = OrderComment = PurchaseComment = string.Empty;
+            QuantityPerUnit = OrderComment = PurchaseComment = string.Empty;
             SupplierAutoFillValue = CategoryAutoFillValue = null;
             UnitPrice = UnitsInStock = UnitsOnOrder = ReorderLevel = null;
             Discontinued = false;
