@@ -1,6 +1,7 @@
-﻿using System.Windows;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using System.Windows;
 using System.Windows.Controls;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -46,8 +47,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 Control = control;
                 
                 control.Focus();
+                Control.PreviewLostKeyboardFocus += Control_PreviewLostKeyboardFocus;
                 OnControlLoaded(control, CellProps);
             }
+        }
+
+        private void Control_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var value = GetCellValue();
+            if (!value.Row.ValidateControlLostFocusValue(value))
+                e.Handled = true;
         }
     }
 }

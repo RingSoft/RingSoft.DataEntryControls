@@ -37,6 +37,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             IsNew = false;
         }
 
+        public virtual bool ValidateControlLostFocusValue(DataEntryGridCellProps value)
+        {
+            return true;
+        }
+
         public virtual DataEntryGridCellStyle GetCellStyle(int columnId)
         {
             return new DataEntryGridCellStyle();
