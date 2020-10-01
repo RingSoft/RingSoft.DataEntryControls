@@ -8,9 +8,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     public abstract class SalesEntryDetailsValueRow : SalesEntryDetailsRow
     
     {
-        public decimal Quantity { get; private set; }
+        public decimal Quantity { get; protected set; }
 
-        public decimal Price { get; private set; }
+        public decimal Price { get; protected set; }
 
         public decimal ExtendedPrice
         {

@@ -61,9 +61,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             HeaderLabel = $"'{invalidProductValue.Text}' was not found in the database.  What do you wish to do?";
         }
 
-        public bool AddNewProduct()
+        public bool AddNewProduct(object ownerWindow)
         {
-            return false;
+            var newProductResult =
+                AppGlobals.LookupContext.ProductsLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, ownerWindow);
+
+            if (!newProductResult.NewPrimaryKeyValue.ContainsValidData())
+                return false;
+
+            Result.NewItemValue = new AutoFillValue(newProductResult.NewPrimaryKeyValue,
+                newProductResult.NewLookupEntity.ProductName);
+
+            return true;
         }
 
         public bool AddNewNonInventoryCode()

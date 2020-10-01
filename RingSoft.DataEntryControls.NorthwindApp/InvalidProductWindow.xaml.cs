@@ -17,7 +17,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Loaded += (sender, args) => ViewModel.OnViewLoaded(this, invalidProductValue);
             AddProductButton.Click += (sender, args) =>
             {
-                if (ViewModel.AddNewProduct())
+                if (ViewModel.AddNewProduct(this))
                     Close();
             };
             AddNonInventoryButton.Click += (sender, args) =>

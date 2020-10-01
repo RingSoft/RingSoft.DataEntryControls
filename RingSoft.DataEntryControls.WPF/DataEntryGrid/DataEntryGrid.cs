@@ -165,6 +165,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                 _gridHasFocus = false;
             }
+
+            SelectedCells.Clear();
         }
 
         private void DataEntryGrid_GotFocus(object sender, RoutedEventArgs e)
@@ -205,6 +207,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
 
             _gridHasFocus = true;
+        }
+
+        protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
+        {
+            if (!IsKeyboardFocusWithin && SelectedCells.Any())
+                SelectedCells.Clear();
+
+            base.OnSelectedCellsChanged(e);
         }
 
         private void OnLoad()
@@ -890,7 +900,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (EditingControlHost != null)
+            if (EditingControlHost != null && EditingControlHost.Control != null)
             {
                 if (!EditingControlHost.CanGridProcessKey(e.Key))
                 {

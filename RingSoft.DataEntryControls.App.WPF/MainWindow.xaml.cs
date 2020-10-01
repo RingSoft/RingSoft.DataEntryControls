@@ -63,6 +63,14 @@ namespace RingSoft.DataEntryControls.App.WPF
             //DateEditControl.DisplayFormat = "D";
             //DateEditControl.Value = DateTime.Parse("01/01/1980");
 
+            //DateEditControl.PreviewLostKeyboardFocus += (sender, args) =>
+            //{
+            //    if (MessageBox.Show("OK?", "OK?", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            //    {
+            //        args.Handled = true;
+            //    }
+            //};
+
             var saleDetails = new List<SaleDetail>();
 
             for (int i = 0; i < 2; i++)

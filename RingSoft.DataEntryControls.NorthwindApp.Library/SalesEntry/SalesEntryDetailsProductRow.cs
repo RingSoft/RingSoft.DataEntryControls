@@ -60,6 +60,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                                     case InvalidProductResultReturnCodes.Cancel:
                                         break;
                                     case InvalidProductResultReturnCodes.NewProduct:
+                                        validProduct = true;
+                                        autoFillCellProps.AutoFillValue = correctedValue.NewItemValue;
                                         break;
                                     case InvalidProductResultReturnCodes.NewNonInventory:
                                         break;
@@ -72,14 +74,24 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                                 }
                             }
 
-                            //if (!validProduct)
+                            if (!validProduct)
                             {
                                 autoFillCellProps.AutoFillValue = ProductValue;
                                 autoFillCellProps.ValidationResult = false;
                             }
                         }
+
                         if (validProduct)
+                        {
                             ProductValue = autoFillCellProps.AutoFillValue;
+                            var product =
+                                AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
+                                    .PrimaryKeyValue);
+                            product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
+                            Quantity = 1;
+                            if (product.UnitPrice != null) 
+                                Price = (decimal) product.UnitPrice;
+                        }
                     }
 
                     break;
