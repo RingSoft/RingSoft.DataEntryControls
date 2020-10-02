@@ -36,6 +36,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         {
         }
 
+        public virtual void RaiseDirtyFlag()
+        {
+
+        }
+
         protected abstract DataEntryGridRow GetNewRow();
 
         private void ClearRows(bool addRowToBottom = true)

@@ -691,6 +691,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 if (CanUserAddRows)
                     Manager.InsertNewRow();
             }
+            Manager.RaiseDirtyFlag();
         }
 
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)

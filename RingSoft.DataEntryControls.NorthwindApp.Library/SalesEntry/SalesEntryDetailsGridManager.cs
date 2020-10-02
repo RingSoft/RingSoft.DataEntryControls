@@ -67,5 +67,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             PostLoadGridFromEntity();
         }
+
+        public override void RaiseDirtyFlag()
+        {
+            
+            base.RaiseDirtyFlag();
+        }
     }
 }

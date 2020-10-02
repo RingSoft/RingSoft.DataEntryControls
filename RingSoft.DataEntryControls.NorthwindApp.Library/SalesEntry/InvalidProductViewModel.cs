@@ -72,6 +72,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             Result.NewItemValue = new AutoFillValue(newProductResult.NewPrimaryKeyValue,
                 newProductResult.NewLookupEntity.ProductName);
 
+            Result.ReturnCode = InvalidProductResultReturnCodes.NewProduct;
+
             return true;
         }
 
