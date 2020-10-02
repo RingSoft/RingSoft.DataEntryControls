@@ -70,7 +70,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override void RaiseDirtyFlag()
         {
-            
+            ViewModel.RecordDirty = true;
             base.RaiseDirtyFlag();
         }
     }

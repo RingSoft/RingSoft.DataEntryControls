@@ -856,10 +856,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 {
                     case Key.Delete:
                         DeleteCurrentRow();
+                        Manager.RaiseDirtyFlag();
                         e.Handled = true;
                         break;
                     case Key.Insert:
                         InsertRow();
+                        Manager.RaiseDirtyFlag();
                         e.Handled = true;
                         break;
                 }
