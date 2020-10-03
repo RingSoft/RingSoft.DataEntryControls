@@ -356,14 +356,21 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _calendar_SelectedDateChanged(object sender, EventArgs e)
         {
-            Value = Calendar.SelectedDate;
+            SetValueChanged();
             _validateLostFocus = true;
         }
 
         private void _calendar_DatePicked(object sender, EventArgs e)
         {
-            Value = Calendar.SelectedDate;
+            SetValueChanged();
             OnDropDownButtonClick();
+        }
+
+        private void SetValueChanged()
+        {
+            var changedValue = Value != Calendar.SelectedDate;
+            Value = Calendar.SelectedDate;
+            OnValueChanged(Text);
         }
 
         protected override bool ProcessKeyChar(char keyChar)

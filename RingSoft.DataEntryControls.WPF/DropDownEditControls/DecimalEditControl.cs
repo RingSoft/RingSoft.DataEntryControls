@@ -231,7 +231,12 @@ namespace RingSoft.DataEntryControls.WPF
                 newValue = validatedValue;
                 SystemSounds.Exclamation.Play();
             }
+
+            var valueChanged = !newValue.Equals(Value);
             Value = newValue;
+
+            if (valueChanged)
+                OnValueChanged(Text);
         }
 
         protected override void PopulateSetup(DecimalEditControlSetup setup)
