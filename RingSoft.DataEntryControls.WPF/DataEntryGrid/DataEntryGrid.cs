@@ -209,6 +209,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             _gridHasFocus = true;
         }
 
+        public void Refocus()
+        { 
+            BeginEdit();
+        }
+
         protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
         {
             if (!IsKeyboardFocusWithin && SelectedCells.Any())

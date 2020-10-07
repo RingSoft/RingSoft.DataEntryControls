@@ -20,6 +20,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Initialize();
 
             CustomerControl.LostFocus += (sender, args) => SalesEntryViewModel.OnCustomerIdLostFocus();
+            SalesEntryViewModel.CheckDirtyMessageShown += (sender, args) =>
+            {
+                if (args.Result == MessageButtons.Cancel)
+                    DetailsGrid.Refocus();
+            };
         }
 
         public override void ResetViewForNewRecord()

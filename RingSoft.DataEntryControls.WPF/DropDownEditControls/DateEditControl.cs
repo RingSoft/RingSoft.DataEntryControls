@@ -370,7 +370,8 @@ namespace RingSoft.DataEntryControls.WPF
         {
             var changedValue = Value != Calendar.SelectedDate;
             Value = Calendar.SelectedDate;
-            OnValueChanged(Text);
+            if (changedValue)
+                OnValueChanged(Text);
         }
 
         protected override bool ProcessKeyChar(char keyChar)
