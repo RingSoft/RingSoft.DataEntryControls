@@ -46,7 +46,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Item:
                     if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
                     {
-                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
+                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData() ||
+                                           string.IsNullOrEmpty(autoFillCellProps.AutoFillValue.Text);
                         if (!validProduct)
                         {
                             if (!value.SkipValidation)
@@ -84,13 +85,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                         if (validProduct)
                         {
                             ProductValue = autoFillCellProps.AutoFillValue;
-                            var product =
-                                AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
-                                    .PrimaryKeyValue);
-                            product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
-                            Quantity = 1;
-                            if (product.UnitPrice != null) 
-                                Price = (decimal) product.UnitPrice;
+                            if (autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData())
+                            {
+                                var product =
+                                    AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
+                                        .PrimaryKeyValue);
+                                product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
+                                Quantity = 1;
+                                if (product.UnitPrice != null)
+                                    Price = (decimal) product.UnitPrice;
+                            }
                         }
                     }
 
@@ -112,6 +116,30 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 Discount = (decimal) orderDetail.Discount;
 
             base.LoadFromOrderDetail(orderDetail);
+        }
+
+        public override bool ValidateRow()
+        {
+            if (ProductValue == null || !ProductValue.PrimaryKeyValue.ContainsValidData())
+            {
+                SalesEntryDetailsManager.ViewModel.SalesEntryView.GridValidationFail();
+                SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
+
+                var message = "Product must contain a valid value.";
+                SalesEntryDetailsManager.ViewModel.SalesEntryView.OnValidationFail(
+                    AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
+                    "Validation Failure!");
+
+                //Workaround for focus bug.
+                SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
+                return false;
+            }
+            return true;
+        }
+
+        public override void SaveToOrderDetail(OrderDetails orderDetail)
+        {
+            throw new NotImplementedException();
         }
     }
 }

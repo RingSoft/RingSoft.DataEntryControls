@@ -10,6 +10,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     public interface ISalesEntryMaintenanceView : IDbMaintenanceView
     {
         InvalidProductResult CorrectInvalidProduct(AutoFillValue invalidProductValue);
+
+        void GridValidationFail();
     }
 
     public class SalesEntryViewModel : DbMaintenanceViewModel<Orders>
@@ -556,6 +558,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 return ShipVia;
 
             return base.GetAutoFillValueForNullableForeignKeyField(fieldDefinition);
+        }
+
+        protected override bool ValidateEntity(Orders entity)
+        {
+            if (!base.ValidateEntity(entity))
+                return false;
+
+            if (!DetailsGridManager.ValidateGrid())
+                return false;
+
+            return true;
         }
 
         protected override bool SaveEntity(Orders entity)

@@ -41,6 +41,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             return invalidProductWindow.ShowDialog();
         }
 
+        public void GridValidationFail()
+        {
+            TabControl.SelectedIndex = 0;
+            DetailsGrid.Focus();
+        }
+
         public override void OnValidationFail(FieldDefinition fieldDefinition, string text, string caption)
         {
             var table = AppGlobals.LookupContext.Orders;

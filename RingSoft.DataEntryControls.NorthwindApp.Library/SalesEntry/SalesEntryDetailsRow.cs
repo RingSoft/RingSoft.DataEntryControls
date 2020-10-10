@@ -46,5 +46,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         }
 
         public abstract void LoadFromOrderDetail(OrderDetails orderDetail);
+
+        public abstract bool ValidateRow();
+
+        public abstract void SaveToOrderDetail(OrderDetails orderDetail);
     }
 }

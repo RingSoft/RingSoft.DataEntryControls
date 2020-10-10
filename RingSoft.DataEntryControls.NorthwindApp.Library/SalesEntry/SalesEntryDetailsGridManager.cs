@@ -73,5 +73,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             ViewModel.RecordDirty = true;
             base.RaiseDirtyFlag();
         }
+
+        public bool ValidateGrid()
+        {
+            if (!Grid.CommitEdit())
+                return false;
+
+            foreach (var dataEntryGridRow in Rows)
+            {
+                if (dataEntryGridRow is SalesEntryDetailsRow row)
+                    if (!row.ValidateRow())
+                        return false;
+            }
+            return true;
+        }
     }
 }

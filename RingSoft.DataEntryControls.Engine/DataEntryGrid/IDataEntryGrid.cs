@@ -12,6 +12,10 @@
 
         bool CancelEdit(bool skipValidation);
 
+        bool CommitEdit();
+
         void ResetGridFocus();
+
+        void GotoCell(DataEntryGridRow row, int columnId);
     }
 }

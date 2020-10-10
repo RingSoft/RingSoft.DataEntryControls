@@ -201,6 +201,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     }
                 }
             }
+
             if (beginEdit && !_cancellingEdit)
             {
                 BeginEdit();
@@ -779,6 +780,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             if (IsKeyboardFocusWithin)
                 TabRight(0, -1);
+        }
+
+        public void GotoCell(DataEntryGridRow row, int columnId)
+        {
+            var rowIndex = Manager.Rows.IndexOf(row);
+            var columnIndex = GetColumnIndexOfColumnId(columnId);
+            SetFocusToCell(rowIndex, columnIndex);
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
