@@ -159,10 +159,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             if (!IsKeyboardFocusWithin)
             {
-                //For some reason, when a new row is added at the bottom when the editing control is dirty, it prevents OnCellEditEnding from being run and the current row index to be set to -1 when grid looses focus via mouse click.  This hack covers that situation.
-                if (EditingControlHost != null)
-                    CancelEdit();
-
                 _gridHasFocus = false;
             }
 
@@ -217,7 +213,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
         {
-            if (!IsKeyboardFocusWithin && SelectedCells.Any())
+            if (SelectedCells.Any())
                 SelectedCells.Clear();
 
             base.OnSelectedCellsChanged(e);
@@ -722,15 +718,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     return;
                 }
 
-                var skipValidation = !IsKeyboardFocusWithin;
                 var cellValue = EditingControlHost.GetCellValue();
-                cellValue.SkipValidation = skipValidation;
                 var dataEntryGridRow = Manager.Rows[rowIndex];
                 dataEntryGridRow.SetCellValue(cellValue);
 
-                if (!cellValue.ValidationResult && !skipValidation)
+                if (!cellValue.ValidationResult)
                 {
-                    EditingControlHost.ProcessValidationFail(cellValue);
                     e.Cancel = true;
                     base.OnCellEditEnding(e);
                     return;
@@ -740,10 +733,46 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
 
                 EditingControlHost = null;
-                if (skipValidation)
-                    SelectedCells.Clear();
             }
             base.OnCellEditEnding(e);
+        }
+
+        protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            if (EditingControlHost != null && EditingControlHost.Control != null &&
+                !e.NewFocus.Equals(EditingControlHost.Control))
+            {
+                if (e.NewFocus is DependencyObject newFocus)
+                {
+                    var parent = newFocus.GetParentOfType(EditingControlHost.Control.GetType());
+                    if (!EditingControlHost.Control.Equals(parent))
+                    {
+                        if (!CommitEdit())
+                        {
+                            e.Handled = true;
+                            SelectedCells.Clear();
+                        }
+                        else if (!e.NewFocus.Equals(this))
+                            CancelEdit(true);
+                    }
+                }
+            }
+            base.OnPreviewLostKeyboardFocus(e);
+        }
+
+        public new bool CommitEdit()
+        {
+            if (EditingControlHost != null && EditingControlHost.Control != null && EditingControlHost.HasDataChanged())
+            {
+                var currentRow = Manager.Rows[GetCurrentRowIndex()];
+                var cellValue = EditingControlHost.GetCellValue();
+                currentRow.SetCellValue(cellValue);
+                if (!cellValue.ValidationResult)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public new bool CancelEdit()
@@ -928,37 +957,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
 
             base.OnKeyDown(e);
-        }
-
-        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
-        {
-            var currentRowIndex = GetCurrentRowIndex();
-            var currentColumnIndex = GetCurrentColumnIndex();
-
-            HitTestResult hitTestResult =
-                VisualTreeHelper.HitTest(this, e.GetPosition(this));
-
-            if (hitTestResult != null)
-            {
-                var cell = hitTestResult.VisualHit.GetParentOfType<DataGridCell>();
-                var row = hitTestResult.VisualHit.GetParentOfType<DataGridRow>();
-                if (row != null && cell != null)
-                {
-                    var mouseRowIndex = Items.IndexOf(row.Item);
-                    var mouseColumnIndex = base.Columns.IndexOf(cell.Column);
-
-                    if (!(mouseRowIndex == currentRowIndex && mouseColumnIndex == currentColumnIndex))
-                    {
-                        if (!(EditingControlHost != null && EditingControlHost.IsDropDownOpen))
-                        {
-                            if (!CancelEdit())
-                                e.Handled = true;
-                        }
-                    }
-                }
-            }
-
-            base.OnPreviewMouseDown(e);
         }
 
         private void ProcessTab()

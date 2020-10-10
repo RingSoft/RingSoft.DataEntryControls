@@ -48,10 +48,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return true;
         }
 
-        public virtual void ProcessValidationFail(DataEntryGridCellProps cellProps)
-        {
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

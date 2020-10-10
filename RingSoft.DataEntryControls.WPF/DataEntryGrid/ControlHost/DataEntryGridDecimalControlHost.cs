@@ -29,13 +29,5 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             
             base.OnControlLoaded(control, cellProps);
         }
-
-        public override void ProcessValidationFail(DataEntryGridCellProps cellProps)
-        {
-            var decimalCellProps = (DataEntryGridDecimalCellProps) cellProps;
-            Control.Value = decimalCellProps.Value;
-
-            base.ProcessValidationFail(cellProps);
-        }
     }
 }

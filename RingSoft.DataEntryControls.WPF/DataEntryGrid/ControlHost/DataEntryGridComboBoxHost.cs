@@ -8,7 +8,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
     public class DataEntryGridComboBoxHost : DataEntryGridControlHost<ComboBox>
     {
-        private bool _selectingItem;
         public DataEntryGridComboBoxCellProps ComboBoxCellProps { get; private set; }
 
         public override bool IsDropDownOpen => Control.IsDropDownOpen;
@@ -39,21 +38,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
             Control.SelectionChanged += (sender, args) =>
             {
-                if (!_selectingItem)
-                {
-                    OnControlDirty();
-                    var controlValue = GetComboBoxCellProps(GetCellValue());
-                    controlValue.ChangeType = ComboBoxValueChangedTypes.SelectedItemChanged;
-                    OnUpdateSource(controlValue);
-                }
+                OnControlDirty();
+                var controlValue = GetComboBoxCellProps(GetCellValue());
+                controlValue.ChangeType = ComboBoxValueChangedTypes.SelectedItemChanged;
+                OnUpdateSource(controlValue);
             };
-        }
-
-        private void SelectItem(ComboBoxItem item)
-        {
-            _selectingItem = true;
-            Control.SelectedItem = item;
-            _selectingItem = false;
         }
 
         private DataEntryGridComboBoxCellProps GetComboBoxCellProps(DataEntryGridCellProps cellProps)
@@ -91,13 +80,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                     break;
             }
             return base.CanGridProcessKey(key);
-        }
-
-        public override void ProcessValidationFail(DataEntryGridCellProps cellProps)
-        {
-            var comboBoxProps = GetComboBoxCellProps(cellProps);
-            SelectItem(comboBoxProps.SelectedItem);
-            base.ProcessValidationFail(cellProps);
         }
     }
 }

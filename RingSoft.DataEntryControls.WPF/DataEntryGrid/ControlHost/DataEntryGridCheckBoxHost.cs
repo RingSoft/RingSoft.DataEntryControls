@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
@@ -49,6 +50,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 OnUpdateSource(GetCellValue());
                 CheckBoxCellProps.Value = (bool) control.IsChecked;
             };
+
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+                control.IsChecked = !control.IsChecked;
         }
     }
 }

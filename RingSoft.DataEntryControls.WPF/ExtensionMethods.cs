@@ -34,6 +34,16 @@ namespace RingSoft.DataEntryControls.WPF
             return GetParentOfType<T>(parent);
         }
 
+        public static DependencyObject GetParentOfType(this DependencyObject element, Type type)
+        {
+            if (element == null) return null;
+            DependencyObject parent = VisualTreeHelper.GetParent(element);
+            if (parent == null && ((FrameworkElement)element).Parent != null) parent = ((FrameworkElement)element).Parent;
+            if (parent == null) return null;
+            else if (parent.GetType() == type || parent.GetType().IsSubclassOf(type)) return parent;
+            return GetParentOfType(parent, type);
+        }
+
         [DllImport("user32.dll")]
         public static extern int ToUnicode(
             uint wVirtKey,

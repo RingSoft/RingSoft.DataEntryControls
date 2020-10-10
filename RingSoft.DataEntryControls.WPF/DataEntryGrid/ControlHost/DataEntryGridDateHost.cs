@@ -31,14 +31,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             base.OnControlLoaded(control, cellProps);
         }
 
-        public override void ProcessValidationFail(DataEntryGridCellProps cellProps)
-        {
-            var dateCellProps = (DataEntryGridDateCellProps)cellProps;
-            Control.Value = dateCellProps.Value;
-
-            base.ProcessValidationFail(cellProps);
-        }
-
         public override bool CanGridProcessKey(Key key)
         {
             if (Control.IsPopupOpen())
