@@ -3,11 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net472;netstandard2.1</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Version>00.50.00</Version>
+    <Version>00.51.00</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>Library to handle RingSoft.DataEntryControls.</Description>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>
+    <Authors>Peter Ringering</Authors>
   </PropertyGroup>
 
 </Project>
