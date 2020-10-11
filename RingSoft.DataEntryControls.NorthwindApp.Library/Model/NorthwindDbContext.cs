@@ -48,8 +48,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.CategoryId);
 
                 entity.Property(e => e.CategoryId)
-                    .HasColumnName("CategoryID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("CategoryID");
 
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
@@ -94,8 +93,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.EmployeeId);
 
                 entity.Property(e => e.EmployeeId)
-                    .HasColumnName("EmployeeID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("EmployeeID");
 
                 entity.Property(e => e.Address).HasColumnType("nvarchar(60)");
 
@@ -141,8 +139,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.NonInventoryCodeId);
 
                 entity.Property(e => e.NonInventoryCodeId)
-                    .HasColumnName("NonInventoryCodeID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("NonInventoryCodeID");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -208,8 +205,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.OrderId);
 
                 entity.Property(e => e.OrderId)
-                    .HasColumnName("OrderID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("OrderID");
 
                 entity.Property(e => e.CustomerId)
                     .HasColumnName("CustomerID")
@@ -257,8 +253,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.ProductId);
 
                 entity.Property(e => e.ProductId)
-                    .HasColumnName("ProductID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("ProductID");
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
@@ -363,8 +358,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.PurchaseOrderId);
 
                 entity.Property(e => e.PurchaseOrderId)
-                    .HasColumnName("PurchaseOrderID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("PurchaseOrderID");
 
                 entity.Property(e => e.Address).HasColumnType("nvarchar(60)");
 
@@ -400,8 +394,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.ShipperId);
 
                 entity.Property(e => e.ShipperId)
-                    .HasColumnName("ShipperID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("ShipperID");
 
                 entity.Property(e => e.CompanyName)
                     .IsRequired()
@@ -415,8 +408,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.HasKey(e => e.SupplierId);
 
                 entity.Property(e => e.SupplierId)
-                    .HasColumnName("SupplierID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("SupplierID");
 
                 entity.Property(e => e.Address).HasColumnType("nvarchar(60)");
 

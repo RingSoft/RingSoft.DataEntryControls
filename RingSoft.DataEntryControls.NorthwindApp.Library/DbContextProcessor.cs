@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.EfCore;
 using System.Linq;
@@ -68,10 +69,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 .FirstOrDefault(f => f.OrderId == orderId);
         }
 
-        public bool SaveOrder(Orders order)
+        public bool SaveOrder(Orders order, List<OrderDetails> orderDetails)
         {
             var context = new NorthwindDbContext();
-            return context.SaveEntity(context.Orders, order, "Saving Order");
+            var result = context.SaveEntity(context.Orders, order, "Saving Order");
+
+            if (result)
+            {
+                //context.OrderDetails.Remove();
+                foreach (var orderDetail in orderDetails)
+                {
+                    orderDetail.OrderId = order.OrderId;
+                }
+            }
+            return result;
         }
 
         public bool DeleteOrder(int orderId)

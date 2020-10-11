@@ -62,5 +62,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             if (orderDetail.UnitPrice != null)
                 Price = (decimal) orderDetail.UnitPrice;
         }
+
+        public override void SaveToOrderDetail(OrderDetails orderDetail)
+        {
+            orderDetail.Quantity = Quantity;
+            orderDetail.UnitPrice = Price;
+        }
     }
 }

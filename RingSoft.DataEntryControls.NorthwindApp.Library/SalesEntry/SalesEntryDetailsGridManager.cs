@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 
@@ -81,11 +82,34 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             foreach (var dataEntryGridRow in Rows)
             {
-                if (dataEntryGridRow is SalesEntryDetailsRow row)
+                if (dataEntryGridRow is SalesEntryDetailsRow row && !row.IsNew)
                     if (!row.ValidateRow())
                         return false;
             }
             return true;
+        }
+
+        public List<OrderDetails> GetDetailsData()
+        {
+            var result = new List<OrderDetails>();
+            var detailId = 0;
+            foreach (var dataEntryGridRow in Rows)
+            {
+                if (dataEntryGridRow is SalesEntryDetailsRow row && !row.IsNew)
+                {
+                    var orderDetail = new OrderDetails();
+                    orderDetail.OrderDetailId = detailId;
+                    orderDetail.LineType = (byte) row.LineType;
+                    orderDetail.RowId = row.RowId;
+                    orderDetail.ParentRowId = row.ParentRowId;
+
+                    row.SaveToOrderDetail(orderDetail);
+                    result.Add(orderDetail);
+                    detailId++;
+                }
+            }
+
+            return result;
         }
     }
 }

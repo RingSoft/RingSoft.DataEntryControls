@@ -573,7 +573,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override bool SaveEntity(Orders entity)
         {
-            return AppGlobals.DbContextProcessor.SaveOrder(entity);
+            var orderDetails = DetailsGridManager.GetDetailsData();
+            return AppGlobals.DbContextProcessor.SaveOrder(entity, orderDetails);
         }
 
         protected override bool DeleteEntity()

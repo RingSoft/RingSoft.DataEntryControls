@@ -139,7 +139,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override void SaveToOrderDetail(OrderDetails orderDetail)
         {
-            throw new NotImplementedException();
+            orderDetail.ProductId = AppGlobals.LookupContext.Products
+                .GetEntityFromPrimaryKeyValue(ProductValue.PrimaryKeyValue).ProductId;
+            orderDetail.Discount = (float)Discount;
+
+            base.SaveToOrderDetail(orderDetail);
         }
     }
 }
