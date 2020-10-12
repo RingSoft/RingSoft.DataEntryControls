@@ -8,8 +8,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.5" />
-    <PackageReference Include="RingSoft.DbLookup.EfCore" Version="1.12.0" />
-    <PackageReference Include="RingSoft.DbMaintenance" Version="1.12.0" />
+    <PackageReference Include="RingSoft.DbLookup.EfCore" Version="1.13.0" />
+    <PackageReference Include="RingSoft.DbMaintenance" Version="1.13.0" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.1" />
   </ItemGroup>
 
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <None Update="RSDEC_Northwind.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="RSDEC_Northwind_Sqlite.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

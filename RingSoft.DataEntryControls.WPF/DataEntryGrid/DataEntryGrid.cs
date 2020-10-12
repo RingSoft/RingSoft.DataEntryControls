@@ -160,6 +160,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (!IsKeyboardFocusWithin)
             {
                 _gridHasFocus = false;
+                EditingControlHost = null; //This is done when DbMaintenance window resets focus on New Record operation.
             }
 
             SelectedCells.Clear();
@@ -758,6 +759,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
             }
             base.OnPreviewLostKeyboardFocus(e);
+        }
+
+        protected override void OnPreviewGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            if (EditingControlHost != null && EditingControlHost.Control != null &&
+                e.OldFocus == null && e.NewFocus.GetType() == typeof(DataGridCell))
+            {
+                SetFocusToCell(GetCurrentRowIndex(), GetCurrentColumnIndex());
+            }
+            base.OnPreviewGotKeyboardFocus(e);
         }
 
         public new bool CommitEdit()

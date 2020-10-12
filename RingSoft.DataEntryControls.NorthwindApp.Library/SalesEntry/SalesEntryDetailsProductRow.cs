@@ -130,8 +130,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
                     "Validation Failure!");
 
-                //Workaround for focus bug.
-                SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
                 return false;
             }
             return true;

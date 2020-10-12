@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.EfCore;
 using System.Linq;
+using RingSoft.DbLookup.DataProcessor;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -76,11 +78,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
             if (result)
             {
-                //context.OrderDetails.Remove();
+                context.OrderDetails.RemoveRange(context.OrderDetails.Where(w => w.OrderId == order.OrderId));
+
                 foreach (var orderDetail in orderDetails)
                 {
                     orderDetail.OrderId = order.OrderId;
+                    context.OrderDetails.Add(orderDetail);
                 }
+                result = context.SaveEfChanges("Saving Order Details");
             }
             return result;
         }
@@ -89,6 +94,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         {
             var context = new NorthwindDbContext();
             var order = context.Orders.FirstOrDefault(p => p.OrderId == orderId);
+
+            context.OrderDetails.RemoveRange(context.OrderDetails.Where(w => w.OrderId == order.OrderId));
             return context.DeleteEntity(context.Orders, order, "Deleting Order");
         }
         public Products GetProduct(int productId)

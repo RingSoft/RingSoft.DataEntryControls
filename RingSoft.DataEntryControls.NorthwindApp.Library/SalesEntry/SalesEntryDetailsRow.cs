@@ -45,7 +45,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return base.GetCellStyle(columnId);
         }
 
-        public abstract void LoadFromOrderDetail(OrderDetails orderDetail);
+        public virtual void LoadFromOrderDetail(OrderDetails orderDetail)
+        {
+            IsNew = false;
+        }
 
         public abstract bool ValidateRow();
 

@@ -1,4 +1,5 @@
 ﻿using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
 using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbMaintenance;
@@ -265,28 +266,32 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             base.Initialize();
         }
 
-        protected override void LoadFromEntity(Products newEntity)
+        protected override Products PopulatePrimaryKeyControls(Products newEntity, PrimaryKeyValue primaryKeyValue)
         {
             ProductId = newEntity.ProductId;
             var product = AppGlobals.DbContextProcessor.GetProduct(ProductId);
-            var primaryKey = AppGlobals.LookupContext.Products.GetPrimaryKeyValueFromEntity(newEntity);
-            KeyAutoFillValue = new AutoFillValue(primaryKey, product.ProductName);
+            
+            KeyAutoFillValue = new AutoFillValue(primaryKeyValue, product.ProductName);
+            return product;
+        }
 
-            primaryKey = AppGlobals.LookupContext.Suppliers.GetPrimaryKeyValueFromEntity(product.Supplier);
-            SupplierAutoFillValue = new AutoFillValue(primaryKey, product.Supplier.CompanyName);
+        protected override void LoadFromEntity(Products entity)
+        {
+            var primaryKey = AppGlobals.LookupContext.Suppliers.GetPrimaryKeyValueFromEntity(entity.Supplier);
+            SupplierAutoFillValue = new AutoFillValue(primaryKey, entity.Supplier.CompanyName);
 
-            primaryKey = AppGlobals.LookupContext.Categories.GetPrimaryKeyValueFromEntity(product.Category);
-            CategoryAutoFillValue = new AutoFillValue(primaryKey, product.Category.CategoryName);
+            primaryKey = AppGlobals.LookupContext.Categories.GetPrimaryKeyValueFromEntity(entity.Category);
+            CategoryAutoFillValue = new AutoFillValue(primaryKey, entity.Category.CategoryName);
 
-            QuantityPerUnit = product.QuantityPerUnit;
-            UnitPrice = product.UnitPrice;
-            UnitsInStock = product.UnitsInStock;
-            UnitsOnOrder = product.UnitsOnOrder;
-            ReorderLevel = product.ReorderLevel;
-            Discontinued = product.Discontinued;
-            OrderComment = product.OrderComment;
-            PurchaseComment = product.PurchaseComment;
-            UnitDecimals = product.UnitDecimals;
+            QuantityPerUnit = entity.QuantityPerUnit;
+            UnitPrice = entity.UnitPrice;
+            UnitsInStock = entity.UnitsInStock;
+            UnitsOnOrder = entity.UnitsOnOrder;
+            ReorderLevel = entity.ReorderLevel;
+            Discontinued = entity.Discontinued;
+            OrderComment = entity.OrderComment;
+            PurchaseComment = entity.PurchaseComment;
+            UnitDecimals = entity.UnitDecimals;
         }
 
         protected override Products GetEntityData()

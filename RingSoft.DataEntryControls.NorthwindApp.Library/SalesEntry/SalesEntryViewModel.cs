@@ -4,6 +4,7 @@ using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 using System;
+using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -385,43 +386,49 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             base.Initialize();
         }
 
-        protected override void LoadFromEntity(Orders newEntity)
+        protected override Orders PopulatePrimaryKeyControls(Orders newEntity, PrimaryKeyValue primaryKeyValue)
         {
             var order = AppGlobals.DbContextProcessor.GetOrder(newEntity.OrderId);
             OrderId = order.OrderId;
-            Customer = new AutoFillValue(AppGlobals.LookupContext.Customers.GetPrimaryKeyValueFromEntity(order.Customer),
-                order.CustomerId);
 
-            if (order.Customer != null)
-                CompanyName = order.Customer.CompanyName;
+            return order;
+        }
+
+        protected override void LoadFromEntity(Orders entity)
+        {
+            Customer = new AutoFillValue(AppGlobals.LookupContext.Customers.GetPrimaryKeyValueFromEntity(entity.Customer),
+                entity.CustomerId);
+
+            if (entity.Customer != null)
+                CompanyName = entity.Customer.CompanyName;
 
             var employeeName = string.Empty;
-            if (order.Employee != null)
-                employeeName = GetEmployeeAutoFillValueText(order.Employee);
+            if (entity.Employee != null)
+                employeeName = GetEmployeeAutoFillValueText(entity.Employee);
 
-            Employee = new AutoFillValue(AppGlobals.LookupContext.Employees.GetPrimaryKeyValueFromEntity(order.Employee),
+            Employee = new AutoFillValue(AppGlobals.LookupContext.Employees.GetPrimaryKeyValueFromEntity(entity.Employee),
                 employeeName);
 
-            RequiredDate = order.RequiredDate;
-            OrderDate = order.OrderDate;
-            ShippedDate = order.ShippedDate;
+            RequiredDate = entity.RequiredDate;
+            OrderDate = entity.OrderDate;
+            ShippedDate = entity.ShippedDate;
 
             var shipCompanyName = string.Empty;
-            if (order.ShipVia != null)
-                shipCompanyName = order.Shipper.CompanyName;
+            if (entity.ShipVia != null)
+                shipCompanyName = entity.Shipper.CompanyName;
 
-            ShipVia = new AutoFillValue(AppGlobals.LookupContext.Shippers.GetPrimaryKeyValueFromEntity(order.Shipper),
+            ShipVia = new AutoFillValue(AppGlobals.LookupContext.Shippers.GetPrimaryKeyValueFromEntity(entity.Shipper),
                 shipCompanyName);
 
-            Freight = order.Freight;
-            ShipName = order.ShipName;
-            Address = order.ShipAddress;
-            City = order.ShipCity;
-            Region = order.ShipRegion;
-            PostalCode = order.ShipPostalCode;
-            Country = order.ShipCountry;
+            Freight = entity.Freight;
+            ShipName = entity.ShipName;
+            Address = entity.ShipAddress;
+            City = entity.ShipCity;
+            Region = entity.ShipRegion;
+            PostalCode = entity.ShipPostalCode;
+            Country = entity.ShipCountry;
 
-            DetailsGridManager.LoadFromEntity(order);
+            DetailsGridManager.LoadFromEntity(entity);
 
             RefreshTotalControls();
             _customerDirty = false;
