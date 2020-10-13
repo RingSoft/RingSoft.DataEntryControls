@@ -21,6 +21,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         private void _rows_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            OnRowsChanged(e);
+        }
+
+        protected virtual void OnRowsChanged(NotifyCollectionChangedEventArgs e)
+        {
             RowsChanged?.Invoke(this, e);
         }
 

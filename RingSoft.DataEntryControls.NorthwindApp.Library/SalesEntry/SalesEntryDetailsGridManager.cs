@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -29,6 +31,36 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public SalesEntryDetailsGridManager(SalesEntryViewModel viewModel)
         {
             ViewModel = viewModel;
+            viewModel.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(SalesEntryViewModel.ScannerMode))
+                    UpdateNewRows();
+            };
+        }
+
+        protected override void OnRowsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            base.OnRowsChanged(e);
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    var addedRows = e.NewItems.OfType<SalesEntryDetailsNewRow>().ToList();
+                    if (addedRows.Any())
+                        UpdateNewRows();
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    UpdateNewRows();
+                    break;
+            }
+        }
+
+        private void UpdateNewRows()
+        {
+            var newRows = Rows.OfType<SalesEntryDetailsNewRow>().ToList();
+            foreach (var newRow in newRows)
+            {
+                Grid.UpdateRow(newRow);
+            }
         }
 
         protected override DataEntryGridRow GetNewRow()

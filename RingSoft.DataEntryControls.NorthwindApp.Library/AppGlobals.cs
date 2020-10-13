@@ -85,6 +85,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             DateCultureId = registry.DateCultureId;
             DateEntryFormat = registry.DateEntryFormat;
             DateDisplayFormat = registry.DateDisplayFormat;
+            SalesEntryScannerMode = registry.ScannerMode;
 
             LookupDefaults.SetDefaultNumberCultureId(NumberCultureId);
             LookupDefaults.SetDefaultDateFormatId(DateCultureId);

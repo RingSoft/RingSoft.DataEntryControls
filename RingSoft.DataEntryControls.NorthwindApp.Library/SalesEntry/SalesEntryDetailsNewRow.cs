@@ -7,6 +7,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     {
         public override SalesEntryDetailsLineTypes LineType => SalesEntryDetailsLineTypes.NewRow;
 
+        public bool IsScannerRow
+        {
+            get
+            {
+                if (SalesEntryDetailsManager.ViewModel.ScannerMode)
+                {
+                    var currentRowIndex = Manager.Rows.IndexOf(this);
+                    return currentRowIndex >= Manager.Rows.Count - 2;
+                }
+
+                return false;
+            }
+        }
+
         public SalesEntryDetailsNewRow(SalesEntryDetailsGridManager manager) : base(manager)
         {
         }
@@ -16,6 +30,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var column = (SalesEntryGridColumns) columnId;
             switch (column)
             {
+                case SalesEntryGridColumns.LineType:
+                    var text = "New";
+                    if (IsScannerRow)
+                        text = "Scanner";
+                    return new DataEntryGridTextCellProps(this, columnId){Text = text};
                 case SalesEntryGridColumns.Item:
                     break;
                 default:
@@ -30,6 +49,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.LineType:
+
                 case SalesEntryGridColumns.Item:
                     break;
                 default:
@@ -40,7 +60,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override void SetCellValue(DataEntryGridCellProps value)
         {
-            var isLastRow = Manager.Rows.IndexOf(this) >= Manager.Rows.Count - 2;
+            var isScannerRow = IsScannerRow;
             if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
             {
                 var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
@@ -50,18 +70,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     SalesEntryDetailsManager.ReplaceRow(this, productRow);
                     productRow.LoadFromItemAutoFillValue(autoFillCellProps.AutoFillValue);
                     Manager.Grid.UpdateRow(productRow);
-                    DoScannerMode(value, isLastRow);
+                    DoScannerMode(value, isScannerRow);
                     return;
                 }
             }
 
             base.SetCellValue(value);
-            DoScannerMode(value, isLastRow);
+            DoScannerMode(value, isScannerRow);
         }
 
-        private void DoScannerMode(DataEntryGridCellProps value, bool isLastRow)
+        private void DoScannerMode(DataEntryGridCellProps value, bool isScannerRow)
         {
-            if (isLastRow && RowReplacedBy != null && RowReplacedBy is SalesEntryDetailsProductRow)
+            if (isScannerRow && RowReplacedBy != null && RowReplacedBy is SalesEntryDetailsProductRow)
             {
                 value.NextTabFocusRow = Manager.Rows[^1];
                 value.NextTabFocusColumnId = (int) SalesEntryGridColumns.Item;

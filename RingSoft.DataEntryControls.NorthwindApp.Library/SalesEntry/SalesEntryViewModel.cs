@@ -348,6 +348,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        private bool _scannerMode;
+
+        public bool ScannerMode
+        {
+            get => _scannerMode;
+            set
+            {
+                if (_scannerMode == value)
+                    return;
+
+                _scannerMode = value;
+                OnPropertyChanged(nameof(ScannerMode), false);
+            }
+        }
+
         protected override string FindButtonInitialSearchFor
         {
             get
@@ -365,6 +380,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             SalesEntryView = View as ISalesEntryMaintenanceView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");
+
+            ScannerMode = AppGlobals.SalesEntryScannerMode;
 
             CustomersAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.CustomerId))
             {

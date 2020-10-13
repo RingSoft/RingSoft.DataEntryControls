@@ -23,6 +23,7 @@
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
        </Grid.RowDefinitions> 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -113,7 +114,12 @@
         </Grid>
         <Button x:Name="ApplyDateButton" Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Height="20" Content="A_pply >>"/>
         <dec:DateEditControl Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="200" Value="{Binding DateValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CultureId="{Binding Path=DateCultureId, Mode=OneWay}" EntryFormat="{Binding Path=DateEntryFormat, Mode=OneWay}" DisplayFormat="{Binding Path=DateDisplayFormat, Mode=OneWay}" DesignText="07/27/2020 12:00:00 PM"/>
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" Orientation="Horizontal">
+        <GroupBox Grid.Row="2" Grid.Column="0" Header="Sales Entry Defaults">
+            <Grid>
+                <CheckBox Content="Scanner Mode" IsChecked="{Binding Path=SalesEntryScannerMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button x:Name="OkButton" Content="_OK" Width="50" Margin="0,0,5,0"/>
             <Button x:Name="CancelButton" Content="_Cancel" Width="50"/>
         </StackPanel>

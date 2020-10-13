@@ -1074,9 +1074,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
         private void DeleteCurrentRow()
         {
-            if (CanUserDeleteRows)
+            var rowIndex = Items.IndexOf(CurrentCell.Item);
+            if (CanUserDeleteRows && rowIndex < Items.Count - 1)
             {
-                var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
                 
                 CancelEdit(true);

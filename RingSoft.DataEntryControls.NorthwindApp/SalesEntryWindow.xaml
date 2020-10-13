@@ -45,6 +45,7 @@
                 <Label Content="Customer" Style="{StaticResource ControlLabel}"/>
                 <lc:AutoFillControl x:Name="CustomerControl" Setup="{Binding CustomersAutoFillSetup}" Value="{Binding Path=Customer, Mode=TwoWay}" DesignText="WANDK" Width="100"/>
                 <dec:StringReadOnlyBox Width="200" Text="{Binding CompanyName}"/>
+                <CheckBox Content="Scanner Mode" IsChecked="{Binding Path=ScannerMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" IsTabStop="False"/>
             </StackPanel>
             <Label Grid.Row="1" Grid.Column="0" Content="Employee" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">

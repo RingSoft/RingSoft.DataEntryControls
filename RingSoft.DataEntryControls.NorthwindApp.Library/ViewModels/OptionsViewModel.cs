@@ -199,6 +199,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private bool _salesEntryScannerMode;
+        public bool SalesEntryScannerMode
+        {
+            get => _salesEntryScannerMode;
+            set
+            {
+                if (_salesEntryScannerMode == value)
+                    return;
+
+                _salesEntryScannerMode = value;
+                OnPropertyChanged(nameof(SalesEntryScannerMode));
+            }
+        }
+
         public string CurrentCultureName => CultureInfo.CurrentCulture.Name;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -222,6 +236,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             DateValue = DateTime.Now;
             CustomDateEntryFormat = DateEntryFormat = registrySettings.DateEntryFormat;
             CustomDateDisplayFormat = DateDisplayFormat = registrySettings.DateDisplayFormat;
+            SalesEntryScannerMode = registrySettings.ScannerMode;
         }
 
         public ValidationResults OnApplyNumberFormat()
@@ -332,6 +347,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             registrySettings.DateCultureId = OtherDateCultureId;
             registrySettings.DateEntryFormat = CustomDateEntryFormat;
             registrySettings.DateDisplayFormat = CustomDateDisplayFormat;
+            registrySettings.ScannerMode = SalesEntryScannerMode;
             registrySettings.SaveToRegistry();
 
             return result;
