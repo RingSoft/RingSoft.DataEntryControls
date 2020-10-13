@@ -90,10 +90,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public bool AddComment()
         {
-            Result.Comment = new GridMemoValue(20);
+            Result.Comment = new GridMemoValue(SalesEntryDetailsCommentRow.MaxCharactersPerLine);
             Result.Comment.Text = InvalidProductValue.Text;
-            return View.ShowCommentEditor(Result.Comment);
+
+            var result = View.ShowCommentEditor(Result.Comment);
+            if (result)
+            {
+                Result.ReturnCode = InvalidProductResultReturnCodes.NewComment;
+            }
+
+            return result;
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
