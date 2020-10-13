@@ -451,7 +451,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             _customerDirty = false;
         }
 
-        private void RefreshTotalControls()
+        public void RefreshTotalControls()
         {
             decimal subTotal = 0;
             decimal totalDiscount = 0;

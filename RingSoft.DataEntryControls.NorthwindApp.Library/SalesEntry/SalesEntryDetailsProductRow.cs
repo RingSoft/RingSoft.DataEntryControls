@@ -60,6 +60,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                         }
                     }
                     break;
+                case SalesEntryGridColumns.Discount:
+                    if (value is DataEntryGridDecimalCellProps discountDecimalCellProps)
+                    {
+                        if (discountDecimalCellProps.Value != null)
+                        {
+                            Discount = (decimal)discountDecimalCellProps.Value;
+                            SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
+                        }
+                    }
+                    break;
             }
             base.SetCellValue(value);
         }
@@ -76,6 +86,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 Quantity = 1;
                 if (product.UnitPrice != null)
                     Price = (decimal)product.UnitPrice;
+                SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
             }
         }
 

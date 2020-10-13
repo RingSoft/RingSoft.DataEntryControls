@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -12,18 +13,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public decimal Price { get; protected set; }
 
-        public decimal ExtendedPrice
-        {
-            get
-            {
-                if (!Quantity.Equals(0))
-                {
-                    return Math.Round(Quantity * Price, 2);
-                }
-
-                return Price;
-            }
-        }
+        public decimal ExtendedPrice => Math.Round(Quantity * Price, 2);
 
         private DecimalEditControlSetup _quantitySetup;
         private DecimalEditControlSetup _priceSetup;
@@ -52,6 +42,46 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
 
             return base.GetCellProps(columnId);
+        }
+
+        public override DataEntryGridCellStyle GetCellStyle(int columnId)
+        {
+            var column = (SalesEntryGridColumns)columnId;
+            switch (column)
+            {
+                case SalesEntryGridColumns.ExtendedPrice:
+                    return new DataEntryGridCellStyle {CellStyle = DataEntryGridCellStyles.Disabled};
+            }
+            return base.GetCellStyle(columnId);
+        }
+
+        public override void SetCellValue(DataEntryGridCellProps value)
+        {
+            var column = (SalesEntryGridColumns)value.ColumnId;
+            switch (column)
+            {
+                case SalesEntryGridColumns.Quantity:
+                    if (value is DataEntryGridDecimalCellProps quantityDecimalCellProps)
+                    {
+                        if (quantityDecimalCellProps.Value != null)
+                        {
+                            Quantity = (decimal)quantityDecimalCellProps.Value;
+                            SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
+                        }
+                    }
+                    break;
+                case SalesEntryGridColumns.Price:
+                    if (value is DataEntryGridDecimalCellProps priceDecimalCellProps)
+                    {
+                        if (priceDecimalCellProps.Value != null)
+                        {
+                            Price = (decimal)priceDecimalCellProps.Value;
+                            SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
+                        }
+                    }
+                    break;
+            }
+            base.SetCellValue(value);
         }
 
         public override void LoadFromOrderDetail(OrderDetails orderDetail)

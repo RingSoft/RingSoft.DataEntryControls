@@ -26,6 +26,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
             control.Setup = DecimalCellProps.NumericEditSetup;
             control.Value = DecimalCellProps.Value;
+
+            control.CalculatorValueChanged += (sender, args) => OnUpdateSource(GetCellValue());
             
             base.OnControlLoaded(control, cellProps);
         }

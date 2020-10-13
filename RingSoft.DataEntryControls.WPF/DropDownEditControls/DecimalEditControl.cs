@@ -113,6 +113,8 @@ namespace RingSoft.DataEntryControls.WPF
             decimalEditControl.SetValue();
         }
 
+        public event EventHandler CalculatorValueChanged;
+
         private decimal? _pendingNewValue;
 
         static DecimalEditControl()
@@ -236,7 +238,15 @@ namespace RingSoft.DataEntryControls.WPF
             Value = newValue;
 
             if (valueChanged)
+            {
                 OnValueChanged(Text);
+                OnCalculatorValueChanged();
+            }
+        }
+
+        protected virtual void OnCalculatorValueChanged()
+        {
+            CalculatorValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void PopulateSetup(DecimalEditControlSetup setup)

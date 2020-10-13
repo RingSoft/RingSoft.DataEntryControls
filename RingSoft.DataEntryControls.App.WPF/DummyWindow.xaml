@@ -13,6 +13,7 @@
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <dec:DecimalEditControl FormatType="Currency" Value="1234.56"/>
+            <xctk:CalculatorUpDown/>
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>
             <dec:DecimalReadOnlyBox Value="12345.6" FormatType="Number" Precision="4" Margin="5"/>

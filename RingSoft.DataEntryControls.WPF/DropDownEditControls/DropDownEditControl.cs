@@ -268,7 +268,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _popup_Closed(object sender, EventArgs e)
         {
-            if (IsKeyboardFocusWithin && TextBox != null)
+            if (TextBox != null)
                 TextBox.Focus();
         }
 

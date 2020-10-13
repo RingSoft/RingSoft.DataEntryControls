@@ -62,6 +62,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                     }
                     break;
                 case Key.Enter:
+                case Key.Escape:
                     return !Control.IsPopupOpen();
             }
             return base.CanGridProcessKey(key);
