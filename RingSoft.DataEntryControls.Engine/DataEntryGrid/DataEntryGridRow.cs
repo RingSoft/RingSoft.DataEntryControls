@@ -22,6 +22,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public bool IsNew { get; protected set; } = true;
 
+        public DataEntryGridRow RowReplacedBy { get; internal set; }
+
         public DataEntryGridRow(DataEntryGridManager manager)
         {
             Manager = manager;

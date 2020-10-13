@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override DataEntryGridRow GetNewRow()
         {
-            return new SalesEntryDetailsProductRow(this);
+            return new SalesEntryDetailsNewRow(this);
         }
 
         public void LoadFromEntity(Orders order)

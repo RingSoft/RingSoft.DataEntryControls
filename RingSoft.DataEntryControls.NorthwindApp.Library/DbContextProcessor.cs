@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.EfCore;
+using System.Collections.Generic;
 using System.Linq;
-using RingSoft.DbLookup.DataProcessor;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {

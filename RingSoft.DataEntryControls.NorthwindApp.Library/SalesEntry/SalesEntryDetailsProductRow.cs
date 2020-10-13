@@ -1,5 +1,4 @@
-﻿using System;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.AutoFill;
@@ -46,61 +45,38 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Item:
                     if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
                     {
-                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData() ||
-                                           string.IsNullOrEmpty(autoFillCellProps.AutoFillValue.Text);
-                        if (!validProduct)
-                        {
-                            if (!value.SkipValidation)
-                            {
-                                var correctedValue =
-                                    SalesEntryDetailsManager.ViewModel.SalesEntryView.CorrectInvalidProduct(
-                                        autoFillCellProps.AutoFillValue);
-
-                                switch (correctedValue.ReturnCode)
-                                {
-                                    case InvalidProductResultReturnCodes.Cancel:
-                                        break;
-                                    case InvalidProductResultReturnCodes.NewProduct:
-                                        validProduct = true;
-                                        autoFillCellProps.AutoFillValue = correctedValue.NewItemValue;
-                                        break;
-                                    case InvalidProductResultReturnCodes.NewNonInventory:
-                                        break;
-                                    case InvalidProductResultReturnCodes.NewSpecialOrder:
-                                        break;
-                                    case InvalidProductResultReturnCodes.NewComment:
-                                        break;
-                                    default:
-                                        throw new ArgumentOutOfRangeException();
-                                }
-                            }
-
-                            if (!validProduct)
-                            {
-                                autoFillCellProps.AutoFillValue = ProductValue;
-                                autoFillCellProps.ValidationResult = false;
-                            }
-                        }
-
+                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
                         if (validProduct)
                         {
+                            LoadFromItemAutoFillValue(autoFillCellProps.AutoFillValue);
+                        }
+                        else if (string.IsNullOrEmpty(autoFillCellProps.AutoFillValue.Text))
+                        {
                             ProductValue = autoFillCellProps.AutoFillValue;
-                            if (autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData())
-                            {
-                                var product =
-                                    AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
-                                        .PrimaryKeyValue);
-                                product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
-                                Quantity = 1;
-                                if (product.UnitPrice != null)
-                                    Price = (decimal) product.UnitPrice;
-                            }
+                        }
+                        else
+                        {
+                            CorrectInvalidItem(autoFillCellProps);
                         }
                     }
-
                     break;
             }
             base.SetCellValue(value);
+        }
+
+        public void LoadFromItemAutoFillValue(AutoFillValue itemAutoFillValue)
+        {
+            ProductValue = itemAutoFillValue;
+            if (ProductValue.PrimaryKeyValue.ContainsValidData())
+            {
+                var product =
+                    AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
+                        .PrimaryKeyValue);
+                product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
+                Quantity = 1;
+                if (product.UnitPrice != null)
+                    Price = (decimal)product.UnitPrice;
+            }
         }
 
         public override void LoadFromOrderDetail(OrderDetails orderDetail)

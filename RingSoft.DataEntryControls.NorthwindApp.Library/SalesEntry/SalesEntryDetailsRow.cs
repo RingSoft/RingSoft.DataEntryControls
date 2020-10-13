@@ -10,7 +10,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         Product = 0,
         NonInventoryCode = 1,
         SpecialOrder = 2,
-        Comment = 3
+        Comment = 3,
+        NewRow = 4
     }
 
     public abstract class SalesEntryDetailsRow : DataEntryGridRow

@@ -33,6 +33,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public const string DateCultureTypeKey = "DateCultureType";
         public const string DateEntryFormatKey = "DateEntryFormat";
         public const string DateDisplayFormatKey = "DateDisplayFormat";
+        public const string ScannerModeKey = "ScannerMode";
 
         public NumericCultureTypes NumberCultureType { get; set; }
         public string NumberCultureId { get; set; }
@@ -40,6 +41,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public string DateCultureId { get; set; }
         public string DateEntryFormat { get; set; }
         public string DateDisplayFormat { get; set; }
+        public bool ScannerMode { get; set; }
 
         private static XmlProcessor _registryXml = new XmlProcessor(RegistryRoot);
 
@@ -75,6 +77,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
             DateEntryFormat = _registryXml.GetElementValue(DateEntryFormatKey, "d");
             DateDisplayFormat = _registryXml.GetElementValue(DateDisplayFormatKey, "d");
+            ScannerMode = _registryXml.GetElementValue(ScannerModeKey, "0").ToBool();
         }
 
         public static string GetNumericCultureId(NumericCultureTypes cultureType, string otherCultureId)
@@ -123,6 +126,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             _registryXml.SetElementValue(DateCultureIdKey, DateCultureId);
             _registryXml.SetElementValue(DateEntryFormatKey, DateEntryFormat);
             _registryXml.SetElementValue(DateDisplayFormatKey, DateDisplayFormat);
+            _registryXml.SetElementValue(ScannerModeKey, ScannerMode.ToString());
 
             var xml = _registryXml.OutputXml();
             AppGlobals.WriteTextFile(AppGlobals.RegistryFileName, xml);

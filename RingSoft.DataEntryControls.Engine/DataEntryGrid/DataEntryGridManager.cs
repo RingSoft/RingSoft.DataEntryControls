@@ -91,6 +91,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
             _rows[index] = newRow;
             Grid.UpdateRow(newRow, index);
+            existingRow.RowReplacedBy = newRow;
         }
 
         private void ValidateRowIndex(int rowIndex)

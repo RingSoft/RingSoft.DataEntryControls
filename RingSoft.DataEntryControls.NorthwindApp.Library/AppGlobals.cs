@@ -51,8 +51,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public static string DateDisplayFormat { get; private set; }
 
-
         public static bool FirstTime { get; set; }
+
+        public static bool SalesEntryScannerMode { get; set; }
 
         public static event EventHandler<AppStartProgressArgs> AppStartProgress;
 

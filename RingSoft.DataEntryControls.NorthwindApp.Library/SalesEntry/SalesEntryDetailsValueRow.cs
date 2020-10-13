@@ -1,7 +1,7 @@
-﻿using System;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using System;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -69,6 +69,42 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             orderDetail.Quantity = Quantity;
             orderDetail.UnitPrice = Price;
+        }
+
+        protected void CorrectInvalidItem(DataEntryGridAutoFillCellProps autoFillCellProps)
+        {
+            var correctedValue =
+                SalesEntryDetailsManager.ViewModel.SalesEntryView.CorrectInvalidProduct(
+                    autoFillCellProps.AutoFillValue);
+
+            switch (correctedValue.ReturnCode)
+            {
+                case InvalidProductResultReturnCodes.Cancel:
+                    autoFillCellProps.ValidationResult = false;
+                    break;
+                case InvalidProductResultReturnCodes.NewProduct:
+                    SalesEntryDetailsProductRow productRow;
+                    if (LineType == SalesEntryDetailsLineTypes.Product && this is SalesEntryDetailsProductRow)
+                    {
+                        productRow = (SalesEntryDetailsProductRow) this;
+                    }
+                    else
+                    {
+                        productRow = new SalesEntryDetailsProductRow(SalesEntryDetailsManager);
+                        SalesEntryDetailsManager.ReplaceRow(this, productRow);
+                    }
+                    productRow.LoadFromItemAutoFillValue(correctedValue.NewItemValue);
+                    Manager.Grid.UpdateRow(productRow);
+                    break;
+                case InvalidProductResultReturnCodes.NewNonInventory:
+                    break;
+                case InvalidProductResultReturnCodes.NewSpecialOrder:
+                    break;
+                case InvalidProductResultReturnCodes.NewComment:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

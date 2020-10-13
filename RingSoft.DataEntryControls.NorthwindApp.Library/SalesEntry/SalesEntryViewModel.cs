@@ -459,6 +459,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     //case SalesEntryDetailsLineTypes.SpecialOrder:
                     //    break;
                     case SalesEntryDetailsLineTypes.Comment:
+                    case SalesEntryDetailsLineTypes.NewRow:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
