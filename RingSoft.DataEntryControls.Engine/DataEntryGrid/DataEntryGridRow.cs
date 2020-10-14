@@ -24,6 +24,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public DataEntryGridRow RowReplacedBy { get; internal set; }
 
+        public virtual bool AllowUserDelete { get; } = true;
+
         public DataEntryGridRow(DataEntryGridManager manager)
         {
             Manager = manager;

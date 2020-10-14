@@ -1077,12 +1077,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var rowIndex = Items.IndexOf(CurrentCell.Item);
             if (CanUserDeleteRows && rowIndex < Items.Count - 1)
             {
-                var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
-                
-                CancelEdit(true);
-                
-                Manager.RemoveRow(rowIndex);
-                SetFocusToCell(rowIndex, columnIndex);
+                var row = Manager.Rows[rowIndex];
+                if (row.AllowUserDelete)
+                {
+                    var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
+
+                    CancelEdit(true);
+
+                    Manager.RemoveRow(rowIndex);
+                    SetFocusToCell(rowIndex, columnIndex);
+                }
+                //System.Media.SystemSounds.Exclamation.Play();
             }
         }
 

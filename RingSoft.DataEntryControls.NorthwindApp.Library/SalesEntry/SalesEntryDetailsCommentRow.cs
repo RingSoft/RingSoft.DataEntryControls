@@ -10,6 +10,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     {
         public override SalesEntryDetailsLineTypes LineType => SalesEntryDetailsLineTypes.Comment;
 
+        public override bool AllowUserDelete => Value != null;
+
         public string Comment { get; set; }
 
         public GridMemoValue Value { get; private set; }
