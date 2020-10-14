@@ -14,7 +14,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         NewRow = 4
     }
 
-    public abstract class SalesEntryDetailsRow : DataEntryGridRow
+    public abstract class SalesEntryDetailsRow : DbMaintenanceDataEntryGridRow<OrderDetails>
     {
         public SalesEntryDetailsGridManager SalesEntryDetailsManager { get; }
 
@@ -46,13 +46,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return base.GetCellStyle(columnId);
         }
 
-        public virtual void LoadFromOrderDetail(OrderDetails orderDetail)
+        public override void SaveToEntity(OrderDetails entity, int rowIndex)
         {
-            IsNew = false;
+            entity.OrderDetailId = rowIndex;
+            entity.LineType = (byte)LineType;
+            entity.RowId = RowId;
+            entity.ParentRowId = ParentRowId;
         }
-
-        public abstract bool ValidateRow();
-
-        public abstract void SaveToOrderDetail(OrderDetails orderDetail);
     }
 }

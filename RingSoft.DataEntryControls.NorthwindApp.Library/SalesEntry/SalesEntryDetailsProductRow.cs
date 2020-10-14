@@ -66,7 +66,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                         if (discountDecimalCellProps.Value != null)
                         {
                             Discount = (decimal)discountDecimalCellProps.Value;
-                            SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
+                            SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
                         }
                     }
                     break;
@@ -86,34 +86,33 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 Quantity = 1;
                 if (product.UnitPrice != null)
                     Price = (decimal)product.UnitPrice;
-                SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
+                SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
             }
         }
 
-        public override void LoadFromOrderDetail(OrderDetails orderDetail)
+        public override void LoadFromEntity(OrderDetails entity)
         {
-            if (orderDetail.Product != null)
+            if (entity.Product != null)
             {
                 var productPrimaryKey =
-                    AppGlobals.LookupContext.Products.GetPrimaryKeyValueFromEntity(orderDetail.Product);
-                ProductValue = new AutoFillValue(productPrimaryKey, orderDetail.Product.ProductName);
+                    AppGlobals.LookupContext.Products.GetPrimaryKeyValueFromEntity(entity.Product);
+                ProductValue = new AutoFillValue(productPrimaryKey, entity.Product.ProductName);
             }
 
-            if (orderDetail.Discount != null)
-                Discount = (decimal) orderDetail.Discount;
-
-            base.LoadFromOrderDetail(orderDetail);
+            if (entity.Discount != null)
+                Discount = (decimal)entity.Discount;
+            base.LoadFromEntity(entity);
         }
 
         public override bool ValidateRow()
         {
             if (ProductValue == null || !ProductValue.PrimaryKeyValue.ContainsValidData())
             {
-                SalesEntryDetailsManager.ViewModel.SalesEntryView.GridValidationFail();
+                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
                 SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Product must contain a valid value.";
-                SalesEntryDetailsManager.ViewModel.SalesEntryView.OnValidationFail(
+                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.OnValidationFail(
                     AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
                     "Validation Failure!");
 
@@ -122,13 +121,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return true;
         }
 
-        public override void SaveToOrderDetail(OrderDetails orderDetail)
+        public override void SaveToEntity(OrderDetails entity, int rowIndex)
         {
-            orderDetail.ProductId = AppGlobals.LookupContext.Products
+            entity.ProductId = AppGlobals.LookupContext.Products
                 .GetEntityFromPrimaryKeyValue(ProductValue.PrimaryKeyValue).ProductId;
-            orderDetail.Discount = (float)Discount;
-
-            base.SaveToOrderDetail(orderDetail);
+            entity.Discount = (float)Discount;
+            base.SaveToEntity(entity, rowIndex);
         }
     }
 }

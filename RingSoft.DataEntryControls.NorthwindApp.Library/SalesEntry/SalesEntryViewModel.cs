@@ -448,7 +448,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             PostalCode = entity.ShipPostalCode;
             Country = entity.ShipCountry;
 
-            DetailsGridManager.LoadFromEntity(entity);
+            DetailsGridManager.LoadGrid(entity.OrderDetails);
 
             RefreshTotalControls();
             _customerDirty = false;
@@ -601,7 +601,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override bool SaveEntity(Orders entity)
         {
-            var orderDetails = DetailsGridManager.GetDetailsData();
+            var orderDetails = DetailsGridManager.GetEntityList();
             return AppGlobals.DbContextProcessor.SaveOrder(entity, orderDetails);
         }
 

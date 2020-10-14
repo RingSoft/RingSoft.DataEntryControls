@@ -87,7 +87,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.Item:
-                    if (SalesEntryDetailsManager.ViewModel.SalesEntryView.ShowCommentEditor(Value))
+                    if (SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.ShowCommentEditor(Value))
                     {
                         UpdateFromValue();
                     }
@@ -139,14 +139,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        public override void LoadFromEntity(OrderDetails entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override bool ValidateRow()
         {
             return true;
-        }
-
-        public override void SaveToOrderDetail(OrderDetails orderDetail)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

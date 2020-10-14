@@ -66,7 +66,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                         if (quantityDecimalCellProps.Value != null)
                         {
                             Quantity = (decimal)quantityDecimalCellProps.Value;
-                            SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
+                            SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
                         }
                     }
                     break;
@@ -76,7 +76,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                         if (priceDecimalCellProps.Value != null)
                         {
                             Price = (decimal)priceDecimalCellProps.Value;
-                            SalesEntryDetailsManager.ViewModel.RefreshTotalControls();
+                            SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
                         }
                     }
                     break;
@@ -84,27 +84,26 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             base.SetCellValue(value);
         }
 
-        public override void LoadFromOrderDetail(OrderDetails orderDetail)
+        public override void LoadFromEntity(OrderDetails entity)
         {
-            if (orderDetail.Quantity != null)
-                Quantity = (decimal) orderDetail.Quantity;
+            if (entity.Quantity != null)
+                Quantity = (decimal)entity.Quantity;
 
-            if (orderDetail.UnitPrice != null)
-                Price = (decimal) orderDetail.UnitPrice;
-
-            base.LoadFromOrderDetail(orderDetail);
+            if (entity.UnitPrice != null)
+                Price = (decimal)entity.UnitPrice;
         }
 
-        public override void SaveToOrderDetail(OrderDetails orderDetail)
+        public override void SaveToEntity(OrderDetails entity, int rowIndex)
         {
-            orderDetail.Quantity = Quantity;
-            orderDetail.UnitPrice = Price;
+            entity.Quantity = Quantity;
+            entity.UnitPrice = Price;
+            base.SaveToEntity(entity, rowIndex);
         }
 
         protected void CorrectInvalidItem(DataEntryGridAutoFillCellProps autoFillCellProps)
         {
             var correctedValue =
-                SalesEntryDetailsManager.ViewModel.SalesEntryView.CorrectInvalidProduct(
+                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.CorrectInvalidProduct(
                     autoFillCellProps.AutoFillValue);
 
             switch (correctedValue.ReturnCode)

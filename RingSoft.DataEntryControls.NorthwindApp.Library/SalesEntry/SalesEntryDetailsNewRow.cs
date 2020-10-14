@@ -11,7 +11,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             get
             {
-                if (SalesEntryDetailsManager.ViewModel.ScannerMode)
+                if (SalesEntryDetailsManager.SalesEntryViewModel.ScannerMode)
                 {
                     var currentRowIndex = Manager.Rows.IndexOf(this);
                     return currentRowIndex >= Manager.Rows.Count - 2;

@@ -914,7 +914,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         break;
                     case Key.Insert:
                         InsertRow();
-                        Manager.RaiseDirtyFlag();
                         e.Handled = true;
                         break;
                 }
@@ -1075,19 +1074,24 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private void DeleteCurrentRow()
         {
             var rowIndex = Items.IndexOf(CurrentCell.Item);
-            if (CanUserDeleteRows && rowIndex < Items.Count - 1)
+            var deleteOk = CanUserDeleteRows && rowIndex < Items.Count - 1;
+            if (deleteOk)
             {
                 var row = Manager.Rows[rowIndex];
-                if (row.AllowUserDelete)
-                {
-                    var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
+                deleteOk = row.AllowUserDelete;
+            }
+            if (deleteOk)
+            {
+                var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
 
-                    CancelEdit(true);
+                CancelEdit(true);
 
-                    Manager.RemoveRow(rowIndex);
-                    SetFocusToCell(rowIndex, columnIndex);
-                }
-                //System.Media.SystemSounds.Exclamation.Play();
+                Manager.RemoveRow(rowIndex);
+                SetFocusToCell(rowIndex, columnIndex);
+            }
+            else
+            {
+                System.Media.SystemSounds.Exclamation.Play();
             }
         }
 

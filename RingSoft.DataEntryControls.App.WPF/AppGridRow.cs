@@ -145,7 +145,6 @@ namespace RingSoft.DataEntryControls.App.WPF
 
         public virtual void LoadSale_DetailRow(SaleDetail saleDetail)
         {
-            IsNew = false;
         }
     }
 }

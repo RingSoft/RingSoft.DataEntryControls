@@ -78,7 +78,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public void InsertNewRow(int startIndex = -1)
         {
             if (Grid != null && Grid.CanUserAddRows)
-                AddRow(GetNewRow(), startIndex);
+            {
+                var newRow = GetNewRow();
+                newRow.IsNew = true;
+                AddRow(newRow, startIndex);
+            }
         }
 
         public void AddRow(DataEntryGridRow newRow, int startIndex = -1)
