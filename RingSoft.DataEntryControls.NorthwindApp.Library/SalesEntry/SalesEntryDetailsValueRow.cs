@@ -131,6 +131,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case InvalidProductResultReturnCodes.NewSpecialOrder:
                     break;
                 case InvalidProductResultReturnCodes.NewComment:
+                    var commentRow = new SalesEntryDetailsCommentRow(SalesEntryDetailsManager);
+                    SalesEntryDetailsManager.ReplaceRow(this, commentRow);
+                    commentRow.SetValue(correctedValue.Comment);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -38,6 +38,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
         {
             var entryFormat = _setup.GetEntryFormat();
             var nullDate = entryFormat;
+
+            nullDate = nullDate.Replace('m', 'M');
+            nullDate = nullDate.Replace('d', 'D');
+            nullDate = nullDate.Replace('y', 'Y');
+
             var segments = "Hhms";
 
             foreach (char segmentChar in segments)

@@ -55,6 +55,7 @@ namespace RingSoft.DataEntryControls.WPF
             if (!_controlLoaded)
             {
                 SetText();
+                TextBox.SelectAll();
                 _controlLoaded = true;
             }
         }

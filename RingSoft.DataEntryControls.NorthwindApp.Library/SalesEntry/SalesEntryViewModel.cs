@@ -4,6 +4,7 @@ using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
@@ -11,6 +12,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     public interface ISalesEntryMaintenanceView : IDbMaintenanceView
     {
         InvalidProductResult CorrectInvalidProduct(AutoFillValue invalidProductValue);
+
+        bool ShowCommentEditor(GridMemoValue comment);
 
         void GridValidationFail();
     }
