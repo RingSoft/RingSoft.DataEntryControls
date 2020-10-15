@@ -15,6 +15,7 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="AcceptsReturn" Value="True"/>
             <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
     </Window.Resources>
     <Window.DataContext>
@@ -40,10 +41,10 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Product Name" Style="{StaticResource ControlLabel}"/>
             <lc:AutoFillControl x:Name="ProductNameControl" Grid.Row="1" Grid.Column="1" DesignText="Chef Anton's Cajun Seasoning"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Supplier" Style="{StaticResource ControlLabel}"/>
-            <lc:AutoFillControl Grid.Row="2" Grid.Column="1" DesignText="New England Seafood Cannery" Setup="{Binding SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <lc:AutoFillControl Grid.Row="2" Grid.Column="1" x:Name="SupplierControl" DesignText="New England Seafood Cannery" Setup="{Binding SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Category"/>
-            <lc:AutoFillControl Grid.Row="3" Grid.Column="1" DesignText="Grains/Cereals" Width="125" HorizontalAlignment="Left" Setup="{Binding CategoryAutoFillSetup}" Value="{Binding Path=CategoryAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TabControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+            <lc:AutoFillControl Grid.Row="3" Grid.Column="1" x:Name="CategoryControl" DesignText="Grains/Cereals" Width="125" HorizontalAlignment="Left" Setup="{Binding CategoryAutoFillSetup}" Value="{Binding Path=CategoryAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TabControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" x:Name="TabControl">
                 <TabItem Header="Qty/Price">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -73,7 +74,7 @@
                         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
                             <CheckBox Content="Discontinued" IsChecked="{Binding Path=Discontinued, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="2.5" />
                             <Label Content="Non Inventory Code" Style="{StaticResource ControlLabel}"/>
-                            <lc:AutoFillControl Setup="{Binding Path=NonInventoryCodeAutoFillSetup}" Value="{Binding Path=NonInventoryCodeAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="125"/>
+                            <lc:AutoFillControl x:Name="NonInventoryCodeControl" Setup="{Binding Path=NonInventoryCodeAutoFillSetup}" Value="{Binding Path=NonInventoryCodeAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="125"/>
                         </StackPanel>
                     </Grid>
                 </TabItem>

@@ -40,6 +40,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public LookupDefinition<CategoryLookup, Categories> CategoriesLookup { get; private set; }
 
+        public LookupDefinition<NonInventoryCodeLookup, NonInventoryCodes> NonInventoryCodesLookup { get; private set; }
+
 
         private readonly SqliteDataProcessor _dataProcessor;
 
@@ -109,11 +111,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             CategoriesLookup.AddVisibleColumnDefinition(p => p.CategoryName, "Category Name", p => p.CategoryName, 40);
             CategoriesLookup.AddVisibleColumnDefinition(p => p.Description, "Description", p => p.Description, 60);
             Categories.HasLookupDefinition(CategoriesLookup);
+
+            NonInventoryCodesLookup = new LookupDefinition<NonInventoryCodeLookup, NonInventoryCodes>(NonInventoryCodes);
+            NonInventoryCodesLookup.AddVisibleColumnDefinition(p => p.Description, "Description", p => p.Description,
+                60);
+            NonInventoryCodesLookup.AddVisibleColumnDefinition(p => p.Price, "Price", p => p.Price, 40);
+            NonInventoryCodes.HasLookupDefinition(NonInventoryCodesLookup);
         }
 
         protected override void SetupModel()
         {
             Products.GetFieldDefinition(p => p.UnitPrice).HasDecimalFieldType(DecimalFieldTypes.Currency);
+            NonInventoryCodes.GetFieldDefinition(p => p.Price).HasDecimalFieldType(DecimalFieldTypes.Currency);
         }
 
     }

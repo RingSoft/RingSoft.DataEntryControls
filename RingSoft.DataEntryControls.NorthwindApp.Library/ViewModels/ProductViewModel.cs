@@ -2,6 +2,7 @@
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
 using RingSoft.DbLookup.ModelDefinition;
+using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
@@ -263,6 +264,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                 AllowLookupAdd = false,
                 AllowLookupView = false
             };
+            NonInventoryCodeAutoFillSetup =
+                new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.NonInventoryCodeId));
+
             base.Initialize();
         }
 
@@ -283,6 +287,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             primaryKey = AppGlobals.LookupContext.Categories.GetPrimaryKeyValueFromEntity(entity.Category);
             CategoryAutoFillValue = new AutoFillValue(primaryKey, entity.Category.CategoryName);
 
+            if (entity.NonInventoryCode != null)
+            {
+                primaryKey =
+                    AppGlobals.LookupContext.NonInventoryCodes.GetPrimaryKeyValueFromEntity(entity.NonInventoryCode);
+                NonInventoryCodeAutoFillValue = new AutoFillValue(primaryKey, entity.NonInventoryCode.Description);
+            }
+
             QuantityPerUnit = entity.QuantityPerUnit;
             UnitPrice = entity.UnitPrice;
             UnitsInStock = entity.UnitsInStock;
@@ -296,27 +307,73 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
         protected override Products GetEntityData()
         {
-            return null;
+            var product = new Products
+            {
+                ProductId = ProductId,
+                ProductName = KeyAutoFillValue.Text,
+                QuantityPerUnit = QuantityPerUnit,
+                UnitPrice = UnitPrice,
+                UnitsInStock = UnitsInStock,
+                UnitsOnOrder = UnitsOnOrder,
+                ReorderLevel = ReorderLevel,
+                Discontinued = Discontinued,
+                OrderComment = OrderComment,
+                PurchaseComment = PurchaseComment,
+                UnitDecimals = UnitDecimals
+            };
+
+            if (CategoryAutoFillValue != null)
+            {
+                product.CategoryId = AppGlobals.LookupContext.Categories
+                    .GetEntityFromPrimaryKeyValue(CategoryAutoFillValue.PrimaryKeyValue).CategoryId;
+            }
+
+            if (SupplierAutoFillValue != null)
+            {
+                product.SupplierId = AppGlobals.LookupContext.Suppliers
+                    .GetEntityFromPrimaryKeyValue(SupplierAutoFillValue.PrimaryKeyValue).SupplierId;
+            }
+
+            if (NonInventoryCodeAutoFillValue != null)
+            {
+                product.NonInventoryCodeId = AppGlobals.LookupContext.NonInventoryCodes
+                    .GetEntityFromPrimaryKeyValue(NonInventoryCodeAutoFillValue.PrimaryKeyValue).NonInventoryCodeId;
+            }
+            return product;
         }
 
         protected override void ClearData()
         {
             ProductId = 0;
             QuantityPerUnit = OrderComment = PurchaseComment = string.Empty;
-            SupplierAutoFillValue = CategoryAutoFillValue = null;
+            SupplierAutoFillValue = CategoryAutoFillValue = NonInventoryCodeAutoFillValue = null;
             UnitPrice = UnitsInStock = UnitsOnOrder = ReorderLevel = null;
             Discontinued = false;
             UnitDecimals = 2;
         }
 
+        protected override AutoFillValue GetAutoFillValueForNullableForeignKeyField(FieldDefinition fieldDefinition)
+        {
+            if (fieldDefinition == TableDefinition.GetFieldDefinition(p => p.CategoryId))
+                return CategoryAutoFillValue;
+
+            if (fieldDefinition == TableDefinition.GetFieldDefinition(p => p.SupplierId))
+                return SupplierAutoFillValue;
+
+            if (fieldDefinition == TableDefinition.GetFieldDefinition(p => p.NonInventoryCodeId))
+                return NonInventoryCodeAutoFillValue;
+
+            return base.GetAutoFillValueForNullableForeignKeyField(fieldDefinition);
+        }
+
         protected override bool SaveEntity(Products entity)
         {
-            throw new System.NotImplementedException();
+            return AppGlobals.DbContextProcessor.SaveProduct(entity);
         }
 
         protected override bool DeleteEntity()
         {
-            throw new System.NotImplementedException();
+            return AppGlobals.DbContextProcessor.DeleteProduct(ProductId);
         }
     }
 }

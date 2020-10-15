@@ -1,4 +1,6 @@
-﻿using RingSoft.DbMaintenance;
+﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
+using RingSoft.DbMaintenance;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -18,5 +20,27 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             RegisterFormKeyControl(ProductNameControl);
         }
 
+        public override void ResetViewForNewRecord()
+        {
+            TabControl.SelectedIndex = 0;
+            ProductNameControl.Focus();
+            base.ResetViewForNewRecord();
+        }
+
+        public override void OnValidationFail(FieldDefinition fieldDefinition, string text, string caption)
+        {
+            var table = AppGlobals.LookupContext.Products;
+
+            if (fieldDefinition == table.GetFieldDefinition(p => p.ProductName))
+                ProductNameControl.Focus();
+            else if (fieldDefinition == table.GetFieldDefinition(p => p.SupplierId))
+                SupplierControl.Focus();
+            else if (fieldDefinition == table.GetFieldDefinition(p => p.CategoryId))
+                CategoryControl.Focus();
+            else if (fieldDefinition == table.GetFieldDefinition(p => p.NonInventoryCodeId))
+                NonInventoryCodeControl.Focus();
+
+            base.OnValidationFail(fieldDefinition, text, caption);
+        }
     }
 }

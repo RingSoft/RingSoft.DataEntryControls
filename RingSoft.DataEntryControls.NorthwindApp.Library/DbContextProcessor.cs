@@ -105,5 +105,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 .FirstOrDefault(f => f.ProductId == productId);
             return result;
         }
+
+        public bool SaveProduct(Products product)
+        {
+            var context = new NorthwindDbContext();
+            return context.SaveEntity(context.Products, product, "Saving Product");
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            var context = new NorthwindDbContext();
+            var product = context.Products.FirstOrDefault(p => p.ProductId == productId);
+            return context.DeleteEntity(context.Products, product, "Deleting Product");
+        }
     }
 }
