@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DbMaintenance;
+using System;
+using System.Collections.Generic;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -23,14 +23,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             {
                 var parentRowId = GetParentRowIdFromEntity(entity);
                 if (string.IsNullOrEmpty(parentRowId))
-                {
-                    var newRow = ConstructNewRowFromEntity(entity);
-                    newRow.LoadFromEntity(entity);
-                    AddRow(newRow);
-                }
+                    AddRowFromEntity(entity);
             }
 
             PostLoadGridFromEntity();
+        }
+
+        public virtual void AddRowFromEntity(TEntity entity)
+        {
+            var newRow = ConstructNewRowFromEntity(entity);
+            AddRow(newRow);
+            newRow.LoadFromEntity(entity);
+            Grid.UpdateRow(newRow);
         }
 
         protected abstract DbMaintenanceDataEntryGridRow<TEntity> ConstructNewRowFromEntity(TEntity entity);

@@ -1,4 +1,6 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
@@ -52,6 +54,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             entity.LineType = (byte)LineType;
             entity.RowId = RowId;
             entity.ParentRowId = ParentRowId;
+        }
+
+        protected IEnumerable<OrderDetails> GetDetailChildren(OrderDetails parent)
+        {
+            return parent.Order.OrderDetails.Where(w => w.ParentRowId == parent.RowId);
         }
     }
 }

@@ -22,17 +22,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
     public class GridMemoValue
     {
-        private List<GridMemoValueLine> _lines = new List<GridMemoValueLine>();
-
-        public List<GridMemoValueLine> Lines
-        {
-            get => _lines;
-            set
-            {
-                SetLines(value);
-            }
-        }
-
         private string _text;
 
         public string Text
@@ -46,6 +35,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         public int MaxCharactersPerLine { get; }
+
+        public IReadOnlyList<GridMemoValueLine> Lines => _lines;
+
+        private List<GridMemoValueLine> _lines = new List<GridMemoValueLine>();
 
         public GridMemoValue(int maxCharsPerLine)
         {
@@ -94,20 +87,20 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             }
         }
 
-        private void SetLines(List<GridMemoValueLine> lines)
+        public void Clear()
         {
             _lines.Clear();
             _text = string.Empty;
+        }
 
-            foreach (var gridMemoValueLine in lines)
-            {
-                _lines.Add(new GridMemoValueLine(gridMemoValueLine.Text, gridMemoValueLine.CrLf));
-                _text += gridMemoValueLine.Text;
-                if (gridMemoValueLine.CrLf)
-                    _text += "\r\n";
-                else
-                    _text += ' ';
-            }
+        public void AddLine(string text, bool crLf)
+        {
+            _lines.Add(new GridMemoValueLine(text, crLf));
+            _text += text;
+            if (crLf)
+                _text += "\r\n";
+            else
+                _text += ' ';
         }
     }
 }

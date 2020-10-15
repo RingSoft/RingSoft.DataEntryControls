@@ -12,7 +12,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override bool AllowUserDelete => Value != null;
 
-        public string Comment { get; set; }
+        public string Comment { get; private set; }
+
+        public bool CommentCrLf { get; private set; }
 
         public GridMemoValue Value { get; private set; }
 
@@ -125,6 +127,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 if (firstLine)
                 {
                     Comment = gridMemoValueLine.Text;
+                    CommentCrLf = gridMemoValueLine.CrLf;
                     Manager.Grid.UpdateRow(this);
                     firstLine = false;
                 }
@@ -132,7 +135,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 {
                     var childCommentRow = new SalesEntryDetailsCommentRow(SalesEntryDetailsManager)
                     {
-                        Comment = gridMemoValueLine.Text
+                        Comment = gridMemoValueLine.Text,
+                        CommentCrLf = gridMemoValueLine.CrLf
                     };
                     AddChildRow(childCommentRow);
                 }
@@ -141,12 +145,27 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override void LoadFromEntity(OrderDetails entity)
         {
-            throw new System.NotImplementedException();
+            var gridMemoValue = new GridMemoValue(MaxCharactersPerLine);
+            gridMemoValue.AddLine(entity.Comment, entity.CommentCrLf);
+
+            var children = GetDetailChildren(entity);
+            foreach (var child in children)
+            {
+                gridMemoValue.AddLine(child.Comment, child.CommentCrLf);
+            }
+            SetValue(gridMemoValue);
         }
 
         public override bool ValidateRow()
         {
             return true;
+        }
+
+        public override void SaveToEntity(OrderDetails entity, int rowIndex)
+        {
+            entity.Comment = Comment;
+            entity.CommentCrLf = CommentCrLf;
+            base.SaveToEntity(entity, rowIndex);
         }
     }
 }
