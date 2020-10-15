@@ -17,8 +17,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public virtual void LoadGrid(IEnumerable<TEntity> entityList)
         {
+            Grid.SetBulkInsertMode();
             PreLoadGridFromEntity();
-
             foreach (var entity in entityList)
             {
                 var parentRowId = GetParentRowIdFromEntity(entity);
@@ -27,6 +27,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             }
 
             PostLoadGridFromEntity();
+            Grid.SetBulkInsertMode(false);
         }
 
         public virtual void AddRowFromEntity(TEntity entity)

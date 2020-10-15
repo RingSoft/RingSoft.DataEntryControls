@@ -17,5 +17,7 @@
         void ResetGridFocus();
 
         void GotoCell(DataEntryGridRow row, int columnId);
+
+        void SetBulkInsertMode(bool value = true);
     }
 }

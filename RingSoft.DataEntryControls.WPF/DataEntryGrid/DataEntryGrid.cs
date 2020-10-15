@@ -135,6 +135,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private NextTabFocusCell _nextTabFocusCell;
         private bool _tabbingRight;
         private bool _undoEdit;
+        private bool _bulkInsertMode;
 
         static DataEntryGrid()
         {
@@ -431,7 +432,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         AddRow(row, startIndex);
                     }
 
-                    if (e.NewItems.Count > 0)
+                    if (e.NewItems.Count > 0 && !_bulkInsertMode)
                         RefreshGridView();
 
                     break;
@@ -453,6 +454,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void SetBulkInsertMode(bool value = true)
+        {
+            _bulkInsertMode = value;
+            if (!_bulkInsertMode)
+                RefreshGridView();
         }
 
         public void RefreshDataSource()
@@ -492,7 +500,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public void UpdateRow(DataEntryGridRow gridRow, int rowIndex)
         {
-            UpdateRow(gridRow, _dataSourceTable.Rows[rowIndex], rowIndex);
+            if (rowIndex < _dataSourceTable.Rows.Count)
+                UpdateRow(gridRow, _dataSourceTable.Rows[rowIndex], rowIndex);
         }
 
         private void SetNextTabFocusToCell(DataEntryGridRow row, int columnId)
