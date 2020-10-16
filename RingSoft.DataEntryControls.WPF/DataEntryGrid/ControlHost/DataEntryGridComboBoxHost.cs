@@ -1,12 +1,11 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using System;
 using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using ComboBoxItem = RingSoft.DataEntryControls.Engine.ComboBoxItem;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
-    public class DataEntryGridComboBoxHost : DataEntryGridControlHost<ComboBox>
+    public class DataEntryGridComboBoxHost : DataEntryGridControlHost<ComboBoxControl>
     {
         public DataEntryGridComboBoxCellProps ComboBoxCellProps { get; private set; }
 
@@ -29,7 +28,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return Control.SelectedItem != ComboBoxCellProps.SelectedItem;
         }
 
-        protected override void OnControlLoaded(ComboBox control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridCellProps cellProps)
         {
             ComboBoxCellProps = GetComboBoxCellProps(cellProps);
             

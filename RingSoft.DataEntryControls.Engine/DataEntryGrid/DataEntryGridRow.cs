@@ -20,7 +20,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public Color ForegroundColor { get; set; }
 
-        public bool IsNew { get; internal set; }
+        public bool IsNew { get; set; }
 
         public DataEntryGridRow RowReplacedBy { get; internal set; }
 

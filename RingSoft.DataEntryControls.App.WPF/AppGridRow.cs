@@ -102,6 +102,7 @@ namespace RingSoft.DataEntryControls.App.WPF
                                 var newRow =
                                     AppGridManager.GetNewAppGridRow(newLineType);
                                 AppGridManager.ReplaceRow(this, newRow);
+                                newRow.IsNew = true;
                             }
                         }
                     }

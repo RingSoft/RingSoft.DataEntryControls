@@ -1,11 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using System.Windows;
 using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
-    public class DataEntryGridTextBoxHost : DataEntryGridControlHost<TextBox>
+    public class DataEntryGridTextBoxHost : DataEntryGridControlHost<StringEditControl>
     {
         public override bool IsDropDownOpen => false;
 
@@ -25,7 +24,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             //factory.SetBinding(TextBox.TextProperty, binding);
         }
 
-        protected override void OnControlLoaded(TextBox control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(StringEditControl control, DataEntryGridCellProps cellProps)
         {
             if (cellProps is DataEntryGridTextCellProps textCellProps)
             {

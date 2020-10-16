@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace RingSoft.DataEntryControls.WPF
@@ -30,20 +30,11 @@ namespace RingSoft.DataEntryControls.WPF
     /// Step 2)
     /// Go ahead and use your control in the XAML file.
     ///
-    ///     <MyNamespace:StringEditControl/>
+    ///     <MyNamespace:ComboBoxControl/>
     ///
     /// </summary>
-    public class StringEditControl : TextBox
+    public class ComboBoxControl : ComboBox
     {
-        public static readonly DependencyProperty SelectAllOnGotFocusProperty =
-            DependencyProperty.Register(nameof(SelectAllOnGotFocus), typeof(bool), typeof(StringEditControl));
-
-        public bool SelectAllOnGotFocus
-        {
-            get { return (bool)GetValue(SelectAllOnGotFocusProperty); }
-            set { SetValue(SelectAllOnGotFocusProperty, value); }
-        }
-
         private string _designText;
 
         public string DesignText
@@ -56,22 +47,22 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        static StringEditControl()
-        {
-            SelectAllOnGotFocusProperty.OverrideMetadata(typeof(StringEditControl), new FrameworkPropertyMetadata(true));
-        }
-
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            if (SelectAllOnGotFocus)
-                SelectAll();
-            base.OnGotFocus(e);
-        }
-
         private void SetDesignText()
         {
             if (DesignerProperties.GetIsInDesignMode(this))
-                Text = DesignText;
+            {
+                if (IsEditable)
+                {
+                    Text = DesignText;
+                }
+                else
+                {
+                    var list = new List<string>();
+                    list.Add(DesignText);
+                    ItemsSource = list;
+                    SelectedItem = DesignText;
+                }
+            }
         }
     }
 }
