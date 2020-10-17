@@ -44,7 +44,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             if (sender is TControl control)
             {
                 Control = control;
-                
                 control.Focus();
                 OnControlLoaded(control, CellProps);
             }

@@ -24,6 +24,7 @@
         <Style TargetType="dec:ReadOnlyBox" x:Key="ReadOnlyBox">
             <Setter Property="Height" Value="20"/>
             <Setter Property="Margin" Value="2.5"/>
+            <Setter Property="Background" Value="Aquamarine"/>
         </Style>
         <Style TargetType="dec:StringReadOnlyBox" BasedOn="{StaticResource ReadOnlyBox}"/>
 
@@ -38,24 +39,14 @@
             <!--<Setter Property="Margin" Value="2.5"/>-->
         </Style>
 
-        <Style TargetType="dec:StringEditControl" x:Key="StringEditControlGlobals">
+        <Style TargetType="TextBox" x:Key="TextBoxGlobals">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="Aquamarine"/>
         </Style>
 
-        <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource StringEditControlGlobals}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxGlobals}"/>
 
-        <Style TargetType="PasswordBox" x:Key="StandardPasswordBox">
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="ComboBox" x:Key="DatabaseComboBox">
-            <Setter Property="Height" Value="23"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="IsEditable" Value="True"/>
-        </Style>
-        
         <Style TargetType="deg:DataEntryGrid">
             <Setter Property="ControlHostFactory" Value="{StaticResource EditHostFactory}"/>
             <Setter Property="EnterToTab" Value="True"/>

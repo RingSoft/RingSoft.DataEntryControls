@@ -47,6 +47,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public ComboBoxControl()
+        {
+            SetResourceReference(StyleProperty, typeof(ComboBox));
+        }
+
         private void SetDesignText()
         {
             if (DesignerProperties.GetIsInDesignMode(this))

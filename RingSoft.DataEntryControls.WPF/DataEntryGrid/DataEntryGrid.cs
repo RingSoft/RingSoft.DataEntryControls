@@ -227,9 +227,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 if (!DesignerProperties.GetIsInDesignMode(this))
                 {
-                    if (Manager != null && !_controlLoaded)
+                    if (Manager != null)
                     {
-                        SetManager();
+                        if (!_controlLoaded)
+                            SetManager();
+
+                        RefreshGridView();
                     }
                     _controlLoaded = true;
 
