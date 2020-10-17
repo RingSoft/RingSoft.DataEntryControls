@@ -89,20 +89,20 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Label Content="Name" Style="{StaticResource ControlLabel}"/>
-                        <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource StandardTextBox}" Text="{Binding Path=ShipName, Mode=TwoWay}" Width="200" HorizontalAlignment="Left"/>
+                        <dec:StringEditControl Grid.Column="1" Grid.Row="0" Text="{Binding Path=ShipName, Mode=TwoWay}" Width="200" HorizontalAlignment="Left"/>
                         <Label Grid.Column="0" Grid.Row="1" Content="Address" Style="{StaticResource ControlLabel}"/>
-                        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource StandardTextBox}" Text="{Binding Path=Address, Mode=TwoWay}"/>
+                        <dec:StringEditControl Grid.Column="1" Grid.Row="1" Text="{Binding Path=Address, Mode=TwoWay}"/>
                         <Label Grid.Column="0" Grid.Row="2" Content="City" Style="{StaticResource ControlLabel}"/>
                         <DockPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
-                            <TextBox Style="{StaticResource StandardTextBox}" Text="{Binding Path=City, Mode=TwoWay}" Width="125"/>
+                            <dec:StringEditControl Text="{Binding Path=City, Mode=TwoWay}" Width="125"/>
                             <Label Content="Region" Style="{StaticResource ControlLabel}"/>
-                            <TextBox Style="{StaticResource StandardTextBox}" Text="{Binding Path=Region, Mode=TwoWay}"/>
+                            <dec:StringEditControl Text="{Binding Path=Region, Mode=TwoWay}"/>
                         </DockPanel>
                         <Label Grid.Column="0" Grid.Row="3" Content="Postal Code" Style="{StaticResource ControlLabel}"/>
                         <DockPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch">
-                            <TextBox Style="{StaticResource StandardTextBox}" Text="{Binding Path=PostalCode, Mode=TwoWay}" Width="100"/>
+                            <dec:StringEditControl Text="{Binding Path=PostalCode, Mode=TwoWay}" Width="100"/>
                             <Label Content="Country" Style="{StaticResource ControlLabel}"/>
-                            <TextBox Style="{StaticResource StandardTextBox}" Text="{Binding Path=Country, Mode=TwoWay}"/>
+                            <dec:StringEditControl Text="{Binding Path=Country, Mode=TwoWay}"/>
                         </DockPanel>
                     </Grid>
                 </TabItem>

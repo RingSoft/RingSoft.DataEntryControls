@@ -37,14 +37,13 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <!--<Setter Property="Margin" Value="2.5"/>-->
         </Style>
-        <Style TargetType="TextBox" x:Key="StandardTextBox">
-            <Setter Property="Height" Value="20"/>
+
+        <Style TargetType="dec:StringEditControl" x:Key="StringEditControlGlobals">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="20"/>
         </Style>
 
-        <Style TargetType="dec:StringEditControl">
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
+        <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource StringEditControlGlobals}"/>
 
         <Style TargetType="PasswordBox" x:Key="StandardPasswordBox">
             <Setter Property="Height" Value="20"/>
