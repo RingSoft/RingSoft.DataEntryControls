@@ -58,13 +58,15 @@ namespace RingSoft.DataEntryControls.WPF
 
         static StringEditControl()
         {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(StringEditControl),
+                new FrameworkPropertyMetadata(typeof(StringEditControl)));
             SelectAllOnGotFocusProperty.OverrideMetadata(typeof(StringEditControl), new FrameworkPropertyMetadata(true));
         }
 
-        public StringEditControl()
-        {
-            SetResourceReference(StyleProperty, typeof(TextBox));
-        }
+        //public StringEditControl()
+        //{
+        //    SetResourceReference(StyleProperty, typeof(TextBox));
+        //}
 
         protected override void OnGotFocus(RoutedEventArgs e)
         {

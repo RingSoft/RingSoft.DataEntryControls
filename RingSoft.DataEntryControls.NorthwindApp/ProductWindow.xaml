@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="ProductWindow" Width="500" Height="400">
     <Window.Resources>
-        <Style TargetType="dec:StringEditControl" x:Key="CommentStringEditControl" BasedOn="{StaticResource {x:Type TextBox}}">
+        <Style TargetType="dec:StringEditControl" x:Key="CommentStringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}">
             <Setter Property="Height" Value="50"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="AcceptsReturn" Value="True"/>

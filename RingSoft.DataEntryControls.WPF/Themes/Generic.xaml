@@ -27,29 +27,8 @@
     </Style>
 
 
-    <Style TargetType="{x:Type local:StringEditControl}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:StringEditControl}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <Style TargetType="{x:Type local:StringEditControl}" BasedOn="{StaticResource {x:Type TextBox}}"/>
 
-    <Style TargetType="{x:Type local:ComboBoxControl}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:ComboBoxControl}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <Style TargetType="{x:Type local:ComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
+    
 </ResourceDictionary>

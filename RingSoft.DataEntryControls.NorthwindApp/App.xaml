@@ -14,12 +14,12 @@
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
         </Style>
 
-        <Style TargetType="dec:DateEditControl" x:Key="DateEditControlGlobals">
+        <Style TargetType="dec:DateEditControl" x:Key="GlobalDateEditControlStyle">
             <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}"/>
             <Setter Property="DisplayFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateDisplayFormat}}"/>
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}"/>
         </Style>
-        <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource DateEditControlGlobals}"/>
+        <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}"/>
 
         <Style TargetType="dec:ReadOnlyBox" x:Key="ReadOnlyBox">
             <Setter Property="Height" Value="20"/>
@@ -28,10 +28,10 @@
         </Style>
         <Style TargetType="dec:StringReadOnlyBox" BasedOn="{StaticResource ReadOnlyBox}"/>
 
-        <Style TargetType="dec:DecimalReadOnlyBox" x:Key="DecimalReadOnlyBoxGlobals" BasedOn="{StaticResource ReadOnlyBox}">
+        <Style TargetType="dec:DecimalReadOnlyBox" x:Key="GlobalDecimalReadOnlyBoxStyle" BasedOn="{StaticResource ReadOnlyBox}">
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}"/>
         </Style>
-        <Style TargetType="dec:DecimalReadOnlyBox" BasedOn="{StaticResource DecimalReadOnlyBoxGlobals}"/>
+        <Style TargetType="dec:DecimalReadOnlyBox" BasedOn="{StaticResource GlobalDecimalReadOnlyBoxStyle}"/>
 
         <Style TargetType="Label" x:Key="ControlLabel">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -39,13 +39,19 @@
             <!--<Setter Property="Margin" Value="2.5"/>-->
         </Style>
 
-        <Style TargetType="TextBox" x:Key="TextBoxGlobals">
+        <Style TargetType="TextBox" x:Key="GlobalTextBoxStyle">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Height" Value="20"/>
             <Setter Property="Background" Value="Aquamarine"/>
         </Style>
 
-        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxGlobals}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource GlobalTextBoxStyle}"/>
+
+        <Style TargetType="dec:StringEditControl" x:Key="GlobalStringEditControlStyle" BasedOn="{StaticResource GlobalTextBoxStyle}">
+            <Setter Property="SelectAllOnGotFocus" Value="True"/>
+        </Style>
+
+        <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}"/>
 
         <Style TargetType="deg:DataEntryGrid">
             <Setter Property="ControlHostFactory" Value="{StaticResource EditHostFactory}"/>

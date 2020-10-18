@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RingSoft.DataEntryControls.WPF
@@ -47,10 +48,16 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        public ComboBoxControl()
+        static ComboBoxControl()
         {
-            SetResourceReference(StyleProperty, typeof(ComboBox));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ComboBoxControl),
+                new FrameworkPropertyMetadata(typeof(ComboBoxControl)));
         }
+
+        //public ComboBoxControl()
+        //{
+        //    SetResourceReference(StyleProperty, typeof(ComboBox));
+        //}
 
         private void SetDesignText()
         {
