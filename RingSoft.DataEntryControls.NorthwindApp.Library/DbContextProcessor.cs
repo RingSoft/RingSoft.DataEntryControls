@@ -118,5 +118,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             var product = context.Products.FirstOrDefault(p => p.ProductId == productId);
             return context.DeleteEntity(context.Products, product, "Deleting Product");
         }
+
+        public NonInventoryCodes GetNonInventoryCode(int nonInventoryCodeId)
+        {
+            var context = new NorthwindDbContext();
+            return context.NonInventoryCodes.FirstOrDefault(f => f.NonInventoryCodeId == nonInventoryCodeId);
+        }
+
+        public bool SaveNonInventoryCode(NonInventoryCodes nonInventoryCode)
+        {
+            var context = new NorthwindDbContext();
+            return context.SaveEntity(context.NonInventoryCodes, nonInventoryCode, "Saving Non Inventory Code");
+        }
+
+        public bool DeleteNonInventoryCode(int nonInventoryCodeId)
+        {
+            var context = new NorthwindDbContext();
+            var nonInventoryCode =
+                context.NonInventoryCodes.FirstOrDefault(f => f.NonInventoryCodeId == nonInventoryCodeId);
+            return context.DeleteEntity(context.NonInventoryCodes, nonInventoryCode, "Deleting Non InventoryCode");
+        }
     }
 }
