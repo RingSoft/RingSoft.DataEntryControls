@@ -19,7 +19,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <TextBox Name="TextBox" VerticalContentAlignment="Center"/>
-                            <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16">
+                            <Button Name="DropDownButton" Grid.Row="0" Grid.Column="1" Width="16" Height="{Binding ElementName=TextBox, Path=Height}" VerticalAlignment="Center">
                                 <Image
                                     Source="/RingSoft.DataEntryControls.WPF;component/Resources/calculator16.png">
                                 </Image>

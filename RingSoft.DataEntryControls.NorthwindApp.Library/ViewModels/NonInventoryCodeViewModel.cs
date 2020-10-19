@@ -73,12 +73,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
         protected override bool SaveEntity(NonInventoryCodes entity)
         {
-            throw new System.NotImplementedException();
+            return AppGlobals.DbContextProcessor.SaveNonInventoryCode(entity);
         }
 
         protected override bool DeleteEntity()
         {
-            throw new System.NotImplementedException();
+            return AppGlobals.DbContextProcessor.DeleteNonInventoryCode(NonInventoryCodeId);
         }
     }
 }

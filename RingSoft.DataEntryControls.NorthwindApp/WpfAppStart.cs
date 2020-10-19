@@ -54,35 +54,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             {
                 ShowAddOnTheFlyWindow(new ProductWindow(), e);
             }
+            else if (e.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.NonInventoryCodes)
+            {
+                ShowAddOnTheFlyWindow(new NonInventoryCodeWindow(), e);
+            }
         }
-
-
-        //private void MegaDbLookupContextOnLookupView(object sender, LookupAddViewArgs e)
-        //{
-        //    if (e.LookupData.LookupDefinition.TableDefinition == RsDbLookupAppGlobals.EfProcessor.MegaDbLookupContext.Items)
-        //    {
-        //        ShowAddOnTheFlyWindow(new ItemsWindow(), e);
-        //    }
-        //    else if (e.LookupData.LookupDefinition.TableDefinition == RsDbLookupAppGlobals.EfProcessor.MegaDbLookupContext.Locations)
-        //    {
-        //        ShowAddOnTheFlyWindow(new LocationWindow(), e);
-        //    }
-        //    else if (e.LookupData.LookupDefinition.TableDefinition == RsDbLookupAppGlobals.EfProcessor.MegaDbLookupContext.Manufacturers)
-        //    {
-        //        ShowAddOnTheFlyWindow(new ManufacturerWindow(), e);
-        //    }
-        //    else if (e.LookupData.LookupDefinition.TableDefinition ==
-        //             RsDbLookupAppGlobals.EfProcessor.MegaDbLookupContext.Stocks)
-        //    {
-        //        ShowAddOnTheFlyWindow(new StockMasterWindow(), e);
-        //    }
-        //    else if (e.LookupData.LookupDefinition.TableDefinition ==
-        //             RsDbLookupAppGlobals.EfProcessor.MegaDbLookupContext.StockCostQuantities)
-        //    {
-        //        ShowAddOnTheFlyWindow(new StockCostQuantityWindow(), e);
-        //    }
-        //}
-
 
         private void ShowAddOnTheFlyWindow(DbMaintenanceWindow maintenanceWindow, LookupAddViewArgs e)
         {

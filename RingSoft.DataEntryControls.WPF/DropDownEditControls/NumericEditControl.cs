@@ -158,13 +158,24 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (!IsKeyboardFocusWithin && TextBox != null)
             {
-                SetText(TextBox.Text);
+                if (Value == null)
+                    SetText((decimal?)null);
+                else 
+                    SetText(TextBox.Text);
             }
         }
 
         private void SetText(string text)
         {
-            SetText(text.ToDecimal(Culture));
+            var setText = true;
+            if (text.IsNullOrEmpty())
+            {
+                setText = false;
+            }
+            if (setText)
+            {
+                SetText(text.ToDecimal(Culture));
+            }
         }
 
         protected void SetText(decimal? newValue)

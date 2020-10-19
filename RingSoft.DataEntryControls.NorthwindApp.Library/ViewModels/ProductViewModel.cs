@@ -281,17 +281,36 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
         protected override void LoadFromEntity(Products entity)
         {
-            var primaryKey = AppGlobals.LookupContext.Suppliers.GetPrimaryKeyValueFromEntity(entity.Supplier);
-            SupplierAutoFillValue = new AutoFillValue(primaryKey, entity.Supplier.CompanyName);
+            PrimaryKeyValue primaryKey;
+            if (entity.Supplier != null)
+            {
+                primaryKey = AppGlobals.LookupContext.Suppliers.GetPrimaryKeyValueFromEntity(entity.Supplier);
+                SupplierAutoFillValue = new AutoFillValue(primaryKey, entity.Supplier.CompanyName);
+            }
+            else
+            {
+                SupplierAutoFillValue = null;
+            }
 
-            primaryKey = AppGlobals.LookupContext.Categories.GetPrimaryKeyValueFromEntity(entity.Category);
-            CategoryAutoFillValue = new AutoFillValue(primaryKey, entity.Category.CategoryName);
+            if (entity.Category != null)
+            {
+                primaryKey = AppGlobals.LookupContext.Categories.GetPrimaryKeyValueFromEntity(entity.Category);
+                CategoryAutoFillValue = new AutoFillValue(primaryKey, entity.Category.CategoryName);
+            }
+            else
+            {
+                CategoryAutoFillValue = null;
+            }
 
             if (entity.NonInventoryCode != null)
             {
                 primaryKey =
                     AppGlobals.LookupContext.NonInventoryCodes.GetPrimaryKeyValueFromEntity(entity.NonInventoryCode);
                 NonInventoryCodeAutoFillValue = new AutoFillValue(primaryKey, entity.NonInventoryCode.Description);
+            }
+            else
+            {
+                NonInventoryCodeAutoFillValue = null;
             }
 
             QuantityPerUnit = entity.QuantityPerUnit;
@@ -350,6 +369,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             UnitPrice = UnitsInStock = UnitsOnOrder = ReorderLevel = null;
             Discontinued = false;
             UnitDecimals = 2;
+            NonInventoryCodeAutoFillValue = null;
         }
 
         protected override AutoFillValue GetAutoFillValueForNullableForeignKeyField(FieldDefinition fieldDefinition)
