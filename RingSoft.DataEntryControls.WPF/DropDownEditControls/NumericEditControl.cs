@@ -167,15 +167,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void SetText(string text)
         {
-            var setText = true;
-            if (text.IsNullOrEmpty())
-            {
-                setText = false;
-            }
-            if (setText)
-            {
-                SetText(text.ToDecimal(Culture));
-            }
+            SetText(text.ToDecimal(Culture));
         }
 
         protected void SetText(decimal? newValue)

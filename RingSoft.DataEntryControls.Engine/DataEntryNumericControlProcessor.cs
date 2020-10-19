@@ -47,7 +47,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public INumericControl Control { get; }
 
-        public decimal Value { get; private set; }
+        public decimal? Value { get; private set; }
 
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
@@ -601,7 +601,7 @@ namespace RingSoft.DataEntryControls.Engine
 
                 if (newText.IsNullOrEmpty())
                 {
-                    newValue = "0";
+                    newValue = string.Empty;
                 }
                 else
                 {
@@ -850,7 +850,10 @@ namespace RingSoft.DataEntryControls.Engine
                 newValue = decimalValue.ToString(_setup.Culture);
             }
 
-            Value = decimalValue;
+            if (newValue.IsNullOrEmpty())
+                Value = null;
+            else 
+                Value = decimalValue;
 
             ValueChanged?.Invoke(this, new ValueChangedArgs(newValue));
         }

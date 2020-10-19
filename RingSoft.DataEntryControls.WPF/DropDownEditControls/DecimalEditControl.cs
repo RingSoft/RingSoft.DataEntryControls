@@ -260,7 +260,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnValueChanged(string newValue)
         {
-            Value = newValue.ToDecimal(Culture);
+            if (newValue.IsNullOrEmpty())
+                Value = null;
+            else 
+                Value = newValue.ToDecimal(Culture);
 
             base.OnValueChanged(newValue);
         }
