@@ -375,7 +375,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
 
         private void OnValueChanged(DateTime? newValue)
         {
-            Value = newValue;
+            if (_setup.AllowNullValue || newValue != null)
+                Value = newValue;
+            else
+                Value = _setup.MinimumDate ?? DateTime.Today;
+
             ValueChanged?.Invoke(this, EventArgs.Empty);
         }
     }

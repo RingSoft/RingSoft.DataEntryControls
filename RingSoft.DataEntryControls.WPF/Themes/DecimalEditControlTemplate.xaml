@@ -20,7 +20,7 @@
                                     Source="/RingSoft.DataEntryControls.WPF;component/Resources/calculator16.png">
                                 </Image>
                             </Button>
-                            <Popup x:Name="Popup" Grid.ColumnSpan="2" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
+                            <Popup x:Name="Popup" Grid.Column="0" Grid.ColumnSpan="2" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
                                 <Grid>
                                     <local:Calculator x:Name="Calculator"/>
                                 </Grid>

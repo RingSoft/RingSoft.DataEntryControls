@@ -6,6 +6,7 @@
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="DummyWindow" Height="450" Width="800">
     <Window.Resources>
     </Window.Resources>
@@ -13,8 +14,8 @@
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <dec:ComboBoxControl Width="150" DesignText="Non Inventory Code"/>
-            <dec:DecimalEditControl FormatType="Currency" Value="1234.56"/>
-            <xctk:CalculatorUpDown x:Name="CalculatorUpDown"/>
+            <dec:DecimalEditControl FormatType="Currency"/>
+            <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>
             <dec:DecimalReadOnlyBox Value="12345.6" FormatType="Number" Precision="4" Margin="5"/>

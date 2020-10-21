@@ -601,7 +601,10 @@ namespace RingSoft.DataEntryControls.Engine
 
                 if (newText.IsNullOrEmpty())
                 {
-                    newValue = string.Empty;
+                    if (_setup.AllowNullValue)
+                        newValue = string.Empty;
+                    else
+                        newValue = _setup.MinimumValue != null ? _setup.MinimumValue.ToString() : "0";
                 }
                 else
                 {

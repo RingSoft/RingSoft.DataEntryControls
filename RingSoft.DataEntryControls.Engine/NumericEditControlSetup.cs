@@ -33,6 +33,8 @@ namespace RingSoft.DataEntryControls.Engine
 
         public CultureInfo Culture { get; private set; }
 
+        public bool AllowNullValue { get; set; } = true;
+
         public NumericEditControlSetup()
         {
             if (Culture == null)

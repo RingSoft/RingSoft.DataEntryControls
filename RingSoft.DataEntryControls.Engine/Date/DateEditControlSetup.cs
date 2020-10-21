@@ -35,6 +35,8 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        public bool AllowNullValue { get; set; } = true;
+
         public DateEditControlSetup()
         {
             DateFormatType = DateFormatTypes.DateOnly;

@@ -117,6 +117,15 @@ namespace RingSoft.DataEntryControls.WPF
                 numericEditControl.SetValue();
         }
 
+        public static readonly DependencyProperty AllowNullValueProperty =
+            DependencyProperty.Register(nameof(AllowNullValue), typeof(bool), typeof(NumericEditControl<T>));
+
+        public bool AllowNullValue
+        {
+            get { return (bool)GetValue(AllowNullValueProperty); }
+            set { SetValue(AllowNullValueProperty, value); }
+        }
+
         public CultureInfo Culture { get; protected internal set; }
 
         private DataEntryNumericControlProcessor _numericProcessor;
@@ -125,6 +134,7 @@ namespace RingSoft.DataEntryControls.WPF
         static NumericEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl<T>), new FrameworkPropertyMetadata(typeof(NumericEditControl<T>)));
+            AllowNullValueProperty.OverrideMetadata(typeof(NumericEditControl<T>), new FrameworkPropertyMetadata(true));
         }
 
         public NumericEditControl()
@@ -141,6 +151,18 @@ namespace RingSoft.DataEntryControls.WPF
             };
 
             LostFocus += NumericEditControl_LostFocus;
+            Loaded += (sender, args) => OnLoad();
+        }
+
+        private void OnLoad()
+        {
+            if (!AllowNullValue && Value == null)
+            {
+                if (MinimumValue == null)
+                    SetDefaultValue();
+                else
+                    Value = MinimumValue;
+            }
         }
 
         protected virtual void LoadFromSetup(NumericEditControlSetup<T> setup)
@@ -150,9 +172,12 @@ namespace RingSoft.DataEntryControls.WPF
             MinimumValue = setup.MinimumValue;
             NumberFormatString = setup.NumberFormatString;
             Culture = setup.Culture;
+            AllowNullValue = setup.AllowNullValue;
         }
 
         protected abstract void SetValue();
+
+        protected abstract void SetDefaultValue();
 
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -224,6 +249,7 @@ namespace RingSoft.DataEntryControls.WPF
             setup.DataEntryMode = DataEntryMode;
             setup.NumberFormatString = NumberFormatString;
             setup.CultureId = Culture.Name;
+            setup.AllowNullValue = AllowNullValue;
         }
 
         protected override bool ProcessKeyChar(char keyChar)
