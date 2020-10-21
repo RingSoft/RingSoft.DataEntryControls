@@ -197,8 +197,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private decimal? _freight;
-        public decimal? Freight
+        private decimal _freight;
+        public decimal Freight
         {
             get => _freight;
             set
@@ -440,7 +440,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             ShipVia = new AutoFillValue(AppGlobals.LookupContext.Shippers.GetPrimaryKeyValueFromEntity(entity.Shipper),
                 shipCompanyName);
 
-            Freight = entity.Freight;
+            if (entity.Freight != null) 
+                Freight = (decimal) entity.Freight;
             ShipName = entity.ShipName;
             Address = entity.ShipAddress;
             City = entity.ShipCity;
@@ -458,9 +459,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             decimal subTotal = 0;
             decimal totalDiscount = 0;
-            decimal freight = 0;
-            if (Freight != null)
-                freight = (decimal) Freight;
 
             foreach (var dataEntryGridRow in DetailsGridManager.Rows)
             {
@@ -487,7 +485,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
             SubTotal = subTotal;
             TotalDiscount = totalDiscount;
-            Total = (SubTotal - TotalDiscount) + freight;
+            Total = (SubTotal - TotalDiscount) + Freight;
         }
         
         private string GetEmployeeAutoFillValueText(Employees employee)

@@ -155,11 +155,6 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        protected override void SetDefaultValue()
-        {
-            Value = 0;
-        }
-
         protected decimal? ValidateValue(decimal? newValue)
         {
             decimal? result = null;

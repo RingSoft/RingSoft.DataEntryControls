@@ -28,8 +28,8 @@ namespace RingSoft.DataEntryControls.App.WPF
             AppGridManager = manager;
             LineTypeComboBoxSetup.LoadFromEnum<AppGridLineTypes>();
 
-            DateSetup = new DateEditControlSetup();
-            IntegerSetup = new IntegerEditControlSetup();
+            DateSetup = new DateEditControlSetup{AllowNullValue = true};
+            IntegerSetup = new IntegerEditControlSetup{AllowNullValue = true};
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)

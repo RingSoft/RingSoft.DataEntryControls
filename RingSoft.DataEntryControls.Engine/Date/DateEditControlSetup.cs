@@ -35,7 +35,7 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
-        public bool AllowNullValue { get; set; } = true;
+        public bool AllowNullValue { get; set; }
 
         public DateEditControlSetup()
         {

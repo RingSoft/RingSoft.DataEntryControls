@@ -17,6 +17,7 @@
         <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}">
             <Setter Property="Width" Value="100"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="AllowNullValue" Value="True"/>
             <Setter Property="DesignText" Value="01/01/1980"/>
         </Style>
         <Style TargetType="dec:DecimalReadOnlyBox" BasedOn="{StaticResource GlobalDecimalReadOnlyBoxStyle}">

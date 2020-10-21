@@ -134,7 +134,6 @@ namespace RingSoft.DataEntryControls.WPF
         static NumericEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl<T>), new FrameworkPropertyMetadata(typeof(NumericEditControl<T>)));
-            AllowNullValueProperty.OverrideMetadata(typeof(NumericEditControl<T>), new FrameworkPropertyMetadata(true));
         }
 
         public NumericEditControl()
@@ -151,18 +150,6 @@ namespace RingSoft.DataEntryControls.WPF
             };
 
             LostFocus += NumericEditControl_LostFocus;
-            Loaded += (sender, args) => OnLoad();
-        }
-
-        private void OnLoad()
-        {
-            if (!AllowNullValue && Value == null)
-            {
-                if (MinimumValue == null)
-                    SetDefaultValue();
-                else
-                    Value = MinimumValue;
-            }
         }
 
         protected virtual void LoadFromSetup(NumericEditControlSetup<T> setup)
@@ -176,8 +163,6 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         protected abstract void SetValue();
-
-        protected abstract void SetDefaultValue();
 
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)
         {

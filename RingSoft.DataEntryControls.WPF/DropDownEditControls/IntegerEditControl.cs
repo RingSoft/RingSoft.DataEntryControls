@@ -69,7 +69,6 @@ namespace RingSoft.DataEntryControls.WPF
             _pendingNewValue = null;
         }
 
-
         protected override void SetValue()
         {
             if (TextBox == null)
@@ -80,11 +79,6 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 SetText(Value);
             }
-        }
-
-        protected override void SetDefaultValue()
-        {
-            Value = 0;
         }
 
         protected override void PopulateSetup(DecimalEditControlSetup setup)
@@ -98,7 +92,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnValueChanged(string newValue)
         {
-            Value = newValue.ToInt(Culture);
+            if (newValue.IsNullOrEmpty())
+                Value = null;
+            else
+                Value = newValue.ToInt(Culture);
 
             base.OnValueChanged(newValue);
         }

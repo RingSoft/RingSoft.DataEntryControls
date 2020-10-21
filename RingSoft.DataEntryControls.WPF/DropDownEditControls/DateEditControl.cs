@@ -185,23 +185,12 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty AllowNullValueProperty =
-            DependencyProperty.Register(nameof(AllowNullValue), typeof(bool), typeof(DateEditControl),
-                new FrameworkPropertyMetadata(true, AllowNullValueChangedCallback));
+            DependencyProperty.Register(nameof(AllowNullValue), typeof(bool), typeof(DateEditControl));
 
         public bool AllowNullValue
         {
             get { return (bool)GetValue(AllowNullValueProperty); }
             set { SetValue(AllowNullValueProperty, value); }
-        }
-
-        private static void AllowNullValueChangedCallback(DependencyObject obj,
-            DependencyPropertyChangedEventArgs args)
-        {
-            var dateEditControl = (DateEditControl)obj;
-            if (!dateEditControl.AllowNullValue && dateEditControl.Value == null)
-            {
-                dateEditControl.Value = dateEditControl.MinimumDate ?? DateTime.Today;
-            }
         }
 
         private IDropDownCalendar _calendar;

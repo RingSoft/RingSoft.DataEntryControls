@@ -14,7 +14,7 @@
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <dec:ComboBoxControl Width="150" DesignText="Non Inventory Code"/>
-            <dec:DecimalEditControl FormatType="Currency"/>
+            <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>
