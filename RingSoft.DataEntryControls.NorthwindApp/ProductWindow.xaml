@@ -17,6 +17,9 @@
             <Setter Property="VerticalContentAlignment" Value="Top"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
+        <Style TargetType="dec:DecimalEditControl">
+            <Setter Property="AllowNullValue" Value="True"/>
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <vmlib:ProductViewModel x:Name="ProductViewModel"/>
