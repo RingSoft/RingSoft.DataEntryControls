@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using RingSoft.DataEntryControls.Engine;
 using Color = System.Drawing.Color;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
@@ -154,6 +155,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             Loaded += (sender, args) => OnLoad();
             GotFocus += DataEntryGrid_GotFocus;
             LostFocus += DataEntryGrid_LostFocus;
+            CurrentCellChanged += DataEntryGrid_CurrentCellChanged;
         }
 
         private void DataEntryGrid_LostFocus(object sender, RoutedEventArgs e)
@@ -757,16 +759,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 if (e.NewFocus is DependencyObject newFocus)
                 {
-                    var parent = newFocus.GetParentOfType(EditingControlHost.Control.GetType());
-                    if (!EditingControlHost.Control.Equals(parent))
+                    if (!(newFocus is ContextMenu))
                     {
-                        if (!CommitEdit())
+                        var parent = newFocus.GetParentOfType(EditingControlHost.Control.GetType());
+                        if (!EditingControlHost.Control.Equals(parent))
                         {
-                            e.Handled = true;
-                            SelectedCells.Clear();
+                            if (!CommitEdit())
+                            {
+                                e.Handled = true;
+                                SelectedCells.Clear();
+                            }
+                            else if (!e.NewFocus.Equals(this))
+                                CancelEdit(true);
                         }
-                        else if (!e.NewFocus.Equals(this))
-                            CancelEdit(true);
                     }
                 }
             }
@@ -1085,15 +1090,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
         private void DeleteCurrentRow()
         {
-            var rowIndex = Items.IndexOf(CurrentCell.Item);
-            var deleteOk = CanUserDeleteRows && rowIndex < Items.Count - 1;
-            if (deleteOk)
+            if (IsDeleteOk())
             {
-                var row = Manager.Rows[rowIndex];
-                deleteOk = row.AllowUserDelete;
-            }
-            if (deleteOk)
-            {
+                var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
 
                 CancelEdit(true);
@@ -1105,6 +1104,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 System.Media.SystemSounds.Exclamation.Play();
             }
+        }
+
+        private bool IsDeleteOk()
+        {
+            var rowIndex = Items.IndexOf(CurrentCell.Item);
+            var deleteOk = CanUserDeleteRows && rowIndex < Items.Count - 1;
+            if (deleteOk)
+            {
+                var row = Manager.Rows[rowIndex];
+                deleteOk = row.AllowUserDelete;
+            }
+
+            return deleteOk;
         }
 
         private void InsertRow()
@@ -1208,6 +1220,40 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
             }
             return null;
+        }
+
+        internal void AddGridContextMenuItems(ContextMenu contextMenu)
+        {
+            if (CanUserAddRows)
+                contextMenu.Items.Add(new MenuItem
+                {
+                    Header = "_Insert Row", 
+                    Command = new RelayCommand(InsertRow){IsEnabled = true}
+                });
+
+            if (CanUserDeleteRows)
+                contextMenu.Items.Add(new MenuItem
+                {
+                    Header = "_Delete Row", 
+                    Command = new RelayCommand(DeleteCurrentRow){IsEnabled = IsDeleteOk()}
+                });
+        }
+
+        private void DataEntryGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            ContextMenu = new ContextMenu();
+            AddGridContextMenuItems(ContextMenu);
+            var cellContent = CurrentCell.Column.GetCellContent(CurrentCell.Item);
+            if (cellContent != null)
+            {
+                var point = cellContent.PointToScreen(new Point(0, 0));
+                if (ContextMenu != null)
+                {
+                    var rect = cellContent.GetAbsolutePlacement();
+                    rect.Y += cellContent.ActualHeight;
+                    ContextMenu.PlacementRectangle = rect;
+                }
+            }
         }
     }
 }

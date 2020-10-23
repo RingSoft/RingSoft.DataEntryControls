@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -45,6 +46,21 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             {
                 Control = control;
                 control.Focus();
+                var contextMenu = control.ContextMenu;
+                if (contextMenu == null)
+                {
+                    contextMenu = new ContextMenu();
+                }
+                else
+                {
+                    contextMenu.Items.Add(new Separator());
+                }
+                Grid.AddGridContextMenuItems(contextMenu);
+                var rect = control.GetAbsolutePlacement();
+                //rect.Y += control.ActualHeight;
+                control.ContextMenu = contextMenu;
+                contextMenu.Placement = PlacementMode.Bottom;
+
                 OnControlLoaded(control, CellProps);
             }
         }

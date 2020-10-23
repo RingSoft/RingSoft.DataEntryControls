@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 // ReSharper disable InconsistentNaming
@@ -90,6 +91,30 @@ namespace RingSoft.DataEntryControls.WPF
                 }
             }
             return ch;
+        }
+
+        public static void AddTextBoxContextMenuItems(this ContextMenu contextMenu)
+        {
+            contextMenu.Items.Add(new MenuItem { Header = "Cu_t", Command = ApplicationCommands.Cut });
+            contextMenu.Items.Add(new MenuItem { Header = "_Copy", Command = ApplicationCommands.Copy });
+            contextMenu.Items.Add(new MenuItem { Header = "_Paste", Command = ApplicationCommands.Paste });
+        }
+
+        public static Rect GetAbsolutePlacement(this FrameworkElement element, bool relativeToScreen = false)
+        {
+            var absolutePos = element.PointToScreen(new Point(0, 0));
+            if (relativeToScreen)
+            {
+                return new Rect(absolutePos.X, absolutePos.Y, element.ActualWidth, element.ActualHeight);
+            }
+
+            if (Application.Current.MainWindow != null)
+            {
+                var posMW = Application.Current.MainWindow.PointToScreen(new Point(0, 0));
+                absolutePos = new Point(absolutePos.X - posMW.X, absolutePos.Y - posMW.Y);
+            }
+
+            return new Rect(absolutePos.X, absolutePos.Y, element.ActualWidth, element.ActualHeight);
         }
     }
 }

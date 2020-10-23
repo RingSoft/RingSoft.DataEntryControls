@@ -219,7 +219,12 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnApplyTemplate();
 
             if (TextBox != null)
+            {
                 TextBox.TextAlignment = TextAlignment;
+                ContextMenu = new ContextMenu();
+                ContextMenu.AddTextBoxContextMenuItems();
+                TextBox.ContextMenu = ContextMenu;
+            }
 
             SetDesignText();
         }
