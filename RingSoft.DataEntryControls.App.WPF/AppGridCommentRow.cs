@@ -155,11 +155,11 @@ namespace RingSoft.DataEntryControls.App.WPF
         public override void AddContextMenuItems(List<DataEntryGridContextMenuItem> contextMenuItems, int columnId)
         {
             contextMenuItems.Add(new DataEntryGridContextMenuItem("_Edit Comment",
-                new RelayCommand(EditComment)){CommandParameter = columnId});
+                new RelayCommand<int>(h => EditComment(columnId))){CommandParameter = columnId});
             base.AddContextMenuItems(contextMenuItems, columnId);
         }
 
-        private void EditComment(object columnId)
+        private void EditComment(int columnId)
         {
             var parentRow = this;
             if (!string.IsNullOrEmpty(ParentRowId))
@@ -174,7 +174,7 @@ namespace RingSoft.DataEntryControls.App.WPF
                 if (AppGridManager.UserInterface.ShowGridMemoEditor(Value))
                 {
                     UpdateFromValue();
-                    Manager.Grid.GotoCell(this, (int)columnId);
+                    Manager.Grid.GotoCell(this, columnId);
                 }
             }
             else

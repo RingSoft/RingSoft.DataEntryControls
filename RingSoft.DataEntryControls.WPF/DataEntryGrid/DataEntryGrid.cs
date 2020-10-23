@@ -1223,30 +1223,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
-        private void ContextInsertRow(object parameter)
-        {
-            InsertRow();
-        }
-
-        private void ContextDeleteCurrentRow(object parameter)
-        {
-            DeleteCurrentRow();
-        }
-
         internal void AddGridContextMenuItems(ContextMenu contextMenu)
         {
             if (CanUserAddRows)
                 contextMenu.Items.Add(new MenuItem
                 {
                     Header = "_Insert Row", 
-                    Command = new RelayCommand(ContextInsertRow)
+                    Command = new RelayCommand(InsertRow)
                 });
 
             if (CanUserDeleteRows)
                 contextMenu.Items.Add(new MenuItem
                 {
                     Header = "_Delete Row", 
-                    Command = new RelayCommand(ContextDeleteCurrentRow)
+                    Command = new RelayCommand(DeleteCurrentRow)
                 });
 
             var row = Manager.Rows[GetCurrentRowIndex()];
