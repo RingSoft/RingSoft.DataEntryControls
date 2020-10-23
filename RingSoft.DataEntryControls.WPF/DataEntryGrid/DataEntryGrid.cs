@@ -1,7 +1,9 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -12,7 +14,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using RingSoft.DataEntryControls.Engine;
 using Color = System.Drawing.Color;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
@@ -1110,7 +1111,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             var rowIndex = Items.IndexOf(CurrentCell.Item);
             var deleteOk = CanUserDeleteRows && rowIndex < Items.Count - 1;
-            if (deleteOk)
+            if (deleteOk && rowIndex >= 0)
             {
                 var row = Manager.Rows[rowIndex];
                 deleteOk = row.AllowUserDelete;
@@ -1222,37 +1223,67 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
+        private void ContextInsertRow(object parameter)
+        {
+            InsertRow();
+        }
+
+        private void ContextDeleteCurrentRow(object parameter)
+        {
+            DeleteCurrentRow();
+        }
+
         internal void AddGridContextMenuItems(ContextMenu contextMenu)
         {
             if (CanUserAddRows)
                 contextMenu.Items.Add(new MenuItem
                 {
                     Header = "_Insert Row", 
-                    Command = new RelayCommand(InsertRow){IsEnabled = true}
+                    Command = new RelayCommand(ContextInsertRow)
                 });
 
             if (CanUserDeleteRows)
                 contextMenu.Items.Add(new MenuItem
                 {
                     Header = "_Delete Row", 
-                    Command = new RelayCommand(DeleteCurrentRow){IsEnabled = IsDeleteOk()}
+                    Command = new RelayCommand(ContextDeleteCurrentRow)
                 });
+
+            var row = Manager.Rows[GetCurrentRowIndex()];
+            var column = Columns[GetCurrentColumnIndex()];
+            var contextMenuItems = new List<DataEntryGridContextMenuItem>();
+            row.AddContextMenuItems(contextMenuItems, column.ColumnId);
+
+            if (contextMenuItems.Any())
+            {
+                if (contextMenu.Items.Count > 0)
+                {
+                    contextMenu.Items.Add(new Separator());
+                }
+
+                foreach (var contextMenuItem in contextMenuItems)
+                {
+                    contextMenu.Items.Add(new MenuItem
+                    {
+                        Header = contextMenuItem.Header,
+                        Command = contextMenuItem.Command,
+                        CommandParameter = contextMenuItem.CommandParameter
+                    });
+                }
+            }
         }
 
         private void DataEntryGrid_CurrentCellChanged(object sender, EventArgs e)
         {
-            ContextMenu = new ContextMenu();
-            AddGridContextMenuItems(ContextMenu);
+            if (CurrentCell.Column == null || CurrentCell.Item == null)
+                return;
+
             var cellContent = CurrentCell.Column.GetCellContent(CurrentCell.Item);
-            if (cellContent != null)
+            if (cellContent != null && cellContent.Parent is DataGridCell dataGridCell)
             {
-                var point = cellContent.PointToScreen(new Point(0, 0));
-                if (ContextMenu != null)
-                {
-                    var rect = cellContent.GetAbsolutePlacement();
-                    rect.Y += cellContent.ActualHeight;
-                    ContextMenu.PlacementRectangle = rect;
-                }
+                var contextMenu = new ContextMenu();
+                AddGridContextMenuItems(contextMenu);
+                dataGridCell.ContextMenu = contextMenu;
             }
         }
     }

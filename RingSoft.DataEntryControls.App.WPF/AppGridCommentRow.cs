@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿using System.Collections.Generic;
+using RingSoft.DataEntryControls.Engine;
 using System.Drawing;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
@@ -148,6 +149,37 @@ namespace RingSoft.DataEntryControls.App.WPF
                     };
                     AddChildRow(childCommentRow);
                 }
+            }
+        }
+
+        public override void AddContextMenuItems(List<DataEntryGridContextMenuItem> contextMenuItems, int columnId)
+        {
+            contextMenuItems.Add(new DataEntryGridContextMenuItem("_Edit Comment",
+                new RelayCommand(EditComment)){CommandParameter = columnId});
+            base.AddContextMenuItems(contextMenuItems, columnId);
+        }
+
+        private void EditComment(object columnId)
+        {
+            var parentRow = this;
+            if (!string.IsNullOrEmpty(ParentRowId))
+            {
+                var gridRow = GetParentRow();
+                if (gridRow is AppGridCommentRow parentCommentRow)
+                    parentRow = parentCommentRow;
+            }
+
+            if (parentRow == this)
+            {
+                if (AppGridManager.UserInterface.ShowGridMemoEditor(Value))
+                {
+                    UpdateFromValue();
+                    Manager.Grid.GotoCell(this, (int)columnId);
+                }
+            }
+            else
+            {
+                parentRow.EditComment(columnId);
             }
         }
     }

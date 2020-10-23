@@ -107,5 +107,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
                 Manager.RemoveRow(gridRow);
             }
         }
+
+        public virtual void AddContextMenuItems(List<DataEntryGridContextMenuItem> contextMenuItems, int columnId)
+        {
+
+        }
     }
 }

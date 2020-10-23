@@ -102,16 +102,20 @@ namespace RingSoft.DataEntryControls.WPF
 
         public static Rect GetAbsolutePlacement(this FrameworkElement element, bool relativeToScreen = false)
         {
+            return GetAbsolutePlacement(element, Application.Current.MainWindow, relativeToScreen);
+        }
+        public static Rect GetAbsolutePlacement(this FrameworkElement element, Window parentWindow, bool relativeToScreen = false)
+        {
             var absolutePos = element.PointToScreen(new Point(0, 0));
             if (relativeToScreen)
             {
                 return new Rect(absolutePos.X, absolutePos.Y, element.ActualWidth, element.ActualHeight);
             }
 
-            if (Application.Current.MainWindow != null)
+            if (parentWindow != null)
             {
-                var posMW = Application.Current.MainWindow.PointToScreen(new Point(0, 0));
-                absolutePos = new Point(absolutePos.X - posMW.X, absolutePos.Y - posMW.Y);
+                var posPW = parentWindow.PointToScreen(new Point(0, 0));
+                absolutePos = new Point(absolutePos.X - posPW.X, absolutePos.Y - posPW.Y);
             }
 
             return new Rect(absolutePos.X, absolutePos.Y, element.ActualWidth, element.ActualHeight);

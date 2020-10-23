@@ -5,10 +5,10 @@ namespace RingSoft.DataEntryControls.Engine
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action _handler;
-        private bool _isEnabled;
+        private readonly Action<object> _handler;
+        private bool _isEnabled = true;
 
-        public RelayCommand(Action handler)
+        public RelayCommand(Action<object> handler)
         {
             _handler = handler;
         }
@@ -21,10 +21,7 @@ namespace RingSoft.DataEntryControls.Engine
                 if (value != _isEnabled)
                 {
                     _isEnabled = value;
-                    if (CanExecuteChanged != null)
-                    {
-                        CanExecuteChanged(this, EventArgs.Empty);
-                    }
+                    CanExecuteChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -38,7 +35,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public void Execute(object parameter)
         {
-            _handler();
+            _handler(parameter);
         }
     }
 }
