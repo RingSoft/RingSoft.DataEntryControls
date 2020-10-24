@@ -10,6 +10,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public object CommandParameter { get; set; }
 
+        public object Icon { get; set; }
+
         public DataEntryGridContextMenuItem(string header, ICommand command)
         {
             Header = header;

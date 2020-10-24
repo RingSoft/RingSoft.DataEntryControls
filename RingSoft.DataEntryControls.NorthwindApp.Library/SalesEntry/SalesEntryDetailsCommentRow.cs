@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿using System.Collections.Generic;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
@@ -140,6 +141,38 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     };
                     AddChildRow(childCommentRow);
                 }
+            }
+        }
+
+        public override void AddContextMenuItems(List<DataEntryGridContextMenuItem> contextMenuItems, int columnId)
+        {
+            contextMenuItems.Add(new DataEntryGridContextMenuItem("_Edit Comment",
+                    new RelayCommand<int>(h => EditComment(columnId)))
+                { CommandParameter = columnId });
+            base.AddContextMenuItems(contextMenuItems, columnId);
+        }
+
+        private void EditComment(int columnId)
+        {
+            var parentRow = this;
+            if (!string.IsNullOrEmpty(ParentRowId))
+            {
+                var gridRow = GetParentRow();
+                if (gridRow is SalesEntryDetailsCommentRow parentCommentRow)
+                    parentRow = parentCommentRow;
+            }
+
+            if (parentRow == this)
+            {
+                if (SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.ShowCommentEditor(Value))
+                {
+                    UpdateFromValue();
+                    Manager.Grid.GotoCell(this, columnId);
+                }
+            }
+            else
+            {
+                parentRow.EditComment(columnId);
             }
         }
 

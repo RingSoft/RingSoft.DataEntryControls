@@ -62,6 +62,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
             childRow.ParentRowId = RowId;
             Manager.AddRow(childRow, rowIndex);
+            Manager.RaiseDirtyFlag();
         }
 
         public List<DataEntryGridRow> GetDescendants()
@@ -106,6 +107,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             {
                 Manager.RemoveRow(gridRow);
             }
+            Manager.RaiseDirtyFlag();
         }
 
         public virtual void AddContextMenuItems(List<DataEntryGridContextMenuItem> contextMenuItems, int columnId)

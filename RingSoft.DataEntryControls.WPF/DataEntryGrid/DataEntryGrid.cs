@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -1095,10 +1096,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
-
                 CancelEdit(true);
 
+                var row = Manager.Rows[rowIndex];
                 Manager.RemoveRow(rowIndex);
+
+                if (!row.IsNew)
+                    Manager.RaiseDirtyFlag();
+
                 SetFocusToCell(rowIndex, columnIndex);
             }
             else
@@ -1236,7 +1241,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 contextMenu.Items.Add(new MenuItem
                 {
                     Header = "_Delete Row", 
-                    Command = new RelayCommand(DeleteCurrentRow)
+                    Command = new RelayCommand(DeleteCurrentRow){IsEnabled = IsDeleteOk()}
                 });
 
             var row = Manager.Rows[GetCurrentRowIndex()];
@@ -1257,7 +1262,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         Header = contextMenuItem.Header,
                         Command = contextMenuItem.Command,
-                        CommandParameter = contextMenuItem.CommandParameter
+                        CommandParameter = contextMenuItem.CommandParameter,
+                        Icon = contextMenuItem.Icon
                     });
                 }
             }
@@ -1274,6 +1280,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 var contextMenu = new ContextMenu();
                 AddGridContextMenuItems(contextMenu);
                 dataGridCell.ContextMenu = contextMenu;
+                dataGridCell.ContextMenu.Placement = PlacementMode.Bottom;
             }
         }
     }
