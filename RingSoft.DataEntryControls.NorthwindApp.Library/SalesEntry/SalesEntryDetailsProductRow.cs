@@ -99,7 +99,28 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 Quantity = 1;
                 if (product.UnitPrice != null)
                     Price = (decimal)product.UnitPrice;
+
+                LoadChildRows(product);
+
                 SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
+            }
+        }
+
+        private void LoadChildRows(Products product)
+        {
+            if (product.NonInventoryCode != null)
+            {
+                var niRow = new SalesEntryDetailsNonInventoryRow(SalesEntryDetailsManager);
+                AddChildRow(niRow);
+                niRow.LoadFromNiCode(product.NonInventoryCode);
+                Manager.Grid.UpdateRow(niRow);
+            }
+
+            if (!string.IsNullOrEmpty(product.OrderComment))
+            {
+                var commentRow = new SalesEntryDetailsCommentRow(SalesEntryDetailsManager);
+                AddChildRow(commentRow);
+                commentRow.SetValue(product.OrderComment);
             }
         }
 
@@ -114,6 +135,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             if (entity.Discount != null)
                 Discount = (decimal)entity.Discount;
+
+            var children = GetDetailChildren(entity);
+            foreach (var child in children)
+            {
+                var childRow =
+                    SalesEntryDetailsManager.CreateRowFromLineType((SalesEntryDetailsLineTypes) child.LineType);
+                AddChildRow(childRow);
+                childRow.LoadFromEntity(child);
+                Manager.Grid.UpdateRow(childRow);
+            }
+
             base.LoadFromEntity(entity);
         }
 

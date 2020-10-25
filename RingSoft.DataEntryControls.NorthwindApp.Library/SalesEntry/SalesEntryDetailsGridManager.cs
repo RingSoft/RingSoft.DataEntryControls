@@ -49,6 +49,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     UpdateNewRows();
+                    SalesEntryViewModel.RefreshTotalControls();
                     break;
             }
         }
@@ -75,8 +76,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     return new SalesEntryDetailsNewRow(this);
                 case SalesEntryDetailsLineTypes.Product:
                     return new SalesEntryDetailsProductRow(this);
-                //case SalesEntryDetailsLineTypes.NonInventoryCode:
-                //    break;
+                case SalesEntryDetailsLineTypes.NonInventoryCode:
+                    return new SalesEntryDetailsNonInventoryRow(this);
                 //case SalesEntryDetailsLineTypes.SpecialOrder:
                 //    break;
                 case SalesEntryDetailsLineTypes.Comment:

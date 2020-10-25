@@ -66,7 +66,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected IEnumerable<OrderDetails> GetDetailChildren(OrderDetails parent)
         {
-            return parent.Order.OrderDetails.Where(w => w.ParentRowId == parent.RowId);
+            var result = parent.Order.OrderDetails.Where(w =>
+                w.ParentRowId != null && w.ParentRowId == parent.RowId);
+            return result;
         }
     }
 }

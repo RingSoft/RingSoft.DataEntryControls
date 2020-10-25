@@ -3,6 +3,7 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using System;
+using RingSoft.DbLookup.AutoFill;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -102,6 +103,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected void CorrectInvalidItem(DataEntryGridAutoFillCellProps autoFillCellProps)
         {
+            if (CheckConvertItem(autoFillCellProps)) 
+                return;
+
             var correctedValue =
                 SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.CorrectInvalidProduct(
                     autoFillCellProps.AutoFillValue);
@@ -112,33 +116,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     autoFillCellProps.ValidationResult = false;
                     break;
                 case InvalidProductResultReturnCodes.NewProduct:
-                    SalesEntryDetailsProductRow productRow;
-                    if (LineType == SalesEntryDetailsLineTypes.Product && this is SalesEntryDetailsProductRow)
-                    {
-                        productRow = (SalesEntryDetailsProductRow) this;
-                    }
-                    else
-                    {
-                        productRow = new SalesEntryDetailsProductRow(SalesEntryDetailsManager);
-                        SalesEntryDetailsManager.ReplaceRow(this, productRow);
-                    }
-                    productRow.LoadFromItemAutoFillValue(correctedValue.NewItemValue);
-                    Manager.Grid.UpdateRow(productRow);
+                    CorrectInvalidProduct(correctedValue);
                     break;
                 case InvalidProductResultReturnCodes.NewNonInventory:
-                    SalesEntryDetailsNonInventoryRow nIRow;
-                    if (LineType == SalesEntryDetailsLineTypes.NonInventoryCode &&
-                        this is SalesEntryDetailsNonInventoryRow)
-                    {
-                        nIRow = (SalesEntryDetailsNonInventoryRow) this;
-                    }
-                    else
-                    {
-                        nIRow = new SalesEntryDetailsNonInventoryRow(SalesEntryDetailsManager);
-                        SalesEntryDetailsManager.ReplaceRow(this, nIRow);
-                    }
-                    nIRow.LoadFromNiCodeAutoFillValue(correctedValue.NewItemValue);
-                    Manager.Grid.UpdateRow(nIRow);
+                    CorrectInvalidNiCode(correctedValue);
                     break;
                 case InvalidProductResultReturnCodes.NewSpecialOrder:
                     break;
@@ -150,6 +131,94 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private bool CheckConvertItem(DataEntryGridAutoFillCellProps autoFillCellProps)
+        {
+            if (this is SalesEntryDetailsProductRow)
+            {
+                if (CheckInvalidProductIsValidNiCode(autoFillCellProps))
+                    return true;
+            }
+            else if (this is SalesEntryDetailsNonInventoryRow)
+            {
+                if (CheckInvalidNiCodeIsValidProduct(autoFillCellProps))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckInvalidNiCodeIsValidProduct(DataEntryGridAutoFillCellProps autoFillCellProps)
+        {
+            var product = AppGlobals.DbContextProcessor.GetProduct(autoFillCellProps.Text);
+            if (product != null)
+            {
+                var productRow = new SalesEntryDetailsProductRow(SalesEntryDetailsManager);
+                SalesEntryDetailsManager.ReplaceRow(this, productRow);
+                var productAutoFillValue =
+                    new AutoFillValue(AppGlobals.LookupContext.Products.GetPrimaryKeyValueFromEntity(product),
+                        autoFillCellProps.AutoFillValue.Text);
+                productRow.LoadFromItemAutoFillValue(productAutoFillValue);
+                Manager.Grid.UpdateRow(productRow);
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckInvalidProductIsValidNiCode(DataEntryGridAutoFillCellProps autoFillCellProps)
+        {
+            var niCode = AppGlobals.DbContextProcessor.GetNonInventoryCode(autoFillCellProps.Text);
+            if (niCode != null)
+            {
+                var niCodeRow = new SalesEntryDetailsNonInventoryRow(SalesEntryDetailsManager);
+                SalesEntryDetailsManager.ReplaceRow(this, niCodeRow);
+                var niAutoFillValue =
+                    new AutoFillValue(
+                        AppGlobals.LookupContext.NonInventoryCodes.GetPrimaryKeyValueFromEntity(niCode),
+                        autoFillCellProps.Text);
+                niCodeRow.LoadFromNiCodeAutoFillValue(niAutoFillValue);
+                Manager.Grid.UpdateRow(niCodeRow);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void CorrectInvalidNiCode(InvalidProductResult correctedValue)
+        {
+            SalesEntryDetailsNonInventoryRow nIRow;
+            if (LineType == SalesEntryDetailsLineTypes.NonInventoryCode &&
+                this is SalesEntryDetailsNonInventoryRow)
+            {
+                nIRow = (SalesEntryDetailsNonInventoryRow) this;
+            }
+            else
+            {
+                nIRow = new SalesEntryDetailsNonInventoryRow(SalesEntryDetailsManager);
+                SalesEntryDetailsManager.ReplaceRow(this, nIRow);
+            }
+
+            nIRow.LoadFromNiCodeAutoFillValue(correctedValue.NewItemValue);
+            Manager.Grid.UpdateRow(nIRow);
+        }
+
+        private void CorrectInvalidProduct(InvalidProductResult correctedValue)
+        {
+            SalesEntryDetailsProductRow productRow;
+            if (LineType == SalesEntryDetailsLineTypes.Product && this is SalesEntryDetailsProductRow)
+            {
+                productRow = (SalesEntryDetailsProductRow) this;
+            }
+            else
+            {
+                productRow = new SalesEntryDetailsProductRow(SalesEntryDetailsManager);
+                SalesEntryDetailsManager.ReplaceRow(this, productRow);
+            }
+
+            productRow.LoadFromItemAutoFillValue(correctedValue.NewItemValue);
+            Manager.Grid.UpdateRow(productRow);
         }
     }
 }

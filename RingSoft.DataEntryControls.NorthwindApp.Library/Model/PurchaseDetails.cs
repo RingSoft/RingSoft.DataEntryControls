@@ -1,4 +1,6 @@
-﻿namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
+﻿using System;
+
+namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 {
     public class PurchaseDetails
     {
@@ -14,6 +16,8 @@
         public bool? CommentCrLf { get; set; }
         public decimal? Quantity { get; set; }
         public decimal? Price { get; set; }
+        public DateTime? PickDate { get; set; }
+        public int? DelayDays { get; set; }
 
         public virtual Products Product { get; set; }
         public virtual Purchases PurchaseOrder { get; set; }

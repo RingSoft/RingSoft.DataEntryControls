@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DbLookup.AutoFill;
 using System.Drawing;
+using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -92,9 +93,41 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        public void LoadFromNiCode(NonInventoryCodes niCode)
+        {
+            NonInventoryValue = new AutoFillValue(AppGlobals.LookupContext.NonInventoryCodes.GetPrimaryKeyValueFromEntity(niCode), niCode.Description);
+            Price = niCode.Price;
+        }
+
         public override bool ValidateRow()
         {
+            if (NonInventoryValue == null || !NonInventoryValue.PrimaryKeyValue.ContainsValidData())
+            {
+                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
+                SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
+
+                var message = "Non Inventory Code must contain a valid value.";
+                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.OnValidationFail(
+                    AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
+                    "Validation Failure!");
+
+                return false;
+            }
             return true;
+        }
+
+        public override void SaveToEntity(OrderDetails entity, int rowIndex)
+        {
+            entity.NonInventoryCodeId = AppGlobals.LookupContext.NonInventoryCodes
+                .GetEntityFromPrimaryKeyValue(NonInventoryValue.PrimaryKeyValue).NonInventoryCodeId;
+            base.SaveToEntity(entity, rowIndex);
+            entity.Quantity = null;
+        }
+
+        public override void LoadFromEntity(OrderDetails entity)
+        {
+            LoadFromNiCode(entity.NonInventoryCode);
+            base.LoadFromEntity(entity);
         }
     }
 }

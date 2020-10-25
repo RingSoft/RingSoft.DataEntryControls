@@ -106,6 +106,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             return result;
         }
 
+        public Products GetProduct(string productName)
+        {
+            var context = new NorthwindDbContext();
+            var result = context.Products.Include(i => i.Supplier)
+                .Include(i => i.Category)
+                .Include(i => i.NonInventoryCode)
+                .FirstOrDefault(f => f.ProductName == productName);
+            return result;
+        }
+
         public bool SaveProduct(Products product)
         {
             var context = new NorthwindDbContext();
@@ -123,6 +133,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         {
             var context = new NorthwindDbContext();
             return context.NonInventoryCodes.FirstOrDefault(f => f.NonInventoryCodeId == nonInventoryCodeId);
+        }
+
+        public NonInventoryCodes GetNonInventoryCode(string nonInventoryCodeDesc)
+        {
+            var context = new NorthwindDbContext();
+            return context.NonInventoryCodes.FirstOrDefault(f => f.Description == nonInventoryCodeDesc);
         }
 
         public bool SaveNonInventoryCode(NonInventoryCodes nonInventoryCode)

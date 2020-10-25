@@ -329,6 +329,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                     .HasColumnName("ParentRowID")
                     .HasColumnType("nvarchar(50)");
 
+                entity.Property(e => e.PickDate).HasColumnType("datetime");
+
                 entity.Property(e => e.Price).HasColumnType("numeric");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
