@@ -122,6 +122,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     CorrectInvalidNiCode(correctedValue);
                     break;
                 case InvalidProductResultReturnCodes.NewSpecialOrder:
+                    var soRow = new SalesEntryDetailsSpecialOrderRow(SalesEntryDetailsManager);
+                    SalesEntryDetailsManager.ReplaceRow(this, soRow);
+                    soRow.SpecialOrderText = autoFillCellProps.Text;
+                    soRow.Quantity = 1;
+                    Manager.Grid.UpdateRow(soRow);
+                    autoFillCellProps.NextTabFocusColumnId = (int) SalesEntryGridColumns.Price;
+                    autoFillCellProps.NextTabFocusRow = soRow;
                     break;
                 case InvalidProductResultReturnCodes.NewComment:
                     var commentRow = new SalesEntryDetailsCommentRow(SalesEntryDetailsManager);

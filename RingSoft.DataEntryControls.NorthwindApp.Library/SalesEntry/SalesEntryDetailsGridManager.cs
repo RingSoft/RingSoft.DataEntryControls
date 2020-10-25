@@ -78,8 +78,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     return new SalesEntryDetailsProductRow(this);
                 case SalesEntryDetailsLineTypes.NonInventoryCode:
                     return new SalesEntryDetailsNonInventoryRow(this);
-                //case SalesEntryDetailsLineTypes.SpecialOrder:
-                //    break;
+                case SalesEntryDetailsLineTypes.SpecialOrder:
+                    return new SalesEntryDetailsSpecialOrderRow(this);
                 case SalesEntryDetailsLineTypes.Comment:
                     return new SalesEntryDetailsCommentRow(this);
                 default:
