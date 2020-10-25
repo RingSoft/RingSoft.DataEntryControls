@@ -126,6 +126,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     Manager.Grid.UpdateRow(productRow);
                     break;
                 case InvalidProductResultReturnCodes.NewNonInventory:
+                    SalesEntryDetailsNonInventoryRow nIRow;
+                    if (LineType == SalesEntryDetailsLineTypes.NonInventoryCode &&
+                        this is SalesEntryDetailsNonInventoryRow)
+                    {
+                        nIRow = (SalesEntryDetailsNonInventoryRow) this;
+                    }
+                    else
+                    {
+                        nIRow = new SalesEntryDetailsNonInventoryRow(SalesEntryDetailsManager);
+                        SalesEntryDetailsManager.ReplaceRow(this, nIRow);
+                    }
+                    nIRow.LoadFromNiCodeAutoFillValue(correctedValue.NewItemValue);
+                    Manager.Grid.UpdateRow(nIRow);
                     break;
                 case InvalidProductResultReturnCodes.NewSpecialOrder:
                     break;

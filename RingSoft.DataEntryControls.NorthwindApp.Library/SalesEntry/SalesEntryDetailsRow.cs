@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
@@ -10,7 +11,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     public enum SalesEntryDetailsLineTypes
     {
         Product = 0,
+        [Description("Non Inventory")]
         NonInventoryCode = 1,
+        [Description("Special Order")]
         SpecialOrder = 2,
         Comment = 3,
         NewRow = 4
@@ -32,8 +35,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
         {
-            var lineTypeItem = _lineTypeSetup.GetItem((int) LineType);
-            return new DataEntryGridComboBoxCellProps(this, columnId, _lineTypeSetup, lineTypeItem);
+            var column = (SalesEntryGridColumns) columnId;
+            if (column == SalesEntryGridColumns.LineType)
+            {
+                var lineTypeItem = _lineTypeSetup.GetItem((int) LineType);
+                return new DataEntryGridComboBoxCellProps(this, columnId, _lineTypeSetup, lineTypeItem);
+            }
+            return  new DataEntryGridTextCellProps(this, columnId);
         }
 
         public override DataEntryGridCellStyle GetCellStyle(int columnId)

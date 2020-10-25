@@ -22,7 +22,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             };
             AddNonInventoryButton.Click += (sender, args) =>
             {
-                if (ViewModel.AddNewNonInventoryCode())
+                if (ViewModel.AddNewNonInventoryCode(this))
                     Close();
             };
             AddSpecialOrderButton.Click += (sender, args) =>

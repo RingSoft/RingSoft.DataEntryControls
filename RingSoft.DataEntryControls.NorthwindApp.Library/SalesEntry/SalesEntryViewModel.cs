@@ -472,10 +472,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                             totalDiscount += productRow.Discount;
                         }
                         break;
-                    //case SalesEntryDetailsLineTypes.NonInventoryCode:
-                    //    break;
-                    //case SalesEntryDetailsLineTypes.SpecialOrder:
-                    //    break;
+                    case SalesEntryDetailsLineTypes.NonInventoryCode:
+                    case SalesEntryDetailsLineTypes.SpecialOrder:
+                        if (salesEntryDetailsRow is SalesEntryDetailsValueRow valueRow)
+                            subTotal += valueRow.ExtendedPrice;
+                        break;
                     case SalesEntryDetailsLineTypes.Comment:
                     case SalesEntryDetailsLineTypes.NewRow:
                         break;

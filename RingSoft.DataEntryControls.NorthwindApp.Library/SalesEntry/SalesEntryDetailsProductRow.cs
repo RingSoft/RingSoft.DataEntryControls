@@ -1,4 +1,5 @@
 ﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.AutoFill;
@@ -35,6 +36,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
 
             return base.GetCellProps(columnId);
+        }
+
+        public override DataEntryGridCellStyle GetCellStyle(int columnId)
+        {
+            var column = (SalesEntryGridColumns) columnId;
+
+            switch (column)
+            {
+                case SalesEntryGridColumns.Item:
+                    return new DataEntryGridCellStyle{ColumnHeader = "Product"};
+            }
+            return base.GetCellStyle(columnId);
         }
 
         public override void SetCellValue(DataEntryGridCellProps value)

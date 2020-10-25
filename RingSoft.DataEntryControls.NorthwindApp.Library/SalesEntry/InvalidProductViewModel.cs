@@ -77,9 +77,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return true;
         }
 
-        public bool AddNewNonInventoryCode()
+        public bool AddNewNonInventoryCode(object ownerWindow)
         {
-            return false;
+            var newNiCodeResult =
+                AppGlobals.LookupContext.NonInventoryCodesLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, ownerWindow);
+
+            if (!newNiCodeResult.NewPrimaryKeyValue.ContainsValidData())
+                return false;
+
+            Result.NewItemValue = new AutoFillValue(newNiCodeResult.NewPrimaryKeyValue,
+                newNiCodeResult.NewLookupEntity.Description);
+
+            Result.ReturnCode = InvalidProductResultReturnCodes.NewNonInventory;
+
+            return true;
         }
 
         public void AddNewSpecialOrder()
