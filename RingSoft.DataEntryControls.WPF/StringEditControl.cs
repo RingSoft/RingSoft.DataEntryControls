@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -81,6 +82,16 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (DesignerProperties.GetIsInDesignMode(this))
                 Text = DesignText;
+        }
+
+        protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+        {
+            if (MaxLength > 0 && Text.Length >= MaxLength && SelectionLength == 0)
+            {
+                System.Media.SystemSounds.Exclamation.Play();
+                return;
+            }
+            base.OnPreviewTextInput(e);
         }
     }
 }

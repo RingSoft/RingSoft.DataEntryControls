@@ -52,7 +52,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
-                    .HasColumnType("nvarchar(15)");
+                    .HasColumnType("nvarchar(15)").HasMaxLength(15);
 
                 entity.Property(e => e.Description).HasColumnType("text(1073741823)");
             });
@@ -63,29 +63,31 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.CustomerId)
                     .HasColumnName("CustomerID")
-                    .HasColumnType("char(5)");
+                    .HasColumnType("char(5)")
+                    .HasMaxLength(5);
 
-                entity.Property(e => e.Address).HasColumnType("nvarchar(60)");
+                entity.Property(e => e.Address).HasColumnType("nvarchar(60)").HasMaxLength(60);
 
-                entity.Property(e => e.City).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.City).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
                 entity.Property(e => e.CompanyName)
                     .IsRequired()
-                    .HasColumnType("nvarchar(40)");
+                    .HasColumnType("nvarchar(40)")
+                    .HasMaxLength(40);
 
-                entity.Property(e => e.ContactName).HasColumnType("nvarchar(30)");
+                entity.Property(e => e.ContactName).HasColumnType("nvarchar(30)").HasMaxLength(30);
 
-                entity.Property(e => e.ContactTitle).HasColumnType("nvarchar(30)");
+                entity.Property(e => e.ContactTitle).HasColumnType("nvarchar(30)").HasMaxLength(30);
 
-                entity.Property(e => e.Country).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Country).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.Fax).HasColumnType("nvarchar(24)");
+                entity.Property(e => e.Fax).HasColumnType("nvarchar(24)").HasMaxLength(24);
 
-                entity.Property(e => e.Phone).HasColumnType("nvarchar(24)");
+                entity.Property(e => e.Phone).HasColumnType("nvarchar(24)").HasMaxLength(24);
 
-                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)");
+                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)").HasMaxLength(10);
 
-                entity.Property(e => e.Region).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Region).HasColumnType("nvarchar(15)").HasMaxLength(15);
             });
 
             modelBuilder.Entity<Employees>(entity =>
@@ -95,39 +97,41 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.Property(e => e.EmployeeId)
                     .HasColumnName("EmployeeID");
 
-                entity.Property(e => e.Address).HasColumnType("nvarchar(60)");
+                entity.Property(e => e.Address).HasColumnType("nvarchar(60)").HasMaxLength(60);
 
                 entity.Property(e => e.BirthDate).HasColumnType("datetime");
 
-                entity.Property(e => e.City).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.City).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.Country).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Country).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.Extension).HasColumnType("nvarchar(4)");
+                entity.Property(e => e.Extension).HasColumnType("nvarchar(4)").HasMaxLength(4);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
-                    .HasColumnType("nvarchar(10)");
+                    .HasColumnType("nvarchar(10)")
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.HireDate).HasColumnType("datetime");
 
-                entity.Property(e => e.HomePhone).HasColumnType("nvarchar(24)");
+                entity.Property(e => e.HomePhone).HasColumnType("nvarchar(24)").HasMaxLength(24);
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
-                    .HasColumnType("nvarchar(20)");
+                    .HasColumnType("nvarchar(20)")
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.Notes).HasColumnType("text(1073741823)");
 
                 entity.Property(e => e.PhotoPath).HasColumnType("nvarchar(255)");
 
-                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)");
+                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)").HasMaxLength(10);
 
-                entity.Property(e => e.Region).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Region).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.Title).HasColumnType("nvarchar(30)");
+                entity.Property(e => e.Title).HasColumnType("nvarchar(30)").HasMaxLength(30);
 
-                entity.Property(e => e.TitleOfCourtesy).HasColumnType("nvarchar(25)");
+                entity.Property(e => e.TitleOfCourtesy).HasColumnType("nvarchar(25)").HasMaxLength(25);
 
                 entity.HasOne(d => d.Supervisor)
                     .WithMany(p => p.Underlings)
@@ -143,7 +147,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Price)
                     .IsRequired()
@@ -160,7 +165,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
 
-                entity.Property(e => e.Comment).HasColumnType("nvarchar(50)");
+                entity.Property(e => e.Comment).HasColumnType("nvarchar(50)").HasMaxLength(50);
 
                 entity.Property(e => e.CommentCrLf)
                     .IsRequired()
@@ -172,7 +177,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.ParentRowId)
                     .HasColumnName("ParentRowID")
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
@@ -180,9 +186,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.RowId)
                     .HasColumnName("RowID")
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.SpecialOrderText).HasColumnType("nvarchar(50)");
+                entity.Property(e => e.SpecialOrderText).HasColumnType("nvarchar(50)").HasMaxLength(50);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric");
 
@@ -209,7 +216,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.CustomerId)
                     .HasColumnName("CustomerID")
-                    .HasColumnType("char(5)");
+                    .HasColumnType("char(5)")
+                    .HasMaxLength(5);
 
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
@@ -221,17 +229,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.RequiredDate).HasColumnType("datetime");
 
-                entity.Property(e => e.ShipAddress).HasColumnType("nvarchar(60)");
+                entity.Property(e => e.ShipAddress).HasColumnType("nvarchar(60)").HasMaxLength(60);
 
-                entity.Property(e => e.ShipCity).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.ShipCity).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.ShipCountry).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.ShipCountry).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.ShipName).HasColumnType("nvarchar(40)");
+                entity.Property(e => e.ShipName).HasColumnType("nvarchar(40)").HasMaxLength(40);
 
-                entity.Property(e => e.ShipPostalCode).HasColumnType("nvarchar(10)");
+                entity.Property(e => e.ShipPostalCode).HasColumnType("nvarchar(10)").HasMaxLength(10);
 
-                entity.Property(e => e.ShipRegion).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.ShipRegion).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
                 entity.Property(e => e.ShippedDate).HasColumnType("datetime");
 
@@ -268,11 +276,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.ProductName)
                     .IsRequired()
-                    .HasColumnType("nvarchar(40)");
+                    .HasColumnType("nvarchar(40)")
+                    .HasMaxLength(40);
 
                 entity.Property(e => e.PurchaseComment).HasColumnType("text(1073741823)");
 
-                entity.Property(e => e.QuantityPerUnit).HasColumnType("nvarchar(20)");
+                entity.Property(e => e.QuantityPerUnit).HasColumnType("nvarchar(20)").HasMaxLength(20);
 
                 entity.Property(e => e.ReorderLevel)
                     .HasColumnType("numeric")
@@ -317,17 +326,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.PurchaseDetailId).HasColumnName("PurchaseDetailID");
 
-                entity.Property(e => e.Comment).HasColumnType("nvarchar(50)");
+                entity.Property(e => e.Comment).HasColumnType("nvarchar(50)").HasMaxLength(50);
 
                 entity.Property(e => e.CommentCrLf).HasColumnType("bit");
 
-                entity.Property(e => e.DirectExpenseText).HasColumnType("nvarchar(50)");
+                entity.Property(e => e.DirectExpenseText).HasColumnType("nvarchar(50)").HasMaxLength(50);
 
                 entity.Property(e => e.LineType).HasColumnType("smallint");
 
                 entity.Property(e => e.ParentRowId)
                     .HasColumnName("ParentRowID")
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.PickDate).HasColumnType("datetime");
 
@@ -343,7 +353,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.RowId)
                     .HasColumnName("RowID")
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.PurchaseDetails)
@@ -362,11 +373,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.Property(e => e.PurchaseOrderId)
                     .HasColumnName("PurchaseOrderID");
 
-                entity.Property(e => e.Address).HasColumnType("nvarchar(60)");
+                entity.Property(e => e.Address).HasColumnType("nvarchar(60)").HasMaxLength(60);
 
-                entity.Property(e => e.City).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.City).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.Country).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Country).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
                 entity.Property(e => e.Freight)
                     .HasColumnType("numeric")
@@ -379,11 +390,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.Property(e => e.PoNumber)
                     .IsRequired()
                     .HasColumnName("PONumber")
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)");
+                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)").HasMaxLength(10);
 
-                entity.Property(e => e.Region).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Region).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
                 entity.Property(e => e.RequiredDate).HasColumnType("datetime");
 
@@ -404,9 +416,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.CompanyName)
                     .IsRequired()
-                    .HasColumnType("nvarchar(40)");
+                    .HasColumnType("nvarchar(40)")
+                    .HasMaxLength(40);
 
-                entity.Property(e => e.Phone).HasColumnType("nvarchar(24)");
+                entity.Property(e => e.Phone).HasColumnType("nvarchar(24)").HasMaxLength(24);
             });
 
             modelBuilder.Entity<Suppliers>(entity =>
@@ -416,29 +429,30 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.Property(e => e.SupplierId)
                     .HasColumnName("SupplierID");
 
-                entity.Property(e => e.Address).HasColumnType("nvarchar(60)");
+                entity.Property(e => e.Address).HasColumnType("nvarchar(60)").HasMaxLength(60);
 
-                entity.Property(e => e.City).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.City).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
                 entity.Property(e => e.CompanyName)
                     .IsRequired()
-                    .HasColumnType("nvarchar(40)");
+                    .HasColumnType("nvarchar(40)")
+                    .HasMaxLength(40);
 
-                entity.Property(e => e.ContactName).HasColumnType("nvarchar(30)");
+                entity.Property(e => e.ContactName).HasColumnType("nvarchar(30)").HasMaxLength(30);
 
-                entity.Property(e => e.ContactTitle).HasColumnType("nvarchar(30)");
+                entity.Property(e => e.ContactTitle).HasColumnType("nvarchar(30)").HasMaxLength(30);
 
-                entity.Property(e => e.Country).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Country).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
-                entity.Property(e => e.Fax).HasColumnType("nvarchar(24)");
+                entity.Property(e => e.Fax).HasColumnType("nvarchar(24)").HasMaxLength(24);
 
                 entity.Property(e => e.HomePage).HasColumnType("text(1073741823)");
 
-                entity.Property(e => e.Phone).HasColumnType("nvarchar(24)");
+                entity.Property(e => e.Phone).HasColumnType("nvarchar(24)").HasMaxLength(24);
 
-                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)");
+                entity.Property(e => e.PostalCode).HasColumnType("nvarchar(10)").HasMaxLength(10);
 
-                entity.Property(e => e.Region).HasColumnType("nvarchar(15)");
+                entity.Property(e => e.Region).HasColumnType("nvarchar(15)").HasMaxLength(15);
             });
 
         }

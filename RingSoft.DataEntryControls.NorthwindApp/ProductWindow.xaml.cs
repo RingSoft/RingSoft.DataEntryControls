@@ -18,6 +18,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             Initialize();
             RegisterFormKeyControl(ProductNameControl);
+
+            QtyPerUnitEdit.MaxLength =
+                AppGlobals.LookupContext.Products.GetFieldDefinition(p => p.QuantityPerUnit).MaxLength;
         }
 
         public override void ResetViewForNewRecord()

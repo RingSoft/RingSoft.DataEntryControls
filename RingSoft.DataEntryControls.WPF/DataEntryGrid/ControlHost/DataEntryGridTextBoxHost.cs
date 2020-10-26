@@ -1,5 +1,7 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
@@ -29,6 +31,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             if (cellProps is DataEntryGridTextCellProps textCellProps)
             {
                 control.MaxLength = textCellProps.MaxLength;
+                switch (textCellProps.CharacterCasing)
+                {
+                    case TextCasing.Normal:
+                        break;
+                    case TextCasing.Upper:
+                        control.CharacterCasing = CharacterCasing.Upper;
+                        break;
+                    case TextCasing.Lower:
+                        control.CharacterCasing = CharacterCasing.Lower;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             control.Text = cellProps.Text;
@@ -37,7 +52,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             Control.KeyDown += TextBox_KeyDown;
             Control.TextChanged += (sender, args) => OnControlDirty();
         }
-
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {

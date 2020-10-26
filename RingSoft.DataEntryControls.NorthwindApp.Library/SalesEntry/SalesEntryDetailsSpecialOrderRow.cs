@@ -23,7 +23,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.Item:
-                    return new DataEntryGridTextCellProps(this, columnId){Text = SpecialOrderText};
+                    return new DataEntryGridTextCellProps(this, columnId)
+                    {
+                        Text = SpecialOrderText,
+                        MaxLength = AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.SpecialOrderText)
+                            .MaxLength
+                    };
             }
             return base.GetCellProps(columnId);
         }

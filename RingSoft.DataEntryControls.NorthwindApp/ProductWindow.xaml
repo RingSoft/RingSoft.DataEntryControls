@@ -65,7 +65,7 @@
                         <Label Content="Unit Price" Style="{StaticResource ControlLabel}"/>
                         <dec:DecimalEditControl Grid.Row="0" Grid.Column="1" Value="{Binding Path=UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="RS$ 1.000,00" FormatType="Currency" Margin="0,2.5"/>
                         <Label Grid.Row="0" Grid.Column="2" Content="Quantity Per Unit" Style="{StaticResource ControlLabel}"/>
-                        <dec:StringEditControl Grid.Row="0" Grid.Column="3" Text="{Binding Path=QuantityPerUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="10 boxes x 8 pieces" Margin="0,2.5"/>
+                        <dec:StringEditControl x:Name="QtyPerUnitEdit" Grid.Row="0" Grid.Column="3" Text="{Binding Path=QuantityPerUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="10 boxes x 8 pieces" Margin="0,2.5"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="Units In Stock" Style="{StaticResource ControlLabel}"/>
                         <dec:DecimalEditControl Grid.Row="1" Grid.Column="1" Value="{Binding Path=UnitsInStock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="999,99" Margin="0,2.5"/>
                         <Label Grid.Row="1" Grid.Column="2" Content="Units On Order" Style="{StaticResource ControlLabel}"/>

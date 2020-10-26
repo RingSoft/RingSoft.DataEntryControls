@@ -27,6 +27,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 if (args.Result == MessageButtons.Cancel)
                     DetailsGrid.Refocus();
             };
+
+            var tableDefinition = SalesEntryViewModel.TableDefinition;
+            ShipNameEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipName).MaxLength;
+            AddressEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipAddress).MaxLength;
+            CityEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipCity).MaxLength;
+            RegionEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipRegion).MaxLength;
+            PostalCodeEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipPostalCode).MaxLength;
+            CountryEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipCountry).MaxLength;
         }
 
         public override void ResetViewForNewRecord()
