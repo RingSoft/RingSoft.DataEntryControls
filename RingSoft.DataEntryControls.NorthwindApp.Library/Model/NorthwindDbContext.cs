@@ -368,6 +368,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.Country).HasColumnType("nvarchar(15)");
 
+                entity.Property(e => e.Freight)
+                    .HasColumnType("numeric")
+                    .HasDefaultValueSql("0");
+
                 entity.Property(e => e.OrderDate)
                     .IsRequired()
                     .HasColumnType("datetime");
