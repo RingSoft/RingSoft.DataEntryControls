@@ -70,13 +70,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.LineType:
                     break;
                 case SalesEntryGridColumns.Item:
+                    var style = new DataEntryGridCellStyle { ColumnHeader = "Comment" };
                     if (Value == null)
-                        return new DataEntryGridCellStyle()
-                        {
-                            ColumnHeader = "Comment",
-                            CellStyle = DataEntryGridCellStyles.ReadOnly
-                        };
-                    break;
+                    {
+                        style.CellStyle = DataEntryGridCellStyles.ReadOnly;
+                    }
+
+                    return style;
                 default:
                     return new DataEntryGridCellStyle() { CellStyle = DataEntryGridCellStyles.ReadOnly };
             }

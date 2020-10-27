@@ -61,9 +61,6 @@ namespace RingSoft.DataEntryControls.App.WPF
                 case AppGridColumns.LineType:
                     if (value is DataEntryGridComboBoxCellProps comboBoxCellProps)
                     {
-                        if (comboBoxCellProps.ChangeType == ComboBoxValueChangedTypes.SelectedItemChanged)
-                            return;
-
                         var newLineType = (AppGridLineTypes) comboBoxCellProps.SelectedItem.NumericValue;
                         var changeLineType = true;
                         if (!IsNew)

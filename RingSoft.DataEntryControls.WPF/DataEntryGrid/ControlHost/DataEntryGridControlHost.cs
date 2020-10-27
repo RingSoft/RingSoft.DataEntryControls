@@ -15,13 +15,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             set => base.Control = _control = value;
         }
 
+        private DataEntryGridCellProps _cellProps;
+
         protected DataEntryGridControlHost(DataEntryGrid grid) : base(grid)
         {
         }
 
         public override DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps)
         {
-            CellProps = cellProps;
+            _cellProps = cellProps;
+            ColumnId = cellProps.ColumnId;
 
             var factory = new FrameworkElementFactory(typeof(TControl));
             factory.AddHandler(FrameworkElement.LoadedEvent, new RoutedEventHandler(Loaded));
@@ -63,7 +66,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                     contextMenu.Items.Remove(separator);
                 control.ContextMenu = contextMenu;
 
-                OnControlLoaded(control, CellProps);
+                OnControlLoaded(control, _cellProps);
             }
         }
     }

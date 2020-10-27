@@ -15,13 +15,15 @@
 
         public override string Text => SelectedItem.TextValue;
 
-        public ComboBoxValueChangedTypes ChangeType { get; set; }
+        public ComboBoxValueChangedTypes ChangeType { get; }
 
         public DataEntryGridComboBoxCellProps(DataEntryGridRow row, int columnId, DataEntryComboBoxSetup comboBoxSetup,
-            ComboBoxItem selectedItem) : base(row, columnId)
+            ComboBoxItem selectedItem, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(
+            row, columnId)
         {
             ComboBoxSetup = comboBoxSetup;
             SelectedItem = selectedItem;
+            ChangeType = changeType;
         }
     }
 }

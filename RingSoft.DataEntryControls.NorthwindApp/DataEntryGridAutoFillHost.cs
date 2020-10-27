@@ -21,7 +21,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public override DataEntryGridCellProps GetCellValue()
         {
-            return new DataEntryGridAutoFillCellProps(AutoFillCellProps.Row, AutoFillCellProps.ColumnId,
+            return new DataEntryGridAutoFillCellProps(Row, ColumnId,
                 Control.Setup, Control.Value);
         }
 

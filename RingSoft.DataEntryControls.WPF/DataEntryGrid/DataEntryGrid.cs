@@ -400,6 +400,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnCurrentCellChanged(EventArgs e)
         {
+            UpdateColumnHeaders();
+
+            base.OnCurrentCellChanged(e);
+        }
+
+        private void UpdateColumnHeaders()
+        {
             var rowIndex = GetCurrentRowIndex();
             if (rowIndex >= 0)
             {
@@ -412,8 +419,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         column.Header = cellStyle.ColumnHeader;
                 }
             }
-
-            base.OnCurrentCellChanged(e);
         }
 
         private void SetManager()
@@ -495,6 +500,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             UpdateRow(gridRow, dataRow, index);
         }
 
+        //This overload should only be run outside by the interface.  Otherwise it will update column headers for each row and slow down performance.
         public void UpdateRow(DataEntryGridRow gridRow)
         {
             var rowIndex = Manager.Rows.IndexOf(gridRow);
@@ -503,6 +509,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     "This row must be added to the Rows collection before it can be updated.");
 
             UpdateRow(gridRow, rowIndex);
+            UpdateColumnHeaders();
         }
 
         public void UpdateRow(DataEntryGridRow gridRow, int rowIndex)
@@ -1006,6 +1013,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private int GetCurrentColumnIndex()
         {
             return base.Columns.IndexOf(CurrentCell.Column);
+        }
+
+        public DataEntryGridRow GetCurrentRow()
+        {
+            var currentRowIndex = GetCurrentRowIndex();
+            if (currentRowIndex < 0)
+                return null;
+
+            return Manager.Rows[currentRowIndex];
         }
 
         private void TabRight(int startRowIndex, int startColumnIndex)

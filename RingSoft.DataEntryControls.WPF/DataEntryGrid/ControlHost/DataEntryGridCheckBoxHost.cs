@@ -8,7 +8,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
     public class DataEntryGridCheckBoxHost : DataEntryGridControlHost<CheckBox>
     {
         public override bool IsDropDownOpen => false;
-        public DataEntryGridCheckBoxCellProps CheckBoxCellProps { get; private set; }
+        private bool _value;
 
         public DataEntryGridCheckBoxHost(DataEntryGrid grid) : base(grid)
         {
@@ -25,30 +25,30 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
             bool checkBoxValue = Control.IsChecked != null && (bool) Control.IsChecked;
 
-            return new DataEntryGridCheckBoxCellProps(CellProps.Row, CellProps.ColumnId, checkBoxValue);
+            return new DataEntryGridCheckBoxCellProps(Row, ColumnId, checkBoxValue);
         }
 
         public override bool HasDataChanged()
         {
-            return CheckBoxCellProps.Value != Control.IsChecked;
+            return _value != Control.IsChecked;
         }
 
         protected override void OnControlLoaded(CheckBox control, DataEntryGridCellProps cellProps)
         {
-            CheckBoxCellProps = cellProps as DataEntryGridCheckBoxCellProps;
-            control.IsChecked = CheckBoxCellProps != null && CheckBoxCellProps.Value;
+            var checkBoxCellProps = cellProps as DataEntryGridCheckBoxCellProps;
+            control.IsChecked = _value = checkBoxCellProps != null && checkBoxCellProps.Value;
 
             Control.Checked += (sender, args) =>
             {
                 OnControlDirty();
                 OnUpdateSource(GetCellValue());
-                CheckBoxCellProps.Value = (bool)control.IsChecked;
+                _value = (bool)control.IsChecked;
             };
             Control.Unchecked += (sender, args) =>
             {
                 OnControlDirty();
                 OnUpdateSource(GetCellValue());
-                CheckBoxCellProps.Value = (bool) control.IsChecked;
+                _value = (bool) control.IsChecked;
             };
 
             if (Mouse.LeftButton == MouseButtonState.Pressed)

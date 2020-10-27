@@ -11,7 +11,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public override DataEntryGridCellProps GetCellValue()
         {
-            return new DataEntryGridDecimalCellProps(DecimalCellProps.Row, DecimalCellProps.ColumnId,
+            return new DataEntryGridDecimalCellProps(Row, ColumnId,
                 DecimalCellProps.NumericEditSetup, Control.Value);
         }
 

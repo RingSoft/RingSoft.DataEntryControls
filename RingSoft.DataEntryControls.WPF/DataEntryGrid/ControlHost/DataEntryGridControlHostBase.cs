@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
@@ -14,7 +15,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public Control Control { get; internal set; }
 
-        public DataEntryGridCellProps CellProps { get; internal set; }
+        //public DataEntryGridCellProps CellProps { get; internal set; }
+        public DataEntryGridRow Row => Grid.GetCurrentRow();
+
+        public int ColumnId { get; internal set; }
 
         public abstract bool IsDropDownOpen { get; }
 

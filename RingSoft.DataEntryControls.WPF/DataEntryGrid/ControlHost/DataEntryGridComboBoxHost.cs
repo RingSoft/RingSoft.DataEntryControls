@@ -1,15 +1,18 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine;
 using ComboBoxItem = RingSoft.DataEntryControls.Engine.ComboBoxItem;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
     public class DataEntryGridComboBoxHost : DataEntryGridControlHost<ComboBoxControl>
     {
-        public DataEntryGridComboBoxCellProps ComboBoxCellProps { get; private set; }
-
         public override bool IsDropDownOpen => Control.IsDropDownOpen;
+        private DataEntryComboBoxSetup _comboBoxSetup;
+        private ComboBoxItem _selectedItem;
+        private ComboBoxValueChangedTypes _valueChangeType;
+        private bool _proceessingValidationFail;
 
         public DataEntryGridComboBoxHost(DataEntryGrid grid) : base(grid)
         {
@@ -19,29 +22,46 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
             ComboBoxItem selectedItem = Control.SelectedItem as ComboBoxItem;
 
-            return new DataEntryGridComboBoxCellProps(ComboBoxCellProps.Row, ComboBoxCellProps.ColumnId,
-                ComboBoxCellProps.ComboBoxSetup, selectedItem);
+            return new DataEntryGridComboBoxCellProps(Row, ColumnId,
+                _comboBoxSetup, selectedItem, _valueChangeType);
         }
 
         public override bool HasDataChanged()
         {
-            return Control.SelectedItem != ComboBoxCellProps.SelectedItem;
+            return Control.SelectedItem != _selectedItem;
         }
 
         protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridCellProps cellProps)
         {
-            ComboBoxCellProps = GetComboBoxCellProps(cellProps);
+            var comboBoxCellProps = GetComboBoxCellProps(cellProps);
+            _comboBoxSetup = comboBoxCellProps.ComboBoxSetup;
             
-            control.ItemsSource = ComboBoxCellProps.ComboBoxSetup.Items;
-            control.SelectedItem = ComboBoxCellProps.SelectedItem;
+            control.ItemsSource = comboBoxCellProps.ComboBoxSetup.Items;
+            control.SelectedItem = _selectedItem = comboBoxCellProps.SelectedItem;
+            _valueChangeType = comboBoxCellProps.ChangeType;
 
-            Control.SelectionChanged += (sender, args) =>
+            Control.SelectionChanged += (sender, args) => OnSelectionChanged();
+        }
+
+        private void OnSelectionChanged()
+        {
+            if (_proceessingValidationFail || _valueChangeType == ComboBoxValueChangedTypes.EndEdit)
+                return;
+
+            OnControlDirty();
+            var controlValue = GetComboBoxCellProps(GetCellValue());
+            OnUpdateSource(controlValue);
+
+            if (controlValue.ValidationResult)
+                _selectedItem = Control.SelectedItem as ComboBoxItem;
+            else
             {
-                OnControlDirty();
-                var controlValue = GetComboBoxCellProps(GetCellValue());
-                controlValue.ChangeType = ComboBoxValueChangedTypes.SelectedItemChanged;
-                OnUpdateSource(controlValue);
-            };
+                _proceessingValidationFail = true;
+                Control.SelectedItem = _selectedItem;
+                _proceessingValidationFail = false;
+            }
+
+            Grid.UpdateRow(Row);
         }
 
         private DataEntryGridComboBoxCellProps GetComboBoxCellProps(DataEntryGridCellProps cellProps)

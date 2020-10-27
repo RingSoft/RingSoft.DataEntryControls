@@ -1,12 +1,10 @@
-﻿using System.Windows.Controls;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using System.Windows.Controls;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
     public class DataEntryGridButtonHost : DataEntryGridControlHost<Button>
     {
-        public DataEntryGridButtonCellProps ButtonCellProps { get; private set; }
-
         public override bool IsDropDownOpen => false;
 
         private bool _hasDataChanged;
@@ -17,7 +15,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public override DataEntryGridCellProps GetCellValue()
         {
-            return CellProps;
+            return new DataEntryGridButtonCellProps(Row, ColumnId, Control.Content.ToString());
         }
 
         public override bool HasDataChanged()
@@ -29,7 +27,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
             if (cellProps is DataEntryGridButtonCellProps buttonCellProps)
             {
-                ButtonCellProps = buttonCellProps;
                 control.Content = buttonCellProps.ButtonContent;
             }
 

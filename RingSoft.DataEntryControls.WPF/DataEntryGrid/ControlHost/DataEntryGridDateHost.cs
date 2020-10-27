@@ -1,32 +1,35 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
     public class DataEntryGridDateHost : DataEntryGridDropDownControlHost<DateEditControl>
     {
-        public DataEntryGridDateCellProps DateCellProps { get; private set; }
+        private DateEditControlSetup _setup;
+        private DateTime? _value;
+
         public DataEntryGridDateHost(DataEntryGrid grid) : base(grid)
         {
         }
 
         public override DataEntryGridCellProps GetCellValue()
         {
-            return new DataEntryGridDateCellProps(DateCellProps.Row, DateCellProps.ColumnId, DateCellProps.Setup,
-                Control.Value);
+            return new DataEntryGridDateCellProps(Row, ColumnId, _setup, Control.Value);
         }
 
         public override bool HasDataChanged()
         {
-            return Control.Value != DateCellProps.Value;
+            return Control.Value != _value;
         }
 
         protected override void OnControlLoaded(DateEditControl control, DataEntryGridCellProps cellProps)
         {
-            DateCellProps = (DataEntryGridDateCellProps) cellProps;
+            var dateCellProps = (DataEntryGridDateCellProps) cellProps;
 
-            control.Setup = DateCellProps.Setup;
-            control.Value = DateCellProps.Value;
+            control.Setup = _setup = dateCellProps.Setup;
+            control.Value = _value = dateCellProps.Value;
 
             base.OnControlLoaded(control, cellProps);
         }

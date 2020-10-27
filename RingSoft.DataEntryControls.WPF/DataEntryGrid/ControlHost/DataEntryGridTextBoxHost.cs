@@ -10,6 +10,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
     {
         public override bool IsDropDownOpen => false;
 
+        private string _text;
+
         public DataEntryGridTextBoxHost(DataEntryGrid grid) : base(grid)
         {
         }
@@ -46,7 +48,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 }
             }
 
-            control.Text = cellProps.Text;
+            _text = control.Text = cellProps.Text;
             Control.SelectAll();
 
             Control.KeyDown += TextBox_KeyDown;
@@ -71,7 +73,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public override DataEntryGridCellProps GetCellValue()
         {
-            return new DataEntryGridTextCellProps(CellProps.Row, CellProps.ColumnId)
+            return new DataEntryGridTextCellProps(Row, ColumnId)
             {
                 Text = Control.Text
             };
@@ -79,10 +81,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public override bool HasDataChanged()
         {
-            if (string.IsNullOrEmpty(CellProps.Text) && string.IsNullOrEmpty(Control.Text))
+            if (string.IsNullOrEmpty(_text) && string.IsNullOrEmpty(Control.Text))
                 return false;
 
-            return CellProps.Text != Control.Text;
+            return _text != Control.Text;
         }
 
         public override bool CanGridProcessKey(Key key)
