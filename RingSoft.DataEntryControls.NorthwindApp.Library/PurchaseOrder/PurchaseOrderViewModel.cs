@@ -52,7 +52,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     return;
 
                 _supplierAutoFillSetup = value;
-                OnPropertyChanged(nameof(_supplierAutoFillSetup));
+                OnPropertyChanged(nameof(SupplierAutoFillSetup));
             }
         }
 
@@ -176,6 +176,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
+        private PurchaseOrderDetailsGridManager _detailsGridManager;
+
+        public PurchaseOrderDetailsGridManager DetailsGridManager
+        {
+            get => _detailsGridManager;
+            set
+            {
+                if (_detailsGridManager == value)
+                    return;
+
+                _detailsGridManager = value;
+                OnPropertyChanged(nameof(DetailsGridManager), false);
+            }
+        }
+
         private decimal _subTotal;
 
         public decimal SubTotal
@@ -224,7 +239,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         protected override void Initialize()
         {
             SupplierAutoFillSetup =
-                new AutoFillSetup(AppGlobals.LookupContext.Purchases.GetFieldDefinition(p => p.SupplierId));
+                new AutoFillSetup(AppGlobals.LookupContext.Purchases.GetFieldDefinition(p => p.SupplierId))
+                {
+                    AllowLookupAdd = false,
+                    AllowLookupView = false
+                };
+
+            DetailsGridManager = new PurchaseOrderDetailsGridManager(this);
 
             base.Initialize();
         }
@@ -254,6 +275,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             OrderDate = DateTime.Today;
             RequiredDate = null;
             SubTotal = Freight = Total = 0;
+
+            DetailsGridManager.SetupForNewRecord();
         }
 
         protected override bool SaveEntity(Purchases entity)

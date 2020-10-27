@@ -42,6 +42,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public LookupDefinition<NonInventoryCodeLookup, NonInventoryCodes> NonInventoryCodesLookup { get; private set; }
 
+        public LookupDefinition<PurchaseOrderLookup, Purchases> PurchaseOrderLookup { get; private set; }
+
 
         private readonly SqliteDataProcessor _dataProcessor;
 
@@ -117,6 +119,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 60);
             NonInventoryCodesLookup.AddVisibleColumnDefinition(p => p.Price, "Price", p => p.Price, 40);
             NonInventoryCodes.HasLookupDefinition(NonInventoryCodesLookup);
+
+            PurchaseOrderLookup = new LookupDefinition<PurchaseOrderLookup, Purchases>(Purchases);
+            PurchaseOrderLookup.AddVisibleColumnDefinition(p => p.PoNumber, "PO Number", p => p.PoNumber, 25);
+            PurchaseOrderLookup.AddVisibleColumnDefinition(p => p.OrderDate, "Date", p => p.OrderDate, 25);
+            PurchaseOrderLookup.Include(p => p.Supplier)
+                .AddVisibleColumnDefinition(p => p.Supplier, "Supplier", p => p.CompanyName, 50);
+            Purchases.HasLookupDefinition(PurchaseOrderLookup);
         }
 
         protected override void SetupModel()
