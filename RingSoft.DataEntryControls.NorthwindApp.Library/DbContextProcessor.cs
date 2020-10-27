@@ -96,6 +96,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             context.OrderDetails.RemoveRange(context.OrderDetails.Where(w => w.OrderId == order.OrderId));
             return context.DeleteEntity(context.Orders, order, "Deleting Order");
         }
+
+        public Purchases GetPurchase(int purchaseOrderId)
+        {
+            var context = new NorthwindDbContext();
+            return context.Purchases.Include(p => p.Supplier)
+                .Include(p => p.PurchaseDetails)
+                .ThenInclude(p => p.Product)
+                .FirstOrDefault(f => f.PurchaseOrderId == purchaseOrderId);
+        }
+
         public Products GetProduct(int productId)
         {
             var context = new NorthwindDbContext();

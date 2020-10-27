@@ -116,15 +116,124 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
-        public string City { get; set; }
-        public string Region { get; set; }
-        public string PostalCode { get; set; }
-        public string Country { get; set; }
-        public decimal Freight { get; set; }
+        private string _city;
+
+        public string City
+        {
+            get => _city;
+            set
+            {
+                if (_city == value)
+                    return;
+
+                _city = value;
+                OnPropertyChanged(nameof(City));
+            }
+        }
+
+        private string _region;
+
+        public string Region
+        {
+            get => _region;
+            set
+            {
+                if (_region == value)
+                    return;
+
+                _region = value;
+                OnPropertyChanged(nameof(Region));
+            }
+        }
+
+        private string _postalCode;
+
+        public string PostalCode
+        {
+            get => _postalCode;
+            set
+            {
+                if (_postalCode == value)
+                    return;
+
+                _postalCode = value;
+                OnPropertyChanged(nameof(PostalCode));
+            }
+        }
+
+        private string _country;
+
+        public string Country
+        {
+            get => _country;
+            set
+            {
+                if (_country == value)
+                    return;
+
+                _country = value;
+                OnPropertyChanged(nameof(Country));
+            }
+        }
+
+        private decimal _subTotal;
+
+        public decimal SubTotal
+        {
+            get => _subTotal;
+            set
+            {
+                if (_subTotal == value)
+                    return;
+
+                _subTotal = value;
+                OnPropertyChanged(nameof(SubTotal));
+            }
+        }
+
+        private decimal _freight;
+
+        public decimal Freight
+        {
+            get => _freight;
+            set
+            {
+                if (_freight == value)
+                    return;
+
+                _freight = value;
+                OnPropertyChanged(nameof(Freight));
+            }
+        }
+
+        private decimal _total;
+
+        public decimal Total
+        {
+            get => _total;
+            set
+            {
+                if (_total == value)
+                    return;
+
+                _total = value;
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+
+        protected override void Initialize()
+        {
+            SupplierAutoFillSetup =
+                new AutoFillSetup(AppGlobals.LookupContext.Purchases.GetFieldDefinition(p => p.SupplierId));
+
+            base.Initialize();
+        }
 
         protected override Purchases PopulatePrimaryKeyControls(Purchases newEntity, PrimaryKeyValue primaryKeyValue)
         {
-            throw new NotImplementedException();
+            var purchase = AppGlobals.DbContextProcessor.GetPurchase(newEntity.PurchaseOrderId);
+            PurchaseOrderId = purchase.PurchaseOrderId;
+            return purchase;
         }
 
         protected override void LoadFromEntity(Purchases entity)
@@ -139,7 +248,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         protected override void ClearData()
         {
-            throw new NotImplementedException();
+            PurchaseOrderId = 0;
+            PoNumber = Address = City = Region = PostalCode = Country = string.Empty;
+            SupplierAutoFillValue = null;
+            OrderDate = DateTime.Today;
+            RequiredDate = null;
+            SubTotal = Freight = Total = 0;
         }
 
         protected override bool SaveEntity(Purchases entity)
