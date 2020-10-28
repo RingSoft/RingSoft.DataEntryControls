@@ -9,7 +9,7 @@
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
         mc:Ignorable="d"
-        Title="PurchaseOrderWindow" Height="550" Width="800">
+        Title="Purchase Orders" Height="550" Width="800">
     <Window.DataContext>
         <vmlib:PurchaseOrderViewModel x:Name="PurchaseOrderViewModel"/>
     </Window.DataContext>
@@ -44,12 +44,14 @@
             </Grid.RowDefinitions>
             <Label Content="Purchase Order ID" Style="{StaticResource ControlLabel}"/>
             <dec:StringReadOnlyBox Grid.Row="0" Grid.Column="1"  Text="{Binding PurchaseOrderId}" DesignText="1234567" Width="70" HorizontalAlignment="Left"/>
-            <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Supplier"/>
-            <lc:AutoFillControl x:Name="SupplierControl" Grid.Row="0" Grid.Column="3" Setup="{Binding Path=SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="New England Seafood Cannery" Width="200"/>
-            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Order Date"/>
-            <dec:DateEditControl Grid.Row="1" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Required Date"/>
-            <dec:DateEditControl Grid.Row="1" Grid.Column="3" Value="{Binding Path=RequiredDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+            <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="PO Number"/>
+            <lc:AutoFillControl x:Name="PoNumberControl" Grid.Row="0" Grid.Column="3" DesignText="202010281146" Width="125"/>
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Supplier"/>
+            <lc:AutoFillControl x:Name="SupplierControl" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Setup="{Binding Path=SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="New England Seafood Cannery" Width="200"/>
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Order Date"/>
+            <dec:DateEditControl Grid.Row="2" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Required Date"/>
+            <dec:DateEditControl Grid.Row="2" Grid.Column="3" Value="{Binding Path=RequiredDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
             <TabControl x:Name="TabControl" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
                 <TabItem Header="Details">
                     <DockPanel>
@@ -67,6 +69,33 @@
                             </deg:DataEntryGrid.Columns>
                         </deg:DataEntryGrid>
                     </DockPanel>
+                </TabItem>
+                <TabItem Header="Address Data">
+                    <Grid Width="350" HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Address" Style="{StaticResource ControlLabel}"/>
+                        <dec:StringEditControl x:Name="AddressEdit" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="City" Style="{StaticResource ControlLabel}"/>
+                        <DockPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch">
+                            <dec:StringEditControl x:Name="CityEdit" Text="{Binding Path=City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="125"/>
+                            <Label Content="Region" Style="{StaticResource ControlLabel}"/>
+                            <dec:StringEditControl x:Name="RegionEdit" Text="{Binding Path=Region, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Postal Code" Style="{StaticResource ControlLabel}"/>
+                        <DockPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
+                            <dec:StringEditControl x:Name="PostalCodeEdit" Text="{Binding Path=PostalCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                            <Label Content="Country" Style="{StaticResource ControlLabel}"/>
+                            <dec:StringEditControl x:Name="CountryEdit" Text="{Binding Path=Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                    </Grid>
                 </TabItem>
             </TabControl>
             <Grid Grid.Row="4" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right">

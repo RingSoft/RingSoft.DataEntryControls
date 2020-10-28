@@ -125,7 +125,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set
             {
                 base.RowHeight = value;
-                DesignerFillGrid();
+                DesignerFillGrid(nameof(RowHeight));
             }
         }
 
@@ -319,12 +319,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                 index++;
             }
-            DesignerFillGrid();
+            DesignerFillGrid(nameof(Columns_CollectionChanged));
         }
 
         private void Column_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            DesignerFillGrid();
+            DesignerFillGrid(nameof(Column_PropertyChanged));
         }
 
         private int GetColumnIndexOfColumnId(int columnId)
@@ -335,12 +335,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-            DesignerFillGrid();
+            DesignerFillGrid(nameof(OnRenderSizeChanged));
 
             base.OnRenderSizeChanged(sizeInfo);
         }
 
-        private void DesignerFillGrid()
+        // ReSharper disable once UnusedParameter.Local
+        private void DesignerFillGrid(string trace)
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
                 return;
@@ -362,6 +363,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             var headersPresenter = FindVisualChild<DataGridColumnHeadersPresenter>(this);
             var columnHeaderHeight = headersPresenter.ActualHeight;
+
             if (double.IsNaN(columnHeaderHeight) && Columns.Any())
             {
                 if (ActualHeight < 30)
@@ -379,7 +381,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
             }
 
-            //MessageBox.Show($"Column Header Height={columnHeaderHeight}, ActualHeight={ActualHeight}", "Here");
+            //MessageBox.Show($"RowHeight={RowHeight}\r\nColumn Header Height={columnHeaderHeight}\r\nActualHeight={ActualHeight}", trace);
 
             AddDesignerRow();
             var lastRowIndex = _dataSourceTable.Rows.Count - 1;
@@ -1262,6 +1264,26 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         return childOfChild;
                 }
             }
+            return null;
+        }
+
+        public static T GetFirstVisualChild<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child is T)
+                    {
+                        return (T)child;
+                    }
+
+                    T childItem = GetFirstVisualChild<T>(child);
+                    if (childItem != null) return childItem;
+                }
+            }
+
             return null;
         }
 

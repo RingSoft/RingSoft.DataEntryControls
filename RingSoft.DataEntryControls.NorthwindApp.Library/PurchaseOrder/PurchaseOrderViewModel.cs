@@ -1,4 +1,5 @@
 ﻿using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
@@ -7,9 +8,18 @@ using RingSoft.DbMaintenance;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
+    public interface IPurchaseOrderView : IDbMaintenanceView
+    {
+        bool ShowCommentEditor(GridMemoValue comment);
+
+        void GridValidationFail();
+    }
+
     public class PurchaseOrderViewModel : DbMaintenanceViewModel<Purchases>
     {
         public override TableDefinition<Purchases> TableDefinition => AppGlobals.LookupContext.Purchases;
+
+        public IPurchaseOrderView PurchaseOrderView { get; private set; }
 
         private int _purchaseOrderId;
 
@@ -23,21 +33,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
                 _purchaseOrderId = value;
                 OnPropertyChanged(nameof(PurchaseOrderId));
-            }
-        }
-
-        private string _poNumber;
-
-        public string PoNumber
-        {
-            get => _poNumber;
-            set
-            {
-                if (_poNumber == value)
-                    return;
-
-                _poNumber = value;
-                OnPropertyChanged(nameof(PoNumber));
             }
         }
 
@@ -238,6 +233,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         protected override void Initialize()
         {
+            PurchaseOrderView = View as IPurchaseOrderView ??
+                             throw new ArgumentException(
+                                 $"ViewModel requires an {nameof(IPurchaseOrderView)} interface.");
+
             SupplierAutoFillSetup =
                 new AutoFillSetup(AppGlobals.LookupContext.Purchases.GetFieldDefinition(p => p.SupplierId))
                 {
@@ -250,10 +249,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             base.Initialize();
         }
 
+        public void OnSupplierLostFocus()
+        {
+
+        }
+
         protected override Purchases PopulatePrimaryKeyControls(Purchases newEntity, PrimaryKeyValue primaryKeyValue)
         {
             var purchase = AppGlobals.DbContextProcessor.GetPurchase(newEntity.PurchaseOrderId);
             PurchaseOrderId = purchase.PurchaseOrderId;
+
+            KeyAutoFillValue = new AutoFillValue(primaryKeyValue, purchase.PoNumber);
             return purchase;
         }
 
@@ -270,7 +276,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         protected override void ClearData()
         {
             PurchaseOrderId = 0;
-            PoNumber = Address = City = Region = PostalCode = Country = string.Empty;
+            Address = City = Region = PostalCode = Country = string.Empty;
             SupplierAutoFillValue = null;
             OrderDate = DateTime.Today;
             RequiredDate = null;

@@ -40,8 +40,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             {
                 case PurchaseOrderDetailsLineTypes.Product:
                     return new PurchaseOrderDetailsProductRow(this);
-                case PurchaseOrderDetailsLineTypes.DirectExpense:
-                case PurchaseOrderDetailsLineTypes.Comment:
+                //case PurchaseOrderDetailsLineTypes.DirectExpense:
+                //case PurchaseOrderDetailsLineTypes.Comment:
                 default:
                     throw new ArgumentOutOfRangeException(nameof(lineType), lineType, null);
             }
