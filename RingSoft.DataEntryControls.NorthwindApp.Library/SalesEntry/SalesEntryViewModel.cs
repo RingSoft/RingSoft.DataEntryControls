@@ -6,6 +6,7 @@ using RingSoft.DbMaintenance;
 using System;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DbLookup;
+using RingSoft.DbLookup.DataProcessor;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -620,8 +621,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 else
                 {
                     var customer = AppGlobals.LookupContext.Customers.GetEntityFromPrimaryKeyValue(Customer.PrimaryKeyValue);
+
+                    DbDataProcessor.UserInterface.SetWindowCursor(WindowCursorTypes.Wait);
                     customer =
                         AppGlobals.DbContextProcessor.GetCustomer(customer.CustomerId);
+                    DbDataProcessor.UserInterface.SetWindowCursor(WindowCursorTypes.Default);
 
                     if (customer != null)
                     {

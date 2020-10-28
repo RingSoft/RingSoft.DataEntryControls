@@ -106,6 +106,39 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 .FirstOrDefault(f => f.PurchaseOrderId == purchaseOrderId);
         }
 
+        public bool SavePurchase(Purchases purchase, List<PurchaseDetails> purchaseDetails)
+        {
+            var context = new NorthwindDbContext();
+            var result = context.SaveEntity(context.Purchases, purchase, "Saving Purchase");
+
+            if (result)
+            {
+                context.PurchaseDetails.RemoveRange(
+                    context.PurchaseDetails.Where(w => w.PurchaseOrderId == purchase.PurchaseOrderId));
+
+                if (purchaseDetails != null)
+                {
+                    foreach (var purchaseOrderDetail in purchaseDetails)
+                    {
+                        purchaseOrderDetail.PurchaseOrderId = purchase.PurchaseOrderId;
+                        context.PurchaseDetails.Add(purchaseOrderDetail);
+                    }
+                }
+                result = context.SaveEfChanges("Saving Purchase Details");
+            }
+            return result;
+        }
+
+        public bool DeletePurchase(int purchaseOrderId)
+        {
+            var context = new NorthwindDbContext();
+            var purchase = context.Purchases.FirstOrDefault(p => p.PurchaseOrderId == purchaseOrderId);
+
+            context.PurchaseDetails.RemoveRange(
+                context.PurchaseDetails.Where(w => w.PurchaseOrderId == purchase.PurchaseOrderId));
+            return context.DeleteEntity(context.Purchases, purchase, "Deleting Purchase");
+        }
+
         public Products GetProduct(int productId)
         {
             var context = new NorthwindDbContext();
@@ -163,6 +196,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             var nonInventoryCode =
                 context.NonInventoryCodes.FirstOrDefault(f => f.NonInventoryCodeId == nonInventoryCodeId);
             return context.DeleteEntity(context.NonInventoryCodes, nonInventoryCode, "Deleting Non InventoryCode");
+        }
+
+        public Suppliers GetSupplier(int supplierId)
+        {
+            var context = new NorthwindDbContext();
+            return context.Suppliers.FirstOrDefault(f => f.SupplierId == supplierId);
         }
     }
 }
