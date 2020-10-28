@@ -139,6 +139,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _tabbingRight;
         private bool _undoEdit;
         private bool _bulkInsertMode;
+        private bool _designerFillingGrid;
 
         static DataEntryGrid()
         {
@@ -344,23 +345,41 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (!DesignerProperties.GetIsInDesignMode(this))
                 return;
 
+            if (_designerFillingGrid)
+                return;
+
+            _designerFillingGrid = true;
+
             _dataSourceTable.Rows.Clear();
 
             UpdateLayout();
-            
-            if (ActualHeight < 15)
-                return;
 
-            if (double.IsNaN(ColumnHeaderHeight) && Columns.Any())
+            if (ActualHeight < 15)
+            {
+                _designerFillingGrid = false;
+                return;
+            }
+
+            var headersPresenter = FindVisualChild<DataGridColumnHeadersPresenter>(this);
+            var columnHeaderHeight = headersPresenter.ActualHeight;
+            if (double.IsNaN(columnHeaderHeight) && Columns.Any())
             {
                 if (ActualHeight < 30)
+                {
+                    _designerFillingGrid = false;
                     return;
+                }
             }
-            else if (!double.IsNaN(ColumnHeaderHeight))
+            else if (!double.IsNaN(columnHeaderHeight))
             {
-                if (ActualHeight < ColumnHeaderHeight + 20)
+                if (ActualHeight < columnHeaderHeight + 10)
+                {
+                    _designerFillingGrid = false;
                     return;
+                }
             }
+
+            //MessageBox.Show($"Column Header Height={columnHeaderHeight}, ActualHeight={ActualHeight}", "Here");
 
             AddDesignerRow();
             var lastRowIndex = _dataSourceTable.Rows.Count - 1;
@@ -376,6 +395,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                 dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
             }
+
+            _designerFillingGrid = false;
         }
 
         private void AddDesignerRow()
