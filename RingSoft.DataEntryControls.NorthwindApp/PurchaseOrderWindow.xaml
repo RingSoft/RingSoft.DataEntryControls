@@ -49,7 +49,7 @@
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Supplier"/>
             <lc:AutoFillControl x:Name="SupplierControl" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Setup="{Binding Path=SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="New England Seafood Cannery" Width="200"/>
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Order Date"/>
-            <dec:DateEditControl Grid.Row="2" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <dec:DateEditControl Grid.Row="2" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Required Date"/>
             <dec:DateEditControl Grid.Row="2" Grid.Column="3" Value="{Binding Path=RequiredDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
             <TabControl x:Name="TabControl" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
@@ -62,8 +62,7 @@
                                 <deg:DataEntryGridColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.QuantityColumnId}" Header="Quantity" Alignment="Right" DesignText="1,000" Width="75"/>
                                 <deg:DataEntryGridColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.PriceColumnId}" Header="Price" Alignment="Right" DesignText="$10,000.00" Width="100"/>
                                 <deg:DataEntryGridColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.ExtendedPriceColumnId}" Header="Extended&#10;Price" Alignment="Right" DesignText="$100,000.00" Width="100"/>
-
-                                <deg:DataEntryGridColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.PickDateColumnId}" Header="Picked Date" DesignText="01/01/1980 12:00:00 PM" Width="150" Alignment="Center"/>
+                                <deg:DataEntryGridColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.PickDateColumnId}" Header="Picked Date" DesignText="01/01/1980 12:00:00 PM" Width="180" Alignment="Center"/>
                                 <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.ReceivedColumnId}" Header="Received" Width="75"/>
                                 <deg:DataEntryGridColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.DelayDaysId}" Header="Delay Days" DesignText="9,999" Width="80"/>
                             </deg:DataEntryGrid.Columns>

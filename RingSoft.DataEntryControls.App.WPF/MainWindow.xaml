@@ -28,7 +28,7 @@
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>
                 <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static local:AppGridManager.CheckBoxColumnId}" Header="CheckBox Column"/>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DateColumnId}" Header="Date" Width="90" DesignText="01/01/2020"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DateColumnId}" Header="Date" Width="200" DesignText="01/01/2020"/>
                 <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
             </deg:DataEntryGrid.Columns>
         </deg:DataEntryGrid>

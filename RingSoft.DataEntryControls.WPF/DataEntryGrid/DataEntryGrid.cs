@@ -721,6 +721,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreparingCellForEdit(e);
         }
 
+        public DataGridCell GetCurrentCell()
+        {
+            var cellContent = CurrentCell.Column.GetCellContent(CurrentCell.Item);
+            if (cellContent != null && cellContent.Parent is DataGridCell dataGridCell)
+            {
+                return dataGridCell;
+            }
+
+            return null;
+        }
+
         private void EditingControlHost_UpdateSource(object sender, DataEntryGridCellProps e)
         {
             var rowIndex = Items.IndexOf(CurrentCell.Item);

@@ -82,7 +82,7 @@ namespace RingSoft.DataEntryControls.Engine
                                              || dateFormatString == "Y")
                 throw new Exception($"Entry DateTime format '{dateFormatString}' is not supported.  Entry formats 'd', 'g', 'G', 't', or 'T' are supported.");
 
-            if (dateFormatString.Length > 1)
+            if (!dateFormatString.IsNullOrEmpty() && dateFormatString.Length > 1)
             {
                 dateFormatString = ScrubDateFormat(dateFormatString);
                 ValidateDateFormat(dateFormatString);

@@ -99,6 +99,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             };
         }
 
+        public static DateEditControlSetup CreateNewDateEditControlSetup()
+        {
+            return new DateEditControlSetup{CultureId = DateCultureId};
+        }
+
+        public static IntegerEditControlSetup CreateNewIntegerEditControlSetup()
+        {
+            return new IntegerEditControlSetup {CultureId = NumberCultureId};
+        }
+
         public static string OpenTextFile(string fileName)
         {
             var result = string.Empty;
