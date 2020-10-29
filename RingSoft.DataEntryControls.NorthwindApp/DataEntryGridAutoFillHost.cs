@@ -4,6 +4,9 @@ using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
 using RingSoft.DbLookup.Controls.WPF;
 using System.Windows.Input;
+using System.Windows.Media;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.WPF;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -51,11 +54,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             return false;
         }
 
-        protected override void OnControlLoaded(AutoFillControl control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(AutoFillControl control, DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
         {
             AutoFillCellProps = (DataEntryGridAutoFillCellProps)cellProps;
             Control.Setup = AutoFillCellProps.AutoFillSetup;
             Control.Value = AutoFillCellProps.AutoFillValue;
+
+            if (!cellStyle.SelectionColor.IsEmpty)
+                Control.SelectionBrush = new SolidColorBrush(cellStyle.SelectionColor.GetMediaColor());
 
             Control.ControlDirty += (sender, args) => OnControlDirty();
         }

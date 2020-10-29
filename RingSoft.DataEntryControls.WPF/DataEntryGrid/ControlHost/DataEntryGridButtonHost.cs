@@ -1,5 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System.Windows.Controls;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -23,7 +24,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return _hasDataChanged;
         }
 
-        protected override void OnControlLoaded(Button control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(Button control, DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
         {
             if (cellProps is DataEntryGridButtonCellProps buttonCellProps)
             {
@@ -36,6 +38,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 OnUpdateSource(cellProps);
                 _hasDataChanged = false;
             };
+        }
+
+        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
         }
     }
 }

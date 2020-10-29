@@ -1,7 +1,9 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System;
+using System.Windows.Controls;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using ComboBoxItem = RingSoft.DataEntryControls.Engine.ComboBoxItem;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
@@ -31,7 +33,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return Control.SelectedItem != _selectedItem;
         }
 
-        protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
         {
             var comboBoxCellProps = GetComboBoxCellProps(cellProps);
             _comboBoxSetup = comboBoxCellProps.ComboBoxSetup;
@@ -41,6 +44,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             _valueChangeType = comboBoxCellProps.ChangeType;
 
             Control.SelectionChanged += (sender, args) => OnSelectionChanged();
+        }
+
+        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
         }
 
         private void OnSelectionChanged()

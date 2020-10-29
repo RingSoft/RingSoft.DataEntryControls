@@ -1,5 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
@@ -13,14 +16,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        protected override void OnControlLoaded(TDropDownControl control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(TDropDownControl control, DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
         {
             if (Control.TextBox != null)
             {
                 Control.TextBox.KeyDown += TextBox_KeyDown;
             }
-
+            
             Control.ValueChanged += (sender, args) => OnControlDirty();
+
+            if (!cellStyle.SelectionColor.IsEmpty)
+                Control.SelectionBrush = new SolidColorBrush(cellStyle.SelectionColor.GetMediaColor());
         }
 
         protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
@@ -28,10 +35,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             if (Control.TextBox != null)
             {
                 if (dataGridCell.Column is DataEntryGridColumn dataEntryGridColumn)
-                    Control.TextBox.TextAlignment = dataEntryGridColumn.Alignment;
-
-                Control.TextBox.Background = dataGridCell.Background;
-                Control.TextBox.Foreground = dataGridCell.Foreground;
+                    Control.TextAlignment = dataEntryGridColumn.Alignment;
             }
 
             base.ImportDataGridCellProperties(dataGridCell);

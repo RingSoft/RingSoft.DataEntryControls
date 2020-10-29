@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -12,7 +13,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         public override bool IsDropDownOpen => false;
 
         private string _text;
-        private Brush _selectionBrush;
 
         public DataEntryGridTextBoxHost(DataEntryGrid grid) : base(grid)
         {
@@ -30,7 +30,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             //factory.SetBinding(TextBox.TextProperty, binding);
         }
 
-        protected override void OnControlLoaded(StringEditControl control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(StringEditControl control, DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
         {
             if (cellProps is DataEntryGridTextCellProps textCellProps)
             {
@@ -49,11 +50,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                         throw new ArgumentOutOfRangeException();
                 }
 
-                if (textCellProps.SelectionColor != null)
-                {
-                    var color = (System.Drawing.Color) textCellProps.SelectionColor;
-                    _selectionBrush = new SolidColorBrush(color.GetMediaColor());
-                }
+                if (!cellStyle.SelectionColor.IsEmpty)
+                    Control.SelectionBrush = new SolidColorBrush(cellStyle.SelectionColor.GetMediaColor());
             }
 
             _text = control.Text = cellProps.Text;
@@ -68,8 +66,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             if (dataGridCell.Column is DataEntryGridColumn dataEntryGridColumn)
             {
                 Control.TextAlignment = dataEntryGridColumn.Alignment;
-                if (_selectionBrush != null)
-                    Control.SelectionBrush = _selectionBrush;
             }
 
             base.ImportDataGridCellProperties(dataGridCell);

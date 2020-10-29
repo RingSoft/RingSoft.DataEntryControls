@@ -41,7 +41,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             UpdateSource?.Invoke(this, e);
         }
 
-        public abstract DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps);
+        public abstract DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle);
 
         public abstract DataEntryGridCellProps GetCellValue();
 

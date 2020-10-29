@@ -43,7 +43,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.Item:
-                    return new DataEntryGridCellStyle{ColumnHeader = "Non Inventory Code"};
+                    return new DataEntryGridCellStyle
+                    {
+                        ColumnHeader = "Non Inventory Code",
+                        SelectionColor = Color.Black
+                    };
+                case SalesEntryGridColumns.Price:
+                    return new DataEntryGridCellStyle{SelectionColor = Color.Black};
                 case SalesEntryGridColumns.Quantity:
                 case SalesEntryGridColumns.ExtendedPrice:
                 case SalesEntryGridColumns.Discount:

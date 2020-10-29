@@ -22,6 +22,7 @@
                 <Setter Property="EnterToTab" Value="True" />
                 <Setter Property="GridLinesVisibility" Value="None" />
                 <Setter Property="AlternationCount" Value="2" />
+                <!--<Setter Property="CellEditingControlBorderThickness" Value="1"/>-->
             </Style>
             <Style TargetType="{x:Type DataGridRow}">
                 <Style.Triggers>

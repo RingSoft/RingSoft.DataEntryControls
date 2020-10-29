@@ -110,7 +110,7 @@
                 <Label Content="Sub Total" Style="{StaticResource ControlLabel}"/>
                 <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="0" Value="{Binding SubTotal}"/>
                 <Label Grid.Column="0" Grid.Row="1" Content="Freight" Style="{StaticResource ControlLabel}"/>
-                <dec:DecimalEditControl Grid.Column="1" Grid.Row="1" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" Height="20" HorizontalAlignment="Stretch"/>
+                <dec:DecimalEditControl Grid.Column="1" Grid.Row="1" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" HorizontalAlignment="Stretch"/>
                 <Label Grid.Column="0" Grid.Row="2" Content="Total" Style="{StaticResource ControlLabel}"/>
                 <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="2" Value="{Binding Path=Total}"/>
             </Grid>

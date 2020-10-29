@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -20,7 +21,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return Control.Value != DecimalCellProps.Value;
         }
 
-        protected override void OnControlLoaded(DecimalEditControl control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(DecimalEditControl control, DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
         {
             DecimalCellProps = (DataEntryGridDecimalCellProps) cellProps;
 
@@ -29,7 +31,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
             control.CalculatorValueChanged += (sender, args) => OnUpdateSource(GetCellValue());
             
-            base.OnControlLoaded(control, cellProps);
+            base.OnControlLoaded(control, cellProps, cellStyle);
         }
     }
 }

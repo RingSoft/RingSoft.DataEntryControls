@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,14 +17,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         }
 
         private DataEntryGridCellProps _cellProps;
+        private DataEntryGridCellStyle _cellStyle;
 
         protected DataEntryGridControlHost(DataEntryGrid grid) : base(grid)
         {
         }
 
-        public override DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps)
+        public override DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps, DataEntryGridCellStyle cellStyle)
         {
             _cellProps = cellProps;
+            _cellStyle = cellStyle;
+
             ColumnId = cellProps.ColumnId;
 
             var factory = new FrameworkElementFactory(typeof(TControl));
@@ -40,7 +44,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        protected abstract void OnControlLoaded(TControl control, DataEntryGridCellProps cellProps);
+        protected abstract void OnControlLoaded(TControl control, DataEntryGridCellProps cellProps, DataEntryGridCellStyle cellStyle);
 
         private void Loaded(object sender, RoutedEventArgs e)
         {
@@ -66,7 +70,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                     contextMenu.Items.Remove(separator);
                 control.ContextMenu = contextMenu;
 
-                OnControlLoaded(control, _cellProps);
+                Control.Width = double.NaN;
+
+                OnControlLoaded(control, _cellProps, _cellStyle);
                 var dataGridCell = Grid.GetCurrentCell();
                 if (dataGridCell != null)
                     ImportDataGridCellProperties(dataGridCell);
@@ -75,9 +81,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         protected virtual void ImportDataGridCellProperties(DataGridCell dataGridCell)
         {
-            Control.Width = dataGridCell.ActualWidth;
             Control.Background = dataGridCell.Background;
             Control.Foreground = dataGridCell.Foreground;
+
+            if (Grid.CellEditingControlBorderThickness.Equals(new Thickness(0)))
+                dataGridCell.BorderThickness = Grid.CellEditingControlBorderThickness;
+
+            Control.BorderThickness = new Thickness(0);
         }
     }
 }

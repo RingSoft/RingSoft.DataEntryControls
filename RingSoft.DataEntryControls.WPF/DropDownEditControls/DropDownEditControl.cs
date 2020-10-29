@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using RingSoft.DataEntryControls.Engine;
 
 // ReSharper disable once CheckNamespace
@@ -79,6 +80,53 @@ namespace RingSoft.DataEntryControls.WPF
             dropDownEditControl.SetDesignText();
         }
 
+        private static void BorderThicknessChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl.TextBox != null)
+            {
+                dropDownEditControl.TextBox.BorderThickness = dropDownEditControl.BorderThickness;
+            }
+        }
+
+        private static void BackgroundChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl.TextBox != null)
+            {
+                dropDownEditControl.TextBox.Background = dropDownEditControl.Background;
+            }
+        }
+
+        private static void ForegroundChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl.TextBox != null)
+            {
+                dropDownEditControl.TextBox.Foreground = dropDownEditControl.Foreground;
+            }
+        }
+
+        public static readonly DependencyProperty SelectionBrushProperty =
+            DependencyProperty.Register(nameof(SelectionBrush), typeof(Brush), typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(SelectionBrushChangedCallback));
+
+        public Brush SelectionBrush
+        {
+            get { return (Brush)GetValue(SelectionBrushProperty); }
+            set { SetValue(SelectionBrushProperty, value); }
+        }
+
+        private static void SelectionBrushChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl.TextBox != null)
+                dropDownEditControl.TextBox.SelectionBrush = dropDownEditControl.SelectionBrush;
+        }
 
         private TextBox _textBox;
         public TextBox TextBox
@@ -199,6 +247,15 @@ namespace RingSoft.DataEntryControls.WPF
         {
             FocusableProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
+
+            BorderThicknessProperty.OverrideMetadata(typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(new Thickness(1), BorderThicknessChangedCallback));
+
+            BackgroundProperty.OverrideMetadata(typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(BackgroundChangedCallback));
+
+            ForegroundProperty.OverrideMetadata(typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(ForegroundChangedCallback));
         }
 
         public DropDownEditControl()

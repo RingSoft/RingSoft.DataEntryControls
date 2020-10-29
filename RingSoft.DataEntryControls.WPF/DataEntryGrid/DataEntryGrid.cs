@@ -102,6 +102,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set { SetValue(CancelEditOnEscapeProperty, value); }
         }
 
+        public static readonly DependencyProperty CellEditingControlBorderThicknessProperty =
+            DependencyProperty.Register(nameof(CellEditingControlBorderThickness), typeof(Thickness), typeof(DataEntryGrid));
+
+        public Thickness CellEditingControlBorderThickness
+        {
+            get { return (Thickness)GetValue(CellEditingControlBorderThicknessProperty); }
+            set { SetValue(CellEditingControlBorderThicknessProperty, value); }
+        }
 
         public new ObservableCollection<DataEntryGridColumn> Columns { get; set; } = new ObservableCollection<DataEntryGridColumn>();
 
@@ -143,7 +151,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         static DataEntryGrid()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGrid), new FrameworkPropertyMetadata(typeof(DataEntryGrid)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGrid),
+                new FrameworkPropertyMetadata(typeof(DataEntryGrid)));
+
+            CellEditingControlBorderThicknessProperty.OverrideMetadata(typeof(DataEntryGrid),
+                new FrameworkPropertyMetadata(new Thickness(0)));
         }
 
         public DataEntryGrid()
@@ -700,7 +712,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         ControlHostFactory = new DataEntryGridHostFactory();
                     EditingControlHost = ControlHostFactory.GetControlHost(this, cellProps.EditingControlId);
 
-                    dataEntryGridColumn.CellEditingTemplate = EditingControlHost.GetEditingControlDataTemplate(cellProps);
+                    dataEntryGridColumn.CellEditingTemplate =
+                        EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle);
                     EditingControlHost.ControlDirty += EditingControl_ControlDirty;
                     EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
                 }

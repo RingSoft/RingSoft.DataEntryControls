@@ -17,6 +17,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public Color ForegroundColor { get; set; }
 
+        public Color SelectionColor { get; set; }
+
         public string ColumnHeader { get; set; }
     }
 }

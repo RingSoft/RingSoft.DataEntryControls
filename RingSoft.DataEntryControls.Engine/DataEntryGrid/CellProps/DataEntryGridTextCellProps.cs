@@ -17,8 +17,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 
         public TextCasing CharacterCasing { get; set; }
 
-        public Color? SelectionColor { get; set; }
-
         public DataEntryGridTextCellProps(DataEntryGridRow row, int columnId) : base(row, columnId)
         {
         }

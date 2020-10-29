@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
@@ -33,7 +34,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return _value != Control.IsChecked;
         }
 
-        protected override void OnControlLoaded(CheckBox control, DataEntryGridCellProps cellProps)
+        protected override void OnControlLoaded(CheckBox control, DataEntryGridCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
         {
             var checkBoxCellProps = cellProps as DataEntryGridCheckBoxCellProps;
             control.IsChecked = _value = checkBoxCellProps != null && checkBoxCellProps.Value;
