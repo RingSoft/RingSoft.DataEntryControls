@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
+﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 {
     public enum TextCasing
     {

@@ -1,9 +1,8 @@
-﻿using System.Windows;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -32,11 +31,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
         {
-            if (Control.TextBox != null)
-            {
-                if (dataGridCell.Column is DataEntryGridColumn dataEntryGridColumn)
-                    Control.TextAlignment = dataEntryGridColumn.Alignment;
-            }
+            if (dataGridCell.Column is DataEntryGridColumn dataEntryGridColumn)
+                Control.TextAlignment = dataEntryGridColumn.Alignment;
 
             base.ImportDataGridCellProperties(dataGridCell);
         }

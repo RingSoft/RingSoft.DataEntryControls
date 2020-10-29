@@ -2,9 +2,8 @@
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
-using System;
-using System.Drawing;
 using RingSoft.DbLookup.AutoFill;
+using System;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
