@@ -1,4 +1,8 @@
-﻿using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+﻿using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using RingSoft.DbLookup.AutoFill;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
@@ -6,8 +10,96 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
     {
         public override PurchaseOrderDetailsLineTypes LineType => PurchaseOrderDetailsLineTypes.Product;
 
+        public AutoFillValue ProductValue { get; private set; }
+
+        private AutoFillSetup _productAutoFillSetup;
+
         public PurchaseOrderDetailsProductRow(PurchaseOrderDetailsGridManager manager) : base(manager)
         {
+            _productAutoFillSetup =
+                new AutoFillSetup(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId));
+        }
+
+        public override DataEntryGridCellProps GetCellProps(int columnId)
+        {
+            var column = (PurchaseOrderColumns) columnId;
+
+            switch (column)
+            {
+                case PurchaseOrderColumns.Item:
+                    return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
+                case PurchaseOrderColumns.Quantity:
+                    break;
+                case PurchaseOrderColumns.Price:
+                    break;
+                case PurchaseOrderColumns.ExtendedPrice:
+                    break;
+            }
+
+            return base.GetCellProps(columnId);
+        }
+
+        public override DataEntryGridCellStyle GetCellStyle(int columnId)
+        {
+            var column = (PurchaseOrderColumns) columnId;
+
+            switch (column)
+            {
+                case PurchaseOrderColumns.Item:
+                    return new DataEntryGridCellStyle { ColumnHeader = "Product" };
+            }
+            return base.GetCellStyle(columnId);
+        }
+
+        public override void SetCellValue(DataEntryGridCellProps value)
+        {
+            var column = (PurchaseOrderColumns) value.ColumnId;
+
+            switch (column)
+            {
+                case PurchaseOrderColumns.Item:
+                    if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
+                    {
+                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
+                        if (validProduct)
+                        {
+                            LoadFromItemAutoFillValue(autoFillCellProps.AutoFillValue);
+                        }
+                        else if (string.IsNullOrEmpty(autoFillCellProps.AutoFillValue.Text))
+                        {
+                            ProductValue = autoFillCellProps.AutoFillValue;
+                        }
+                        else
+                        {
+                            //CorrectInvalidItem(autoFillCellProps);
+                        }
+                    }
+                    break;
+                case PurchaseOrderColumns.Quantity:
+                    break;
+                case PurchaseOrderColumns.Price:
+                    break;
+            }
+            base.SetCellValue(value);
+        }
+
+        public void LoadFromItemAutoFillValue(AutoFillValue itemAutoFillValue)
+        {
+            ProductValue = itemAutoFillValue;
+            if (ProductValue.PrimaryKeyValue.ContainsValidData())
+            {
+                var product =
+                    AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
+                        .PrimaryKeyValue);
+                product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
+                //Quantity = 1;
+                //if (product.UnitPrice != null)
+                //    Price = (decimal)product.UnitPrice;
+
+                //LoadChildRows(product);
+
+                //SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
+            }
         }
 
         public override void LoadFromEntity(PurchaseDetails entity)
