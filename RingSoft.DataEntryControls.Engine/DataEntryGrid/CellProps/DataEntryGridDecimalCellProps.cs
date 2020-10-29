@@ -1,6 +1,6 @@
 ﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 {
-    public class DataEntryGridDecimalCellProps : DataEntryGridCellProps
+    public class DataEntryGridDecimalCellProps : DataEntryGridDropDownCellProps
     {
         public override int EditingControlId => DecimalEditHostId;
 

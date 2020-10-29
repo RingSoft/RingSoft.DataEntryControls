@@ -2,7 +2,7 @@
 
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 {
-    public class DataEntryGridDateCellProps : DataEntryGridCellProps
+    public class DataEntryGridDateCellProps : DataEntryGridDropDownCellProps
     {
         public override int EditingControlId => DateEditHostId;
 

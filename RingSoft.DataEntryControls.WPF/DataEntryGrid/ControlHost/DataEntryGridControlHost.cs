@@ -40,7 +40,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        protected abstract void OnControlLoaded(TControl control, DataEntryGridCellProps cellProps, DataGridCell currentCell);
+        protected abstract void OnControlLoaded(TControl control, DataEntryGridCellProps cellProps);
 
         private void Loaded(object sender, RoutedEventArgs e)
         {
@@ -66,8 +66,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                     contextMenu.Items.Remove(separator);
                 control.ContextMenu = contextMenu;
 
-                OnControlLoaded(control, _cellProps, Grid.GetCurrentCell());
+                OnControlLoaded(control, _cellProps);
+                var dataGridCell = Grid.GetCurrentCell();
+                if (dataGridCell != null)
+                    ImportDataGridCellProperties(dataGridCell);
             }
+        }
+
+        protected virtual void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
+            Control.Width = dataGridCell.ActualWidth;
+            Control.Background = dataGridCell.Background;
+            Control.Foreground = dataGridCell.Foreground;
         }
     }
 }

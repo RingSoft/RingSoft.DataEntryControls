@@ -3,6 +3,7 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -11,6 +12,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         public override bool IsDropDownOpen => false;
 
         private string _text;
+        private Brush _selectionBrush;
 
         public DataEntryGridTextBoxHost(DataEntryGrid grid) : base(grid)
         {
@@ -46,6 +48,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
+                if (textCellProps.SelectionColor != null)
+                {
+                    var color = (System.Drawing.Color) textCellProps.SelectionColor;
+                    _selectionBrush = new SolidColorBrush(color.GetMediaColor());
+                }
             }
 
             _text = control.Text = cellProps.Text;
@@ -53,6 +61,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
             Control.KeyDown += TextBox_KeyDown;
             Control.TextChanged += (sender, args) => OnControlDirty();
+        }
+
+        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
+            if (dataGridCell.Column is DataEntryGridColumn dataEntryGridColumn)
+            {
+                Control.TextAlignment = dataEntryGridColumn.Alignment;
+                if (_selectionBrush != null)
+                    Control.SelectionBrush = _selectionBrush;
+            }
+
+            base.ImportDataGridCellProperties(dataGridCell);
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)

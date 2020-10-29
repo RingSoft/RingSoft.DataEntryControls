@@ -1,4 +1,6 @@
-﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
+﻿using System.Drawing;
+
+namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 {
     public enum TextCasing
     {
@@ -14,6 +16,8 @@
         public int MaxLength { get; set; }
 
         public TextCasing CharacterCasing { get; set; }
+
+        public Color? SelectionColor { get; set; }
 
         public DataEntryGridTextCellProps(DataEntryGridRow row, int columnId) : base(row, columnId)
         {

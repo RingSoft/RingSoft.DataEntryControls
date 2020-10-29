@@ -53,6 +53,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
             if (Mouse.LeftButton == MouseButtonState.Pressed)
                 control.IsChecked = !control.IsChecked;
+
+            Control.HorizontalAlignment = HorizontalAlignment.Center;
+        }
+
+        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
         }
     }
 }

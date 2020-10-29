@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
@@ -20,6 +21,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             }
 
             Control.ValueChanged += (sender, args) => OnControlDirty();
+        }
+
+        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
+            if (Control.TextBox != null)
+            {
+                if (dataGridCell.Column is DataEntryGridColumn dataEntryGridColumn)
+                    Control.TextBox.TextAlignment = dataEntryGridColumn.Alignment;
+
+                Control.TextBox.Background = dataGridCell.Background;
+                Control.TextBox.Foreground = dataGridCell.Foreground;
+            }
+
+            base.ImportDataGridCellProperties(dataGridCell);
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -67,6 +82,5 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             }
             return base.CanGridProcessKey(key);
         }
-
     }
 }

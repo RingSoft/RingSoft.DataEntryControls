@@ -120,5 +120,19 @@ namespace RingSoft.DataEntryControls.WPF
 
             return new Rect(absolutePos.X, absolutePos.Y, element.ActualWidth, element.ActualHeight);
         }
+
+        public static TextAlignment ToTextAlignment(
+            this HorizontalAlignment horizontalAlignment)
+        {
+            switch (horizontalAlignment)
+            {
+                case HorizontalAlignment.Left:
+                    return TextAlignment.Left;
+                case HorizontalAlignment.Right:
+                    return TextAlignment.Right;
+                default:
+                    return TextAlignment.Center;
+            }
+        }
     }
 }
