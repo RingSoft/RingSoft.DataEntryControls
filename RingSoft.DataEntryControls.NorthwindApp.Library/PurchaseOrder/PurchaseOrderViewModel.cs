@@ -64,6 +64,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
                 _supplierAutoFillValue = value;
                 _supplierDirty = true;
+                CheckSupplier();
                 OnPropertyChanged(nameof(SupplierAutoFillValue));
             }
         }
@@ -354,6 +355,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         protected override bool DeleteEntity()
         {
             return AppGlobals.DbContextProcessor.DeletePurchase(PurchaseOrderId);
+        }
+
+        public bool ValidSupplier()
+        {
+            return SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue.ContainsValidData();
+        }
+
+        public void CheckSupplier()
+        {
+            DetailsGridManager.Grid.RefreshDataSource();
+            if (ValidSupplier())
+            {
+            }
         }
     }
 }

@@ -27,7 +27,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             switch (column)
             {
                 case PurchaseOrderColumns.Item:
-                    return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
+                    if (PurchaseOrderDetailsManager.PurchaseOrderViewModel.ValidSupplier())
+                        return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
+                    else 
+                        return new DataEntryGridTextCellProps(this, columnId){Text = "Invalid Supplier!"};
                 case PurchaseOrderColumns.Quantity:
                     break;
                 case PurchaseOrderColumns.Price:
@@ -42,13 +45,31 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public override DataEntryGridCellStyle GetCellStyle(int columnId)
         {
             var column = (PurchaseOrderColumns) columnId;
-
+            DataEntryGridCellStyle cellStyle = null;
             switch (column)
             {
+                case PurchaseOrderColumns.LineType:
+                    break;
                 case PurchaseOrderColumns.Item:
-                    return new DataEntryGridCellStyle { ColumnHeader = "Product" };
+                    cellStyle = new DataEntryGridCellStyle { ColumnHeader = "Product" };
+                    break;
+                default:
+                    cellStyle = new DataEntryGridCellStyle();
+                    break;
+            }
+
+            if (cellStyle != null)
+            {
+                SetupCellStyle(cellStyle);
+                return cellStyle;
             }
             return base.GetCellStyle(columnId);
+        }
+
+        private void SetupCellStyle(DataEntryGridCellStyle cellStyle)
+        {
+            if (!PurchaseOrderDetailsManager.PurchaseOrderViewModel.ValidSupplier())
+                cellStyle.CellStyle = DataEntryGridCellStyles.Disabled;
         }
 
         public override void SetCellValue(DataEntryGridCellProps value)
