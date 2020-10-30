@@ -7,6 +7,15 @@ using RingSoft.DbMaintenance;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
+    public class ProductInput
+    {
+        public AutoFillValue LockSupplier { get; }
+
+        public ProductInput(AutoFillValue lockSupplier)
+        {
+            LockSupplier = lockSupplier;
+        }
+    }
     public class ProductViewModel : DbMaintenanceViewModel<Products>
     {
         public override TableDefinition<Products> TableDefinition => AppGlobals.LookupContext.Products;
@@ -53,6 +62,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
                 _supplierAutoFillValue = value;
                 OnPropertyChanged(nameof(SupplierAutoFillValue));
+            }
+        }
+
+        private bool _enableSupplier;
+
+        public bool EnableSupplier
+        {
+            get => _enableSupplier;
+            set
+            {
+                if (_enableSupplier == value)
+                    return;
+
+                _enableSupplier = value;
+                OnPropertyChanged(nameof(EnableSupplier));
             }
         }
 
@@ -252,6 +276,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private bool _lockSupplier;
+
+        public ProductViewModel()
+        {
+            EnableSupplier = true;
+        }
+
         protected override void Initialize()
         {
             SupplierAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.SupplierId))
@@ -267,6 +298,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             NonInventoryCodeAutoFillSetup =
                 new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.NonInventoryCodeId));
 
+            if (LookupAddViewArgs != null && LookupAddViewArgs.InputParameter is ProductInput productInput)
+            {
+                _lockSupplier = true;
+                SupplierAutoFillValue = productInput.LockSupplier;
+                EnableSupplier = false;
+            }
             base.Initialize();
         }
 
@@ -365,7 +402,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         {
             ProductId = 0;
             QuantityPerUnit = OrderComment = PurchaseComment = string.Empty;
-            SupplierAutoFillValue = CategoryAutoFillValue = NonInventoryCodeAutoFillValue = null;
+            if (!_lockSupplier)
+                SupplierAutoFillValue = null;
+
+            CategoryAutoFillValue = NonInventoryCodeAutoFillValue = null;
             UnitPrice = UnitsInStock = UnitsOnOrder = ReorderLevel = null;
             Discontinued = false;
             UnitDecimals = 2;

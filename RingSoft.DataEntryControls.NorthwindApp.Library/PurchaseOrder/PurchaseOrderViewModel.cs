@@ -6,6 +6,9 @@ using RingSoft.DbLookup.DataProcessor;
 using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbMaintenance;
 using System;
+using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
+using RingSoft.DbLookup.Lookup;
+using RingSoft.DbLookup.QueryBuilder;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
@@ -64,8 +67,22 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
                 _supplierAutoFillValue = value;
                 _supplierDirty = true;
-                CheckSupplier();
                 OnPropertyChanged(nameof(SupplierAutoFillValue));
+            }
+        }
+
+        private bool _supplierEnabled;
+
+        public bool SupplierEnabled
+        {
+            get => _supplierEnabled;
+            set
+            {
+                if (_supplierEnabled == value)
+                    return;
+
+                _supplierEnabled = value;
+                OnPropertyChanged(nameof(SupplierEnabled));
             }
         }
 
@@ -234,10 +251,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
+        public LookupDefinition<ProductLookup, Products> ProductsLookup { get; private set; }
+
         private bool _supplierDirty;
+
+        public PurchaseOrderViewModel()
+        {
+            SupplierEnabled = true;
+        }
 
         protected override void Initialize()
         {
+            ProductsLookup = AppGlobals.LookupContext.ProductsLookup.Clone();
+
             PurchaseOrderView = View as IPurchaseOrderView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(IPurchaseOrderView)} interface.");
@@ -276,9 +302,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                         Region = supplier.Region;
                         PostalCode = supplier.PostalCode;
                         Country = supplier.Country;
+                        UpdateProductLookup(supplier);
                     }
                 }
-
+                CheckSupplier();
                 _supplierDirty = false;
             }
         }
@@ -309,6 +336,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             Freight = entity.Freight;
 
             DetailsGridManager.LoadGrid(entity.PurchaseDetails);
+            UpdateSupplierEnabled();
+            UpdateProductLookup(entity.Supplier);
         }
 
         protected override Purchases GetEntityData()
@@ -344,6 +373,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
             DetailsGridManager.SetupForNewRecord();
             _supplierDirty = false;
+            SupplierEnabled = true;
         }
 
         protected override bool SaveEntity(Purchases entity)
@@ -365,9 +395,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public void CheckSupplier()
         {
             DetailsGridManager.Grid.RefreshDataSource();
-            if (ValidSupplier())
-            {
-            }
+        }
+
+        public void UpdateSupplierEnabled()
+        {
+            SupplierEnabled = !DetailsGridManager.ValidProductInGrid();
+        }
+
+        private void UpdateProductLookup(Suppliers supplier)
+        {
+            ProductsLookup.FilterDefinition.ClearFixedFilters();
+            ProductsLookup.FilterDefinition.AddFixedFilter(p => p.SupplierId, Conditions.Equals, supplier.SupplierId);
         }
     }
 }

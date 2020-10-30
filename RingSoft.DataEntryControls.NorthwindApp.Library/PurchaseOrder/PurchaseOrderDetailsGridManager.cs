@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 
@@ -32,6 +34,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public PurchaseOrderDetailsGridManager(PurchaseOrderViewModel viewModel) : base(viewModel)
         {
             PurchaseOrderViewModel = viewModel;
+
+            RowsChanged += PurchaseOrderDetailsGridManager_RowsChanged;
+        }
+
+        private void PurchaseOrderDetailsGridManager_RowsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Remove:
+                case NotifyCollectionChangedAction.Replace:
+                case NotifyCollectionChangedAction.Reset:
+                    PurchaseOrderViewModel.UpdateSupplierEnabled();
+                    break;
+            }
         }
 
         public PurchaseOrderDetailsRow CreateRowFromLineType(PurchaseOrderDetailsLineTypes lineType)
@@ -55,6 +71,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         protected override DbMaintenanceDataEntryGridRow<PurchaseDetails> ConstructNewRowFromEntity(PurchaseDetails entity)
         {
             return CreateRowFromLineType((PurchaseOrderDetailsLineTypes) entity.LineType);
+        }
+
+        public bool ValidProductInGrid()
+        {
+            var productRows = Rows.OfType<PurchaseOrderDetailsProductRow>();
+            return productRows.Any(a => a.ValidProduct);
         }
     }
 }

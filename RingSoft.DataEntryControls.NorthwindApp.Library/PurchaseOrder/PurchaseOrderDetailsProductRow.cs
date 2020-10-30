@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;
 using RingSoft.DbLookup.AutoFill;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
@@ -12,12 +13,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public AutoFillValue ProductValue { get; private set; }
 
+        public bool ValidProduct =>
+            ProductValue?.PrimaryKeyValue != null && ProductValue.PrimaryKeyValue.ContainsValidData();
+
         private AutoFillSetup _productAutoFillSetup;
 
         public PurchaseOrderDetailsProductRow(PurchaseOrderDetailsGridManager manager) : base(manager)
         {
             _productAutoFillSetup =
-                new AutoFillSetup(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId));
+                new AutoFillSetup(PurchaseOrderDetailsManager.PurchaseOrderViewModel.ProductsLookup);
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -28,7 +32,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             {
                 case PurchaseOrderColumns.Item:
                     if (PurchaseOrderDetailsManager.PurchaseOrderViewModel.ValidSupplier())
+                    {
+                        _productAutoFillSetup.AddViewParameter = new ProductInput(PurchaseOrderDetailsManager
+                            .PurchaseOrderViewModel.SupplierAutoFillValue);
                         return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
+                    }
                     else 
                         return new DataEntryGridTextCellProps(this, columnId){Text = "Invalid Supplier!"};
                 case PurchaseOrderColumns.Quantity:
@@ -55,6 +63,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     break;
                 default:
                     cellStyle = new DataEntryGridCellStyle();
+                    if (!ValidProduct)
+                        cellStyle.CellStyle = DataEntryGridCellStyles.Disabled;
+
                     break;
             }
 
@@ -95,6 +106,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                             //CorrectInvalidItem(autoFillCellProps);
                         }
                     }
+                    PurchaseOrderDetailsManager.PurchaseOrderViewModel.UpdateSupplierEnabled();
                     break;
                 case PurchaseOrderColumns.Quantity:
                     break;
