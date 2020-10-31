@@ -89,5 +89,23 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
             base.SetCellValue(value);
         }
+
+        public override void SaveToEntity(PurchaseDetails entity, int rowIndex)
+        {
+            entity.PurchaseDetailId = rowIndex;
+            entity.LineType = (byte) LineType;
+            entity.RowId = RowId;
+            entity.ParentRowId = ParentRowId;
+            entity.PickDate = PickDate;
+            entity.Received = Received;
+            entity.DelayDays = DelayDays;
+        }
+
+        public override void LoadFromEntity(PurchaseDetails entity)
+        {
+            PickDate = entity.PickDate;
+            Received = entity.Received;
+            DelayDays = entity.DelayDays;
+        }
     }
 }

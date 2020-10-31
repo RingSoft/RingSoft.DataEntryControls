@@ -1,9 +1,9 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DbLookup;
-using RingSoft.DbLookup.DataProcessor;
 using System;
 using System.IO;
 using System.Reflection;
+using RsMessageBoxIcons = RingSoft.DataEntryControls.Engine.RsMessageBoxIcons;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -119,7 +119,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             }
             catch (Exception e)
             {
-                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Error Opening Text File", RsMessageBoxIcons.Error);
+                ControlsGlobals.UserInterface.ShowMessageBox(e.Message, "Error Opening Text File", RsMessageBoxIcons.Error);
             }
 
             return result;
@@ -138,7 +138,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             }
             catch (Exception e)
             {
-                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Error Writing Text File", RsMessageBoxIcons.Error);
+                ControlsGlobals.UserInterface.ShowMessageBox(e.Message, "Error Writing Text File", RsMessageBoxIcons.Error);
             }
         }
 

@@ -362,6 +362,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             return purchase;
         }
 
+        protected override bool ValidateEntity(Purchases entity)
+        {
+            if (!base.ValidateEntity(entity))
+                return false;
+
+            if (!DetailsGridManager.ValidateGrid())
+                return false;
+
+            return true;
+        }
+
         protected override void ClearData()
         {
             PurchaseOrderId = 0;
@@ -406,6 +417,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         {
             ProductsLookup.FilterDefinition.ClearFixedFilters();
             ProductsLookup.FilterDefinition.AddFixedFilter(p => p.SupplierId, Conditions.Equals, supplier.SupplierId);
+        }
+
+        public void RefreshTotalControls()
+        {
+            
         }
     }
 }

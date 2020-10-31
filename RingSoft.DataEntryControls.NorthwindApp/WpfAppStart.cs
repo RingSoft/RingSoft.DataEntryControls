@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DbLookup.Controls.WPF;
 using System.Windows;
+using RingSoft.DataEntryControls.WPF;
 using RingSoft.DbLookup.Lookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
@@ -21,6 +22,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         public override void StartApp(string[] args)
         {
             ControlsGlobals.InitUi();
+            WPFControlsGlobals.InitUi();
 
             _mainWindow = new MainWindow();
             base.StartApp(args);

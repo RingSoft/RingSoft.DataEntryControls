@@ -1,10 +1,9 @@
-﻿using RingSoft.DbLookup;
-using RingSoft.DbLookup.DataProcessor;
+﻿using RingSoft.DataEntryControls.Engine;
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using RingSoft.DataEntryControls.Engine;
+using RsMessageBoxIcons = RingSoft.DataEntryControls.Engine.RsMessageBoxIcons;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
@@ -279,7 +278,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
             if (!result)
             {
-                DbDataProcessor.UserInterface.ShowMessageBox(message, "Invalid Culture ID",
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Invalid Culture ID",
                     RsMessageBoxIcons.Exclamation);
             }
             return result;
@@ -311,7 +310,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
             catch (Exception e)
             {
-                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Date Entry Format",
+                ControlsGlobals.UserInterface.ShowMessageBox(e.Message, "Invalid Date Entry Format",
                     RsMessageBoxIcons.Exclamation);
                 return ValidationResults.DateEntryFormatFail;
             }
@@ -322,7 +321,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
             catch (Exception e)
             {
-                DbDataProcessor.UserInterface.ShowMessageBox(e.Message, "Invalid Date Display Format",
+                ControlsGlobals.UserInterface.ShowMessageBox(e.Message, "Invalid Date Display Format",
                     RsMessageBoxIcons.Exclamation);
                 return ValidationResults.DateDisplayFormatFail;
             }
