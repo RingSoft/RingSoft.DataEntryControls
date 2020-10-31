@@ -56,7 +56,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             {
                 case PurchaseOrderDetailsLineTypes.Product:
                     return new PurchaseOrderDetailsProductRow(this);
-                //case PurchaseOrderDetailsLineTypes.DirectExpense:
+                case PurchaseOrderDetailsLineTypes.DirectExpense:
+                    return new PurchaseOrderDetailsDirectExpenseRow(this);
                 case PurchaseOrderDetailsLineTypes.Comment:
                     return new PurchaseOrderDetailsCommentRow(this);
                 default:
