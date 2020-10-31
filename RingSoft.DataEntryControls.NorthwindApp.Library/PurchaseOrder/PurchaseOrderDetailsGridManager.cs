@@ -57,7 +57,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 case PurchaseOrderDetailsLineTypes.Product:
                     return new PurchaseOrderDetailsProductRow(this);
                 //case PurchaseOrderDetailsLineTypes.DirectExpense:
-                //case PurchaseOrderDetailsLineTypes.Comment:
+                case PurchaseOrderDetailsLineTypes.Comment:
+                    return new PurchaseOrderDetailsCommentRow(this);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(lineType), lineType, null);
             }
@@ -71,6 +72,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         protected override DbMaintenanceDataEntryGridRow<PurchaseDetails> ConstructNewRowFromEntity(PurchaseDetails entity)
         {
             return CreateRowFromLineType((PurchaseOrderDetailsLineTypes) entity.LineType);
+        }
+
+        protected override string GetParentRowIdFromEntity(PurchaseDetails entity)
+        {
+            return entity.ParentRowId;
         }
 
         public bool ValidProductInGrid()

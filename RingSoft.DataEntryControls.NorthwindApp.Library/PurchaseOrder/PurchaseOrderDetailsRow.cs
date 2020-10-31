@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using System.ComponentModel;
+using System.Linq;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
@@ -66,6 +68,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             switch (column)
             {
                 case PurchaseOrderColumns.LineType:
+                    if (!IsNew)
+                    {
+                        var message = "Changing the line type will erase all row data.  Do you wish to continue?";
+                        if (ControlsGlobals.UserInterface.ShowYesNoMessageBox(message, "Erase Row?") ==
+                            MessageBoxButtonsResult.No)
+                        {
+                            value.ValidationResult = false;
+                            return;
+                        }
+                    }
+
+                    if (value is DataEntryGridComboBoxCellProps comboBoxCellProps)
+                    {
+                        var newLineType = (PurchaseOrderDetailsLineTypes) comboBoxCellProps.SelectedItem.NumericValue;
+                        var newRow = PurchaseOrderDetailsManager.CreateRowFromLineType(newLineType);
+                        PurchaseOrderDetailsManager.ReplaceRow(this, newRow);
+                        PurchaseOrderDetailsManager.Grid.UpdateRow(newRow);
+                        newRow.IsNew = true;
+                    }
                     break;
                 case PurchaseOrderColumns.PickDate:
                     if (value is DataEntryGridDateCellProps dateCellProps)
@@ -106,6 +127,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             PickDate = entity.PickDate;
             Received = entity.Received;
             DelayDays = entity.DelayDays;
+        }
+
+        protected IEnumerable<PurchaseDetails> GetDetailChildren(PurchaseDetails parent)
+        {
+            var result = parent.PurchaseOrder.PurchaseDetails.Where(w =>
+                w.ParentRowId != null && w.ParentRowId == parent.RowId);
+            return result;
         }
     }
 }

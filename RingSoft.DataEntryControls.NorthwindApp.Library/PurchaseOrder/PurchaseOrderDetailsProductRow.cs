@@ -30,7 +30,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         {
             _productAutoFillSetup =
                 new AutoFillSetup(PurchaseOrderDetailsManager.PurchaseOrderViewModel.ProductsLookup);
-            _priceSetup = _quantitySetup = AppGlobals.CreateNewDecimalEditControlSetup();
+            _quantitySetup = AppGlobals.CreateNewDecimalEditControlSetup();
+            _priceSetup = AppGlobals.CreateNewDecimalEditControlSetup();
             _priceSetup.FormatType = DecimalEditFormatTypes.Currency;
         }
 
@@ -153,6 +154,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                             Price = (decimal) priceCellProps.Value;
                     break;
             }
+            PurchaseOrderDetailsManager.PurchaseOrderViewModel.RefreshTotalControls();
             base.SetCellValue(value);
         }
 
@@ -169,9 +171,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 if (product.UnitPrice != null)
                     Price = (decimal)product.UnitPrice;
 
-                //LoadChildRows(product);
+                LoadChildRows(product);
 
                 PurchaseOrderDetailsManager.PurchaseOrderViewModel.RefreshTotalControls();
+            }
+        }
+
+        private void LoadChildRows(Products product)
+        {
+            if (!string.IsNullOrEmpty(product.PurchaseComment))
+            {
+                var commentRow = new PurchaseOrderDetailsCommentRow(PurchaseOrderDetailsManager);
+                AddChildRow(commentRow);
+                commentRow.SetValue(product.PurchaseComment);
             }
         }
 
@@ -186,6 +198,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
             if (entity.Price != null) 
                 Price = (decimal) entity.Price;
+
+            var children = GetDetailChildren(entity);
+            foreach (var child in children)
+            {
+                var childRow =
+                    PurchaseOrderDetailsManager.CreateRowFromLineType((PurchaseOrderDetailsLineTypes)child.LineType);
+                AddChildRow(childRow);
+                childRow.LoadFromEntity(child);
+                Manager.Grid.UpdateRow(childRow);
+            }
 
             base.LoadFromEntity(entity);
         }
