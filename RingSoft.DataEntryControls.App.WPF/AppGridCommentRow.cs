@@ -87,6 +87,26 @@ namespace RingSoft.DataEntryControls.App.WPF
             base.SetCellValue(value);
         }
 
+        public override bool AllowEndEdit(int columnId)
+        {
+            var column = (AppGridColumns) columnId;
+            if (column == AppGridColumns.LineType && IsNew)
+            {
+                var gridMemoValue = new GridMemoValue(AppGridCommentRow.MaxCharactersPerLine);
+                if (AppGridManager.UserInterface.ShowGridMemoEditor(gridMemoValue))
+                {
+                    SetValue(gridMemoValue);
+                    IsNew = false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return base.AllowEndEdit(columnId);
+        }
+
         public void SetValue(string text)
         {
             if (Value == null)

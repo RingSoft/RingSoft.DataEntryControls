@@ -114,5 +114,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         {
 
         }
+
+        public virtual bool AllowEndEdit(int columnId)
+        {
+            return true;
+        }
     }
 }

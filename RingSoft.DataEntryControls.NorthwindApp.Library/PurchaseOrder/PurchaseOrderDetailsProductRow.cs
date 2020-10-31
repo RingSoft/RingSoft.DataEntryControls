@@ -63,7 +63,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     break;
                 default:
                     cellStyle = new DataEntryGridCellStyle();
-                    if (!ValidProduct)
+                    if (!ValidProduct && IsNew)
                         cellStyle.CellStyle = DataEntryGridCellStyles.Disabled;
 
                     break;

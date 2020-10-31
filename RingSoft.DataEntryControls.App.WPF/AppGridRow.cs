@@ -41,7 +41,8 @@ namespace RingSoft.DataEntryControls.App.WPF
                     return new DataEntryGridTextCellProps(this, columnId);
                 case AppGridColumns.LineType:
                     var selectedLineType = LineTypeComboBoxSetup.GetItem((int) LineType);
-                    return new DataEntryGridComboBoxCellProps(this, columnId, LineTypeComboBoxSetup, selectedLineType);
+                    return new DataEntryGridComboBoxCellProps(this, columnId, LineTypeComboBoxSetup, selectedLineType,
+                        ComboBoxValueChangedTypes.SelectedItemChanged);
                 case AppGridColumns.CheckBox:
                     return new DataEntryGridCheckBoxCellProps(this, columnId, CheckBoxValue);
                 case AppGridColumns.Date:
@@ -79,28 +80,10 @@ namespace RingSoft.DataEntryControls.App.WPF
                         
                         if (changeLineType)
                         {
-                            if (newLineType == AppGridLineTypes.Comment)
-                            {
-                                var gridMemoValue = new GridMemoValue(AppGridCommentRow.MaxCharactersPerLine);
-                                if (AppGridManager.UserInterface.ShowGridMemoEditor(gridMemoValue))
-                                {
-                                    var commentRow = new AppGridCommentRow(AppGridManager);
-                                    AppGridManager.ReplaceRow(this, commentRow);
-                                    commentRow.SetValue(gridMemoValue);
-                                }
-                                else
-                                {
-                                    value.ValidationResult = false;
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                var newRow =
-                                    AppGridManager.GetNewAppGridRow(newLineType);
-                                AppGridManager.ReplaceRow(this, newRow);
-                                newRow.IsNew = true;
-                            }
+                            var newRow =
+                                AppGridManager.GetNewAppGridRow(newLineType);
+                            AppGridManager.ReplaceRow(this, newRow);
+                            newRow.IsNew = true;
                         }
                     }
                     break;

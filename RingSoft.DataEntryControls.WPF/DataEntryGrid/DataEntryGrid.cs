@@ -776,12 +776,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 SelectedCells.Clear();
                 return;
             }
-            if (e.Column is DataEntryGridColumn && EditingControlHost != null &&
+            if (e.Column is DataEntryGridColumn column && EditingControlHost != null &&
                 EditingControlHost.Control != null)
             {
                 var rowIndex = e.Row.GetIndex();
+                var dataEntryGridRow = Manager.Rows[rowIndex];
                 if (!EditingControlHost.HasDataChanged())
                 {
+                    if (!dataEntryGridRow.AllowEndEdit(column.ColumnId))
+                    {
+                        e.Cancel = true;
+                        base.OnCellEditEnding(e);
+                        return;
+                    }
                     EditingControlHost = null;
                     base.OnCellEditEnding(e);
                     if (!IsKeyboardFocusWithin)
@@ -790,7 +797,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
 
                 var cellValue = EditingControlHost.GetCellValue();
-                var dataEntryGridRow = Manager.Rows[rowIndex];
                 dataEntryGridRow.SetCellValue(cellValue);
 
                 if (!cellValue.ValidationResult)
@@ -846,14 +852,21 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public new bool CommitEdit()
         {
-            if (EditingControlHost != null && EditingControlHost.Control != null && EditingControlHost.HasDataChanged())
+            if (EditingControlHost != null && EditingControlHost.Control != null)
             {
                 var currentRow = Manager.Rows[GetCurrentRowIndex()];
                 var cellValue = EditingControlHost.GetCellValue();
-                currentRow.SetCellValue(cellValue);
-                if (!cellValue.ValidationResult)
+                
+                if (EditingControlHost.HasDataChanged())
                 {
-                    return false;
+                    currentRow.SetCellValue(cellValue);
+                    if (!cellValue.ValidationResult)
+                        return false;
+                }
+                else
+                {
+                    if (!currentRow.AllowEndEdit(cellValue.ColumnId))
+                        return false;
                 }
             }
             return true;
