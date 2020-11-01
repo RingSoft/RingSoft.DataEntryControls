@@ -21,7 +21,7 @@
         </Style>
         <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}"/>
 
-        <Style TargetType="dec:NewDataEntryMemoEditor">
+        <Style TargetType="dec:DataEntryMemoEditor">
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}"/>
         </Style>
 

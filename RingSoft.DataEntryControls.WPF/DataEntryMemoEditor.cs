@@ -38,10 +38,10 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     [TemplatePart(Name = "TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "DateStampButton", Type = typeof(Button))]
-    public class NewDataEntryMemoEditor : Control
+    public class DataEntryMemoEditor : Control
     {
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(NewDataEntryMemoEditor),
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata(TextChangedCallback));
 
         public string Text
@@ -53,13 +53,13 @@ namespace RingSoft.DataEntryControls.WPF
         private static void TextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
-            var memoEditor = (NewDataEntryMemoEditor)obj;
+            var memoEditor = (DataEntryMemoEditor)obj;
             if (memoEditor._controlLoaded)
                 memoEditor.SetText();
         }
 
         public static readonly DependencyProperty DateFormatProperty =
-            DependencyProperty.Register(nameof(DateFormat), typeof(string), typeof(NewDataEntryMemoEditor),
+            DependencyProperty.Register(nameof(DateFormat), typeof(string), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata("G", DateFormatChangedCallback));
 
         public string DateFormat
@@ -71,12 +71,12 @@ namespace RingSoft.DataEntryControls.WPF
         private static void DateFormatChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
-            var dataEntryMemoEditor = (NewDataEntryMemoEditor)obj;
+            var dataEntryMemoEditor = (DataEntryMemoEditor)obj;
             DateEditControlSetup.ValidateDateFormat(dataEntryMemoEditor.DateFormat);
         }
 
         public static readonly DependencyProperty CultureIdProperty =
-            DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(NewDataEntryMemoEditor),
+            DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata(CultureInfo.CurrentCulture.Name, CultureIdChangedCallback));
 
         public string CultureId
@@ -88,7 +88,7 @@ namespace RingSoft.DataEntryControls.WPF
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
-            var newDataEntryMemoEditor = (NewDataEntryMemoEditor)obj;
+            var newDataEntryMemoEditor = (DataEntryMemoEditor)obj;
             var culture = new CultureInfo(newDataEntryMemoEditor.CultureId);
             newDataEntryMemoEditor.Culture = culture;
         }
@@ -140,17 +140,17 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _controlLoaded;
 
 
-        static NewDataEntryMemoEditor()
+        static DataEntryMemoEditor()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NewDataEntryMemoEditor),
-                new FrameworkPropertyMetadata(typeof(NewDataEntryMemoEditor)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryMemoEditor),
+                new FrameworkPropertyMetadata(typeof(DataEntryMemoEditor)));
 
-            FocusableProperty.OverrideMetadata(typeof(NewDataEntryMemoEditor), new FrameworkPropertyMetadata(false));
-            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(NewDataEntryMemoEditor),
+            FocusableProperty.OverrideMetadata(typeof(DataEntryMemoEditor), new FrameworkPropertyMetadata(false));
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
         }
 
-        public NewDataEntryMemoEditor()
+        public DataEntryMemoEditor()
         {
             Loaded += (sender, args) => OnLoad();
         }
