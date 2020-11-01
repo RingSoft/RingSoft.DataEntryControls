@@ -3,11 +3,11 @@
                     xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid"
                     xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF">
 
-    <Style TargetType="{x:Type local:NewDataEntryGridMemoEditor}" BasedOn="{StaticResource {x:Type Window}}">
+    <Style TargetType="{x:Type local:DataEntryGridMemoEditor}" BasedOn="{StaticResource {x:Type Window}}">
         <Setter Property="SizeToContent" Value="WidthAndHeight"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:NewDataEntryGridMemoEditor}">
+                <ControlTemplate TargetType="{x:Type local:DataEntryGridMemoEditor}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">

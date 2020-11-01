@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public bool ShowCommentEditor(GridMemoValue comment)
         {
-            var memoEditor = new NewDataEntryGridMemoEditor(comment);
+            var memoEditor = new DataEntryGridMemoEditor(comment);
             memoEditor.Owner = this;
             memoEditor.Title = "Edit Comment";
             return memoEditor.ShowDialog();

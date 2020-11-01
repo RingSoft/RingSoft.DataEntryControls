@@ -36,7 +36,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     [TemplatePart(Name = "MemoEditor", Type = typeof(DataEntryMemoEditor))]
     [TemplatePart(Name = "OkButton", Type = typeof(Button))]
     [TemplatePart(Name = "CancelButton", Type = typeof(Button))]
-    public class NewDataEntryGridMemoEditor : BaseWindow
+    public class DataEntryGridMemoEditor : BaseWindow
     {
         private DataEntryMemoEditor _memoEditor;
         public DataEntryMemoEditor MemoEditor
@@ -94,13 +94,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private bool _dialogResult;
 
-        static NewDataEntryGridMemoEditor()
+        static DataEntryGridMemoEditor()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NewDataEntryGridMemoEditor), new FrameworkPropertyMetadata(typeof(NewDataEntryGridMemoEditor)));
-            ShowInTaskbarProperty.OverrideMetadata(typeof(NewDataEntryGridMemoEditor), new FrameworkPropertyMetadata(false));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGridMemoEditor), new FrameworkPropertyMetadata(typeof(DataEntryGridMemoEditor)));
+            ShowInTaskbarProperty.OverrideMetadata(typeof(DataEntryGridMemoEditor), new FrameworkPropertyMetadata(false));
         }
 
-        public NewDataEntryGridMemoEditor(GridMemoValue gridMemoValue)
+        public DataEntryGridMemoEditor(GridMemoValue gridMemoValue)
         {
             GridMemoValue = gridMemoValue;
         }
