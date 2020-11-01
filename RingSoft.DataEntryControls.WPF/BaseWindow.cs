@@ -78,6 +78,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         public BaseWindow()
         {
+            if (Application.Current.MainWindow != this)
+                if (Application.Current.MainWindow != null)
+                    Icon = Application.Current.MainWindow.Icon;
+
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             KeyDown += (sender, args) =>
             {
