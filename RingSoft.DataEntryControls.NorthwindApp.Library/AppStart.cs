@@ -41,10 +41,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 AppSplashWindow.SetProgress(progressArgs.ProgressText);
             };
 
-            AppGlobals.UpdateGlobalsProgressStatus();
+            AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.InitStructure);
             AppGlobals.LookupContext = new NorthwindLookupContext();
 
             AppGlobals.DbContextProcessor = new DbContextProcessor();
+
+            AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.ConnectingToDb);
+            AppGlobals.DbContextProcessor.GetProduct(1);
 
             FinishStartup();
         }

@@ -115,7 +115,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         }
 
-        public virtual bool AllowEndEdit(int columnId)
+        public virtual bool AllowEndEdit(DataEntryGridCellProps cellProps)
         {
             return true;
         }

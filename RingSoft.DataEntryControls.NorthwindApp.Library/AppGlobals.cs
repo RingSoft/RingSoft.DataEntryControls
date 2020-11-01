@@ -7,6 +7,11 @@ using RsMessageBoxIcons = RingSoft.DataEntryControls.Engine.RsMessageBoxIcons;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
+    public enum StartupProgress
+    {
+        InitStructure = 0,
+        ConnectingToDb = 1
+    }
     public class AppStartProgressArgs
     {
         public string ProgressText { get; set; }
@@ -142,11 +147,23 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             }
         }
 
-        public static void UpdateGlobalsProgressStatus()
+        public static void UpdateGlobalsProgressStatus(StartupProgress progress)
         {
+            string progressStep;
+            switch (progress)
+            {
+                case StartupProgress.InitStructure:
+                    progressStep = "Initializing Northwind Entity Framework Structure.";
+                    break;
+                case StartupProgress.ConnectingToDb:
+                    progressStep = "Initializing Database Connection";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(progress), progress, null);
+            }
             var appStartProgress = new AppStartProgressArgs
             {
-                ProgressText = "Initializing Northwind Entity Framework Structure."
+                ProgressText = progressStep
             };
 
             AppStartProgress?.Invoke(null, appStartProgress);

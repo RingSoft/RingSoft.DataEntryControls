@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Runtime.InteropServices.ComTypes;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
@@ -36,7 +35,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             switch (column)
             {
                 case PurchaseOrderColumns.LineType:
-                    if (Value == null)
+                    if (Value == null && !IsNew)
                         result= new DataEntryGridTextCellProps(this, columnId);
                     break;
                 case PurchaseOrderColumns.Item:
@@ -94,27 +93,30 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             base.SetCellValue(value);
         }
 
-        public override bool AllowEndEdit(int columnId)
+        public override bool AllowEndEdit(DataEntryGridCellProps cellProps)
         {
-            var column = (PurchaseOrderColumns) columnId;
+            var column = (PurchaseOrderColumns)cellProps.ColumnId;
             switch (column)
             {
                 case PurchaseOrderColumns.LineType:
                     if (IsNew)
                     {
+                        var nextRow = Manager.Rows[Manager.Rows.IndexOf(this) + 1];
                         var value = new GridMemoValue(MaxCharactersPerLine);
                         if (PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.ShowCommentEditor(value))
                         {
                             Value = value;
                             UpdateFromValue();
                             IsNew = false;
+                            cellProps.NextTabFocusRow = nextRow;
+                            cellProps.NextTabFocusColumnId = cellProps.ColumnId;
                         }
                         else
                             return false;
                     }
                     break;
             }
-            return base.AllowEndEdit(columnId);
+            return base.AllowEndEdit(cellProps);
         }
 
         public void SetValue(string text)

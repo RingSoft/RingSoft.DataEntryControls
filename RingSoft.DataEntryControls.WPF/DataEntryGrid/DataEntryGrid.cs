@@ -776,19 +776,25 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 SelectedCells.Clear();
                 return;
             }
-            if (e.Column is DataEntryGridColumn column && EditingControlHost != null &&
+            if (e.Column is DataEntryGridColumn && EditingControlHost != null &&
                 EditingControlHost.Control != null)
             {
                 var rowIndex = e.Row.GetIndex();
                 var dataEntryGridRow = Manager.Rows[rowIndex];
+                var cellValue = EditingControlHost.GetCellValue();
+
                 if (!EditingControlHost.HasDataChanged())
                 {
-                    if (!dataEntryGridRow.AllowEndEdit(column.ColumnId))
+                    if (!dataEntryGridRow.AllowEndEdit(cellValue))
                     {
                         e.Cancel = true;
                         base.OnCellEditEnding(e);
                         return;
                     }
+
+                    if (_tabbingRight && cellValue.NextTabFocusRow != null && cellValue.NextTabFocusColumnId >= 0)
+                        SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
+
                     EditingControlHost = null;
                     base.OnCellEditEnding(e);
                     if (!IsKeyboardFocusWithin)
@@ -796,7 +802,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     return;
                 }
 
-                var cellValue = EditingControlHost.GetCellValue();
                 dataEntryGridRow.SetCellValue(cellValue);
 
                 if (!cellValue.ValidationResult)
@@ -865,7 +870,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
                 else
                 {
-                    if (!currentRow.AllowEndEdit(cellValue.ColumnId))
+                    if (!currentRow.AllowEndEdit(cellValue))
                         return false;
                 }
             }

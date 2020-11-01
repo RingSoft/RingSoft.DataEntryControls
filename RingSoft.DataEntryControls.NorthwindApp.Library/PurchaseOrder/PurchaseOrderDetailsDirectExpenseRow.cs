@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
@@ -72,8 +73,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 case PurchaseOrderColumns.Price:
                     if (value is DataEntryGridDecimalCellProps decimalCellProps)
                     {
-                        if (decimalCellProps.Value != null) 
-                            Price = (decimal)decimalCellProps.Value;
+                        if (decimalCellProps.Value != null)
+                        {
+                            Price = (decimal) decimalCellProps.Value;
+                            PurchaseOrderDetailsManager.PurchaseOrderViewModel.RefreshTotalControls();
+                        }
                     }
                     break;
             }
@@ -82,7 +86,32 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public override bool ValidateRow()
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(Description))
+            {
+                PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.GridValidationFail();
+                Manager.Grid.GotoCell(this, (int)PurchaseOrderColumns.Item);
+                ControlsGlobals.UserInterface.ShowMessageBox("Description must have a value",
+                    "Invalid Direct Expense Description", RsMessageBoxIcons.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        public override void SaveToEntity(PurchaseDetails entity, int rowIndex)
+        {
+            entity.DirectExpenseText = Description;
+            entity.Price = Price;
+            base.SaveToEntity(entity, rowIndex);
+        }
+
+        public override void LoadFromEntity(PurchaseDetails entity)
+        {
+            Description = entity.DirectExpenseText;
+            if (entity.Price != null)
+                Price = (decimal) entity.Price;
+
+            base.LoadFromEntity(entity);
         }
     }
 }
