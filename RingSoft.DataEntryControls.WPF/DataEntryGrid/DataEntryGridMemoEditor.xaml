@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <local:DataEntryMemoEditor x:Name="MemoEditor" Margin="0,0,0,5"/>
+        <local:NewDataEntryMemoEditor x:Name="MemoEditor" Margin="0,0,0,5"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="OkButton" Content="_OK" Width="100" Margin="0,0,5,0"/>
             <Button x:Name="CancelButton" Content="_Cancel" Width="100"/>

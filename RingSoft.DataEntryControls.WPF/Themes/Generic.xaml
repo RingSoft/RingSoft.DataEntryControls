@@ -11,6 +11,7 @@
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DropDownCalendarTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/IntegerEditControlTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/ReadOnlyBoxControlTemplate.xaml"/>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoEditorTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -30,5 +31,5 @@
     <Style TargetType="{x:Type local:StringEditControl}" BasedOn="{StaticResource {x:Type TextBox}}"/>
 
     <Style TargetType="{x:Type local:ComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
-    
+
 </ResourceDictionary>

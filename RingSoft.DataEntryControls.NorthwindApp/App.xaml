@@ -21,6 +21,10 @@
         </Style>
         <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}"/>
 
+        <Style TargetType="dec:NewDataEntryMemoEditor">
+            <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}"/>
+        </Style>
+
         <Style TargetType="dec:ReadOnlyBox" x:Key="ReadOnlyBox">
             <Setter Property="Height" Value="20"/>
             <Setter Property="Margin" Value="2.5"/>

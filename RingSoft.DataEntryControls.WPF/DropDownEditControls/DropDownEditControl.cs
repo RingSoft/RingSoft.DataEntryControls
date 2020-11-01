@@ -246,7 +246,8 @@ namespace RingSoft.DataEntryControls.WPF
         static DropDownEditControl()
         {
             FocusableProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
-            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
 
             BorderThicknessProperty.OverrideMetadata(typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(new Thickness(1), BorderThicknessChangedCallback));

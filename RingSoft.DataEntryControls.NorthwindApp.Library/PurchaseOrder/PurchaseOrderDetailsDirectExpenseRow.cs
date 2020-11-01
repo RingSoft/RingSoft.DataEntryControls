@@ -48,11 +48,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             switch (column)
             {
                 case PurchaseOrderColumns.LineType:
-                case PurchaseOrderColumns.Price:
                     break;
+                case PurchaseOrderColumns.Price:
+                    return new DataEntryGridCellStyle { ColumnHeader = "Amount" };
                 case PurchaseOrderColumns.Item:
                     return new DataEntryGridCellStyle{ColumnHeader = "Description"};
-                    break;
                 default:
                     return new DataEntryGridCellStyle{CellStyle = DataEntryGridCellStyles.Disabled};
             }

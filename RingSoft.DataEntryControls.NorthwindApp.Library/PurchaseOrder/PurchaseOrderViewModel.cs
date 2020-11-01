@@ -338,6 +338,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             DetailsGridManager.LoadGrid(entity.PurchaseDetails);
             UpdateSupplierEnabled();
             UpdateProductLookup(entity.Supplier);
+            RefreshTotalControls();
         }
 
         protected override Purchases GetEntityData()
@@ -385,6 +386,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             DetailsGridManager.SetupForNewRecord();
             _supplierDirty = false;
             SupplierEnabled = true;
+
+            RefreshTotalControls();
         }
 
         protected override bool SaveEntity(Purchases entity)
@@ -421,7 +424,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public void RefreshTotalControls()
         {
-            
+            decimal subTotal = 0;
+            foreach (var gridRow in DetailsGridManager.Rows)
+            {
+                if (gridRow is PurchaseOrderDetailsProductRow productRow)
+                    subTotal += productRow.ExtendedPrice;
+                else if (gridRow is PurchaseOrderDetailsDirectExpenseRow directExpenseRow)
+                    subTotal += directExpenseRow.Price;
+            }
+
+            SubTotal = subTotal;
+            Total = subTotal + Freight;
         }
     }
 }
