@@ -36,6 +36,7 @@
         <Button x:Name="ClearGridButton" Content="_Clear Grid"/>
         <Button x:Name="LoadGridButton" Content="_Load Grid"/>
         <Button x:Name="TestButton" Content="_Test"/>
+        <Button x:Name="FocusButton" Content="Focus"/>
         </StackPanel>
     </Grid>
 </dec:BaseWindow>

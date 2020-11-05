@@ -21,6 +21,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             if (Control.TextBox != null)
             {
                 Control.TextBox.KeyDown += TextBox_KeyDown;
+                Control.TextBox.SelectAll();
             }
             
             Control.ValueChanged += (sender, args) => OnControlDirty();

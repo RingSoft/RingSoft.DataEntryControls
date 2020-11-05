@@ -175,7 +175,8 @@ namespace RingSoft.DataEntryControls.Engine.Date
 
             if (Control.SelectionStart > 0)
             {
-                if (GetActiveSegment('Z', Control.SelectionStart - 1) == null)
+                if (Control.SelectionStart < Control.SelectionLength - 1 &&
+                    GetActiveSegment('Z', Control.SelectionStart - 1) == null)
                     //We're backspacing in the divider area.  Set selection to go back 1 now.
                     Control.SelectionStart--;
 

@@ -109,6 +109,11 @@ namespace RingSoft.DataEntryControls.App.WPF
                 win.ShowInTaskbar = false;
                 win.ShowDialog();
             };
+
+            FocusButton.Click += (sender, args) =>
+            {
+                DateEditControl.Focus();
+            };
         }
 
         public bool ShowYesNoMessage(string text, string caption)

@@ -193,6 +193,15 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(AllowNullValueProperty, value); }
         }
 
+        public static readonly DependencyProperty PlayValidationSoundOnLostFocusProperty =
+            DependencyProperty.Register(nameof(PlayValidationSoundOnLostFocus), typeof(bool), typeof(DateEditControl));
+
+        public bool PlayValidationSoundOnLostFocus
+        {
+            get => (bool) GetValue(PlayValidationSoundOnLostFocusProperty);
+            set => SetValue(PlayValidationSoundOnLostFocusProperty, value);
+        }
+
         private IDropDownCalendar _calendar;
 
         public IDropDownCalendar Calendar
@@ -217,7 +226,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
 
-        private bool _validateLostFocus;
+        private bool _innerValidateLostFocus;
         private DateTime? _pendingNewValue;
         private bool _textSettingValue;
         private bool _validatingEntryFormat;
@@ -225,7 +234,11 @@ namespace RingSoft.DataEntryControls.WPF
 
         static DateEditControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DateEditControl), new FrameworkPropertyMetadata(typeof(DateEditControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DateEditControl),
+                new FrameworkPropertyMetadata(typeof(DateEditControl)));
+
+            PlayValidationSoundOnLostFocusProperty.OverrideMetadata(typeof(DateEditControl),
+                new FrameworkPropertyMetadata(true));
         }
 
         public DateEditControl()
@@ -234,7 +247,7 @@ namespace RingSoft.DataEntryControls.WPF
             _processor.ValueChanged += _processor_ValueChanged;
 
             LostFocus += (sender, args) => OnLostFocusSetText(GetSetup(), Value);
-            GotFocus += (sender, args) => _validateLostFocus = false;
+            GotFocus += (sender, args) => _innerValidateLostFocus = false;
         }
 
         public override void OnApplyTemplate()
@@ -321,7 +334,7 @@ namespace RingSoft.DataEntryControls.WPF
                 Value = result;
             }
 
-            if ((result != null || value == null) && _validateLostFocus)
+            if (PlayValidationSoundOnLostFocus && (result != null || value == null) && _innerValidateLostFocus)
                 System.Media.SystemSounds.Exclamation.Play();
 
             _textSettingValue = false;
@@ -367,7 +380,7 @@ namespace RingSoft.DataEntryControls.WPF
         private void _calendar_SelectedDateChanged(object sender, EventArgs e)
         {
             SetValueChanged();
-            _validateLostFocus = true;
+            _innerValidateLostFocus = true;
         }
 
         private void _calendar_DatePicked(object sender, EventArgs e)
@@ -391,7 +404,7 @@ namespace RingSoft.DataEntryControls.WPF
                 case ProcessCharResults.Ignored:
                     return false;
                 case ProcessCharResults.Processed:
-                    _validateLostFocus = true;
+                    _innerValidateLostFocus = true;
                     return true;
                 case ProcessCharResults.ValidationFailed:
                     System.Media.SystemSounds.Exclamation.Play();
@@ -409,13 +422,13 @@ namespace RingSoft.DataEntryControls.WPF
                     if (_processor.OnSpaceKey(GetSetup()) == ProcessCharResults.ValidationFailed)
                         System.Media.SystemSounds.Exclamation.Play();
                     else if (Text != _processor.GetNullDatePattern())
-                        _validateLostFocus = true;
+                        _innerValidateLostFocus = true;
                     return true;
                 case Key.Back:
                     if (_processor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
                         System.Media.SystemSounds.Exclamation.Play();
                     else if (Text != _processor.GetNullDatePattern())
-                        _validateLostFocus = true;
+                        _innerValidateLostFocus = true;
                     return true;
                 case Key.Delete:
                     if (_processor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)

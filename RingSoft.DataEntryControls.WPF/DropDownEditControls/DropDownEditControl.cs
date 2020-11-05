@@ -245,7 +245,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         static DropDownEditControl()
         {
-            FocusableProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
+            IsTabStopProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
 
@@ -287,12 +287,11 @@ namespace RingSoft.DataEntryControls.WPF
             SetDesignText();
         }
 
-        public new bool Focus()
+        protected override void OnGotFocus(RoutedEventArgs e)
         {
-            if (TextBox != null)
-                return TextBox.Focus();
+            TextBox?.Focus();
 
-            return base.Focus();
+            base.OnGotFocus(e);
         }
 
         private void SetDesignText()
