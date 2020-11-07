@@ -1,9 +1,9 @@
-﻿using RingSoft.DataEntryControls.Engine;
-using System;
+﻿using System;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     public abstract class AppGridRow : DataEntryGridRow
     {

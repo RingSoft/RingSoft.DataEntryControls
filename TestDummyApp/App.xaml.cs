@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     /// <summary>
     /// Interaction logic for App.xaml

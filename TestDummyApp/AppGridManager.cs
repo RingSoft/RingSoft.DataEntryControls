@@ -1,9 +1,9 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     public enum AppGridLineTypes
     {

@@ -129,7 +129,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 {
                     Comment = gridMemoValueLine.Text;
                     CommentCrLf = gridMemoValueLine.CrLf;
-                    Manager.Grid.UpdateRow(this);
+                    Manager.Grid?.UpdateRow(this);
                     firstLine = false;
                 }
                 else
@@ -167,7 +167,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 if (SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.ShowCommentEditor(Value))
                 {
                     UpdateFromValue();
-                    Manager.Grid.GotoCell(this, columnId);
+                    Manager.Grid?.GotoCell(this, columnId);
                 }
             }
             else

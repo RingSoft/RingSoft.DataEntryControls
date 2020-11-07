@@ -2,7 +2,7 @@
 using System.Data;
 using System.Runtime.CompilerServices;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     /// <summary>
     /// Interaction logic for ChangedGlobalsWindow.xaml

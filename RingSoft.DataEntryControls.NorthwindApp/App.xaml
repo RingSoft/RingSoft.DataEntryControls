@@ -61,7 +61,9 @@
             <Setter Property="ControlHostFactory" Value="{StaticResource EditHostFactory}"/>
             <Setter Property="EnterToTab" Value="True"/>
             <Setter Property="CancelEditOnEscape" Value="True"/>
-            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="LightGray"/>
+            <Setter Property="VerticalGridLinesBrush" Value="LightGray"/>
             <Setter Property="AlternationCount" Value="2"/>
         </Style>
         <Style TargetType="{x:Type DataGridRow}">

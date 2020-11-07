@@ -1,9 +1,9 @@
-﻿<Application x:Class="RingSoft.DataEntryControls.App.WPF.App"
+﻿<Application x:Class="TestDummyApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RingSoft.DataEntryControls.App.WPF"
              xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
-             xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF">
+             xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
+             xmlns:testDummyApp="clr-namespace:TestDummyApp">
     <Application.Resources>
         <ResourceDictionary>
             <!--<ResourceDictionary.MergedDictionaries>
@@ -11,7 +11,7 @@
                     Source="pack://application:,,,/RingSoft.DataEntryControls.WPFToolKitCore;component/Themes/XceedDecimalEditControlTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>-->
             <dec:EnumConverter x:Key="EnumConverter" />
-            <local:AppGridEditHostFactory x:Key="AppGridEditHostFactory" />
+            <testDummyApp:AppGridEditHostFactory x:Key="AppGridEditHostFactory" />
 
             <!--<Style TargetType="dec:DecimalEditControl">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static local:Globals.CultureId}}" />
@@ -20,7 +20,9 @@
             <Style TargetType="deg:DataEntryGrid">
                 <Setter Property="ControlHostFactory" Value="{StaticResource AppGridEditHostFactory}" />
                 <Setter Property="EnterToTab" Value="True" />
-                <Setter Property="GridLinesVisibility" Value="None" />
+                <Setter Property="GridLinesVisibility" Value="All" />
+                <Setter Property="HorizontalGridLinesBrush" Value="LightGray"/>
+                <Setter Property="VerticalGridLinesBrush" Value="LightGray"/>
                 <Setter Property="AlternationCount" Value="2" />
                 <!--<Setter Property="CellEditingControlBorderThickness" Value="1"/>-->
             </Style>

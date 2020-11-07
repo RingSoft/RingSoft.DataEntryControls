@@ -99,7 +99,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             var index = _rows.IndexOf(existingRow);
 
             _rows[index] = newRow;
-            Grid.UpdateRow(newRow, index);
+            Grid?.UpdateRow(newRow, index);
             existingRow.RowReplacedBy = newRow;
         }
 

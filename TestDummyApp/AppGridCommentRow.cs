@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using RingSoft.DataEntryControls.Engine;
 using System.Drawing;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     public class AppGridCommentRow : AppGridRow
     {

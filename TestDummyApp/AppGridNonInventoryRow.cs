@@ -1,10 +1,10 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿using System;
+using System.Drawing;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
-using System;
-using System.Drawing;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     public class AppGridNonInventoryRow : AppGridRow
     {

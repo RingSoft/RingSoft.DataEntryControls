@@ -74,7 +74,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             var context = new NorthwindDbContext();
             var result = context.SaveEntity(context.Orders, order, "Saving Order");
 
-            if (result)
+            if (result && orderDetails != null)
             {
                 context.OrderDetails.RemoveRange(context.OrderDetails.Where(w => w.OrderId == order.OrderId));
 
@@ -111,19 +111,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             var context = new NorthwindDbContext();
             var result = context.SaveEntity(context.Purchases, purchase, "Saving Purchase");
 
-            if (result)
+            if (result && purchaseDetails != null)
             {
                 context.PurchaseDetails.RemoveRange(
                     context.PurchaseDetails.Where(w => w.PurchaseOrderId == purchase.PurchaseOrderId));
 
-                if (purchaseDetails != null)
+                foreach (var purchaseOrderDetail in purchaseDetails)
                 {
-                    foreach (var purchaseOrderDetail in purchaseDetails)
-                    {
-                        purchaseOrderDetail.PurchaseOrderId = purchase.PurchaseOrderId;
-                        context.PurchaseDetails.Add(purchaseOrderDetail);
-                    }
+                    purchaseOrderDetail.PurchaseOrderId = purchase.PurchaseOrderId;
+                    context.PurchaseDetails.Add(purchaseOrderDetail);
                 }
+
                 result = context.SaveEfChanges("Saving Purchase Details");
             }
             return result;

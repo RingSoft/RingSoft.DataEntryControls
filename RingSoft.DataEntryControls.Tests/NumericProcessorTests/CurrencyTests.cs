@@ -54,12 +54,12 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar(_setup, '5');
             Assert.AreEqual("R$ 1.234,5", control.Text, "First Decimal Digit");
             Assert.AreEqual(10, control.SelectionStart, "First Decimal Digit");
-            Assert.AreEqual(1234.5, processor.Value, "First Decimal Digit Value");
+            Assert.AreEqual((decimal)1234.5, processor.Value, "First Decimal Digit Value");
 
             processor.ProcessChar(_setup, '6');
             Assert.AreEqual("R$ 1.234,56", control.Text, "Second Decimal Digit");
             Assert.AreEqual(11, control.SelectionStart, "Second Decimal Digit");
-            Assert.AreEqual(1234.56, processor.Value, "Second Decimal Digit Value");
+            Assert.AreEqual((decimal)1234.56, processor.Value, "Second Decimal Digit Value");
         }
 
         [TestMethod]
@@ -76,22 +76,22 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar(_setup, '6');
             Assert.AreEqual("R$ 1.667,89", control.Text, "Middle Replace");
             Assert.AreEqual(6, control.SelectionStart, "Middle Replace");
-            Assert.AreEqual(1667.89, processor.Value, "Middle Replace Value");
+            Assert.AreEqual((decimal)1667.89, processor.Value, "Middle Replace Value");
 
             processor.ProcessChar(_setup, '7');
             Assert.AreEqual("R$ 16.767,89", control.Text, "Middle Replace Add First Digit");
             Assert.AreEqual(7, control.SelectionStart, "Middle Replace Add First Digit");
-            Assert.AreEqual(16767.89, processor.Value, "Middle Replace Add First Digit Value");
+            Assert.AreEqual((decimal)16767.89, processor.Value, "Middle Replace Add First Digit Value");
 
             processor.ProcessChar(_setup, '8');
             Assert.AreEqual("R$ 167.867,89", control.Text, "Middle Replace Add Second Digit");
             Assert.AreEqual(8, control.SelectionStart, "Middle Replace Add Second Digit");
-            Assert.AreEqual(167867.89, processor.Value, "Middle Replace Add Second Digit Value");
+            Assert.AreEqual((decimal)167867.89, processor.Value, "Middle Replace Add Second Digit Value");
 
             processor.ProcessChar(_setup, '9');
             Assert.AreEqual("R$ 1.678.967,89", control.Text, "Middle Replace Add Third Digit");
             Assert.AreEqual(10, control.SelectionStart, "Middle Replace Add Third Digit");
-            Assert.AreEqual(1678967.89, processor.Value, "Middle Replace Add Third Digit Value");
+            Assert.AreEqual((decimal)1678967.89, processor.Value, "Middle Replace Add Third Digit Value");
         }
 
         [TestMethod]
@@ -108,17 +108,17 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar(_setup, '6');
             Assert.AreEqual("R$ 16.567,89", control.Text, "Middle Replace1");
             Assert.AreEqual(6, control.SelectionStart, "Middle Replace1");
-            Assert.AreEqual(16567.89, processor.Value, "Middle Replace1 Value");
+            Assert.AreEqual((decimal)16567.89, processor.Value, "Middle Replace1 Value");
 
             processor.ProcessChar(_setup, '7');
             Assert.AreEqual("R$ 167.567,89", control.Text, "Middle Replace1 Add First Digit");
             Assert.AreEqual(7, control.SelectionStart, "Middle Replace1 Add First Digit");
-            Assert.AreEqual(167567.89, processor.Value, "Middle Replace1 Add First Digit Value");
+            Assert.AreEqual((decimal)167567.89, processor.Value, "Middle Replace1 Add First Digit Value");
 
             processor.ProcessChar(_setup, '8');
             Assert.AreEqual("R$ 1.678.567,89", control.Text, "Middle Replace1 Add Second Digit");
             Assert.AreEqual(9, control.SelectionStart, "Middle Replace1 Add Second Digit");
-            Assert.AreEqual(1678567.89, processor.Value, "Middle Replace1 Add Second Digit Value");
+            Assert.AreEqual((decimal)1678567.89, processor.Value, "Middle Replace1 Add Second Digit Value");
         }
 
         [TestMethod]
@@ -135,7 +135,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar(_setup, '6');
             Assert.AreEqual("R$ 16.567,89", control.Text, "Middle Replace2");
             Assert.AreEqual(6, control.SelectionStart, "Middle Replace2");
-            Assert.AreEqual(16567.89, processor.Value, "Middle Replace2 Value");
+            Assert.AreEqual((decimal)16567.89, processor.Value, "Middle Replace2 Value");
         }
 
         [TestMethod]
@@ -170,14 +170,14 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar(_setup, '1');
             Assert.AreEqual("R$ 11.234.567,89", control.Text, "Add Digit Before Currency Symbol");
             Assert.AreEqual(4, control.SelectionStart, "Add Digit Before Currency Symbol");
-            Assert.AreEqual(11234567.89, processor.Value, "Add Digit Before Currency Symbol");
+            Assert.AreEqual((decimal)11234567.89, processor.Value, "Add Digit Before Currency Symbol");
 
             control.SelectionStart = 1;
             control.SelectionLength = 4;
             processor.ProcessChar(_setup, '6');
             Assert.AreEqual("R$ 6.234.567,89", control.Text, "Add Digit Before Currency Symbol");
             Assert.AreEqual(4, control.SelectionStart, "Add Digit Before Currency Symbol");
-            Assert.AreEqual(6234567.89, processor.Value, "Add Digit Before Currency Symbol");
+            Assert.AreEqual((decimal)6234567.89, processor.Value, "Add Digit Before Currency Symbol");
         }
 
         [TestMethod]
@@ -202,7 +202,7 @@ namespace RingSoft.DataEntryControls.Tests.NumericProcessorTests
             processor.ProcessChar(setup, '9');
             Assert.AreEqual("1 234 567,89 kr", control.Text, "Add Digit After Suffix Currency Symbol");
             Assert.AreEqual(12, control.SelectionStart, "Add Digit After Suffix Currency Symbol");
-            Assert.AreEqual(1234567.89, processor.Value, "Add Digit After Suffix Currency Symbol");
+            Assert.AreEqual((decimal)1234567.89, processor.Value, "Add Digit After Suffix Currency Symbol");
 
             control.SelectionStart = 9;
             control.SelectionLength = 5;

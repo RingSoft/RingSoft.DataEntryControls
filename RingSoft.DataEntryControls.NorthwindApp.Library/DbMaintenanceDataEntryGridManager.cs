@@ -17,7 +17,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public virtual void LoadGrid(IEnumerable<TEntity> entityList)
         {
-            Grid.SetBulkInsertMode();
+            Grid?.SetBulkInsertMode();
             PreLoadGridFromEntity();
             foreach (var entity in entityList)
             {
@@ -27,7 +27,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             }
 
             PostLoadGridFromEntity();
-            Grid.SetBulkInsertMode(false);
+            Grid?.SetBulkInsertMode(false);
         }
 
         public virtual void AddRowFromEntity(TEntity entity)
@@ -35,7 +35,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             var newRow = ConstructNewRowFromEntity(entity);
             AddRow(newRow);
             newRow.LoadFromEntity(entity);
-            Grid.UpdateRow(newRow);
+            Grid?.UpdateRow(newRow);
         }
 
         protected abstract DbMaintenanceDataEntryGridRow<TEntity> ConstructNewRowFromEntity(TEntity entity);
@@ -53,7 +53,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public virtual bool ValidateGrid()
         {
-            if (!Grid.CommitEdit())
+            if (Grid != null && !Grid.CommitEdit())
                 return false;
 
             foreach (var dataEntryGridRow in Rows)
@@ -67,6 +67,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public List<TEntity> GetEntityList()
         {
+            if (Grid == null)
+                return null;
+
             var result = new List<TEntity>();
             var rowIndex = 0;
             foreach (var dataEntryGridRow in Rows)

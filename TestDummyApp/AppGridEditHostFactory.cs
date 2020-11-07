@@ -1,6 +1,6 @@
 ﻿using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     public class AppGridEditHostFactory : DataEntryGridHostFactory
     {

@@ -113,7 +113,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 var niRow = new SalesEntryDetailsNonInventoryRow(SalesEntryDetailsManager);
                 AddChildRow(niRow);
                 niRow.LoadFromNiCode(product.NonInventoryCode);
-                Manager.Grid.UpdateRow(niRow);
+                Manager.Grid?.UpdateRow(niRow);
             }
 
             if (!string.IsNullOrEmpty(product.OrderComment))
@@ -143,7 +143,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     SalesEntryDetailsManager.CreateRowFromLineType((SalesEntryDetailsLineTypes) child.LineType);
                 AddChildRow(childRow);
                 childRow.LoadFromEntity(child);
-                Manager.Grid.UpdateRow(childRow);
+                Manager.Grid?.UpdateRow(childRow);
             }
 
             base.LoadFromEntity(entity);
@@ -154,7 +154,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             if (ProductValue == null || !ProductValue.PrimaryKeyValue.ContainsValidData())
             {
                 SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
-                SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
+                SalesEntryDetailsManager.Grid?.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Product must contain a valid value.";
                 SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.OnValidationFail(

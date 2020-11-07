@@ -1,11 +1,11 @@
-﻿    <dec:BaseWindow x:Class="RingSoft.DataEntryControls.App.WPF.MainWindow"
+﻿    <dec:BaseWindow x:Class="TestDummyApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RingSoft.DataEntryControls.App.WPF"
         xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
+        xmlns:testDummyApp="clr-namespace:TestDummyApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="900"
         CloseOnEscape="False"
@@ -22,14 +22,14 @@
         <!--<dec:IntegerEditControl HorizontalAlignment="Left" Width="100"/>-->
         <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}">
             <deg:DataEntryGrid.Columns>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.StockNumberColumnId}" Header="Stock Number" Width="150"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>
-                <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static local:AppGridManager.CheckBoxColumnId}" Header="CheckBox Column"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DateColumnId}" Header="Date" Width="200" DesignText="01/01/2020"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.DisabledColumnId}" Header="Disabled"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.StockNumberColumnId}" Header="Stock Number" Width="150"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>
+                <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static testDummyApp:AppGridManager.CheckBoxColumnId}" Header="CheckBox Column"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.DateColumnId}" Header="Date" Width="200" DesignText="01/01/2020"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
             </deg:DataEntryGrid.Columns>
         </deg:DataEntryGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">

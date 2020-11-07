@@ -1,6 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 
-namespace RingSoft.DataEntryControls.App.WPF
+namespace TestDummyApp
 {
     public static class Globals
     {
