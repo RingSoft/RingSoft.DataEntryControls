@@ -75,15 +75,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 dataEntryGrid.SetManager();
         }
 
-        public static readonly DependencyProperty ControlHostFactoryProperty =
-            DependencyProperty.Register(nameof(ControlHostFactory), typeof(DataEntryGridHostFactory), typeof(DataEntryGrid));
-
-        public DataEntryGridHostFactory ControlHostFactory
-        {
-            get { return (DataEntryGridHostFactory)GetValue(ControlHostFactoryProperty); }
-            set { SetValue(ControlHostFactoryProperty, value); }
-        }
-
         public static readonly DependencyProperty EnterToTabProperty =
             DependencyProperty.Register(nameof(EnterToTab), typeof(bool), typeof(DataEntryGrid));
 
@@ -708,9 +699,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                 if (!e.Cancel)
                 {
-                    if (ControlHostFactory == null)
-                        ControlHostFactory = new DataEntryGridHostFactory();
-                    EditingControlHost = ControlHostFactory.GetControlHost(this, cellProps.EditingControlId);
+                    EditingControlHost = WPFControlsGlobals.DataEntryGridHostFactory.GetControlHost(this, cellProps.EditingControlId);
 
                     dataEntryGridColumn.CellEditingTemplate =
                         EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle);

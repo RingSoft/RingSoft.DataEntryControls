@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -69,6 +70,8 @@ namespace RingSoft.DataEntryControls.WPF
     // ReSharper disable once InconsistentNaming
     public static class WPFControlsGlobals
     {
+        public static DataEntryGridHostFactory DataEntryGridHostFactory { get; set; } = new DataEntryGridHostFactory();
+
         private static ControlsUserInterface _userInterface = new ControlsUserInterface();
 
         public static void InitUi()

@@ -23,6 +23,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             ControlsGlobals.InitUi();
             WPFControlsGlobals.InitUi();
+            WPFControlsGlobals.DataEntryGridHostFactory = new NorthwindGridEditHostFactory();
 
             _mainWindow = new MainWindow();
             base.StartApp(args);
