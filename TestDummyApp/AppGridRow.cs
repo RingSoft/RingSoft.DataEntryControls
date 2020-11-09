@@ -71,7 +71,7 @@ namespace TestDummyApp
                             if (!AppGridManager.UserInterface.ShowYesNoMessage(message, "Change Line Type"))
                             {
                                 changeLineType = false;
-                                comboBoxCellProps.ValidationResult = false;
+                                comboBoxCellProps.OverrideCellMovement = true;
                                 comboBoxCellProps.SelectedItem =
                                     comboBoxCellProps.ComboBoxSetup.GetItem((int) LineType);
                             }

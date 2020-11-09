@@ -80,7 +80,7 @@ namespace TestDummyApp
                     }
                     else
                     {
-                        value.ValidationResult = false;
+                        value.OverrideCellMovement = true;
                     }
                     break;
             }

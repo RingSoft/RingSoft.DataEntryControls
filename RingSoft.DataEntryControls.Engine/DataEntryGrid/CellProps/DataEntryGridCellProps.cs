@@ -1,6 +1,12 @@
 ﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 {
-
+    public enum CellLostFocusTypes
+    {
+        MouseClick = 0,
+        TabLeft = 1,
+        TabRight = 2,
+        KeyboardNavigation = 3
+    }
     public abstract class DataEntryGridCellProps
     {
         public const int TextBoxHostId = 0;
@@ -19,11 +25,9 @@
 
         public virtual string Text { get; set; }
 
-        public bool ValidationResult { get; set; } = true;
+        public bool OverrideCellMovement { get; set; }
 
-        public DataEntryGridRow NextTabFocusRow { get; set; }
-
-        public int NextTabFocusColumnId { get; set; } = -1;
+        public CellLostFocusTypes CellLostFocusType { get; set; }
 
         public DataEntryGridCellProps(DataEntryGridRow row, int columnId)
         {

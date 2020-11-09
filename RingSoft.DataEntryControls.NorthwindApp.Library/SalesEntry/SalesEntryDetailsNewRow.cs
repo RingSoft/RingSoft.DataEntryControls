@@ -83,8 +83,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             if (isScannerRow && RowReplacedBy != null && RowReplacedBy is SalesEntryDetailsProductRow)
             {
-                value.NextTabFocusRow = Manager.Rows[^1];
-                value.NextTabFocusColumnId = (int) SalesEntryGridColumns.Item;
+                Manager.Grid.GotoCell(Manager.Rows[^1], (int)SalesEntryGridColumns.Item);
+                value.OverrideCellMovement = true;
             }
         }
     }

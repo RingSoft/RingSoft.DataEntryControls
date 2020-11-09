@@ -50,13 +50,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     /// </summary>
     public class DataEntryGrid : DataGrid, IDataEntryGrid
     {
-        private class NextTabFocusCell
-        {
-            public int RowIndex { get; set; }
-
-            public int ColumnIndex { get; set; }
-        }
-
         public static readonly DependencyProperty ManagerProperty =
             DependencyProperty.Register(nameof(Manager), typeof(DataEntryGridManager), typeof(DataEntryGrid),
                 new FrameworkPropertyMetadata(ManagerChangedCallback));
@@ -84,13 +77,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set { SetValue(EnterToTabProperty, value); }
         }
 
-        public static readonly DependencyProperty CancelEditOnEscapeProperty =
-            DependencyProperty.Register(nameof(CancelEditOnEscape), typeof(bool), typeof(DataEntryGrid));
+        public static readonly DependencyProperty CloseWindowOnEscapeProperty =
+            DependencyProperty.Register(nameof(CloseWindowOnEscape), typeof(bool), typeof(DataEntryGrid));
 
-        public bool CancelEditOnEscape
+        public bool CloseWindowOnEscape
         {
-            get { return (bool)GetValue(CancelEditOnEscapeProperty); }
-            set { SetValue(CancelEditOnEscapeProperty, value); }
+            get { return (bool)GetValue(CloseWindowOnEscapeProperty); }
+            set { SetValue(CloseWindowOnEscapeProperty, value); }
         }
 
         public static readonly DependencyProperty CellEditingControlBorderThicknessProperty =
@@ -133,10 +126,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private DataTable _dataSourceTable = new DataTable("DataSource");
         private bool _controlLoaded;
         private bool _gridHasFocus;
-        private bool _cancellingEdit;
-        private NextTabFocusCell _nextTabFocusCell;
-        private bool _tabbingRight;
-        private bool _undoEdit;
         private bool _bulkInsertMode;
         private bool _designerFillingGrid;
 
@@ -208,7 +197,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
             }
 
-            if (beginEdit && !_cancellingEdit)
+            if (beginEdit)
             {
                 BeginEdit();
             }
@@ -544,26 +533,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 UpdateRow(gridRow, _dataSourceTable.Rows[rowIndex], rowIndex);
         }
 
-        private void SetNextTabFocusToCell(DataEntryGridRow row, int columnId)
-        {
-            if (!_tabbingRight)
-                return;
-
-            var nextFocusTabCell = new NextTabFocusCell
-            {
-                RowIndex = Manager.Rows.IndexOf(row),
-                ColumnIndex = GetColumnIndexOfColumnId(columnId)
-            };
-
-            if (nextFocusTabCell.RowIndex < 0)
-                throw new ArgumentException("The Row has not been added to the grid.");
-
-            if (nextFocusTabCell.ColumnIndex < 0)
-                throw new ArgumentException($"Column ID: {columnId} does not exist in the Columns collection");
-
-            _nextTabFocusCell = nextFocusTabCell;
-        }
-
         private void UpdateRow(DataEntryGridRow gridRow, DataRow dataRow, int rowIndex)
         {
             if (ItemContainerGenerator.ContainerFromItem(Items[rowIndex]) is DataGridRow dataGridRow)
@@ -758,55 +727,60 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
-            if (_undoEdit)
-            {
-                EditingControlHost = null;
-                base.OnCellEditEnding(e);
-                SelectedCells.Clear();
-                return;
-            }
-            if (e.Column is DataEntryGridColumn && EditingControlHost != null &&
-                EditingControlHost.Control != null)
-            {
-                var rowIndex = e.Row.GetIndex();
-                var dataEntryGridRow = Manager.Rows[rowIndex];
-                var cellValue = EditingControlHost.GetCellValue();
-
-                if (!EditingControlHost.HasDataChanged())
-                {
-                    if (!dataEntryGridRow.AllowEndEdit(cellValue))
-                    {
-                        e.Cancel = true;
-                        base.OnCellEditEnding(e);
-                        return;
-                    }
-
-                    if (_tabbingRight && cellValue.NextTabFocusRow != null && cellValue.NextTabFocusColumnId >= 0)
-                        SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
-
-                    EditingControlHost = null;
-                    base.OnCellEditEnding(e);
-                    if (!IsKeyboardFocusWithin)
-                        SelectedCells.Clear();
-                    return;
-                }
-
-                dataEntryGridRow.SetCellValue(cellValue);
-
-                if (!cellValue.ValidationResult)
-                {
-                    e.Cancel = true;
-                    base.OnCellEditEnding(e);
-                    return;
-                }
-
-                if (_tabbingRight && cellValue.NextTabFocusRow != null && cellValue.NextTabFocusColumnId >=  0)
-                    SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
-
-                EditingControlHost = null;
-            }
+            EditingControlHost = null;
             base.OnCellEditEnding(e);
         }
+        //protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
+        //{
+        //    if (_undoEdit)
+        //    {
+        //        EditingControlHost = null;
+        //        base.OnCellEditEnding(e);
+        //        SelectedCells.Clear();
+        //        return;
+        //    }
+        //    if (e.Column is DataEntryGridColumn && EditingControlHost != null &&
+        //        EditingControlHost.Control != null)
+        //    {
+        //        var rowIndex = e.Row.GetIndex();
+        //        var dataEntryGridRow = Manager.Rows[rowIndex];
+        //        var cellValue = EditingControlHost.GetCellValue();
+
+        //        if (!EditingControlHost.HasDataChanged())
+        //        {
+        //            if (!dataEntryGridRow.AllowEndEdit(cellValue))
+        //            {
+        //                e.Cancel = true;
+        //                base.OnCellEditEnding(e);
+        //                return;
+        //            }
+
+        //            if (_tabbingRight && cellValue.NextTabFocusRow != null && cellValue.NextTabFocusColumnId >= 0)
+        //                SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
+
+        //            EditingControlHost = null;
+        //            base.OnCellEditEnding(e);
+        //            if (!IsKeyboardFocusWithin)
+        //                SelectedCells.Clear();
+        //            return;
+        //        }
+
+        //        dataEntryGridRow.SetCellValue(cellValue);
+
+        //        if (!cellValue.ValidationResult)
+        //        {
+        //            e.Cancel = true;
+        //            base.OnCellEditEnding(e);
+        //            return;
+        //        }
+
+        //        if (_tabbingRight && cellValue.NextTabFocusRow != null && cellValue.NextTabFocusColumnId >=  0)
+        //            SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
+
+        //        EditingControlHost = null;
+        //    }
+        //    base.OnCellEditEnding(e);
+        //}
 
         protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
@@ -820,13 +794,26 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         var parent = newFocus.GetParentOfType(EditingControlHost.Control.GetType());
                         if (!EditingControlHost.Control.Equals(parent))
                         {
-                            if (!CommitEdit())
+                            Window ownerWindow = null;
+                            var hostWindow = Window.GetWindow(this);
+                            if (hostWindow != null)
                             {
-                                e.Handled = true;
-                                SelectedCells.Clear();
+                                if (hostWindow.Owner == null)
+                                    ownerWindow = Application.Current.MainWindow;
+                                else
+                                    ownerWindow = hostWindow.Owner;
                             }
-                            else if (!e.NewFocus.Equals(this))
-                                CancelEdit(true);
+
+                            if (!newFocus.Equals(ownerWindow))
+                            {
+                                if (!CommitCellEdit(CellLostFocusTypes.MouseClick))
+                                {
+                                    e.Handled = true;
+                                    SelectedCells.Clear();
+                                }
+                                else if (!e.NewFocus.Equals(this))
+                                    CancelEdit();
+                            }
                         }
                     }
                 }
@@ -844,17 +831,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewGotKeyboardFocus(e);
         }
 
-        public new bool CommitEdit()
+        public bool CommitCellEdit(CellLostFocusTypes cellLostFocusType)
         {
             if (EditingControlHost != null && EditingControlHost.Control != null)
             {
                 var currentRow = Manager.Rows[GetCurrentRowIndex()];
                 var cellValue = EditingControlHost.GetCellValue();
+                cellValue.CellLostFocusType = cellLostFocusType;
                 
                 if (EditingControlHost.HasDataChanged())
                 {
                     currentRow.SetCellValue(cellValue);
-                    if (!cellValue.ValidationResult)
+                    if (cellValue.OverrideCellMovement)
                         return false;
                 }
                 else
@@ -863,38 +851,40 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         return false;
                 }
             }
+
+            CancelEdit();
             return true;
         }
 
-        public new bool CancelEdit()
-        {
-            if (EditingControlHost == null)
-                return true;
+        //public new bool CancelEdit()
+        //{
+        //    if (EditingControlHost == null)
+        //        return true;
 
-            _cancellingEdit = true;
-            var result = base.CancelEdit();
-            _cancellingEdit = false;
-            return result;
-        }
+        //    _cancellingEdit = true;
+        //    var result = base.CancelEdit();
+        //    _cancellingEdit = false;
+        //    return result;
+        //}
 
-        public new bool CancelEdit(DataGridEditingUnit editingUnit)
-        {
-            if (EditingControlHost == null)
-                return true;
+        //public new bool CancelEdit(DataGridEditingUnit editingUnit)
+        //{
+        //    if (EditingControlHost == null)
+        //        return true;
 
-            _cancellingEdit = true;
-            var result = base.CancelEdit(editingUnit);
-            _cancellingEdit = false;
-            return result;
-        }
+        //    _cancellingEdit = true;
+        //    var result = base.CancelEdit(editingUnit);
+        //    _cancellingEdit = false;
+        //    return result;
+        //}
 
-        public bool CancelEdit(bool undoEdit)
-        {
-            _undoEdit = undoEdit;
-            var result = CancelEdit();
-            _undoEdit = false;
-            return result;
-        }
+        //public bool CancelEdit(bool undoEdit)
+        //{
+        //    _undoEdit = undoEdit;
+        //    var result = CancelEdit();
+        //    _undoEdit = false;
+        //    return result;
+        //}
 
         public void ResetGridFocus()
         {
@@ -978,7 +968,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                 if (checkKey && canProcessKey)
                 {
-                    if (!CancelEdit())
+                    if (!CommitCellEdit(CellLostFocusTypes.KeyboardNavigation))
                         e.Handled = true;
                 }
             }
@@ -1015,16 +1005,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 case Key.Escape:
                     if (canProcessKey)
                     {
-                        if (CancelEditOnEscape)
+                        if (CloseWindowOnEscape)
                         {
-                            if (CancelEdit(true))
-                                //Send Escape key again so window can close on Escape after cell edit mode has ended.
-                                SendKey(Key.Escape);
+                            var window = Window.GetWindow(this);
+                            window?.Close();
                         }
-                        else
-                        {
-                            e.Handled = true;
-                        }
+                        e.Handled = true;
                     }
 
                     break;
@@ -1080,24 +1066,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void TabRight(int startRowIndex, int startColumnIndex)
         {
-            _tabbingRight = true;
-
-            if (CancelEdit())
-            {
-                if (_nextTabFocusCell != null)
-                {
-                    SetFocusToCell(_nextTabFocusCell.RowIndex, _nextTabFocusCell.ColumnIndex);
-                    _tabbingRight = false;
-                    _nextTabFocusCell = null;
-                    return;
-                }
-            }
-            else
-            {
-                _tabbingRight = false;
-                _nextTabFocusCell = null;
+            if (!CommitCellEdit(CellLostFocusTypes.TabRight))
                 return;
-            }
 
             var lastColumnIndex = Columns.Count - 1;
             var lastRowIndex = Items.Count - 1;
@@ -1112,7 +1082,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (startRowIndex > lastRowIndex)
             {
                 //Tab Out
-                _tabbingRight = false;
                 SetFocusToCell(lastRowIndex, lastColumnIndex, false);
                 SendKey(Key.Tab);
                 return;
@@ -1130,7 +1099,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void TabLeft(int startRowIndex, int startColumnIndex)
         {
-            if (!CancelEdit())
+            if (!CommitCellEdit(CellLostFocusTypes.TabLeft))
                 return;
 
             var lastColumnIndex = Columns.Count - 1;
@@ -1166,7 +1135,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
-                CancelEdit(true);
+                CancelEdit();
+                EditingControlHost = null;
 
                 var row = Manager.Rows[rowIndex];
                 Manager.RemoveRow(rowIndex);
@@ -1202,7 +1172,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
 
-                if (!CancelEdit())
+                if (!CommitCellEdit(CellLostFocusTypes.KeyboardNavigation))
                     return;
 
                 var gridRow = Manager.Rows[rowIndex];
@@ -1220,22 +1190,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void SetFocusToCell(int rowIndex, int columnIndex, bool beginEdit = true)
         {
-           
-            if (CancelEdit(DataGridEditingUnit.Cell))
-            {
-                rowIndex = ScrubRowIndex(rowIndex);
-                columnIndex = ScrubColumnIndex(columnIndex);
 
-                CurrentCell = new DataGridCellInfo(Items[rowIndex], Columns[columnIndex]);
-                SelectedCells.Clear();
-                ScrollIntoView(CurrentCell.Item, CurrentCell.Column);
+            CancelEdit();
+            rowIndex = ScrubRowIndex(rowIndex);
+            columnIndex = ScrubColumnIndex(columnIndex);
 
-                if (beginEdit)
-                    BeginEdit();
-            }
+            CurrentCell = new DataGridCellInfo(Items[rowIndex], Columns[columnIndex]);
+            SelectedCells.Clear();
+            ScrollIntoView(CurrentCell.Item, CurrentCell.Column);
 
-            _tabbingRight = false;
-            _nextTabFocusCell = null;
+            if (beginEdit)
+                BeginEdit();
         }
 
         private int ScrubRowIndex(int rowIndex)

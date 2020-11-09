@@ -113,7 +113,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (correctedValue.ReturnCode)
             {
                 case InvalidProductResultReturnCodes.Cancel:
-                    autoFillCellProps.ValidationResult = false;
+                    autoFillCellProps.OverrideCellMovement = true;
                     break;
                 case InvalidProductResultReturnCodes.NewProduct:
                     CorrectInvalidProduct(correctedValue);
@@ -127,8 +127,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     soRow.SpecialOrderText = autoFillCellProps.Text;
                     soRow.Quantity = 1;
                     Manager.Grid.UpdateRow(soRow);
-                    autoFillCellProps.NextTabFocusColumnId = (int) SalesEntryGridColumns.Price;
-                    autoFillCellProps.NextTabFocusRow = soRow;
+                    Manager.Grid.GotoCell(soRow, (int)SalesEntryGridColumns.Price);
+                    autoFillCellProps.OverrideCellMovement = true;
                     break;
                 case InvalidProductResultReturnCodes.NewComment:
                     var commentRow = new SalesEntryDetailsCommentRow(SalesEntryDetailsManager);

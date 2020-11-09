@@ -59,7 +59,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             var controlValue = GetComboBoxCellProps(GetCellValue());
             OnUpdateSource(controlValue);
 
-            if (controlValue.ValidationResult)
+            if (!controlValue.OverrideCellMovement)
                 _selectedItem = Control.SelectedItem as ComboBoxItem;
             else
             {

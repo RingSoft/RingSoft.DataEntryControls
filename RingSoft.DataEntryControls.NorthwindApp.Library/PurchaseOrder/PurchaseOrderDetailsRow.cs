@@ -74,7 +74,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                         if (ControlsGlobals.UserInterface.ShowYesNoMessageBox(message, "Erase Row?") ==
                             MessageBoxButtonsResult.No)
                         {
-                            value.ValidationResult = false;
+                            value.OverrideCellMovement = true;
                             return;
                         }
                     }

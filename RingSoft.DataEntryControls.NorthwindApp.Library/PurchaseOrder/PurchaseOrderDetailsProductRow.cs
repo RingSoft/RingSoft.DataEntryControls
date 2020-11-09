@@ -131,7 +131,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                             switch (messageResult)
                             {
                                 case MessageBoxButtonsResult.No:
-                                    value.ValidationResult = false;
+                                    value.OverrideCellMovement = true;
                                     break;
                                 default:
                                     ProductValue = null;

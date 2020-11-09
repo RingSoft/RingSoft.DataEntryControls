@@ -86,7 +86,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     }
                     else
                     {
-                        value.ValidationResult = false;
+                        value.OverrideCellMovement = true;
                     }
                     break;
             }
@@ -108,11 +108,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                             Value = value;
                             UpdateFromValue();
                             IsNew = false;
-                            cellProps.NextTabFocusRow = nextRow;
-                            cellProps.NextTabFocusColumnId = cellProps.ColumnId;
+                            cellProps.OverrideCellMovement = true;
+                            Manager.Grid.GotoCell(nextRow, cellProps.ColumnId);
                         }
-                        else
-                            return false;
+                        return false;
                     }
                     break;
             }

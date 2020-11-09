@@ -69,14 +69,14 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.StockNumber:
                     StockNumber = value.Text;
+                    DataEntryGridRow nextTabFocusRow = null;
                     if (IsNew)
                     {
                         var lastRowIndex = Manager.Rows.Count - 1;
                         var rowIndex = Manager.Rows.IndexOf(this);
                         if (rowIndex == lastRowIndex - 1)
                         {
-                            value.NextTabFocusRow = Manager.Rows[lastRowIndex];
-                            value.NextTabFocusColumnId = (int)AppGridColumns.StockNumber;
+                            nextTabFocusRow = Manager.Rows[lastRowIndex];
                         }
                     }
 
@@ -103,6 +103,11 @@ namespace TestDummyApp
                         _childrenAdded = true;
                     }
 
+                    if (nextTabFocusRow != null)
+                    {
+                        value.OverrideCellMovement = true;
+                        Manager.Grid.GotoCell(nextTabFocusRow, (int)AppGridColumns.StockNumber);
+                    }
                     break;
                 case AppGridColumns.Location:
                     Location = value.Text;

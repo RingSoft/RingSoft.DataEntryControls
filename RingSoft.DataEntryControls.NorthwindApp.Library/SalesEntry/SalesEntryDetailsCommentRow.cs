@@ -96,7 +96,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     }
                     else
                     {
-                        value.ValidationResult = false;
+                        value.OverrideCellMovement = true;
                     }
                     break;
             }

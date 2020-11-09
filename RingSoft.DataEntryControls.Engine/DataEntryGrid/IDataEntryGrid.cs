@@ -10,7 +10,7 @@
 
         void RefreshDataSource();
 
-        bool CancelEdit(bool skipValidation);
+        bool CancelEdit();
 
         bool CommitEdit();
 
