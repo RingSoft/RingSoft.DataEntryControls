@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {

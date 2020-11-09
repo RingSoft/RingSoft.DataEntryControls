@@ -1,6 +1,6 @@
 ﻿namespace RingSoft.DataEntryControls.Engine.Date.Segments
 {
-    public class DateSegment
+    internal class DateSegment
     {
         public DateEditProcessor Processor { get; }
 

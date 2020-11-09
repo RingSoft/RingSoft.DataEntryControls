@@ -1,5 +1,4 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
-using RingSoft.DataEntryControls.NorthwindApp.Library;
+﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
 using RingSoft.DbLookup.Controls.WPF;

@@ -1,5 +1,4 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {

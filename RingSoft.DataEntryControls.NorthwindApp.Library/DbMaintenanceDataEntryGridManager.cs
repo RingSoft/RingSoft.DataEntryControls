@@ -2,7 +2,6 @@
 using RingSoft.DbMaintenance;
 using System;
 using System.Collections.Generic;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {

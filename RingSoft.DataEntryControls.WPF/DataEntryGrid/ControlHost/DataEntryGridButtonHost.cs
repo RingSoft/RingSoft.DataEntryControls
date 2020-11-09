@@ -1,5 +1,4 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost

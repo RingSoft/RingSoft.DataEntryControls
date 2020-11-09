@@ -1,4 +1,5 @@
-﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
+﻿// ReSharper disable once CheckNamespace
+namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public enum CellLostFocusTypes
     {

@@ -1,6 +1,4 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
-
-namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
+﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public interface IDataEntryGrid
     {

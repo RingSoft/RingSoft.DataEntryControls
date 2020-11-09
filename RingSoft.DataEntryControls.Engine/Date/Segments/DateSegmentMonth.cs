@@ -1,6 +1,6 @@
 ﻿namespace RingSoft.DataEntryControls.Engine.Date.Segments
 {
-    public class DateSegmentMonth : DateSegment
+    internal class DateSegmentMonth : DateSegment
     {
         public DateSegmentMonth(DateEditProcessor processor, int segmentStart, int segmentEnd, char charBeingProcessed,
             char formatChar) : base(processor, segmentStart, segmentEnd, charBeingProcessed, formatChar)

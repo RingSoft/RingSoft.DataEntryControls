@@ -1,7 +1,7 @@
 ﻿using System;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+
 
 namespace TestDummyApp
 {

@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using System.Drawing;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {

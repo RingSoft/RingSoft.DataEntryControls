@@ -1,5 +1,4 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
-using System;
+﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;

@@ -1,5 +1,5 @@
 ﻿using System;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
