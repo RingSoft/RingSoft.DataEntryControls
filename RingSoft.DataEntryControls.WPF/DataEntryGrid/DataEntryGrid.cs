@@ -806,7 +806,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                             if (!newFocus.Equals(ownerWindow))
                             {
-                                if (!CommitCellEdit(CellLostFocusTypes.MouseClick))
+                                if (!CommitCellEdit(CellLostFocusTypes.LostFocus))
                                 {
                                     e.Handled = true;
                                     SelectedCells.Clear();

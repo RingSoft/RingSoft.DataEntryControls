@@ -294,6 +294,12 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnGotFocus(e);
         }
 
+        public new bool Focus()
+        {
+            base.Focus();
+            return IsKeyboardFocusWithin;
+        }
+
         private void SetDesignText()
         {
             if (DesignerProperties.GetIsInDesignMode(this) && TextBox != null)

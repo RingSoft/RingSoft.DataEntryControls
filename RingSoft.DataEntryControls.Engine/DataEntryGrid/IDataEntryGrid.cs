@@ -1,4 +1,6 @@
-﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
+
+namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public interface IDataEntryGrid
     {
@@ -12,7 +14,7 @@
 
         bool CancelEdit();
 
-        bool CommitEdit();
+        bool CommitCellEdit(CellLostFocusTypes cellLostFocusType);
 
         void ResetGridFocus();
 

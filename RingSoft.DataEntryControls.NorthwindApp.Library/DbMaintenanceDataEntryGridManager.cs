@@ -2,6 +2,7 @@
 using RingSoft.DbMaintenance;
 using System;
 using System.Collections.Generic;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -53,7 +54,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public virtual bool ValidateGrid()
         {
-            if (Grid != null && !Grid.CommitEdit())
+            if (Grid != null && !Grid.CommitCellEdit(CellLostFocusTypes.ValidatingGrid))
                 return false;
 
             foreach (var dataEntryGridRow in Rows)

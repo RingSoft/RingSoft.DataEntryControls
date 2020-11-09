@@ -2,10 +2,11 @@
 {
     public enum CellLostFocusTypes
     {
-        MouseClick = 0,
+        LostFocus = 0,
         TabLeft = 1,
         TabRight = 2,
-        KeyboardNavigation = 3
+        KeyboardNavigation = 3,
+        ValidatingGrid = 4
     }
     public abstract class DataEntryGridCellProps
     {

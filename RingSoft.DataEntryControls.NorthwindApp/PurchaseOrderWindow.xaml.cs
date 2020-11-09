@@ -60,13 +60,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         public override void OnValidationFail(FieldDefinition fieldDefinition, string text, string caption)
         {
             var table = AppGlobals.LookupContext.Purchases;
+            var focusSuccess = true;
 
             if (fieldDefinition == table.GetFieldDefinition(p => p.PoNumber))
-                PoNumberControl.Focus();
+                focusSuccess = PoNumberControl.Focus();
             else if (fieldDefinition == table.GetFieldDefinition(p => p.SupplierId))
-                SupplierControl.Focus();
+                focusSuccess = SupplierControl.Focus();
 
-            base.OnValidationFail(fieldDefinition, text, caption);
+            if (focusSuccess)
+                base.OnValidationFail(fieldDefinition, text, caption);
         }
     }
 }

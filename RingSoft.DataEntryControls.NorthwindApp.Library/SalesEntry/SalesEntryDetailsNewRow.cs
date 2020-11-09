@@ -81,7 +81,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         private void DoScannerMode(DataEntryGridCellProps value, bool isScannerRow)
         {
-            if (isScannerRow && RowReplacedBy != null && RowReplacedBy is SalesEntryDetailsProductRow)
+            if (isScannerRow && RowReplacedBy != null && RowReplacedBy is SalesEntryDetailsProductRow &&
+                value.CellLostFocusType == CellLostFocusTypes.TabRight)
             {
                 Manager.Grid.GotoCell(Manager.Rows[^1], (int)SalesEntryGridColumns.Item);
                 value.OverrideCellMovement = true;
