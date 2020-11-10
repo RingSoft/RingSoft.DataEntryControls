@@ -128,6 +128,16 @@ namespace TestDummyApp
             var column = (AppGridColumns) columnId;
             switch (column)
             {
+                case AppGridColumns.LineType:
+                case AppGridColumns.StockNumber:
+                    break;
+                default:
+                    if (IsNew)
+                        return new DataEntryGridCellStyle{CellStyle = DataEntryGridCellStyles.Disabled};
+                    break;
+            }
+            switch (column)
+            {
                 case AppGridColumns.Price:
                     if (CheckBoxValue)
                         return new DataEntryGridCellStyle(){ForegroundColor = Color.Red};

@@ -33,11 +33,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public virtual void SetCellValue(DataEntryGridCellProps value)
         {
+            IsNew = false;
             var rowIndex = Manager.Rows.IndexOf(this);
             if (rowIndex >= 0)
                 Manager.Grid.UpdateRow(this, rowIndex);
-
-            IsNew = false;
         }
 
         public virtual DataEntryGridCellStyle GetCellStyle(int columnId)
