@@ -793,17 +793,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         var parent = newFocus.GetParentOfType(EditingControlHost.Control.GetType());
                         if (!EditingControlHost.Control.Equals(parent))
                         {
-                            Window ownerWindow = null;
                             var hostWindow = Window.GetWindow(this);
-                            if (hostWindow != null)
+                            var windowChanging = false;
+                            if ((newFocus is Window))
+                                windowChanging = true;
+                            else 
                             {
-                                if (hostWindow.Owner == null)
-                                    ownerWindow = Application.Current.MainWindow;
-                                else
-                                    ownerWindow = hostWindow.Owner;
+                                var newFocusWindow = Window.GetWindow(newFocus);
+                                if (newFocusWindow != null)
+                                    windowChanging = !newFocusWindow.Equals(hostWindow);
                             }
 
-                            if (!newFocus.Equals(ownerWindow))
+                            if (!windowChanging)
                             {
                                 if (!CommitCellEdit(CellLostFocusTypes.LostFocus))
                                 {
