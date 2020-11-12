@@ -102,6 +102,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return _text != Control.Text;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            _text = cellProps.Text;
+        }
+
         public override bool CanGridProcessKey(Key key)
         {
             var editingCell = Control.Text.Length > 0 && Control.SelectionLength != Control.Text.Length;

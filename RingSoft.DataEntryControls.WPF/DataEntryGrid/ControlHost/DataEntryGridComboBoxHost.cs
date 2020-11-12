@@ -32,6 +32,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return Control.SelectedItem != _selectedItem;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            var comboBoxCellProps = GetComboBoxCellProps(cellProps);
+            _selectedItem = comboBoxCellProps.SelectedItem;
+        }
+
         protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {

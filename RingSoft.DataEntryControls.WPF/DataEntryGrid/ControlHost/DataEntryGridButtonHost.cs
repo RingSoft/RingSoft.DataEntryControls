@@ -23,6 +23,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return _hasDataChanged;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            
+        }
+
         protected override void OnControlLoaded(Button control, DataEntryGridCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {

@@ -20,6 +20,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return Control.Value != IntegerCellProps.Value;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            IntegerCellProps = (DataEntryGridIntegerCellProps)cellProps;
+        }
+
         protected override void OnControlLoaded(IntegerEditControl control, DataEntryGridCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {

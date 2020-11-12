@@ -12,7 +12,7 @@
 
         bool CancelEdit();
 
-        bool CommitCellEdit(CellLostFocusTypes cellLostFocusType);
+        bool CommitCellEdit();
 
         void ResetGridFocus();
 

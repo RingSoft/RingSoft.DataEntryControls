@@ -24,6 +24,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return Control.Value != _value;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            var dateCellProps = (DataEntryGridDateCellProps)cellProps;
+            _value = dateCellProps.Value;
+        }
+
         protected override void OnControlLoaded(DateEditControl control, DataEntryGridCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {

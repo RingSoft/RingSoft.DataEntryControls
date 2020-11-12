@@ -20,6 +20,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return Control.Value != DecimalCellProps.Value;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            DecimalCellProps = (DataEntryGridDecimalCellProps)cellProps;
+        }
+
         protected override void OnControlLoaded(DecimalEditControl control, DataEntryGridCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {

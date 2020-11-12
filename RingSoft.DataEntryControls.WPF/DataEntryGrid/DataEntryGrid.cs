@@ -831,7 +831,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewGotKeyboardFocus(e);
         }
 
-        public bool CommitCellEdit(CellLostFocusTypes cellLostFocusType)
+        public bool CommitCellEdit()
+        {
+            return CommitCellEdit(CellLostFocusTypes.LostFocus, false);
+        }
+        public bool CommitCellEdit(CellLostFocusTypes cellLostFocusType, bool cancelEdit = true)
         {
             if (EditingControlHost != null && EditingControlHost.Control != null)
             {
@@ -842,6 +846,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 if (EditingControlHost.HasDataChanged())
                 {
                     currentRow.SetCellValue(cellValue);
+                    var newCellProps = currentRow.GetCellProps(cellValue.ColumnId);
+                    EditingControlHost.UpdateFromCellProps(newCellProps);
                     if (cellValue.OverrideCellMovement)
                         return false;
                 }
@@ -852,7 +858,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
             }
 
-            CancelEdit();
+            if (cancelEdit)
+                CancelEdit();
+
             return true;
         }
 

@@ -422,6 +422,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             if (entity.Customer != null)
                 CompanyName = entity.Customer.CompanyName;
+            else
+                CompanyName = string.Empty;
 
             var employeeName = string.Empty;
             if (entity.Employee != null)

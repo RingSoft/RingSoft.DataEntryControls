@@ -53,6 +53,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             return false;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            AutoFillCellProps = (DataEntryGridAutoFillCellProps)cellProps;
+        }
+
         protected override void OnControlLoaded(AutoFillControl control, DataEntryGridCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {

@@ -47,6 +47,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public abstract bool HasDataChanged();
 
+        public abstract void UpdateFromCellProps(DataEntryGridCellProps cellProps);
+
         public virtual bool CanGridProcessKey(Key key)
         {
             return true;

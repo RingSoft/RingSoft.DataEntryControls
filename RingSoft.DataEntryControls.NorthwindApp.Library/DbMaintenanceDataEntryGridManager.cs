@@ -53,7 +53,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public virtual bool ValidateGrid()
         {
-            if (Grid != null && !Grid.CommitCellEdit(CellLostFocusTypes.ValidatingGrid))
+            if (Grid != null && !Grid.CommitCellEdit())
                 return false;
 
             foreach (var dataEntryGridRow in Rows)
@@ -69,6 +69,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         {
             if (Grid == null)
                 return null;
+
+            Grid.CommitCellEdit();
 
             var result = new List<TEntity>();
             var rowIndex = 0;

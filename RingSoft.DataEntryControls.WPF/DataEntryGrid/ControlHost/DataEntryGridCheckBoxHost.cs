@@ -33,6 +33,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             return _value != Control.IsChecked;
         }
 
+        public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
+        {
+            _value = cellProps is DataEntryGridCheckBoxCellProps checkBoxCellProps && checkBoxCellProps.Value;
+        }
+
         protected override void OnControlLoaded(CheckBox control, DataEntryGridCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
