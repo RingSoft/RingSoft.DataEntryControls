@@ -166,7 +166,7 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
-        private string GetDefaultFormatForType(DateFormatTypes formatType)
+        public static string GetDefaultFormatForType(DateFormatTypes formatType)
         {
             switch (formatType)
             {

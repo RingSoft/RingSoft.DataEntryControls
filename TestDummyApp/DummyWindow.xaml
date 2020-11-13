@@ -19,6 +19,7 @@
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>
             <dec:DecimalReadOnlyBox Value="12345.6" FormatType="Number" Precision="4" Margin="5"/>
+            <dec:DateReadOnlyBox Value="11/12/2020 10:00:00 PM" DateFormatType="DateTime" CultureId="zh-CN"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>

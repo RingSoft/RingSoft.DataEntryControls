@@ -21,4 +21,6 @@
     <Style TargetType="{x:Type local:StringReadOnlyBox}" BasedOn="{StaticResource {x:Type local:ReadOnlyBox}}"/>
 
     <Style TargetType="{x:Type local:DecimalReadOnlyBox}" BasedOn="{StaticResource {x:Type local:ReadOnlyBox}}"/>
+
+    <Style TargetType="{x:Type local:DateReadOnlyBox}" BasedOn="{StaticResource {x:Type local:ReadOnlyBox}}"/>
 </ResourceDictionary>
