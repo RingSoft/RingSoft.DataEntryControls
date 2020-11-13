@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry;
+using RingSoft.DataEntryControls.WPF;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DbLookup.AutoFill;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
@@ -22,6 +23,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Initialize();
 
             CustomerControl.LostFocus += (sender, args) => SalesEntryViewModel.OnCustomerIdLostFocus();
+            CustomerControl.PreviewLostKeyboardFocus += (sender, args) =>
+            {
+                if (!this.IsWindowClosing(args.NewFocus))
+                {
+                    if (!SalesEntryViewModel.ValidateCustomer())
+                        args.Handled = true;
+                }
+            };
             SalesEntryViewModel.CheckDirtyMessageShown += (sender, args) =>
             {
                 if (args.Result == MessageButtons.Cancel)

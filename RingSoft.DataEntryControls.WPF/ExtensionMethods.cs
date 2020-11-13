@@ -134,5 +134,23 @@ namespace RingSoft.DataEntryControls.WPF
                     return TextAlignment.Center;
             }
         }
+
+        public static bool IsWindowClosing(this Window hostWindow, IInputElement newFocus)
+        {
+            var result = false;
+            if (newFocus is DependencyObject dependencyObject)
+            {
+                if ((newFocus is Window))
+                    result = true;
+                else
+                {
+                    var newFocusWindow = Window.GetWindow(dependencyObject);
+                    if (newFocusWindow != null)
+                        result = !newFocusWindow.Equals(hostWindow);
+                }
+            }
+
+            return result;
+        }
     }
 }

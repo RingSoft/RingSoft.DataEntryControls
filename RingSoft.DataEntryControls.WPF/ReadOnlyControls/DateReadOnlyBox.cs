@@ -73,12 +73,20 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty DateFormatTypeProperty =
-            DependencyProperty.Register(nameof(DateFormatType), typeof(DateFormatTypes), typeof(DateReadOnlyBox));
+            DependencyProperty.Register(nameof(DateFormatType), typeof(DateFormatTypes), typeof(DateReadOnlyBox),
+                new FrameworkPropertyMetadata(DateFormatTypeChangedCallback));
 
         public DateFormatTypes DateFormatType
         {
             get { return (DateFormatTypes)GetValue(DateFormatTypeProperty); }
             set { SetValue(DateFormatTypeProperty, value); }
+        }
+
+        private static void DateFormatTypeChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dateReadOnlyBox = (DateReadOnlyBox)obj;
+            dateReadOnlyBox.SetValue();
         }
 
         public static readonly DependencyProperty CultureIdProperty =

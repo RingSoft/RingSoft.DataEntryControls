@@ -4,9 +4,12 @@ using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 using System;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.DataProcessor;
+using RsMessageBoxIcons = RingSoft.DataEntryControls.Engine.RsMessageBoxIcons;
+using WindowCursorTypes = RingSoft.DbLookup.WindowCursorTypes;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -592,6 +595,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override bool ValidateEntity(Orders entity)
         {
+            if (!ValidateCustomer())
+                return false;
+
             if (!base.ValidateEntity(entity))
                 return false;
 
@@ -641,6 +647,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 }
                 _customerDirty = false;
             }
+        }
+
+        public bool ValidateCustomer()
+        {
+            if (Customer != null && !string.IsNullOrEmpty(Customer.Text) &&
+                !Customer.PrimaryKeyValue.ContainsValidData())
+            {
+                var message = "Invalid Customer!";
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
+                return false;
+            }
+
+            return true;
         }
     }
 }

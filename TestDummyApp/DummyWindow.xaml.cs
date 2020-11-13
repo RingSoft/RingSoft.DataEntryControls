@@ -24,6 +24,20 @@ namespace TestDummyApp
             }
         }
 
+        private int _integerValue;
+        public int IntegerValue
+        {
+            get => _integerValue;
+            set
+            {
+                if (_integerValue == value)
+                    return;
+
+                _integerValue = value;
+                OnPropertyChanged(nameof(IntegerValue));
+            }
+        }
+
         private DataTable _gridSource = new DataTable();
         public DummyWindow()
         {
@@ -31,6 +45,7 @@ namespace TestDummyApp
 
             Grid.ItemsSource = _gridSource.DefaultView;
             //CalculatorDec.Value = (decimal)-2345.67;
+            IntegerValue = 12345;
 
         }
 
