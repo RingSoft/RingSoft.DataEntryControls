@@ -19,7 +19,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public decimal ExtendedPrice => Quantity * Price;
 
         public bool ValidProduct =>
-            ProductValue?.PrimaryKeyValue != null && ProductValue.PrimaryKeyValue.ContainsValidData();
+            ProductValue?.PrimaryKeyValue != null && ProductValue.PrimaryKeyValue.IsValid;
 
         private AutoFillSetup _productAutoFillSetup;
         private DecimalEditControlSetup _quantitySetup;
@@ -39,7 +39,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             var column = (PurchaseOrderColumns) columnId;
             var validSupplier = PurchaseOrderDetailsManager.PurchaseOrderViewModel.ValidSupplier();
             var validProduct = validSupplier && ProductValue?.PrimaryKeyValue != null &&
-                               ProductValue.PrimaryKeyValue.ContainsValidData();
+                               ProductValue.PrimaryKeyValue.IsValid;
             switch (column)
             {
                 case PurchaseOrderColumns.Item:
@@ -112,7 +112,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 case PurchaseOrderColumns.Item:
                     if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
                     {
-                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
+                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.IsValid;
                         if (validProduct)
                         {
                             LoadFromItemAutoFillValue(autoFillCellProps.AutoFillValue);
@@ -160,7 +160,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public void LoadFromItemAutoFillValue(AutoFillValue itemAutoFillValue)
         {
             ProductValue = itemAutoFillValue;
-            if (ProductValue.PrimaryKeyValue.ContainsValidData())
+            if (ProductValue.PrimaryKeyValue.IsValid)
             {
                 var product =
                     AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
@@ -213,7 +213,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public override bool ValidateRow()
         {
-            if (ProductValue == null || !ProductValue.PrimaryKeyValue.ContainsValidData())
+            if (ProductValue == null || !ProductValue.PrimaryKeyValue.IsValid)
             {
                 PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.GridValidationFail();
                 PurchaseOrderDetailsManager.Grid.GotoCell(this, (int)PurchaseOrderColumns.Item);

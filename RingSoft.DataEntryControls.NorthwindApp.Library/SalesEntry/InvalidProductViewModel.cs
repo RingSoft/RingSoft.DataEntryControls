@@ -66,7 +66,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var newProductResult =
                 AppGlobals.LookupContext.ProductsLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, ownerWindow);
 
-            if (!newProductResult.NewPrimaryKeyValue.ContainsValidData())
+            if (!newProductResult.NewPrimaryKeyValue.IsValid)
                 return false;
 
             Result.NewItemValue = new AutoFillValue(newProductResult.NewPrimaryKeyValue,
@@ -82,7 +82,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var newNiCodeResult =
                 AppGlobals.LookupContext.NonInventoryCodesLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, ownerWindow);
 
-            if (!newNiCodeResult.NewPrimaryKeyValue.ContainsValidData())
+            if (!newNiCodeResult.NewPrimaryKeyValue.IsValid)
                 return false;
 
             Result.NewItemValue = new AutoFillValue(newNiCodeResult.NewPrimaryKeyValue,

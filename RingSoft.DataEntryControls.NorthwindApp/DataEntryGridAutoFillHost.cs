@@ -40,8 +40,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             if (AutoFillCellProps.AutoFillValue != null && Control.Value != null)
             {
-                if (Control.Value.PrimaryKeyValue.ContainsValidData() &&
-                    AutoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData())
+                if (Control.Value.PrimaryKeyValue.IsValid &&
+                    AutoFillCellProps.AutoFillValue.PrimaryKeyValue.IsValid)
                 {
                     return !Control.Value.PrimaryKeyValue.IsEqualTo(AutoFillCellProps.AutoFillValue
                         .PrimaryKeyValue);

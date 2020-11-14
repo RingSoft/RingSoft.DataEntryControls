@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.WPF;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
@@ -106,6 +107,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public virtual void ResetViewForNewRecord()
         {
+        }
+
+        public void OnRecordSelected()
+        {
+            if (FocusManager.GetFocusedElement(this) is TextBox textBox)
+                textBox.SelectAll();
         }
 
         public void ShowFindLookupWindow(LookupDefinitionBase lookupDefinition, bool allowAdd, bool allowView, string initialSearchFor)

@@ -62,7 +62,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var isScannerRow = IsScannerRow;
             if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
             {
-                var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
+                var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.IsValid;
                 if (validProduct)
                 {
                     var productRow = new SalesEntryDetailsProductRow(SalesEntryDetailsManager);

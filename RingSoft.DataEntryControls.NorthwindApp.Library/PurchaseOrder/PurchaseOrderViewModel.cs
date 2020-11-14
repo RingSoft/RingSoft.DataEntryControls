@@ -1,14 +1,14 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
-using RingSoft.DbLookup.DataProcessor;
+using RingSoft.DbLookup.Lookup;
 using RingSoft.DbLookup.ModelDefinition;
+using RingSoft.DbLookup.QueryBuilder;
 using RingSoft.DbMaintenance;
 using System;
-using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
-using RingSoft.DbLookup.Lookup;
-using RingSoft.DbLookup.QueryBuilder;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
@@ -285,15 +285,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             if (_supplierDirty)
             {
                 if (SupplierAutoFillValue?.PrimaryKeyValue != null &&
-                    SupplierAutoFillValue.PrimaryKeyValue.ContainsValidData())
+                    SupplierAutoFillValue.PrimaryKeyValue.IsValid)
                 {
                     var supplier =
                         AppGlobals.LookupContext.Suppliers.GetEntityFromPrimaryKeyValue(SupplierAutoFillValue
                             .PrimaryKeyValue);
 
-                    DbDataProcessor.UserInterface.SetWindowCursor(WindowCursorTypes.Wait);
+                    ControlsGlobals.UserInterface.SetWindowCursor(WindowCursorTypes.Wait);
                     supplier = AppGlobals.DbContextProcessor.GetSupplier(supplier.SupplierId);
-                    DbDataProcessor.UserInterface.SetWindowCursor(WindowCursorTypes.Default);
+                    ControlsGlobals.UserInterface.SetWindowCursor(WindowCursorTypes.Default);
 
                     if (supplier != null)
                     {
@@ -403,7 +403,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public bool ValidSupplier()
         {
-            return SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue.ContainsValidData();
+            return SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue.IsValid;
         }
 
         public void CheckSupplier()

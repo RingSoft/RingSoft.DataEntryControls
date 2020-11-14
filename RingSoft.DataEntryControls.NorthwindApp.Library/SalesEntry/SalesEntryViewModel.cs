@@ -1,15 +1,13 @@
-﻿using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
 using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 using System;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DbLookup;
-using RingSoft.DbLookup.DataProcessor;
-using RsMessageBoxIcons = RingSoft.DataEntryControls.Engine.RsMessageBoxIcons;
-using WindowCursorTypes = RingSoft.DbLookup.WindowCursorTypes;
+
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -505,19 +503,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var order = new Orders();
             order.OrderId = OrderId;
 
-            if (Customer != null && Customer.PrimaryKeyValue.ContainsValidData())
+            if (Customer != null && Customer.PrimaryKeyValue.IsValid)
             {
                 var customer = AppGlobals.LookupContext.Customers.GetEntityFromPrimaryKeyValue(Customer.PrimaryKeyValue);
                 order.CustomerId = customer.CustomerId;
             }
 
-            if (Employee != null && Employee.PrimaryKeyValue.ContainsValidData())
+            if (Employee != null && Employee.PrimaryKeyValue.IsValid)
             {
                 var employee = AppGlobals.LookupContext.Employees.GetEntityFromPrimaryKeyValue(Employee.PrimaryKeyValue);
                 order.EmployeeId = employee.EmployeeId;
             }
 
-            if (ShipVia != null && ShipVia.PrimaryKeyValue.ContainsValidData())
+            if (ShipVia != null && ShipVia.PrimaryKeyValue.IsValid)
             {
                 var shipVia = AppGlobals.LookupContext.Shippers.GetEntityFromPrimaryKeyValue(ShipVia.PrimaryKeyValue);
                 order.ShipVia = shipVia.ShipperId;
@@ -622,7 +620,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             if (_customerDirty)
             {
-                if (Customer?.PrimaryKeyValue == null || !Customer.PrimaryKeyValue.ContainsValidData())
+                if (Customer?.PrimaryKeyValue == null || !Customer.PrimaryKeyValue.IsValid)
                 {
                     CompanyName = string.Empty;
                 }
@@ -630,10 +628,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 {
                     var customer = AppGlobals.LookupContext.Customers.GetEntityFromPrimaryKeyValue(Customer.PrimaryKeyValue);
 
-                    DbDataProcessor.UserInterface.SetWindowCursor(WindowCursorTypes.Wait);
+                    ControlsGlobals.UserInterface.SetWindowCursor(WindowCursorTypes.Wait);
                     customer =
                         AppGlobals.DbContextProcessor.GetCustomer(customer.CustomerId);
-                    DbDataProcessor.UserInterface.SetWindowCursor(WindowCursorTypes.Default);
+                    ControlsGlobals.UserInterface.SetWindowCursor(WindowCursorTypes.Default);
 
                     if (customer != null)
                     {
@@ -652,7 +650,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public bool ValidateCustomer()
         {
             if (Customer != null && !string.IsNullOrEmpty(Customer.Text) &&
-                !Customer.PrimaryKeyValue.ContainsValidData())
+                !Customer.PrimaryKeyValue.IsValid)
             {
                 var message = "Invalid Customer!";
                 ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);

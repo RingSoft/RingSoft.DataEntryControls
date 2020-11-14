@@ -65,7 +65,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Item:
                     if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
                     {
-                        var validNiCode = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
+                        var validNiCode = autoFillCellProps.AutoFillValue.PrimaryKeyValue.IsValid;
                         if (validNiCode)
                         {
                             LoadFromNiCodeAutoFillValue(autoFillCellProps.AutoFillValue);
@@ -87,7 +87,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public void LoadFromNiCodeAutoFillValue(AutoFillValue value)
         {
             NonInventoryValue = value;
-            if (NonInventoryValue.PrimaryKeyValue.ContainsValidData())
+            if (NonInventoryValue.PrimaryKeyValue.IsValid)
             {
                 var niCode =
                     AppGlobals.LookupContext.NonInventoryCodes.GetEntityFromPrimaryKeyValue(NonInventoryValue
@@ -106,7 +106,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override bool ValidateRow()
         {
-            if (NonInventoryValue == null || !NonInventoryValue.PrimaryKeyValue.ContainsValidData())
+            if (NonInventoryValue == null || !NonInventoryValue.PrimaryKeyValue.IsValid)
             {
                 SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
                 SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);

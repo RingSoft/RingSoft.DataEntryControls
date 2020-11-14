@@ -409,5 +409,10 @@ namespace RingSoft.DataEntryControls.WPF
         {
             ValueChanged?.Invoke(this, new ValueChangedArgs(newValue));
         }
+
+        public void SelectAll()
+        {
+            TextBox?.SelectAll();
+        }
     }
 }

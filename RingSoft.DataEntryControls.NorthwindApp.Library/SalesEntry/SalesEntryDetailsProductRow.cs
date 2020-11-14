@@ -57,7 +57,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Item:
                     if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
                     {
-                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.ContainsValidData();
+                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.IsValid;
                         if (validProduct)
                         {
                             LoadFromItemAutoFillValue(autoFillCellProps.AutoFillValue);
@@ -89,7 +89,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public void LoadFromItemAutoFillValue(AutoFillValue itemAutoFillValue)
         {
             ProductValue = itemAutoFillValue;
-            if (ProductValue.PrimaryKeyValue.ContainsValidData())
+            if (ProductValue.PrimaryKeyValue.IsValid)
             {
                 var product =
                     AppGlobals.LookupContext.Products.GetEntityFromPrimaryKeyValue(ProductValue
@@ -150,7 +150,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override bool ValidateRow()
         {
-            if (ProductValue == null || !ProductValue.PrimaryKeyValue.ContainsValidData())
+            if (ProductValue == null || !ProductValue.PrimaryKeyValue.IsValid)
             {
                 SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
                 SalesEntryDetailsManager.Grid?.GotoCell(this, (int)SalesEntryGridColumns.Item);
