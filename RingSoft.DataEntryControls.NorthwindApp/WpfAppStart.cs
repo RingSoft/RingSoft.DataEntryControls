@@ -1,5 +1,5 @@
 ﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
-using RingSoft.DataEntryControls.WPF;
+using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using System.Windows;
 
@@ -20,9 +20,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public override void StartApp(string[] args)
         {
-            //ControlsGlobals.InitUi();
-            WPFControlsGlobals.InitUi();
-            WPFControlsGlobals.DataEntryGridHostFactory = new NorthwindGridEditHostFactory();
+            LookupControlsGlobals.InitUi();
 
             _mainWindow = new MainWindow();
             base.StartApp(args);

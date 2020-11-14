@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;
+using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder

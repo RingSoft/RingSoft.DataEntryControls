@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.AutoFill;
 using System.Drawing;
+using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {

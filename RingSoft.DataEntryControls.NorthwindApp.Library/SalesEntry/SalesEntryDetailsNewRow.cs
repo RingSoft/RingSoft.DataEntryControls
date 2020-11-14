@@ -1,4 +1,5 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
