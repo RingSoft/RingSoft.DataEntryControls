@@ -156,8 +156,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private DateTime? _orderDate;
-        public DateTime? OrderDate
+        private DateTime _orderDate;
+        public DateTime OrderDate
         {
             get => _orderDate;
             set
@@ -434,7 +434,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 employeeName);
 
             RequiredDate = entity.RequiredDate;
-            OrderDate = entity.OrderDate;
+            if (entity.OrderDate != null) 
+                OrderDate = (DateTime) entity.OrderDate;
+            else
+            {
+                OrderDate = DateTime.Today;
+            }
             ShippedDate = entity.ShippedDate;
 
             var shipCompanyName = string.Empty;
@@ -539,7 +544,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             OrderId = 0;
             Customer = Employee = ShipVia = null;
-            OrderDate = RequiredDate = ShippedDate = null;
+            RequiredDate = ShippedDate = null;
+            OrderDate = DateTime.Today;
             CompanyName = string.Empty;
             SubTotal = TotalDiscount = Total = 0;
             Freight = 0;

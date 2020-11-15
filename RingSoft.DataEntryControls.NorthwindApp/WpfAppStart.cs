@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+﻿using System;
+using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using System.Windows;
@@ -23,7 +24,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             LookupControlsGlobals.InitUi();
 
             _mainWindow = new MainWindow();
-            base.StartApp(args);
+
+            try
+            {
+                base.StartApp(args);
+            }
+            catch (Exception e)
+            {
+                _splashWindow.ShowError(e.Message, "Database Connection Error!");
+                OnMainWindowShown();
+                _application.Shutdown();
+            }
         }
 
         protected override void InitializeSplash()

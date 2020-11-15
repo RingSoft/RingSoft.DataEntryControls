@@ -8,9 +8,10 @@
     <Application.Resources>
         <lc:ComparisonConverter x:Key="ComparisonConverter"/>
 
-        <Style TargetType="dec:DecimalEditControl">
+        <Style TargetType="dec:DecimalEditControl" x:Key="GlobalDecimalEditControlStyle">
             <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
         </Style>
+        <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource GlobalDecimalEditControlStyle}"/>
 
         <Style TargetType="dec:DateEditControl" x:Key="GlobalDateEditControlStyle">
             <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}"/>

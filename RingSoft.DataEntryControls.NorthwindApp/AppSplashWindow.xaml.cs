@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+﻿using System.Windows;
+using RingSoft.DataEntryControls.NorthwindApp.Library;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -23,6 +24,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         public void CloseSplash()
         {
             Dispatcher.Invoke(() => Close());
+        }
+
+        public void ShowError(string message, string caption)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(this, message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
+            });
         }
     }
 }

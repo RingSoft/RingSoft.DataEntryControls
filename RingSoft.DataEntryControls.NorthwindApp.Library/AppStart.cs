@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using RingSoft.DbLookup.QueryBuilder;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
@@ -47,11 +48,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
             AppGlobals.DbContextProcessor = new DbContextProcessor();
 
-            AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.ConnectingToDb);
-            AppGlobals.DbContextProcessor.GetProduct(1);
+            try
+            {
+                AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.ConnectingToDb);
+                AppGlobals.DbContextProcessor.GetProduct(1);
 
-            var query = new SelectQuery(AppGlobals.LookupContext.Products.TableName).SetMaxRecords(1);
-            AppGlobals.LookupContext.DataProcessor.GetData(query);
+                var query = new SelectQuery(AppGlobals.LookupContext.Products.TableName).SetMaxRecords(1);
+                AppGlobals.LookupContext.DataProcessor.GetData(query);
+            }
+            catch (Exception)
+            {
+                throw new Exception($"Error connecting to the SQLite file: {AppGlobals.LookupContext.NorthwindDataProcessor.FilePath}{AppGlobals.LookupContext.NorthwindDataProcessor.FileName}");
+            }
 
             FinishStartup();
         }

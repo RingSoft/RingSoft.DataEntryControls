@@ -11,7 +11,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
     public class NorthwindLookupContext : LookupContext
     {
-        public override DbDataProcessor DataProcessor => _dataProcessor;
+        public override DbDataProcessor DataProcessor => NorthwindDataProcessor;
         protected override DbContext DbContext { get; }
 
         public virtual TableDefinition<Categories> Categories { get; set; }
@@ -44,12 +44,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public LookupDefinition<PurchaseOrderLookup, Purchases> PurchaseOrderLookup { get; private set; }
 
-
-        private readonly SqliteDataProcessor _dataProcessor;
+        public SqliteDataProcessor NorthwindDataProcessor { get; }
 
         public NorthwindLookupContext()
         {
-            _dataProcessor = new SqliteDataProcessor()
+            NorthwindDataProcessor = new SqliteDataProcessor()
             {
                 FilePath = AppGlobals.AppDataDirectory,
                 FileName = "RSDEC_Northwind.sqlite"

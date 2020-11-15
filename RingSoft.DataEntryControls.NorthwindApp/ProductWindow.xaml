@@ -8,7 +8,7 @@
         xmlns:lc="clr-namespace:RingSoft.DbLookup.Controls.WPF;assembly=RingSoft.DbLookup.Controls.WPF"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         mc:Ignorable="d"
-        Title="ProductWindow" Width="500" Height="400">
+        Title="Products" Width="500" Height="400">
     <Window.Resources>
         <Style TargetType="dec:StringEditControl" x:Key="CommentStringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}">
             <Setter Property="Height" Value="50"/>
@@ -17,8 +17,9 @@
             <Setter Property="VerticalContentAlignment" Value="Top"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
-        <Style TargetType="dec:DecimalEditControl">
+        <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource GlobalDecimalEditControlStyle}">
             <Setter Property="AllowNullValue" Value="True"/>
+            <Setter Property="TextAlignment" Value="Left"/>
         </Style>
     </Window.Resources>
     <Window.DataContext>
