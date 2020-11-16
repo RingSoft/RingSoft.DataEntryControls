@@ -25,8 +25,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public virtual bool AllowUserDelete { get; } = true;
 
-        public List<int> HiddenColumns { get; } = new List<int>();
-
         public DataEntryGridRow(DataEntryGridManager manager)
         {
             Manager = manager;

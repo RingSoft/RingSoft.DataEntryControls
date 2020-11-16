@@ -72,6 +72,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 Control.Width = double.NaN;
 
                 OnControlLoaded(control, _cellProps, _cellStyle);
+
                 var dataGridCell = Grid.GetCurrentCell();
                 if (dataGridCell != null)
                     ImportDataGridCellProperties(dataGridCell);

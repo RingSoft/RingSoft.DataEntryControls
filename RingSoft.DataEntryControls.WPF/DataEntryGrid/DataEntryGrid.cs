@@ -127,7 +127,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _gridHasFocus;
         private bool _bulkInsertMode;
         private bool _designerFillingGrid;
-        private int? _currentRowIndex;
 
         static DataEntryGrid()
         {
@@ -416,13 +415,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             UpdateColumnHeaders();
 
-            var currentRowIndex = GetCurrentRowIndex();
-            if (currentRowIndex != _currentRowIndex)
-            {
-                _currentRowIndex = currentRowIndex;
-                SetColumnVisibility();
-
-            }
             if (CurrentCell.Column == null || CurrentCell.Item == null)
                 return;
 
@@ -499,7 +491,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            SetColumnVisibility();
         }
 
         public void SetBulkInsertMode(bool value = true)
@@ -1115,7 +1106,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var gridColumn = Columns[startColumnIndex];
             var cellStyle = gridRow.GetCellStyle(gridColumn.ColumnId);
 
-            if (cellStyle.CellStyle == DataEntryGridCellStyles.Enabled)
+            if (cellStyle.CellStyle == DataEntryGridCellStyles.Enabled && gridColumn.Visibility == Visibility.Visible)
                 SetFocusToCell(startRowIndex, startColumnIndex);
             else
                 TabRight(startRowIndex, startColumnIndex);
@@ -1148,7 +1139,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var gridColumn = Columns[startColumnIndex];
             var cellStyle = gridRow.GetCellStyle(gridColumn.ColumnId);
 
-            if (cellStyle.CellStyle == DataEntryGridCellStyles.Enabled)
+            if (cellStyle.CellStyle == DataEntryGridCellStyles.Enabled && gridColumn.Visibility == Visibility.Visible)
                 SetFocusToCell(startRowIndex, startColumnIndex);
             else
                 TabLeft(startRowIndex, startColumnIndex);
@@ -1345,42 +1336,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         Icon = contextMenuItem.Icon
                     });
                 }
-            }
-        }
-
-        private void SetColumnVisibility()
-        {
-            var currentRow = GetCurrentRow();
-            var currentColumnIndex = GetCurrentColumnIndex();
-            var columnIndex = 0;
-            foreach (var column in Columns)
-            {
-                var columnId = column.ColumnId;
-                if (currentRow != null && currentRow.HiddenColumns.IndexOf(columnId) >= 0)
-                {
-                    if (columnIndex == currentColumnIndex)
-                    {
-                        var setFocusColumn = true;
-                        var previousColumnIndex = columnIndex - 1;
-                        while (setFocusColumn)
-                        {
-                            var previousColumn = Columns[previousColumnIndex];
-                            if (previousColumn.Visibility == Visibility.Visible)
-                            {
-                                GotoCell(currentRow, previousColumn.ColumnId);
-                                setFocusColumn = false;
-                            }
-                            previousColumnIndex--;
-                        }
-                    }
-                    column.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    column.Visibility = Visibility.Visible;
-                }
-
-                columnIndex++;
             }
         }
     }
