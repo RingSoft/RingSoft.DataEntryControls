@@ -81,6 +81,15 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        protected override string ConvertValueToString()
+        {
+            var result = string.Empty;
+            if (Value != null)
+                result = ((int)Value).ToString(Culture);
+
+            return result;
+        }
+
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
             setup.FormatType = DecimalEditFormatTypes.Number;

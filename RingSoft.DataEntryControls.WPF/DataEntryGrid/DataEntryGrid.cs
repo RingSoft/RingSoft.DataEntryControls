@@ -127,6 +127,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _gridHasFocus;
         private bool _bulkInsertMode;
         private bool _designerFillingGrid;
+        private int? _currentRowIndex;
 
         static DataEntryGrid()
         {
@@ -149,7 +150,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             Loaded += (sender, args) => OnLoad();
             GotFocus += DataEntryGrid_GotFocus;
             LostFocus += DataEntryGrid_LostFocus;
-            CurrentCellChanged += DataEntryGrid_CurrentCellChanged;
         }
 
         private void DataEntryGrid_LostFocus(object sender, RoutedEventArgs e)
@@ -416,6 +416,25 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             UpdateColumnHeaders();
 
+            var currentRowIndex = GetCurrentRowIndex();
+            if (currentRowIndex != _currentRowIndex)
+            {
+                _currentRowIndex = currentRowIndex;
+                SetColumnVisibility();
+
+            }
+            if (CurrentCell.Column == null || CurrentCell.Item == null)
+                return;
+
+            var cellContent = CurrentCell.Column.GetCellContent(CurrentCell.Item);
+            if (cellContent != null && cellContent.Parent is DataGridCell dataGridCell)
+            {
+                var contextMenu = new ContextMenu();
+                AddGridContextMenuItems(contextMenu);
+                dataGridCell.ContextMenu = contextMenu;
+                dataGridCell.ContextMenu.Placement = PlacementMode.Bottom;
+            }
+
             base.OnCurrentCellChanged(e);
         }
 
@@ -480,6 +499,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            SetColumnVisibility();
         }
 
         public void SetBulkInsertMode(bool value = true)
@@ -653,16 +673,23 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 var cellProps = dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId);
                 var cellStyle = dataEntryGridRow.GetCellStyle(dataEntryGridColumn.ColumnId);
 
-                switch (cellStyle.CellStyle)
+                if (dataEntryGridColumn.Visibility == Visibility.Visible)
                 {
-                    case DataEntryGridCellStyles.Enabled:
-                        break;
-                    case DataEntryGridCellStyles.ReadOnly:
-                    case DataEntryGridCellStyles.Disabled:
-                        e.Cancel = true;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    switch (cellStyle.CellStyle)
+                    {
+                        case DataEntryGridCellStyles.Enabled:
+                            break;
+                        case DataEntryGridCellStyles.ReadOnly:
+                        case DataEntryGridCellStyles.Disabled:
+                            e.Cancel = true;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
 
                 if (!e.Cancel)
@@ -1321,18 +1348,39 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        private void DataEntryGrid_CurrentCellChanged(object sender, EventArgs e)
+        private void SetColumnVisibility()
         {
-            if (CurrentCell.Column == null || CurrentCell.Item == null)
-                return;
-
-            var cellContent = CurrentCell.Column.GetCellContent(CurrentCell.Item);
-            if (cellContent != null && cellContent.Parent is DataGridCell dataGridCell)
+            var currentRow = GetCurrentRow();
+            var currentColumnIndex = GetCurrentColumnIndex();
+            var columnIndex = 0;
+            foreach (var column in Columns)
             {
-                var contextMenu = new ContextMenu();
-                AddGridContextMenuItems(contextMenu);
-                dataGridCell.ContextMenu = contextMenu;
-                dataGridCell.ContextMenu.Placement = PlacementMode.Bottom;
+                var columnId = column.ColumnId;
+                if (currentRow != null && currentRow.HiddenColumns.IndexOf(columnId) >= 0)
+                {
+                    if (columnIndex == currentColumnIndex)
+                    {
+                        var setFocusColumn = true;
+                        var previousColumnIndex = columnIndex - 1;
+                        while (setFocusColumn)
+                        {
+                            var previousColumn = Columns[previousColumnIndex];
+                            if (previousColumn.Visibility == Visibility.Visible)
+                            {
+                                GotoCell(currentRow, previousColumn.ColumnId);
+                                setFocusColumn = false;
+                            }
+                            previousColumnIndex--;
+                        }
+                    }
+                    column.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    column.Visibility = Visibility.Visible;
+                }
+
+                columnIndex++;
             }
         }
     }

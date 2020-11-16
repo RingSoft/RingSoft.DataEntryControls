@@ -94,6 +94,9 @@ namespace RingSoft.DataEntryControls.WPF
             if (!numericEditControl._settingText)
             {
                 numericEditControl.SetValue();
+                numericEditControl._settingText = true;
+                numericEditControl.OnValueChanged(numericEditControl.ConvertValueToString());
+                numericEditControl._settingText = false;
             }
         }
 
@@ -163,6 +166,8 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         protected abstract void SetValue();
+
+        protected abstract string ConvertValueToString();
 
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)
         {

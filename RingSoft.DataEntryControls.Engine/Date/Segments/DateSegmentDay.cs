@@ -24,16 +24,15 @@
                 if (monthValue == 2 && CharBeingProcessed == '3')
                     return false;
             }
-            else
-            {
-                var newValue = GetNewSegmentText().ToInt();
-                if (newValue > 31)
+
+            var newValue = GetNewSegmentText().ToInt();
+            if (newValue > 31)
+                return false;
+
+            if (monthValue > 0)
+                if (newValue > GetLastDay(monthValue, yearValue))
                     return false;
 
-                if (monthValue > 0)
-                    if (newValue > GetLastDay(monthValue, yearValue))
-                        return false;
-            }
             return base.SegmentProcessChar();
         }
 

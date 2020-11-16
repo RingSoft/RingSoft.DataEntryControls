@@ -155,6 +155,15 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        protected override string ConvertValueToString()
+        {
+            var result = string.Empty;
+            if (Value != null)
+                result = ((decimal) Value).ToString(Culture);
+
+            return result;
+        }
+
         protected decimal? ValidateValue(decimal? newValue)
         {
             decimal? result = null;

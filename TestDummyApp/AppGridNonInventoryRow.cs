@@ -19,6 +19,7 @@ namespace TestDummyApp
         public AppGridNonInventoryRow(AppGridManager manager) : base(manager)
         {
             PriceSetup.FormatType = DecimalEditFormatTypes.Currency;
+            HiddenColumns.Add((int)AppGridColumns.CheckBox);
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)

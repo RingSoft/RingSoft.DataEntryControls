@@ -146,6 +146,16 @@ namespace RingSoft.DataEntryControls.Engine.Date
                 index = Control.SelectionStart;
 
             char cSegmentChar = entryFormat[index];
+            var segmentString = cSegmentChar.ToString();
+
+            if (segmentString == _setup.Culture.DateTimeFormat.DateSeparator ||
+                segmentString == _setup.Culture.DateTimeFormat.TimeSeparator)
+            {
+                cSegmentChar = entryFormat[index + 1];
+                if (index == Control.SelectionStart)
+                    Control.SelectionStart++;
+            }
+
             switch (cSegmentChar)
             {
                 case 'M':
