@@ -32,9 +32,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public void SetElementValue(string name, string value)
         {
-            if (value.IsNullOrEmpty())
-                return;
-
             var element = GetElement(name);
             if (element == null)
             {
@@ -42,7 +39,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 RootElement.Add(element);
             }
 
-            element.Value = value;
+            if (value.IsNullOrEmpty())
+            {
+                element.Value = string.Empty;
+            }
+            else
+            {
+                element.Value = value;
+            }
         }
 
         public void LoadFromXml(string xml)

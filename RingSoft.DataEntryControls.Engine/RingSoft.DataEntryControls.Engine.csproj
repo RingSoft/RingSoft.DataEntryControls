@@ -9,6 +9,17 @@
     <Description>Library to handle RingSoft.DataEntryControls.</Description>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>
     <Authors>Peter Ringering</Authors>
+    <PackageIcon>control_panel_1.png</PackageIcon>
+    <PackageProjectUrl>https://www.ringsoft.site</PackageProjectUrl>
+    <PackageTags>WPF Controls</PackageTags>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\RingSoft.DataEntryControls.NorthwindApp\Images\control_panel_1.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

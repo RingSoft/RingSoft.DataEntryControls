@@ -852,9 +852,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 
                 if (EditingControlHost.HasDataChanged())
                 {
+                    var currentEditHost = EditingControlHost;
                     currentRow.SetCellValue(cellValue);
-                    var newCellProps = currentRow.GetCellProps(cellValue.ColumnId);
-                    EditingControlHost.UpdateFromCellProps(newCellProps);
+
+                    if (EditingControlHost == currentEditHost)
+                    {
+                        var newCellProps = currentRow.GetCellProps(cellValue.ColumnId);
+                        EditingControlHost.UpdateFromCellProps(newCellProps);
+                    }
+
                     if (cellValue.OverrideCellMovement)
                         return false;
                 }
