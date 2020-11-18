@@ -343,13 +343,22 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         protected override Purchases GetEntityData()
         {
-            var supplier =
-                AppGlobals.LookupContext.Suppliers.GetEntityFromPrimaryKeyValue(SupplierAutoFillValue.PrimaryKeyValue);
+            var supplierId = 0;
+
+            if (SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue != null &&
+                SupplierAutoFillValue.PrimaryKeyValue.IsValid)
+            {
+                var supplier =
+                    AppGlobals.LookupContext.Suppliers.GetEntityFromPrimaryKeyValue(SupplierAutoFillValue
+                        .PrimaryKeyValue);
+                supplierId = supplier.SupplierId;
+            }
+
             var purchase = new Purchases
             {
                 PurchaseOrderId = PurchaseOrderId, 
                 PoNumber = KeyAutoFillValue.Text,
-                SupplierId = supplier.SupplierId,
+                SupplierId = supplierId,
                 OrderDate = OrderDate,
                 RequiredDate = RequiredDate,
                 Address = Address,
@@ -381,7 +390,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             SupplierAutoFillValue = null;
             OrderDate = DateTime.Today;
             RequiredDate = null;
-            SubTotal = Freight = Total = 0;
+            SubTotal = Total = 0;
+            Freight = 0;
 
             DetailsGridManager.SetupForNewRecord();
             _supplierDirty = false;
