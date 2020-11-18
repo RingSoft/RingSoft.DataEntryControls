@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
@@ -34,6 +35,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             RegionEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.Region).MaxLength;
             PostalCodeEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.PostalCode).MaxLength;
             CountryEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.Country).MaxLength;
+
+            PoNumberControl.LostFocus += PoNumberControl_LostFocus;
+        }
+
+        private void PoNumberControl_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Tab) && !SupplierControl.IsEnabled)
+            {
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
+                {
+                    OrderDateControl.Focus();
+                }
+            }
         }
 
         public override void ResetViewForNewRecord()

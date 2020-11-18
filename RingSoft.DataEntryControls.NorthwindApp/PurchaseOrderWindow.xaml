@@ -49,7 +49,7 @@
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Supplier"/>
             <lc:AutoFillControl x:Name="SupplierControl" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Setup="{Binding Path=SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=SupplierEnabled}" DesignText="New England Seafood Cannery" Width="200"/>
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Order Date"/>
-            <dec:DateEditControl Grid.Row="2" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <dec:DateEditControl x:Name="OrderDateControl" Grid.Row="2" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Required Date"/>
             <dec:DateEditControl Grid.Row="2" Grid.Column="3" Value="{Binding Path=RequiredDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
             <TabControl x:Name="TabControl" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
