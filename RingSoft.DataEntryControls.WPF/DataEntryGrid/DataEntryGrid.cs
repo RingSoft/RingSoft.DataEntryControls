@@ -860,6 +860,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         var newCellProps = currentRow.GetCellProps(cellValue.ColumnId);
                         EditingControlHost.UpdateFromCellProps(newCellProps);
                     }
+                    else
+                    {
+                        //DataEntryGridRow SetCellValue changed cell focus.
+                        return false;
+                    }
 
                     if (cellValue.OverrideCellMovement)
                         return false;

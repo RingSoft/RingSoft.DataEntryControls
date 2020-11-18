@@ -85,7 +85,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 value.CellLostFocusType == CellLostFocusTypes.TabRight)
             {
                 Manager.Grid.GotoCell(Manager.Rows[^1], (int)SalesEntryGridColumns.Item);
-                value.OverrideCellMovement = true;
             }
         }
     }
