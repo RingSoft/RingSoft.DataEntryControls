@@ -15,7 +15,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     {
         InvalidProductResult CorrectInvalidProduct(AutoFillValue invalidProductValue);
 
-        bool ShowCommentEditor(GridMemoValue comment);
+        bool ShowCommentEditor(DataEntryGridMemoValue comment);
 
         void GridValidationFail();
     }

@@ -14,7 +14,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
     public interface IPurchaseOrderView : IDbMaintenanceView
     {
-        bool ShowCommentEditor(GridMemoValue comment);
+        bool ShowCommentEditor(DataEntryGridMemoValue comment);
 
         void GridValidationFail();
     }

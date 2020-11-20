@@ -22,12 +22,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public string NewSpecialOrderText { get; set; }
 
-        public GridMemoValue Comment { get; set; }
+        public DataEntryGridMemoValue Comment { get; set; }
     }
 
     public interface IInvalidProductView
     {
-        bool ShowCommentEditor(GridMemoValue comment);
+        bool ShowCommentEditor(DataEntryGridMemoValue comment);
     }
 
     public class InvalidProductViewModel : INotifyPropertyChanged
@@ -101,7 +101,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public bool AddComment()
         {
-            Result.Comment = new GridMemoValue(SalesEntryDetailsCommentRow.MaxCharactersPerLine);
+            Result.Comment = new DataEntryGridMemoValue(SalesEntryDetailsCommentRow.MaxCharactersPerLine);
             Result.Comment.Text = InvalidProductValue.Text;
 
             var result = View.ShowCommentEditor(Result.Comment);

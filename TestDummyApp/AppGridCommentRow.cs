@@ -12,7 +12,7 @@ namespace TestDummyApp
 
         public string Comment { get; set; }
 
-        public GridMemoValue Value { get; private set; }
+        public DataEntryGridMemoValue Value { get; private set; }
 
         public const int MaxCharactersPerLine = 20;
 
@@ -92,7 +92,7 @@ namespace TestDummyApp
             var column = (AppGridColumns) cellProps.ColumnId;
             if (column == AppGridColumns.LineType && IsNew)
             {
-                var gridMemoValue = new GridMemoValue(AppGridCommentRow.MaxCharactersPerLine);
+                var gridMemoValue = new DataEntryGridMemoValue(AppGridCommentRow.MaxCharactersPerLine);
                 if (AppGridManager.UserInterface.ShowGridMemoEditor(gridMemoValue))
                 {
                     SetValue(gridMemoValue);
@@ -110,14 +110,14 @@ namespace TestDummyApp
         public void SetValue(string text)
         {
             if (Value == null)
-                Value = new GridMemoValue(MaxCharactersPerLine);
+                Value = new DataEntryGridMemoValue(MaxCharactersPerLine);
 
             Value.Text = text;
 
             UpdateFromValue();
         }
 
-        public void SetValue(GridMemoValue value)
+        public void SetValue(DataEntryGridMemoValue value)
         {
             Value = value;
             UpdateFromValue();

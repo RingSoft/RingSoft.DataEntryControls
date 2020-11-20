@@ -34,7 +34,7 @@ namespace TestDummyApp
 
         public void ShowValidationFailMessage(string text, string caption);
 
-        public bool ShowGridMemoEditor(GridMemoValue gridMemoValue);
+        public bool ShowGridMemoEditor(DataEntryGridMemoValue gridMemoValue);
 
     }
 

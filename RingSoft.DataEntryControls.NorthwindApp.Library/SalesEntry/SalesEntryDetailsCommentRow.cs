@@ -16,7 +16,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public bool CommentCrLf { get; private set; }
 
-        public GridMemoValue Value { get; private set; }
+        public DataEntryGridMemoValue Value { get; private set; }
 
         public const int MaxCharactersPerLine = 35;
 
@@ -105,14 +105,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public void SetValue(string text)
         {
             if (Value == null)
-                Value = new GridMemoValue(MaxCharactersPerLine);
+                Value = new DataEntryGridMemoValue(MaxCharactersPerLine);
 
             Value.Text = text;
 
             UpdateFromValue();
         }
 
-        public void SetValue(GridMemoValue value)
+        public void SetValue(DataEntryGridMemoValue value)
         {
             Value = value;
             UpdateFromValue();
@@ -177,7 +177,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public override void LoadFromEntity(OrderDetails entity)
         {
-            var gridMemoValue = new GridMemoValue(MaxCharactersPerLine);
+            var gridMemoValue = new DataEntryGridMemoValue(MaxCharactersPerLine);
             gridMemoValue.AddLine(entity.Comment, entity.CommentCrLf);
 
             var children = GetDetailChildren(entity);

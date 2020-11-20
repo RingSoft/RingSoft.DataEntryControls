@@ -44,7 +44,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             return ViewModel.Result;
         }
 
-        public bool ShowCommentEditor(GridMemoValue comment)
+        public bool ShowCommentEditor(DataEntryGridMemoValue comment)
         {
             var gridMemoEditor = new DataEntryGridMemoEditor(comment);
             gridMemoEditor.Title = "Edit Comment";

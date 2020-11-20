@@ -16,7 +16,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public bool CommentCrLf { get; private set; }
 
-        public GridMemoValue Value { get; private set; }
+        public DataEntryGridMemoValue Value { get; private set; }
 
         public const int MaxCharactersPerLine = 35;
 
@@ -101,7 +101,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     if (IsNew)
                     {
                         var nextRow = Manager.Rows[Manager.Rows.IndexOf(this) + 1];
-                        var value = new GridMemoValue(MaxCharactersPerLine);
+                        var value = new DataEntryGridMemoValue(MaxCharactersPerLine);
                         if (PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.ShowCommentEditor(value))
                         {
                             Value = value;
@@ -120,14 +120,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public void SetValue(string text)
         {
             if (Value == null)
-                Value = new GridMemoValue(MaxCharactersPerLine);
+                Value = new DataEntryGridMemoValue(MaxCharactersPerLine);
 
             Value.Text = text;
 
             UpdateFromValue();
         }
 
-        public void SetValue(GridMemoValue value)
+        public void SetValue(DataEntryGridMemoValue value)
         {
             Value = value;
             UpdateFromValue();
@@ -205,7 +205,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public override void LoadFromEntity(PurchaseDetails entity)
         {
-            var gridMemoValue = new GridMemoValue(MaxCharactersPerLine);
+            var gridMemoValue = new DataEntryGridMemoValue(MaxCharactersPerLine);
             var commentCrLf = false;
             if (entity.CommentCrLf != null)
                 commentCrLf = (bool) entity.CommentCrLf;

@@ -90,7 +90,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        public GridMemoValue GridMemoValue { get; }
+        public DataEntryGridMemoValue GridMemoValue { get; }
 
         private bool _dialogResult;
 
@@ -100,7 +100,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             ShowInTaskbarProperty.OverrideMetadata(typeof(DataEntryGridMemoEditor), new FrameworkPropertyMetadata(false));
         }
 
-        public DataEntryGridMemoEditor(GridMemoValue gridMemoValue)
+        public DataEntryGridMemoEditor(DataEntryGridMemoValue gridMemoValue)
         {
             GridMemoValue = gridMemoValue;
         }

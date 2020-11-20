@@ -20,7 +20,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             return Text;
         }
     }
-    public class GridMemoValue
+    public class DataEntryGridMemoValue
     {
         private string _text;
 
@@ -40,7 +40,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         private List<GridMemoValueLine> _lines = new List<GridMemoValueLine>();
 
-        public GridMemoValue(int maxCharsPerLine)
+        public DataEntryGridMemoValue(int maxCharsPerLine)
         {
             MaxCharactersPerLine = maxCharsPerLine;
         }

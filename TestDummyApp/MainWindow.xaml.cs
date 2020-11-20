@@ -127,7 +127,7 @@ namespace TestDummyApp
             MessageBox.Show(this, text, caption, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        public bool ShowGridMemoEditor(GridMemoValue gridMemoValue)
+        public bool ShowGridMemoEditor(DataEntryGridMemoValue gridMemoValue)
         {
             var memoEditor = new DataEntryGridMemoEditor(gridMemoValue);
             memoEditor.Owner = this;
