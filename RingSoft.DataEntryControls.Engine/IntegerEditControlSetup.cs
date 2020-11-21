@@ -2,8 +2,16 @@
 
 namespace RingSoft.DataEntryControls.Engine
 {
+    /// <summary>
+    /// All the properties necessary to set up an IntegerEditControl.
+    /// </summary>
     public class IntegerEditControlSetup : NumericEditControlSetup<int?>
     {
+        public void InitializeFromType<T>()
+        {
+            InitializeFromType(typeof(T));
+        }
+
         public void InitializeFromType(Type type)
         {
             if (type == typeof(int)

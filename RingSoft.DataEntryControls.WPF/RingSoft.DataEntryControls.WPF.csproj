@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <Version>00.90.08.02</Version>
+    <Version>00.90.09</Version>
     <Description>WPF Controls which allow for quick user data entry.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>
@@ -18,7 +18,7 @@
   <ItemGroup>
     <None Remove="Resources\calculator16.png" />
     <None Remove="Resources\datepicker16.png" />
-    <None Include="..\RingSoft.DataEntryControls.NorthwindApp\Images\control_panel_1.png">
+    <None Include="..\RingSoft.DataEntryControls.NorthwindApp\Images\control_panel_1.png" Link="Resources\control_panel_1.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

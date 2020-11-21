@@ -16,6 +16,9 @@ namespace RingSoft.DataEntryControls.Engine
         Suffix = 1
     }
 
+    /// <summary>
+    /// All the properties necessary to set up a DecimalEditControl.
+    /// </summary>
     public class DecimalEditControlSetup : NumericEditControlSetup<decimal?>
     {
         /// <summary>
@@ -27,7 +30,7 @@ namespace RingSoft.DataEntryControls.Engine
         public int Precision { get; set; } = 2;
 
         /// <summary>
-        /// Gets or sets the format type of the numeric edit control.
+        /// Gets or sets the format type of the decimal edit control.
         /// </summary>
         /// <value>
         /// The format type of the numeric edit control.
