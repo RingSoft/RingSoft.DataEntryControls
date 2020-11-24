@@ -35,6 +35,7 @@ namespace TestDummyApp
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Date:
                 case AppGridColumns.Integer:
+                case AppGridColumns.Button:
                     break;
                 case AppGridColumns.StockNumber:
                     result = new DataEntryGridTextCellProps(this, columnId) { Text = StockNumber };
@@ -66,6 +67,7 @@ namespace TestDummyApp
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Date:
                 case AppGridColumns.Integer:
+                case AppGridColumns.Button:
                     break;
                 case AppGridColumns.StockNumber:
                     StockNumber = value.Text;

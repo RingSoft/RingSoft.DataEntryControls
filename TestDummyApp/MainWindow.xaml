@@ -28,8 +28,9 @@
                 <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>
                 <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static testDummyApp:AppGridManager.CheckBoxColumnId}" Header="CheckBox Column"/>
                 <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
-                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.DateColumnId}" Header="Date" Width="200" DesignText="01/01/2020"/>
+                <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.DateColumnId}" Header="Date" Width="100" DesignText="01/01/2020"/>
                 <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
+                <deg:DataEntryGridButtonColumn ColumnId="{x:Static testDummyApp:AppGridManager.ButtonColumnId}" Header="Button" DesignText="Button" Width="50"/>
             </deg:DataEntryGrid.Columns>
         </deg:DataEntryGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">

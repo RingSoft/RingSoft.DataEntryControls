@@ -49,6 +49,8 @@ namespace TestDummyApp
                     return new DataEntryGridDateCellProps(this, columnId, DateSetup, DateValue);
                 case AppGridColumns.Integer:
                     return new DataEntryGridIntegerCellProps(this, columnId, IntegerSetup, IntegerValue);
+                case AppGridColumns.Button:
+                    return new DataEntryGridButtonCellProps(this, columnId, "Button");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -105,6 +107,10 @@ namespace TestDummyApp
                 case AppGridColumns.Integer:
                     if (value is DataEntryGridIntegerCellProps integerCellProps)
                         IntegerValue = integerCellProps.Value;
+                    break;
+                case AppGridColumns.Button:
+                    var cellProps = GetCellProps(AppGridManager.StockNumberColumnId);
+                    AppGridManager.UserInterface.ShowGridMemoEditor(new DataEntryGridMemoValue(20){Text = cellProps.Text});
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

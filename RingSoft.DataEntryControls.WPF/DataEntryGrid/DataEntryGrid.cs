@@ -127,6 +127,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _gridHasFocus;
         private bool _bulkInsertMode;
         private bool _designerFillingGrid;
+        private bool _buttonClick;
 
         static DataEntryGrid()
         {
@@ -559,6 +560,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     if (cellProps is DataEntryGridCheckBoxCellProps checkBoxCellProps)
                         dataRow[dataTableColumn] = checkBoxCellProps.Value;
                 }
+                else if (column is DataEntryGridButtonColumn)
+                {
+                    if (cellProps is DataEntryGridButtonCellProps buttonCellProps)
+                        dataRow[dataTableColumn] = buttonCellProps.ButtonContent;
+                }
                 else
                 {
                     dataRow[dataTableColumn] = cellProps.Text;
@@ -691,6 +697,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle);
                     EditingControlHost.ControlDirty += EditingControl_ControlDirty;
                     EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
+
+                    if (_buttonClick)
+                    {
+                        dataEntryGridRow.SetCellValue(cellProps);
+                        _buttonClick = false;
+                    }
                 }
             }
 
@@ -834,6 +846,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 e.OldFocus == null && e.NewFocus.GetType() == typeof(DataGridCell))
             {
                 SetFocusToCell(GetCurrentRowIndex(), GetCurrentColumnIndex());
+            }
+            else if (EditingControlHost == null && e.NewFocus is Button)
+            {
+                _buttonClick = true;
             }
             base.OnPreviewGotKeyboardFocus(e);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using RingSoft.DataEntryControls.WPF;
 
 namespace TestDummyApp
 {
@@ -15,6 +16,7 @@ namespace TestDummyApp
             //var culture = new CultureInfo("sv-SE"); //Format = 1 234,56 kr
             //var culture = CultureInfo.CurrentCulture;
 
+            WPFControlsGlobals.InitUi();
             Globals.CultureId = culture.Name;
             Globals.Precision = culture.NumberFormat.CurrencyDecimalDigits;
 

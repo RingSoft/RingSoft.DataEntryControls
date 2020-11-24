@@ -25,7 +25,8 @@ namespace TestDummyApp
         CheckBox = AppGridManager.CheckBoxColumnId,
         Price = AppGridManager.PriceColumnId,
         Date = AppGridManager.DateColumnId,
-        Integer = AppGridManager.IntegerColumnId
+        Integer = AppGridManager.IntegerColumnId,
+        Button = AppGridManager.ButtonColumnId
     }
 
     public interface IAppUserInterface
@@ -48,6 +49,7 @@ namespace TestDummyApp
         public const int PriceColumnId = 5;
         public const int DateColumnId = 6;
         public const int IntegerColumnId = 7;
+        public const int ButtonColumnId = 8;
 
         public IAppUserInterface UserInterface { get; }
 

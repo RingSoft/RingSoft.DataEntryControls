@@ -130,6 +130,7 @@ namespace TestDummyApp
             switch (column)
             {
                 case AppGridColumns.Disabled:
+                case AppGridColumns.Button:
                     break;
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())

@@ -57,6 +57,7 @@ namespace TestDummyApp
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Date:
                 case AppGridColumns.Integer:
+                case AppGridColumns.Button:
                     break;
                 case AppGridColumns.StockNumber:
                     NonInventoryCode = value.Text;
