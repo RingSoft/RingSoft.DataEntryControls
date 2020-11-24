@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "RingSoft WPF Data Entry Controls Demo"
-#define MyAppVersion "1.00.00"
+#define MyAppVersion "1.00.01"
 #define MyAppPublisher "RingSoft"
 #define MyAppURL "http://www.ringsoft.site/"
 #define MyAppExeName "RingSoft.DataEntryControls.NorthwindApp.exe"
@@ -37,8 +37,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\petem\source\repos\RingSoft.DataEntryControls\RingSoft.DataEntryControls.NorthwindApp\bin\Release\netcoreapp3.1\*"; Excludes: "*.xml, *.sqlite"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\petem\source\repos\RingSoft.DataEntryControls\RingSoft.DataEntryControls.NorthwindApp\bin\Release\netcoreapp3.1\RSDEC_Northwind.sqlite"; DestDir: "{commonappdata}\RingSoft\DataEntryNorthwindDemoApp\"; Flags: ignoreversion
+Source: "C:\Users\petem\source\repos\RingSoft.DataEntryControls\RingSoft.DataEntryControls.NorthwindApp\bin\Release\net5.0-windows\*"; Excludes: "*.xml, *.sqlite"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\petem\source\repos\RingSoft.DataEntryControls\RingSoft.DataEntryControls.NorthwindApp\bin\Release\net5.0-windows\RSDEC_Northwind.sqlite"; DestDir: "{commonappdata}\RingSoft\DataEntryNorthwindDemoApp\"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
