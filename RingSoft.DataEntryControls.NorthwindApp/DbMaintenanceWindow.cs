@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.WPF;
+using RingSoft.DbLookup;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
@@ -115,10 +116,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 textBox.SelectAll();
         }
 
-        public void ShowFindLookupWindow(LookupDefinitionBase lookupDefinition, bool allowAdd, bool allowView, string initialSearchFor)
+        public void ShowFindLookupWindow(LookupDefinitionBase lookupDefinition, bool allowAdd, bool allowView, string initialSearchFor,
+            PrimaryKeyValue initialSearchForPrimaryKey)
         {
             var lookupWindow =
-                new LookupWindow(lookupDefinition, allowAdd, allowView, initialSearchFor);
+                new LookupWindow(lookupDefinition, allowAdd, allowView, initialSearchFor)
+                    {InitialSearchForPrimaryKeyValue = initialSearchForPrimaryKey};
 
             lookupWindow.LookupSelect += (sender, args) =>
             {
