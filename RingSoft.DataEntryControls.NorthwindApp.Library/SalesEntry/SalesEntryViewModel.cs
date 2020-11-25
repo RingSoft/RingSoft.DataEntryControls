@@ -368,15 +368,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        protected override string FindButtonInitialSearchFor
-        {
-            get
-            {
-                if (OrderId == 0)
-                    return string.Empty;
-                return OrderId.ToString();
-            }
-        }
+        protected override string FindButtonInitialSearchFor => OrderDate.ToShortDateString();
 
         private bool _customerDirty;
 

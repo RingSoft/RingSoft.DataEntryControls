@@ -57,7 +57,10 @@ namespace RingSoft.DataEntryControls.WPF
         {
             var dateEditControl = (DateEditControl)obj;
             if (!dateEditControl._textSettingValue)
+            {
                 dateEditControl.SetValue();
+                dateEditControl.OnValueChanged(dateEditControl.Text);
+            }
         }
 
         public static readonly DependencyProperty EntryFormatProperty =
