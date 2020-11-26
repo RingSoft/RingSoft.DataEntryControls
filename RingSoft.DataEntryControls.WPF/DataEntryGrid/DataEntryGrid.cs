@@ -163,6 +163,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             SelectedCells.Clear();
         }
 
+        public new bool Focus()
+        {
+            base.Focus();
+            ResetGridFocus();
+            return IsKeyboardFocusWithin;
+        }
+
         private void DataEntryGrid_GotFocus(object sender, RoutedEventArgs e)
         {
             var beginEdit = true;
@@ -1110,6 +1117,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             if (!CommitCellEdit(CellLostFocusTypes.TabRight))
                 return;
+
+            if (startRowIndex < 0)
+                startRowIndex = 0;
 
             var lastColumnIndex = Columns.Count - 1;
             var lastRowIndex = Items.Count - 1;

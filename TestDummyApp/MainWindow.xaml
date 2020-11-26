@@ -20,7 +20,7 @@
         <!--<dec:DecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" EditFormatType="Currency" HorizontalAlignment="Left" MaximumValue="10000" MinimumValue="-10000"/>-->
         <dec:DateEditControl x:Name="DateEditControl" Width="200" HorizontalAlignment="Left" DateFormatType="DateTime" MaximumDate="01/15/2021" MinimumDate="01/15/2020"/>
         <!--<dec:IntegerEditControl HorizontalAlignment="Left" Width="100"/>-->
-        <deg:DataEntryGrid Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}">
+        <deg:DataEntryGrid x:Name="DataEntryGrid" Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}">
             <deg:DataEntryGrid.Columns>
                 <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.DisabledColumnId}" Header="Disabled"/>
                 <deg:DataEntryGridColumn ColumnId="{x:Static testDummyApp:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>

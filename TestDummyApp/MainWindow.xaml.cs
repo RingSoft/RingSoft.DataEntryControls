@@ -112,7 +112,8 @@ namespace TestDummyApp
 
             FocusButton.Click += (sender, args) =>
             {
-                DateEditControl.Focus();
+                //DateEditControl.Focus();
+                DataEntryGrid.Focus();
             };
         }
 
