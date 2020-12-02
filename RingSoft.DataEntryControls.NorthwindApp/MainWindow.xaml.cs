@@ -37,6 +37,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             PoMenu.Click += (sender, args) => ShowPurchaseOrderWindow();
             PoButton.Click += (sender, args) => ShowPurchaseOrderWindow();
             OptionsMenu.Click += (sender, args) => ShowOptionsWindow();
+            ExitButton.Click += (sender, args) => Close();
+            ExitMenu.Click += (sender, args) => Close();
         }
 
         private void ShowSalesEntryWindow()
