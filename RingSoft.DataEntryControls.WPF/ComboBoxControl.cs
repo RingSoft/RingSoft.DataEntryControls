@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -36,6 +39,58 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public class ComboBoxControl : ComboBox
     {
+        //public new static readonly DependencyProperty ItemsSourceProperty =
+        //    DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(ComboBoxControl),
+        //        new FrameworkPropertyMetadata(ItemsSourceChangedCallback));
+
+        //public new IEnumerable ItemsSource
+        //{
+        //    get { return (IEnumerable)GetValue(ItemsSourceProperty); }
+        //    set { SetValue(ItemsSourceProperty, value); }
+        //}
+
+        private static object CoerceItemsSourceProperty(DependencyObject obj, object baseValue)
+        {
+            var comboBoxControl = (ComboBoxControl)obj;
+            if (!comboBoxControl.IsDesignMode())
+                return baseValue;
+
+            return comboBoxControl.GetItemsSource();
+        }
+
+        private static object CoerceItemTemplateProperty(DependencyObject obj, object baseValue)
+        {
+            var comboBoxControl = (ComboBoxControl)obj;
+            if (!comboBoxControl.IsDesignMode())
+                return baseValue;
+
+            return null;
+        }
+
+
+        //private static void ItemsSourcePropertyChangedCallback(DependencyObject obj,
+        //    DependencyPropertyChangedEventArgs args)
+        //{
+        //}
+
+        //public new static readonly DependencyProperty SelectedItemProperty =
+        //    DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(ComboBoxControl),
+        //        new FrameworkPropertyMetadata(SelectedItemPropertyChangedCallback));
+
+        //public new object SelectedItem
+        //{
+        //    get { return GetValue(SelectedItemProperty); }
+        //    set { SetValue(SelectedItemProperty, value); }
+        //}
+
+        //private static void SelectedItemPropertyChangedCallback(DependencyObject obj,
+        //    DependencyPropertyChangedEventArgs args)
+        //{
+        //    var comboBoxControl = (ComboBoxControl)obj;
+        //    comboBoxControl.SetSelectedItem();
+        //}
+
+
         private string _designText;
 
         public string DesignText
@@ -48,10 +103,18 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        private ObservableCollection<string> _designerList = new ObservableCollection<string>();
+
         static ComboBoxControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ComboBoxControl),
                 new FrameworkPropertyMetadata(typeof(ComboBoxControl)));
+
+            ItemsSourceProperty.OverrideMetadata(typeof(ComboBoxControl), 
+                new FrameworkPropertyMetadata(null, CoerceItemsSourceProperty));
+
+            ItemTemplateProperty.OverrideMetadata(typeof(ComboBoxControl),
+                new FrameworkPropertyMetadata(null, CoerceItemTemplateProperty));
         }
 
         //public ComboBoxControl()
@@ -69,12 +132,25 @@ namespace RingSoft.DataEntryControls.WPF
                 }
                 else
                 {
-                    var list = new List<string>();
-                    list.Add(DesignText);
-                    ItemsSource = list;
+                    //MessageBox.Show("SetDesignText");
+                    
+                    _designerList.Clear();
+                    _designerList.Add(DesignText);
                     SelectedItem = DesignText;
                 }
             }
+        }
+
+        private bool IsDesignMode() => DesignerProperties.GetIsInDesignMode(this);
+
+        private IEnumerable GetItemsSource()
+        {
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return _designerList;
+            }
+
+            return ItemsSource;
         }
     }
 }
