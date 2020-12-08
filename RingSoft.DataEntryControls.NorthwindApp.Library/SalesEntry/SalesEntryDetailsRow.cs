@@ -25,7 +25,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public abstract SalesEntryDetailsLineTypes LineType { get; }
 
-        private DataEntryComboBoxSetup _lineTypeSetup = new DataEntryComboBoxSetup();
+        private ComboBoxControlSetup _lineTypeSetup = new ComboBoxControlSetup();
 
         protected SalesEntryDetailsRow(SalesEntryDetailsGridManager manager) : base(manager)
         {

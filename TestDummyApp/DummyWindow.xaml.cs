@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using RingSoft.DataEntryControls.Engine;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.CompilerServices;
-using RingSoft.DataEntryControls.Engine;
 
 namespace TestDummyApp
 {
@@ -11,17 +11,17 @@ namespace TestDummyApp
     /// </summary>
     public partial class DummyWindow : INotifyPropertyChanged
     {
-        private List<ComboBoxItem> _comboBoxItems;
+        private ComboBoxControlSetup _comboBoxSetup;
 
-        public List<ComboBoxItem> ComboBoxItems
+        public ComboBoxControlSetup ComboBoxSetup
         {
-            get => _comboBoxItems;
+            get => _comboBoxSetup;
             set
             {
-                if (_comboBoxItems == value)
+                if (_comboBoxSetup == value)
                     return;
 
-                _comboBoxItems = value;
+                _comboBoxSetup = value;
                 OnPropertyChanged();
             }
         }
@@ -72,6 +72,7 @@ namespace TestDummyApp
         }
 
         private DataTable _gridSource = new DataTable();
+
         public DummyWindow()
         {
             InitializeComponent();
@@ -82,22 +83,9 @@ namespace TestDummyApp
 
             Loaded += (sender, args) =>
             {
-                ComboBoxItems = new List<ComboBoxItem>();
-                ComboBoxItems.Add(new ComboBoxItem
-                {
-                    NumericValue = 0,
-                    TextValue = "Item 0"
-                });
-                ComboBoxItems.Add(new ComboBoxItem
-                {
-                    NumericValue = 1,
-                    TextValue = "Item 1"
-                });
-                ComboBoxItems.Add(new ComboBoxItem
-                {
-                    NumericValue = 2,
-                    TextValue = "Item 2"
-                });
+                ComboBoxSetup = new ComboBoxControlSetup();
+                ComboBoxSetup.LoadFromEnum<DayOfWeek>();
+                SelectedComboBoxItem = ComboBoxSetup.GetItem((int) DayOfWeek.Wednesday);
             };
         }
 

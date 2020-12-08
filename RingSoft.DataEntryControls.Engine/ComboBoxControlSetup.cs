@@ -35,7 +35,7 @@ namespace RingSoft.DataEntryControls.Engine
     /// <summary>
     /// All the properties necessary to set up a combo box.
     /// </summary>
-    public class DataEntryComboBoxSetup
+    public class ComboBoxControlSetup
     {
         /// <summary>
         /// Gets the combo box items.

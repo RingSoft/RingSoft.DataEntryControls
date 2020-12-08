@@ -10,7 +10,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
     public class DataEntryGridComboBoxHost : DataEntryGridControlHost<ComboBoxControl>
     {
         public override bool IsDropDownOpen => Control.IsDropDownOpen;
-        private DataEntryComboBoxSetup _comboBoxSetup;
+        private ComboBoxControlSetup _comboBoxSetup;
         private ComboBoxItem _selectedItem;
         private ComboBoxValueChangedTypes _valueChangeType;
         private bool _proceessingValidationFail;
@@ -21,10 +21,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public override DataEntryGridCellProps GetCellValue()
         {
-            ComboBoxItem selectedItem = Control.SelectedItem as ComboBoxItem;
-
             return new DataEntryGridComboBoxCellProps(Row, ColumnId,
-                _comboBoxSetup, selectedItem, _valueChangeType);
+                _comboBoxSetup, Control.SelectedItem, _valueChangeType);
         }
 
         public override bool HasDataChanged()
@@ -42,9 +40,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             DataEntryGridCellStyle cellStyle)
         {
             var comboBoxCellProps = GetComboBoxCellProps(cellProps);
-            _comboBoxSetup = comboBoxCellProps.ComboBoxSetup;
-            
-            control.ItemsSource = comboBoxCellProps.ComboBoxSetup.Items;
+
+            control.Setup = _comboBoxSetup = comboBoxCellProps.ComboBoxSetup;
             control.SelectedItem = _selectedItem = comboBoxCellProps.SelectedItem;
             _valueChangeType = comboBoxCellProps.ChangeType;
 
@@ -65,7 +62,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             OnUpdateSource(controlValue);
 
             if (!controlValue.OverrideCellMovement)
-                _selectedItem = Control.SelectedItem as ComboBoxItem;
+                _selectedItem = Control.SelectedItem;
             else
             {
                 _proceessingValidationFail = true;

@@ -10,7 +10,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     {
         public override int EditingControlId => ComboBoxHostId;
 
-        public DataEntryComboBoxSetup ComboBoxSetup { get; }
+        public ComboBoxControlSetup ComboBoxSetup { get; }
 
         public ComboBoxItem SelectedItem { get; set; }
 
@@ -18,7 +18,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public ComboBoxValueChangedTypes ChangeType { get; }
 
-        public DataEntryGridComboBoxCellProps(DataEntryGridRow row, int columnId, DataEntryComboBoxSetup comboBoxSetup,
+        public DataEntryGridComboBoxCellProps(DataEntryGridRow row, int columnId, ComboBoxControlSetup comboBoxSetup,
             ComboBoxItem selectedItem, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(
             row, columnId)
         {

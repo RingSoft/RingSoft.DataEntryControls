@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public int? DelayDays { get; private set; }
 
-        private DataEntryComboBoxSetup _lineTypeSetup = new DataEntryComboBoxSetup();
+        private ComboBoxControlSetup _lineTypeSetup = new ComboBoxControlSetup();
         private DateEditControlSetup _pickDateSetup = AppGlobals.CreateNewDateEditControlSetup();
         private IntegerEditControlSetup _delayDaysSetup = AppGlobals.CreateNewIntegerEditControlSetup();
 

@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RingSoft.DataEntryControls.Engine;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
+using ComboBoxItem = RingSoft.DataEntryControls.Engine.ComboBoxItem;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -39,15 +39,39 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public class ComboBoxControl : ComboBox
     {
-        //public new static readonly DependencyProperty ItemsSourceProperty =
-        //    DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(ComboBoxControl),
-        //        new FrameworkPropertyMetadata(ItemsSourceChangedCallback));
+        public new static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register(nameof(SelectedItem), typeof(ComboBoxItem), typeof(ComboBoxControl),
+                new FrameworkPropertyMetadata(SelectedItemPropertyChangedCallback));
 
-        //public new IEnumerable ItemsSource
-        //{
-        //    get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-        //    set { SetValue(ItemsSourceProperty, value); }
-        //}
+        public new ComboBoxItem SelectedItem
+        {
+            get { return (ComboBoxItem)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
+        }
+
+        private static void SelectedItemPropertyChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var comboBoxControl = (ComboBoxControl)obj;
+            comboBoxControl.SetSelectedItem();
+        }
+
+        public static readonly DependencyProperty SetupProperty =
+            DependencyProperty.Register(nameof(Setup), typeof(ComboBoxControlSetup), typeof(ComboBoxControl),
+                new FrameworkPropertyMetadata(SetupPropertyChangedCallback));
+
+        public ComboBoxControlSetup Setup
+        {
+            get { return (ComboBoxControlSetup)GetValue(SetupProperty); }
+            set { SetValue(SetupProperty, value); }
+        }
+
+        private static void SetupPropertyChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var comboBoxControl = (ComboBoxControl)obj;
+            comboBoxControl.DoSetup();
+        }
 
         private static object CoerceItemsSourceProperty(DependencyObject obj, object baseValue)
         {
@@ -66,29 +90,6 @@ namespace RingSoft.DataEntryControls.WPF
 
             return null;
         }
-
-
-        //private static void ItemsSourcePropertyChangedCallback(DependencyObject obj,
-        //    DependencyPropertyChangedEventArgs args)
-        //{
-        //}
-
-        //public new static readonly DependencyProperty SelectedItemProperty =
-        //    DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(ComboBoxControl),
-        //        new FrameworkPropertyMetadata(SelectedItemPropertyChangedCallback));
-
-        //public new object SelectedItem
-        //{
-        //    get { return GetValue(SelectedItemProperty); }
-        //    set { SetValue(SelectedItemProperty, value); }
-        //}
-
-        //private static void SelectedItemPropertyChangedCallback(DependencyObject obj,
-        //    DependencyPropertyChangedEventArgs args)
-        //{
-        //    var comboBoxControl = (ComboBoxControl)obj;
-        //    comboBoxControl.SetSelectedItem();
-        //}
 
 
         private string _designText;
@@ -136,12 +137,17 @@ namespace RingSoft.DataEntryControls.WPF
                     
                     _designerList.Clear();
                     _designerList.Add(DesignText);
-                    SelectedItem = DesignText;
+                    base.SelectedItem = DesignText;
+                    ItemsSource = _designerList;
                 }
             }
         }
 
-        private bool IsDesignMode() => DesignerProperties.GetIsInDesignMode(this);
+        private void DoSetup()
+        {
+            if (Setup != null)
+                ItemsSource = Setup.Items;
+        }
 
         private IEnumerable GetItemsSource()
         {
@@ -151,6 +157,19 @@ namespace RingSoft.DataEntryControls.WPF
             }
 
             return ItemsSource;
+        }
+
+        private void SetSelectedItem()
+        {
+            base.SelectedItem = SelectedItem;
+        }
+
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        {
+            if (base.SelectedItem is ComboBoxItem comboBoxItem)
+                SelectedItem = comboBoxItem;
+
+            base.OnSelectionChanged(e);
         }
     }
 }
