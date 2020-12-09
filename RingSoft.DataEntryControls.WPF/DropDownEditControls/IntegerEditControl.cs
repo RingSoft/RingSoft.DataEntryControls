@@ -90,6 +90,12 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        protected override void GetMinimumValueProperties(out decimal? value, out decimal? minimumValue)
+        {
+            value = Value;
+            minimumValue = MinimumValue;
+        }
+
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
             setup.FormatType = DecimalEditFormatTypes.Number;

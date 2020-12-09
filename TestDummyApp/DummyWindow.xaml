@@ -13,10 +13,10 @@
 
     <StackPanel>
         <StackPanel Orientation="Vertical">
-
+            <dec:IntegerEditControl MinimumValue="1000" AllowNullValue="False"/>
             <dec:ComboBoxControl Setup="{Binding ComboBoxSetup}" SelectedItem="{Binding Path=SelectedComboBoxItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="Test" Width="150"/>
 
-            <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>
             <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>

@@ -169,15 +169,38 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected abstract string ConvertValueToString();
 
+        protected abstract void GetMinimumValueProperties(out decimal? value, out decimal? minimumValue);
+
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!IsKeyboardFocusWithin && TextBox != null)
             {
-                if (Value == null)
-                    SetText((decimal?)null);
-                else 
-                    SetText(TextBox.Text);
+                if (ValidateMinimumValue())
+                {
+                    if (Value == null)
+                        SetText((decimal?) null);
+                    else
+                        SetText(TextBox.Text);
+                }
             }
+        }
+
+        private bool ValidateMinimumValue()
+        {
+            GetMinimumValueProperties(out var value, out var minimumValue);
+            if (value == null && minimumValue != null)
+            {
+                Value = MinimumValue;
+                return false;
+            }
+
+            if (minimumValue != null && value < minimumValue)
+            {
+                Value = MinimumValue;
+                return false;
+            }
+
+            return true;
         }
 
         private void SetText(string text)

@@ -164,6 +164,12 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        protected override void GetMinimumValueProperties(out decimal? value, out decimal? minimumValue)
+        {
+            value = Value;
+            minimumValue = MinimumValue;
+        }
+
         protected decimal? ValidateValue(decimal? newValue)
         {
             decimal? result = null;

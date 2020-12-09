@@ -495,8 +495,8 @@ namespace RingSoft.DataEntryControls.Engine
             if (_setup.MaximumValue != null && newValue > _setup.MaximumValue)
                 return false;
 
-            if (_setup.MinimumValue != null && newValue < _setup.MinimumValue)
-                return false;
+            //if (_setup.MinimumValue != null && newValue < _setup.MinimumValue)
+            //    return false;
 
             return true;
         }
