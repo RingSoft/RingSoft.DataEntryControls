@@ -13,10 +13,12 @@
 
     <StackPanel>
         <StackPanel Orientation="Vertical">
-            <dec:IntegerEditControl MinimumValue="1000" AllowNullValue="False"/>
-            <dec:ComboBoxControl Setup="{Binding ComboBoxSetup}" SelectedItem="{Binding Path=SelectedComboBoxItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="Test" Width="150"/>
+            <StackPanel x:Name="ExpandPanel" Visibility="Collapsed">
+                <dec:IntegerEditControl MinimumValue="1000" AllowNullValue="False"/>
+                <dec:ComboBoxControl Setup="{Binding ComboBoxSetup}" SelectedItem="{Binding Path=SelectedComboBoxItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="Test" Width="150"/>
 
-            <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>
+                <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>
+            </StackPanel>
             <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>
@@ -42,5 +44,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="ExpandButton" Content="_Expand"/>
+        </StackPanel>
     </StackPanel>
 </Window>

@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace TestDummyApp
 {
@@ -80,12 +81,18 @@ namespace TestDummyApp
             Grid.ItemsSource = _gridSource.DefaultView;
             //CalculatorDec.Value = (decimal)-2345.67;
             IntegerValue = 12345;
+            DecimalValue = 1234;
 
             Loaded += (sender, args) =>
             {
                 ComboBoxSetup = new ComboBoxControlSetup();
                 ComboBoxSetup.LoadFromEnum<DayOfWeek>();
                 SelectedComboBoxItem = ComboBoxSetup.GetItem((int) DayOfWeek.Wednesday);
+            };
+
+            ExpandButton.Click += (sender, args) =>
+            {
+                ExpandPanel.Visibility = Visibility.Visible;
             };
         }
 
