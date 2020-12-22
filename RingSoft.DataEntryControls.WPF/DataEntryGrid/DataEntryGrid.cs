@@ -49,6 +49,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     /// </summary>
     public class DataEntryGrid : DataGrid, IDataEntryGrid
     {
+        private class InitCell
+        {
+            public int RowIndex { get; set; }
+            public int ColumnIndex { get; set; }
+        }
+
         public static readonly DependencyProperty ManagerProperty =
             DependencyProperty.Register(nameof(Manager), typeof(DataEntryGridManager), typeof(DataEntryGrid),
                 new FrameworkPropertyMetadata(ManagerChangedCallback));
@@ -128,6 +134,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _bulkInsertMode;
         private bool _designerFillingGrid;
         private bool _buttonClick;
+        private InitCell _initCell;
 
         static DataEntryGrid()
         {
@@ -150,6 +157,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             Loaded += (sender, args) => OnLoad();
             GotFocus += DataEntryGrid_GotFocus;
             LostFocus += DataEntryGrid_LostFocus;
+
+            Loaded += (sender, args) =>
+            {
+                if (_initCell != null)
+                {
+                    base.Focus();
+                    SetFocusToCell(_initCell.RowIndex, _initCell.ColumnIndex);
+                    _initCell = null;
+                }
+            };
         }
 
         private void DataEntryGrid_LostFocus(object sender, RoutedEventArgs e)
@@ -1242,6 +1259,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void SetFocusToCell(int rowIndex, int columnIndex, bool beginEdit = true)
         {
+            if (Items.Count == 0)
+            {
+                _initCell = new InitCell
+                {
+                    RowIndex = rowIndex,
+                    ColumnIndex = columnIndex
+                };
+                return;
+            }
 
             CancelEdit();
             rowIndex = ScrubRowIndex(rowIndex);

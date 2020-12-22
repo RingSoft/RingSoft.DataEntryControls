@@ -97,6 +97,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             return context.DeleteEntity(context.Orders, order, "Deleting Order");
         }
 
+        public OrderDetails GetOrderDetail(int orderId, int orderDetailId)
+        {
+            var context = new NorthwindDbContext();
+            return context.OrderDetails
+                .Include(t => t.NonInventoryCode)
+                .Include(t => t.Product)
+                .ThenInclude(t => t.NonInventoryCode)
+                .FirstOrDefault(f => f.OrderId == orderId && f.OrderDetailId == orderDetailId);
+        }
+
         public Purchases GetPurchase(int purchaseOrderId)
         {
             var context = new NorthwindDbContext();

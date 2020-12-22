@@ -7,6 +7,9 @@ using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 using System;
+using System.Text;
+using RingSoft.DbLookup.QueryBuilder;
+using RingSoft.DbLookup.TableProcessing;
 
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
@@ -18,6 +21,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         bool ShowCommentEditor(DataEntryGridMemoValue comment);
 
         void GridValidationFail();
+
+        void SetInitGridFocus(SalesEntryDetailsRow row, int columnId);
     }
 
     public class SalesEntryViewModel : DbMaintenanceViewModel<Orders>
@@ -368,6 +373,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        public bool SetInitialFocusToGrid { get; internal set; }
+
+        public int InitDetailId { get; private set; } = -1;
+
         protected override string FindButtonInitialSearchFor => OrderDate.ToShortDateString();
 
         private bool _customerDirty;
@@ -656,6 +665,64 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
 
             return true;
+        }
+
+        protected override TableFilterDefinitionBase GetAddViewFilter()
+        {
+            if (LookupAddViewArgs.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.OrderDetails)
+            {
+                SetInitialFocusToGrid = true;
+                var orderDetail =
+                    AppGlobals.LookupContext.OrderDetails.GetEntityFromPrimaryKeyValue(LookupAddViewArgs.LookupData
+                        .SelectedPrimaryKeyValue);
+
+                InitDetailId = orderDetail.OrderDetailId;
+                int filterProductId = 0;
+                orderDetail =
+                    AppGlobals.DbContextProcessor.GetOrderDetail(orderDetail.OrderId, orderDetail.OrderDetailId);
+
+                if (orderDetail.ProductId != null) 
+                    filterProductId = (int) orderDetail.ProductId;
+
+                var sqlStringBuilder = new StringBuilder();
+                var sqlGen = AppGlobals.LookupContext.DataProcessor.SqlGenerator;
+
+                sqlStringBuilder.AppendLine(
+                    $"{sqlGen.FormatSqlObject(AppGlobals.LookupContext.Orders.TableName)}.{sqlGen.FormatSqlObject(AppGlobals.LookupContext.Orders.GetFieldDefinition(p => p.OrderId).FieldName)} IN");
+
+                sqlStringBuilder.AppendLine("(");
+
+                var query = new SelectQuery(AppGlobals.LookupContext.OrderDetails.TableName);
+                query.AddSelectColumn(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.OrderId).FieldName);
+                query.AddWhereItem(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId).FieldName,
+                    Conditions.Equals, filterProductId);
+                sqlStringBuilder.AppendLine(AppGlobals.LookupContext.DataProcessor.SqlGenerator.GenerateSelectStatement(query));
+
+                sqlStringBuilder.AppendLine(")");
+
+                var tableFilterDefinition = new TableFilterDefinition<Orders>(TableDefinition);
+                var sql = sqlStringBuilder.ToString();
+                tableFilterDefinition.AddFixedFilter(sql);
+
+                return tableFilterDefinition;
+            }
+
+            return base.GetAddViewFilter();
+        }
+
+        protected override PrimaryKeyValue GetAddViewPrimaryKeyValue()
+        {
+            if (LookupAddViewArgs.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.OrderDetails)
+            {
+                var orderDetail =
+                    AppGlobals.LookupContext.OrderDetails.GetEntityFromPrimaryKeyValue(LookupAddViewArgs.LookupData
+                        .SelectedPrimaryKeyValue);
+
+                var order = new Orders { OrderId = orderDetail.OrderId };
+                return TableDefinition.GetPrimaryKeyValueFromEntity(order);
+            }
+
+            return base.GetAddViewPrimaryKeyValue();
         }
     }
 }

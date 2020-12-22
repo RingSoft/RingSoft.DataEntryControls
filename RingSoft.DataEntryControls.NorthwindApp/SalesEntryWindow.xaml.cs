@@ -74,6 +74,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             DetailsGrid.Focus();
         }
 
+        public void SetInitGridFocus(SalesEntryDetailsRow row, int columnId)
+        {
+            TabControl.SelectedIndex = 0;
+            DetailsGrid.Focus();
+            DetailsGrid.GotoCell(row, columnId);
+        }
+
         public override void OnValidationFail(FieldDefinition fieldDefinition, string text, string caption)
         {
             var table = AppGlobals.LookupContext.Orders;

@@ -92,6 +92,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             if (entity.UnitPrice != null)
                 Price = (decimal)entity.UnitPrice;
+
+            base.LoadFromEntity(entity);
         }
 
         public override void SaveToEntity(OrderDetails entity, int rowIndex)

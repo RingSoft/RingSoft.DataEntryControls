@@ -23,6 +23,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     {
         public SalesEntryDetailsGridManager SalesEntryDetailsManager { get; }
 
+        public int DbOrderDetailId { get; private set; }
+
         public abstract SalesEntryDetailsLineTypes LineType { get; }
 
         private ComboBoxControlSetup _lineTypeSetup = new ComboBoxControlSetup();
@@ -62,6 +64,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             entity.LineType = (byte)LineType;
             entity.RowId = RowId;
             entity.ParentRowId = ParentRowId;
+        }
+
+        public override void LoadFromEntity(OrderDetails entity)
+        {
+            DbOrderDetailId = entity.OrderDetailId;
         }
 
         protected IEnumerable<OrderDetails> GetDetailChildren(OrderDetails parent)

@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using RingSoft.DbMaintenance;
@@ -96,6 +97,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         protected override string GetParentRowIdFromEntity(OrderDetails entity)
         {
             return entity.ParentRowId;
+        }
+
+        public override void LoadGrid(IEnumerable<OrderDetails> entityList)
+        {
+            base.LoadGrid(entityList);
+
+            if (SalesEntryViewModel.InitDetailId >= 0)
+            {
+                var row = Rows.OfType<SalesEntryDetailsRow>()
+                    .FirstOrDefault(f => f.DbOrderDetailId == SalesEntryViewModel.InitDetailId);
+
+                SalesEntryViewModel.SalesEntryView.SetInitGridFocus(row, ItemColumnId);
+            }
         }
     }
 }

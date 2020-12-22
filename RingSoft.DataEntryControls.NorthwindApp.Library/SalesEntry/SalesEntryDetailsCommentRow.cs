@@ -186,6 +186,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 gridMemoValue.AddLine(child.Comment, child.CommentCrLf);
             }
             SetValue(gridMemoValue);
+
+            base.LoadFromEntity(entity);
         }
 
         public override bool ValidateRow()

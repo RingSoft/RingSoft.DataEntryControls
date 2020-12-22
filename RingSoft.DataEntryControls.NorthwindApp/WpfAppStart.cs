@@ -69,6 +69,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             {
                 ShowAddOnTheFlyWindow(new NonInventoryCodeWindow(), e);
             }
+            else if (e.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.OrderDetails)
+            {
+                ShowAddOnTheFlyWindow(new SalesEntryWindow(), e);
+            }
         }
 
         private void ShowAddOnTheFlyWindow(DbMaintenanceWindow maintenanceWindow, LookupAddViewArgs e)

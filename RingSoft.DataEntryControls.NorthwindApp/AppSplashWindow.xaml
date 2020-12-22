@@ -4,6 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        AllowsTransparency="True"
+        BorderBrush="Black"
+        BorderThickness="1"
         Title="AppSplashWindow" Height="150" Width="350"
         WindowStyle="None" WindowStartupLocation="CenterScreen">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">

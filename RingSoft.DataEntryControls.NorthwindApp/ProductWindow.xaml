@@ -7,11 +7,12 @@
         xmlns:vmlib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
         xmlns:lc="clr-namespace:RingSoft.DbLookup.Controls.WPF;assembly=RingSoft.DbLookup.Controls.WPF"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
+        xmlns:lm="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
         mc:Ignorable="d"
-        Title="Products" Width="500" Height="400">
+        Title="Products" Width="500" Height="450">
     <Window.Resources>
         <Style TargetType="dec:StringEditControl" x:Key="CommentStringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}">
-            <Setter Property="Height" Value="50"/>
+            <Setter Property="Height" Value="85"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="AcceptsReturn" Value="True"/>
             <Setter Property="VerticalContentAlignment" Value="Top"/>
@@ -80,6 +81,21 @@
                             <Label Content="Non Inventory Code" Style="{StaticResource ControlLabel}"/>
                             <lc:AutoFillControl x:Name="NonInventoryCodeControl" Setup="{Binding Path=NonInventoryCodeAutoFillSetup}" Value="{Binding Path=NonInventoryCodeAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="125"/>
                         </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Sales">
+                    <Grid>
+                        <lc:LookupControl LookupDefinition="{Binding Path=OrderDetailsLookupDefinition}" Command="{Binding Path=OrderDetailsLookupCommand}">
+                            <lc:LookupControl.LookupColumns>
+                                <lc:LookupColumn PropertyName="{lc:NameOf OrderDate, Type={x:Type lm:OrderDetailLookup}}" Width="90" Header="Date" DesignText="01/01/1980"/>
+
+                                <lc:LookupColumn PropertyName="{lc:NameOf Customer, Type={x:Type lm:OrderDetailLookup}}" Width="180" Header="Customer" DesignText="Rattlesnake Canyon Grocery"/>
+
+                                <lc:LookupColumn PropertyName="{lc:NameOf Quantity, Type={x:Type lm:OrderDetailLookup}}" Width="60" Header="Quantity" DesignText="100" TextAlignment="Right"/>
+
+                                <lc:LookupColumn PropertyName="{lc:NameOf UnitPrice, Type={x:Type lm:OrderDetailLookup}}" Width="75" Header="Price" DesignText="$100.00" TextAlignment="Right"/>
+                            </lc:LookupControl.LookupColumns>
+                        </lc:LookupControl>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Comments">
