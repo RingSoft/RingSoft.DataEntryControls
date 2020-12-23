@@ -710,19 +710,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return base.GetAddViewFilter();
         }
 
-        protected override PrimaryKeyValue GetAddViewPrimaryKeyValue()
+        protected override PrimaryKeyValue GetAddViewPrimaryKeyValue(PrimaryKeyValue addViewPrimaryKeyValue)
         {
-            if (LookupAddViewArgs.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.OrderDetails)
+            if (addViewPrimaryKeyValue.TableDefinition == AppGlobals.LookupContext.OrderDetails)
             {
                 var orderDetail =
-                    AppGlobals.LookupContext.OrderDetails.GetEntityFromPrimaryKeyValue(LookupAddViewArgs.LookupData
-                        .SelectedPrimaryKeyValue);
+                    AppGlobals.LookupContext.OrderDetails.GetEntityFromPrimaryKeyValue(addViewPrimaryKeyValue);
 
                 var order = new Orders { OrderId = orderDetail.OrderId };
                 return TableDefinition.GetPrimaryKeyValueFromEntity(order);
             }
 
-            return base.GetAddViewPrimaryKeyValue();
+            return base.GetAddViewPrimaryKeyValue(addViewPrimaryKeyValue);
         }
     }
 }
