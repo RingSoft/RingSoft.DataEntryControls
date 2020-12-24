@@ -36,6 +36,19 @@ namespace RingSoft.DataEntryControls.WPF
             return GetParentOfType<T>(parent);
         }
 
+        public static T GetLogicalParent<T>(this DependencyObject child)
+            where T : DependencyObject
+        {
+            DependencyObject parentObject = LogicalTreeHelper.GetParent(child);
+            if (parentObject == null) return null;
+
+            T parent = parentObject as T;
+            if (parent != null)
+                return parent;
+            
+            return GetLogicalParent<T>(parentObject);
+        }
+
         public static DependencyObject GetParentOfType(this DependencyObject element, Type type)
         {
             if (element == null) return null;
