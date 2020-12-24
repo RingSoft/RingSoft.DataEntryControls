@@ -107,6 +107,10 @@
                         </DockPanel>
                     </Grid>
                 </TabItem>
+                <TabItem Header="Notes" x:Name="NotesTabItem">
+                    <Grid>
+                    </Grid>
+                </TabItem>
             </TabControl>
             <Grid Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>

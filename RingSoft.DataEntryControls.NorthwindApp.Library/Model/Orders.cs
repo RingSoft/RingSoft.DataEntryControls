@@ -25,6 +25,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public string ShipRegion { get; set; }
         public string ShipPostalCode { get; set; }
         public string ShipCountry { get; set; }
+        public string Notes { get; set; }
 
         public virtual Customers Customer { get; set; }
         public virtual Employees Employee { get; set; }

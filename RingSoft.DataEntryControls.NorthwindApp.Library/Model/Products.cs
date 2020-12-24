@@ -25,6 +25,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public string PurchaseComment { get; set; }
         public int? NonInventoryCodeId { get; set; }
         public byte UnitDecimals { get; set; }
+        public string Notes { get; set; }
 
         public virtual Categories Category { get; set; }
         public virtual NonInventoryCodes NonInventoryCode { get; set; }

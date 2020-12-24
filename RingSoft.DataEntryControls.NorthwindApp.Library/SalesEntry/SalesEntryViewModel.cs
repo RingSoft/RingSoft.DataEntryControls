@@ -373,6 +373,22 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        private string _notes;
+
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (_notes == value)
+                    return;
+
+                _notes = value;
+                OnPropertyChanged(nameof(Notes));
+            }
+        }
+
+
         public bool SetInitialFocusToGrid { get; internal set; }
 
         public int InitDetailId { get; private set; } = -1;
@@ -458,6 +474,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             Region = entity.ShipRegion;
             PostalCode = entity.ShipPostalCode;
             Country = entity.ShipCountry;
+            Notes = entity.Notes;
 
             DetailsGridManager.LoadGrid(entity.OrderDetails);
 
@@ -537,6 +554,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             order.ShipRegion = Region;
             order.ShipPostalCode = PostalCode;
             order.ShipCountry = Country;
+            order.Notes = Notes;
 
             return order;
         }

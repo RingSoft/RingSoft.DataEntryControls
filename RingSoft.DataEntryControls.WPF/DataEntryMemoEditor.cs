@@ -93,6 +93,23 @@ namespace RingSoft.DataEntryControls.WPF
             newDataEntryMemoEditor.Culture = culture;
         }
 
+        public static readonly DependencyProperty NotificationTabItemProperty =
+            DependencyProperty.Register("NotificationTabItem", typeof(TabItem), typeof(DataEntryMemoEditor),
+                new FrameworkPropertyMetadata(NotificationTabItemChangedCallback));
+
+        public TabItem NotificationTabItem
+        {
+            get { return (TabItem)GetValue(NotificationTabItemProperty); }
+            set { SetValue(NotificationTabItemProperty, value); }
+        }
+
+        private static void NotificationTabItemChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dataEntryMemoEditor = (DataEntryMemoEditor)obj;
+            dataEntryMemoEditor._tabItemHeader = dataEntryMemoEditor.NotificationTabItem.Header.ToString();
+        }
+
         public CultureInfo Culture { get; protected internal set; }
 
 
@@ -137,8 +154,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        private bool _controlLoaded;
+        public event EventHandler<TextChangedEventArgs> TextChanged;
 
+        private bool _controlLoaded;
+        private string _tabItemHeader;
 
         static DataEntryMemoEditor()
         {
@@ -179,6 +198,12 @@ namespace RingSoft.DataEntryControls.WPF
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = TextBox.Text;
+            TextChanged?.Invoke(this, e);
+
+            if (NotificationTabItem != null)
+            {
+                NotificationTabItem.Header = Text.IsNullOrEmpty() ? _tabItemHeader : $"{_tabItemHeader} *";
+            }
         }
 
         private void DateStampButton_Click(object sender, RoutedEventArgs e)

@@ -225,6 +225,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                     .HasColumnType("numeric")
                     .HasDefaultValueSql("0");
 
+                entity.Property(e => e.Notes).HasColumnType("text(1073741823)");
+
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
                 entity.Property(e => e.RequiredDate).HasColumnType("datetime");
@@ -271,6 +273,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                     .HasDefaultValueSql("0");
 
                 entity.Property(e => e.NonInventoryCodeId).HasColumnName("NonInventoryCodeID");
+
+                entity.Property(e => e.Notes).HasColumnType("text(1073741823)");
 
                 entity.Property(e => e.OrderComment).HasColumnType("text(1073741823)");
 
@@ -382,6 +386,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.Property(e => e.Freight)
                     .HasColumnType("numeric")
                     .HasDefaultValueSql("0");
+
+                entity.Property(e => e.Notes).HasColumnType("text(1073741823)");
 
                 entity.Property(e => e.OrderDate)
                     .IsRequired()
