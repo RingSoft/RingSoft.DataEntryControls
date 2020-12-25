@@ -5,6 +5,7 @@
     xmlns:dataEntryGrid="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryControlsStyles.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DecimalEditControlTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/CalculatorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DateEditControlTemplate.xaml"/>
@@ -13,7 +14,6 @@
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/ReadOnlyBoxControlTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoEditorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryGridMemoEditorTemplate.xaml"/>
-        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoTabItemTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 

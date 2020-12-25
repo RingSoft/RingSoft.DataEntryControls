@@ -107,7 +107,7 @@
                         </DockPanel>
                     </Grid>
                 </TabItem>
-                <dec:DataEntryMemoTabItem Style="{StaticResource NotesTabItemStyle}" HeaderText="Notes">
+                <dec:DataEntryMemoTabItem HeaderText="Notes">
                     <Grid>
                         <dec:DataEntryMemoEditor/>
                     </Grid>

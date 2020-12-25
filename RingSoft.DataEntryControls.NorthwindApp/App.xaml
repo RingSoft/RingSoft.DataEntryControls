@@ -9,7 +9,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
-                    Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoTabItemTemplate.xaml" />
+                    Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryControlsStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <dec:ComparisonConverter x:Key="ComparisonConverter" />
