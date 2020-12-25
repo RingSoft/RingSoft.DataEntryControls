@@ -9,11 +9,20 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=HeaderText}"/>
-                        <!--<TextBlock Text="xNotes"/>-->
+                        <!--<Ellipse Height="12" Width="12" Fill="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=NotificationColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=NotificationText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
+        <!--<Style.Triggers>
+            <Trigger Property="MemoHasText" Value="True">
+                <Setter Property="NotificationColor" Value="Green"/>
+            </Trigger>
+            <Trigger Property="MemoHasText" Value="False">
+                <Setter Property="NotificationColor" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>-->
     </Style>
 
 </ResourceDictionary>

@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -44,20 +46,48 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(HeaderTextProperty, value); }
         }
 
-        //private static void HeaderTextChangedCallback(DependencyObject obj,
-        //    DependencyPropertyChangedEventArgs args)
-        //{
-        //    var tabItem = (DataEntryMemoTabItem)obj;
-        //    tabItem.OnNotifyHeader(false);
-        //}
+        public static readonly DependencyProperty NotificationTextProperty =
+            DependencyProperty.Register(nameof(NotificationText), typeof(string), typeof(DataEntryMemoTabItem));
+
+        public string NotificationText
+        {
+            get { return (string)GetValue(NotificationTextProperty); }
+            set { SetValue(NotificationTextProperty, value); }
+        }
+
+        public static readonly DependencyProperty NotificationColorProperty =
+            DependencyProperty.Register(nameof(NotificationColor), typeof(Color), typeof(DataEntryMemoTabItem));
+
+        public Color NotificationColor
+        {
+            get { return (Color)GetValue(NotificationColorProperty); }
+            set { SetValue(NotificationColorProperty, value); }
+        }
 
         public static readonly DependencyProperty MemoHasTextProperty =
-            DependencyProperty.Register(nameof(MemoHasText), typeof(bool), typeof(DataEntryMemoTabItem));
+            DependencyProperty.Register(nameof(MemoHasText), typeof(bool), typeof(DataEntryMemoTabItem),
+                new FrameworkPropertyMetadata(MemoHasTextCallback));
 
         public bool MemoHasText
         {
             get { return (bool)GetValue(MemoHasTextProperty); }
             set { SetValue(MemoHasTextProperty, value); }
+        }
+
+        private static void MemoHasTextCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var tabItem = (DataEntryMemoTabItem)obj;
+            if (tabItem.MemoHasText)
+            {
+                tabItem.NotificationColor = Colors.Green;
+                tabItem.NotificationText = "*";
+            }
+            else
+            {
+                tabItem.NotificationColor = Colors.Transparent;
+                tabItem.NotificationText = string.Empty;
+            }
         }
 
 
