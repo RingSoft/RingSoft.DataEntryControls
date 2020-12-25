@@ -9,6 +9,11 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel>
+                            <Grid x:Name="ContainerPanel">
+                                <Ellipse Height="12" Width="12" Fill="Green"/>
+                            </Grid>
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

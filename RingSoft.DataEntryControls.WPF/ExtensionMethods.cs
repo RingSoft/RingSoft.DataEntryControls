@@ -59,6 +59,45 @@ namespace RingSoft.DataEntryControls.WPF
             return GetParentOfType(parent, type);
         }
 
+        public static T GetVisualChild<T>(this DependencyObject obj)
+            where T : DependencyObject
+
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                if (child is T)
+                    return (T)child;
+                else
+                {
+                    T childOfChild = GetVisualChild<T>(child);
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+            return null;
+        }
+
+        public static T GetLogicalChild<T>(this DependencyObject obj)
+            where T : DependencyObject
+
+        {
+            var children = LogicalTreeHelper.GetChildren(obj);
+            foreach (var child in children)
+            {
+                
+                if (child is T)
+                    return (T)child;
+                else if (child is DependencyObject dependencyChild)
+                {
+                    T childOfChild = GetLogicalChild<T>(dependencyChild);
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+            return null;
+        }
+
         [DllImport("user32.dll")]
         public static extern int ToUnicode(
             uint wVirtKey,

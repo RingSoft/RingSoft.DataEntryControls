@@ -9,8 +9,9 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=HeaderText}"/>
-                        <Ellipse Height="12" Width="12" Fill="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=NotificationColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=NotificationText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <local:DataEntryMemoNotifier x:Name="Test"/>
+
                     </StackPanel>
                 </DataTemplate>
             </Setter.Value>

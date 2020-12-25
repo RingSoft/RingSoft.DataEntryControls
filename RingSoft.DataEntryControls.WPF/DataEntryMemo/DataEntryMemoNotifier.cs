@@ -33,11 +33,33 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:DataEntryMemoNotifier/>
     ///
     /// </summary>
+    [TemplatePart(Name = "ContainerPanel", Type = typeof(Panel))]
     public class DataEntryMemoNotifier : Control
     {
+        public Panel ContainerPanel { get; set; }
+
         static DataEntryMemoNotifier()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryMemoNotifier), new FrameworkPropertyMetadata(typeof(DataEntryMemoNotifier)));
+
+            FocusableProperty.OverrideMetadata(typeof(DataEntryMemoNotifier), new FrameworkPropertyMetadata(false));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            ContainerPanel = GetTemplateChild(nameof(ContainerPanel)) as Panel;
+
+            OnMemoChanged(false);
+            base.OnApplyTemplate();
+        }
+
+        public virtual void OnMemoChanged(bool memoContainsText)
+        {
+            Visibility = memoContainsText ? Visibility.Visible : Visibility.Collapsed;
+            //if (ContainerPanel != null)
+            //{
+            //    ContainerPanel.Visibility = memoContainsText ? Visibility.Visible : Visibility.Collapsed;
+            //}
         }
     }
 }

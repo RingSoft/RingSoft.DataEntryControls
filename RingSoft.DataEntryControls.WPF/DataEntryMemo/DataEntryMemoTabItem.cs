@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -79,22 +78,42 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var tabItem = (DataEntryMemoTabItem)obj;
-            if (tabItem.MemoHasText)
-            {
-                tabItem.NotificationColor = new SolidColorBrush(Colors.Green);
-                tabItem.NotificationText = "*";
-            }
-            else
-            {
-                tabItem.NotificationColor = new SolidColorBrush(Colors.Transparent);
-                tabItem.NotificationText = string.Empty;
-            }
+            if (tabItem.Notifier != null)
+                tabItem.Notifier.Visibility = tabItem.MemoHasText ? Visibility.Visible : Visibility.Collapsed;
+
+            //tabItem.Notifier?.OnMemoChanged(tabItem.MemoHasText);
+
+            //if (tabItem.MemoHasText)
+            //{
+            //    tabItem.NotificationColor = new SolidColorBrush(Colors.Green);
+            //    tabItem.NotificationText = "*";
+            //}
+            //else
+            //{
+            //    tabItem.NotificationColor = new SolidColorBrush(Colors.Transparent);
+            //    tabItem.NotificationText = string.Empty;
+            //}
         }
 
+        public DataEntryMemoNotifier Notifier { get; set; }
 
         static DataEntryMemoTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryMemoTabItem), new FrameworkPropertyMetadata(typeof(DataEntryMemoTabItem)));
+        }
+
+        public DataEntryMemoTabItem()
+        {
+            Loaded += (sender, args) => OnLoad();
+        }
+
+        protected virtual void OnLoad()
+        {
+            if (HeaderTemplate != null && HeaderTemplate.HasContent)
+            {
+                var content = HeaderTemplate.LoadContent();
+                Notifier = content.GetVisualChild<DataEntryMemoNotifier>();
+            }
         }
     }
 }

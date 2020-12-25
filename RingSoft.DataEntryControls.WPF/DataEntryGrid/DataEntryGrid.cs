@@ -268,7 +268,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             //    //SelectedCells.Add(CurrentCell);
             //}
 
-            var scrollViewer = FindVisualChild<ScrollViewer>(this);
+            var scrollViewer = this.GetVisualChild<ScrollViewer>();
             if (scrollViewer != null)
             {
                 scrollViewer.ScrollChanged += (sender, args) =>
@@ -376,7 +376,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 return;
             }
 
-            var headersPresenter = FindVisualChild<DataGridColumnHeadersPresenter>(this);
+            var headersPresenter = this.GetVisualChild<DataGridColumnHeadersPresenter>();
             var columnHeaderHeight = headersPresenter.ActualHeight;
 
             if (double.IsNaN(columnHeaderHeight) && Columns.Any())
@@ -1322,24 +1322,24 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        private TChildItem FindVisualChild<TChildItem>(DependencyObject obj)
-            where TChildItem : DependencyObject
+        //private TChildItem FindVisualChild<TChildItem>(DependencyObject obj)
+        //    where TChildItem : DependencyObject
 
-        {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-                if (child is TChildItem)
-                    return (TChildItem)child;
-                else
-                {
-                    TChildItem childOfChild = FindVisualChild<TChildItem>(child);
-                    if (childOfChild != null)
-                        return childOfChild;
-                }
-            }
-            return null;
-        }
+        //{
+        //    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+        //    {
+        //        DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+        //        if (child is TChildItem)
+        //            return (TChildItem)child;
+        //        else
+        //        {
+        //            TChildItem childOfChild = FindVisualChild<TChildItem>(child);
+        //            if (childOfChild != null)
+        //                return childOfChild;
+        //        }
+        //    }
+        //    return null;
+        //}
 
         public static T GetFirstVisualChild<T>(DependencyObject depObj) where T : DependencyObject
         {
