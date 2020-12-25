@@ -56,11 +56,11 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static readonly DependencyProperty NotificationColorProperty =
-            DependencyProperty.Register(nameof(NotificationColor), typeof(Color), typeof(DataEntryMemoTabItem));
+            DependencyProperty.Register(nameof(NotificationColor), typeof(Brush), typeof(DataEntryMemoTabItem));
 
-        public Color NotificationColor
+        public Brush NotificationColor
         {
-            get { return (Color)GetValue(NotificationColorProperty); }
+            get { return (Brush)GetValue(NotificationColorProperty); }
             set { SetValue(NotificationColorProperty, value); }
         }
 
@@ -80,12 +80,12 @@ namespace RingSoft.DataEntryControls.WPF
             var tabItem = (DataEntryMemoTabItem)obj;
             if (tabItem.MemoHasText)
             {
-                tabItem.NotificationColor = Colors.Green;
+                tabItem.NotificationColor = new SolidColorBrush(Colors.Green);
                 tabItem.NotificationText = "*";
             }
             else
             {
-                tabItem.NotificationColor = Colors.Transparent;
+                tabItem.NotificationColor = new SolidColorBrush(Colors.Transparent);
                 tabItem.NotificationText = string.Empty;
             }
         }
