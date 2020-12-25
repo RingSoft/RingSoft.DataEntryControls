@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
+// ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>

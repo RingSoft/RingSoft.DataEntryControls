@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
 
+// ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
