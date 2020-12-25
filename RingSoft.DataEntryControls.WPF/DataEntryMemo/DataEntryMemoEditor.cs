@@ -140,9 +140,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         public DataEntryMemoTabItem Notifier { get; set; }
 
-        public event EventHandler<TextChangedEventArgs> TextChanged;
+        public event EventHandler TextChanged;
 
         private bool _controlLoaded;
+        private bool _settingText;
 
         static DataEntryMemoEditor()
         {
@@ -179,16 +180,13 @@ namespace RingSoft.DataEntryControls.WPF
             TextBox = GetTemplateChild(nameof(TextBox)) as TextBox;
             DateStampButton = GetTemplateChild(nameof(DateStampButton)) as Button;
 
+            SetText();
             base.OnApplyTemplate();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = TextBox.Text;
-            TextChanged?.Invoke(this, e);
-
-            if (Notifier != null)
-                Notifier.MemoHasText = !Text.IsNullOrEmpty();
         }
 
         private void DateStampButton_Click(object sender, RoutedEventArgs e)
@@ -209,8 +207,18 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void SetText()
         {
+            if (_settingText)
+                return;
+
+            _settingText = true;
             if (TextBox != null)
                 TextBox.Text = Text;
+            _settingText = false;
+
+            if (Notifier != null)
+                Notifier.MemoHasText = !Text.IsNullOrEmpty();
+
+            TextChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

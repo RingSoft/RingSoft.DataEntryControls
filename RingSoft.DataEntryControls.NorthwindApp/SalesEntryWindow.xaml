@@ -109,7 +109,7 @@
                 </TabItem>
                 <dec:DataEntryMemoTabItem Header="Notes">
                     <Grid>
-                        <dec:DataEntryMemoEditor/>
+                        <dec:DataEntryMemoEditor Text="{Binding Path=Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </dec:DataEntryMemoTabItem>
             </TabControl>
