@@ -138,6 +138,8 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public DataEntryMemoTabItem Notifier { get; set; }
+
         public event EventHandler<TextChangedEventArgs> TextChanged;
 
         private bool _controlLoaded;
@@ -166,6 +168,8 @@ namespace RingSoft.DataEntryControls.WPF
                 if (TextBox != null)
                     TextBox.SelectAll();
 
+                Notifier = this.GetLogicalParent<DataEntryMemoTabItem>();
+
                 _controlLoaded = true;
             }
         }
@@ -183,11 +187,8 @@ namespace RingSoft.DataEntryControls.WPF
             Text = TextBox.Text;
             TextChanged?.Invoke(this, e);
 
-            var tabItem = this.GetLogicalParent<DataEntryMemoTabItem>();
-            if (tabItem != null)
-            {
-                tabItem.MemoHasText = !Text.IsNullOrEmpty();
-            }
+            if (Notifier != null)
+                Notifier.MemoHasText = !Text.IsNullOrEmpty();
         }
 
         private void DateStampButton_Click(object sender, RoutedEventArgs e)

@@ -14,7 +14,6 @@
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/ReadOnlyBoxControlTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoEditorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryGridMemoEditorTemplate.xaml"/>
-        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoNotifierTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
