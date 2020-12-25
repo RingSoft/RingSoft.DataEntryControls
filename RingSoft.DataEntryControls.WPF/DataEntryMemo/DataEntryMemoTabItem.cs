@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -64,6 +65,16 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(NotificationColorProperty, value); }
         }
 
+        public static readonly DependencyProperty NotificationVisibilityProperty =
+            DependencyProperty.Register(nameof(NotificationVisibility), typeof(Visibility), typeof(DataEntryMemoTabItem),
+                new FrameworkPropertyMetadata(System.Windows.Visibility.Collapsed));
+
+        public Visibility NotificationVisibility
+        {
+            get { return (Visibility)GetValue(NotificationVisibilityProperty); }
+            set { SetValue(NotificationVisibilityProperty, value); }
+        }
+
         public static readonly DependencyProperty MemoHasTextProperty =
             DependencyProperty.Register(nameof(MemoHasText), typeof(bool), typeof(DataEntryMemoTabItem),
                 new FrameworkPropertyMetadata(MemoHasTextCallback));
@@ -78,8 +89,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var tabItem = (DataEntryMemoTabItem)obj;
-            if (tabItem.Notifier != null)
-                tabItem.Notifier.Visibility = tabItem.MemoHasText ? Visibility.Visible : Visibility.Collapsed;
+            tabItem.UpdateNotification();
 
             //tabItem.Notifier?.OnMemoChanged(tabItem.MemoHasText);
 
@@ -95,7 +105,9 @@ namespace RingSoft.DataEntryControls.WPF
             //}
         }
 
-        public DataEntryMemoNotifier Notifier { get; set; }
+        //public DataEntryMemoNotifier Notifier { get; set; }
+
+        public Ellipse Notifier { get; set; }
 
         static DataEntryMemoTabItem()
         {
@@ -112,8 +124,30 @@ namespace RingSoft.DataEntryControls.WPF
             if (HeaderTemplate != null && HeaderTemplate.HasContent)
             {
                 var content = HeaderTemplate.LoadContent();
-                Notifier = content.GetVisualChild<DataEntryMemoNotifier>();
+                //Notifier = content.GetVisualChild<DataEntryMemoNotifier>();
+                Notifier = content.GetVisualChild<Ellipse>();
             }
+        }
+
+        private void UpdateNotification()
+        {
+            NotificationVisibility = MemoHasText ? Visibility.Visible : Visibility.Collapsed;
+
+            //var tabControl = this.GetParentOfType<TabControl>();
+            //ContentPresenter myContentPresenter = HeaderTemplate.FindName("PART_SelectedContentHost", this) as ContentPresenter;
+            //if (myContentPresenter != null)
+            //{
+            //    if (myContentPresenter.ContentTemplate == HeaderTemplate)
+            //    {
+            //        myContentPresenter.ApplyTemplate();
+            //        var notifier = myContentPresenter.ContentTemplate.FindName("Notifier", myContentPresenter) as Ellipse;
+            //        if (notifier != null)
+            //            notifier.Visibility = MemoHasText ? Visibility.Visible : Visibility.Collapsed;
+            //    }
+            //}
+
+            //if (Notifier != null)
+            //    Notifier.Visibility = MemoHasText ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

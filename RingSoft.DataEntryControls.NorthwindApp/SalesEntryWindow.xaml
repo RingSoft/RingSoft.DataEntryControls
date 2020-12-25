@@ -107,7 +107,7 @@
                         </DockPanel>
                     </Grid>
                 </TabItem>
-                <dec:DataEntryMemoTabItem HeaderText="Notes">
+                <dec:DataEntryMemoTabItem Header="Notes">
                     <Grid>
                         <dec:DataEntryMemoEditor/>
                     </Grid>
