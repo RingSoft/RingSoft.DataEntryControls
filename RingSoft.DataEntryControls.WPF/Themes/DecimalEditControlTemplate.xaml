@@ -14,7 +14,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Name="TextBox" VerticalContentAlignment="Center"/>
+                            <local:StringEditControl x:Name="TextBox" VerticalContentAlignment="Center"/>
                             <Button Name="DropDownButton" Grid.Column="1" Width="16" Height="{Binding ElementName=TextBox, Path=ActualHeight}" VerticalAlignment="Center">
                                 <Image Source="/RingSoft.DataEntryControls.WPF;component/Resources/calculator16.png"/>
                             </Button>

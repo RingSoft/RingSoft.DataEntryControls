@@ -59,6 +59,15 @@ namespace RingSoft.DataEntryControls.WPF
                 memoEditor.SetText();
         }
 
+        public static readonly DependencyProperty SelectAllOnGotFocusProperty =
+            DependencyProperty.Register(nameof(SelectAllOnGotFocus), typeof(bool), typeof(DataEntryMemoEditor));
+
+        public bool SelectAllOnGotFocus
+        {
+            get { return (bool)GetValue(SelectAllOnGotFocusProperty); }
+            set { SetValue(SelectAllOnGotFocusProperty, value); }
+        }
+
         public static readonly DependencyProperty DateFormatProperty =
             DependencyProperty.Register(nameof(DateFormat), typeof(string), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata("G", DateFormatChangedCallback));
@@ -107,12 +116,14 @@ namespace RingSoft.DataEntryControls.WPF
                 if (TextBox != null)
                 {
                     TextBox.TextChanged -= TextBox_TextChanged;
+                    TextBox.GotFocus -= TextBox_GotFocus;
                 }
                 _textBox = value;
 
                 if (TextBox != null)
                 {
                     TextBox.TextChanged += TextBox_TextChanged;
+                    TextBox.GotFocus += TextBox_GotFocus;
                 }
             }
         }
@@ -166,8 +177,7 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 SetText();
 
-                if (TextBox != null)
-                    TextBox.SelectAll();
+                TextBox?.SelectAll();
 
                 Notifier = this.GetLogicalParent<DataEntryMemoTabItem>();
 
@@ -187,6 +197,12 @@ namespace RingSoft.DataEntryControls.WPF
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = TextBox.Text;
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (SelectAllOnGotFocus)
+                TextBox.SelectAll();
         }
 
         private void DateStampButton_Click(object sender, RoutedEventArgs e)

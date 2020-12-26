@@ -50,15 +50,18 @@
             </Style>
 
             <Style TargetType="TextBox" x:Key="GlobalTextBoxStyle">
+                <Setter Property="Background" Value="Aquamarine" />
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="AppTextBoxStyle" BasedOn="{StaticResource GlobalTextBoxStyle}">
                 <Setter Property="Height" Value="20" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="Background" Value="Aquamarine" />
             </Style>
 
             <Style TargetType="TextBox" BasedOn="{StaticResource GlobalTextBoxStyle}" />
 
             <Style TargetType="dec:StringEditControl" x:Key="GlobalStringEditControlStyle"
-                   BasedOn="{StaticResource GlobalTextBoxStyle}">
+                   BasedOn="{StaticResource AppTextBoxStyle}">
                 <Setter Property="SelectAllOnGotFocus" Value="True" />
             </Style>
 
