@@ -309,6 +309,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private string _notes;
+
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (_notes == value)
+                    return;
+
+                _notes = value;
+                OnPropertyChanged(nameof(Notes));
+            }
+        }
+
         private bool _lockSupplier;
 
         public ProductViewModel()
@@ -410,6 +425,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             OrderComment = entity.OrderComment;
             PurchaseComment = entity.PurchaseComment;
             UnitDecimals = entity.UnitDecimals;
+            Notes = entity.Notes;
         }
 
         protected override Products GetEntityData()
@@ -426,7 +442,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                 Discontinued = Discontinued,
                 OrderComment = OrderComment,
                 PurchaseComment = PurchaseComment,
-                UnitDecimals = UnitDecimals
+                UnitDecimals = UnitDecimals,
+                Notes = Notes
             };
 
             if (CategoryAutoFillValue != null)
@@ -452,7 +469,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         protected override void ClearData()
         {
             ProductId = 0;
-            QuantityPerUnit = OrderComment = PurchaseComment = string.Empty;
+            QuantityPerUnit = OrderComment = PurchaseComment = Notes = string.Empty;
             if (!_lockSupplier)
                 SupplierAutoFillValue = null;
 

@@ -96,6 +96,9 @@
                         </DockPanel>
                     </Grid>
                 </TabItem>
+                <dec:DataEntryMemoTabItem Header="Notes">
+                    <dec:DataEntryMemoEditor Text="{Binding Path=Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </dec:DataEntryMemoTabItem>
             </TabControl>
             <Grid Grid.Row="4" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>

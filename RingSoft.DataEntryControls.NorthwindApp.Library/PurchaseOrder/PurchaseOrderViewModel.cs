@@ -251,6 +251,22 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
+        private string _notes;
+
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (_notes == value)
+                    return;
+
+                _notes = value;
+                OnPropertyChanged(nameof(Notes));
+            }
+        }
+
+
         public LookupDefinition<ProductLookup, Products> ProductsLookup { get; private set; }
 
         private bool _supplierDirty;
@@ -334,6 +350,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             PostalCode = entity.PostalCode;
             Country = entity.Country;
             Freight = entity.Freight;
+            Notes = entity.Notes;
 
             DetailsGridManager.LoadGrid(entity.PurchaseDetails);
             UpdateSupplierEnabled();
@@ -366,7 +383,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 Country = Country,
                 Freight = Freight,
                 PostalCode = PostalCode,
-                Region = Region
+                Region = Region,
+                Notes = Notes
             };
 
             return purchase;
@@ -392,6 +410,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             RequiredDate = null;
             SubTotal = Total = 0;
             Freight = 0;
+            Notes = string.Empty;
 
             DetailsGridManager.SetupForNewRecord();
             _supplierDirty = false;

@@ -112,6 +112,9 @@
                         <dec:StringEditControl Grid.Row="3" Text="{Binding Path=PurchaseComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CommentStringEditControl}"/>
                     </Grid>
                 </TabItem>
+                <dec:DataEntryMemoTabItem Header="Notes">
+                    <dec:DataEntryMemoEditor Text="{Binding Path=Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </dec:DataEntryMemoTabItem>
             </TabControl>
         </Grid>
     </DockPanel>
