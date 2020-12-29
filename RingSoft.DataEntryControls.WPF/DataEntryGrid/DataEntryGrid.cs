@@ -47,7 +47,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     ///     <MyNamespace:DataEntryGrid/>
     ///
     /// </summary>
-    public class DataEntryGrid : DataGrid, IDataEntryGrid
+    public class DataEntryGrid : DataGrid, IDataEntryGrid, IReadOnlyControl
     {
         private class InitCell
         {
@@ -1400,6 +1400,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     });
                 }
             }
+        }
+
+        public void SetReadOnlyMode(bool readOnlyValue)
+        {
+            
         }
     }
 }

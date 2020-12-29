@@ -325,7 +325,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         }
 
         private bool _lockSupplier;
-
+        
         public ProductViewModel()
         {
             EnableSupplier = true;

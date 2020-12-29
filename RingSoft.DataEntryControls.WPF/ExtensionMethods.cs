@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -78,6 +79,28 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
+        public static IEnumerable<T> GetChildControls<T>(this DependencyObject depObj, bool getDescendants = true) where T : Control
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child is T dependencyObject)
+                    {
+                        yield return dependencyObject;
+                    }
+
+                    if (getDescendants || child is Panel)
+                    {
+                        foreach (var childOfChild in GetChildControls<T>(child))
+                        {
+                            yield return childOfChild;
+                        }
+                    }
+                }
+            }
+        }
         public static T GetLogicalChild<T>(this DependencyObject obj)
             where T : DependencyObject
 

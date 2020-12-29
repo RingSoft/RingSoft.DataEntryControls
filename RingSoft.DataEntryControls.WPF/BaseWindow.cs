@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 // ReSharper disable InconsistentNaming
 
 namespace RingSoft.DataEntryControls.WPF
 {
+    public interface IReadOnlyControl
+    {
+        void SetReadOnlyMode(bool readOnlyValue);
+    }
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///
@@ -113,6 +118,19 @@ namespace RingSoft.DataEntryControls.WPF
                 if (SetFocusToFirstControl)
                     MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             };
+        }
+
+        public void SetReadOnlyMode(bool readOnlyValue)
+        {
+            var children = this.GetChildControls<Control>(false);
+            foreach (var child in children)
+            {
+                // ReSharper disable once SuspiciousTypeConversion.Global
+                if (child is IReadOnlyControl readOnlyControl)
+                    readOnlyControl.SetReadOnlyMode(readOnlyValue);
+                else
+                    child.IsEnabled = !readOnlyValue;
+            }
         }
     }
 }

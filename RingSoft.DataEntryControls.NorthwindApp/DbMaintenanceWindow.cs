@@ -18,7 +18,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public abstract DbMaintenanceButtonsControl MaintenanceButtonsControl { get; }
 
-
         public event EventHandler<LookupSelectArgs> LookupFormReturn;
 
         protected void Initialize()
