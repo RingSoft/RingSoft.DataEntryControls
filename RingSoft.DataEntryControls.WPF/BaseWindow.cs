@@ -125,12 +125,17 @@ namespace RingSoft.DataEntryControls.WPF
             var children = this.GetChildControls<Control>(false);
             foreach (var child in children)
             {
-                // ReSharper disable once SuspiciousTypeConversion.Global
-                if (child is IReadOnlyControl readOnlyControl)
-                    readOnlyControl.SetReadOnlyMode(readOnlyValue);
-                else
-                    child.IsEnabled = !readOnlyValue;
+                SetControlReadOnlyMode(child, readOnlyValue);
             }
+        }
+
+        protected virtual void SetControlReadOnlyMode(Control control, bool readOnlyValue)
+        {
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (control is IReadOnlyControl readOnlyControl)
+                readOnlyControl.SetReadOnlyMode(readOnlyValue);
+            else
+                control.IsEnabled = !readOnlyValue;
         }
     }
 }
