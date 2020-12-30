@@ -66,13 +66,14 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         protected void PreLoadGridFromEntity()
         {
+            Grid?.TakeCellSnapshot();
             ClearRows(false);
         }
 
         protected void PostLoadGridFromEntity()
         {
             InsertNewRow();
-            Grid?.ResetGridFocus();
+            Grid?.RestoreCellSnapshot(false);
         }
 
         public void InsertNewRow(int startIndex = -1)

@@ -121,15 +121,21 @@ namespace RingSoft.DataEntryControls.WPF
                 if (applyTemplates)
                     (currentDescendant as FrameworkElement)?.ApplyTemplate();
 
-                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(currentDescendant); i++)
+                var childCount = VisualTreeHelper.GetChildrenCount(currentDescendant);
+                for (var i = 0; i < childCount; i++)
                 {
                     var child = VisualTreeHelper.GetChild(currentDescendant, i);
-
+                    var addChildren = child is TabControl || child is TabItem;
                     if (child is T foundObject)
                     {
                         results.Add(foundObject);
                     }
                     else
+                    {
+                        addChildren = true;
+                    }
+
+                    if (addChildren)
                     {
                         if (child is Visual || child is Visual3D)
                             descendants.Enqueue(child);
@@ -149,12 +155,6 @@ namespace RingSoft.DataEntryControls.WPF
             foreach (var child in children)
             {
                 baseWindow?.SetControlReadOnlyMode(child, readOnlyValue);
-            }
-
-            var dataEntryGrids = parent.GetChildrenOfType<DataEntryGrid.DataEntryGrid>();
-            foreach (var grid in dataEntryGrids)
-            {
-                grid.SetReadOnlyMode(readOnlyValue);
             }
         }
 
@@ -268,5 +268,17 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         public static bool IsDesignMode(this DependencyObject dependencyObject) => DesignerProperties.GetIsInDesignMode(dependencyObject);
+
+        public static bool IsUserVisible(this FrameworkElement element, FrameworkElement container)
+        {
+            if (element == null)
+                return false;
+
+            if (!element.IsVisible)
+                return false;
+            Rect bounds = element.TransformToAncestor(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
+            Rect rect = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
+            return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
+        }
     }
 }

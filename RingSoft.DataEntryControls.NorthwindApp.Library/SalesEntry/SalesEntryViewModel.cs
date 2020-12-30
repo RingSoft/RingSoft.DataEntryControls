@@ -206,6 +206,22 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        private bool _detailsGridReadOnlyMode;
+
+        public bool DetailsGridReadOnlyMode
+        {
+            get => _detailsGridReadOnlyMode;
+            set
+            {
+                if (_detailsGridReadOnlyMode == value)
+                    return;
+
+                _detailsGridReadOnlyMode = value;
+                OnPropertyChanged(nameof(DetailsGridReadOnlyMode));
+            }
+        }
+
+
         private decimal _freight;
         public decimal Freight
         {
@@ -445,6 +461,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 AllowLookupView = false
             };
             DetailsGridManager = new SalesEntryDetailsGridManager(this);
+            //DetailsGridReadOnlyMode = true;
 
             base.Initialize();
         }

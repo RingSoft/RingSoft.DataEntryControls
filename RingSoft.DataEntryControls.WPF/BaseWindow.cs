@@ -146,7 +146,13 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void OnTabSelectionChanged()
         {
-            (_readOnlyTabControl.SelectedContent as DependencyObject)?.SetAllChildControlsReadOnlyMode(_readOnlyMode);
+            if (_readOnlyTabControl.SelectedContent is DependencyObject rootDependencyObject)
+            {
+                if (rootDependencyObject is Control rootControl)
+                    SetControlReadOnlyMode(rootControl, _readOnlyMode);
+                else 
+                    rootDependencyObject.SetAllChildControlsReadOnlyMode(_readOnlyMode);
+            }
         }
     }
 }

@@ -19,5 +19,9 @@
         void GotoCell(DataEntryGridRow row, int columnId);
 
         void SetBulkInsertMode(bool value = true);
+
+        void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true);
+
+        void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true);
     }
 }
