@@ -1,4 +1,6 @@
-﻿using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
+﻿using System.ComponentModel;
+using System.Linq;
+using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
@@ -10,15 +12,6 @@ using RingSoft.DbMaintenance;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
-    public class ProductInput
-    {
-        public AutoFillValue LockSupplier { get; }
-
-        public ProductInput(AutoFillValue lockSupplier)
-        {
-            LockSupplier = lockSupplier;
-        }
-    }
     public class ProductViewModel : DbMaintenanceViewModel<Products>
     {
         public override TableDefinition<Products> TableDefinition => AppGlobals.LookupContext.Products;
@@ -325,6 +318,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         }
 
         private bool _lockSupplier;
+        private NorthwindViewModelInput _viewModelInput;
         
         public ProductViewModel()
         {
@@ -333,6 +327,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
         protected override void Initialize()
         {
+            if (LookupAddViewArgs != null && LookupAddViewArgs.InputParameter is NorthwindViewModelInput viewModelInput)
+            {
+                _viewModelInput = viewModelInput;
+            }
+            else
+            {
+                _viewModelInput = new NorthwindViewModelInput();
+            }
+            _viewModelInput.ProductViewModels.Add(this);
+
             SupplierAutoFillSetup = new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.SupplierId))
             {
                 AllowLookupAdd = false,
@@ -346,11 +350,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             NonInventoryCodeAutoFillSetup =
                 new AutoFillSetup(TableDefinition.GetFieldDefinition(p => p.NonInventoryCodeId));
 
-            if (LookupAddViewArgs != null && LookupAddViewArgs.InputParameter is ProductInput productInput)
+            if (_viewModelInput.ProductInput != null)
             {
                 _lockSupplier = true;
-                SupplierAutoFillValue = productInput.LockSupplier;
+                SupplierAutoFillValue = _viewModelInput.ProductInput.LockSupplier;
                 EnableSupplier = false;
+                _viewModelInput.ProductInput = null;
             }
 
             var orderDetailsLookupDefinition =
@@ -371,13 +376,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         {
             ProductId = newEntity.ProductId;
             var product = AppGlobals.DbContextProcessor.GetProduct(ProductId);
-            
+
+           
             KeyAutoFillValue = new AutoFillValue(primaryKeyValue, product.ProductName);
 
             _orderDetailsLookup.FilterDefinition.ClearFixedFilters();
             _orderDetailsLookup.FilterDefinition.AddFixedFilter(p => p.ProductId, Conditions.Equals, ProductId);
 
-            OrderDetailsLookupCommand = GetLookupCommand(LookupCommands.Refresh, primaryKeyValue);
+            OrderDetailsLookupCommand = GetLookupCommand(LookupCommands.Refresh, primaryKeyValue, _viewModelInput);
+
+            ReadOnlyMode = _viewModelInput.ProductViewModels.Any(a => a != this && a.ProductId == ProductId);
+
+            if (product.PurchaseDetails.Any())
+            {
+                EnableSupplier = false;
+            }
+            else
+            {
+                EnableSupplier = !ReadOnlyMode;
+            }
 
             return product;
         }
@@ -504,6 +521,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         protected override bool DeleteEntity()
         {
             return AppGlobals.DbContextProcessor.DeleteProduct(ProductId);
+        }
+
+        public override void OnWindowClosing(CancelEventArgs e)
+        {
+            base.OnWindowClosing(e);
+            if (!e.Cancel)
+                _viewModelInput.ProductViewModels.Remove(this);
         }
     }
 }

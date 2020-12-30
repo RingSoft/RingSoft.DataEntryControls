@@ -7,6 +7,8 @@ using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using RingSoft.DbLookup.QueryBuilder;
 using RingSoft.DbLookup.TableProcessing;
@@ -391,9 +393,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public bool SetInitialFocusToGrid { get; internal set; }
 
-        public int InitDetailId { get; private set; } = -1;
+        public int InitDetailId { get; internal set; } = -1;
 
-        protected override string FindButtonInitialSearchFor => OrderDate.ToShortDateString();
+        protected override string FindButtonInitialSearchFor
+        {
+            get
+            {
+                if (MaintenanceMode == DbMaintenanceModes.AddMode)
+                    return string.Empty;
+
+                return OrderDate.ToShortDateString();
+            }
+        }
+
+        internal NorthwindViewModelInput ViewModelInput { get; private set; }
 
         private bool _customerDirty;
 
@@ -402,6 +415,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             SalesEntryView = View as ISalesEntryMaintenanceView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");
+
+            if (LookupAddViewArgs != null && LookupAddViewArgs.InputParameter is NorthwindViewModelInput viewModelInput)
+            {
+                ViewModelInput = viewModelInput;
+            }
+            else
+            {
+                ViewModelInput = new NorthwindViewModelInput();
+            }
+            ViewModelInput.SalesEntryViewModels.Add(this);
+
 
             ScannerMode = AppGlobals.SalesEntryScannerMode;
 
@@ -429,6 +453,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             var order = AppGlobals.DbContextProcessor.GetOrder(newEntity.OrderId);
             OrderId = order.OrderId;
+
+            ReadOnlyMode = ViewModelInput.SalesEntryViewModels.Any(a => a != this && a.OrderId == OrderId);
 
             return order;
         }
@@ -741,6 +767,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
 
             return base.GetAddViewPrimaryKeyValue(addViewPrimaryKeyValue);
+        }
+
+        public override void OnWindowClosing(CancelEventArgs e)
+        {
+            base.OnWindowClosing(e);
+            if (!e.Cancel)
+                ViewModelInput.SalesEntryViewModels.Remove(this);
         }
     }
 }

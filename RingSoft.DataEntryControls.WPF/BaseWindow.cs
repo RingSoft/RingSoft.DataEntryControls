@@ -76,6 +76,9 @@ namespace RingSoft.DataEntryControls.WPF
         /// </value>
         public bool HideControlBox { get; set; }
 
+        private TabControl _readOnlyTabControl;
+        private bool _readOnlyMode;
+
         static BaseWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseWindow), new FrameworkPropertyMetadata(typeof(BaseWindow)));
@@ -120,22 +123,30 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
-        public void SetReadOnlyMode(bool readOnlyValue)
+        public virtual void SetReadOnlyMode(bool readOnlyValue)
         {
-            var children = this.GetChildControls<Control>(false);
-            foreach (var child in children)
+            _readOnlyMode = readOnlyValue;
+            if (_readOnlyTabControl == null)
             {
-                SetControlReadOnlyMode(child, readOnlyValue);
+                _readOnlyTabControl = this.GetVisualChild<TabControl>();
+                if (_readOnlyTabControl != null)
+                    _readOnlyTabControl.SelectionChanged += (sender, args) => OnTabSelectionChanged();
             }
+            this.SetAllChildControlsReadOnlyMode(readOnlyValue);
         }
 
-        protected virtual void SetControlReadOnlyMode(Control control, bool readOnlyValue)
+        public virtual void SetControlReadOnlyMode(Control control, bool readOnlyValue)
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
             if (control is IReadOnlyControl readOnlyControl)
                 readOnlyControl.SetReadOnlyMode(readOnlyValue);
-            else
+            else if (!(control is TabControl) && !(control is TabItem) && !(control is Label))
                 control.IsEnabled = !readOnlyValue;
+        }
+
+        private void OnTabSelectionChanged()
+        {
+            (_readOnlyTabControl.SelectedContent as DependencyObject)?.SetAllChildControlsReadOnlyMode(_readOnlyMode);
         }
     }
 }

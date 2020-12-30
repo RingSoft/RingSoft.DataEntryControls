@@ -153,6 +153,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             var result = context.Products.Include(i => i.Supplier)
                 .Include(i => i.Category)
                 .Include(i => i.NonInventoryCode)
+                .Include(i => i.PurchaseDetails)
                 .FirstOrDefault(f => f.ProductId == productId);
             return result;
         }

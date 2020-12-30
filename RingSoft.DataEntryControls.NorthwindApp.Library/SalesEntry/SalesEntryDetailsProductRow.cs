@@ -30,6 +30,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.Item:
+                    _productAutoFillSetup.AddViewParameter =
+                        SalesEntryDetailsManager.SalesEntryViewModel.ViewModelInput;
+
                     return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
                 case SalesEntryGridColumns.Discount:
                     return new DataEntryGridDecimalCellProps(this, columnId, _discountSetup, Discount);

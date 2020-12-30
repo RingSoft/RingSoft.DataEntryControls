@@ -108,6 +108,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 var row = Rows.OfType<SalesEntryDetailsRow>()
                     .FirstOrDefault(f => f.DbOrderDetailId == SalesEntryViewModel.InitDetailId);
 
+                SalesEntryViewModel.InitDetailId = -1;
                 SalesEntryViewModel.SalesEntryView.SetInitGridFocus(row, ItemColumnId);
             }
         }

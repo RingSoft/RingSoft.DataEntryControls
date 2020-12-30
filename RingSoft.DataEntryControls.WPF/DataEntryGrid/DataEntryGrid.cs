@@ -135,6 +135,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _designerFillingGrid;
         private bool _buttonClick;
         private InitCell _initCell;
+        private bool _readOnlyMode;
 
         static DataEntryGrid()
         {
@@ -202,9 +203,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         if (!_gridHasFocus)
                         {
                             //Shift+Tab from outside the grid.  Set active cell to next editable cell from cell on Last Row, Last Column.
-                            _gridHasFocus = true; //Set to avoid double tab.
-                            TabLeft(lastRowIndex, lastColumnIndex + 1);
                             beginEdit = false;
+                            if (_readOnlyMode)
+                            {
+                                SetFocusToCell(lastRowIndex, lastColumnIndex);
+                            }
+                            else
+                            {
+                                _gridHasFocus = true; //Set to avoid double tab.
+                                TabLeft(lastRowIndex, lastColumnIndex + 1);
+                            }
                         }
                     }
                     else
@@ -212,9 +220,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         if (!_gridHasFocus)
                         {
                             //Tab from outside the grid.  Set active cell to next editable cell from cell on First Row, First Column.
-                            _gridHasFocus = true; //Set to avoid double tab.
-                            TabRight(0, -1);
                             beginEdit = false;
+                            if (_readOnlyMode)
+                            {
+                                SetFocusToCell(0, 0);
+                            }
+                            else
+                            {
+                                _gridHasFocus = true; //Set to avoid double tab.
+                                TabRight(0, -1);
+                            }
                         }
                     }
                 }
@@ -464,7 +479,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 foreach (var column in Columns)
                 {
                     column.ResetColumnHeader();
-                    var cellStyle = gridRow.GetCellStyle(column.ColumnId);
+                    var cellStyle = GetCellStyle(gridRow, column.ColumnId);
                     if (!string.IsNullOrEmpty(cellStyle.ColumnHeader))
                         column.Header = cellStyle.ColumnHeader;
                 }
@@ -646,7 +661,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 if (cellContent.Parent is DataGridCell dataGridCell)
                 {
-                    var cellStyle = gridRow.GetCellStyle(column.ColumnId);
+                    var cellStyle = GetCellStyle(gridRow, column.ColumnId);
 
                     var backgroundColor = cellStyle.BackgroundColor;
                     var foregroundColor = cellStyle.ForegroundColor;
@@ -692,7 +707,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 var dataEntryGridRow = Manager.Rows[e.Row.GetIndex()];
                 var cellProps = dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId);
-                var cellStyle = dataEntryGridRow.GetCellStyle(dataEntryGridColumn.ColumnId);
+                var cellStyle = GetCellStyle(dataEntryGridRow, dataEntryGridColumn.ColumnId);
 
                 if (dataEntryGridColumn.Visibility == Visibility.Visible)
                 {
@@ -955,7 +970,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         public void ResetGridFocus()
         {
             if (IsKeyboardFocusWithin)
-                TabRight(0, -1);
+            {
+                if (_readOnlyMode)
+                    SetFocusToCell(0,0);
+                else 
+                    TabRight(0, -1);
+            }
         }
 
         public void GotoCell(DataEntryGridRow row, int columnId)
@@ -1148,17 +1168,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 startColumnIndex = 0;
             }
 
-            if (startRowIndex > lastRowIndex)
+            if (startRowIndex > lastRowIndex || _readOnlyMode)
             {
                 //Tab Out
                 SetFocusToCell(lastRowIndex, lastColumnIndex, false);
                 SendKey(Key.Tab);
+                if (_readOnlyMode)
+                    SetFocusToCell(0,0);
                 return;
             }
 
             var gridRow = Manager.Rows[startRowIndex];
             var gridColumn = Columns[startColumnIndex];
-            var cellStyle = gridRow.GetCellStyle(gridColumn.ColumnId);
+            var cellStyle = GetCellStyle(gridRow, gridColumn.ColumnId);
 
             if (cellStyle.CellStyle == DataEntryGridCellStyles.Enabled && gridColumn.Visibility == Visibility.Visible)
                 SetFocusToCell(startRowIndex, startColumnIndex);
@@ -1191,7 +1213,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             var gridRow = Manager.Rows[startRowIndex];
             var gridColumn = Columns[startColumnIndex];
-            var cellStyle = gridRow.GetCellStyle(gridColumn.ColumnId);
+            var cellStyle = GetCellStyle(gridRow, gridColumn.ColumnId);
 
             if (cellStyle.CellStyle == DataEntryGridCellStyles.Enabled && gridColumn.Visibility == Visibility.Visible)
                 SetFocusToCell(startRowIndex, startColumnIndex);
@@ -1402,9 +1424,23 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        private DataEntryGridCellStyle GetCellStyle(DataEntryGridRow row, int columnId)
+        {
+            var cellStyle = row.GetCellStyle(columnId);
+            if (_readOnlyMode && cellStyle.CellStyle == DataEntryGridCellStyles.Enabled)
+                cellStyle.CellStyle = DataEntryGridCellStyles.ReadOnly;
+
+            return cellStyle;
+        }
+
         public void SetReadOnlyMode(bool readOnlyValue)
         {
-            
+            _readOnlyMode = readOnlyValue;
+            RefreshGridView();
+            if (_gridHasFocus)
+                Refocus();
+            else
+                SetFocusToCell(0, 0);
         }
     }
 }

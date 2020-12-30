@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
+
 // ReSharper disable InconsistentNaming
 
 namespace RingSoft.DataEntryControls.WPF
@@ -79,28 +81,6 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
-        public static IEnumerable<T> GetChildControls<T>(this DependencyObject depObj, bool getDescendants = true) where T : Control
-        {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    var child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child is T dependencyObject)
-                    {
-                        yield return dependencyObject;
-                    }
-
-                    if (getDescendants || child is Panel)
-                    {
-                        foreach (var childOfChild in GetChildControls<T>(child))
-                        {
-                            yield return childOfChild;
-                        }
-                    }
-                }
-            }
-        }
         public static T GetLogicalChild<T>(this DependencyObject obj)
             where T : DependencyObject
 
@@ -108,7 +88,7 @@ namespace RingSoft.DataEntryControls.WPF
             var children = LogicalTreeHelper.GetChildren(obj);
             foreach (var child in children)
             {
-                
+
                 if (child is T)
                     return (T)child;
                 else if (child is DependencyObject dependencyChild)
@@ -120,6 +100,64 @@ namespace RingSoft.DataEntryControls.WPF
             }
             return null;
         }
+
+        public static List<Control> GetChildControls(this DependencyObject parent, bool applyTemplates = false)
+        {
+            return parent.GetChildrenOfType<Control>();
+        }
+
+        public static List<T> GetChildrenOfType<T>(this DependencyObject parent, bool applyTemplates = false)
+            where T : DependencyObject
+        {
+            var results = new List<T>();
+
+            var descendants = new Queue<DependencyObject>();
+            descendants.Enqueue(parent);
+
+            while (descendants.Count > 0)
+            {
+                var currentDescendant = descendants.Dequeue();
+
+                if (applyTemplates)
+                    (currentDescendant as FrameworkElement)?.ApplyTemplate();
+
+                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(currentDescendant); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(currentDescendant, i);
+
+                    if (child is T foundObject)
+                    {
+                        results.Add(foundObject);
+                    }
+                    else
+                    {
+                        if (child is Visual || child is Visual3D)
+                            descendants.Enqueue(child);
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public static void SetAllChildControlsReadOnlyMode(this DependencyObject parent, bool readOnlyValue)
+        {
+            if (!(parent is BaseWindow baseWindow))
+                baseWindow = parent.GetParentOfType<BaseWindow>();
+
+            var children = parent.GetChildControls();
+            foreach (var child in children)
+            {
+                baseWindow?.SetControlReadOnlyMode(child, readOnlyValue);
+            }
+
+            var dataEntryGrids = parent.GetChildrenOfType<DataEntryGrid.DataEntryGrid>();
+            foreach (var grid in dataEntryGrids)
+            {
+                grid.SetReadOnlyMode(readOnlyValue);
+            }
+        }
+
 
         [DllImport("user32.dll")]
         public static extern int ToUnicode(
