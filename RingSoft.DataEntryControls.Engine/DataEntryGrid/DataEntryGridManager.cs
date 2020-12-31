@@ -66,7 +66,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         protected void PreLoadGridFromEntity()
         {
-            Grid?.TakeCellSnapshot();
+            Grid?.TakeCellSnapshot(false);
             ClearRows(false);
         }
 

@@ -121,6 +121,34 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             dataEntryGrid.SetReadOnlyMode(dataEntryGrid.ReadOnlyMode);
         }
 
+
+        public static readonly DependencyProperty SetTabFocusToSelectedCellProperty =
+            DependencyProperty.Register(nameof(SetTabFocusToSelectedCell), typeof(bool), typeof(DataEntryGrid));
+
+        public bool SetTabFocusToSelectedCell
+        {
+            get { return (bool)GetValue(SetTabFocusToSelectedCellProperty); }
+            set { SetValue(SetTabFocusToSelectedCellProperty, value); }
+        }
+
+        public static readonly DependencyProperty StoreCurrentCellOnLoadGridProperty =
+            DependencyProperty.Register(nameof(StoreCurrentCellOnLoadGrid), typeof(bool), typeof(DataEntryGrid));
+
+        public bool StoreCurrentCellOnLoadGrid
+        {
+            get { return (bool)GetValue(StoreCurrentCellOnLoadGridProperty); }
+            set { SetValue(StoreCurrentCellOnLoadGridProperty, value); }
+        }
+
+        public static readonly DependencyProperty StoreCurrentCellOnLostFocusProperty =
+            DependencyProperty.Register(nameof(StoreCurrentCellOnLostFocus), typeof(bool), typeof(DataEntryGrid));
+
+        public bool StoreCurrentCellOnLostFocus
+        {
+            get { return (bool)GetValue(StoreCurrentCellOnLostFocusProperty); }
+            set { SetValue(StoreCurrentCellOnLostFocusProperty, value); }
+        }
+
         public new ObservableCollection<DataEntryGridColumn> Columns { get; set; } = new ObservableCollection<DataEntryGridColumn>();
 
         public new bool CanUserAddRows { get; set; } = true;
@@ -200,7 +228,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 EditingControlHost = null; //This is done when DbMaintenance window resets focus on New Record operation.
             }
 
-            SelectedCells.Clear();
+            if (!StoreCurrentCellOnLostFocus)
+                SelectedCells.Clear();
         }
 
         public new bool Focus()
@@ -258,7 +287,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
         {
-            if (SelectedCells.Any())
+            if (!StoreCurrentCellOnLostFocus && SelectedCells.Any())
                 SelectedCells.Clear();
 
             base.OnSelectedCellsChanged(e);
@@ -551,13 +580,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         public void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true)
         {
             bool takeSnapshot = !(doOnlyWhenGridHasFocus && !IsKeyboardFocusWithin);
+            if (takeSnapshot)
+                takeSnapshot = StoreCurrentCellOnLoadGrid;
 
             if (takeSnapshot)
             {
                 _cellSnapshot = new CellSnapshot
                 {
-                    RowIndex = GetCurrentRowIndex(),
-                    ColumnIndex = GetCurrentColumnIndex(),
+                    RowIndex = GetSelectedRowIndex(),
+                    ColumnIndex = GetSelectedColumnIndex(),
                     BottomVisibleRowIndex = GetBottomVisibleRowIndex(),
                     RightVisibleColumnIndex = GetRightVisibleColumnIndex()
                 };
@@ -567,7 +598,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private int GetBottomVisibleRowIndex()
         {
             var result = Manager.Rows.Count - 1;
-            var currentColumIndex = GetCurrentColumnIndex();
+            var currentColumIndex = GetSelectedColumnIndex();
             for (int i = Manager.Rows.Count - 1; i >= 0; i--)
             {
                 var cell = GetDataGridCell(i, currentColumIndex);
@@ -594,7 +625,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private int GetRightVisibleColumnIndex()
         {
             var result = Columns.Count - 1;
-            var currentRowIndex = GetCurrentRowIndex();
+            var currentRowIndex = GetSelectedRowIndex();
             for (int i = Columns.Count - 1; i >= 0; i--)
             {
                 var cell = GetDataGridCell(currentRowIndex, i);
@@ -620,8 +651,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private DataGridCell GetDataGridCell(int rowIndex, int columnIndex)
         {
+            if (rowIndex < 0)
+                return null;
+
             if (ItemContainerGenerator.ContainerFromItem(Items[rowIndex]) is DataGridRow dataGridRow)
             {
+                if (columnIndex < 0)
+                    return null;
+
                 var column = Columns[columnIndex];
                 var cellContent = column.GetCellContent(dataGridRow);
                 if (cellContent != null)
@@ -641,10 +678,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 if (_cellSnapshot == null)
                     ResetGridFocus();
-                else
+                else if (StoreCurrentCellOnLoadGrid)
                 {
                     SetFocusToCell(_cellSnapshot.BottomVisibleRowIndex, _cellSnapshot.RightVisibleColumnIndex, false);
-                    SetFocusToCell(_cellSnapshot.RowIndex, _cellSnapshot.ColumnIndex);
+                    SetFocusToCell(_cellSnapshot.RowIndex, _cellSnapshot.ColumnIndex, IsKeyboardFocusWithin);
                     _cellSnapshot = null;
                 }
             }
@@ -979,7 +1016,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                                 if (!CommitCellEdit(CellLostFocusTypes.LostFocus))
                                 {
                                     e.Handled = true;
-                                    SelectedCells.Clear();
+                                    if (!StoreCurrentCellOnLostFocus)
+                                        SelectedCells.Clear();
                                 }
                                 else if (!e.NewFocus.Equals(this))
                                     CancelEdit();
@@ -1243,14 +1281,34 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 TabRight(currentRowIndex, currentColumnIndex);
         }
 
-        private int GetCurrentRowIndex()
+        private int GetSelectedRowIndex()
         {
-            return Items.IndexOf(CurrentCell.Item);
+            if (SelectedCells.Any())
+                return GetCurrentRowIndex(SelectedCells[0]);
+
+            return -1;
         }
 
-        private int GetCurrentColumnIndex()
+        private int GetCurrentRowIndex() => GetCurrentRowIndex(CurrentCell);
+
+        private int GetCurrentRowIndex(DataGridCellInfo cellInfo)
         {
-            return base.Columns.IndexOf(CurrentCell.Column);
+            return Items.IndexOf(cellInfo.Item);
+        }
+
+        private int GetSelectedColumnIndex()
+        {
+            if (SelectedCells.Any())
+                return GetCurrentColumnIndex(SelectedCells[0]);
+
+            return -1;
+        }
+
+        private int GetCurrentColumnIndex() => GetCurrentColumnIndex(CurrentCell);
+
+        private int GetCurrentColumnIndex(DataGridCellInfo cellInfo)
+        {
+            return base.Columns.IndexOf(cellInfo.Column);
         }
 
         public DataEntryGridRow GetCurrentRow()
@@ -1283,7 +1341,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (startRowIndex > lastRowIndex)
             {
                 //Tab Out
-                SetFocusToCell(lastRowIndex, lastColumnIndex, false);
+                SetFocusToCell(lastRowIndex, lastColumnIndex, false, false);
                 SendKey(Key.Tab);
                 if (_readOnlyMode)
                     SetFocusToCell(0,0);
@@ -1321,7 +1379,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (startRowIndex < 0)
             {
                 //Tab Out
-                SetFocusToCell(0, 0, false);
+                SetFocusToCell(0, 0, false, false);
                 SendKey(Key.LeftShift);
                 SendKey(Key.Tab);
                 return;
@@ -1399,7 +1457,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        private void SetFocusToCell(int rowIndex, int columnIndex, bool beginEdit = true)
+        private void SetFocusToCell(int rowIndex, int columnIndex, bool beginEdit = true, bool resetSelectedCell = true)
         {
             if (Items.Count == 0)
             {
@@ -1416,7 +1474,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             columnIndex = ScrubColumnIndex(columnIndex);
 
             CurrentCell = new DataGridCellInfo(Items[rowIndex], Columns[columnIndex]);
-            SelectedCells.Clear();
+
+            if (resetSelectedCell)
+            {
+                SelectedCells.Clear();
+
+                if (StoreCurrentCellOnLostFocus)
+                    SelectedCells.Add(CurrentCell);
+            }
+
             ScrollIntoView(CurrentCell.Item, CurrentCell.Column);
 
             if (beginEdit)
