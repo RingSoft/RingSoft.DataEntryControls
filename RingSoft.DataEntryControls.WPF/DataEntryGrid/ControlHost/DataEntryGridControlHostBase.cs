@@ -21,6 +21,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public abstract bool IsDropDownOpen { get; }
 
+        public virtual bool SetSelection { get; } = false;
+
         public event EventHandler ControlDirty;
 
         public event EventHandler<DataEntryGridCellProps> UpdateSource;

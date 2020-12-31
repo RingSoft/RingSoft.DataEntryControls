@@ -8,6 +8,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
     public class DataEntryGridCheckBoxHost : DataEntryGridControlHost<CheckBox>
     {
         public override bool IsDropDownOpen => false;
+        public override bool SetSelection => true;
+
         private bool _value;
 
         public DataEntryGridCheckBoxHost(DataEntryGrid grid) : base(grid)

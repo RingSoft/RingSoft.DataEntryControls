@@ -228,7 +228,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 EditingControlHost = null; //This is done when DbMaintenance window resets focus on New Record operation.
             }
 
-            if (!StoreCurrentCellOnLostFocus)
+            var clearSelectedCells = !StoreCurrentCellOnLostFocus;
+            if (clearSelectedCells && EditingControlHost != null && EditingControlHost.SetSelection)
+                clearSelectedCells = false;
+
+            if (clearSelectedCells)
                 SelectedCells.Clear();
         }
 
@@ -256,7 +260,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             //Shift+Tab from outside the grid.  Set active cell to next editable cell from cell on Last Row, Last Column.
                             beginEdit = false;
                             _gridHasFocus = true; //Set to avoid double tab.
-                            TabLeft(lastRowIndex, lastColumnIndex + 1);
+                            if (!SetFocusToSelectedCell())
+                                TabLeft(lastRowIndex, lastColumnIndex + 1);
                         }
                     }
                     else
@@ -266,7 +271,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             //Tab from outside the grid.  Set active cell to next editable cell from cell on First Row, First Column.
                             beginEdit = false;
                             _gridHasFocus = true; //Set to avoid double tab.
-                            TabRight(0, -1);
+                            if (!SetFocusToSelectedCell())
+                                TabRight(0, -1);
                         }
                     }
                 }
@@ -280,18 +286,27 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             _gridHasFocus = true;
         }
 
+        private bool SetFocusToSelectedCell()
+        {
+            if (!SetTabFocusToSelectedCell || !SelectedCells.Any())
+                return false;
+
+            SetFocusToCell(GetSelectedRowIndex(), GetSelectedColumnIndex());
+            return true;
+        }
+
         public void Refocus()
         { 
             BeginEdit();
         }
 
-        protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
-        {
-            if (!StoreCurrentCellOnLostFocus && SelectedCells.Any())
-                SelectedCells.Clear();
+        //protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
+        //{
+        //    if (!StoreCurrentCellOnLostFocus && SelectedCells.Any())
+        //        SelectedCells.Clear();
 
-            base.OnSelectedCellsChanged(e);
-        }
+        //    base.OnSelectedCellsChanged(e);
+        //}
 
         private void OnLoad()
         {
@@ -877,9 +892,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     e.Cancel = true;
                 }
 
-                if (!e.Cancel)
+                if (e.Cancel)
+                {
+                    if (!SelectedCells.Any())
+                        SelectedCells.Add(CurrentCell);
+                }
+                else
                 {
                     EditingControlHost = WPFControlsGlobals.DataEntryGridHostFactory.GetControlHost(this, cellProps.EditingControlId);
+                    if (EditingControlHost.SetSelection && !SelectedCells.Any())
+                        SelectedCells.Add(CurrentCell);
 
                     dataEntryGridColumn.CellEditingTemplate =
                         EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle);
@@ -947,57 +969,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             EditingControlHost = null;
             base.OnCellEditEnding(e);
         }
-        //protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
-        //{
-        //    if (_undoEdit)
-        //    {
-        //        EditingControlHost = null;
-        //        base.OnCellEditEnding(e);
-        //        SelectedCells.Clear();
-        //        return;
-        //    }
-        //    if (e.Column is DataEntryGridColumn && EditingControlHost != null &&
-        //        EditingControlHost.Control != null)
-        //    {
-        //        var rowIndex = e.Row.GetIndex();
-        //        var dataEntryGridRow = Manager.Rows[rowIndex];
-        //        var cellValue = EditingControlHost.GetCellValue();
-
-        //        if (!EditingControlHost.HasDataChanged())
-        //        {
-        //            if (!dataEntryGridRow.AllowEndEdit(cellValue))
-        //            {
-        //                e.Cancel = true;
-        //                base.OnCellEditEnding(e);
-        //                return;
-        //            }
-
-        //            if (_tabbingRight && cellValue.NextTabFocusRow != null && cellValue.NextTabFocusColumnId >= 0)
-        //                SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
-
-        //            EditingControlHost = null;
-        //            base.OnCellEditEnding(e);
-        //            if (!IsKeyboardFocusWithin)
-        //                SelectedCells.Clear();
-        //            return;
-        //        }
-
-        //        dataEntryGridRow.SetCellValue(cellValue);
-
-        //        if (!cellValue.ValidationResult)
-        //        {
-        //            e.Cancel = true;
-        //            base.OnCellEditEnding(e);
-        //            return;
-        //        }
-
-        //        if (_tabbingRight && cellValue.NextTabFocusRow != null && cellValue.NextTabFocusColumnId >=  0)
-        //            SetNextTabFocusToCell(cellValue.NextTabFocusRow, cellValue.NextTabFocusColumnId);
-
-        //        EditingControlHost = null;
-        //    }
-        //    base.OnCellEditEnding(e);
-        //}
 
         protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
@@ -1486,7 +1457,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             ScrollIntoView(CurrentCell.Item, CurrentCell.Column);
 
             if (beginEdit)
+            {
                 BeginEdit();
+                if (EditingControlHost != null && EditingControlHost.SetSelection && !SelectedCells.Any())
+                    SelectedCells.Add(CurrentCell);
+            }
         }
 
         private int ScrubRowIndex(int rowIndex)
