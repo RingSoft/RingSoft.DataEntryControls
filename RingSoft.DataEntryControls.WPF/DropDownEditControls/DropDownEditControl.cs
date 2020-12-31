@@ -124,8 +124,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyPropertyChangedEventArgs args)
         {
             var dropDownEditControl = (DropDownEditControl)obj;
-            if (dropDownEditControl.TextBox != null)
-                dropDownEditControl.TextBox.SelectionBrush = dropDownEditControl.SelectionBrush;
+            dropDownEditControl.SetControlStyleProperties();
         }
 
         private TextBox _textBox;
@@ -285,6 +284,16 @@ namespace RingSoft.DataEntryControls.WPF
             }
 
             SetDesignText();
+            SetControlStyleProperties();
+        }
+
+        private void SetControlStyleProperties()
+        {
+            if (TextBox != null)
+            {
+                if (SelectionBrush != null)
+                    TextBox.SelectionBrush = SelectionBrush;
+            }
         }
 
         protected override void OnGotFocus(RoutedEventArgs e)

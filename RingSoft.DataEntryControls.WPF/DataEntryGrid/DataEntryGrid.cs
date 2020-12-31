@@ -762,6 +762,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 {
                     if (cellProps is DataEntryGridCheckBoxCellProps checkBoxCellProps)
                         dataRow[dataTableColumn] = checkBoxCellProps.Value;
+                    else
+                        dataRow[dataTableColumn] = false;
                 }
                 else if (column is DataEntryGridButtonColumn)
                 {
@@ -1449,9 +1451,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (resetSelectedCell)
             {
                 SelectedCells.Clear();
-
-                if (StoreCurrentCellOnLostFocus)
-                    SelectedCells.Add(CurrentCell);
+                SelectedCells.Add(CurrentCell);
             }
 
             ScrollIntoView(CurrentCell.Item, CurrentCell.Column);
@@ -1612,6 +1612,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 else
                     SetFocusToCell(0, 0);
             }
+        }
+
+        public DataEntryGridCellStyle GetCellStyle(DataGridRow dataGridRow, DataEntryGridColumn dataEntryGridColumn)
+        {
+            var dataEntryGridRow = Manager.Rows[dataGridRow.GetIndex()];
+            return GetCellStyle(dataEntryGridRow, dataEntryGridColumn.ColumnId);
         }
     }
 }

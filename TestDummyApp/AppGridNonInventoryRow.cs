@@ -86,8 +86,12 @@ namespace TestDummyApp
             AppGridColumns column = (AppGridColumns)columnId;
             DataEntryGridCellStyle result = null;
 
+            var setSelectionColor = true;
             switch (column)
             {
+                case AppGridColumns.Disabled:
+                    setSelectionColor = false;
+                    break;
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())
                         result = new DataEntryGridCellStyle(){CellStyle = DataEntryGridCellStyles.ReadOnly};
@@ -109,12 +113,20 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.Price:
                     if (CheckBoxValue)
-                        return new DataEntryGridCellStyle() { ForegroundColor = Color.Red };
+                        result = new DataEntryGridCellStyle {ForegroundColor = Color.Red};
                     break;
             }
 
+            if (setSelectionColor && result == null)
+                result = new DataEntryGridCellStyle();
+
             if (result != null)
+            {
+                if (!string.IsNullOrEmpty(ParentRowId))
+                    result.SelectionColor = Color.White;
+
                 return result;
+            }
 
             return base.GetCellStyle(columnId);
         }

@@ -130,7 +130,6 @@ namespace TestDummyApp
             switch (column)
             {
                 case AppGridColumns.Disabled:
-                case AppGridColumns.Button:
                     break;
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())
@@ -144,8 +143,12 @@ namespace TestDummyApp
                             CellStyle = DataEntryGridCellStyles.ReadOnly
                         };
                     break;
+                case AppGridColumns.CheckBox:
+                    return new DataEntryGridCheckBoxCellStyle{ControlVisible = false};
+                case AppGridColumns.Button:
+                    return new DataEntryGridButtonCellStyle{ControlVisible = false};
                 default:
-                    return new DataEntryGridCellStyle(){CellStyle = DataEntryGridCellStyles.ReadOnly};
+                    return new DataEntryGridCellStyle {CellStyle = DataEntryGridCellStyles.ReadOnly};
             }
             return base.GetCellStyle(columnId);
         }

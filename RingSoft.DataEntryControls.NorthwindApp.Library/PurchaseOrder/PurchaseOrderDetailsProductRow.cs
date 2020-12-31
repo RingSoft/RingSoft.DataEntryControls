@@ -1,7 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
-using RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
 

@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -45,6 +45,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
             var checkBoxCellProps = cellProps as DataEntryGridCheckBoxCellProps;
             control.IsChecked = _value = checkBoxCellProps != null && checkBoxCellProps.Value;
+            switch (cellStyle.CellStyle)
+            {
+                case DataEntryGridCellStyles.Enabled:
+                    break;
+                case DataEntryGridCellStyles.ReadOnly:
+                case DataEntryGridCellStyles.Disabled:
+                    control.IsEnabled = false;
+                    break;
+            }
 
             Control.Checked += (sender, args) =>
             {
