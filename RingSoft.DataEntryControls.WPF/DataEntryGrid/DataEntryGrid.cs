@@ -226,14 +226,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 _gridHasFocus = false;
                 EditingControlHost = null; //This is done when DbMaintenance window resets focus on New Record operation.
+
+                if (!StoreCurrentCellOnLostFocus)
+                    SelectedCells.Clear();
             }
-
-            //var clearSelectedCells = !StoreCurrentCellOnLostFocus;
-            //if (clearSelectedCells && EditingControlHost != null && EditingControlHost.SetSelection)
-            //    clearSelectedCells = false;
-
-            //if (clearSelectedCells)
-            //    SelectedCells.Clear();
         }
 
         protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
@@ -704,8 +700,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     ResetGridFocus();
                 else if (StoreCurrentCellOnLoadGrid)
                 {
-                    SetFocusToCell(_cellSnapshot.BottomVisibleRowIndex, _cellSnapshot.RightVisibleColumnIndex, false);
-                    SetFocusToCell(_cellSnapshot.RowIndex, _cellSnapshot.ColumnIndex, IsKeyboardFocusWithin);
+                    SetFocusToCell(_cellSnapshot.BottomVisibleRowIndex, _cellSnapshot.RightVisibleColumnIndex, false, false);
+                    SetFocusToCell(_cellSnapshot.RowIndex, _cellSnapshot.ColumnIndex, IsKeyboardFocusWithin, false);
                     _cellSnapshot = null;
                 }
             }

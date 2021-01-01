@@ -76,9 +76,8 @@
                 <Setter Property="AlternationCount" Value="2" />
 
                 <!--Cougar Mountain Software-->
-                <Setter Property="StoreCurrentCellOnLostFocus" Value="True"/>
-                <Setter Property="StoreCurrentCellOnLoadGrid" Value="True"/>
-                <Setter Property="SetTabFocusToSelectedCell" Value="True"/>
+                <!--<Setter Property="StoreCurrentCellOnLostFocus" Value="True"/>
+                <Setter Property="SetTabFocusToSelectedCell" Value="True"/>-->
 
             </Style>
             <Style TargetType="{x:Type DataGridRow}">
