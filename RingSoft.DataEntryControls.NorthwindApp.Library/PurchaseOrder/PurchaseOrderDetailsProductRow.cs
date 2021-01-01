@@ -45,8 +45,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 case PurchaseOrderColumns.Item:
                     if (validSupplier)
                     {
-                        _productAutoFillSetup.AddViewParameter = new ProductInput(PurchaseOrderDetailsManager
-                            .PurchaseOrderViewModel.SupplierAutoFillValue);
+                        var northwindInput = new NorthwindViewModelInput
+                        {
+                            ProductInput = new ProductInput(PurchaseOrderDetailsManager
+                                .PurchaseOrderViewModel.SupplierAutoFillValue)
+                        };
+                        _productAutoFillSetup.AddViewParameter = northwindInput;
                         return new DataEntryGridAutoFillCellProps(this, columnId, _productAutoFillSetup, ProductValue);
                     }
                     else 

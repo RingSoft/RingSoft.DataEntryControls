@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
@@ -443,6 +444,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             PurchaseComment = entity.PurchaseComment;
             UnitDecimals = entity.UnitDecimals;
             Notes = entity.Notes;
+
+            if (ReadOnlyMode)
+            {
+                ControlsGlobals.UserInterface.ShowMessageBox("This Product is being modified in another window.", "Editing not allowed", RsMessageBoxIcons.Exclamation);
+            }
         }
 
         protected override Products GetEntityData()

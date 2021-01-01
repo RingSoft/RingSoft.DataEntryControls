@@ -523,6 +523,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             RefreshTotalControls();
             _customerDirty = false;
+
+            if (ReadOnlyMode)
+            {
+                ControlsGlobals.UserInterface.ShowMessageBox("This Sale is being modified in another window.", "Editing not allowed", RsMessageBoxIcons.Exclamation);
+            }
         }
 
         public void RefreshTotalControls()
