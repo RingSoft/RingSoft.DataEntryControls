@@ -39,7 +39,7 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     [TemplatePart(Name = "TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "DateStampButton", Type = typeof(Button))]
-    public class DataEntryMemoEditor : Control
+    public class DataEntryMemoEditor : Control, IReadOnlyControl
     {
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(DataEntryMemoEditor),
@@ -103,6 +103,23 @@ namespace RingSoft.DataEntryControls.WPF
             newDataEntryMemoEditor.Culture = culture;
         }
 
+        public static readonly DependencyProperty ReadOnlyModeProperty =
+            DependencyProperty.Register(nameof(ReadOnlyMode), typeof(bool), typeof(DataEntryMemoEditor),
+                new FrameworkPropertyMetadata(ReadOnlyModeChangedCallback));
+
+        public bool ReadOnlyMode
+        {
+            get { return (bool)GetValue(ReadOnlyModeProperty); }
+            set { SetValue(ReadOnlyModeProperty, value); }
+        }
+
+        private static void ReadOnlyModeChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dataEntryGrid = (DataEntryGrid.DataEntryGrid)obj;
+            dataEntryGrid.SetReadOnlyMode(dataEntryGrid.ReadOnlyMode);
+        }
+
         public CultureInfo Culture { get; protected internal set; }
 
 
@@ -155,6 +172,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private bool _controlLoaded;
         private bool _settingText;
+        private bool _readOnlyMode;
 
         static DataEntryMemoEditor()
         {
@@ -191,6 +209,7 @@ namespace RingSoft.DataEntryControls.WPF
             DateStampButton = GetTemplateChild(nameof(DateStampButton)) as Button;
 
             SetText();
+            SetReadOnlyMode(_readOnlyMode);
             base.OnApplyTemplate();
         }
 
@@ -235,6 +254,25 @@ namespace RingSoft.DataEntryControls.WPF
                 Notifier.MemoHasText = !Text.IsNullOrEmpty();
 
             TextChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetReadOnlyMode(bool readOnlyValue)
+        {
+            if (!readOnlyValue && ReadOnlyMode)
+                readOnlyValue = ReadOnlyMode;
+
+            _readOnlyMode = readOnlyValue;
+
+            if (TextBox != null)
+            {
+                TextBox.IsReadOnly = _readOnlyMode;
+                TextBox.IsReadOnlyCaretVisible = true;
+            }
+
+            if (DateStampButton != null)
+            {
+                DateStampButton.IsEnabled = !_readOnlyMode;
+            }
         }
     }
 }

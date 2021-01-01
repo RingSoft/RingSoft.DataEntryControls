@@ -67,6 +67,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     if (Value == null)
                         return new DataEntryGridCellStyle { CellStyle = DataEntryGridCellStyles.ReadOnly };
                     break;
+                case PurchaseOrderColumns.Received:
+                    return new DataEntryGridCheckBoxCellStyle(){ControlVisible = false};
                 default:
                     return new DataEntryGridCellStyle() { CellStyle = DataEntryGridCellStyles.ReadOnly };
             }

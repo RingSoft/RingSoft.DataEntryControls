@@ -332,6 +332,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             PurchaseOrderId = purchase.PurchaseOrderId;
 
             KeyAutoFillValue = new AutoFillValue(primaryKeyValue, purchase.PoNumber);
+            //ReadOnlyMode = true;
             return purchase;
         }
 
