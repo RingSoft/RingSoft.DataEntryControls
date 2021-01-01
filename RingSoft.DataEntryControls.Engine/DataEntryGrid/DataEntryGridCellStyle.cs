@@ -2,7 +2,7 @@
 
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
-    public enum DataEntryGridCellStyles
+    public enum DataEntryGridCellStyleTypes
     {
         Enabled = 0,
         ReadOnly = 1,
@@ -11,7 +11,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
     public class DataEntryGridCellStyle
     {
-        public DataEntryGridCellStyles CellStyle { get; set; }
+        public int DisplayStyleId { get; set; }
+
+        public DataEntryGridCellStyleTypes CellStyleType { get; set; }
 
         public Color BackgroundColor { get; set; }
 

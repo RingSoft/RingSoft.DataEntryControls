@@ -125,7 +125,7 @@ namespace TestDummyApp
             switch (column)
             {
                 case AppGridColumns.Disabled:
-                    return new DataEntryGridCellStyle() { CellStyle = DataEntryGridCellStyles.Disabled };
+                    return new DataEntryGridCellStyle() { CellStyleType = DataEntryGridCellStyleTypes.Disabled };
             }
             return base.GetCellStyle(columnId);
         }

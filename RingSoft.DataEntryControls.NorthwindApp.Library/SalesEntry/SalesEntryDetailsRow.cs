@@ -52,7 +52,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.LineType:
-                    return new DataEntryGridCellStyle(){CellStyle = DataEntryGridCellStyles.Disabled};
+                    return new DataEntryGridCellStyle(){CellStyleType = DataEntryGridCellStyleTypes.Disabled};
             }
 
             return base.GetCellStyle(columnId);

@@ -41,7 +41,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     return new DataEntryGridCellStyle { ColumnHeader = "Special Order" };
                 case SalesEntryGridColumns.ExtendedPrice:
                 case SalesEntryGridColumns.Discount:
-                    return new DataEntryGridCellStyle { CellStyle = DataEntryGridCellStyles.ReadOnly };
+                    return new DataEntryGridCellStyle { CellStyleType = DataEntryGridCellStyleTypes.ReadOnly };
             }
             return base.GetCellStyle(columnId);
         }

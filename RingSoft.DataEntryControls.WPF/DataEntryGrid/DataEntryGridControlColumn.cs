@@ -50,12 +50,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     if (row != null)
                     {
                         var cellStyle = grid.GetCellStyle(row, this);
-                        switch (cellStyle.CellStyle)
+                        switch (cellStyle.CellStyleType)
                         {
-                            case DataEntryGridCellStyles.Enabled:
+                            case DataEntryGridCellStyleTypes.Enabled:
                                 break;
-                            case DataEntryGridCellStyles.ReadOnly:
-                            case DataEntryGridCellStyles.Disabled:
+                            case DataEntryGridCellStyleTypes.ReadOnly:
+                            case DataEntryGridCellStyleTypes.Disabled:
                                 control.IsEnabled = false;
                                 break;
                         }

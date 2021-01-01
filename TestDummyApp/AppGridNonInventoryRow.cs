@@ -94,7 +94,7 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())
-                        result = new DataEntryGridCellStyle(){CellStyle = DataEntryGridCellStyles.ReadOnly};
+                        result = new DataEntryGridCellStyle(){CellStyleType = DataEntryGridCellStyleTypes.ReadOnly};
                     break;
                 case AppGridColumns.StockNumber:
                     result = new DataEntryGridCellStyle(){ColumnHeader = "Non Inventory Code" };
@@ -103,12 +103,12 @@ namespace TestDummyApp
                     result = new DataEntryGridCellStyle();
                     if (ParentRowId.IsNullOrEmpty())
                     {
-                        result.CellStyle = DataEntryGridCellStyles.Disabled;
+                        result.CellStyleType = DataEntryGridCellStyleTypes.Disabled;
                         result.ForegroundColor = Color.Red;
                     }
                     else
                     {
-                        result.CellStyle = DataEntryGridCellStyles.ReadOnly;
+                        result.CellStyleType = DataEntryGridCellStyleTypes.ReadOnly;
                     }
                     break;
                 case AppGridColumns.Price:

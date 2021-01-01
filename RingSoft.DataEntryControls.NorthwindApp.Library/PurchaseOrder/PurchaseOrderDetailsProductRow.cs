@@ -84,11 +84,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     cellStyle = new DataEntryGridCellStyle { ColumnHeader = "Product" };
                     break;
                 case PurchaseOrderColumns.ExtendedPrice:
-                    return new DataEntryGridCellStyle{CellStyle = DataEntryGridCellStyles.Disabled};
+                    return new DataEntryGridCellStyle{CellStyleType = DataEntryGridCellStyleTypes.Disabled};
                 default:
                     cellStyle = new DataEntryGridCellStyle();
                     if (!ValidProduct && IsNew)
-                        cellStyle.CellStyle = DataEntryGridCellStyles.Disabled;
+                        cellStyle.CellStyleType = DataEntryGridCellStyleTypes.Disabled;
 
                     break;
             }
@@ -104,7 +104,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         private void SetupCellStyle(DataEntryGridCellStyle cellStyle)
         {
             if (!PurchaseOrderDetailsManager.PurchaseOrderViewModel.ValidSupplier())
-                cellStyle.CellStyle = DataEntryGridCellStyles.Disabled;
+                cellStyle.CellStyleType = DataEntryGridCellStyleTypes.Disabled;
         }
 
         public override void SetCellValue(DataEntryGridCellProps value)

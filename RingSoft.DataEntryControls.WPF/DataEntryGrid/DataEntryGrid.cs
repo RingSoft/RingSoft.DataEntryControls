@@ -837,12 +837,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     var backgroundColor = cellStyle.BackgroundColor;
                     var foregroundColor = cellStyle.ForegroundColor;
 
-                    switch (cellStyle.CellStyle)
+                    switch (cellStyle.CellStyleType)
                     {
-                        case DataEntryGridCellStyles.Enabled:
-                        case DataEntryGridCellStyles.ReadOnly:
+                        case DataEntryGridCellStyleTypes.Enabled:
+                        case DataEntryGridCellStyleTypes.ReadOnly:
                             break;
-                        case DataEntryGridCellStyles.Disabled:
+                        case DataEntryGridCellStyleTypes.Disabled:
                             if (backgroundColor.IsEmpty)
                                 backgroundColor = Color.DarkGray;
                             if (foregroundColor.IsEmpty)
@@ -882,12 +882,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                 if (dataEntryGridColumn.Visibility == Visibility.Visible)
                 {
-                    switch (cellStyle.CellStyle)
+                    switch (cellStyle.CellStyleType)
                     {
-                        case DataEntryGridCellStyles.Enabled:
+                        case DataEntryGridCellStyleTypes.Enabled:
                             break;
-                        case DataEntryGridCellStyles.ReadOnly:
-                        case DataEntryGridCellStyles.Disabled:
+                        case DataEntryGridCellStyleTypes.ReadOnly:
+                        case DataEntryGridCellStyleTypes.Disabled:
                             e.Cancel = true;
                             break;
                         default:
@@ -1333,9 +1333,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var gridColumn = Columns[startColumnIndex];
             var cellStyle = GetCellStyle(gridRow, gridColumn.ColumnId);
 
-            var setFocus = cellStyle.CellStyle == DataEntryGridCellStyles.Enabled;
+            var setFocus = cellStyle.CellStyleType == DataEntryGridCellStyleTypes.Enabled;
             if (_readOnlyMode)
-                setFocus = cellStyle.CellStyle == DataEntryGridCellStyles.ReadOnly;
+                setFocus = cellStyle.CellStyleType == DataEntryGridCellStyleTypes.ReadOnly;
 
             if (setFocus && gridColumn.Visibility == Visibility.Visible)
                 SetFocusToCell(startRowIndex, startColumnIndex);
@@ -1370,9 +1370,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var gridColumn = Columns[startColumnIndex];
             var cellStyle = GetCellStyle(gridRow, gridColumn.ColumnId);
 
-            var setFocus = cellStyle.CellStyle == DataEntryGridCellStyles.Enabled;
+            var setFocus = cellStyle.CellStyleType == DataEntryGridCellStyleTypes.Enabled;
             if (_readOnlyMode)
-                setFocus = cellStyle.CellStyle == DataEntryGridCellStyles.ReadOnly;
+                setFocus = cellStyle.CellStyleType == DataEntryGridCellStyleTypes.ReadOnly;
 
             if (setFocus && gridColumn.Visibility == Visibility.Visible)
                 SetFocusToCell(startRowIndex, startColumnIndex);
@@ -1596,8 +1596,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private DataEntryGridCellStyle GetCellStyle(DataEntryGridRow row, int columnId)
         {
             var cellStyle = row.GetCellStyle(columnId);
-            if (_readOnlyMode && cellStyle.CellStyle == DataEntryGridCellStyles.Enabled)
-                cellStyle.CellStyle = DataEntryGridCellStyles.ReadOnly;
+            if (_readOnlyMode && cellStyle.CellStyleType == DataEntryGridCellStyleTypes.Enabled)
+                cellStyle.CellStyleType = DataEntryGridCellStyleTypes.ReadOnly;
 
             return cellStyle;
         }

@@ -45,12 +45,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
             var checkBoxCellProps = cellProps as DataEntryGridCheckBoxCellProps;
             control.IsChecked = _value = checkBoxCellProps != null && checkBoxCellProps.Value;
-            switch (cellStyle.CellStyle)
+            switch (cellStyle.CellStyleType)
             {
-                case DataEntryGridCellStyles.Enabled:
+                case DataEntryGridCellStyleTypes.Enabled:
                     break;
-                case DataEntryGridCellStyles.ReadOnly:
-                case DataEntryGridCellStyles.Disabled:
+                case DataEntryGridCellStyleTypes.ReadOnly:
+                case DataEntryGridCellStyleTypes.Disabled:
                     control.IsEnabled = false;
                     break;
             }

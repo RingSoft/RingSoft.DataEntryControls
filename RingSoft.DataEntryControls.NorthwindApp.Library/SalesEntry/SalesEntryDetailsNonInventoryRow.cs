@@ -53,7 +53,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Quantity:
                 case SalesEntryGridColumns.ExtendedPrice:
                 case SalesEntryGridColumns.Discount:
-                    return new DataEntryGridCellStyle{CellStyle = DataEntryGridCellStyles.ReadOnly};
+                    return new DataEntryGridCellStyle{CellStyleType = DataEntryGridCellStyleTypes.ReadOnly};
             }
             return base.GetCellStyle(columnId);
         }

@@ -22,8 +22,8 @@
 
                 _controlVisible = value;
 
-                if (!_controlVisible && CellStyle == DataEntryGridCellStyles.Enabled)
-                    CellStyle = DataEntryGridCellStyles.ReadOnly;
+                if (!_controlVisible && CellStyleType == DataEntryGridCellStyleTypes.Enabled)
+                    CellStyleType = DataEntryGridCellStyleTypes.ReadOnly;
             }
         }
     }

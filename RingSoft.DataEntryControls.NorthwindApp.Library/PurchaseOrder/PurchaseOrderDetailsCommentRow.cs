@@ -61,16 +61,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             {
                 case PurchaseOrderColumns.LineType:
                     if ((Value == null && !IsNew) || !string.IsNullOrEmpty(ParentRowId))
-                        return new DataEntryGridCellStyle{CellStyle = DataEntryGridCellStyles.ReadOnly};
+                        return new DataEntryGridCellStyle{CellStyleType = DataEntryGridCellStyleTypes.ReadOnly};
                     break;
                 case PurchaseOrderColumns.Item:
                     if (Value == null)
-                        return new DataEntryGridCellStyle { CellStyle = DataEntryGridCellStyles.ReadOnly };
+                        return new DataEntryGridCellStyle { CellStyleType = DataEntryGridCellStyleTypes.ReadOnly };
                     break;
                 case PurchaseOrderColumns.Received:
                     return new DataEntryGridCheckBoxCellStyle(){ControlVisible = false};
                 default:
-                    return new DataEntryGridCellStyle() { CellStyle = DataEntryGridCellStyles.ReadOnly };
+                    return new DataEntryGridCellStyle() { CellStyleType = DataEntryGridCellStyleTypes.ReadOnly };
             }
             return base.GetCellStyle(columnId);
         }

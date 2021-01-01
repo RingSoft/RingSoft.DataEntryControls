@@ -53,7 +53,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 case PurchaseOrderColumns.Item:
                     return new DataEntryGridCellStyle{ColumnHeader = "Description"};
                 default:
-                    return new DataEntryGridCellStyle{CellStyle = DataEntryGridCellStyles.Disabled};
+                    return new DataEntryGridCellStyle{CellStyleType = DataEntryGridCellStyleTypes.Disabled};
             }
             return base.GetCellStyle(columnId);
         }
