@@ -50,7 +50,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             if (sender is TControl control)
             {
                 Control = control;
+                if (!SetSelection)
+                    Grid.SelectedCells.Clear();
+
                 control.Focus();
+
                 var contextMenu = control.ContextMenu;
                 Separator separator = null;
                 if (contextMenu == null)

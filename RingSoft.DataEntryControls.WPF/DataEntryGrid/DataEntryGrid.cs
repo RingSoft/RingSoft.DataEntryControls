@@ -228,12 +228,21 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 EditingControlHost = null; //This is done when DbMaintenance window resets focus on New Record operation.
             }
 
-            var clearSelectedCells = !StoreCurrentCellOnLostFocus;
-            if (clearSelectedCells && EditingControlHost != null && EditingControlHost.SetSelection)
-                clearSelectedCells = false;
+            //var clearSelectedCells = !StoreCurrentCellOnLostFocus;
+            //if (clearSelectedCells && EditingControlHost != null && EditingControlHost.SetSelection)
+            //    clearSelectedCells = false;
 
-            if (clearSelectedCells)
+            //if (clearSelectedCells)
+            //    SelectedCells.Clear();
+        }
+
+        protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
+        {
+            if (SelectedCells.Any() && EditingControlHost != null && EditingControlHost.Control != null) 
+                //This needs to run when user clicks on the lookup button.
                 SelectedCells.Clear();
+            
+            base.OnSelectedCellsChanged(e);
         }
 
         public new bool Focus()
@@ -1057,6 +1066,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (cancelEdit)
                 CancelEdit();
 
+            if (StoreCurrentCellOnLostFocus && !SelectedCells.Any())
+                SelectedCells.Add(CurrentCell);
+
             return true;
         }
 
@@ -1259,7 +1271,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (SelectedCells.Any())
                 return GetCurrentRowIndex(SelectedCells[0]);
 
-            return -1;
+            return GetCurrentRowIndex();
         }
 
         private int GetCurrentRowIndex() => GetCurrentRowIndex(CurrentCell);
@@ -1274,7 +1286,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (SelectedCells.Any())
                 return GetCurrentColumnIndex(SelectedCells[0]);
 
-            return -1;
+            return GetCurrentColumnIndex();
         }
 
         private int GetCurrentColumnIndex() => GetCurrentColumnIndex(CurrentCell);
