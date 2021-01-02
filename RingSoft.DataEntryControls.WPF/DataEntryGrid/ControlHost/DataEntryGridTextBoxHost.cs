@@ -1,9 +1,8 @@
-﻿using System;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -49,8 +48,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                         throw new ArgumentOutOfRangeException();
                 }
 
-                if (!cellStyle.SelectionColor.IsEmpty)
-                    Control.SelectionBrush = new SolidColorBrush(cellStyle.SelectionColor.GetMediaColor());
+                var displayStyle = Grid.GetDisplayStyle(cellStyle.DisplayStyleId);
+                if (displayStyle.SelectionBrush != null)
+                    Control.SelectionBrush = displayStyle.SelectionBrush;
             }
 
             _text = control.Text = cellProps.Text;

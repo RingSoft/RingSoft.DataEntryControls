@@ -1,7 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 {
@@ -25,8 +24,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             
             Control.ValueChanged += (sender, args) => OnControlDirty();
 
-            if (!cellStyle.SelectionColor.IsEmpty)
-                Control.SelectionBrush = new SolidColorBrush(cellStyle.SelectionColor.GetMediaColor());
+            var displayStyle = Grid.GetDisplayStyle(cellStyle.DisplayStyleId);
+            if (displayStyle.SelectionBrush != null)
+            {
+                Control.SelectionBrush = displayStyle.SelectionBrush;
+            }
         }
 
         protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)

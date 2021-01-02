@@ -118,6 +118,9 @@ namespace TestDummyApp
 
             if (result != null)
             {
+                if (result.DisplayStyleId == 0)
+                    result.DisplayStyleId = DisplayStyleId;
+
                 return result;
             }
 
