@@ -832,13 +832,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (gridRow.DisplayStyleId > 0)
             {
                 var displayStyle = DisplayStyles.FirstOrDefault(f => f.DisplayId == gridRow.DisplayStyleId);
-                if (displayStyle != null)
-                {
-                    if (displayStyle.Background != null)
-                        dataGridRow.Background = displayStyle.Background;
-                    if (displayStyle.Foreground != null)
-                        dataGridRow.Foreground = displayStyle.Foreground;
-                }
+                if (displayStyle == null)
+                    throw new Exception($"DisplayStyle not found for DisplayStyleId {gridRow.DisplayStyleId} of Row {gridRow}");
+
+                if (displayStyle.Background != null)
+                    dataGridRow.Background = displayStyle.Background;
+                if (displayStyle.Foreground != null)
+                    dataGridRow.Foreground = displayStyle.Foreground;
             }
             else
             {
