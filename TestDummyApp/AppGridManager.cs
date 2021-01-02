@@ -51,6 +51,8 @@ namespace TestDummyApp
         public const int IntegerColumnId = 7;
         public const int ButtonColumnId = 8;
 
+        public const int RedDisplayId = 200;
+
         public IAppUserInterface UserInterface { get; }
 
         public AppGridManager(IAppUserInterface userInterface)

@@ -157,7 +157,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set { SetValue(DisabledCellDisplayStyleProperty, value); }
         }
 
-        public new ObservableCollection<DataEntryGridColumn> Columns { get; set; } = new ObservableCollection<DataEntryGridColumn>();
+        public new ObservableCollection<DataEntryGridColumn> Columns { get; } = new ObservableCollection<DataEntryGridColumn>();
 
         public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } = new ObservableCollection<DataEntryGridDisplayStyle>();
 
@@ -207,8 +207,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             var disabledCellDisplayStyle = new DataEntryGridDisplayStyle
             {
-                Background = new SolidColorBrush(Colors.DarkGray),
-                Foreground = new SolidColorBrush(Colors.Black)
+                BackgroundBrush = new SolidColorBrush(Colors.DarkGray),
+                ForegroundBrush = new SolidColorBrush(Colors.Black)
             };
 
             DisabledCellDisplayStyleProperty.OverrideMetadata(typeof(DataEntryGrid),
@@ -826,27 +826,33 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void UpdateRowColors(DataGridRow dataGridRow, DataEntryGridRow gridRow)
         {
-            dataGridRow.ClearValue(BackgroundProperty);
-            dataGridRow.ClearValue(ForegroundProperty);
+            //dataGridRow.ClearValue(BackgroundProperty);
+            //dataGridRow.ClearValue(ForegroundProperty);
 
             if (gridRow.DisplayStyleId > 0)
             {
-                var displayStyle = DisplayStyles.FirstOrDefault(f => f.DisplayId == gridRow.DisplayStyleId);
-                if (displayStyle == null)
-                    throw new Exception($"DisplayStyle not found for DisplayStyleId {gridRow.DisplayStyleId} of Row {gridRow}");
+                var displayStyle = GetDisplayStyle(gridRow.DisplayStyleId, gridRow);
 
-                if (displayStyle.Background != null)
-                    dataGridRow.Background = displayStyle.Background;
-                if (displayStyle.Foreground != null)
-                    dataGridRow.Foreground = displayStyle.Foreground;
+                if (displayStyle.BackgroundBrush != null)
+                    dataGridRow.Background = displayStyle.BackgroundBrush;
+                if (displayStyle.ForegroundBrush != null)
+                    dataGridRow.Foreground = displayStyle.ForegroundBrush;
             }
-            else
-            {
-                if (!gridRow.BackgroundColor.IsEmpty)
-                    dataGridRow.Background = new SolidColorBrush(gridRow.BackgroundColor.GetMediaColor());
-                if (!gridRow.ForegroundColor.IsEmpty)
-                    dataGridRow.Foreground = new SolidColorBrush(gridRow.ForegroundColor.GetMediaColor());
-            }
+        }
+
+        public DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId)
+        {
+            var dataEntryGridRow = Manager.Rows[GetCurrentRowIndex()];
+            return GetDisplayStyle(displayStyleId, dataEntryGridRow);
+        }
+
+        private DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId, DataEntryGridRow dataEntryGridRow)
+        {
+            var displayStyle = DisplayStyles.FirstOrDefault(f => f.DisplayId == displayStyleId);
+            if (displayStyle == null)
+                throw new Exception($"DisplayStyle not found for DisplayStyleId {displayStyleId} of Row {dataEntryGridRow}");
+
+            return displayStyle;
         }
 
         private void UpdateCellColors(DataEntryGridRow gridRow, DataEntryGridColumn column)
@@ -868,10 +874,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     var cellStyle = GetCellStyle(gridRow, column.ColumnId);
 
                     DataEntryGridDisplayStyle displayStyle = null;
-
-                    var backgroundColor = cellStyle.BackgroundColor;
-                    var foregroundColor = cellStyle.ForegroundColor;
-
+                    
                     switch (cellStyle.CellStyleType)
                     {
                         case DataEntryGridCellStyleTypes.Enabled:
@@ -884,37 +887,34 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             throw new ArgumentOutOfRangeException();
                     }
 
+                    if (displayStyle == null)
+                        displayStyle = new DataEntryGridDisplayStyle();
+
+                    if (cellStyle.DisplayStyleId > 0)
+                    {
+                        var cellDisplayStyle = GetDisplayStyle(cellStyle.DisplayStyleId, gridRow);
+
+                        if (cellDisplayStyle.BackgroundBrush != null)
+                            displayStyle.BackgroundBrush = cellDisplayStyle.BackgroundBrush;
+
+                        if (cellDisplayStyle.ForegroundBrush != null)
+                            displayStyle.ForegroundBrush = cellDisplayStyle.ForegroundBrush;
+                    }
+
                     dataGridCell.ClearValue(BackgroundProperty);
                     dataGridCell.ClearValue(ForegroundProperty);
                     dataGridCell.ClearValue(BorderBrushProperty);
 
-                    if (displayStyle == null)
+                    if (displayStyle.BackgroundBrush != null)
                     {
-                        if (!backgroundColor.IsEmpty)
-                        {
-                            dataGridCell.Background = new SolidColorBrush(backgroundColor.GetMediaColor());
-                            if (GridLinesVisibility == DataGridGridLinesVisibility.None)
-                                dataGridCell.BorderBrush = new SolidColorBrush(backgroundColor.GetMediaColor());
-                        }
-
-                        if (!foregroundColor.IsEmpty)
-                        {
-                            dataGridCell.Foreground = new SolidColorBrush(foregroundColor.GetMediaColor());
-                        }
+                        dataGridCell.Background = displayStyle.BackgroundBrush;
+                        if (GridLinesVisibility == DataGridGridLinesVisibility.None)
+                            dataGridCell.BorderBrush = dataGridCell.Background;
                     }
-                    else
-                    {
-                        if (displayStyle.Background != null)
-                        {
-                            dataGridCell.Background = displayStyle.Background;
-                            if (GridLinesVisibility == DataGridGridLinesVisibility.None)
-                                dataGridCell.BorderBrush = dataGridCell.Background;
-                        }
 
-                        if (displayStyle.Foreground != null)
-                        {
-                            dataGridCell.Foreground = displayStyle.Foreground;
-                        }
+                    if (displayStyle.ForegroundBrush != null)
+                    {
+                        dataGridCell.Foreground = displayStyle.ForegroundBrush;
                     }
                 }
             }

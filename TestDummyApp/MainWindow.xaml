@@ -34,6 +34,8 @@
             </deg:DataEntryGrid.Columns>
             <deg:DataEntryGrid.DisplayStyles>
                 <StaticResource ResourceKey="CommentCellStyle"/>
+                <StaticResource ResourceKey="NonInventoryCellStyle"/>
+                <deg:DataEntryGridDisplayStyle DisplayId="{x:Static local:AppGridManager.RedDisplayId}" ForegroundBrush="Red"/>
             </deg:DataEntryGrid.DisplayStyles>
         </deg:DataEntryGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">

@@ -15,10 +15,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public DataEntryGridCellStyleTypes CellStyleType { get; set; }
 
-        public Color BackgroundColor { get; set; }
-
-        public Color ForegroundColor { get; set; }
-
         public Color SelectionColor { get; set; }
 
         public string ColumnHeader { get; set; }

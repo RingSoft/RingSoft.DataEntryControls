@@ -1,7 +1,6 @@
-﻿using System;
-using System.Drawing;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System;
 
 
 namespace TestDummyApp
@@ -142,7 +141,7 @@ namespace TestDummyApp
             {
                 case AppGridColumns.Price:
                     if (CheckBoxValue)
-                        return new DataEntryGridCellStyle(){ForegroundColor = Color.Red};
+                        return new DataEntryGridCellStyle {DisplayStyleId = AppGridManager.RedDisplayId};
                     break;
             }
             return base.GetCellStyle(columnId);

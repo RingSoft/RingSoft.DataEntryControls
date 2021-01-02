@@ -1,7 +1,6 @@
-﻿using System;
-using System.Drawing;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System;
 
 
 namespace TestDummyApp
@@ -78,10 +77,7 @@ namespace TestDummyApp
         public override DataEntryGridCellStyle GetCellStyle(int columnId)
         {
             if (!string.IsNullOrEmpty(ParentRowId))
-            {
-                BackgroundColor = Color.Blue;
-                ForegroundColor = Color.White;
-            }
+                DisplayStyleId = Globals.NonInventoryDisplayStyleId;
 
             AppGridColumns column = (AppGridColumns)columnId;
             DataEntryGridCellStyle result = null;
@@ -104,7 +100,7 @@ namespace TestDummyApp
                     if (ParentRowId.IsNullOrEmpty())
                     {
                         result.CellStyleType = DataEntryGridCellStyleTypes.Disabled;
-                        result.ForegroundColor = Color.Red;
+                        result.DisplayStyleId = AppGridManager.RedDisplayId;
                     }
                     else
                     {
@@ -113,7 +109,7 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.Price:
                     if (CheckBoxValue)
-                        result = new DataEntryGridCellStyle {ForegroundColor = Color.Red};
+                        result = new DataEntryGridCellStyle {DisplayStyleId = AppGridManager.RedDisplayId};
                     break;
             }
 
@@ -122,9 +118,6 @@ namespace TestDummyApp
 
             if (result != null)
             {
-                if (!string.IsNullOrEmpty(ParentRowId))
-                    result.SelectionColor = Color.White;
-
                 return result;
             }
 

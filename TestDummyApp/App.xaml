@@ -17,7 +17,7 @@
                 <Setter Property="Precision" Value="{Binding Source={x:Static local:Globals.Precision}}" />
             </Style>-->
 
-            <deg:DataEntryGridDisplayStyle x:Key="DisabledCellStyle" Foreground="Black">
+            <!--<deg:DataEntryGridDisplayStyle x:Key="DisabledCellStyle" Foreground="Black">
                 <deg:DataEntryGridDisplayStyle.Background>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                         <GradientStop Color="LightGray" Offset="0.15"/>
@@ -35,7 +35,10 @@
                         <GradientStop Color="LightGreen" Offset="0.85"/>
                     </LinearGradientBrush>
                 </deg:DataEntryGridDisplayStyle.Background>
-            </deg:DataEntryGridDisplayStyle>
+            </deg:DataEntryGridDisplayStyle>-->
+
+            <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static local:Globals.CommentDisplayStyleId}" BackgroundBrush="Green" ForegroundBrush="White"/>
+            <deg:DataEntryGridDisplayStyle x:Key="NonInventoryCellStyle" DisplayId="{x:Static local:Globals.NonInventoryDisplayStyleId}" BackgroundBrush="Blue" ForegroundBrush="White" SelectionBrush="White"/>
 
             <Style TargetType="deg:DataEntryGrid">
                 <Setter Property="EnterToTab" Value="True" />
@@ -44,7 +47,7 @@
                 <Setter Property="VerticalGridLinesBrush" Value="LightGray"/>
                 <Setter Property="AlternationCount" Value="2" />
                 <!--<Setter Property="CellEditingControlBorderThickness" Value="1"/>-->
-                <Setter Property="DisabledCellDisplayStyle" Value="{StaticResource DisabledCellStyle}"/>
+                <!--<Setter Property="DisabledCellDisplayStyle" Value="{StaticResource DisabledCellStyle}"/>-->
             </Style>
             <Style TargetType="{x:Type DataGridRow}">
                 <Style.Triggers>

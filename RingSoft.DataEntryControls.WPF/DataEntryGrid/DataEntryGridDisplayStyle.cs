@@ -6,10 +6,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     {
         public int DisplayId { get; set; }
 
-        public Brush Background { get; set; }
+        public Brush BackgroundBrush { get; set; }
 
-        public Brush Foreground { get; set; }
+        public Brush ForegroundBrush { get; set; }
 
-        public Brush Selection { get; set; }
+        public Brush SelectionBrush { get; set; }
     }
 }

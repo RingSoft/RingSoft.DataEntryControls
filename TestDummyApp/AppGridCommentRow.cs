@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System.Collections.Generic;
 
 
 namespace TestDummyApp
@@ -18,8 +17,6 @@ namespace TestDummyApp
 
         public AppGridCommentRow(AppGridManager manager) : base(manager)
         {
-            BackgroundColor = Color.Green;
-            ForegroundColor = Color.White;
             DisplayStyleId = Globals.CommentDisplayStyleId;
         }
 

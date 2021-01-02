@@ -4,7 +4,8 @@ namespace TestDummyApp
 {
     public static class Globals
     {
-        public const int CommentDisplayStyleId = 1;
+        public const int CommentDisplayStyleId = 100;
+        public const int NonInventoryDisplayStyleId = 101;
 
         public static string CultureId { get; set; }
 
