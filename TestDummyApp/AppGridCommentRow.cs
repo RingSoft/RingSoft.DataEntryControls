@@ -20,6 +20,7 @@ namespace TestDummyApp
         {
             BackgroundColor = Color.Green;
             ForegroundColor = Color.White;
+            DisplayStyleId = Globals.CommentDisplayStyleId;
         }
 
         public override void LoadSale_DetailRow(SaleDetail saleDetail)
