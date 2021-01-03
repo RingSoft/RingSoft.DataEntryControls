@@ -48,9 +48,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                         throw new ArgumentOutOfRangeException();
                 }
 
-                var displayStyle = Grid.GetDisplayStyle(cellStyle.DisplayStyleId);
+                var displayStyle = GetCellDisplayStyle();
                 if (displayStyle.SelectionBrush != null)
+                {
                     Control.SelectionBrush = displayStyle.SelectionBrush;
+                }
             }
 
             _text = control.Text = cellProps.Text;

@@ -840,16 +840,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        public DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId)
-        {
-            if (displayStyleId == 0)
-                return new DataEntryGridDisplayStyle();
-
-            var dataEntryGridRow = Manager.Rows[GetCurrentRowIndex()];
-            return GetDisplayStyle(displayStyleId, dataEntryGridRow);
-        }
-
-        private DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId, DataEntryGridRow dataEntryGridRow)
+        internal DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId, DataEntryGridRow dataEntryGridRow)
         {
             var displayStyle = DisplayStyles.FirstOrDefault(f => f.DisplayId == displayStyleId);
             if (displayStyle == null)

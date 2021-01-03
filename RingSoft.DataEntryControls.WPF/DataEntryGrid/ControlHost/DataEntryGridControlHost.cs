@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -92,6 +93,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 dataGridCell.BorderThickness = Grid.CellEditingControlBorderThickness;
 
             Control.BorderThickness = new Thickness(0);
+        }
+
+        protected DataEntryGridDisplayStyle GetCellDisplayStyle()
+        {
+            if (_cellStyle == null)
+                throw new Exception("Control has not been initialized yet");
+
+            if (_cellStyle.DisplayStyleId == 0)
+                return new DataEntryGridDisplayStyle();
+
+            return Grid.GetDisplayStyle(_cellStyle.DisplayStyleId, Row);
         }
     }
 }
