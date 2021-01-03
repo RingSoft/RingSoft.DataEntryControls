@@ -29,6 +29,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public const int ExtendedPriceColumnId = 4;
         public const int DiscountColumnId = 5;
 
+        public const int SpecialOrderDisplayId = 200;
+
         public SalesEntryDetailsGridManager(SalesEntryViewModel viewModel) : base(viewModel)
         {
             SalesEntryViewModel = viewModel;

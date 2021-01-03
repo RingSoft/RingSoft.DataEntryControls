@@ -66,6 +66,10 @@
                                 <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.ReceivedColumnId}" Header="Received" Width="75"/>
                                 <deg:DataEntryGridColumn ColumnId="{x:Static vmlib:PurchaseOrderDetailsGridManager.DelayDaysId}" Header="Delay Days" DesignText="9,999" Width="80"/>
                             </deg:DataEntryGrid.Columns>
+                            <deg:DataEntryGrid.DisplayStyles>
+                                <StaticResource ResourceKey="CommentCellStyle"/>
+                                <deg:DataEntryGridDisplayStyle DisplayId="{x:Static vmlib:PurchaseOrderDetailsGridManager.DirectExpenseDisplayId}" BackgroundBrush="LightPink"/>
+                            </deg:DataEntryGrid.DisplayStyles>
                         </deg:DataEntryGrid>
                     </DockPanel>
                 </TabItem>

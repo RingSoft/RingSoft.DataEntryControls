@@ -16,13 +16,22 @@
 
             <Style TargetType="dec:DecimalEditControl" x:Key="GlobalDecimalEditControlStyle">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
+                <Setter Property="Background" Value="Aquamarine"/>
             </Style>
+
             <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource GlobalDecimalEditControlStyle}" />
+
+            <Style TargetType="dec:IntegerEditControl" x:Key="GlobalIntegerEditControlStyle">
+                <Setter Property="Background" Value="Aquamarine"/>
+            </Style>
+
+            <Style TargetType="dec:IntegerEditControl" BasedOn="{StaticResource GlobalIntegerEditControlStyle}"/>
 
             <Style TargetType="dec:DateEditControl" x:Key="GlobalDateEditControlStyle">
                 <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}" />
                 <Setter Property="DisplayFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateDisplayFormat}}" />
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}" />
+                <Setter Property="Background" Value="Aquamarine"/>
             </Style>
             <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}" />
 
@@ -66,6 +75,9 @@
             </Style>
 
             <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}" />
+
+            <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static lib:AppGlobals.CommentDisplayStyleId}" BackgroundBrush="Green" ForegroundBrush="White"/>
+            <deg:DataEntryGridDisplayStyle x:Key="NonInventoryCellStyle" DisplayId="{x:Static lib:AppGlobals.NonInventoryDisplayStyleId}" BackgroundBrush="Blue" ForegroundBrush="White" SelectionBrush="White"/>
 
             <Style TargetType="deg:DataEntryGrid">
                 <Setter Property="EnterToTab" Value="True" />

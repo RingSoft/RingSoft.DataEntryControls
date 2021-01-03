@@ -31,6 +31,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public const int ReceivedColumnId = 6;
         public const int DelayDaysId = 7;
 
+        public const int DirectExpenseDisplayId = 200;
+
         public PurchaseOrderViewModel PurchaseOrderViewModel { get; }
         public PurchaseOrderDetailsGridManager(PurchaseOrderViewModel viewModel) : base(viewModel)
         {

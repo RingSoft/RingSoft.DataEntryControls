@@ -1,7 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
-using System.Drawing;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 {
@@ -17,8 +16,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public PurchaseOrderDetailsDirectExpenseRow(PurchaseOrderDetailsGridManager manager) : base(manager)
         {
-            BackgroundColor = Color.LightPink;
-            ForegroundColor = Color.Black;
+            DisplayStyleId = PurchaseOrderDetailsGridManager.DirectExpenseDisplayId;
             _priceSetup.FormatType = DecimalEditFormatTypes.Currency;
         }
 

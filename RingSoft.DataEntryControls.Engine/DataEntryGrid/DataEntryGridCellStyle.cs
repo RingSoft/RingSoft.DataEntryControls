@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
+﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public enum DataEntryGridCellStyleTypes
     {
@@ -14,8 +12,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public int DisplayStyleId { get; set; }
 
         public DataEntryGridCellStyleTypes CellStyleType { get; set; }
-
-        public Color SelectionColor { get; set; }
 
         public string ColumnHeader { get; set; }
     }

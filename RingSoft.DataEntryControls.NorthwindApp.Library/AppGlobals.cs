@@ -19,6 +19,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
     public static class AppGlobals
     {
+        public const int CommentDisplayStyleId = 100;
+        public const int NonInventoryDisplayStyleId = 101;
+
         public static string AssemblyDirectory
         {
             get

@@ -1,8 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
-using RingSoft.DbLookup.AutoFill;
-using System.Drawing;
 using RingSoft.DbLookup;
+using RingSoft.DbLookup.AutoFill;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -19,8 +18,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             _nonInventoryAutoFillSetup =
                 new AutoFillSetup(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.NonInventoryCodeId));
             Quantity = 1;
-            BackgroundColor = Color.Blue;
-            ForegroundColor = Color.White;
+
+            DisplayStyleId = AppGlobals.NonInventoryDisplayStyleId;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -46,10 +45,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     return new DataEntryGridCellStyle
                     {
                         ColumnHeader = "Non Inventory Code",
-                        SelectionColor = Color.White
+                        DisplayStyleId = AppGlobals.NonInventoryDisplayStyleId
                     };
                 case SalesEntryGridColumns.Price:
-                    return new DataEntryGridCellStyle{SelectionColor = Color.White};
+                    return new DataEntryGridCellStyle{DisplayStyleId = AppGlobals.NonInventoryDisplayStyleId};
                 case SalesEntryGridColumns.Quantity:
                 case SalesEntryGridColumns.ExtendedPrice:
                 case SalesEntryGridColumns.Discount:

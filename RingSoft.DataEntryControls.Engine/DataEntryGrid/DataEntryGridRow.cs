@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
@@ -14,10 +13,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public string ParentRowId { get; set; }
 
         public abstract DataEntryGridCellProps GetCellProps(int columnId);
-
-        public Color BackgroundColor { get; set; }
-
-        public Color ForegroundColor { get; set; }
 
         public int DisplayStyleId { get; set; }
 

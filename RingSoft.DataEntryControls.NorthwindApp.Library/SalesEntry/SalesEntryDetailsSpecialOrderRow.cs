@@ -1,6 +1,5 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
-using System.Drawing;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -12,8 +11,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public SalesEntryDetailsSpecialOrderRow(SalesEntryDetailsGridManager manager) : base(manager)
         {
-            BackgroundColor = Color.LightPink;
-            ForegroundColor = Color.Black;
+            DisplayStyleId = SalesEntryDetailsGridManager.SpecialOrderDisplayId;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)

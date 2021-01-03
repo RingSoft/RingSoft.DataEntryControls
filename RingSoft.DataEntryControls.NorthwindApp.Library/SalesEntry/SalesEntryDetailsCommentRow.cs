@@ -2,7 +2,6 @@
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -23,8 +22,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public SalesEntryDetailsCommentRow(SalesEntryDetailsGridManager manager) : base(manager)
         {
-            BackgroundColor = Color.Green;
-            ForegroundColor = Color.White;
+            DisplayStyleId = AppGlobals.CommentDisplayStyleId;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
