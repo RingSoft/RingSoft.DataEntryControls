@@ -126,7 +126,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case InvalidProductResultReturnCodes.NewSpecialOrder:
                     var soRow = new SalesEntryDetailsSpecialOrderRow(SalesEntryDetailsManager);
                     SalesEntryDetailsManager.ReplaceRow(this, soRow);
-                    soRow.SpecialOrderText = autoFillCellProps.Text;
+                    soRow.SpecialOrderText = autoFillCellProps.AutoFillValue.Text;
                     soRow.Quantity = 1;
                     Manager.Grid.UpdateRow(soRow);
                     Manager.Grid.GotoCell(soRow, (int)SalesEntryGridColumns.Price);
@@ -160,7 +160,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         private bool CheckInvalidNiCodeIsValidProduct(DataEntryGridAutoFillCellProps autoFillCellProps)
         {
-            var product = AppGlobals.DbContextProcessor.GetProduct(autoFillCellProps.Text);
+            var product = AppGlobals.DbContextProcessor.GetProduct(autoFillCellProps.AutoFillValue.Text);
             if (product != null)
             {
                 var productRow = new SalesEntryDetailsProductRow(SalesEntryDetailsManager);
@@ -178,7 +178,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         private bool CheckInvalidProductIsValidNiCode(DataEntryGridAutoFillCellProps autoFillCellProps)
         {
-            var niCode = AppGlobals.DbContextProcessor.GetNonInventoryCode(autoFillCellProps.Text);
+            var niCode = AppGlobals.DbContextProcessor.GetNonInventoryCode(autoFillCellProps.AutoFillValue.Text);
             if (niCode != null)
             {
                 var niCodeRow = new SalesEntryDetailsNonInventoryRow(SalesEntryDetailsManager);
@@ -186,7 +186,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 var niAutoFillValue =
                     new AutoFillValue(
                         AppGlobals.LookupContext.NonInventoryCodes.GetPrimaryKeyValueFromEntity(niCode),
-                        autoFillCellProps.Text);
+                        autoFillCellProps.AutoFillValue.Text);
                 niCodeRow.LoadFromNiCodeAutoFillValue(niAutoFillValue);
                 Manager.Grid.UpdateRow(niCodeRow);
                 return true;

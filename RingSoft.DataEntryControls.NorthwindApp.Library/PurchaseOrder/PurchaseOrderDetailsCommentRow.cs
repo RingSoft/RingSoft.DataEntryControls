@@ -37,7 +37,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     break;
                 case PurchaseOrderColumns.Item:
                     if (Value != null)
-                        result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment...");
+                        result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment..."){Text = Comment};
                     else
                         result = new DataEntryGridTextCellProps(this, columnId, Comment);
                     break;
