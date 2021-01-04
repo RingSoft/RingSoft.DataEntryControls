@@ -51,7 +51,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.ExtendedPrice:
-                    return new DataEntryGridCellStyle {CellStyleType = DataEntryGridCellStyleTypes.Disabled};
+                    return new DataEntryGridCellStyle {State = DataEntryGridCellStates.Disabled};
             }
             return base.GetCellStyle(columnId);
         }

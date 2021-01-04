@@ -53,7 +53,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Item:
                     break;
                 default:
-                    return new DataEntryGridCellStyle {CellStyleType = DataEntryGridCellStyleTypes.Disabled};
+                    return new DataEntryGridCellStyle {State = DataEntryGridCellStates.Disabled};
             }
             return base.GetCellStyle(columnId);
         }

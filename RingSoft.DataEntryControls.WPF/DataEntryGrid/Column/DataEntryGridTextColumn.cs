@@ -4,9 +4,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
+// ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
-    public class DataEntryGridColumn : DataGridTemplateColumn, INotifyPropertyChanged
+    public class DataEntryGridTextColumn : DataGridTemplateColumn, INotifyPropertyChanged
     {
         public new DataTemplate CellTemplate
         {

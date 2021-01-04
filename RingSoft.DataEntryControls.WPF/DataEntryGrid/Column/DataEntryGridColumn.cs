@@ -1,31 +1,11 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 
+// ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
-    public class DataEntryGridButtonColumn : DataEntryGridControlColumn<Button>
-    { protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory)
-        {
-            factory.SetBinding(ContentControl.ContentProperty, new Binding(DataColumnName));
-            factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
-            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-        }
-    }
-
-    public class DataEntryGridCheckBoxColumn : DataEntryGridControlColumn<CheckBox>
-    {
-        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory)
-        {
-            factory.SetBinding(ToggleButton.IsCheckedProperty, new Binding(DataColumnName));
-            factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
-            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-        }
-    }
-
-    public abstract class DataEntryGridControlColumn<TControl> : DataEntryGridColumn where TControl : Control
+    public abstract class DataEntryGridColumn<TControl> : DataEntryGridTextColumn where TControl : Control
     {
         protected abstract void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory);
 
@@ -50,12 +30,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     if (row != null)
                     {
                         var cellStyle = grid.GetCellStyle(row, this);
-                        switch (cellStyle.CellStyleType)
+                        switch (cellStyle.State)
                         {
-                            case DataEntryGridCellStyleTypes.Enabled:
+                            case DataEntryGridCellStates.Enabled:
                                 break;
-                            case DataEntryGridCellStyleTypes.ReadOnly:
-                            case DataEntryGridCellStyleTypes.Disabled:
+                            case DataEntryGridCellStates.ReadOnly:
+                            case DataEntryGridCellStates.Disabled:
                                 control.IsEnabled = false;
                                 break;
                         }

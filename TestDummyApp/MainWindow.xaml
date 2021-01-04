@@ -22,14 +22,14 @@
         <!--<dec:IntegerEditControl HorizontalAlignment="Left" Width="100"/>-->
         <deg:DataEntryGrid x:Name="DataEntryGrid" Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}">
             <deg:DataEntryGrid.Columns>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.StockNumberColumnId}" Header="Stock Number" Width="150"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.StockNumberColumnId}" Header="Stock Number" Width="150"/>
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>
                 <deg:DataEntryGridCheckBoxColumn ColumnId="{x:Static local:AppGridManager.CheckBoxColumnId}" Header="CheckBox Column"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.DateColumnId}" Header="Date" Width="100" DesignText="01/01/2020"/>
-                <deg:DataEntryGridColumn ColumnId="{x:Static local:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.DateColumnId}" Header="Date" Width="100" DesignText="01/01/2020"/>
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
                 <deg:DataEntryGridButtonColumn ColumnId="{x:Static local:AppGridManager.ButtonColumnId}" Header="Button" DesignText="Button" Width="50"/>
             </deg:DataEntryGrid.Columns>
             <deg:DataEntryGrid.DisplayStyles>

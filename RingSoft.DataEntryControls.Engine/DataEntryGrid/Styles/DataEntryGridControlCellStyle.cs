@@ -1,4 +1,5 @@
-﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
+﻿// ReSharper disable once CheckNamespace
+namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public class DataEntryGridCheckBoxCellStyle : DataEntryGridControlCellStyle
     {
@@ -22,8 +23,8 @@
 
                 _controlVisible = value;
 
-                if (!_controlVisible && CellStyleType == DataEntryGridCellStyleTypes.Enabled)
-                    CellStyleType = DataEntryGridCellStyleTypes.ReadOnly;
+                if (!_controlVisible && State == DataEntryGridCellStates.Enabled)
+                    State = DataEntryGridCellStates.ReadOnly;
             }
         }
     }

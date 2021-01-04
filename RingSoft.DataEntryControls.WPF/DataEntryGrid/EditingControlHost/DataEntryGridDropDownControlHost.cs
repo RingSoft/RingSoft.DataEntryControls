@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 
         protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
         {
-            if (dataGridCell.Column is DataEntryGridColumn dataEntryGridColumn)
+            if (dataGridCell.Column is DataEntryGridTextColumn dataEntryGridColumn)
                 Control.TextAlignment = dataEntryGridColumn.Alignment;
 
             base.ImportDataGridCellProperties(dataGridCell);

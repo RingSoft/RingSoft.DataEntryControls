@@ -130,14 +130,14 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())
-                        return new DataEntryGridCellStyle(){CellStyleType = DataEntryGridCellStyleTypes.ReadOnly};
+                        return new DataEntryGridCellStyle(){State = DataEntryGridCellStates.ReadOnly};
                     break;
                 case AppGridColumns.StockNumber:
                     if (Value == null)
                         return new DataEntryGridCellStyle()
                         {
                             ColumnHeader = "Comment",
-                            CellStyleType = DataEntryGridCellStyleTypes.ReadOnly
+                            State = DataEntryGridCellStates.ReadOnly
                         };
                     break;
                 case AppGridColumns.CheckBox:
@@ -145,7 +145,7 @@ namespace TestDummyApp
                 case AppGridColumns.Button:
                     return new DataEntryGridButtonCellStyle{ControlVisible = false};
                 default:
-                    return new DataEntryGridCellStyle {CellStyleType = DataEntryGridCellStyleTypes.ReadOnly};
+                    return new DataEntryGridCellStyle {State = DataEntryGridCellStates.ReadOnly};
             }
             return base.GetCellStyle(columnId);
         }

@@ -137,7 +137,7 @@ namespace TestDummyApp
                     break;
                 default:
                     if (IsNew)
-                        return new DataEntryGridCellStyle{CellStyleType = DataEntryGridCellStyleTypes.Disabled};
+                        return new DataEntryGridCellStyle{State = DataEntryGridCellStates.Disabled};
                     break;
             }
             switch (column)
