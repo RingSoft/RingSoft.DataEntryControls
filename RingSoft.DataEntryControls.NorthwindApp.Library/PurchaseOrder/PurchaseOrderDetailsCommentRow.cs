@@ -39,8 +39,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     if (Value != null)
                         result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment...");
                     else
-                        result = new DataEntryGridTextCellProps(this, columnId);
-                    result.Text = Comment;
+                        result = new DataEntryGridTextCellProps(this, columnId, Comment);
                     break;
                 default:
                     result = new DataEntryGridTextCellProps(this, columnId);
@@ -73,7 +72,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             return base.GetCellStyle(columnId);
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (PurchaseOrderColumns) value.ColumnId;
             switch (column)
@@ -92,7 +91,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             base.SetCellValue(value);
         }
 
-        public override bool AllowEndEdit(DataEntryGridCellProps cellProps)
+        public override bool AllowEndEdit(DataEntryGridEditingCellProps cellProps)
         {
             var column = (PurchaseOrderColumns)cellProps.ColumnId;
             switch (column)

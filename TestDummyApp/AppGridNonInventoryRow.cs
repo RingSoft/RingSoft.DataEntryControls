@@ -47,7 +47,7 @@ namespace TestDummyApp
             return base.GetCellProps(columnId);
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             AppGridColumns column = (AppGridColumns)value.ColumnId;
             switch (column)
@@ -59,7 +59,7 @@ namespace TestDummyApp
                 case AppGridColumns.Button:
                     break;
                 case AppGridColumns.StockNumber:
-                    NonInventoryCode = value.Text;
+                    NonInventoryCode = ((DataEntryGridTextCellProps)value).Text;
                     break;
                 case AppGridColumns.Location:
                     break;

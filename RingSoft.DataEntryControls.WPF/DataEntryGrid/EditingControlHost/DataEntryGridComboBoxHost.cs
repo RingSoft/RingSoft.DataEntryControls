@@ -1,13 +1,13 @@
-﻿using System;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using ComboBoxItem = RingSoft.DataEntryControls.Engine.ComboBoxItem;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public class DataEntryGridComboBoxHost : DataEntryGridControlHost<ComboBoxControl>
+    public class DataEntryGridComboBoxHost : DataEntryGridEditingControlHost<ComboBoxControl>
     {
         public override bool IsDropDownOpen => Control.IsDropDownOpen;
         private ComboBoxControlSetup _comboBoxSetup;
@@ -19,7 +19,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        public override DataEntryGridCellProps GetCellValue()
+        public override DataEntryGridEditingCellProps GetCellValue()
         {
             return new DataEntryGridComboBoxCellProps(Row, ColumnId,
                 _comboBoxSetup, Control.SelectedItem, _valueChangeType);
@@ -36,7 +36,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             _selectedItem = comboBoxCellProps.SelectedItem;
         }
 
-        protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             var comboBoxCellProps = GetComboBoxCellProps(cellProps);

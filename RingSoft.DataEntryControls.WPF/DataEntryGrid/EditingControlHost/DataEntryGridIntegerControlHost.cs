@@ -1,6 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     public class DataEntryGridIntegerControlHost : DataEntryGridDropDownControlHost<IntegerEditControl>
     {
@@ -9,7 +9,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        public override DataEntryGridCellProps GetCellValue()
+        public override DataEntryGridEditingCellProps GetCellValue()
         {
             return new DataEntryGridIntegerCellProps(Row, ColumnId,
                 IntegerCellProps.NumericEditSetup, Control.Value);
@@ -25,7 +25,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             IntegerCellProps = (DataEntryGridIntegerCellProps)cellProps;
         }
 
-        protected override void OnControlLoaded(IntegerEditControl control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(IntegerEditControl control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             IntegerCellProps = (DataEntryGridIntegerCellProps) cellProps;

@@ -58,7 +58,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return base.GetCellStyle(columnId);
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var isScannerRow = IsScannerRow;
             if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
@@ -79,7 +79,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             DoScannerMode(value, isScannerRow);
         }
 
-        private void DoScannerMode(DataEntryGridCellProps value, bool isScannerRow)
+        private void DoScannerMode(DataEntryGridEditingCellProps value, bool isScannerRow)
         {
             if (isScannerRow && RowReplacedBy != null && RowReplacedBy is SalesEntryDetailsProductRow &&
                 value.CellLostFocusType == CellLostFocusTypes.TabRight)

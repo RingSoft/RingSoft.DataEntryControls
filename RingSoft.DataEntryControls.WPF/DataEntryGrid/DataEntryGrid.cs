@@ -1,6 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
+using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -185,7 +185,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        public DataEntryGridControlHostBase EditingControlHost { get; private set; }
+        public DataEntryGridEditingControlHostBase EditingControlHost { get; private set; }
 
         private DataTable _dataSourceTable = new DataTable("DataSource");
         private bool _controlLoaded;
@@ -796,7 +796,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
                 else
                 {
-                    dataRow[dataTableColumn] = cellProps.Text;
+                    dataRow[dataTableColumn] = cellProps.DataValue;
                 }
 
                 UpdateCellColors(gridRow, column);
@@ -920,7 +920,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (e.Column is DataEntryGridColumn dataEntryGridColumn)
             {
                 var dataEntryGridRow = Manager.Rows[e.Row.GetIndex()];
-                var cellProps = dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId);
                 var cellStyle = GetCellStyle(dataEntryGridRow, dataEntryGridColumn.ColumnId);
 
                 if (dataEntryGridColumn.Visibility == Visibility.Visible)
@@ -942,6 +941,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     e.Cancel = true;
                 }
 
+                var cellProps = dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId) as DataEntryGridEditingCellProps;
+
+                if (cellProps == null)
+                    e.Cancel = true;
+
                 if (e.Cancel)
                 {
                     if (!SelectedCells.Any())
@@ -949,19 +953,24 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 }
                 else
                 {
-                    EditingControlHost = WPFControlsGlobals.DataEntryGridHostFactory.GetControlHost(this, cellProps.EditingControlId);
-                    if (EditingControlHost.SetSelection && !SelectedCells.Any())
-                        SelectedCells.Add(CurrentCell);
-
-                    dataEntryGridColumn.CellEditingTemplate =
-                        EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle);
-                    EditingControlHost.ControlDirty += EditingControl_ControlDirty;
-                    EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
-
-                    if (_buttonClick)
+                    if (cellProps != null)
                     {
-                        dataEntryGridRow.SetCellValue(cellProps);
-                        _buttonClick = false;
+                        EditingControlHost =
+                            WPFControlsGlobals.DataEntryGridHostFactory.GetControlHost(this,
+                                cellProps.EditingControlId);
+                        if (EditingControlHost.SetSelection && !SelectedCells.Any())
+                            SelectedCells.Add(CurrentCell);
+
+                        dataEntryGridColumn.CellEditingTemplate =
+                            EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle);
+                        EditingControlHost.ControlDirty += EditingControl_ControlDirty;
+                        EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
+
+                        if (_buttonClick)
+                        {
+                            dataEntryGridRow.SetCellValue(cellProps);
+                            _buttonClick = false;
+                        }
                     }
                 }
             }
@@ -992,7 +1001,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
-        private void EditingControlHost_UpdateSource(object sender, DataEntryGridCellProps e)
+        private void EditingControlHost_UpdateSource(object sender, DataEntryGridEditingCellProps e)
         {
             var rowIndex = Items.IndexOf(CurrentCell.Item);
 

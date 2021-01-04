@@ -8,9 +8,13 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         Lower = 2
     }
 
-    public class DataEntryGridTextCellProps : DataEntryGridCellProps
+    public class DataEntryGridTextCellProps : DataEntryGridEditingCellProps
     {
-        public override int EditingControlId => TextBoxHostId;
+        public override string DataValue => Text;
+
+        public override int EditingControlId => DataEntryGridEditingCellProps.TextBoxHostId;
+
+        public string Text { get; set; }
 
         public int MaxLength { get; set; }
 
@@ -18,6 +22,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public DataEntryGridTextCellProps(DataEntryGridRow row, int columnId) : base(row, columnId)
         {
+        }
+
+        public DataEntryGridTextCellProps(DataEntryGridRow row, int columnId, string text) : base(row, columnId)
+        {
+            Text = text;
         }
     }
 }

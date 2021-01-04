@@ -107,7 +107,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 cellStyle.CellStyleType = DataEntryGridCellStyleTypes.Disabled;
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (PurchaseOrderColumns) value.ColumnId;
 

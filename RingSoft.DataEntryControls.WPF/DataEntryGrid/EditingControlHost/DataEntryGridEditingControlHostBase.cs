@@ -6,9 +6,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public abstract class DataEntryGridControlHostBase : INotifyPropertyChanged
+    public abstract class DataEntryGridEditingControlHostBase : INotifyPropertyChanged
     {
         public DataEntryGrid Grid { get; }
 
@@ -25,9 +25,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public event EventHandler ControlDirty;
 
-        public event EventHandler<DataEntryGridCellProps> UpdateSource;
+        public event EventHandler<DataEntryGridEditingCellProps> UpdateSource;
 
-        protected internal DataEntryGridControlHostBase(DataEntryGrid grid)
+        protected internal DataEntryGridEditingControlHostBase(DataEntryGrid grid)
         {
             Grid = grid;
         }
@@ -37,15 +37,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             ControlDirty?.Invoke(this, EventArgs.Empty);
         }
 
-        protected virtual void OnUpdateSource(DataEntryGridCellProps e)
+        protected virtual void OnUpdateSource(DataEntryGridEditingCellProps e)
         {
             UpdateSource?.Invoke(this, e);
         }
 
-        public abstract DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps,
+        public abstract DataTemplate GetEditingControlDataTemplate(DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle);
 
-        public abstract DataEntryGridCellProps GetCellValue();
+        public abstract DataEntryGridEditingCellProps GetCellValue();
 
         public abstract bool HasDataChanged();
 

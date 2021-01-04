@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System;
+using System.Windows.Input;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     public class DataEntryGridDateHost : DataEntryGridDropDownControlHost<DateEditControl>
     {
@@ -14,7 +14,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        public override DataEntryGridCellProps GetCellValue()
+        public override DataEntryGridEditingCellProps GetCellValue()
         {
             return new DataEntryGridDateCellProps(Row, ColumnId, _setup, Control.Value);
         }
@@ -30,7 +30,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             _value = dateCellProps.Value;
         }
 
-        protected override void OnControlLoaded(DateEditControl control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(DateEditControl control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             var dateCellProps = (DataEntryGridDateCellProps) cellProps;

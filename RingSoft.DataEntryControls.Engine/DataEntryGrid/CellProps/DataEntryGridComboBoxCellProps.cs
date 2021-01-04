@@ -6,15 +6,15 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         EndEdit = 0,
         SelectedItemChanged = 1
     }
-    public class DataEntryGridComboBoxCellProps : DataEntryGridCellProps
+    public class DataEntryGridComboBoxCellProps : DataEntryGridEditingCellProps
     {
-        public override int EditingControlId => ComboBoxHostId;
+        public override string DataValue => SelectedItem?.TextValue;
+
+        public override int EditingControlId => DataEntryGridEditingCellProps.ComboBoxHostId;
 
         public ComboBoxControlSetup ComboBoxSetup { get; }
 
         public ComboBoxItem SelectedItem { get; set; }
-
-        public override string Text => SelectedItem.TextValue;
 
         public ComboBoxValueChangedTypes ChangeType { get; }
 

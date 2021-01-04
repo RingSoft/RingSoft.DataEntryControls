@@ -1,9 +1,9 @@
-﻿using System.Windows.Controls;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System.Windows.Controls;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public class DataEntryGridButtonHost : DataEntryGridControlHost<Button>
+    public class DataEntryGridButtonHost : DataEntryGridEditingControlHost<Button>
     {
         public override bool IsDropDownOpen => false;
 
@@ -13,7 +13,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        public override DataEntryGridCellProps GetCellValue()
+        public override DataEntryGridEditingCellProps GetCellValue()
         {
             return new DataEntryGridButtonCellProps(Row, ColumnId, Control.Content.ToString());
         }
@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             
         }
 
-        protected override void OnControlLoaded(Button control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(Button control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             if (cellProps is DataEntryGridButtonCellProps buttonCellProps)

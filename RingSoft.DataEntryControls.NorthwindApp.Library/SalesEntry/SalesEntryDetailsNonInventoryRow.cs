@@ -57,7 +57,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return base.GetCellStyle(columnId);
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (SalesEntryGridColumns) value.ColumnId;
             switch (column)

@@ -34,11 +34,11 @@ namespace TestDummyApp
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())
                     {
-                        result = new DataEntryGridTextCellProps(this, columnId);
-                        if (Value == null)
-                            result.Text = string.Empty;
-                        else 
-                            result.Text = "Comment";
+                        var text = string.Empty;
+                        if (Value != null)
+                            text = "Comment";
+
+                        result = new DataEntryGridTextCellProps(this, columnId, text);
                     }
                     break;
                 case AppGridColumns.Disabled:
@@ -51,10 +51,9 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.StockNumber:
                     if (Value != null)
-                        result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment...");
+                        result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment..."){Text = Comment};
                     else
-                        result = new DataEntryGridTextCellProps(this, columnId);
-                    result.Text = Comment;
+                        result = new DataEntryGridTextCellProps(this, columnId, Comment);
                     break;
             }
 
@@ -65,7 +64,7 @@ namespace TestDummyApp
             return base.GetCellProps(columnId); 
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (AppGridColumns)value.ColumnId;
 
@@ -85,7 +84,7 @@ namespace TestDummyApp
             base.SetCellValue(value);
         }
 
-        public override bool AllowEndEdit(DataEntryGridCellProps cellProps)
+        public override bool AllowEndEdit(DataEntryGridEditingCellProps cellProps)
         {
             var column = (AppGridColumns) cellProps.ColumnId;
             if (column == AppGridColumns.LineType && IsNew)

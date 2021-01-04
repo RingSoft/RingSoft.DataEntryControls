@@ -63,7 +63,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             return new DataEntryGridTextCellProps(this, columnId);
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (PurchaseOrderColumns) value.ColumnId;
             switch (column)

@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public class DataEntryGridCheckBoxHost : DataEntryGridControlHost<CheckBox>
+    public class DataEntryGridCheckBoxHost : DataEntryGridEditingControlHost<CheckBox>
     {
         public override bool IsDropDownOpen => false;
         public override bool SetSelection => true;
@@ -23,7 +23,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             base.SetupFrameworkElementFactory(factory);
         }
 
-        public override DataEntryGridCellProps GetCellValue()
+        public override DataEntryGridEditingCellProps GetCellValue()
         {
             bool checkBoxValue = Control.IsChecked != null && (bool) Control.IsChecked;
 
@@ -40,7 +40,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             _value = cellProps is DataEntryGridCheckBoxCellProps checkBoxCellProps && checkBoxCellProps.Value;
         }
 
-        protected override void OnControlLoaded(CheckBox control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(CheckBox control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             var checkBoxCellProps = cellProps as DataEntryGridCheckBoxCellProps;

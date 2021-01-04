@@ -57,7 +57,7 @@ namespace TestDummyApp
             return base.GetCellProps(columnId);
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             AppGridColumns column = (AppGridColumns)value.ColumnId;
             switch (column)
@@ -69,7 +69,9 @@ namespace TestDummyApp
                 case AppGridColumns.Button:
                     break;
                 case AppGridColumns.StockNumber:
-                    StockNumber = value.Text;
+                    if (value is DataEntryGridTextCellProps textCellProps)
+                        StockNumber = textCellProps.Text;
+
                     DataEntryGridRow nextTabFocusRow = null;
                     if (IsNew)
                     {
@@ -111,7 +113,8 @@ namespace TestDummyApp
                     }
                     break;
                 case AppGridColumns.Location:
-                    Location = value.Text;
+                    if (value is DataEntryGridTextCellProps locationTextCellProps)
+                        Location = locationTextCellProps.Text;
                     break;
                 case AppGridColumns.Price:
                     var decimalCellProps = (DataEntryGridDecimalCellProps) value;

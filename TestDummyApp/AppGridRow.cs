@@ -56,7 +56,7 @@ namespace TestDummyApp
             }
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var appGridColumn = (AppGridColumns) value.ColumnId;
             switch (appGridColumn)
@@ -110,7 +110,7 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.Button:
                     var cellProps = GetCellProps(AppGridManager.StockNumberColumnId);
-                    AppGridManager.UserInterface.ShowGridMemoEditor(new DataEntryGridMemoValue(20){Text = cellProps.Text});
+                    AppGridManager.UserInterface.ShowGridMemoEditor(new DataEntryGridMemoValue(20){Text = cellProps.DataValue});
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

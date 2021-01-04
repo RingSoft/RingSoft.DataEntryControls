@@ -3,9 +3,9 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public abstract class DataEntryGridControlHost<TControl> : DataEntryGridControlHostBase
+    public abstract class DataEntryGridEditingControlHost<TControl> : DataEntryGridEditingControlHostBase
     where TControl : Control
     {
         private TControl _control;
@@ -16,14 +16,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             set => base.Control = _control = value;
         }
 
-        private DataEntryGridCellProps _cellProps;
+        private DataEntryGridEditingCellProps _cellProps;
         private DataEntryGridCellStyle _cellStyle;
 
-        protected DataEntryGridControlHost(DataEntryGrid grid) : base(grid)
+        protected DataEntryGridEditingControlHost(DataEntryGrid grid) : base(grid)
         {
         }
 
-        public override DataTemplate GetEditingControlDataTemplate(DataEntryGridCellProps cellProps, DataEntryGridCellStyle cellStyle)
+        public override DataTemplate GetEditingControlDataTemplate(DataEntryGridEditingCellProps cellProps, DataEntryGridCellStyle cellStyle)
         {
             _cellProps = cellProps;
             _cellStyle = cellStyle;
@@ -44,7 +44,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        protected abstract void OnControlLoaded(TControl control, DataEntryGridCellProps cellProps, DataEntryGridCellStyle cellStyle);
+        protected abstract void OnControlLoaded(TControl control, DataEntryGridEditingCellProps cellProps, DataEntryGridCellStyle cellStyle);
 
         private void Loaded(object sender, RoutedEventArgs e)
         {

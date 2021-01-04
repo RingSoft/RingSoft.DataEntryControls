@@ -11,6 +11,21 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
     public abstract class DataEntryGridCellProps
     {
+        public int ColumnId { get; }
+
+        public DataEntryGridRow Row { get; }
+
+        public abstract string DataValue { get; }
+
+        public DataEntryGridCellProps(DataEntryGridRow row, int columnId)
+        {
+            Row = row;
+            ColumnId = columnId;
+        }
+    }
+
+    public abstract class DataEntryGridEditingCellProps : DataEntryGridCellProps
+    {
         public const int TextBoxHostId = 0;
         public const int ComboBoxHostId = 1;
         public const int CheckBoxHostId = 2;
@@ -21,20 +36,12 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public abstract int EditingControlId { get; }
 
-        public int ColumnId { get; }
-
-        public DataEntryGridRow Row { get; }
-
-        public virtual string Text { get; set; }
-
         public bool OverrideCellMovement { get; set; }
 
         public CellLostFocusTypes CellLostFocusType { get; set; }
 
-        public DataEntryGridCellProps(DataEntryGridRow row, int columnId)
+        protected DataEntryGridEditingCellProps(DataEntryGridRow row, int columnId) : base(row, columnId)
         {
-            Row = row;
-            ColumnId = columnId;
         }
     }
 }

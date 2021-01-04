@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public class DataEntryGridTextBoxHost : DataEntryGridControlHost<StringEditControl>
+    public class DataEntryGridTextBoxHost : DataEntryGridEditingControlHost<StringEditControl>
     {
         public override bool IsDropDownOpen => false;
 
@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             //factory.SetBinding(TextBox.TextProperty, binding);
         }
 
-        protected override void OnControlLoaded(StringEditControl control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(StringEditControl control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             if (cellProps is DataEntryGridTextCellProps textCellProps)
@@ -53,9 +53,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
                 {
                     Control.SelectionBrush = displayStyle.SelectionBrush;
                 }
+                _text = control.Text = textCellProps.Text;
             }
 
-            _text = control.Text = cellProps.Text;
             Control.SelectAll();
 
             Control.KeyDown += TextBox_KeyDown;
@@ -88,7 +88,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             }
         }
 
-        public override DataEntryGridCellProps GetCellValue()
+        public override DataEntryGridEditingCellProps GetCellValue()
         {
             return new DataEntryGridTextCellProps(Row, ColumnId)
             {
@@ -106,7 +106,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
 
         public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
         {
-            _text = cellProps.Text;
+            if (cellProps is DataEntryGridTextCellProps textCellProps) 
+                _text = textCellProps.Text;
         }
 
         public override bool CanGridProcessKey(Key key)

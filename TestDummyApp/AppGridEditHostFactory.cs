@@ -1,4 +1,4 @@
-﻿using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
+﻿using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 
 namespace TestDummyApp
 {

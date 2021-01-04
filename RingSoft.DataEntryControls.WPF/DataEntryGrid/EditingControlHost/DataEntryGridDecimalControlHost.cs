@@ -1,6 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     public class DataEntryGridDecimalControlHost : DataEntryGridDropDownControlHost<DecimalEditControl>
     {
@@ -9,7 +9,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        public override DataEntryGridCellProps GetCellValue()
+        public override DataEntryGridEditingCellProps GetCellValue()
         {
             return new DataEntryGridDecimalCellProps(Row, ColumnId,
                 DecimalCellProps.NumericEditSetup, Control.Value);
@@ -25,7 +25,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
             DecimalCellProps = (DataEntryGridDecimalCellProps)cellProps;
         }
 
-        protected override void OnControlLoaded(DecimalEditControl control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(DecimalEditControl control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             DecimalCellProps = (DataEntryGridDecimalCellProps) cellProps;

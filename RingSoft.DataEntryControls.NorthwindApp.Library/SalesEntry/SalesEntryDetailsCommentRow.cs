@@ -35,19 +35,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())
                     {
-                        result = new DataEntryGridTextCellProps(this, columnId);
-                        if (Value == null)
-                            result.Text = string.Empty;
-                        else
-                            result.Text = "Comment";
+                        var text = string.Empty;
+                        if (Value != null)
+                            text = "Comment";
+                        result = new DataEntryGridTextCellProps(this, columnId, text);
                     }
                     break;
                 case SalesEntryGridColumns.Item:
                     if (Value != null)
                         result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment...");
                     else
-                        result = new DataEntryGridTextCellProps(this, columnId);
-                    result.Text = Comment;
+                        result = new DataEntryGridTextCellProps(this, columnId, Comment);
                     break;
                 default:
                     result = new DataEntryGridTextCellProps(this, columnId);
@@ -80,7 +78,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             return base.GetCellStyle(columnId);
         }
 
-        public override void SetCellValue(DataEntryGridCellProps value)
+        public override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (SalesEntryGridColumns)value.ColumnId;
 

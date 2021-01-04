@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
+namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public abstract class DataEntryGridDropDownControlHost<TDropDownControl> : DataEntryGridControlHost<TDropDownControl>
+    public abstract class DataEntryGridDropDownControlHost<TDropDownControl> : DataEntryGridEditingControlHost<TDropDownControl>
         where TDropDownControl : DropDownEditControl
     {
         public override bool IsDropDownOpen => Control.IsPopupOpen();
@@ -13,7 +13,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost
         {
         }
 
-        protected override void OnControlLoaded(TDropDownControl control, DataEntryGridCellProps cellProps,
+        protected override void OnControlLoaded(TDropDownControl control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             if (Control.TextBox != null)

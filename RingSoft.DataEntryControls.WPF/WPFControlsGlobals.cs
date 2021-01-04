@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.WPF.DataEntryGrid.ControlHost;
+using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 
 namespace RingSoft.DataEntryControls.WPF
 {

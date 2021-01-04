@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             RowId = Guid.NewGuid().ToString();
         }
 
-        public virtual void SetCellValue(DataEntryGridCellProps value)
+        public virtual void SetCellValue(DataEntryGridEditingCellProps value)
         {
             IsNew = false;
             var rowIndex = Manager.Rows.IndexOf(this);
@@ -110,7 +110,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         }
 
-        public virtual bool AllowEndEdit(DataEntryGridCellProps cellProps)
+        public virtual bool AllowEndEdit(DataEntryGridEditingCellProps cellProps)
         {
             return true;
         }
