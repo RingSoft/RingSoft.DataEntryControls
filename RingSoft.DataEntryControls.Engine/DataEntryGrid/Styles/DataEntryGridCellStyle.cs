@@ -1,4 +1,11 @@
 ﻿// ReSharper disable once CheckNamespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using RingSoft.DataEntryControls.Engine.Annotations;
+
+// ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public enum DataEntryGridCellStates
@@ -15,5 +22,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public DataEntryGridCellStates State { get; set; }
 
         public string ColumnHeader { get; set; }
+
+        protected virtual void OnStateChanged()
+        { 
+        }
     }
 }

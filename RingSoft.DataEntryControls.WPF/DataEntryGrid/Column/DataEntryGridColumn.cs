@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.Windows;
@@ -7,6 +8,13 @@ using System.Windows.Controls;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
+    interface IDataEntryGridColumnControl
+    {
+        DataEntryGridCellStyle CellStyle { get; internal set; }
+
+        void Initialize();
+    }
+
     public abstract class DataEntryGridColumn : DataGridTemplateColumn, INotifyPropertyChanged
     {
         public new DataTemplate CellTemplate
@@ -116,27 +124,32 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             if (sender is TControl control)
             {
+                // ReSharper disable once SuspiciousTypeConversion.Global
+                if (!(control is IDataEntryGridColumnControl gridColumnControl))
+                    throw new Exception($"{control} must implement the {nameof(IDataEntryGridColumnControl)} interface.");
+
                 var grid = control.GetParentOfType<DataEntryGrid>();
                 if (grid != null)
                 {
                     var row = control.GetParentOfType<DataGridRow>();
                     if (row != null)
                     {
-                        var cellStyle = grid.GetCellStyle(row, this);
-                        switch (cellStyle.State)
-                        {
-                            case DataEntryGridCellStates.Enabled:
-                                break;
-                            case DataEntryGridCellStates.ReadOnly:
-                            case DataEntryGridCellStates.Disabled:
-                                control.IsEnabled = false;
-                                break;
-                        }
+                        gridColumnControl.CellStyle = grid.GetCellStyle(row, this);
+                        gridColumnControl.Initialize();
+                        //switch (cellStyle.State)
+                        //{
+                        //    case DataEntryGridCellStates.Enabled:
+                        //        break;
+                        //    case DataEntryGridCellStates.ReadOnly:
+                        //    case DataEntryGridCellStates.Disabled:
+                        //        control.IsEnabled = false;
+                        //        break;
+                        //}
 
-                        if (cellStyle is DataEntryGridControlCellStyle controlCellStyle)
-                        {
-                            control.Visibility = controlCellStyle.ControlVisible ? Visibility.Visible : Visibility.Collapsed;
-                        }
+                        //if (cellStyle is DataEntryGridControlCellStyle controlCellStyle)
+                        //{
+                        //    control.Visibility = controlCellStyle.ControlVisible ? Visibility.Visible : Visibility.Collapsed;
+                        //}
                     }
                 }
             }
