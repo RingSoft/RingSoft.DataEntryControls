@@ -790,11 +790,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     else
                         dataRow[dataTableColumn] = false;
                 }
-                else if (column is DataEntryGridButtonColumn)
-                {
-                    if (cellProps is DataEntryGridButtonCellProps buttonCellProps)
-                        dataRow[dataTableColumn] = buttonCellProps.ButtonContent;
-                }
                 else
                 {
                     dataRow[dataTableColumn] = cellProps.DataValue;
@@ -1669,13 +1664,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        public DataEntryGridCellStyle GetCellStyle(DataGridRow dataGridRow, DataEntryGridColumn dataEntryGridColumn)
+        public DataEntryGridCellProps GetCellProps(DataGridRow dataGridRow, DataEntryGridColumn dataEntryGridColumn)
         {
             if (this.IsDesignMode())
-                return new DataEntryGridCellStyle();
+                return null;
 
             var dataEntryGridRow = Manager.Rows[dataGridRow.GetIndex()];
-            return GetCellStyle(dataEntryGridRow, dataEntryGridColumn.ColumnId);
+            return dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId);
         }
     }
 }

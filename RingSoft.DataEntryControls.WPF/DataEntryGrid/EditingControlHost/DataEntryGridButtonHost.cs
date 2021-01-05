@@ -15,7 +15,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 
         public override DataEntryGridEditingCellProps GetCellValue()
         {
-            return new DataEntryGridButtonCellProps(Row, ColumnId, Control.Content.ToString());
+            return new DataEntryGridButtonCellProps(Row, ColumnId);
         }
 
         public override bool HasDataChanged()
@@ -31,11 +31,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         protected override void OnControlLoaded(Button control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
-            if (cellProps is DataEntryGridButtonCellProps buttonCellProps)
-            {
-                control.Content = buttonCellProps.ButtonContent;
-            }
-
             control.Click += (sender, args) =>
             {
                 _hasDataChanged = true;

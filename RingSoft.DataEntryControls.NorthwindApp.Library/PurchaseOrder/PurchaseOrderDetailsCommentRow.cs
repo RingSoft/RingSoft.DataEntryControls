@@ -36,11 +36,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                         result= new DataEntryGridTextCellProps(this, columnId);
                     break;
                 case PurchaseOrderColumns.Item:
-                    if (Value != null)
-                        result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment..."){Text = Comment};
-                    else
+                    if (Value == null)
                         result = new DataEntryGridTextCellProps(this, columnId, Comment);
+                    else
+                        result = new DataEntryGridButtonCellProps(this, columnId) { Text = Comment };
                     break;
+                case PurchaseOrderColumns.Received:
+                    return new DataEntryGridCheckBoxCellProps(this, columnId, Received);
                 default:
                     result = new DataEntryGridTextCellProps(this, columnId);
                     break;
@@ -62,10 +64,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     break;
                 case PurchaseOrderColumns.Item:
                     if (Value == null)
-                        return new DataEntryGridCellStyle { State = DataEntryGridCellStates.ReadOnly };
-                    break;
-                case PurchaseOrderColumns.Received:
-                    return new DataEntryGridCheckBoxCellStyle(){ControlVisible = false};
+                    {
+                        return new DataEntryGridCellStyle()
+                        {
+                            ColumnHeader = "Comment",
+                            State = DataEntryGridCellStates.ReadOnly
+                        };
+                    }
+                    else
+                    {
+                        return new DataEntryGridButtonCellStyle
+                        {
+                            ColumnHeader = "Comment",
+                            Content = "Edit Comment..."
+                        };
+                    }
                 default:
                     return new DataEntryGridCellStyle() { State = DataEntryGridCellStates.ReadOnly };
             }

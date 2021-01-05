@@ -1,18 +1,15 @@
-﻿using System;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.Windows;
 using System.Windows.Controls;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
-    interface IDataEntryGridColumnControl
+    public interface IDataEntryGridColumnControl
     {
-        DataEntryGridCellStyle CellStyle { get; internal set; }
-
-        void Initialize();
+        void SetControlStyle(DataEntryGridCellStyle cellStyle, DataEntryGridDisplayStyle displayStyle);
     }
 
     public abstract class DataEntryGridColumn : DataGridTemplateColumn, INotifyPropertyChanged
@@ -87,7 +84,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        protected abstract DataTemplate CreateCellTemplate();
+        protected internal abstract DataTemplate CreateCellTemplate();
 
         public void ResetColumnHeader()
         {
@@ -110,49 +107,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     {
         protected abstract void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory, string dataColumnName);
 
-        protected override DataTemplate CreateCellTemplate()
+        protected internal override DataTemplate CreateCellTemplate()
         {
             var dataTemplate = new DataTemplate();
             var factory = new FrameworkElementFactory(typeof(TControl));
-            factory.AddHandler(FrameworkElement.LoadedEvent, new RoutedEventHandler(Loaded));
+
             ProcessCellFrameworkElementFactory(factory, DataColumnName);
             dataTemplate.VisualTree = factory;
             return dataTemplate;
-        }
-
-        protected virtual void Loaded(object sender, RoutedEventArgs e)
-        {
-            if (sender is TControl control)
-            {
-                // ReSharper disable once SuspiciousTypeConversion.Global
-                if (!(control is IDataEntryGridColumnControl gridColumnControl))
-                    throw new Exception($"{control} must implement the {nameof(IDataEntryGridColumnControl)} interface.");
-
-                var grid = control.GetParentOfType<DataEntryGrid>();
-                if (grid != null)
-                {
-                    var row = control.GetParentOfType<DataGridRow>();
-                    if (row != null)
-                    {
-                        gridColumnControl.CellStyle = grid.GetCellStyle(row, this);
-                        gridColumnControl.Initialize();
-                        //switch (cellStyle.State)
-                        //{
-                        //    case DataEntryGridCellStates.Enabled:
-                        //        break;
-                        //    case DataEntryGridCellStates.ReadOnly:
-                        //    case DataEntryGridCellStates.Disabled:
-                        //        control.IsEnabled = false;
-                        //        break;
-                        //}
-
-                        //if (cellStyle is DataEntryGridControlCellStyle controlCellStyle)
-                        //{
-                        //    control.Visibility = controlCellStyle.ControlVisible ? Visibility.Visible : Visibility.Collapsed;
-                        //}
-                    }
-                }
-            }
         }
     }
 }

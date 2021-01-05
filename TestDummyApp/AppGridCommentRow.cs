@@ -50,10 +50,10 @@ namespace TestDummyApp
                     result = new DataEntryGridTextCellProps(this, columnId);
                     break;
                 case AppGridColumns.StockNumber:
-                    if (Value != null)
-                        result = new DataEntryGridButtonCellProps(this, columnId, "Edit Comment..."){Text = Comment};
-                    else
+                    if (Value == null)
                         result = new DataEntryGridTextCellProps(this, columnId, Comment);
+                    else
+                        result = new DataEntryGridButtonCellProps(this, columnId) { Text = Comment };
                     break;
             }
 
@@ -134,16 +134,26 @@ namespace TestDummyApp
                     break;
                 case AppGridColumns.StockNumber:
                     if (Value == null)
+                    {
                         return new DataEntryGridCellStyle()
                         {
                             ColumnHeader = "Comment",
                             State = DataEntryGridCellStates.ReadOnly
                         };
-                    break;
+                    }
+                    else
+                    {
+                        return new DataEntryGridButtonCellStyle
+                        {
+                            ColumnHeader = "Comment",
+                            Content = "Edit Comment..."
+                        };
+                    }
+                
                 case AppGridColumns.CheckBox:
-                    return new DataEntryGridCheckBoxCellStyle{ControlVisible = false};
+                    return new DataEntryGridControlCellStyle{IsVisible = false};
                 case AppGridColumns.Button:
-                    return new DataEntryGridButtonCellStyle{ControlVisible = false};
+                    return new DataEntryGridButtonCellStyle{IsVisible = false};
                 default:
                     return new DataEntryGridCellStyle {State = DataEntryGridCellStates.ReadOnly};
             }

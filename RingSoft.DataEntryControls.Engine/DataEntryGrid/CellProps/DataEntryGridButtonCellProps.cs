@@ -5,11 +5,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     {
         public override int EditingControlId => DataEntryGridEditingCellProps.ButtonHostId;
 
-        public string ButtonContent { get; }
-
-        public DataEntryGridButtonCellProps(DataEntryGridRow row, int columnId, string buttonContent) : base(row, columnId)
+        public DataEntryGridButtonCellProps(DataEntryGridRow row, int columnId) : base(row, columnId)
         {
-            ButtonContent = buttonContent;
         }
     }
 }

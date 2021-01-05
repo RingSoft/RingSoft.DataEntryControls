@@ -50,7 +50,7 @@ namespace TestDummyApp
                 case AppGridColumns.Integer:
                     return new DataEntryGridIntegerCellProps(this, columnId, IntegerSetup, IntegerValue);
                 case AppGridColumns.Button:
-                    return new DataEntryGridButtonCellProps(this, columnId, "Button");
+                    return new DataEntryGridButtonCellProps(this, columnId);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -126,6 +126,8 @@ namespace TestDummyApp
             {
                 case AppGridColumns.Disabled:
                     return new DataEntryGridCellStyle() { State = DataEntryGridCellStates.Disabled };
+                case AppGridColumns.Button:
+                    return new DataEntryGridButtonCellStyle{Content = "Button"};
             }
             return base.GetCellStyle(columnId);
         }
