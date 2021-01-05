@@ -8,9 +8,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     public class DataEntryGridCheckBoxColumn : DataEntryGridColumn<CheckBox>
     {
-        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory)
+        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
+            string dataColumnName)
         {
-            factory.SetBinding(ToggleButton.IsCheckedProperty, new Binding(DataColumnName));
+            factory.SetBinding(ToggleButton.IsCheckedProperty, new Binding(dataColumnName));
             factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
             factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
         }

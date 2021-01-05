@@ -7,9 +7,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     public class DataEntryGridButtonColumn : DataEntryGridColumn<Button>
     {
-        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory)
+        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
+            string dataColumnName)
         {
-            factory.SetBinding(ContentControl.ContentProperty, new Binding(DataColumnName));
+            factory.SetBinding(ContentControl.ContentProperty, new Binding(dataColumnName));
             factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
             factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
         }

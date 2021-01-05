@@ -157,7 +157,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set { SetValue(DisabledCellDisplayStyleProperty, value); }
         }
 
-        public new ObservableCollection<DataEntryGridTextColumn> Columns { get; } = new ObservableCollection<DataEntryGridTextColumn>();
+        public new ObservableCollection<DataEntryGridColumn> Columns { get; } = new ObservableCollection<DataEntryGridColumn>();
 
         public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } = new ObservableCollection<DataEntryGridDisplayStyle>();
 
@@ -380,7 +380,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     var startIndex = -1;
                     if (e.NewStartingIndex < base.Columns.Count)
                         startIndex = e.NewStartingIndex;
-                    foreach (DataEntryGridTextColumn column in e.NewItems)
+                    foreach (DataEntryGridColumn column in e.NewItems)
                     {
                         if (startIndex < 0)
                             base.Columns.Add(column);
@@ -421,6 +421,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 {
                     _dataSourceTable.Columns.Add(columnName);
                 }
+
                 column.DataColumnName = columnName;
 
                 index++;
@@ -849,7 +850,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return displayStyle;
         }
 
-        private void UpdateCellColors(DataEntryGridRow gridRow, DataEntryGridTextColumn column)
+        private void UpdateCellColors(DataEntryGridRow gridRow, DataEntryGridColumn column)
         {
             var rowIndex = Manager.Rows.IndexOf(gridRow);
             if (ItemContainerGenerator.ContainerFromItem(Items[rowIndex]) is DataGridRow dataGridRow)
@@ -858,7 +859,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        private void UpdateCellColors(DataEntryGridTextColumn column, DataGridRow dataGridRow, DataEntryGridRow gridRow)
+        private void UpdateCellColors(DataEntryGridColumn column, DataGridRow dataGridRow, DataEntryGridRow gridRow)
         {
             var cellContent = column.GetCellContent(dataGridRow);
             if (cellContent != null)
@@ -917,7 +918,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnBeginningEdit(DataGridBeginningEditEventArgs e)
         {
-            if (e.Column is DataEntryGridTextColumn dataEntryGridColumn)
+            if (e.Column is DataEntryGridColumn dataEntryGridColumn)
             {
                 var dataEntryGridRow = Manager.Rows[e.Row.GetIndex()];
                 var cellStyle = GetCellStyle(dataEntryGridRow, dataEntryGridColumn.ColumnId);
@@ -1668,7 +1669,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        public DataEntryGridCellStyle GetCellStyle(DataGridRow dataGridRow, DataEntryGridTextColumn dataEntryGridColumn)
+        public DataEntryGridCellStyle GetCellStyle(DataGridRow dataGridRow, DataEntryGridColumn dataEntryGridColumn)
         {
             if (this.IsDesignMode())
                 return new DataEntryGridCellStyle();
