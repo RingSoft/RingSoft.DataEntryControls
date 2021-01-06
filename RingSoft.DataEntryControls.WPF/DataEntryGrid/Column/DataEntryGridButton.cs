@@ -34,7 +34,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     ///     <MyNamespace:DataEntryGridButton/>
     ///
     /// </summary>
-    public class DataEntryGridButton : Button, IDataEntryGridColumnControl
+    public class DataEntryGridButton : Button
     {
         static DataEntryGridButton()
         {

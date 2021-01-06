@@ -795,7 +795,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     dataRow[dataTableColumn] = cellProps.DataValue;
                 }
 
-                UpdateCellProperties(gridRow, column);
+                UpdateCellColors(gridRow, column);
             }
         }
 
@@ -812,7 +812,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                     foreach (var column in Columns)
                     {
-                        UpdateCellProperties(column, dataGridRow, gridRow);
+                        UpdateCellColors(column, dataGridRow, gridRow);
                     }
                 }
 
@@ -845,16 +845,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return displayStyle;
         }
 
-        private void UpdateCellProperties(DataEntryGridRow gridRow, DataEntryGridColumn column)
+        private void UpdateCellColors(DataEntryGridRow gridRow, DataEntryGridColumn column)
         {
             var rowIndex = Manager.Rows.IndexOf(gridRow);
             if (ItemContainerGenerator.ContainerFromItem(Items[rowIndex]) is DataGridRow dataGridRow)
             {
-                UpdateCellProperties(column, dataGridRow, gridRow);
+                UpdateCellColors(column, dataGridRow, gridRow);
             }
         }
 
-        private void UpdateCellProperties(DataEntryGridColumn column, DataGridRow dataGridRow, DataEntryGridRow gridRow)
+        private void UpdateCellColors(DataEntryGridColumn column, DataGridRow dataGridRow, DataEntryGridRow gridRow)
         {
             var cellContent = column.GetCellContent(dataGridRow);
             if (cellContent != null)
@@ -906,15 +906,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         dataGridCell.Foreground = displayStyle.ForegroundBrush;
                     }
-
-                    //var control = cellContent.GetVisualChild<Control>();
-                    //if (control != null)
-                    //{
-                    //    if (control is IDataEntryGridColumnControl columnControl)
-                    //    {
-                    //        columnControl.SetControlStyle(cellStyle, displayStyle);
-                    //    }
-                    //}
                 }
             }
         }

@@ -34,7 +34,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     ///     <MyNamespace:DataEntryGridCheckBox/>
     ///
     /// </summary>
-    public class DataEntryGridCheckBox : CheckBox, IDataEntryGridColumnControl
+    public class DataEntryGridCheckBox : CheckBox
     {
         static DataEntryGridCheckBox()
         {
