@@ -151,9 +151,17 @@ namespace TestDummyApp
                     }
                 
                 case AppGridColumns.CheckBox:
-                    return new DataEntryGridControlCellStyle{IsVisible = false};
+                    return new DataEntryGridControlCellStyle
+                    {
+                        IsVisible = false,
+                        State = DataEntryGridCellStates.ReadOnly
+                    };
                 case AppGridColumns.Button:
-                    return new DataEntryGridButtonCellStyle{IsVisible = false};
+                    return new DataEntryGridButtonCellStyle
+                    {
+                        IsVisible = false,
+                        State = DataEntryGridCellStates.ReadOnly
+                    };
                 default:
                     return new DataEntryGridCellStyle {State = DataEntryGridCellStates.ReadOnly};
             }
