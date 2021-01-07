@@ -111,6 +111,9 @@ namespace TestDummyApp
                     if (CheckBoxValue)
                         result = new DataEntryGridCellStyle {DisplayStyleId = AppGridManager.RedDisplayId};
                     break;
+                case AppGridColumns.CheckBox:
+                    result = GetCheckBoxCellStyle();
+                    break;
             }
 
             if (setSelectionColor && result == null)

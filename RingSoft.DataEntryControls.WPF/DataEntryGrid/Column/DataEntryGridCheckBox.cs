@@ -67,6 +67,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             dataEntryGridCheckBox.SetDataValue();
         }
 
+        private DataEntryGridControlColumnProcessor _processor;
+
         static DataEntryGridCheckBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGridCheckBox), new FrameworkPropertyMetadata(typeof(DataEntryGridCheckBox)));
@@ -74,31 +76,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public DataEntryGridCheckBox()
         {
-            Visibility = Visibility.Collapsed;
+            _processor = new DataEntryGridControlColumnProcessor(this);
+
+            _processor.ControlValueChanged += (sender, args) => IsChecked = args.ControlValue.ToBool();
         }
 
         private void SetDataValue()
         {
-            if (DataValue.IsNullOrEmpty())
-            {
-                Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                IsEnabled = DataValue[0].ToString().ToBool();
-                var isVisible = DataValue[1].ToString().ToBool();
-                Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-                IsChecked = DataValue[2].ToString().ToBool();
-            }
-        }
-
-        public void SetControlStyle(DataEntryGridCellStyle cellStyle, DataEntryGridDisplayStyle displayStyle)
-        {
-            if (cellStyle is DataEntryGridControlCellStyle controlCellStyle)
-            {
-                IsEnabled = controlCellStyle.IsEnabled;
-                Visibility = controlCellStyle.IsVisible ? Visibility.Visible : Visibility.Collapsed;
-            }
+            _processor.SetDataValue(DataValue);
         }
     }
 }

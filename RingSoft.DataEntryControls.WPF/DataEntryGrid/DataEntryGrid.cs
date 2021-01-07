@@ -838,11 +838,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        internal DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId, DataEntryGridRow dataEntryGridRow)
+        internal DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId, DataEntryGridRow dataEntryGridRow = null)
         {
             var displayStyle = DisplayStyles.FirstOrDefault(f => f.DisplayId == displayStyleId);
             if (displayStyle == null)
-                throw new Exception($"DisplayStyle not found for DisplayStyleId {displayStyleId} of Row {dataEntryGridRow}");
+            {
+                var message = $"DisplayStyle not found for DisplayStyleId {displayStyleId}";
+                if (dataEntryGridRow != null)
+                    message += $" of Row {dataEntryGridRow}";
+
+                throw new Exception(message);
+            }
 
             return displayStyle;
         }
