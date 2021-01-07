@@ -412,16 +412,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             foreach (var column in Columns)
             {
                 var columnName = $"Column{index}";
-                if (column is DataEntryGridCheckBoxColumn)
-                {
-                    var boolColumn = new DataColumn(columnName, typeof(bool));
-                    _dataSourceTable.Columns.Add(boolColumn);
-                }
-                else
-                {
-                    _dataSourceTable.Columns.Add(columnName);
-                }
-
+                //if (column is DataEntryGridCheckBoxColumn)
+                //{
+                //    var boolColumn = new DataColumn(columnName, typeof(bool));
+                //    _dataSourceTable.Columns.Add(boolColumn);
+                //}
+                //else
+                //{
+                //    _dataSourceTable.Columns.Add(columnName);
+                //}
+                _dataSourceTable.Columns.Add(columnName);
                 column.DataColumnName = columnName;
 
                 index++;
@@ -783,17 +783,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 var dataTableColumn = _dataSourceTable.Columns[column.DataColumnName];
                 var cellProps = gridRow.GetCellProps(column.ColumnId);
-                if (column is DataEntryGridCheckBoxColumn)
-                {
-                    if (cellProps is DataEntryGridCheckBoxCellProps checkBoxCellProps)
-                        dataRow[dataTableColumn] = checkBoxCellProps.Value;
-                    else
-                        dataRow[dataTableColumn] = false;
-                }
-                else
-                {
-                    dataRow[dataTableColumn] = cellProps.DataValue;
-                }
+
+                //if (column is DataEntryGridCheckBoxColumn)
+                //{
+                //    if (cellProps is DataEntryGridCheckBoxCellProps checkBoxCellProps)
+                //        dataRow[dataTableColumn] = checkBoxCellProps.Value;
+                //    else
+                //        dataRow[dataTableColumn] = false;
+                //}
+                //else
+                //{
+                //    dataRow[dataTableColumn] = cellProps.DataValue;
+                //}
+                dataRow[dataTableColumn] = cellProps.DataValue;
 
                 UpdateCellColors(gridRow, column);
             }

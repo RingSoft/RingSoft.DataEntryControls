@@ -40,7 +40,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             }
         }
 
-        public bool IsVisible { get; set; }
+        public bool IsVisible { get; set; } = true;
     }
 
     public class DataEntryGridButtonCellStyle : DataEntryGridControlCellStyle

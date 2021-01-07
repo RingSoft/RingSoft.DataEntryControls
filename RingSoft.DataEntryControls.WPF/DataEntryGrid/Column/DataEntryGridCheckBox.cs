@@ -1,10 +1,24 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
+    public class DataEntryGridCheckBoxColumn : DataEntryGridColumn<DataEntryGridCheckBox>
+    {
+        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
+            string dataColumnName)
+        {
+            factory.SetBinding(DataEntryGridCheckBox.DataValueProperty, new Binding(dataColumnName));
+            factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
+            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+        }
+    }
+
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///
@@ -36,9 +50,46 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     /// </summary>
     public class DataEntryGridCheckBox : CheckBox
     {
+        public static readonly DependencyProperty DataValueProperty =
+            DependencyProperty.Register(nameof(DataValue), typeof(string), typeof(DataEntryGridCheckBox),
+                new FrameworkPropertyMetadata(DataValueChangedCallback));
+
+        public string DataValue
+        {
+            get { return (string)GetValue(DataValueProperty); }
+            set { SetValue(DataValueProperty, value); }
+        }
+
+        private static void DataValueChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dataEntryGridCheckBox = (DataEntryGridCheckBox)obj;
+            dataEntryGridCheckBox.SetDataValue();
+        }
+
         static DataEntryGridCheckBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGridCheckBox), new FrameworkPropertyMetadata(typeof(DataEntryGridCheckBox)));
+        }
+
+        public DataEntryGridCheckBox()
+        {
+            Visibility = Visibility.Collapsed;
+        }
+
+        private void SetDataValue()
+        {
+            if (DataValue.IsNullOrEmpty())
+            {
+                Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                IsEnabled = DataValue[0].ToString().ToBool();
+                var isVisible = DataValue[1].ToString().ToBool();
+                Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+                IsChecked = DataValue[2].ToString().ToBool();
+            }
         }
 
         public void SetControlStyle(DataEntryGridCellStyle cellStyle, DataEntryGridDisplayStyle displayStyle)
