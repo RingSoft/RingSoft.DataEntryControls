@@ -11,6 +11,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         public override bool SetSelection => true;
 
         private bool _value;
+        private bool _settingValue;
 
         public DataEntryGridCheckBoxHost(DataEntryGrid grid) : base(grid)
         {
@@ -45,27 +46,48 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         {
             var checkBoxCellProps = cellProps as DataEntryGridCheckBoxCellProps;
             control.IsChecked = _value = checkBoxCellProps != null && checkBoxCellProps.Value;
+            var enabled = true;
             switch (cellStyle.State)
             {
                 case DataEntryGridCellStates.Enabled:
                     break;
                 case DataEntryGridCellStates.ReadOnly:
                 case DataEntryGridCellStates.Disabled:
-                    control.IsEnabled = false;
+                    enabled = false;
                     break;
             }
 
             Control.Checked += (sender, args) =>
             {
-                OnControlDirty();
-                OnUpdateSource(GetCellValue());
-                _value = (bool)control.IsChecked;
+                if (!enabled)
+                {
+                    _settingValue = true;
+                    Control.IsChecked = false;
+                    _settingValue = false;
+                }
+
+                if (!_settingValue)
+                {
+                    OnControlDirty();
+                    OnUpdateSource(GetCellValue());
+                    _value = (bool) control.IsChecked;
+                }
             };
             Control.Unchecked += (sender, args) =>
             {
-                OnControlDirty();
-                OnUpdateSource(GetCellValue());
-                _value = (bool) control.IsChecked;
+                if (!enabled)
+                {
+                    _settingValue = true;
+                    Control.IsChecked = true;
+                    _settingValue = false;
+                }
+
+                if (!_settingValue)
+                {
+                    OnControlDirty();
+                    OnUpdateSource(GetCellValue());
+                    _value = (bool) control.IsChecked;
+                }
             };
 
             if (Mouse.LeftButton == MouseButtonState.Pressed)
