@@ -50,6 +50,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     return new DataEntryGridCellStyle { ColumnHeader = "Amount" };
                 case PurchaseOrderColumns.Item:
                     return new DataEntryGridCellStyle{ColumnHeader = "Description"};
+                case PurchaseOrderColumns.Received:
+                    return new DataEntryGridControlCellStyle {State = DataEntryGridCellStates.Disabled};
                 default:
                     return new DataEntryGridCellStyle{State = DataEntryGridCellStates.Disabled};
             }

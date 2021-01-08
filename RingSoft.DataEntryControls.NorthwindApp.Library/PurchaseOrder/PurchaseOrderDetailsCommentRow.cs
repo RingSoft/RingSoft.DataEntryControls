@@ -79,6 +79,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                             Content = "Edit Comment..."
                         };
                     }
+                case PurchaseOrderColumns.Received:
+                    return new DataEntryGridControlCellStyle
+                    {
+                        State = DataEntryGridCellStates.ReadOnly,
+                        IsVisible = false
+                    };
                 default:
                     return new DataEntryGridCellStyle() { State = DataEntryGridCellStates.ReadOnly };
             }

@@ -85,6 +85,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     break;
                 case PurchaseOrderColumns.ExtendedPrice:
                     return new DataEntryGridCellStyle{State = DataEntryGridCellStates.Disabled};
+                case PurchaseOrderColumns.Received:
+                    cellStyle = new DataEntryGridControlCellStyle();
+                    if (!ValidProduct && IsNew)
+                        cellStyle.State = DataEntryGridCellStates.Disabled;
+                    break;
                 default:
                     cellStyle = new DataEntryGridCellStyle();
                     if (!ValidProduct && IsNew)
