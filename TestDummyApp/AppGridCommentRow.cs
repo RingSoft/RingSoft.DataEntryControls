@@ -160,7 +160,7 @@ namespace TestDummyApp
                     return new DataEntryGridButtonCellStyle
                     {
                         IsVisible = false,
-                        State = DataEntryGridCellStates.ReadOnly
+                        State = DataEntryGridCellStates.ReadOnly,
                     };
                 default:
                     return new DataEntryGridCellStyle {State = DataEntryGridCellStates.ReadOnly};

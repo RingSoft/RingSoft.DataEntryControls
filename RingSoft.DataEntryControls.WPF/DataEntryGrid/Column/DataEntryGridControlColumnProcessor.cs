@@ -28,6 +28,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         public DataEntryGridControlColumnProcessor(Control control)
         {
             _control = control;
+
+            //This is to avoid random showing when grid is being scrolled and DataEntryControlCellValue sets IsVisible to false.
+            _control.Visibility = Visibility.Collapsed;
         }
 
         public void SetDataValue(string dataValue)

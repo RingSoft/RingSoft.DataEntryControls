@@ -3,8 +3,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public class DataEntryGridDecimalCellProps : DataEntryGridEditingCellProps
     {
-        public override string DataValue => NumericEditSetup.FormatValue(Value);
-
         public override int EditingControlId => DataEntryGridEditingCellProps.DecimalEditHostId;
 
         public DecimalEditControlSetup NumericEditSetup { get; }
@@ -16,5 +14,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             NumericEditSetup = setup;
             Value = value;
         }
+
+        protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)
+        {
+            return NumericEditSetup.FormatValue(Value);
+        }
+
     }
 }

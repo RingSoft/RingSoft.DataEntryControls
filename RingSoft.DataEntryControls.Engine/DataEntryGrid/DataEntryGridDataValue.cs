@@ -10,7 +10,12 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public string ControlValue { get; private set; }
         public string DataValue { get; private set; }
 
-        public DataEntryGridDataValue(DataEntryGridRow row, int columnId, string controlValue)
+        public DataEntryGridDataValue()
+        {
+            
+        }
+
+        public void CreateDataValue(DataEntryGridRow row, int columnId, string controlValue)
         {
             var controlCellStyle = row.GetCellStyle(columnId) as DataEntryGridControlCellStyle;
             if (controlCellStyle == null)

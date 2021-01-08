@@ -1,5 +1,4 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;

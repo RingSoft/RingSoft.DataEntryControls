@@ -15,15 +15,17 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public DataEntryGridRow Row { get; }
 
-        public abstract string DataValue { get; }
-
         public bool ControlMode { get; set; }
+
+        public string DataValue => GetDataValue(Row, ColumnId, ControlMode);
 
         public DataEntryGridCellProps(DataEntryGridRow row, int columnId)
         {
             Row = row;
             ColumnId = columnId;
         }
+
+        protected abstract string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode);
     }
 
     public abstract class DataEntryGridEditingCellProps : DataEntryGridCellProps

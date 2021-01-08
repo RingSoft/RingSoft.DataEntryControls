@@ -8,8 +8,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
     public class DataEntryGridComboBoxCellProps : DataEntryGridEditingCellProps
     {
-        public override string DataValue => SelectedItem?.TextValue;
-
         public override int EditingControlId => DataEntryGridEditingCellProps.ComboBoxHostId;
 
         public ComboBoxControlSetup ComboBoxSetup { get; }
@@ -25,6 +23,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             ComboBoxSetup = comboBoxSetup;
             SelectedItem = selectedItem;
             ChangeType = changeType;
+        }
+
+        protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)
+        {
+            return SelectedItem?.TextValue;
         }
     }
 }

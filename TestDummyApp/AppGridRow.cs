@@ -127,7 +127,7 @@ namespace TestDummyApp
                 case AppGridColumns.Disabled:
                     return new DataEntryGridCellStyle() { State = DataEntryGridCellStates.Disabled };
                 case AppGridColumns.Button:
-                    return new DataEntryGridButtonCellStyle{Content = "Button"};
+                    return GetButtonCellStyle();
                 case AppGridColumns.CheckBox:
                     return GetCheckBoxCellStyle();
             }
@@ -139,6 +139,17 @@ namespace TestDummyApp
             var state = IsNew ? DataEntryGridCellStates.Disabled : DataEntryGridCellStates.Enabled;
 
             return new DataEntryGridControlCellStyle { State = state };
+        }
+
+        protected DataEntryGridButtonCellStyle GetButtonCellStyle()
+        {
+            var state = IsNew ? DataEntryGridCellStates.Disabled : DataEntryGridCellStates.Enabled;
+
+            return new DataEntryGridButtonCellStyle
+            {
+                State = state,
+                Content = "Button"
+            };
         }
 
         public virtual void LoadSale_DetailRow(SaleDetail saleDetail)

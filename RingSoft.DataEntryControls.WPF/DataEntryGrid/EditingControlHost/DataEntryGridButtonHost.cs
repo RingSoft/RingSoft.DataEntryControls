@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System.Windows.Controls;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
@@ -31,6 +32,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         protected override void OnControlLoaded(Button control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
+            if (cellStyle is DataEntryGridButtonCellStyle buttonCellStyle)
+            {
+                Control.Content = buttonCellStyle.Content;
+            }
+            else
+            {
+                throw new Exception(
+                    DataEntryGridButtonCellProps.GetCellStyleExceptionMessage(cellProps.Row, cellProps.ColumnId));
+            }
+
             control.Click += (sender, args) =>
             {
                 _hasDataChanged = true;

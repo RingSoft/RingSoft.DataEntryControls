@@ -29,9 +29,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             {
                 switch (State)
                 {
-                    case DataEntryGridCellStates.Enabled:
-                        return true;
-                    case DataEntryGridCellStates.ReadOnly:
                     case DataEntryGridCellStates.Disabled:
                         return false;
                 }

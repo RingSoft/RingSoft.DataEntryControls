@@ -135,6 +135,7 @@ namespace TestDummyApp
                 case AppGridColumns.LineType:
                 case AppGridColumns.StockNumber:
                 case AppGridColumns.CheckBox:
+                case AppGridColumns.Button:
                     break;
                 default:
                     if (IsNew)

@@ -10,8 +10,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
     public class DataEntryGridTextCellProps : DataEntryGridEditingCellProps
     {
-        public override string DataValue => Text;
-
         public override int EditingControlId => DataEntryGridEditingCellProps.TextBoxHostId;
 
         public string Text { get; set; }
@@ -27,6 +25,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public DataEntryGridTextCellProps(DataEntryGridRow row, int columnId, string text) : base(row, columnId)
         {
             Text = text;
+        }
+
+        protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)
+        {
+            return Text;
         }
     }
 }

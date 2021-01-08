@@ -114,6 +114,9 @@ namespace TestDummyApp
                 case AppGridColumns.CheckBox:
                     result = GetCheckBoxCellStyle();
                     break;
+                case AppGridColumns.Button:
+                    result = GetButtonCellStyle();
+                    break;
             }
 
             if (setSelectionColor && result == null)

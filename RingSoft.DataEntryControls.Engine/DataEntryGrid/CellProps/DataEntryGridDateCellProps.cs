@@ -5,8 +5,6 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public class DataEntryGridDateCellProps : DataEntryGridEditingCellProps
     {
-        public override string DataValue => Setup.FormatValueForDisplay(Value);
-
         public override int EditingControlId => DataEntryGridEditingCellProps.DateEditHostId;
 
         public DateEditControlSetup Setup { get; }
@@ -18,6 +16,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         {
             Setup = setup;
             Value = value;
+        }
+
+        protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)
+        {
+            return Setup.FormatValueForDisplay(Value);
         }
     }
 }
