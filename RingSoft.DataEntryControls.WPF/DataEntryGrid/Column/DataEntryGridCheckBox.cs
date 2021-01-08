@@ -8,7 +8,7 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
-    public class DataEntryGridCheckBoxColumn : DataEntryGridColumn<DataEntryGridCheckBox>
+    public class DataEntryGridCheckBoxColumn : DataEntryGridControlColumn<DataEntryGridCheckBox>
     {
         protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
             string dataColumnName)

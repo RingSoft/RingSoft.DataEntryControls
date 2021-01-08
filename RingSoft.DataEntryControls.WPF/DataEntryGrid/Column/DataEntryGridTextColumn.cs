@@ -5,9 +5,21 @@ using System.Windows.Data;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
-    public class DataEntryGridTextColumn : DataEntryGridColumn<TextBlock>
+    public class DataEntryGridTextColumn : DataEntryGridColumn
     {
-        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
+        public override DataEntryGridColumnTypes ColumnType => DataEntryGridColumnTypes.Text;
+
+        protected internal override DataTemplate CreateCellTemplate()
+        {
+            var dataTemplate = new DataTemplate();
+            var factory = new FrameworkElementFactory(typeof(TextBlock));
+
+            ProcessCellFrameworkElementFactory(factory, DataColumnName);
+            dataTemplate.VisualTree = factory;
+            return dataTemplate;
+        }
+
+        protected void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
             string dataColumnName)
         {
             factory.SetBinding(TextBlock.TextProperty, new Binding(dataColumnName));

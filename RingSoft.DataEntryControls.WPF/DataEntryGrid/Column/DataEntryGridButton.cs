@@ -1,10 +1,23 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
+    public class DataEntryGridButtonColumn : DataEntryGridControlColumn<DataEntryGridButton>
+    {
+        protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
+            string dataColumnName)
+        {
+            factory.SetBinding(DataEntryGridButton.DataValueProperty, new Binding(dataColumnName));
+            factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
+            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+        }
+    }
+
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///
@@ -36,19 +49,40 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     /// </summary>
     public class DataEntryGridButton : Button
     {
+        public static readonly DependencyProperty DataValueProperty =
+            DependencyProperty.Register(nameof(DataValue), typeof(string), typeof(DataEntryGridButton),
+                new FrameworkPropertyMetadata(DataValueChangedCallback));
+
+        public string DataValue
+        {
+            get { return (string)GetValue(DataValueProperty); }
+            set { SetValue(DataValueProperty, value); }
+        }
+
+        private static void DataValueChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dataEntryGridButton = (DataEntryGridButton)obj;
+            dataEntryGridButton.SetDataValue();
+        }
+
+        private DataEntryGridControlColumnProcessor _processor;
+
         static DataEntryGridButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGridButton), new FrameworkPropertyMetadata(typeof(DataEntryGridButton)));
         }
 
-        public void SetControlStyle(DataEntryGridCellStyle cellStyle, DataEntryGridDisplayStyle displayStyle)
+        public DataEntryGridButton()
         {
-            if (cellStyle is DataEntryGridButtonCellStyle buttonCellStyle)
-            {
-                Content = buttonCellStyle.Content;
-                IsEnabled = buttonCellStyle.IsEnabled;
-                Visibility = buttonCellStyle.IsVisible ? Visibility.Visible : Visibility.Collapsed;
-            }
+            _processor = new DataEntryGridControlColumnProcessor(this);
+
+            _processor.ControlValueChanged += (sender, args) => Content = args.ControlValue;
+        }
+
+        private void SetDataValue()
+        {
+            _processor.SetDataValue(DataValue);
         }
     }
 }

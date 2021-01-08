@@ -7,6 +7,13 @@ using System.Windows.Controls;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
+
+    public enum DataEntryGridColumnTypes
+    {
+        Text = 0,
+        Control = 1
+    }
+
     public abstract class DataEntryGridColumn : DataGridTemplateColumn, INotifyPropertyChanged
     {
         public new DataTemplate CellTemplate
@@ -79,6 +86,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        public abstract DataEntryGridColumnTypes ColumnType { get; }
+
         protected internal abstract DataTemplate CreateCellTemplate();
 
         public void ResetColumnHeader()
@@ -97,9 +106,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
     }
 
-    public abstract class DataEntryGridColumn<TControl> : DataEntryGridColumn
-        where TControl : FrameworkElement
+    public abstract class DataEntryGridControlColumn<TControl> : DataEntryGridColumn
+        where TControl : Control
     {
+        public override DataEntryGridColumnTypes ColumnType => DataEntryGridColumnTypes.Control;
+
         protected abstract void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory, string dataColumnName);
 
         protected internal override DataTemplate CreateCellTemplate()

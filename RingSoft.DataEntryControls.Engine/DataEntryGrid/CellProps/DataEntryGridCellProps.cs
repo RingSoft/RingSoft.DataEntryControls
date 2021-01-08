@@ -17,6 +17,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public abstract string DataValue { get; }
 
+        public bool ControlMode { get; set; }
+
         public DataEntryGridCellProps(DataEntryGridRow row, int columnId)
         {
             Row = row;

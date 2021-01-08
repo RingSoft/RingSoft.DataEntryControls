@@ -783,6 +783,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 var dataTableColumn = _dataSourceTable.Columns[column.DataColumnName];
                 var cellProps = gridRow.GetCellProps(column.ColumnId);
+                if (column.ColumnType == DataEntryGridColumnTypes.Control)
+                    cellProps.ControlMode = true;
 
                 //if (column is DataEntryGridCheckBoxColumn)
                 //{
@@ -959,6 +961,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 {
                     if (cellProps != null)
                     {
+                        cellProps.ControlMode = true;
                         EditingControlHost =
                             WPFControlsGlobals.DataEntryGridHostFactory.GetControlHost(this,
                                 cellProps.EditingControlId);
