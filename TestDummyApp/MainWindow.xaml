@@ -30,7 +30,7 @@
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.PriceColumnId}" Header="Price" Width="100" Alignment="Right" DesignText="$100,000.00" />
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.DateColumnId}" Header="Date" Width="100" DesignText="01/01/2020"/>
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.IntegerColumnId}" Header="Integer" DesignText="1,234"/>
-                <deg:DataEntryGridButtonColumn ColumnId="{x:Static local:AppGridManager.ButtonColumnId}" Header="Button" DesignText="Button" Width="50"/>
+                <deg:DataEntryGridButtonColumn ColumnId="{x:Static local:AppGridManager.ButtonColumnId}" Header="Button" DesignerContent="Button" Width="50"/>
             </deg:DataEntryGrid.Columns>
             <deg:DataEntryGrid.DisplayStyles>
                 <StaticResource ResourceKey="CommentCellStyle"/>

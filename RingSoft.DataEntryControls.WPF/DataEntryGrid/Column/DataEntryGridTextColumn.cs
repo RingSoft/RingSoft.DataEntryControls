@@ -8,6 +8,22 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     public class DataEntryGridTextColumn : DataEntryGridColumn
     {
         public override DataEntryGridColumnTypes ColumnType => DataEntryGridColumnTypes.Text;
+        public override string DesignerDataValue => DesignText;
+
+        private string _designText;
+
+        public string DesignText
+        {
+            get => _designText;
+            set
+            {
+                if (_designText == value)
+                    return;
+
+                _designText = value;
+                OnPropertyChanged(nameof(DesignText));
+            }
+        }
 
         protected internal override DataTemplate CreateCellTemplate()
         {

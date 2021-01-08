@@ -42,21 +42,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public int ColumnId { get; set; }
 
-        private string _designText;
-
-        public string DesignText
-        {
-            get => _designText;
-            set
-            {
-                if (_designText == value)
-                    return;
-
-                _designText = value;
-                OnPropertyChanged(nameof(DesignText));
-            }
-        }
-
         private TextAlignment _alignment;
 
         public TextAlignment Alignment
@@ -86,6 +71,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         public abstract DataEntryGridColumnTypes ColumnType { get; }
+
+        public abstract string DesignerDataValue { get; }
 
         protected internal abstract DataTemplate CreateCellTemplate();
 

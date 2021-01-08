@@ -514,14 +514,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             foreach (var column in Columns)
             {
-                if (column is DataEntryGridCheckBoxColumn)
-                {
-                    designerRow[column.DataColumnName] = false;
-                }
-                else
-                {
-                    designerRow[column.DataColumnName] = column.DesignText;
-                }
+                //if (column is DataEntryGridCheckBoxColumn)
+                //{
+                //    designerRow[column.DataColumnName] = false;
+                //}
+                //else
+                //{
+                //    designerRow[column.DataColumnName] = column.DesignText;
+                //}
+                designerRow[column.DataColumnName] = column.DesignerDataValue;
             }
 
             _dataSourceTable.Rows.Add(designerRow);

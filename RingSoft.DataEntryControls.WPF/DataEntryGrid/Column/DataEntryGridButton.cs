@@ -1,12 +1,37 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     public class DataEntryGridButtonColumn : DataEntryGridControlColumn<DataEntryGridButton>
     {
+        public override string DesignerDataValue
+        {
+            get
+            {
+                var cellStyle = new DataEntryGridButtonCellStyle {Content = DesignerContent};
+                return new DataEntryGridDataValue().CreateDataValue(cellStyle, DesignerContent);
+            }
+        }
+
+        private string _designerContent;
+
+        public string DesignerContent
+        {
+            get => _designerContent;
+            set
+            {
+                if (_designerContent == value)
+                    return;
+
+                _designerContent = value;
+                OnPropertyChanged();
+            }
+        }
+
         protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
             string dataColumnName)
         {

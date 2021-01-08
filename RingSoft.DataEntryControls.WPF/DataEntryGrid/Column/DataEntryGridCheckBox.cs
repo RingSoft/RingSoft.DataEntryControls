@@ -2,12 +2,37 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     public class DataEntryGridCheckBoxColumn : DataEntryGridControlColumn<DataEntryGridCheckBox>
     {
+        public override string DesignerDataValue
+        {
+            get
+            {
+                var controlCellStyle = new DataEntryGridControlCellStyle();
+                return new DataEntryGridDataValue().CreateDataValue(controlCellStyle, DesignerValue.ToString());
+            }
+        }
+
+        private bool _designerValue;
+
+        public bool DesignerValue
+        {
+            get => _designerValue;
+            set
+            {
+                if (_designerValue == value)
+                    return;
+
+                _designerValue = value;
+                OnPropertyChanged();
+            }
+        }
+
         protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
             string dataColumnName)
         {
