@@ -3,13 +3,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 
 namespace TestDummyApp
 {
     public class GridImageColumn : DataEntryGridControlColumn<GridImageControl>
     {
-        public override string DesignerDataValue => ((int) DesignerLineType).ToString();
+        public override string DesignerDataValue =>
+            new DataEntryGridDataValue().CreateDataValue(new DataEntryGridControlCellStyle(),
+                ((int)DesignerLineType).ToString());
 
         private AppGridLineTypes _designerLineType;
 
@@ -30,7 +33,7 @@ namespace TestDummyApp
         {
             factory.SetBinding(GridImageControl.DataValueProperty, new Binding(dataColumnName));
             factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
-            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Left);
         }
     }
     /// <summary>
@@ -102,8 +105,7 @@ namespace TestDummyApp
 
         private void SetDataValue()
         {
-            MessageBox.Show(DataValue);
-            _processor.SetDataValue(DataValue, nameof(GridImageControl));
+            _processor.SetDataValue(DataValue);
         }
     }
 }

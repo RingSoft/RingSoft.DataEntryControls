@@ -468,8 +468,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 return;
             }
 
+            var columnHeaderHeight = double.NaN;
+
             var headersPresenter = this.GetVisualChild<DataGridColumnHeadersPresenter>();
-            var columnHeaderHeight = headersPresenter.ActualHeight;
+
+            if (headersPresenter != null)
+                columnHeaderHeight = headersPresenter.ActualHeight;
 
             if (double.IsNaN(columnHeaderHeight) && Columns.Any())
             {
@@ -522,6 +526,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 //{
                 //    designerRow[column.DataColumnName] = column.DesignText;
                 //}
+                column.ValidateDesignerDataValue();
                 designerRow[column.DataColumnName] = column.DesignerDataValue;
             }
 

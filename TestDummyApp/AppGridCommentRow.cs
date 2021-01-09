@@ -128,6 +128,9 @@ namespace TestDummyApp
             switch (column)
             {
                 case AppGridColumns.Image:
+                    if (Value == null && !IsNew)
+                        return new DataEntryGridControlCellStyle() { IsVisible = false };
+
                     break;
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())

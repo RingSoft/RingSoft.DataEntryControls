@@ -35,6 +35,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return dataTemplate;
         }
 
+        internal override void ValidateDesignerDataValue()
+        {
+            
+        }
+
         protected void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
             string dataColumnName)
         {

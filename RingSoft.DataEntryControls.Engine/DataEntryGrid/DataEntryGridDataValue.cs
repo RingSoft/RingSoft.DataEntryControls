@@ -4,21 +4,28 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     public class DataEntryGridDataValue
     {
+        public static string CheckDataValue
+        {
+            get
+            {
+                var dataValue = new DataEntryGridDataValue();
+                return dataValue.CreateDataValue(new DataEntryGridControlCellStyle(), "");
+            }
+
+        }
         public bool IsVisible { get; private set; }
         public bool IsEnabled { get; private set; }
         public int DisplayStyleId { get; private set; }
         public string ControlValue { get; private set; }
         public string DataValue { get; private set; }
 
-        public DataEntryGridDataValue()
-        {
-            
-        }
-
-        public DataEntryGridDataValue(string dataValue)
+        public bool ProcessDataValueInput(string dataValue)
         {
             if (dataValue.IsNullOrEmpty())
-                return;
+                return true;
+
+            if (dataValue.Length < CheckDataValue.Length)
+                return false;
 
             DataValue = dataValue;
             IsVisible = dataValue[0].ToString().ToBool();
@@ -28,7 +35,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             var displayStyleStr = dataValue.MidStr(2, semiIndex - 2);
             DisplayStyleId = displayStyleStr.ToInt();
 
-            ControlValue = dataValue.RightStr(dataValue.Length - (semiIndex + 1));
+            if (dataValue.Length > semiIndex)
+                ControlValue = dataValue.RightStr(dataValue.Length - (semiIndex + 1));
+
+            return true;
         }
 
         public string CreateDataValue(DataEntryGridRow row, int columnId, string controlValue)

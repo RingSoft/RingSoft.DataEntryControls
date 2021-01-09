@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:TestDummyApp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-   
     <StackPanel>
         <StackPanel x:Name="InventoryPanel" Orientation="Horizontal">
             <Image Source="Inventory.png" Width="16" Height="16"/>
