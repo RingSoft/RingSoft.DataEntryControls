@@ -22,7 +22,7 @@
         <!--<dec:IntegerEditControl HorizontalAlignment="Left" Width="100"/>-->
         <deg:DataEntryGrid x:Name="DataEntryGrid" Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}">
             <deg:DataEntryGrid.Columns>
-                <local:GridImageColumn ColumnId="{x:Static local:AppGridManager.ImageColumnId}" Header="Image" DesignerLineType="NonInventory" Width="120"/>
+                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled" Width="100"/>
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.StockNumberColumnId}" Header="Stock Number" Width="150"/>
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>

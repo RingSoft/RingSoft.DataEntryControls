@@ -7,17 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <StackPanel x:Name="InventoryPanel" Orientation="Horizontal">
-            <Image Source="Inventory.png" Width="16" Height="16"/>
-            <TextBlock Text="Inventory"/>
-        </StackPanel>
-        <StackPanel x:Name="NonInventoryPanel" Orientation="Horizontal">
-            <Image Source="NonInventory.png" Width="16" Height="16"/>
-            <TextBlock Text="Non Inventory"/>
-        </StackPanel>
-        <StackPanel x:Name="CommentPanel" Orientation="Horizontal">
-            <Image Source="Comment.png" Width="16" Height="16"/>
-            <TextBlock Text="Comment"/>
-        </StackPanel>
+        <ContentPresenter x:Name="InventoryPanel" ContentTemplate="{StaticResource InventoryPanel}"/>
+        <ContentPresenter x:Name="NonInventoryPanel" ContentTemplate="{StaticResource NonInventoryPanel}"/>
+        <ContentPresenter x:Name="CommentPanel" ContentTemplate="{StaticResource CommentPanel}"/>
     </StackPanel>
 </UserControl>

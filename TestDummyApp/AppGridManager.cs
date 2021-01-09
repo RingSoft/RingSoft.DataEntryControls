@@ -18,7 +18,7 @@ namespace TestDummyApp
 
     public enum AppGridColumns
     {
-        Image = AppGridManager.ImageColumnId,
+        Disabled = AppGridManager.DisabledColumnId,
         LineType = AppGridManager.LineTypeColumnId,
         StockNumber = AppGridManager.StockNumberColumnId,
         Location = AppGridManager.LocationColumnId,
@@ -41,7 +41,7 @@ namespace TestDummyApp
 
     public class AppGridManager : DataEntryGridManager
     {
-        public const int ImageColumnId = 0;
+        public const int DisabledColumnId = 0;
         public const int LineTypeColumnId = 1;
         public const int StockNumberColumnId = 2;
         public const int LocationColumnId = 3;

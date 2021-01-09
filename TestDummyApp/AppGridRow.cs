@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
@@ -53,8 +54,8 @@ namespace TestDummyApp
             var appGridColumn = (AppGridColumns) columnId;
             switch (appGridColumn)
             {
-                case AppGridColumns.Image:
-                    return new ImageCellProps(this, columnId, LineType);
+                case AppGridColumns.Disabled:
+                    return new DataEntryGridTextCellProps(this, columnId);
                 case AppGridColumns.LineType:
                     var selectedLineType = LineTypeComboBoxSetup.GetItem((int) LineType);
                     return new DataEntryGridComboBoxCellProps(this, columnId, LineTypeComboBoxSetup, selectedLineType,
@@ -140,8 +141,8 @@ namespace TestDummyApp
             var column = (AppGridColumns) columnId;
             switch (column)
             {
-                case AppGridColumns.Image:
-                    return GetImageCellStyle();
+                case AppGridColumns.Disabled:
+                    return GetDisabledCellStyle();
                 case AppGridColumns.Button:
                     return GetButtonCellStyle();
                 case AppGridColumns.CheckBox:
@@ -150,9 +151,9 @@ namespace TestDummyApp
             return base.GetCellStyle(columnId);
         }
 
-        protected DataEntryGridControlCellStyle GetImageCellStyle()
+        protected DataEntryGridCellStyle GetDisabledCellStyle()
         {
-            return new DataEntryGridControlCellStyle() { State = DataEntryGridCellStates.Enabled };
+            return new() { State = DataEntryGridCellStates.Disabled };
         }
 
         protected DataEntryGridControlCellStyle GetCheckBoxCellStyle()

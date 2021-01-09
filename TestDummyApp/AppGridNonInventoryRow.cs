@@ -85,7 +85,7 @@ namespace TestDummyApp
             var setSelectionColor = true;
             switch (column)
             {
-                case AppGridColumns.Image:
+                case AppGridColumns.Disabled:
                     setSelectionColor = false;
                     break;
                 case AppGridColumns.LineType:

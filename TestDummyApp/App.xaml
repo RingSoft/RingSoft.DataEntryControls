@@ -36,6 +36,26 @@
                     </LinearGradientBrush>
                 </deg:DataEntryGridDisplayStyle.Background>
             </deg:DataEntryGridDisplayStyle>-->
+            <DataTemplate x:Key="InventoryPanel">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Inventory.png" Width="16" Height="16"/>
+                    <TextBlock Text="Inventory"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="NonInventoryPanel">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="NonInventory.png" Width="16" Height="16"/>
+                    <TextBlock Text="Non Inventory"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CommentPanel">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Comment.png" Width="16" Height="16"/>
+                    <TextBlock Text="Comment"/>
+                </StackPanel>
+            </DataTemplate>
 
             <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static local:Globals.CommentDisplayStyleId}" BackgroundBrush="Green" ForegroundBrush="White"/>
             <deg:DataEntryGridDisplayStyle x:Key="NonInventoryCellStyle" DisplayId="{x:Static local:Globals.NonInventoryDisplayStyleId}" BackgroundBrush="Blue" ForegroundBrush="White" SelectionBrush="White"/>

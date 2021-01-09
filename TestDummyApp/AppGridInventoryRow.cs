@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System;
+using System.Windows;
 
 
 namespace TestDummyApp
@@ -30,7 +31,7 @@ namespace TestDummyApp
             switch (column)
             {
                 case AppGridColumns.LineType:
-                case AppGridColumns.Image:
+                case AppGridColumns.Disabled:
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Date:
                 case AppGridColumns.Integer:
@@ -132,11 +133,11 @@ namespace TestDummyApp
             var column = (AppGridColumns) columnId;
             switch (column)
             {
+                case AppGridColumns.Disabled:
                 case AppGridColumns.LineType:
                 case AppGridColumns.StockNumber:
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Button:
-                case AppGridColumns.Image:
                     break;
                 default:
                     if (IsNew)
