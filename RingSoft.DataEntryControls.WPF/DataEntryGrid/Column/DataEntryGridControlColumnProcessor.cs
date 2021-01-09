@@ -33,9 +33,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             _control.Visibility = Visibility.Collapsed;
         }
 
-        public void SetDataValue(string dataValue)
+        public void SetDataValue(string dataValue, string trace = "")
         {
             var dataValueObj = new DataEntryGridDataValue(dataValue);
+            
             _control.Visibility = dataValueObj.IsVisible ? Visibility.Visible : Visibility.Collapsed;
             _control.IsEnabled = dataValueObj.IsEnabled;
 

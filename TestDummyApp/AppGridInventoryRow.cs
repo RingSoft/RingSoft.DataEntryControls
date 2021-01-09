@@ -30,7 +30,7 @@ namespace TestDummyApp
             switch (column)
             {
                 case AppGridColumns.LineType:
-                case AppGridColumns.Disabled:
+                case AppGridColumns.Image:
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Date:
                 case AppGridColumns.Integer:
@@ -136,6 +136,7 @@ namespace TestDummyApp
                 case AppGridColumns.StockNumber:
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Button:
+                case AppGridColumns.Image:
                     break;
                 default:
                     if (IsNew)

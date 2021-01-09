@@ -1389,18 +1389,32 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 return;
             }
 
-            var gridRow = Manager.Rows[startRowIndex];
-            var gridColumn = Columns[startColumnIndex];
+            if (CanCellGetTabFocus(startRowIndex, startColumnIndex))
+                SetFocusToCell(startRowIndex, startColumnIndex);
+            else
+                TabRight(startRowIndex, startColumnIndex);
+        }
+
+        private bool CanCellGetTabFocus(int rowIndex, int columnIndex)
+        {
+            var gridRow = Manager.Rows[rowIndex];
+            var gridColumn = Columns[columnIndex];
             var cellStyle = GetCellStyle(gridRow, gridColumn.ColumnId);
 
             var setFocus = cellStyle.State == DataEntryGridCellStates.Enabled;
             if (_readOnlyMode)
                 setFocus = cellStyle.State == DataEntryGridCellStates.ReadOnly;
 
-            if (setFocus && gridColumn.Visibility == Visibility.Visible)
-                SetFocusToCell(startRowIndex, startColumnIndex);
-            else
-                TabRight(startRowIndex, startColumnIndex);
+            if (setFocus)
+                setFocus = gridColumn.Visibility == Visibility.Visible;
+
+            if (setFocus)
+            {
+                var cellProps = gridRow.GetCellProps(gridColumn.ColumnId);
+                setFocus = cellProps.Type == CellPropsTypes.Editable;
+            }
+
+            return setFocus;
         }
 
         private void TabLeft(int startRowIndex, int startColumnIndex)
@@ -1426,15 +1440,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 return;
             }
 
-            var gridRow = Manager.Rows[startRowIndex];
-            var gridColumn = Columns[startColumnIndex];
-            var cellStyle = GetCellStyle(gridRow, gridColumn.ColumnId);
-
-            var setFocus = cellStyle.State == DataEntryGridCellStates.Enabled;
-            if (_readOnlyMode)
-                setFocus = cellStyle.State == DataEntryGridCellStates.ReadOnly;
-
-            if (setFocus && gridColumn.Visibility == Visibility.Visible)
+            if (CanCellGetTabFocus(startRowIndex, startColumnIndex))
                 SetFocusToCell(startRowIndex, startColumnIndex);
             else
                 TabLeft(startRowIndex, startColumnIndex);

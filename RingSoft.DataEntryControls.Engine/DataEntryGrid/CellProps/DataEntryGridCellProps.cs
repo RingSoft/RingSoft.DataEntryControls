@@ -9,8 +9,17 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         KeyboardNavigation = 3,
         ValidatingGrid = 4
     }
+
+    public enum CellPropsTypes
+    {
+        Editable = 0,
+        ReadOnly = 1
+    }
+
     public abstract class DataEntryGridCellProps
     {
+        public virtual CellPropsTypes Type { get; internal set; } = CellPropsTypes.ReadOnly;
+
         public int ColumnId { get; }
 
         public DataEntryGridRow Row { get; }
@@ -39,6 +48,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public const int IntegerEditHostId = 6;
 
         public abstract int EditingControlId { get; }
+
+        public override CellPropsTypes Type { get; internal set; } = CellPropsTypes.Editable;
 
         public bool OverrideCellMovement { get; set; }
 

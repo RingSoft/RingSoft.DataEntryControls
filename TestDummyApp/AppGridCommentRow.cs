@@ -41,7 +41,8 @@ namespace TestDummyApp
                         result = new DataEntryGridTextCellProps(this, columnId, text);
                     }
                     break;
-                case AppGridColumns.Disabled:
+                case AppGridColumns.Image:
+                    break;
                 case AppGridColumns.CheckBox:
                 case AppGridColumns.Location:
                 case AppGridColumns.Price:
@@ -126,7 +127,7 @@ namespace TestDummyApp
 
             switch (column)
             {
-                case AppGridColumns.Disabled:
+                case AppGridColumns.Image:
                     break;
                 case AppGridColumns.LineType:
                     if (!ParentRowId.IsNullOrEmpty())

@@ -7,7 +7,7 @@
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:local="clr-namespace:TestDummyApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900"
+        Title="MainWindow" Height="450" Width="1000"
         CloseOnEscape="False"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
@@ -22,7 +22,7 @@
         <!--<dec:IntegerEditControl HorizontalAlignment="Left" Width="100"/>-->
         <deg:DataEntryGrid x:Name="DataEntryGrid" Grid.Row="1" Grid.Column="0" Manager="{Binding Path=GridManager}">
             <deg:DataEntryGrid.Columns>
-                <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.DisabledColumnId}" Header="Disabled"/>
+                <local:GridImageColumn ColumnId="{x:Static local:AppGridManager.ImageColumnId}" Header="Image"/>
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.LineTypeColumnId}" Header="Line Type" Width="100" DesignText="Non Inventory"/>
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.StockNumberColumnId}" Header="Stock Number" Width="150"/>
                 <deg:DataEntryGridTextColumn ColumnId="{x:Static local:AppGridManager.LocationColumnId}" Header="Location" Width="100"/>

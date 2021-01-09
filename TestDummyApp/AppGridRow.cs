@@ -5,6 +5,22 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace TestDummyApp
 {
+    public class ImageCellProps : DataEntryGridCellProps
+    {
+        public AppGridLineTypes LineType { get; }
+
+        public ImageCellProps(DataEntryGridRow row, int columnId, AppGridLineTypes lineType) : base(row, columnId)
+        {
+            LineType = lineType;
+        }
+
+        protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)
+        {
+            var dataValue = new DataEntryGridDataValue();
+            return dataValue.CreateDataValue(row, columnId, ((int) LineType).ToString());
+        }
+    }
+
     public abstract class AppGridRow : DataEntryGridRow
     {
         public abstract AppGridLineTypes LineType { get; }
@@ -37,8 +53,8 @@ namespace TestDummyApp
             var appGridColumn = (AppGridColumns) columnId;
             switch (appGridColumn)
             {
-                case AppGridColumns.Disabled:
-                    return new DataEntryGridTextCellProps(this, columnId);
+                case AppGridColumns.Image:
+                    return new ImageCellProps(this, columnId, LineType);
                 case AppGridColumns.LineType:
                     var selectedLineType = LineTypeComboBoxSetup.GetItem((int) LineType);
                     return new DataEntryGridComboBoxCellProps(this, columnId, LineTypeComboBoxSetup, selectedLineType,
@@ -124,14 +140,19 @@ namespace TestDummyApp
             var column = (AppGridColumns) columnId;
             switch (column)
             {
-                case AppGridColumns.Disabled:
-                    return new DataEntryGridCellStyle() { State = DataEntryGridCellStates.Disabled };
+                case AppGridColumns.Image:
+                    return GetImageCellStyle();
                 case AppGridColumns.Button:
                     return GetButtonCellStyle();
                 case AppGridColumns.CheckBox:
                     return GetCheckBoxCellStyle();
             }
             return base.GetCellStyle(columnId);
+        }
+
+        protected DataEntryGridControlCellStyle GetImageCellStyle()
+        {
+            return new DataEntryGridControlCellStyle() { State = DataEntryGridCellStates.Enabled };
         }
 
         protected DataEntryGridControlCellStyle GetCheckBoxCellStyle()
