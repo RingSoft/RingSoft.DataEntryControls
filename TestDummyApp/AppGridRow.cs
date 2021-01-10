@@ -6,22 +6,6 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace TestDummyApp
 {
-    public class ImageCellProps : DataEntryGridCellProps
-    {
-        public AppGridLineTypes LineType { get; }
-
-        public ImageCellProps(DataEntryGridRow row, int columnId, AppGridLineTypes lineType) : base(row, columnId)
-        {
-            LineType = lineType;
-        }
-
-        protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)
-        {
-            var dataValue = new DataEntryGridDataValue();
-            return dataValue.CreateDataValue(row, columnId, ((int) LineType).ToString());
-        }
-    }
-
     public abstract class AppGridRow : DataEntryGridRow
     {
         public abstract AppGridLineTypes LineType { get; }
@@ -57,9 +41,7 @@ namespace TestDummyApp
                 case AppGridColumns.Disabled:
                     return new DataEntryGridTextCellProps(this, columnId);
                 case AppGridColumns.LineType:
-                    var selectedLineType = LineTypeComboBoxSetup.GetItem((int) LineType);
-                    return new DataEntryGridComboBoxCellProps(this, columnId, LineTypeComboBoxSetup, selectedLineType,
-                        ComboBoxValueChangedTypes.SelectedItemChanged);
+                    return new LineTypeCellProps(this, columnId, LineType);
                 case AppGridColumns.CheckBox:
                     return new DataEntryGridCheckBoxCellProps(this, columnId, CheckBoxValue);
                 case AppGridColumns.Date:
@@ -79,9 +61,9 @@ namespace TestDummyApp
             switch (appGridColumn)
             {
                 case AppGridColumns.LineType:
-                    if (value is DataEntryGridComboBoxCellProps comboBoxCellProps)
+                    if (value is LineTypeCellProps lineTypeCellProps)
                     {
-                        var newLineType = (AppGridLineTypes) comboBoxCellProps.SelectedItem.NumericValue;
+                        var newLineType = (AppGridLineTypes) lineTypeCellProps.LineType;
                         var changeLineType = true;
                         if (!IsNew)
                         {
@@ -90,9 +72,8 @@ namespace TestDummyApp
                             if (!AppGridManager.UserInterface.ShowYesNoMessage(message, "Change Line Type"))
                             {
                                 changeLineType = false;
-                                comboBoxCellProps.OverrideCellMovement = true;
-                                comboBoxCellProps.SelectedItem =
-                                    comboBoxCellProps.ComboBoxSetup.GetItem((int) LineType);
+                                lineTypeCellProps.OverrideCellMovement = true;
+                                lineTypeCellProps.LineType = LineType;
                             }
 
                         }
@@ -143,12 +124,19 @@ namespace TestDummyApp
             {
                 case AppGridColumns.Disabled:
                     return GetDisabledCellStyle();
+                case AppGridColumns.LineType:
+                    return GetLineTypeCellStyle();
                 case AppGridColumns.Button:
                     return GetButtonCellStyle();
                 case AppGridColumns.CheckBox:
                     return GetCheckBoxCellStyle();
             }
             return base.GetCellStyle(columnId);
+        }
+
+        protected DataEntryGridControlCellStyle GetLineTypeCellStyle()
+        {
+            return new DataEntryGridControlCellStyle();
         }
 
         protected DataEntryGridCellStyle GetDisabledCellStyle()

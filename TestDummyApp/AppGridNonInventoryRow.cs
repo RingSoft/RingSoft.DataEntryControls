@@ -89,8 +89,10 @@ namespace TestDummyApp
                     setSelectionColor = false;
                     break;
                 case AppGridColumns.LineType:
+                    result = GetLineTypeCellStyle();
                     if (!ParentRowId.IsNullOrEmpty())
-                        result = new DataEntryGridCellStyle(){State = DataEntryGridCellStates.ReadOnly};
+                        result.State = DataEntryGridCellStates.ReadOnly;
+
                     break;
                 case AppGridColumns.StockNumber:
                     result = new DataEntryGridCellStyle(){ColumnHeader = "Non Inventory Code" };

@@ -32,14 +32,14 @@ namespace TestDummyApp
             switch (column)
             {
                 case AppGridColumns.LineType:
-                    if (!ParentRowId.IsNullOrEmpty())
-                    {
-                        var text = string.Empty;
-                        if (Value != null)
-                            text = "Comment";
+                    //if (!ParentRowId.IsNullOrEmpty())
+                    //{
+                    //    var text = string.Empty;
+                    //    if (Value != null)
+                    //        text = "Comment";
 
-                        result = new DataEntryGridTextCellProps(this, columnId, text);
-                    }
+                    //    result = new DataEntryGridTextCellProps(this, columnId, text);
+                    //}
                     break;
                 case AppGridColumns.Disabled:
                 case AppGridColumns.CheckBox:
@@ -129,8 +129,12 @@ namespace TestDummyApp
                 case AppGridColumns.Disabled:
                     break;
                 case AppGridColumns.LineType:
-                    if (!ParentRowId.IsNullOrEmpty())
-                        return new DataEntryGridCellStyle(){State = DataEntryGridCellStates.ReadOnly};
+                    if (Value == null)
+                        return new DataEntryGridControlCellStyle()
+                        {
+                            State = DataEntryGridCellStates.ReadOnly,
+                            IsVisible = false
+                        };
                     break;
                 case AppGridColumns.StockNumber:
                     if (Value == null)

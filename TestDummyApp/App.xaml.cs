@@ -17,6 +17,8 @@ namespace TestDummyApp
             //var culture = CultureInfo.CurrentCulture;
 
             WPFControlsGlobals.InitUi();
+            WPFControlsGlobals.DataEntryGridHostFactory = new AppGridEditHostFactory();
+
             Globals.CultureId = culture.Name;
             Globals.Precision = culture.NumberFormat.CurrencyDecimalDigits;
 

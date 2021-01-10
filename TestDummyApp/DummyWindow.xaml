@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:local="clr-namespace:TestDummyApp"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="DummyWindow" Height="450" Width="800">
@@ -19,6 +20,7 @@
 
                 <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>
             </StackPanel>
+            <local:LineTypeControl Width="150"/>
             <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>
