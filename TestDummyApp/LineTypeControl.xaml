@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="150">
     <Grid>
-        <ComboBox x:Name="ComboBox">
+        <ComboBox x:Name="ComboBox" IsTextSearchEnabled="True">
             <ComboBoxItem x:Name="InventoryItem" IsSelected="True">
                 <ContentPresenter ContentTemplate="{StaticResource InventoryPanel}"/>
             </ComboBoxItem>

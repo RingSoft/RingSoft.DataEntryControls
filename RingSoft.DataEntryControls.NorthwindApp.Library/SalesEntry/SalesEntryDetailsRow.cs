@@ -27,7 +27,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public abstract SalesEntryDetailsLineTypes LineType { get; }
 
-        private ComboBoxControlSetup _lineTypeSetup = new ComboBoxControlSetup();
+        private TextComboBoxControlSetup _lineTypeSetup = new TextComboBoxControlSetup();
 
         protected SalesEntryDetailsRow(SalesEntryDetailsGridManager manager) : base(manager)
         {
@@ -41,7 +41,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             if (column == SalesEntryGridColumns.LineType)
             {
                 var lineTypeItem = _lineTypeSetup.GetItem((int) LineType);
-                return new DataEntryGridComboBoxCellProps(this, columnId, _lineTypeSetup, lineTypeItem);
+                return new DataEntryGridTextComboBoxCellProps(this, columnId, _lineTypeSetup, lineTypeItem);
             }
             return  new DataEntryGridTextCellProps(this, columnId);
         }

@@ -8,7 +8,7 @@ namespace RingSoft.DataEntryControls.Engine
     /// <summary>
     /// An item inside a combo box.
     /// </summary>
-    public class ComboBoxItem
+    public class TextComboBoxItem
     {
         /// <summary>
         /// Gets or sets the text value.
@@ -35,7 +35,7 @@ namespace RingSoft.DataEntryControls.Engine
     /// <summary>
     /// All the properties necessary to set up a combo box.
     /// </summary>
-    public class ComboBoxControlSetup
+    public class TextComboBoxControlSetup
     {
         /// <summary>
         /// Gets the combo box items.
@@ -43,7 +43,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// <value>
         /// The combo box items.
         /// </value>
-        public List<ComboBoxItem> Items { get; } = new List<ComboBoxItem>();
+        public List<TextComboBoxItem> Items { get; } = new List<TextComboBoxItem>();
 
         /// <summary>
         /// Loads from an enum.  Uses each enum item's Description attribute as the combo box item text.
@@ -69,7 +69,7 @@ namespace RingSoft.DataEntryControls.Engine
                 var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
                 var textValue = attributes.Length > 0 ? attributes[0].Description : enumValue.ToString();
 
-                var comboItem = new ComboBoxItem
+                var comboItem = new TextComboBoxItem
                 {
                     NumericValue = (int)enumValue,
                     TextValue = textValue
@@ -84,7 +84,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// <param name="numericValue">The numeric value.</param>
         /// <returns>The combo box item of the numeric value.</returns>
         /// <exception cref="ArgumentException">No Combo Box Item found for numeric value: {numericValue}</exception>
-        public ComboBoxItem GetItem(int numericValue)
+        public TextComboBoxItem GetItem(int numericValue)
         {
             var item = Items.FirstOrDefault(f => f.NumericValue == numericValue);
             if (item == null)

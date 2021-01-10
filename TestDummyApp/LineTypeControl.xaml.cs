@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 
 namespace TestDummyApp
 {
@@ -39,6 +40,23 @@ namespace TestDummyApp
         public LineTypeControl()
         {
             InitializeComponent();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.I:
+                    InventoryItem.IsSelected = true;
+                    break;
+                case Key.N:
+                    NonInventoryItem.IsSelected = true;
+                    break;
+                case Key.C:
+                    CommentItem.IsSelected = true;
+                    break;
+            }
+            base.OnKeyDown(e);
         }
     }
 }

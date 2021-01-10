@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using ComboBoxItem = RingSoft.DataEntryControls.Engine.ComboBoxItem;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -37,45 +36,45 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:ComboBoxControl/>
     ///
     /// </summary>
-    public class ComboBoxControl : ComboBox
+    public class TextComboBoxControl : ComboBox
     {
         public new static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register(nameof(SelectedItem), typeof(ComboBoxItem), typeof(ComboBoxControl),
+            DependencyProperty.Register(nameof(SelectedItem), typeof(TextComboBoxItem), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(SelectedItemPropertyChangedCallback));
 
-        public new ComboBoxItem SelectedItem
+        public new TextComboBoxItem SelectedItem
         {
-            get { return (ComboBoxItem)GetValue(SelectedItemProperty); }
+            get { return (TextComboBoxItem)GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
 
         private static void SelectedItemPropertyChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
-            var comboBoxControl = (ComboBoxControl)obj;
+            var comboBoxControl = (TextComboBoxControl)obj;
             comboBoxControl.SetSelectedItem();
         }
 
         public static readonly DependencyProperty SetupProperty =
-            DependencyProperty.Register(nameof(Setup), typeof(ComboBoxControlSetup), typeof(ComboBoxControl),
+            DependencyProperty.Register(nameof(Setup), typeof(TextComboBoxControlSetup), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(SetupPropertyChangedCallback));
 
-        public ComboBoxControlSetup Setup
+        public TextComboBoxControlSetup Setup
         {
-            get { return (ComboBoxControlSetup)GetValue(SetupProperty); }
+            get { return (TextComboBoxControlSetup)GetValue(SetupProperty); }
             set { SetValue(SetupProperty, value); }
         }
 
         private static void SetupPropertyChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
-            var comboBoxControl = (ComboBoxControl)obj;
+            var comboBoxControl = (TextComboBoxControl)obj;
             comboBoxControl.DoSetup();
         }
 
         private static object CoerceItemsSourceProperty(DependencyObject obj, object baseValue)
         {
-            var comboBoxControl = (ComboBoxControl)obj;
+            var comboBoxControl = (TextComboBoxControl)obj;
             if (!comboBoxControl.IsDesignMode())
                 return baseValue;
 
@@ -84,7 +83,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private static object CoerceItemTemplateProperty(DependencyObject obj, object baseValue)
         {
-            var comboBoxControl = (ComboBoxControl)obj;
+            var comboBoxControl = (TextComboBoxControl)obj;
             if (!comboBoxControl.IsDesignMode())
                 return baseValue;
 
@@ -106,15 +105,15 @@ namespace RingSoft.DataEntryControls.WPF
 
         private ObservableCollection<string> _designerList = new ObservableCollection<string>();
 
-        static ComboBoxControl()
+        static TextComboBoxControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ComboBoxControl),
-                new FrameworkPropertyMetadata(typeof(ComboBoxControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TextComboBoxControl),
+                new FrameworkPropertyMetadata(typeof(TextComboBoxControl)));
 
-            ItemsSourceProperty.OverrideMetadata(typeof(ComboBoxControl), 
+            ItemsSourceProperty.OverrideMetadata(typeof(TextComboBoxControl), 
                 new FrameworkPropertyMetadata(null, CoerceItemsSourceProperty));
 
-            ItemTemplateProperty.OverrideMetadata(typeof(ComboBoxControl),
+            ItemTemplateProperty.OverrideMetadata(typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(null, CoerceItemTemplateProperty));
         }
 
@@ -166,7 +165,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            if (base.SelectedItem is ComboBoxItem comboBoxItem)
+            if (base.SelectedItem is TextComboBoxItem comboBoxItem)
                 SelectedItem = comboBoxItem;
 
             base.OnSelectionChanged(e);

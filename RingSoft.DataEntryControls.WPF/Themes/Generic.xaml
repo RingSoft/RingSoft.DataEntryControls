@@ -33,7 +33,7 @@
 
     <Style TargetType="{x:Type local:StringEditControl}" BasedOn="{StaticResource {x:Type TextBox}}"/>
 
-    <Style TargetType="{x:Type local:ComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
+    <Style TargetType="{x:Type local:TextComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
 
     <Style TargetType="{x:Type local:DataEntryMemoTabItem}" BasedOn="{StaticResource {x:Type TabItem}}"/>
 

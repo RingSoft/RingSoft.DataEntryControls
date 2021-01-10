@@ -2,18 +2,15 @@
 
 namespace TestDummyApp
 {
-    public class LineTypeCellProps : DataEntryGridEditingCellProps
+    public class LineTypeCellProps : DataEntryGridComboBoxCellProps
     {
         public override int EditingControlId => Globals.LineTypeControlId;
 
         public AppGridLineTypes LineType { get; set; }
 
-        public ComboBoxValueChangedTypes ChangeType { get; }
-
-        public LineTypeCellProps(DataEntryGridRow row, int columnId, AppGridLineTypes lineType, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(row, columnId)
+        public LineTypeCellProps(DataEntryGridRow row, int columnId, AppGridLineTypes lineType, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(row, columnId, changeType)
         {
             LineType = lineType;
-            ChangeType = changeType;
         }
 
         protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)

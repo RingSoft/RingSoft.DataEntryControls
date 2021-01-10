@@ -1,24 +1,19 @@
-﻿using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
+using System;
+using System.Windows.Controls;
 
 namespace TestDummyApp
 {
-    public class LineTypeControlHost : DataEntryGridEditingControlHost<LineTypeControl>
+    public class LineTypeControlHost : DataEntryGridComboBoxHost<LineTypeControl>
     {
+        protected override ComboBox ComboBox => Control.ComboBox;
+
         private AppGridLineTypes _lineType;
-        private ComboBoxValueChangedTypes _valueChangeType;
 
         public LineTypeControlHost(DataEntryGrid grid) : base(grid)
         {
-        }
-
-        public override bool IsDropDownOpen => Control.ComboBox.IsDropDownOpen;
-
-        public override DataEntryGridEditingCellProps GetCellValue()
-        {
-            return new LineTypeCellProps(Row, ColumnId, Control.LineType, _valueChangeType);
         }
 
         public override bool HasDataChanged()
@@ -29,24 +24,38 @@ namespace TestDummyApp
         public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
         {
             if (cellProps is LineTypeCellProps lineTypeCellProps)
+                Control.LineType = lineTypeCellProps.LineType;
+        }
+
+        protected override DataEntryGridComboBoxCellProps GetComboBoxCellProps(ComboBoxValueChangedTypes valueChangeType)
+        {
+            return new LineTypeCellProps(Row, ColumnId, _lineType, valueChangeType);
+        }
+
+        protected override void ValidateComboBoxCellProps(DataEntryGridComboBoxCellProps comboBoxCellProps)
+        {
+            if (!(comboBoxCellProps is LineTypeCellProps))
+                throw new Exception(
+                    $"Row: {comboBoxCellProps.Row} ColumnId: {comboBoxCellProps.ColumnId} {nameof(DataEntryGridRow.GetCellProps)} must return a valid {nameof(LineTypeCellProps)} object.");
+        }
+
+        protected override void SetSelectedItem(bool overrideCellMovement)
+        {
+            if (overrideCellMovement)
             {
-                _lineType = Control.LineType = lineTypeCellProps.LineType;
+                Control.LineType = _lineType;
+            }
+            else
+            {
+                _lineType = Control.LineType;
             }
         }
 
-        protected override void OnControlLoaded(LineTypeControl control, DataEntryGridEditingCellProps cellProps,
+        protected override void OnComboControlLoaded(LineTypeControl control, DataEntryGridComboBoxCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
-            UpdateFromCellProps(cellProps);
             if (cellProps is LineTypeCellProps lineTypeCellProps)
-            {
-                _valueChangeType = lineTypeCellProps.ChangeType;
-            }
-        }
-
-        public override bool CanGridProcessKey(Key key)
-        {
-            return base.CanGridProcessKey(key);
+                _lineType = Control.LineType = lineTypeCellProps.LineType;
         }
     }
 }

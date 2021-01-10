@@ -11,7 +11,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             if (editingControlHostId == DataEntryGridEditingCellProps.TextBoxHostId)
                 return new DataEntryGridTextBoxHost(grid);
             if (editingControlHostId == DataEntryGridEditingCellProps.ComboBoxHostId)
-                return new DataEntryGridComboBoxHost(grid);
+                return new DataEntryGridTextComboBoxHost(grid);
             if (editingControlHostId == DataEntryGridEditingCellProps.CheckBoxHostId)
                 return new DataEntryGridCheckBoxHost(grid);
             if (editingControlHostId == DataEntryGridEditingCellProps.ButtonHostId)

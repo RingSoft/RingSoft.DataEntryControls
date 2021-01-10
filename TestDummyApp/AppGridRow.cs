@@ -20,7 +20,7 @@ namespace TestDummyApp
 
         public IntegerEditControlSetup IntegerSetup { get; }
 
-        public ComboBoxControlSetup LineTypeComboBoxSetup { get; } = new ComboBoxControlSetup();
+        public TextComboBoxControlSetup LineTypeComboBoxSetup { get; } = new TextComboBoxControlSetup();
 
         public AppGridManager AppGridManager { get; }
 

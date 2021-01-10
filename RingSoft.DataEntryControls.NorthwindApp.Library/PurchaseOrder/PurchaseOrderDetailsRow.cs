@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public int? DelayDays { get; private set; }
 
-        private ComboBoxControlSetup _lineTypeSetup = new ComboBoxControlSetup();
+        private TextComboBoxControlSetup _lineTypeSetup = new TextComboBoxControlSetup();
         private DateEditControlSetup _pickDateSetup = AppGlobals.CreateNewDateEditControlSetup();
         private IntegerEditControlSetup _delayDaysSetup = AppGlobals.CreateNewIntegerEditControlSetup();
 
@@ -50,7 +50,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             {
                 case PurchaseOrderColumns.LineType:
                     var lineTypeItem = _lineTypeSetup.GetItem((int)LineType);
-                    return new DataEntryGridComboBoxCellProps(this, columnId, _lineTypeSetup, lineTypeItem,
+                    return new DataEntryGridTextComboBoxCellProps(this, columnId, _lineTypeSetup, lineTypeItem,
                         ComboBoxValueChangedTypes.SelectedItemChanged);
                 case PurchaseOrderColumns.PickDate:
                     return new DataEntryGridDateCellProps(this, columnId, _pickDateSetup, PickDate);
@@ -80,7 +80,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                         }
                     }
 
-                    if (value is DataEntryGridComboBoxCellProps comboBoxCellProps)
+                    if (value is DataEntryGridTextComboBoxCellProps comboBoxCellProps)
                     {
                         var newLineType = (PurchaseOrderDetailsLineTypes) comboBoxCellProps.SelectedItem.NumericValue;
                         var newRow = PurchaseOrderDetailsManager.CreateRowFromLineType(newLineType);

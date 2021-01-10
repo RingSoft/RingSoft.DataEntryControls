@@ -3,26 +3,31 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ComboBoxItem = RingSoft.DataEntryControls.Engine.ComboBoxItem;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
-    public class DataEntryGridComboBoxHost : DataEntryGridEditingControlHost<ComboBoxControl>
+    public class DataEntryGridTextComboBoxHost : DataEntryGridComboBoxHost<TextComboBoxControl>
     {
-        public override bool IsDropDownOpen => Control.IsDropDownOpen;
-        private ComboBoxControlSetup _comboBoxSetup;
-        private ComboBoxItem _selectedItem;
-        private ComboBoxValueChangedTypes _valueChangeType;
-        private bool _proceessingValidationFail;
+        protected override ComboBox ComboBox => Control;
+        private TextComboBoxControlSetup _comboBoxSetup;
+        private TextComboBoxItem _selectedItem;
 
-        public DataEntryGridComboBoxHost(DataEntryGrid grid) : base(grid)
+        public DataEntryGridTextComboBoxHost(DataEntryGrid grid) : base(grid)
         {
         }
 
-        public override DataEntryGridEditingCellProps GetCellValue()
+        protected override DataEntryGridComboBoxCellProps GetComboBoxCellProps(
+            ComboBoxValueChangedTypes valueChangeType)
         {
-            return new DataEntryGridComboBoxCellProps(Row, ColumnId,
-                _comboBoxSetup, Control.SelectedItem, _valueChangeType);
+            return new DataEntryGridTextComboBoxCellProps(Row, ColumnId,
+                _comboBoxSetup, Control.SelectedItem, valueChangeType);
+        }
+
+        protected override void ValidateComboBoxCellProps(DataEntryGridComboBoxCellProps comboBoxCellProps)
+        {
+            if (comboBoxCellProps is DataEntryGridTextComboBoxCellProps textComboBoxCellProps)
+                if (textComboBoxCellProps.SelectedItem == null)
+                    throw new ArgumentException($"ComboBox Selected Item cannot be null.");
         }
 
         public override bool HasDataChanged()
@@ -33,24 +38,87 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
         {
             var comboBoxCellProps = GetComboBoxCellProps(cellProps);
-            _selectedItem = comboBoxCellProps.SelectedItem;
+            if (comboBoxCellProps is DataEntryGridTextComboBoxCellProps textComboBoxCellProps)
+                _selectedItem = textComboBoxCellProps.SelectedItem;
         }
 
-        protected override void OnControlLoaded(ComboBoxControl control, DataEntryGridEditingCellProps cellProps,
+        protected override void SetSelectedItem(bool overrideCellMovement)
+        {
+            if (overrideCellMovement)
+                Control.SelectedItem = _selectedItem;
+            else
+            {
+                _selectedItem = Control.SelectedItem;
+            }
+        }
+
+        protected override void OnComboControlLoaded(TextComboBoxControl control, DataEntryGridComboBoxCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
             var comboBoxCellProps = GetComboBoxCellProps(cellProps);
 
-            control.Setup = _comboBoxSetup = comboBoxCellProps.ComboBoxSetup;
-            control.SelectedItem = _selectedItem = comboBoxCellProps.SelectedItem;
-            _valueChangeType = comboBoxCellProps.ChangeType;
-
-            Control.SelectionChanged += (sender, args) => OnSelectionChanged();
+            if (comboBoxCellProps is DataEntryGridTextComboBoxCellProps textComboBoxCellProps)
+            {
+                control.Setup = _comboBoxSetup = textComboBoxCellProps.ComboBoxSetup;
+                control.SelectedItem = _selectedItem = textComboBoxCellProps.SelectedItem;
+            }
         }
+    }
 
-        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+    public abstract class DataEntryGridComboBoxHost<TControl> : DataEntryGridEditingControlHost<TControl>
+        where TControl : Control
+    {
+        protected abstract ComboBox ComboBox { get; }
+
+        public sealed override bool IsDropDownOpen => ComboBox.IsDropDownOpen;
+
+        private ComboBoxValueChangedTypes _valueChangeType;
+        private bool _proceessingValidationFail;
+
+        protected DataEntryGridComboBoxHost(DataEntryGrid grid) : base(grid)
         {
         }
+
+        public sealed override DataEntryGridEditingCellProps GetCellValue()
+        {
+            return GetComboBoxCellProps(_valueChangeType);
+        }
+
+        protected abstract DataEntryGridComboBoxCellProps GetComboBoxCellProps(ComboBoxValueChangedTypes valueChangeType);
+
+        protected abstract void ValidateComboBoxCellProps(DataEntryGridComboBoxCellProps comboBoxCellProps);
+
+        protected DataEntryGridComboBoxCellProps GetComboBoxCellProps(DataEntryGridCellProps cellProps)
+        {
+            var comboBoxProps = cellProps as DataEntryGridComboBoxCellProps;
+            if (comboBoxProps == null)
+            {
+                var rowName = cellProps.Row.ToString();
+                throw new ArgumentException(
+                    $"{nameof(DataEntryGridTextComboBoxCellProps)} not setup for Row: {rowName} Column Id={cellProps.ColumnId}");
+            }
+
+            ValidateComboBoxCellProps(comboBoxProps);
+
+            return comboBoxProps;
+        }
+
+        protected abstract void SetSelectedItem(bool overrideCellMovement);
+
+        protected sealed override void OnControlLoaded(TControl control, DataEntryGridEditingCellProps cellProps,
+            DataEntryGridCellStyle cellStyle)
+        {
+            var comboBoxCellProps = GetComboBoxCellProps(cellProps);
+
+            _valueChangeType = comboBoxCellProps.ChangeType;
+
+            ComboBox.SelectionChanged += (sender, args) => OnSelectionChanged();
+
+            OnComboControlLoaded(control, comboBoxCellProps, cellStyle);
+        }
+
+        protected abstract void OnComboControlLoaded(TControl control, DataEntryGridComboBoxCellProps cellProps,
+            DataEntryGridCellStyle cellStyle);
 
         private void OnSelectionChanged()
         {
@@ -61,35 +129,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             var controlValue = GetComboBoxCellProps(GetCellValue());
             OnUpdateSource(controlValue);
 
-            if (!controlValue.OverrideCellMovement)
-                _selectedItem = Control.SelectedItem;
+            if (controlValue.OverrideCellMovement)
+                SetSelectedItem(true);
             else
             {
                 _proceessingValidationFail = true;
-                Control.SelectedItem = _selectedItem;
+                SetSelectedItem(false);
                 _proceessingValidationFail = false;
             }
 
             Grid.UpdateRow(Row);
         }
 
-        private DataEntryGridComboBoxCellProps GetComboBoxCellProps(DataEntryGridCellProps cellProps)
-        {
-            var comboBoxProps = cellProps as DataEntryGridComboBoxCellProps;
-            if (comboBoxProps == null)
-            {
-                var rowName = cellProps.ToString();
-                throw new ArgumentException(
-                    $"{nameof(DataEntryGridComboBoxCellProps)} not setup for Row: {rowName} Column Id={cellProps.ColumnId}");
-            }
-
-            if (comboBoxProps.SelectedItem == null)
-                throw new ArgumentException($"ComboBox Selected Item cannot be null.");
-
-            return comboBoxProps;
-        }
-
-        public override bool CanGridProcessKey(Key key)
+        public sealed override bool CanGridProcessKey(Key key)
         {
             switch (key)
             {
@@ -97,17 +149,21 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
                 case Key.Down:
                     if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
                         return false;
-                    if (Control.IsDropDownOpen)
+                    if (ComboBox.IsDropDownOpen)
                         return false;
 
                     break;
                 case Key.Escape:
                 case Key.Enter:
-                    if (Control.IsDropDownOpen)
+                    if (ComboBox.IsDropDownOpen)
                         return false;
                     break;
             }
             return base.CanGridProcessKey(key);
+        }
+
+        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
         }
     }
 }

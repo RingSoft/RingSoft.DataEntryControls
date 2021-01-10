@@ -12,9 +12,9 @@ namespace TestDummyApp
     /// </summary>
     public partial class DummyWindow : INotifyPropertyChanged
     {
-        private ComboBoxControlSetup _comboBoxSetup;
+        private TextComboBoxControlSetup _comboBoxSetup;
 
-        public ComboBoxControlSetup ComboBoxSetup
+        public TextComboBoxControlSetup ComboBoxSetup
         {
             get => _comboBoxSetup;
             set
@@ -27,9 +27,9 @@ namespace TestDummyApp
             }
         }
 
-        private ComboBoxItem _selectedComboBoxItem;
+        private TextComboBoxItem _selectedComboBoxItem;
 
-        public ComboBoxItem SelectedComboBoxItem
+        public TextComboBoxItem SelectedComboBoxItem
         {
             get => _selectedComboBoxItem;
             set
@@ -85,7 +85,7 @@ namespace TestDummyApp
 
             Loaded += (sender, args) =>
             {
-                ComboBoxSetup = new ComboBoxControlSetup();
+                ComboBoxSetup = new TextComboBoxControlSetup();
                 ComboBoxSetup.LoadFromEnum<DayOfWeek>();
                 SelectedComboBoxItem = ComboBoxSetup.GetItem((int) DayOfWeek.Wednesday);
             };

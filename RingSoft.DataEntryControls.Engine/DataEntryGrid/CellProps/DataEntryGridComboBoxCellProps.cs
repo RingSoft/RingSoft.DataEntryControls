@@ -6,23 +6,32 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         EndEdit = 0,
         SelectedItemChanged = 1
     }
-    public class DataEntryGridComboBoxCellProps : DataEntryGridEditingCellProps
+
+    public abstract class DataEntryGridComboBoxCellProps : DataEntryGridEditingCellProps
+    {
+        public ComboBoxValueChangedTypes ChangeType { get; }
+
+        protected DataEntryGridComboBoxCellProps(DataEntryGridRow row, int columnId,
+            ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(row, columnId)
+        {
+            ChangeType = changeType;
+        }
+    }
+
+    public class DataEntryGridTextComboBoxCellProps : DataEntryGridComboBoxCellProps
     {
         public override int EditingControlId => DataEntryGridEditingCellProps.ComboBoxHostId;
 
-        public ComboBoxControlSetup ComboBoxSetup { get; }
+        public TextComboBoxControlSetup ComboBoxSetup { get; }
 
-        public ComboBoxItem SelectedItem { get; set; }
+        public TextComboBoxItem SelectedItem { get; set; }
 
-        public ComboBoxValueChangedTypes ChangeType { get; }
-
-        public DataEntryGridComboBoxCellProps(DataEntryGridRow row, int columnId, ComboBoxControlSetup comboBoxSetup,
-            ComboBoxItem selectedItem, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(
-            row, columnId)
+        public DataEntryGridTextComboBoxCellProps(DataEntryGridRow row, int columnId, TextComboBoxControlSetup comboBoxSetup,
+            TextComboBoxItem selectedItem, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(
+            row, columnId, changeType)
         {
             ComboBoxSetup = comboBoxSetup;
             SelectedItem = selectedItem;
-            ChangeType = changeType;
         }
 
         protected override string GetDataValue(DataEntryGridRow row, int columnId, bool controlMode)
