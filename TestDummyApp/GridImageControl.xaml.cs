@@ -1,10 +1,12 @@
-﻿using System;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.WPF.DataEntryGrid;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 
 namespace TestDummyApp
 {
@@ -36,6 +38,7 @@ namespace TestDummyApp
             factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Left);
         }
     }
+
     /// <summary>
     /// Interaction logic for GridImageControl.xaml
     /// </summary>
@@ -70,42 +73,58 @@ namespace TestDummyApp
 
                 _lineType = value;
 
-                InventoryPanel.Visibility = NonInventoryPanel.Visibility = CommentPanel.Visibility = Visibility.Collapsed;
-
-                switch (LineType)
-                {
-                    case AppGridLineTypes.Inventory:
-                        InventoryPanel.Visibility = Visibility.Visible;
-                        break;
-                    case AppGridLineTypes.NonInventory:
-                        NonInventoryPanel.Visibility = Visibility.Visible;
-                        break;
-                    case AppGridLineTypes.Comment:
-                        CommentPanel.Visibility = Visibility.Visible;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                SelectItem((int) LineType);
             }
         }
 
-
         private DataEntryGridControlColumnProcessor _processor;
+        private bool _controlLoaded;
+        private ObservableCollection<CustomContent> _content;
 
         public GridImageControl()
         {
             InitializeComponent();
 
+            Loaded += (sender, args) => OnLoaded();
+
             _processor = new DataEntryGridControlColumnProcessor(this);
 
-            NonInventoryPanel.Visibility = CommentPanel.Visibility = Visibility.Collapsed;
+            _processor.ControlValueChanged += (sender, args) =>
+            {
+                LineType = (AppGridLineTypes)args.ControlValue.ToInt();
+            };
+        }
 
-            _processor.ControlValueChanged += (sender, args) => LineType = (AppGridLineTypes) args.ControlValue.ToInt();
+        protected virtual int GetCurrentId() => (int)LineType;
+
+        protected virtual ObservableCollection<CustomContent> GetCustomContent() => Globals.GetLineTypeContents();
+
+        private void OnLoaded()
+        {
+            _content = GetCustomContent();
+
+            _controlLoaded = true;
+
+            SelectItem(GetCurrentId());
         }
 
         private void SetDataValue()
         {
             _processor.SetDataValue(DataValue);
+        }
+
+        protected void SelectItem(int itemId)
+        {
+            if (!_controlLoaded)
+                return;
+
+            RootPanel.Children.Clear();
+
+            var item = _content.FirstOrDefault(f => f.Id == itemId);
+            if (item != null)
+            {
+                RootPanel.Children.Add(item.Content);
+            }
         }
     }
 }

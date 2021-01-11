@@ -6,9 +6,6 @@
              xmlns:local="clr-namespace:TestDummyApp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <ContentPresenter x:Name="InventoryPanel" ContentTemplate="{StaticResource InventoryPanel}"/>
-        <ContentPresenter x:Name="NonInventoryPanel" ContentTemplate="{StaticResource NonInventoryPanel}"/>
-        <ContentPresenter x:Name="CommentPanel" ContentTemplate="{StaticResource CommentPanel}"/>
+    <StackPanel x:Name="RootPanel">
     </StackPanel>
 </UserControl>

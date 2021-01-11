@@ -7,16 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="150">
     <Grid>
-        <ComboBox x:Name="ComboBox" IsTextSearchEnabled="True">
-            <ComboBoxItem x:Name="InventoryItem" IsSelected="True">
-                <ContentPresenter ContentTemplate="{StaticResource InventoryPanel}"/>
-            </ComboBoxItem>
-            <ComboBoxItem x:Name="NonInventoryItem">
-                <ContentPresenter ContentTemplate="{StaticResource NonInventoryPanel}"/>
-            </ComboBoxItem>
-            <ComboBoxItem x:Name="CommentItem">
-                <ContentPresenter ContentTemplate="{StaticResource CommentPanel}"/>
-            </ComboBoxItem>
+        <ComboBox x:Name="ComboBox" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineTypeControl}}, Path=Content}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter ContentTemplate="{Binding Content.ContentTemplate}"></ContentPresenter>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
     </Grid>
 </UserControl>
