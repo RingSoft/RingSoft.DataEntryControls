@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System;
 
 
 namespace TestDummyApp
@@ -41,7 +40,8 @@ namespace TestDummyApp
                 case AppGridColumns.Disabled:
                     return new DataEntryGridTextCellProps(this, columnId);
                 case AppGridColumns.LineType:
-                    return new LineTypeCellProps(this, columnId, LineType);
+                    return new LineTypeCellProps(this, columnId, LineType,
+                        ComboBoxValueChangedTypes.SelectedItemChanged);
                 case AppGridColumns.CheckBox:
                     return new DataEntryGridCheckBoxCellProps(this, columnId, CheckBoxValue);
                 case AppGridColumns.Date:
@@ -63,7 +63,7 @@ namespace TestDummyApp
                 case AppGridColumns.LineType:
                     if (value is LineTypeCellProps lineTypeCellProps)
                     {
-                        var newLineType = (AppGridLineTypes) lineTypeCellProps.LineType;
+                        var newLineType = lineTypeCellProps.LineType;
                         var changeLineType = true;
                         if (!IsNew)
                         {

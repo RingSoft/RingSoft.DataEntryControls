@@ -29,7 +29,7 @@ namespace TestDummyApp
 
         protected override DataEntryGridComboBoxCellProps GetComboBoxCellProps(ComboBoxValueChangedTypes valueChangeType)
         {
-            return new LineTypeCellProps(Row, ColumnId, _lineType, valueChangeType);
+            return new LineTypeCellProps(Row, ColumnId, Control.LineType, valueChangeType);
         }
 
         protected override void ValidateComboBoxCellProps(DataEntryGridComboBoxCellProps comboBoxCellProps)

@@ -135,6 +135,10 @@ namespace TestDummyApp
                             State = DataEntryGridCellStates.ReadOnly,
                             IsVisible = false
                         };
+                    else if (!ParentRowId.IsNullOrEmpty())
+                    {
+                        return new DataEntryGridControlCellStyle() {State = DataEntryGridCellStates.ReadOnly};
+                    }
                     break;
                 case AppGridColumns.StockNumber:
                     if (Value == null)

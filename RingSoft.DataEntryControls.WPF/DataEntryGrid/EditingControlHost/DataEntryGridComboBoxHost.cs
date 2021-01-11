@@ -112,9 +112,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 
             _valueChangeType = comboBoxCellProps.ChangeType;
 
-            ComboBox.SelectionChanged += (sender, args) => OnSelectionChanged();
-
             OnComboControlLoaded(control, comboBoxCellProps, cellStyle);
+
+            ComboBox.SelectionChanged += (sender, args) => OnSelectionChanged();
         }
 
         protected abstract void OnComboControlLoaded(TControl control, DataEntryGridComboBoxCellProps cellProps,
