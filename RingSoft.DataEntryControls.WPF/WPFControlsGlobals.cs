@@ -17,6 +17,8 @@ namespace RingSoft.DataEntryControls.WPF
         public int ItemId { get; set; }
 
         public DataTemplate DataTemplate { get; set; }
+
+        public Key HotKey { get; set; }
     }
 
     public class ControlsUserInterface : IControlsUserInterface

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -125,6 +125,16 @@ namespace RingSoft.DataEntryControls.WPF
             var selectedItem = ContentTemplate.FirstOrDefault(f => f.ItemId == itemId);
 
             SelectedItem = selectedItem;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            var item = ContentTemplate.FirstOrDefault(f => f.HotKey == e.Key);
+
+            if (item != null)
+                SelectedItem = item;
+
+            base.OnKeyDown(e);
         }
 
         //protected override void OnKeyDown(KeyEventArgs e)

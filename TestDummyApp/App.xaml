@@ -36,31 +36,40 @@
                     </LinearGradientBrush>
                 </deg:DataEntryGridDisplayStyle.Background>
             </deg:DataEntryGridDisplayStyle>-->
-            <DataTemplate x:Key="InventoryPanel">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="Inventory.png" Width="16" Height="16"/>
-                    <TextBlock Text="Inventory"/>
-                </StackPanel>
-            </DataTemplate>
-
-            <DataTemplate x:Key="NonInventoryPanel">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="NonInventory.png" Width="16" Height="16"/>
-                    <TextBlock Text="Non Inventory"/>
-                </StackPanel>
-            </DataTemplate>
-
-            <DataTemplate x:Key="CommentPanel">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="Comment.png" Width="16" Height="16"/>
-                    <TextBlock Text="Comment"/>
-                </StackPanel>
-            </DataTemplate>
 
             <dec:DataEntryCustomContentTemplate x:Key="LineTypeContent">
-                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static local:AppGridManager.InventoryLineTypeId}" DataTemplate="{StaticResource InventoryPanel}"/>
-                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static local:AppGridManager.NonInventoryLineTypeId}" DataTemplate="{StaticResource NonInventoryPanel}"/>
-                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static local:AppGridManager.CommentLineTypeId}" DataTemplate="{StaticResource CommentPanel}"/>
+                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static local:AppGridManager.InventoryLineTypeId}" HotKey="I">
+                    <dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Inventory.png" Width="16" Height="16"/>
+                                <TextBlock Text="Inventory"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                </dec:DataEntryCustomContentTemplateItem>
+
+                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static local:AppGridManager.NonInventoryLineTypeId}" HotKey="N">
+                    <dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="NonInventory.png" Width="16" Height="16"/>
+                                <TextBlock Text="Non Inventory"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                </dec:DataEntryCustomContentTemplateItem>
+
+                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static local:AppGridManager.CommentLineTypeId}" HotKey="C">
+                    <dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Comment.png" Width="16" Height="16"/>
+                                <TextBlock Text="Comment"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                </dec:DataEntryCustomContentTemplateItem>
             </dec:DataEntryCustomContentTemplate>
 
             <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static local:Globals.CommentDisplayStyleId}" BackgroundBrush="Green" ForegroundBrush="White"/>
