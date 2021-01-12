@@ -10,7 +10,7 @@
         <ComboBox x:Name="ComboBox" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineTypeControl}}, Path=Content}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <ContentPresenter ContentTemplate="{Binding Content.ContentTemplate}"></ContentPresenter>
+                    <ContentPresenter ContentTemplate="{Binding DataTemplate}"></ContentPresenter>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

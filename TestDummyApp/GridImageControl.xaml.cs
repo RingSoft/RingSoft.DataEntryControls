@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using RingSoft.DataEntryControls.WPF;
 
 namespace TestDummyApp
 {
@@ -79,7 +80,6 @@ namespace TestDummyApp
 
         private DataEntryGridControlColumnProcessor _processor;
         private bool _controlLoaded;
-        private ObservableCollection<CustomContent> _content;
 
         public GridImageControl()
         {
@@ -97,12 +97,11 @@ namespace TestDummyApp
 
         protected virtual int GetCurrentId() => (int)LineType;
 
-        protected virtual ObservableCollection<CustomContent> GetCustomContent() => Globals.GetLineTypeContents();
+        protected virtual DataTemplate GetDataTemplateForId(int itemId) =>
+            Globals.GetDataTemplateForLineType((AppGridLineTypes) itemId);
 
         private void OnLoaded()
         {
-            _content = GetCustomContent();
-
             _controlLoaded = true;
 
             SelectItem(GetCurrentId());
@@ -118,13 +117,7 @@ namespace TestDummyApp
             if (!_controlLoaded)
                 return;
 
-            RootPanel.Children.Clear();
-
-            var item = _content.FirstOrDefault(f => f.Id == itemId);
-            if (item != null)
-            {
-                RootPanel.Children.Add(item.Content);
-            }
+            ContentPresenter.ContentTemplate = GetDataTemplateForId(itemId);
         }
     }
 }

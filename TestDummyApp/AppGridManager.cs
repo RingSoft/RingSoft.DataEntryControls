@@ -8,12 +8,12 @@ namespace TestDummyApp
     public enum AppGridLineTypes
     {
         [Description("Inventory")]
-        Inventory = 0,
+        Inventory = AppGridManager.InventoryLineTypeId,
 
         [Description("Non Inventory")]
-        NonInventory = 1,
+        NonInventory = AppGridManager.NonInventoryLineTypeId,
 
-        Comment = 2
+        Comment = AppGridManager.CommentLineTypeId
     }
 
     public enum AppGridColumns
@@ -50,6 +50,10 @@ namespace TestDummyApp
         public const int DateColumnId = 6;
         public const int IntegerColumnId = 7;
         public const int ButtonColumnId = 8;
+
+        public const int InventoryLineTypeId = 0;
+        public const int NonInventoryLineTypeId = 1;
+        public const int CommentLineTypeId = 2;
 
         public const int RedDisplayId = 200;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using RingSoft.DataEntryControls.WPF;
 
 namespace TestDummyApp
 {
@@ -10,13 +11,22 @@ namespace TestDummyApp
     public partial class LineTypeControl
     {
 
+        private AppGridLineTypes _lineType;
+
         public AppGridLineTypes LineType
         {
-            get => (AppGridLineTypes) GetSelectedItemId();
-            set => SelectItem((int)value);
+            get => _lineType;
+            set
+            {
+                if (_lineType == value)
+                    return;
+
+                _lineType = value;
+                SelectItem((int)LineType);
+            }
         }
 
-        public ObservableCollection<CustomContent> Content { get; private set; }
+        public ObservableCollection<CustomContentItem> Content { get; private set; }
 
         private bool _controlLoaded;
 
@@ -25,6 +35,8 @@ namespace TestDummyApp
             InitializeComponent();
 
             Loaded += (sender, args) => OnLoaded();
+
+            ComboBox.SelectionChanged += (sender, args) => OnSelectionChanged();
         }
 
         private void OnLoaded()
@@ -34,11 +46,20 @@ namespace TestDummyApp
             ComboBox.ItemsSource = Content;
 
             _controlLoaded = true;
+            SelectItem(GetSelectedId());
         }
 
-        protected virtual ObservableCollection<CustomContent> GetCustomContent() => Globals.GetLineTypeContents();
+        private void OnSelectionChanged()
+        {
+            if (ComboBox.SelectedItem is CustomContentItem customContent)
+                SetSelectedId(customContent.Id);
+        }
 
-        //protected virtual int GetCurrentId() => (int)LineType;
+        protected virtual ObservableCollection<CustomContentItem> GetCustomContent() => Globals.GetLineTypeContents();
+
+        protected virtual void SetSelectedId(int selectedId) => LineType = (AppGridLineTypes) selectedId;
+
+        protected virtual int GetSelectedId() => (int) LineType;
 
         protected void SelectItem(int itemId)
         {
@@ -52,7 +73,7 @@ namespace TestDummyApp
 
         protected int GetSelectedItemId()
         {
-            if (ComboBox.SelectedItem is CustomContent customContent)
+            if (ComboBox.SelectedItem is CustomContentItem customContent)
                 return customContent.Id;
 
             return 0;

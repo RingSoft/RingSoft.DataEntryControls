@@ -1,18 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.WPF;
 
 namespace TestDummyApp
 {
-    public class CustomContent
-    {
-        public int Id { get; set; }
-
-        public ContentPresenter Content { get; set; }
-    }
-
     public static class Globals
     {
         public const int CommentDisplayStyleId = 100;
@@ -24,23 +19,44 @@ namespace TestDummyApp
 
         public static int Precision { get; set; }
 
-        public static ObservableCollection<CustomContent> GetLineTypeContents()
+        public static ObservableCollection<CustomContentItem> GetLineTypeContents()
         {
-            var lineTypeContents = new ObservableCollection<CustomContent>();
+            var lineTypeContents = new ObservableCollection<CustomContentItem>();
 
-            var contentPresenter = new ContentPresenter { ContentTemplate = Application.Current.Resources["InventoryPanel"] as DataTemplate };
-            var content = new CustomContent { Id = (int)AppGridLineTypes.Inventory, Content = contentPresenter };
+            var content = new CustomContentItem
+            {
+                Id = (int) AppGridLineTypes.Inventory,
+                DataTemplate = GetDataTemplateForLineType(AppGridLineTypes.Inventory)
+            };
             lineTypeContents.Add(content);
 
-            contentPresenter = new ContentPresenter { ContentTemplate = Application.Current.Resources["NonInventoryPanel"] as DataTemplate };
-            content = new CustomContent { Id = (int)AppGridLineTypes.NonInventory, Content = contentPresenter };
+            content = new CustomContentItem
+            {
+                Id = (int) AppGridLineTypes.NonInventory,
+                DataTemplate = GetDataTemplateForLineType(AppGridLineTypes.NonInventory)
+            };
             lineTypeContents.Add(content);
 
-            contentPresenter = new ContentPresenter { ContentTemplate = Application.Current.Resources["CommentPanel"] as DataTemplate };
-            content = new CustomContent { Id = (int)AppGridLineTypes.Comment, Content = contentPresenter };
+            content = new CustomContentItem
+            {
+                Id = (int) AppGridLineTypes.Comment, 
+                DataTemplate = GetDataTemplateForLineType(AppGridLineTypes.Comment)
+            };
             lineTypeContents.Add(content);
 
             return lineTypeContents;
+        }
+
+        public static DataTemplate GetDataTemplateForLineType(AppGridLineTypes lineType)
+        {
+            switch (lineType)
+            {
+                case AppGridLineTypes.NonInventory:
+                    return Application.Current.Resources["NonInventoryPanel"] as DataTemplate;
+                case AppGridLineTypes.Comment:
+                    return Application.Current.Resources["CommentPanel"] as DataTemplate;
+            }
+            return Application.Current.Resources["InventoryPanel"] as DataTemplate;
         }
 
         public static DecimalEditControlSetup GetNumericEditSetup()

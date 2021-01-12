@@ -57,6 +57,12 @@
                 </StackPanel>
             </DataTemplate>
 
+            <dec:CustomContent x:Key="LineTypeContent">
+                <dec:CustomContentItem Id="{x:Static local:AppGridManager.InventoryLineTypeId}" DataTemplate="{StaticResource InventoryPanel}"/>
+                <dec:CustomContentItem Id="{x:Static local:AppGridManager.NonInventoryLineTypeId}" DataTemplate="{StaticResource NonInventoryPanel}"/>
+                <dec:CustomContentItem Id="{x:Static local:AppGridManager.CommentLineTypeId}" DataTemplate="{StaticResource CommentPanel}"/>
+            </dec:CustomContent>
+
             <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static local:Globals.CommentDisplayStyleId}" BackgroundBrush="Green" ForegroundBrush="White"/>
             <deg:DataEntryGridDisplayStyle x:Key="NonInventoryCellStyle" DisplayId="{x:Static local:Globals.NonInventoryDisplayStyleId}" BackgroundBrush="Blue" ForegroundBrush="White" SelectionBrush="White"/>
 

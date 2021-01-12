@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 
 namespace RingSoft.DataEntryControls.WPF
 {
+    public class CustomContentItem
+    {
+        public int Id { get; set; }
+
+        public DataTemplate DataTemplate { get; set; }
+    }
+
     public class ControlsUserInterface : IControlsUserInterface
     {
         public void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
