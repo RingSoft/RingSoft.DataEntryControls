@@ -1,15 +1,20 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF
 {
-    public class CustomContentItem
+    public class DataEntryCustomContentTemplate : ObservableCollection<DataEntryCustomContentTemplateItem>
     {
-        public int Id { get; set; }
+
+    }
+
+    public class DataEntryCustomContentTemplateItem
+    {
+        public int ItemId { get; set; }
 
         public DataTemplate DataTemplate { get; set; }
     }

@@ -46,7 +46,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public const int DecimalEditHostId = 4;
         public const int DateEditHostId = 5;
         public const int IntegerEditHostId = 6;
-
+        public const int ContentControlHostId = 7;
         public abstract int EditingControlId { get; }
 
         public override CellPropsTypes Type { get; internal set; } = CellPropsTypes.Editable;

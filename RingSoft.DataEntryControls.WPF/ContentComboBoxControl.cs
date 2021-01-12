@@ -7,10 +7,6 @@ using System.Windows.Data;
 
 namespace RingSoft.DataEntryControls.WPF
 {
-    public class CustomContent : ObservableCollection<CustomContentItem>
-    {
-
-    }
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///
@@ -59,17 +55,17 @@ namespace RingSoft.DataEntryControls.WPF
             contentComboBoxControl.SelectItem(contentComboBoxControl.SelectedItemId);
         }
 
-        public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register(nameof(Content), typeof(CustomContent), typeof(ContentComboBoxControl),
-                new FrameworkPropertyMetadata(ContentChangedCallback));
+        public static readonly DependencyProperty ContentTemplateProperty =
+            DependencyProperty.Register(nameof(ContentTemplate), typeof(DataEntryCustomContentTemplate), typeof(ContentComboBoxControl),
+                new FrameworkPropertyMetadata(ContentTemplateChangedCallback));
 
-        public CustomContent Content
+        public DataEntryCustomContentTemplate ContentTemplate
         {
-            get { return (CustomContent)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get { return (DataEntryCustomContentTemplate)GetValue(ContentTemplateProperty); }
+            set { SetValue(ContentTemplateProperty, value); }
         }
 
-        private static void ContentChangedCallback(DependencyObject obj,
+        private static void ContentTemplateChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
             var contentComboBoxControl = (ContentComboBoxControl)obj;
@@ -95,7 +91,7 @@ namespace RingSoft.DataEntryControls.WPF
             var dataTemplate = new DataTemplate();
             var contentPresenterFactory = new FrameworkElementFactory(typeof(ContentPresenter));
             contentPresenterFactory.SetBinding(ContentPresenter.ContentTemplateProperty,
-                new Binding(nameof(CustomContentItem.DataTemplate)));
+                new Binding(nameof(DataEntryCustomContentTemplateItem.DataTemplate)));
 
             dataTemplate.VisualTree = contentPresenterFactory;
             ItemTemplate = dataTemplate;
@@ -108,25 +104,25 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (_controlLoaded)
             {
-                ItemsSource = Content ?? throw new Exception("The Content Property has not been set.");
+                ItemsSource = ContentTemplate ?? throw new Exception($"The {nameof(ContentTemplate)} Property has not been set.");
                 SelectItem(SelectedItemId);
             }
         }
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            if (SelectedItem is CustomContentItem customContent)
-                SelectedItemId = customContent.Id;
+            if (SelectedItem is DataEntryCustomContentTemplateItem customContent)
+                SelectedItemId = customContent.ItemId;
 
             base.OnSelectionChanged(e);
         }
 
         protected void SelectItem(int itemId)
         {
-            if (!_controlLoaded || Content == null)
+            if (!_controlLoaded || ContentTemplate == null)
                 return;
 
-            var selectedItem = Content.FirstOrDefault(f => f.Id == itemId);
+            var selectedItem = ContentTemplate.FirstOrDefault(f => f.ItemId == itemId);
 
             SelectedItem = selectedItem;
         }

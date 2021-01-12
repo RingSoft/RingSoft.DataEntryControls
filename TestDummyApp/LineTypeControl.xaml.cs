@@ -26,7 +26,7 @@ namespace TestDummyApp
             }
         }
 
-        public ObservableCollection<CustomContentItem> Content { get; private set; }
+        public ObservableCollection<DataEntryCustomContentTemplateItem> Content { get; private set; }
 
         private bool _controlLoaded;
 
@@ -51,11 +51,11 @@ namespace TestDummyApp
 
         private void OnSelectionChanged()
         {
-            if (ComboBox.SelectedItem is CustomContentItem customContent)
-                SetSelectedId(customContent.Id);
+            if (ComboBox.SelectedItem is DataEntryCustomContentTemplateItem customContent)
+                SetSelectedId(customContent.ItemId);
         }
 
-        protected virtual ObservableCollection<CustomContentItem> GetCustomContent() => Globals.GetLineTypeContents();
+        protected virtual ObservableCollection<DataEntryCustomContentTemplateItem> GetCustomContent() => Globals.GetLineTypeContents();
 
         protected virtual void SetSelectedId(int selectedId) => LineType = (AppGridLineTypes) selectedId;
 
@@ -66,15 +66,15 @@ namespace TestDummyApp
             if (!_controlLoaded)
                 return;
 
-            var selectedItem = Content.FirstOrDefault(f => f.Id == itemId);
+            var selectedItem = Content.FirstOrDefault(f => f.ItemId == itemId);
 
             ComboBox.SelectedItem = selectedItem;
         }
 
         protected int GetSelectedItemId()
         {
-            if (ComboBox.SelectedItem is CustomContentItem customContent)
-                return customContent.Id;
+            if (ComboBox.SelectedItem is DataEntryCustomContentTemplateItem customContent)
+                return customContent.ItemId;
 
             return 0;
         }

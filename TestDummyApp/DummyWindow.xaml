@@ -20,7 +20,7 @@
 
                 <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>
             </StackPanel>
-            <dec:ContentComboBoxControl Content="{StaticResource LineTypeContent}" Width="150" SelectedItemId="0"/>
+            <dec:ContentComboBoxControl ContentTemplate="{StaticResource LineTypeContent}" Width="150"/>
             <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <dec:WaitSpinner Height="20" Width="20"/>
             <dec:StringReadOnlyBox Text="Test" Margin="5"/>

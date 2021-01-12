@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 
 
 namespace TestDummyApp
@@ -40,7 +41,7 @@ namespace TestDummyApp
                 case AppGridColumns.Disabled:
                     return new DataEntryGridTextCellProps(this, columnId);
                 case AppGridColumns.LineType:
-                    return new LineTypeCellProps(this, columnId, LineType,
+                    return new DataEntryGridCustomControlCellProps(this, columnId, (int)LineType,
                         ComboBoxValueChangedTypes.SelectedItemChanged);
                 case AppGridColumns.CheckBox:
                     return new DataEntryGridCheckBoxCellProps(this, columnId, CheckBoxValue);

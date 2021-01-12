@@ -19,27 +19,27 @@ namespace TestDummyApp
 
         public static int Precision { get; set; }
 
-        public static ObservableCollection<CustomContentItem> GetLineTypeContents()
+        public static ObservableCollection<DataEntryCustomContentTemplateItem> GetLineTypeContents()
         {
-            var lineTypeContents = new ObservableCollection<CustomContentItem>();
+            var lineTypeContents = new ObservableCollection<DataEntryCustomContentTemplateItem>();
 
-            var content = new CustomContentItem
+            var content = new DataEntryCustomContentTemplateItem
             {
-                Id = (int) AppGridLineTypes.Inventory,
+                ItemId = (int) AppGridLineTypes.Inventory,
                 DataTemplate = GetDataTemplateForLineType(AppGridLineTypes.Inventory)
             };
             lineTypeContents.Add(content);
 
-            content = new CustomContentItem
+            content = new DataEntryCustomContentTemplateItem
             {
-                Id = (int) AppGridLineTypes.NonInventory,
+                ItemId = (int) AppGridLineTypes.NonInventory,
                 DataTemplate = GetDataTemplateForLineType(AppGridLineTypes.NonInventory)
             };
             lineTypeContents.Add(content);
 
-            content = new CustomContentItem
+            content = new DataEntryCustomContentTemplateItem
             {
-                Id = (int) AppGridLineTypes.Comment, 
+                ItemId = (int) AppGridLineTypes.Comment, 
                 DataTemplate = GetDataTemplateForLineType(AppGridLineTypes.Comment)
             };
             lineTypeContents.Add(content);
