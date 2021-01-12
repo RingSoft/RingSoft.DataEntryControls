@@ -4,7 +4,7 @@
     {
         public override int EditingControlId => ContentControlHostId;
 
-        public int SelectedItemId { get; }
+        public int SelectedItemId { get; set; }
 
         public DataEntryGridCustomControlCellProps(DataEntryGridRow row, int columnId, int selectedItemId, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(row, columnId, changeType)
         {

@@ -62,9 +62,9 @@ namespace TestDummyApp
             switch (appGridColumn)
             {
                 case AppGridColumns.LineType:
-                    if (value is LineTypeCellProps lineTypeCellProps)
+                    if (value is DataEntryGridCustomControlCellProps customControlCellProps)
                     {
-                        var newLineType = lineTypeCellProps.LineType;
+                        var newLineType = (AppGridLineTypes)customControlCellProps.SelectedItemId;
                         var changeLineType = true;
                         if (!IsNew)
                         {
@@ -73,8 +73,8 @@ namespace TestDummyApp
                             if (!AppGridManager.UserInterface.ShowYesNoMessage(message, "Change Line Type"))
                             {
                                 changeLineType = false;
-                                lineTypeCellProps.OverrideCellMovement = true;
-                                lineTypeCellProps.LineType = LineType;
+                                customControlCellProps.OverrideCellMovement = true;
+                                customControlCellProps.SelectedItemId = (int)LineType;
                             }
 
                         }
