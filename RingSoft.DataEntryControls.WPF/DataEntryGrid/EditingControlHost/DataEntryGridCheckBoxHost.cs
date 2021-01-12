@@ -16,11 +16,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         {
         }
 
-        protected override void SetupFrameworkElementFactory(FrameworkElementFactory factory)
+        protected override void SetupFrameworkElementFactory(FrameworkElementFactory factory,
+            DataEntryGridColumn column)
         {
             factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
             factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
-            base.SetupFrameworkElementFactory(factory);
+            base.SetupFrameworkElementFactory(factory, column);
         }
 
         public override DataEntryGridEditingCellProps GetCellValue()

@@ -22,6 +22,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
                 return new DataEntryGridDateHost(grid);
             if (editingControlHostId == DataEntryGridEditingCellProps.IntegerEditHostId)
                 return new DataEntryGridIntegerControlHost(grid);
+            if (editingControlHostId == DataEntryGridEditingCellProps.ContentControlHostId)
+                return new DataEntryGridContentComboBoxControlHost(grid);
 
             throw new ArgumentException($"Data Entry Grid Control Host not found for ID: {editingControlHostId}");
         }

@@ -43,7 +43,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         }
 
         public abstract DataTemplate GetEditingControlDataTemplate(DataEntryGridEditingCellProps cellProps,
-            DataEntryGridCellStyle cellStyle);
+            DataEntryGridCellStyle cellStyle, DataEntryGridColumn column);
 
         public abstract DataEntryGridEditingCellProps GetCellValue();
 

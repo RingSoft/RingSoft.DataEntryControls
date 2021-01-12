@@ -23,7 +23,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         {
         }
 
-        public override DataTemplate GetEditingControlDataTemplate(DataEntryGridEditingCellProps cellProps, DataEntryGridCellStyle cellStyle)
+        public sealed override DataTemplate GetEditingControlDataTemplate(DataEntryGridEditingCellProps cellProps,
+            DataEntryGridCellStyle cellStyle, DataEntryGridColumn column)
         {
             _cellProps = cellProps;
             _cellStyle = cellStyle;
@@ -32,7 +33,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 
             var factory = new FrameworkElementFactory(typeof(TControl));
             factory.AddHandler(FrameworkElement.LoadedEvent, new RoutedEventHandler(Loaded));
-            SetupFrameworkElementFactory(factory);
+            SetupFrameworkElementFactory(factory, column);
 
             var dataTemplate = new DataTemplate();
             dataTemplate.VisualTree = factory;
@@ -40,7 +41,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             return dataTemplate;
         }
 
-        protected virtual void SetupFrameworkElementFactory(FrameworkElementFactory factory)
+        protected virtual void SetupFrameworkElementFactory(FrameworkElementFactory factory, DataEntryGridColumn column)
         {
         }
 

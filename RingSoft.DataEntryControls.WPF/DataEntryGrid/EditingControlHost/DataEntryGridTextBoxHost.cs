@@ -16,7 +16,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         {
         }
 
-        protected override void SetupFrameworkElementFactory(FrameworkElementFactory factory)
+        protected override void SetupFrameworkElementFactory(FrameworkElementFactory factory,
+            DataEntryGridColumn column)
         {
             //var binding = new Binding()
             //{

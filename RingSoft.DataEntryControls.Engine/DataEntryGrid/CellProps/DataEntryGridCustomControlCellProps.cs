@@ -1,12 +1,12 @@
 ﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 {
-    public class DataEntryGridCustomControlCellProps : DataEntryGridEditingCellProps
+    public class DataEntryGridCustomControlCellProps : DataEntryGridComboBoxCellProps
     {
         public override int EditingControlId => ContentControlHostId;
 
         public int SelectedItemId { get; }
 
-        public DataEntryGridCustomControlCellProps(DataEntryGridRow row, int columnId, int selectedItemId, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(row, columnId)
+        public DataEntryGridCustomControlCellProps(DataEntryGridRow row, int columnId, int selectedItemId, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(row, columnId, changeType)
         {
             SelectedItemId = selectedItemId;
         }
