@@ -20,25 +20,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 IsEnabled = true
             };
 
-            timer.Tick += (sender, args) =>
+            timer.Tick += (_, _) =>
             {
                 timer.Stop();
                 Done?.Invoke(this, EventArgs.Empty);
             };
 
-            ContentRendered += (sender, args) =>
+            ContentRendered += (_, _) =>
             {
                 Activate();
                 timer.Start();
             };
 
-            SalesEntryButton.Click += (sender, args) => ShowSalesEntryWindow();
-            SalesEntryMenu.Click += (sender, args) => ShowSalesEntryWindow();
-            PoMenu.Click += (sender, args) => ShowPurchaseOrderWindow();
-            PoButton.Click += (sender, args) => ShowPurchaseOrderWindow();
-            OptionsMenu.Click += (sender, args) => ShowOptionsWindow();
-            ExitButton.Click += (sender, args) => Close();
-            ExitMenu.Click += (sender, args) => Close();
+            SalesEntryButton.Click += (_, _) => ShowSalesEntryWindow();
+            SalesEntryMenu.Click += (_, _) => ShowSalesEntryWindow();
+            PoMenu.Click += (_, _) => ShowPurchaseOrderWindow();
+            PoButton.Click += (_, _) => ShowPurchaseOrderWindow();
+            OptionsMenu.Click += (_, _) => ShowOptionsWindow();
+            ExitButton.Click += (_, _) => Close();
+            ExitMenu.Click += (_, _) => Close();
         }
 
         private void ShowSalesEntryWindow()

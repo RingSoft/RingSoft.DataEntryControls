@@ -32,12 +32,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             MaintenanceButtonsControl.FindButton.Command = ViewModel.FindCommand;
             MaintenanceButtonsControl.SelectButton.Command = ViewModel.SelectCommand;
             MaintenanceButtonsControl.NextButton.Command = ViewModel.NextCommand;
-            MaintenanceButtonsControl.CloseButton.Click += (sender, args) => CloseWindow();
+            MaintenanceButtonsControl.CloseButton.Click += (_, _) => CloseWindow();
 
-            Loaded += (sender, args) => ViewModel.OnViewLoaded(this);
+            Loaded += (_, _) => ViewModel.OnViewLoaded(this);
             PreviewKeyDown += DbMaintenanceWindow_PreviewKeyDown;
 
-            Closing += (sender, args) => ViewModel.OnWindowClosing(args);
+            Closing += (_, args) => ViewModel.OnWindowClosing(args);
         }
 
         protected void RegisterFormKeyControl(AutoFillControl keyAutoFillControl)
@@ -62,7 +62,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 Mode = BindingMode.TwoWay
             });
 
-            keyAutoFillControl.LostFocus += (sender, args) => ViewModel.OnKeyControlLeave();
+            keyAutoFillControl.LostFocus += (_, _) => ViewModel.OnKeyControlLeave();
         }
 
         private void DbMaintenanceWindow_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -110,7 +110,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 new LookupWindow(lookupDefinition, allowAdd, allowView, initialSearchFor)
                     {InitialSearchForPrimaryKeyValue = initialSearchForPrimaryKey};
 
-            lookupWindow.LookupSelect += (sender, args) =>
+            lookupWindow.LookupSelect += (_, args) =>
             {
                 LookupFormReturn?.Invoke(this, args);
             };

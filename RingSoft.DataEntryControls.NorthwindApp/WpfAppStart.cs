@@ -39,7 +39,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         protected override void InitializeSplash()
         {
-            _mainWindow.Done += (sender, args) =>
+            _mainWindow.Done += (_, _) =>
             {
                 OnMainWindowShown();
             };

@@ -1,7 +1,6 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System;
-using System.Windows;
 
 
 namespace TestDummyApp

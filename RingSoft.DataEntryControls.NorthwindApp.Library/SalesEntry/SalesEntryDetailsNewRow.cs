@@ -1,4 +1,5 @@
 ﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
@@ -31,10 +32,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.LineType:
-                    var text = "New";
+                    var itemId = AppGlobals.SalesNewRowId;
                     if (IsScannerRow)
-                        text = "Scanner";
-                    return new DataEntryGridTextCellProps(this, columnId){Text = text};
+                        itemId = AppGlobals.SalesScannerRowId;
+                    return new DataEntryGridCustomControlCellProps(this, columnId, itemId);
                 case SalesEntryGridColumns.Item:
                     break;
                 default:

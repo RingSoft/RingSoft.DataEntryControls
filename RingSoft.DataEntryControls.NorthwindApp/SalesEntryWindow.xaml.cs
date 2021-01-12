@@ -22,8 +22,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             InitializeComponent();
             Initialize();
 
-            CustomerControl.LostFocus += (sender, args) => SalesEntryViewModel.OnCustomerIdLostFocus();
-            CustomerControl.PreviewLostKeyboardFocus += (sender, args) =>
+            CustomerControl.LostFocus += (_, _) => SalesEntryViewModel.OnCustomerIdLostFocus();
+            CustomerControl.PreviewLostKeyboardFocus += (_, args) =>
             {
                 if (!this.IsWindowClosing(args.NewFocus))
                 {
@@ -31,7 +31,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                         args.Handled = true;
                 }
             };
-            SalesEntryViewModel.CheckDirtyMessageShown += (sender, args) =>
+            SalesEntryViewModel.CheckDirtyMessageShown += (_, args) =>
             {
                 if (args.Result == MessageButtons.Cancel)
                     DetailsGrid.Refocus();

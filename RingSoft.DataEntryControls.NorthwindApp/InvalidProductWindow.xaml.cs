@@ -14,28 +14,28 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             InitializeComponent();
 
-            Loaded += (sender, args) => ViewModel.OnViewLoaded(this, invalidProductValue);
-            AddProductButton.Click += (sender, args) =>
+            Loaded += (_, _) => ViewModel.OnViewLoaded(this, invalidProductValue);
+            AddProductButton.Click += (_, _) =>
             {
                 if (ViewModel.AddNewProduct(this))
                     Close();
             };
-            AddNonInventoryButton.Click += (sender, args) =>
+            AddNonInventoryButton.Click += (_, _) =>
             {
                 if (ViewModel.AddNewNonInventoryCode(this))
                     Close();
             };
-            AddSpecialOrderButton.Click += (sender, args) =>
+            AddSpecialOrderButton.Click += (_, _) =>
             {
                 ViewModel.AddNewSpecialOrder();
                 Close();
             };
-            AddCommentButton.Click += (sender, args) =>
+            AddCommentButton.Click += (_, _) =>
             {
                 if (ViewModel.AddComment())
                     Close();
             };
-            CancelButton.Click += (sender, args) => Close();
+            CancelButton.Click += (_, _) => Close();
         }
 
         public new InvalidProductResult ShowDialog()

@@ -92,17 +92,17 @@ namespace TestDummyApp
 
             GridManager.LoadSaleDetails(saleDetails);
 
-            ClearGridButton.Click += (sender, args) =>
+            ClearGridButton.Click += (_, _) =>
             {
                 GridManager.SetupForNewRecord();
             };
 
-            LoadGridButton.Click += (sender, args) =>
+            LoadGridButton.Click += (_, _) =>
             {
                 GridManager.LoadSaleDetails(saleDetails);
             };
 
-            TestButton.Click += (sender, args) =>
+            TestButton.Click += (_, _) =>
             {
                 var win = new DummyWindow();
                 win.Owner = this;
@@ -110,7 +110,7 @@ namespace TestDummyApp
                 win.ShowDialog();
             };
 
-            FocusButton.Click += (sender, args) =>
+            FocusButton.Click += (_, _) =>
             {
                 //DateEditControl.Focus();
                 DataEntryGrid.Focus();

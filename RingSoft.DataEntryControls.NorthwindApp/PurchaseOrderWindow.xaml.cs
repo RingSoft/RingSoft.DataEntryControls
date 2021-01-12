@@ -22,8 +22,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Initialize();
             RegisterFormKeyControl(PoNumberControl);
 
-            SupplierControl.LostFocus += (sender, args) => PurchaseOrderViewModel.OnSupplierLostFocus();
-            PurchaseOrderViewModel.CheckDirtyMessageShown += (sender, args) =>
+            SupplierControl.LostFocus += (_, _) => PurchaseOrderViewModel.OnSupplierLostFocus();
+            PurchaseOrderViewModel.CheckDirtyMessageShown += (_, args) =>
             {
                 if (args.Result == MessageButtons.Cancel)
                     DetailsGrid.Refocus();

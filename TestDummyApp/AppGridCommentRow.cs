@@ -202,7 +202,7 @@ namespace TestDummyApp
         public override void AddContextMenuItems(List<DataEntryGridContextMenuItem> contextMenuItems, int columnId)
         {
             contextMenuItems.Add(new DataEntryGridContextMenuItem("_Edit Comment",
-                new RelayCommand<int>(h => EditComment(columnId))){CommandParameter = columnId});
+                new RelayCommand<int>(_ => EditComment(columnId))){CommandParameter = columnId});
             base.AddContextMenuItems(contextMenuItems, columnId);
         }
 

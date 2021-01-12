@@ -83,14 +83,14 @@ namespace TestDummyApp
             IntegerValue = 12345;
             DecimalValue = 1234;
 
-            Loaded += (sender, args) =>
+            Loaded += (_, _) =>
             {
                 ComboBoxSetup = new TextComboBoxControlSetup();
                 ComboBoxSetup.LoadFromEnum<DayOfWeek>();
                 SelectedComboBoxItem = ComboBoxSetup.GetItem((int) DayOfWeek.Wednesday);
             };
 
-            ExpandButton.Click += (sender, args) =>
+            ExpandButton.Click += (_, _) =>
             {
                 ExpandPanel.Visibility = Visibility.Visible;
             };

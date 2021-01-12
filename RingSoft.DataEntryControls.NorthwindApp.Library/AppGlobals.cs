@@ -26,6 +26,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public const int PoDirectExpenseLineTypeId = 1;
         public const int PoCommentLineTypeId = 2;
 
+        public const int SalesProductId = 0;
+        public const int SalesNonInventoryId = 1;
+        public const int SalesSpecialOrderId = 2;
+        public const int SalesCommentId = 3;
+        public const int SalesNewRowId = 4;
+        public const int SalesScannerRowId = 5;
+
         public static string AssemblyDirectory
         {
             get

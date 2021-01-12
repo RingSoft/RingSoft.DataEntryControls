@@ -14,11 +14,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             InitializeComponent();
 
-            ApplyNumericButton.Click += (sender, args) => ProcessValidationResult(ViewModel.OnApplyNumberFormat());
+            ApplyNumericButton.Click += (_, _) => ProcessValidationResult(ViewModel.OnApplyNumberFormat());
 
-            ApplyDateButton.Click += (sender, args) => ProcessValidationResult(ViewModel.OnApplyDateFormat());
+            ApplyDateButton.Click += (_, _) => ProcessValidationResult(ViewModel.OnApplyDateFormat());
             OkButton.Click += OkButton_Click;
-            CancelButton.Click += (sender, args) => Close();
+            CancelButton.Click += (_, _) => Close();
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

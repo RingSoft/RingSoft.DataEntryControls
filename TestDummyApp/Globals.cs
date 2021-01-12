@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
-using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.WPF;
+﻿using RingSoft.DataEntryControls.Engine;
 
 namespace TestDummyApp
 {

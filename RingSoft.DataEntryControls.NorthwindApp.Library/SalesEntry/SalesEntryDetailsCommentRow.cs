@@ -33,13 +33,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.LineType:
-                    if (!ParentRowId.IsNullOrEmpty())
-                    {
-                        var text = string.Empty;
-                        if (Value != null)
-                            text = "Comment";
-                        result = new DataEntryGridTextCellProps(this, columnId, text);
-                    }
+                    //if (!ParentRowId.IsNullOrEmpty())
+                    //{
+                    //    var text = string.Empty;
+                    //    if (Value != null)
+                    //        text = "Comment";
+                    //    result = new DataEntryGridTextCellProps(this, columnId, text);
+                    //}
                     break;
                 case SalesEntryGridColumns.Item:
                     if (Value == null)
@@ -63,6 +63,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.LineType:
+                    if (Value == null)
+                        return new DataEntryGridControlCellStyle()
+                        {
+                            IsVisible = false,
+                            State = DataEntryGridCellStates.Disabled
+                        };
                     break;
                 case SalesEntryGridColumns.Item:
                     if (Value == null)

@@ -1,22 +1,22 @@
-﻿using RingSoft.DataEntryControls.Engine;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using RingSoft.DbMaintenance;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using RingSoft.DbMaintenance;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
     public enum SalesEntryDetailsLineTypes
     {
-        Product = 0,
+        Product = AppGlobals.SalesProductId,
         [Description("Non Inventory")]
-        NonInventoryCode = 1,
+        NonInventoryCode = AppGlobals.SalesNonInventoryId,
         [Description("Special Order")]
-        SpecialOrder = 2,
-        Comment = 3,
-        NewRow = 4
+        SpecialOrder = AppGlobals.SalesSpecialOrderId,
+        Comment = AppGlobals.SalesCommentId,
+        NewRow = AppGlobals.SalesNewRowId
     }
 
     public abstract class SalesEntryDetailsRow : DbMaintenanceDataEntryGridRow<OrderDetails>
@@ -27,12 +27,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public abstract SalesEntryDetailsLineTypes LineType { get; }
 
-        private TextComboBoxControlSetup _lineTypeSetup = new TextComboBoxControlSetup();
-
         protected SalesEntryDetailsRow(SalesEntryDetailsGridManager manager) : base(manager)
         {
             SalesEntryDetailsManager = manager;
-            _lineTypeSetup.LoadFromEnum<SalesEntryDetailsLineTypes>();
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -40,8 +37,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var column = (SalesEntryGridColumns) columnId;
             if (column == SalesEntryGridColumns.LineType)
             {
-                var lineTypeItem = _lineTypeSetup.GetItem((int) LineType);
-                return new DataEntryGridTextComboBoxCellProps(this, columnId, _lineTypeSetup, lineTypeItem);
+                return new DataEntryGridCustomControlCellProps(this, columnId, (int)LineType);
             }
             return  new DataEntryGridTextCellProps(this, columnId);
         }
@@ -52,7 +48,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             switch (column)
             {
                 case SalesEntryGridColumns.LineType:
-                    return new DataEntryGridCellStyle(){State = DataEntryGridCellStates.Disabled};
+                    return new DataEntryGridControlCellStyle{State = DataEntryGridCellStates.Disabled};
             }
 
             return base.GetCellStyle(columnId);
