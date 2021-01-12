@@ -60,7 +60,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             {
                 case PurchaseOrderColumns.LineType:
                     if ((Value == null && !IsNew) || !string.IsNullOrEmpty(ParentRowId))
-                        return new DataEntryGridCellStyle{State = DataEntryGridCellStates.ReadOnly};
+                        return new DataEntryGridControlCellStyle{State = DataEntryGridCellStates.ReadOnly};
                     break;
                 case PurchaseOrderColumns.Item:
                     if (Value == null)

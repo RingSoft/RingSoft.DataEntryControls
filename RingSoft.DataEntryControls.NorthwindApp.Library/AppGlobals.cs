@@ -22,6 +22,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public const int CommentDisplayStyleId = 100;
         public const int NonInventoryDisplayStyleId = 101;
 
+        public const int PoProductLineTypeId = 0;
+        public const int PoDirectExpenseLineTypeId = 1;
+        public const int PoCommentLineTypeId = 2;
+
         public static string AssemblyDirectory
         {
             get

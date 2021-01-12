@@ -112,6 +112,43 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <dec:DataEntryCustomContentTemplate x:Key="PoLineTypeContent">
+
+                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static lib:AppGlobals.PoProductLineTypeId}" HotKey="P">
+                    <dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Inventory.png" Width="16" Height="16"/>
+                                <TextBlock Text="Product"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                </dec:DataEntryCustomContentTemplateItem>
+
+                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static lib:AppGlobals.PoDirectExpenseLineTypeId}" HotKey="D">
+                    <dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/coins.png" Width="16" Height="16"/>
+                                <TextBlock Text="Direct Expense"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                </dec:DataEntryCustomContentTemplateItem>
+
+                <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static lib:AppGlobals.PoCommentLineTypeId}" HotKey="C">
+                    <dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Images/Comment.png" Width="16" Height="16"/>
+                                <TextBlock Text="Comment"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dec:DataEntryCustomContentTemplateItem.DataTemplate>
+                </dec:DataEntryCustomContentTemplateItem>
+
+            </dec:DataEntryCustomContentTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

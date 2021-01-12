@@ -10,7 +10,13 @@
 
   <ItemGroup>
     <None Remove="Images\application_exit.png" />
+    <None Remove="Images\barcode.png" />
     <None Remove="Images\cash_register_sh.png" />
+    <None Remove="Images\coins.png" />
+    <None Remove="Images\Comment.png" />
+    <None Remove="Images\document_new.png" />
+    <None Remove="Images\Inventory.png" />
+    <None Remove="Images\NonInventory.png" />
     <None Remove="Images\purchase_order.png" />
   </ItemGroup>
 
@@ -30,7 +36,25 @@
     <Resource Include="Images\application_exit.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\barcode.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\cash_register_sh.png" />
+    <Resource Include="Images\coins.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Comment.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\document_new.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Inventory.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\NonInventory.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\purchase_order.png" />
   </ItemGroup>
 
