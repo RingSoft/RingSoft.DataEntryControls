@@ -17,26 +17,6 @@
                 <Setter Property="Precision" Value="{Binding Source={x:Static local:Globals.Precision}}" />
             </Style>-->
 
-            <!--<deg:DataEntryGridDisplayStyle x:Key="DisabledCellStyle" Foreground="Black">
-                <deg:DataEntryGridDisplayStyle.Background>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="LightGray" Offset="0.15"/>
-                        <GradientStop Color="DarkGray" Offset="0.5"/>
-                        <GradientStop Color="LightGray" Offset="0.85"/>
-                    </LinearGradientBrush>
-                </deg:DataEntryGridDisplayStyle.Background>
-            </deg:DataEntryGridDisplayStyle>
-
-            <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static local:Globals.CommentDisplayStyleId}" Foreground="White">
-                <deg:DataEntryGridDisplayStyle.Background>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="LightGreen" Offset="0.15"/>
-                        <GradientStop Color="Green" Offset="0.5"/>
-                        <GradientStop Color="LightGreen" Offset="0.85"/>
-                    </LinearGradientBrush>
-                </deg:DataEntryGridDisplayStyle.Background>
-            </deg:DataEntryGridDisplayStyle>-->
-
             <dec:DataEntryCustomContentTemplate x:Key="LineTypeContent">
                 <dec:DataEntryCustomContentTemplateItem ItemId="{x:Static local:AppGridManager.InventoryLineTypeId}" HotKey="I">
                     <dec:DataEntryCustomContentTemplateItem.DataTemplate>

@@ -77,7 +77,15 @@
                             <deg:DataEntryGrid.DisplayStyles>
                                 <StaticResource ResourceKey="CommentCellStyle"/>
                                 <StaticResource ResourceKey="NonInventoryCellStyle"/>
-                                <deg:DataEntryGridDisplayStyle DisplayId="{x:Static vmlib:SalesEntryDetailsGridManager.SpecialOrderDisplayId}" BackgroundBrush="LightPink"/>
+                                <deg:DataEntryGridDisplayStyle DisplayId="{x:Static vmlib:SalesEntryDetailsGridManager.SpecialOrderDisplayId}">
+                                    <deg:DataEntryGridDisplayStyle.BackgroundBrush>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFE8AEB7" Offset="0"/>
+                                            <GradientStop Color="LightPink" Offset="0.5"/>
+                                        </LinearGradientBrush>
+                                    </deg:DataEntryGridDisplayStyle.BackgroundBrush>
+
+                                </deg:DataEntryGridDisplayStyle>
                             </deg:DataEntryGrid.DisplayStyles>
 
                         </deg:DataEntryGrid>

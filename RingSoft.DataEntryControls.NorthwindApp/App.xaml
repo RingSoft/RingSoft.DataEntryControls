@@ -14,15 +14,20 @@
 
             <dec:ComparisonConverter x:Key="ComparisonConverter" />
 
+            <LinearGradientBrush x:Key="ControlBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Color="#FF81D8D8" Offset="0"/>
+                <GradientStop Color="Aquamarine" Offset="0.5"/>
+            </LinearGradientBrush>
+
             <Style TargetType="dec:DecimalEditControl" x:Key="GlobalDecimalEditControlStyle">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
-                <Setter Property="Background" Value="Aquamarine"/>
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
 
             <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource GlobalDecimalEditControlStyle}" />
 
             <Style TargetType="dec:IntegerEditControl" x:Key="GlobalIntegerEditControlStyle">
-                <Setter Property="Background" Value="Aquamarine"/>
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
 
             <Style TargetType="dec:IntegerEditControl" BasedOn="{StaticResource GlobalIntegerEditControlStyle}"/>
@@ -31,7 +36,7 @@
                 <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}" />
                 <Setter Property="DisplayFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateDisplayFormat}}" />
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}" />
-                <Setter Property="Background" Value="Aquamarine"/>
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
             <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}" />
 
@@ -42,7 +47,7 @@
             <Style TargetType="dec:ReadOnlyBox" x:Key="ReadOnlyBox">
                 <Setter Property="Height" Value="20" />
                 <Setter Property="Margin" Value="2.5" />
-                <Setter Property="Background" Value="Aquamarine" />
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
             <Style TargetType="dec:StringReadOnlyBox" BasedOn="{StaticResource ReadOnlyBox}" />
 
@@ -59,7 +64,7 @@
             </Style>
 
             <Style TargetType="TextBox" x:Key="GlobalTextBoxStyle">
-                <Setter Property="Background" Value="Aquamarine" />
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
 
             <Style TargetType="TextBox" x:Key="AppTextBoxStyle" BasedOn="{StaticResource GlobalTextBoxStyle}">
@@ -76,8 +81,23 @@
 
             <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}" />
 
-            <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static lib:AppGlobals.CommentDisplayStyleId}" BackgroundBrush="Green" ForegroundBrush="White"/>
-            <deg:DataEntryGridDisplayStyle x:Key="NonInventoryCellStyle" DisplayId="{x:Static lib:AppGlobals.NonInventoryDisplayStyleId}" BackgroundBrush="Blue" ForegroundBrush="White" SelectionBrush="White"/>
+            <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static lib:AppGlobals.CommentDisplayStyleId}" ForegroundBrush="White">
+                <deg:DataEntryGridDisplayStyle.BackgroundBrush>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="#FF0EB20E" Offset="0"/>
+                        <GradientStop Color="Green" Offset="0.5"/>
+                    </LinearGradientBrush>
+                </deg:DataEntryGridDisplayStyle.BackgroundBrush>
+            </deg:DataEntryGridDisplayStyle>
+
+            <deg:DataEntryGridDisplayStyle x:Key="NonInventoryCellStyle" DisplayId="{x:Static lib:AppGlobals.NonInventoryDisplayStyleId}" ForegroundBrush="White" SelectionBrush="White">
+                <deg:DataEntryGridDisplayStyle.BackgroundBrush>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="#FF6D6DFD" Offset="0"/>
+                        <GradientStop Color="Blue" Offset="0.5"/>
+                    </LinearGradientBrush>
+                </deg:DataEntryGridDisplayStyle.BackgroundBrush>
+            </deg:DataEntryGridDisplayStyle>
 
             <Style TargetType="deg:DataEntryGrid">
                 <Setter Property="EnterToTab" Value="True" />
@@ -86,19 +106,46 @@
                 <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
                 <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
                 <Setter Property="AlternationCount" Value="2" />
+                <Setter Property="DisabledCellDisplayStyle">
+                    <Setter.Value>
+                        <deg:DataEntryGridDisplayStyle ForegroundBrush="Black">
+                            <deg:DataEntryGridDisplayStyle.BackgroundBrush>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFC5C3C3" Offset="0"/>
+                                    <GradientStop Color="DarkGray" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </deg:DataEntryGridDisplayStyle.BackgroundBrush>
+                        </deg:DataEntryGridDisplayStyle>
+                    </Setter.Value>
+                </Setter>
 
                 <!--Cougar Mountain Software-->
                 <!--<Setter Property="StoreCurrentCellOnLostFocus" Value="True"/>
                 <Setter Property="SetTabFocusToSelectedCell" Value="True"/>-->
 
             </Style>
+
             <Style TargetType="{x:Type DataGridRow}">
                 <Style.Triggers>
                     <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                        <Setter Property="Background" Value="Aqua" />
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FF81D8D8" Offset="0"/>
+                                    <GradientStop Color="Aqua" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
                     </Trigger>
                     <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FFE6E6E8" Offset="0"/>
+                                    <GradientStop Color="White" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
                     </Trigger>
                 </Style.Triggers>
             </Style>
