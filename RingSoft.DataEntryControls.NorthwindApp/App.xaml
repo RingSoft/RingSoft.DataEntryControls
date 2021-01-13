@@ -43,7 +43,16 @@
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
+                <!--<Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="5" Background="{StaticResource ButtonBackgroundBrush}" BorderThickness="1" Padding="2">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <Style TargetType="TabControl">
@@ -52,15 +61,31 @@
                 <Setter Property="BorderThickness" Value="1"/>
             </Style>
 
+            <Style TargetType="TextBox" x:Key="GlobalTextBoxStyle">
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="AppTextBoxStyle" BasedOn="{StaticResource GlobalTextBoxStyle}">
+                <Setter Property="Height" Value="20" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource GlobalTextBoxStyle}" />
+
+            <Style TargetType="dec:StringEditControl" x:Key="GlobalStringEditControlStyle"
+                   BasedOn="{StaticResource AppTextBoxStyle}">
+                <Setter Property="SelectAllOnGotFocus" Value="True" />
+            </Style>
+
+            <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}" />
+
             <Style TargetType="dec:DecimalEditControl" x:Key="GlobalDecimalEditControlStyle">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
-                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
 
             <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource GlobalDecimalEditControlStyle}" />
 
             <Style TargetType="dec:IntegerEditControl" x:Key="GlobalIntegerEditControlStyle">
-                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
 
             <Style TargetType="dec:IntegerEditControl" BasedOn="{StaticResource GlobalIntegerEditControlStyle}"/>
@@ -69,7 +94,6 @@
                 <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}" />
                 <Setter Property="DisplayFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateDisplayFormat}}" />
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}" />
-                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
             </Style>
             <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}" />
 
@@ -95,24 +119,6 @@
                 <Setter Property="HorizontalAlignment" Value="Right" />
                 <!--<Setter Property="Margin" Value="2.5"/>-->
             </Style>
-
-            <Style TargetType="TextBox" x:Key="GlobalTextBoxStyle">
-                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
-            </Style>
-
-            <Style TargetType="TextBox" x:Key="AppTextBoxStyle" BasedOn="{StaticResource GlobalTextBoxStyle}">
-                <Setter Property="Height" Value="20" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-            </Style>
-
-            <Style TargetType="TextBox" BasedOn="{StaticResource GlobalTextBoxStyle}" />
-
-            <Style TargetType="dec:StringEditControl" x:Key="GlobalStringEditControlStyle"
-                   BasedOn="{StaticResource AppTextBoxStyle}">
-                <Setter Property="SelectAllOnGotFocus" Value="True" />
-            </Style>
-
-            <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}" />
 
             <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static lib:AppGlobals.CommentDisplayStyleId}" ForegroundBrush="White">
                 <deg:DataEntryGridDisplayStyle.BackgroundBrush>
