@@ -7,6 +7,7 @@
                 xmlns:lib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
                 xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
                 mc:Ignorable="d"
+                Style="{StaticResource WindowStyle}"
         SizeToContent="WidthAndHeight"
                 ShowInTaskbar="False"
         Title="Options">

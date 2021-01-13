@@ -157,6 +157,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set { SetValue(DisabledCellDisplayStyleProperty, value); }
         }
 
+        public static readonly DependencyProperty DefaultSelectionBrushProperty =
+            DependencyProperty.Register(nameof(DefaultSelectionBrush), typeof(Brush), typeof(DataEntryGrid));
+
+        public Brush DefaultSelectionBrush
+        {
+            get { return (Brush)GetValue(DefaultSelectionBrushProperty); }
+            set { SetValue(DefaultSelectionBrushProperty, value); }
+        }
+
         public new ObservableCollection<DataEntryGridColumn> Columns { get; } = new ObservableCollection<DataEntryGridColumn>();
 
         public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } = new ObservableCollection<DataEntryGridDisplayStyle>();
@@ -1388,7 +1397,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 //Tab Out
                 SetFocusToCell(lastRowIndex, lastColumnIndex, false);
-                SendKey(Key.Tab);
+                WPFControlsGlobals.SendKey(Key.Tab);
                 if (_readOnlyMode)
                     SetFocusToCell(0,0);
                 return;
@@ -1440,8 +1449,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 //Tab Out
                 SetFocusToCell(0, 0, false);
-                SendKey(Key.LeftShift);
-                SendKey(Key.Tab);
+                WPFControlsGlobals.SendKey(Key.LeftShift);
+                WPFControlsGlobals.SendKey(Key.Tab);
                 return;
             }
 
@@ -1561,21 +1570,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 columnIndex = 0;
 
             return columnIndex;
-        }
-
-        public static void SendKey(Key key)
-        {
-            if (Keyboard.PrimaryDevice != null)
-            {
-                if (Keyboard.PrimaryDevice.ActiveSource != null)
-                {
-                    var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, key)
-                    {
-                        RoutedEvent = Keyboard.KeyDownEvent
-                    };
-                    InputManager.Current.ProcessInput(e);
-                }
-            }
         }
 
         //private TChildItem FindVisualChild<TChildItem>(DependencyObject obj)

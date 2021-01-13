@@ -93,5 +93,20 @@ namespace RingSoft.DataEntryControls.WPF
         {
             ControlsGlobals.UserInterface = _userInterface;
         }
+
+        public static void SendKey(Key key)
+        {
+            if (Keyboard.PrimaryDevice != null)
+            {
+                if (Keyboard.PrimaryDevice.ActiveSource != null)
+                {
+                    var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, key)
+                    {
+                        RoutedEvent = Keyboard.KeyDownEvent
+                    };
+                    InputManager.Current.ProcessInput(e);
+                }
+            }
+        }
     }
 }

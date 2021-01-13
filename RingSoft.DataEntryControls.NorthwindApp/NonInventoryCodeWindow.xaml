@@ -8,6 +8,7 @@
         xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
         xmlns:local="clr-namespace:RingSoft.DataEntryControls.NorthwindApp"
         mc:Ignorable="d"
+        Style="{StaticResource WindowStyle}"
         Title="Non Inventory Codes" Height="200" Width="350">
     <Window.DataContext>
         <vmlib:NonInventoryCodeViewModel x:Name="NonInventoryCodeViewModel"/>

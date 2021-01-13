@@ -101,10 +101,23 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             if (_cellStyle == null)
                 throw new Exception("Control has not been initialized yet");
 
-            if (_cellStyle.DisplayStyleId == 0)
-                return new DataEntryGridDisplayStyle();
+            var displayStyleId = _cellStyle.DisplayStyleId;
 
-            return Grid.GetDisplayStyle(_cellStyle.DisplayStyleId, Row);
+            if (displayStyleId == 0)
+                displayStyleId = Row.DisplayStyleId;
+
+            DataEntryGridDisplayStyle displayStyle;
+            if (displayStyleId == 0)
+                displayStyle = new DataEntryGridDisplayStyle();
+            else 
+                displayStyle = Grid.GetDisplayStyle(displayStyleId, Row);
+
+            if (Grid.DefaultSelectionBrush != null && displayStyle.SelectionBrush == null)
+            {
+                displayStyle.SelectionBrush = Grid.DefaultSelectionBrush;
+            }
+
+            return displayStyle;
         }
     }
 }
