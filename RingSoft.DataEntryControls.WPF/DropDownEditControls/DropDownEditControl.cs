@@ -291,13 +291,14 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (TextBox != null)
             {
-                if (SelectionBrush != null)
-                {
-                    TextBox.SelectionBrush = SelectionBrush;
-                }
+                if (Foreground != null)
+                    TextBox.Foreground = Foreground;
 
-                TextBox.Foreground = Foreground;
-                TextBox.Background = Background;
+                if (Background != null)
+                    TextBox.Background = Background;
+
+                if (SelectionBrush != null)
+                    TextBox.SelectionBrush = SelectionBrush;
             }
         }
 

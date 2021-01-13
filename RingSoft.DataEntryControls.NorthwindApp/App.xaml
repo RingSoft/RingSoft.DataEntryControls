@@ -11,26 +11,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryControlsStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/BrushesResourceDictionary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/ComboBoxResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <dec:ComparisonConverter x:Key="ComparisonConverter" />
-
-            <LinearGradientBrush x:Key="ControlBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
-                <GradientStop Color="#FF81D8D8" Offset="0"/>
-                <GradientStop Color="Aquamarine" Offset="0.5"/>
-            </LinearGradientBrush>
-
-            <SolidColorBrush x:Key="ReadOnlyControlBackgroundBrush" Color="Transparent"/>
-
-            <LinearGradientBrush x:Key="WindowBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
-                <GradientStop Color="Gray" Offset="0"/>
-                <GradientStop Color="DarkGray" Offset="0.5"/>
-            </LinearGradientBrush>
-
-            <LinearGradientBrush x:Key="ButtonBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
-                <GradientStop Color="#FFB9B0B0" Offset="0"/>
-                <GradientStop Color="LightGray" Offset="0.5"/>
-            </LinearGradientBrush>
 
             <Style TargetType="Window" x:Key="WindowStyle">
                 <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
@@ -60,6 +45,9 @@
                 <Setter Property="BorderBrush" Value="Black"/>
                 <Setter Property="BorderThickness" Value="1"/>
             </Style>
+
+
+            <Style TargetType="dec:ContentComboBoxControl" BasedOn="{StaticResource {x:Type ComboBox}}"/>
 
             <Style TargetType="TextBox" x:Key="GlobalTextBoxStyle">
                 <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
