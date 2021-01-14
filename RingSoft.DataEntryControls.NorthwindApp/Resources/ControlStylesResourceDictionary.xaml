@@ -51,6 +51,81 @@
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
+    <Style TargetType="TabItem" x:Key="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border
+                        Name="Border"
+                        Margin="1,0"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="4,4,0,0">
+                        <ContentPresenter
+                            x:Name="ContentSite"
+                            Margin="2,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ContentSource="Header" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="{StaticResource TabItemSelectedBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="{StaticResource TabItemNotSelectedBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="dec:DataEntryMemoTabItem" x:Key="{x:Type dec:DataEntryMemoTabItem}" BasedOn="{StaticResource {x:Type dec:DataEntryMemoTabItem}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="dec:DataEntryMemoTabItem">
+                    <Border
+                        Name="Border"
+                        Margin="1,0"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="4,4,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="2,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+
+                            <TextBlock Text="{TemplateBinding Header}" VerticalAlignment="Center" />
+
+                            <Ellipse x:Name="Notifier" Height="8" Width="8" Fill="Red" Visibility="{Binding RelativeSource={RelativeSource AncestorType=dec:DataEntryMemoTabItem}, Path=NotificationVisibility}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="{StaticResource TabItemSelectedBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="{StaticResource TabItemNotSelectedBrush}" />
+                        </Trigger>
+                        <Trigger Property="MemoHasText" Value="True">
+                            <Setter Property="NotificationVisibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="MemoHasText" Value="False">
+                            <Setter Property="NotificationVisibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="dec:ContentComboBoxControl" BasedOn="{StaticResource {x:Type ComboBox}}"/>
 
@@ -77,7 +152,11 @@
         <Setter Property="Margin" Value="2.5" />
         <Setter Property="Background" Value="{StaticResource ReadOnlyControlBackgroundBrush}"/>
     </Style>
-    <Style TargetType="dec:StringReadOnlyBox" BasedOn="{StaticResource {x:Type dec:ReadOnlyBox}}" />
+    <Style TargetType="dec:StringReadOnlyBox" x:Key="{x:Type dec:StringReadOnlyBox}"
+           BasedOn="{StaticResource {x:Type dec:ReadOnlyBox}}" />
+
+    <Style TargetType="dec:DecimalReadOnlyBox" x:Key="{x:Type dec:DecimalReadOnlyBox}"
+           BasedOn="{StaticResource {x:Type dec:ReadOnlyBox}}" />
 
     <Style TargetType="Label" x:Key="ControlLabel">
         <Setter Property="VerticalAlignment" Value="Center" />

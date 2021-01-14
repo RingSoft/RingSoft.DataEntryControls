@@ -4,28 +4,36 @@
 
     <Style TargetType="{x:Type local:DataEntryMemoTabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
 
-        <Setter Property="HeaderTemplate">
+        <Setter Property="Template">
             <Setter.Value>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                <ControlTemplate TargetType="local:DataEntryMemoTabItem">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="2,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
 
-                        <TextBlock Text="{TemplateBinding Content}" VerticalAlignment="Center" />
+                            <TextBlock Text="{TemplateBinding Header}" VerticalAlignment="Center" />
 
-                        <Ellipse x:Name="Notifier" Height="8" Width="8" Fill="Red" Visibility="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=NotificationVisibility}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            <Ellipse x:Name="Notifier" Height="8" Width="8" Fill="Red" Visibility="{Binding RelativeSource={RelativeSource AncestorType=local:DataEntryMemoTabItem}, Path=NotificationVisibility}" Margin="5,0,0,0" VerticalAlignment="Center"/>
 
-                    </StackPanel>
-                </DataTemplate>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="MemoHasText" Value="True">
+                            <Setter Property="NotificationVisibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="MemoHasText" Value="False">
+                            <Setter Property="NotificationVisibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="MemoHasText" Value="True">
-                <Setter Property="NotificationVisibility" Value="Visible"/>
-            </Trigger>
-            <Trigger Property="MemoHasText" Value="False">
-                <Setter Property="NotificationVisibility" Value="Collapsed"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
