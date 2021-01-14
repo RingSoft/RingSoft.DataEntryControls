@@ -15,12 +15,12 @@
         <vmlib:PurchaseOrderViewModel x:Name="PurchaseOrderViewModel"/>
     </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}">
+        <Style TargetType="dec:DateEditControl">
             <Setter Property="Width" Value="100"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="DesignText" Value="01/01/1980"/>
         </Style>
-        <Style TargetType="dec:DecimalReadOnlyBox" BasedOn="{StaticResource {x:Type dec:DecimalReadOnlyBox}}">
+        <Style TargetType="dec:DecimalReadOnlyBox">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="FormatType" Value="Currency"/>
             <Setter Property="DesignText" Value="$1,000,000.00"/>

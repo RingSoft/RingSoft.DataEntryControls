@@ -19,7 +19,7 @@
             <Setter Property="VerticalContentAlignment" Value="Top"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
-        <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource GlobalDecimalEditControlStyle}">
+        <Style TargetType="dec:DecimalEditControl">
             <Setter Property="AllowNullValue" Value="True"/>
             <Setter Property="TextAlignment" Value="Left"/>
         </Style>

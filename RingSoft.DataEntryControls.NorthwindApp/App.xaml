@@ -3,116 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:lib="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
              xmlns:deg="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF"
-             xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-             xmlns:lc="clr-namespace:RingSoft.DbLookup.Controls.WPF;assembly=RingSoft.DbLookup.Controls.WPF">
+             xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF">
     <Application.Resources>
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryControlsStyles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Resources/BrushesResourceDictionary.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Resources/ComboBoxResourceDictionary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/ControlStylesResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <dec:ComparisonConverter x:Key="ComparisonConverter" />
 
-            <Style TargetType="Window" x:Key="WindowStyle">
-                <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
-            </Style>
 
-            <Style TargetType="lc:LookupWindow" BasedOn="{StaticResource WindowStyle}"/>
-
-            <Style TargetType="ListView">
-                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
-            </Style>
-
-            <Style TargetType="Button">
-                <!--<Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>-->
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="5" Background="{StaticResource ButtonBackgroundBrush}" BorderThickness="1" Padding="2">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style TargetType="TabControl">
-                <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="1"/>
-            </Style>
-
-
-            <Style TargetType="dec:ContentComboBoxControl" BasedOn="{StaticResource {x:Type ComboBox}}"/>
-
-            <Style TargetType="TextBox" x:Key="GlobalTextBoxStyle">
-                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
-            </Style>
-
-            <Style TargetType="TextBox" x:Key="AppTextBoxStyle" BasedOn="{StaticResource GlobalTextBoxStyle}">
-                <Setter Property="Height" Value="20" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-            </Style>
-
-            <Style TargetType="TextBox" BasedOn="{StaticResource GlobalTextBoxStyle}" />
-
-            <Style TargetType="dec:StringEditControl" x:Key="GlobalStringEditControlStyle"
-                   BasedOn="{StaticResource AppTextBoxStyle}">
-                <Setter Property="SelectAllOnGotFocus" Value="True" />
-            </Style>
-
-            <Style TargetType="dec:StringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}" />
-
-            <Style TargetType="dec:DecimalEditControl" x:Key="GlobalDecimalEditControlStyle">
+            <Style TargetType="dec:DecimalEditControl" x:Key="{x:Type dec:DecimalEditControl}">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
             </Style>
 
-            <Style TargetType="dec:DecimalEditControl" BasedOn="{StaticResource GlobalDecimalEditControlStyle}" />
-
-            <Style TargetType="dec:IntegerEditControl" x:Key="GlobalIntegerEditControlStyle">
-            </Style>
-
-            <Style TargetType="dec:IntegerEditControl" BasedOn="{StaticResource GlobalIntegerEditControlStyle}"/>
-
-            <Style TargetType="dec:DateEditControl" x:Key="GlobalDateEditControlStyle">
+            <Style TargetType="dec:DateEditControl" x:Key="{x:Type dec:DateEditControl}">
                 <Setter Property="EntryFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateEntryFormat}}" />
                 <Setter Property="DisplayFormat" Value="{Binding Source={x:Static lib:AppGlobals.DateDisplayFormat}}" />
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}" />
             </Style>
-            <Style TargetType="dec:DateEditControl" BasedOn="{StaticResource GlobalDateEditControlStyle}" />
 
-            <!--<Style TargetType="dec:DataEntryMemoEditor">
-            <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.DateCultureId}}"/>
-        </Style>-->
-
-            <Style TargetType="dec:ReadOnlyBox" x:Key="ReadOnlyBox">
-                <Setter Property="Height" Value="20" />
-                <Setter Property="Margin" Value="2.5" />
-                <Setter Property="Background" Value="{StaticResource ReadOnlyControlBackgroundBrush}"/>
-            </Style>
-            <Style TargetType="dec:StringReadOnlyBox" BasedOn="{StaticResource ReadOnlyBox}" />
-
-            <Style TargetType="dec:DecimalReadOnlyBox" x:Key="GlobalDecimalReadOnlyBoxStyle"
-                   BasedOn="{StaticResource ReadOnlyBox}">
+            <Style TargetType="dec:DecimalReadOnlyBox" x:Key="{x:Type dec:DecimalReadOnlyBox}"
+                   BasedOn="{StaticResource {x:Type dec:ReadOnlyBox}}">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
-            </Style>
-            <Style TargetType="dec:DecimalReadOnlyBox" BasedOn="{StaticResource GlobalDecimalReadOnlyBoxStyle}" />
-
-            <Style TargetType="Label" x:Key="ControlLabel">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Right" />
-                <!--<Setter Property="Margin" Value="2.5"/>-->
             </Style>
 
             <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static lib:AppGlobals.CommentDisplayStyleId}" ForegroundBrush="White">
                 <deg:DataEntryGridDisplayStyle.BackgroundBrush>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                         <GradientStop Color="#FF0EB20E" Offset="0"/>
-                        <GradientStop Color="Green" Offset="0.5"/>
+                        <GradientStop Color="Green" Offset="1"/>
                     </LinearGradientBrush>
                 </deg:DataEntryGridDisplayStyle.BackgroundBrush>
             </deg:DataEntryGridDisplayStyle>
@@ -121,71 +42,10 @@
                 <deg:DataEntryGridDisplayStyle.BackgroundBrush>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                         <GradientStop Color="#FF6D6DFD" Offset="0"/>
-                        <GradientStop Color="Blue" Offset="0.5"/>
+                        <GradientStop Color="Blue" Offset="1"/>
                     </LinearGradientBrush>
                 </deg:DataEntryGridDisplayStyle.BackgroundBrush>
             </deg:DataEntryGridDisplayStyle>
-
-            <Style TargetType="deg:DataEntryGrid">
-                <Setter Property="EnterToTab" Value="True" />
-                <Setter Property="CloseWindowOnEscape" Value="True" />
-                <Setter Property="GridLinesVisibility" Value="All" />
-                <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
-                <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
-                <Setter Property="AlternationCount" Value="2" />
-                <Setter Property="DisabledCellDisplayStyle">
-                    <Setter.Value>
-                        <deg:DataEntryGridDisplayStyle ForegroundBrush="Black">
-                            <deg:DataEntryGridDisplayStyle.BackgroundBrush>
-                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Color="#FFC5C3C3" Offset="0"/>
-                                    <GradientStop Color="DarkGray" Offset="0.5"/>
-                                </LinearGradientBrush>
-                            </deg:DataEntryGridDisplayStyle.BackgroundBrush>
-                        </deg:DataEntryGridDisplayStyle>
-                    </Setter.Value>
-                </Setter>
-
-                <!--Cougar Mountain Software-->
-                <!--<Setter Property="StoreCurrentCellOnLostFocus" Value="True"/>
-                <Setter Property="SetTabFocusToSelectedCell" Value="True"/>-->
-
-            </Style>
-
-            <Style TargetType="{x:Type DataGridRow}">
-                <Style.Triggers>
-                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Color="#FF81D8D8" Offset="0"/>
-                                    <GradientStop Color="Aqua" Offset="0.5"/>
-                                </LinearGradientBrush>
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger>
-                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Color="#FFE6E6E8" Offset="0"/>
-                                    <GradientStop Color="White" Offset="0.5"/>
-                                </LinearGradientBrush>
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="DataGridColumnHeader">
-                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="ContentTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <TextBlock TextAlignment="Center" Text="{Binding}"></TextBlock>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
             <dec:DataEntryCustomContentTemplate x:Key="PoLineTypeContent">
 

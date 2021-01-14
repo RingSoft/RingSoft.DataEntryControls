@@ -5,6 +5,8 @@
                     xmlns:lc="clr-namespace:RingSoft.DbLookup.Controls.WPF;assembly=RingSoft.DbLookup.Controls.WPF">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary
+            Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryControlsStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Resources/BrushesResourceDictionary.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Resources/ComboBoxResourceDictionary.xaml" />
     </ResourceDictionary.MergedDictionaries>
