@@ -282,7 +282,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             if (EditingControlHost == null)
             {
-                if (Keyboard.IsKeyDown(Key.Tab))
+                if (Keyboard.IsKeyDown(Key.Tab) || Keyboard.IsKeyDown(Key.Enter))
                 {
                     if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
                     {

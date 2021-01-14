@@ -76,6 +76,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// </value>
         public bool HideControlBox { get; set; }
 
+        public bool EnterToTab { get; set; }
+
         private TabControl _readOnlyTabControl;
         private bool _readOnlyMode;
 
@@ -102,6 +104,13 @@ namespace RingSoft.DataEntryControls.WPF
                             args.Handled = true;
                         }
 
+                        break;
+                    case Key.Enter:
+                        if (EnterToTab)
+                        {
+                            WPFControlsGlobals.SendKey(Key.Tab);
+                            args.Handled = true;
+                        }
                         break;
                 }
             };

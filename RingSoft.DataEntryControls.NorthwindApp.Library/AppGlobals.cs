@@ -62,7 +62,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public static string RegistryFileName { get; private set; }
 
-        public static string NumberCultureId { get; private set; }
+        public static string NumberCultureId { get; set; }
 
         public static string DateCultureId { get; private set; }
 
