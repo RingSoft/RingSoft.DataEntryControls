@@ -157,20 +157,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             MessageBox.Show("Record Saved!", "Record Saved", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public override void SetReadOnlyMode(bool readOnlyValue)
+        protected override void OnReadOnlyModeSet(bool readOnlyValue)
         {
-            var focusedElement = FocusManager.GetFocusedElement(this);
-            base.SetReadOnlyMode(readOnlyValue);
-
             if (readOnlyValue)
             {
-                if (!focusedElement.IsEnabled)
+                var focusedElement = FocusManager.GetFocusedElement(this);
+                if (focusedElement == null)
                     MaintenanceButtonsControl.NextButton.Focus();
             }
             else if (MaintenanceButtonsControl.IsKeyboardFocusWithin)
             {
                 WPFControlsGlobals.SendKey(Key.Tab);
             }
+
+            base.OnReadOnlyModeSet(readOnlyValue);
         }
     }
 }

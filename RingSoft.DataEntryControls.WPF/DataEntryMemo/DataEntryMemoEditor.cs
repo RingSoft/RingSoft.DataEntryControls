@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -134,6 +135,7 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     TextBox.TextChanged -= TextBox_TextChanged;
                     TextBox.GotFocus -= TextBox_GotFocus;
+                    TextBox.KeyDown -= TextBox_KeyDown;
                 }
                 _textBox = value;
 
@@ -141,6 +143,7 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     TextBox.TextChanged += TextBox_TextChanged;
                     TextBox.GotFocus += TextBox_GotFocus;
+                    TextBox.KeyDown += TextBox_KeyDown;
                 }
             }
         }
@@ -197,7 +200,9 @@ namespace RingSoft.DataEntryControls.WPF
 
                 TextBox?.SelectAll();
 
-                Notifier = this.GetLogicalParent<DataEntryMemoTabItem>();
+                Notifier = this.GetParentOfType<DataEntryMemoTabItem>();
+
+                NotifyHasText();
 
                 _controlLoaded = true;
             }
@@ -250,10 +255,15 @@ namespace RingSoft.DataEntryControls.WPF
                 TextBox.Text = Text;
             _settingText = false;
 
-            if (Notifier != null)
-                Notifier.MemoHasText = !Text.IsNullOrEmpty();
+            NotifyHasText();
 
             TextChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void NotifyHasText()
+        {
+            if (Notifier != null)
+                Notifier.MemoHasText = !Text.IsNullOrEmpty();
         }
 
         public void SetReadOnlyMode(bool readOnlyValue)
@@ -272,6 +282,28 @@ namespace RingSoft.DataEntryControls.WPF
             if (DateStampButton != null)
             {
                 DateStampButton.IsEnabled = !_readOnlyMode;
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (_readOnlyMode)
+            {
+                switch (e.Key)
+                {
+                    case Key.Escape:
+                    case Key.Tab:
+                        break;
+                    case Key.Back:
+                        SystemSounds.Exclamation.Play();
+                        break;
+                    default:
+                        var keyChar = e.Key.GetCharFromKey();
+                        if (keyChar != ' ')
+                            SystemSounds.Exclamation.Play();
+
+                        break;
+                }
             }
         }
     }

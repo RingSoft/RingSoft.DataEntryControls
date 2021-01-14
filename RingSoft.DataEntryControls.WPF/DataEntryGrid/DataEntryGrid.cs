@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -1322,6 +1323,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     return;
                 }
             }
+            else
+            {
+                var keyChar = e.Key.GetCharFromKey();
+                switch (keyChar)
+                {
+                    case ' ':
+                    case '\t':
+                        break;
+                    default:
+                        SystemSounds.Exclamation.Play();
+                        break;
+                }
+            }
 
             base.OnKeyDown(e);
         }
@@ -1478,7 +1492,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
             else
             {
-                System.Media.SystemSounds.Exclamation.Play();
+                SystemSounds.Exclamation.Play();
             }
         }
 
@@ -1534,6 +1548,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             rowIndex = ScrubRowIndex(rowIndex);
             columnIndex = ScrubColumnIndex(columnIndex);
 
+            if (_readOnlyMode)
+                SelectedCells.Clear();
+
             CurrentCell = new DataGridCellInfo(Items[rowIndex], Columns[columnIndex]);
 
             ScrollIntoView(CurrentCell.Item, CurrentCell.Column);
@@ -1541,8 +1558,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (beginEdit)
             {
                 BeginEdit();
-                if (EditingControlHost != null && EditingControlHost.SetSelection && !SelectedCells.Any())
-                    SelectedCells.Add(CurrentCell);
+                if (EditingControlHost != null && EditingControlHost.SetSelection && !SelectedCells.Any() || _readOnlyMode)
+                    if (!SelectedCells.Contains(CurrentCell))
+                        SelectedCells.Add(CurrentCell);
             }
         }
 

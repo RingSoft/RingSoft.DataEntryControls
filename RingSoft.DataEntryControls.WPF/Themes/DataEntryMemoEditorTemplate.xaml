@@ -15,7 +15,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="TextBox" VerticalContentAlignment="Top" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
-                            <Button Grid.Row="0" Grid.Column="1" x:Name="DateStampButton" Content="_Date/Time Stamp" VerticalAlignment="Top" Margin="5,0,0,0" IsTabStop="False"/>
+                            <Button Grid.Row="0" Grid.Column="1" x:Name="DateStampButton" Content="_Date/Time Stamp" VerticalAlignment="Top" Margin="5,0,0,0" Height="25" IsTabStop="False"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

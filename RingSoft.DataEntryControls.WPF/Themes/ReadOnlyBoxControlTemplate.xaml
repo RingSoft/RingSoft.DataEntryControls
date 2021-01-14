@@ -9,8 +9,10 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <Border BorderThickness="1" BorderBrush="LightGray">
-                                <TextBlock x:Name="TextBlock" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                            <Border BorderThickness="0,0,1,1" BorderBrush="Gainsboro">
+                                <Border BorderThickness="1,1,0,0" BorderBrush="Black">
+                                    <TextBlock x:Name="TextBlock" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                </Border>
                             </Border>
                         </Grid>
                     </Border>

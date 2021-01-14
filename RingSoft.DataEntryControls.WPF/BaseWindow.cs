@@ -132,7 +132,7 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
-        public virtual void SetReadOnlyMode(bool readOnlyValue)
+        public void SetReadOnlyMode(bool readOnlyValue)
         {
             _readOnlyMode = readOnlyValue;
             if (_readOnlyTabControl == null)
@@ -141,7 +141,24 @@ namespace RingSoft.DataEntryControls.WPF
                 if (_readOnlyTabControl != null)
                     _readOnlyTabControl.SelectionChanged += (sender, args) => OnTabSelectionChanged();
             }
+
+            var focusedElement = FocusManager.GetFocusedElement(this);
+
             this.SetAllChildControlsReadOnlyMode(readOnlyValue);
+
+            if (readOnlyValue)
+            {
+                if (!focusedElement.IsEnabled)
+                {
+                    WPFControlsGlobals.SendKey(Key.Tab);
+                }
+            }
+
+            OnReadOnlyModeSet(readOnlyValue);
+        }
+
+        protected virtual void OnReadOnlyModeSet(bool readOnlyValue)
+        {
         }
 
         public virtual void SetControlReadOnlyMode(Control control, bool readOnlyValue)
