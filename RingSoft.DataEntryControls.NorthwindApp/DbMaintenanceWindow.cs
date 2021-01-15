@@ -162,7 +162,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             if (readOnlyValue)
             {
                 var focusedElement = FocusManager.GetFocusedElement(this);
-                if (focusedElement == null)
+                if (focusedElement == null || !focusedElement.IsEnabled)
                     MaintenanceButtonsControl.NextButton.Focus();
             }
             else if (MaintenanceButtonsControl.IsKeyboardFocusWithin)
