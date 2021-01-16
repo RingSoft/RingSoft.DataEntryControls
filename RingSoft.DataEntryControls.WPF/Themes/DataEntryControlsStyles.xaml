@@ -5,6 +5,10 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary
             Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoTabItemTemplate.xaml" />
+        <ResourceDictionary
+            Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DateEditControlTemplate.xaml" />
+        <ResourceDictionary
+            Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DecimalEditControlTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type local:ContentComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>

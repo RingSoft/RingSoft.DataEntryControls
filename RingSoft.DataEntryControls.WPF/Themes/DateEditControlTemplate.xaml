@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPF">
 
+    <BitmapImage x:Key="DateEditImage" UriSource="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png"/>
+
     <Style TargetType="{x:Type local:DateEditControl}">
         <Setter Property="Template">
             <Setter.Value>
@@ -16,7 +18,7 @@
                             </Grid.ColumnDefinitions>
                             <local:StringEditControl x:Name="TextBox" VerticalContentAlignment="Center"/>
                             <Button Name="DropDownButton" Grid.Column="1" Width="20" Height="{Binding ElementName=TextBox, Path=ActualHeight}" VerticalAlignment="Center">
-                                <Image Source="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png"/>
+                                <Image Source="{StaticResource DateEditImage}"/>
                             </Button>
                             <Popup x:Name="Popup" Grid.Column="0" Grid.ColumnSpan="2" PlacementTarget="{Binding ElementName=TextBox}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
                                 <Grid>
