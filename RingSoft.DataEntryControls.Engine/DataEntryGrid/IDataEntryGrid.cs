@@ -2,7 +2,7 @@
 {
     public interface IDataEntryGrid
     {
-        bool CanUserAddRows { get; }
+        bool DataEntryCanUserAddRows { get; set; }
 
         void UpdateRow(DataEntryGridRow gridRow);
 

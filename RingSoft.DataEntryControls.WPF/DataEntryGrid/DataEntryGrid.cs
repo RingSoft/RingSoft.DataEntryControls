@@ -167,11 +167,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set { SetValue(DefaultSelectionBrushProperty, value); }
         }
 
+        private static object CoerceCanUserAddRowsProperty(DependencyObject obj, object baseValue)
+        {
+            return false;
+        }
+
+
         public new ObservableCollection<DataEntryGridColumn> Columns { get; } = new ObservableCollection<DataEntryGridColumn>();
 
         public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } = new ObservableCollection<DataEntryGridDisplayStyle>();
 
-        public new bool CanUserAddRows { get; set; } = true;
+        public bool DataEntryCanUserAddRows { get; set; } = true;
 
         public new bool AutoGenerateColumns
         {
@@ -223,11 +229,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             DisabledCellDisplayStyleProperty.OverrideMetadata(typeof(DataEntryGrid),
                 new FrameworkPropertyMetadata(disabledCellDisplayStyle));
+
+            CanUserAddRowsProperty.OverrideMetadata(typeof(DataEntryGrid),
+                new FrameworkPropertyMetadata(null, CoerceCanUserAddRowsProperty));
         }
 
         public DataEntryGrid()
         {
-            base.CanUserAddRows = false;
             AutoGenerateColumns = false;
             SelectionUnit = DataGridSelectionUnit.Cell;
 
@@ -1040,7 +1048,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var currentRowIndex = Items.IndexOf(CurrentCell.Item);
             if (currentRowIndex >= Items.Count - 1)
             {
-                if (CanUserAddRows)
+                if (DataEntryCanUserAddRows)
                     Manager.InsertNewRow();
             }
             Manager.RaiseDirtyFlag();
@@ -1511,7 +1519,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void InsertRow()
         {
-            if (CanUserAddRows)
+            if (DataEntryCanUserAddRows)
             {
                 var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
@@ -1631,7 +1639,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         internal void AddGridContextMenuItems(ContextMenu contextMenu)
         {
-            if (CanUserAddRows)
+            if (DataEntryCanUserAddRows)
                 contextMenu.Items.Add(new MenuItem
                 {
                     Header = "_Insert Row", 
@@ -1639,11 +1647,19 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 });
 
             if (CanUserDeleteRows)
+            {
                 contextMenu.Items.Add(new MenuItem
                 {
-                    Header = "_Delete Row", 
-                    Command = new RelayCommand(DeleteCurrentRow){IsEnabled = IsDeleteOk()}
+                    Header = "_Delete Row",
+                    Command = new RelayCommand(DeleteCurrentRow) {IsEnabled = IsDeleteOk()}
                 });
+
+                contextMenu.Items.Add(new MenuItem
+                {
+                    Header = "C_lear Grid",
+                    Command = new RelayCommand(ClearGrid)
+                });
+            }
 
             var row = Manager.Rows[GetCurrentRowIndex()];
             var column = Columns[GetCurrentColumnIndex()];
@@ -1667,6 +1683,22 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         Icon = contextMenuItem.Icon
                     });
                 }
+            }
+        }
+
+        private void ClearGrid()
+        {
+            if (!CommitCellEdit())
+                return;
+
+            Manager.SetupForNewRecord();
+            Manager.RaiseDirtyFlag();
+
+            if (!DataEntryCanUserAddRows)
+            {
+                CancelEdit();
+                EditingControlHost = null;
+                _gridHasFocus = false;
             }
         }
 

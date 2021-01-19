@@ -54,6 +54,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
             _rows.Clear();
 
+            if (Grid != null)
+                addRowToBottom = addRowToBottom && Grid.DataEntryCanUserAddRows;
+
             if (addRowToBottom)
                 InsertNewRow();
         }
@@ -61,7 +64,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public void SetupForNewRecord()
         {
             ClearRows();
-            Grid?.ResetGridFocus();
+
+            if (Grid != null && Grid.DataEntryCanUserAddRows)
+                Grid.ResetGridFocus();
         }
 
         protected void PreLoadGridFromEntity()
@@ -78,7 +83,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public void InsertNewRow(int startIndex = -1)
         {
-            if (Grid != null && Grid.CanUserAddRows)
+            if (Grid != null && Grid.DataEntryCanUserAddRows)
             {
                 var newRow = GetNewRow();
                 newRow.IsNew = true;
