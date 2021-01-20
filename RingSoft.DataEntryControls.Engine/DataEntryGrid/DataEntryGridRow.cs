@@ -8,9 +8,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     {
         public DataEntryGridManager Manager { get; }
 
-        public string RowId { get; set; }
+        public string RowId { get; }
 
-        public string ParentRowId { get; set; }
+        public string ParentRowId { get; private set; }
 
         public abstract DataEntryGridCellProps GetCellProps(int columnId);
 

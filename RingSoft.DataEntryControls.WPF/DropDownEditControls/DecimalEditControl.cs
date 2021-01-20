@@ -204,8 +204,13 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (e.Key == Key.F4)
             {
-                OnDropDownButtonClick();
-                e.Handled = true;
+                var processHotKey = !(DropDownButton != null && !DropDownButton.IsEnabled);
+
+                if (processHotKey)
+                {
+                    OnDropDownButtonClick();
+                    e.Handled = true;
+                }
             }
 
             base.OnPreviewKeyDown(e);
