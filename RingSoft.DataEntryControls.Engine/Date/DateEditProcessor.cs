@@ -111,6 +111,9 @@ namespace RingSoft.DataEntryControls.Engine.Date
                     return ProcessCharResults.Ignored;
             }
 
+            if (IsCharAtIndexDateSeparator(Control.SelectionStart))
+                Control.SelectionStart++;
+
             var dateSegment = GetActiveSegment(keyChar);
             if (dateSegment == null)
                 return ProcessCharResults.ValidationFailed;
@@ -146,15 +149,17 @@ namespace RingSoft.DataEntryControls.Engine.Date
                 index = Control.SelectionStart;
 
             char cSegmentChar = entryFormat[index];
-            var segmentString = cSegmentChar.ToString();
 
-            if (segmentString == _setup.Culture.DateTimeFormat.DateSeparator ||
-                segmentString == _setup.Culture.DateTimeFormat.TimeSeparator)
-            {
-                cSegmentChar = entryFormat[index + 1];
-                if (index == Control.SelectionStart)
-                    Control.SelectionStart++;
-            }
+            //Screws up backspace past segment divider
+            //var segmentString = cSegmentChar.ToString();
+
+            //if (segmentString == _setup.Culture.DateTimeFormat.DateSeparator ||
+            //    segmentString == _setup.Culture.DateTimeFormat.TimeSeparator)
+            //{
+            //    cSegmentChar = entryFormat[index + 1];
+            //    if (index == Control.SelectionStart)
+            //        Control.SelectionStart++;
+            //}
 
             switch (cSegmentChar)
             {
@@ -185,9 +190,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
 
             if (Control.SelectionStart > 0)
             {
-                if (Control.SelectionStart < Control.SelectionLength - 1 &&
-                    GetActiveSegment('Z', Control.SelectionStart - 1) == null)
-                    //We're backspacing in the divider area.  Set selection to go back 1 now.
+                if (IsCharAtIndexDateSeparator(Control.SelectionStart - 1))
                     Control.SelectionStart--;
 
                 var left = "";
@@ -197,16 +200,39 @@ namespace RingSoft.DataEntryControls.Engine.Date
                 var nullPattern = GetNullDatePattern();
                 var nullChar = nullPattern[Control.SelectionStart - 1];
                 var newText = left
-                                + nullChar
-                                + Control.Text.RightStr(Control.Text.Length - Control.SelectionStart);
+                              + nullChar
+                              + Control.Text.RightStr(Control.Text.Length - Control.SelectionStart);
 
                 var selectionStart = Control.SelectionStart;
                 Control.Text = newText;
-                Control.SelectionStart = selectionStart - 1;  //MS always resets SelectionStart when you change Text property.
+                Control.SelectionStart =
+                    selectionStart - 1; //MS always resets SelectionStart when you change Text property.
+
+                if (IsCharAtIndexDateSeparator(Control.SelectionStart - 1))
+                    Control.SelectionStart--;
+                
                 SetNewDate();
             }
-            
+
             return ProcessCharResults.Processed;
+        }
+
+        private bool IsCharAtIndexDateSeparator(int charIndex)
+        {
+            if (charIndex > 0)
+            {
+
+                if (GetActiveSegment('Z', charIndex) == null)
+                    //We're backspacing in the divider area.  Set selection to go back 1 now.
+                    return true;
+
+                var segmentString = Control.Text[charIndex].ToString();
+                if (segmentString == _setup.Culture.DateTimeFormat.DateSeparator ||
+                    segmentString == _setup.Culture.DateTimeFormat.TimeSeparator)
+                    return true;
+            }
+
+            return false;
         }
 
         public ProcessCharResults OnSpaceKey(DateEditControlSetup setup)
