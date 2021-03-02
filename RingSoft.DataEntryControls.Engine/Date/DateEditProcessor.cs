@@ -222,8 +222,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
             if (charIndex > 0)
             {
 
-                if (GetActiveSegment('Z', charIndex) == null)
-                    //We're backspacing in the divider area.  Set selection to go back 1 now.
+                if (Control.Text[charIndex] == ' ')
                     return true;
 
                 var segmentString = Control.Text[charIndex].ToString();
