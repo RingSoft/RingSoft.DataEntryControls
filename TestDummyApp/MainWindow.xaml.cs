@@ -95,6 +95,7 @@ namespace TestDummyApp
             ClearGridButton.Click += (_, _) =>
             {
                 GridManager.SetupForNewRecord();
+                DateEditControl.Focus();
             };
 
             LoadGridButton.Click += (_, _) =>

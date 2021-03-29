@@ -1151,6 +1151,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return true;
         }
 
+        public void DataEntryGridCancelEdit()
+        {
+            CancelEdit();
+            
+            EditingControlHost = null;
+            _gridHasFocus = false;
+        }
+
         //public new bool CancelEdit()
         //{
         //    if (EditingControlHost == null)

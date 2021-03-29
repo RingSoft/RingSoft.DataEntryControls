@@ -10,7 +10,7 @@
 
         void RefreshDataSource();
 
-        bool CancelEdit();
+        void DataEntryGridCancelEdit();
 
         bool CommitCellEdit();
 

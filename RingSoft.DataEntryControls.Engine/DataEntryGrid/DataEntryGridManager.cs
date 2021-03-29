@@ -50,7 +50,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         private void ClearRows(bool addRowToBottom = true)
         {
-            Grid?.CancelEdit();
+            Grid?.DataEntryGridCancelEdit();
 
             _rows.Clear();
 
