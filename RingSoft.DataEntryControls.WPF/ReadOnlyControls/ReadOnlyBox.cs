@@ -72,6 +72,26 @@ namespace RingSoft.DataEntryControls.WPF
             readOnlyBox.SetTextAlignment();
         }
 
+        private static void BackgroundChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var readOnlyBox = (ReadOnlyBox)obj;
+            if (readOnlyBox.TextBlock != null)
+            {
+                readOnlyBox.TextBlock.Background = readOnlyBox.Background;
+            }
+        }
+
+        private static void ForegroundChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var readOnlyBox = (ReadOnlyBox)obj;
+            if (readOnlyBox.TextBlock != null)
+            {
+                readOnlyBox.TextBlock.Background = readOnlyBox.Foreground;
+            }
+        }
+
         public TextBlock TextBlock { get; set; }
 
         private string _text;
@@ -92,6 +112,12 @@ namespace RingSoft.DataEntryControls.WPF
         static ReadOnlyBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyBox), new FrameworkPropertyMetadata(typeof(ReadOnlyBox)));
+
+            BackgroundProperty.OverrideMetadata(typeof(ReadOnlyBox),
+                new FrameworkPropertyMetadata(BackgroundChangedCallback));
+
+            ForegroundProperty.OverrideMetadata(typeof(ReadOnlyBox),
+                new FrameworkPropertyMetadata(ForegroundChangedCallback));
         }
 
         public ReadOnlyBox()

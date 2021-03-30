@@ -26,18 +26,18 @@
         </Button>
         <StackPanel Orientation="Vertical">
             <StackPanel x:Name="ExpandPanel" Visibility="Collapsed">
-                <dec:IntegerEditControl MinimumValue="1000" AllowNullValue="False"/>
-                <dec:TextComboBoxControl Setup="{Binding ComboBoxSetup}" SelectedItem="{Binding Path=SelectedComboBoxItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="Test" Width="150"/>
+                <!--<dec:IntegerEditControl MinimumValue="1000" AllowNullValue="False"/>
+                <dec:TextComboBoxControl Setup="{Binding ComboBoxSetup}" SelectedItem="{Binding Path=SelectedComboBoxItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="Test" Width="150"/>-->
 
                 <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>
             </StackPanel>
             <dec:ContentComboBoxControl ContentTemplate="{StaticResource LineTypeContent}" Width="150"/>
             <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <dec:WaitSpinner Height="20" Width="20"/>
-            <dec:StringReadOnlyBox Text="Test" Margin="5"/>
+            <dec:StringReadOnlyBox Text="Test" Margin="5" Foreground="Red"/>
             <dec:DecimalReadOnlyBox Value="12345.6" FormatType="Number" Precision="4" Margin="5"/>
             <dec:DateReadOnlyBox Value="11/12/2020 10:00:00 PM" DateFormatType="DateTime" CultureId="zh-CN"/>
-            <dec:DecimalReadOnlyBox Precision="0" Value="{Binding IntegerValue}" TextAlignment="Left" DesignText="9,876"/>
+            <dec:DecimalReadOnlyBox Precision="0" Value="{Binding DecimalValue}" TextAlignment="Left" DesignText="9,876"/>
         </StackPanel>
         <DataGrid x:Name="Grid">
             <DataGrid.Columns>
