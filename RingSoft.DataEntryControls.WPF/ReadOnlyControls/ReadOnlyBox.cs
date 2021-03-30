@@ -88,7 +88,7 @@ namespace RingSoft.DataEntryControls.WPF
             var readOnlyBox = (ReadOnlyBox)obj;
             if (readOnlyBox.TextBlock != null)
             {
-                readOnlyBox.TextBlock.Background = readOnlyBox.Foreground;
+                readOnlyBox.TextBlock.Foreground = readOnlyBox.Foreground;
             }
         }
 
