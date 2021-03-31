@@ -21,6 +21,7 @@ namespace TestDummyApp
         public AppGridInventoryRow(AppGridManager manager) : base(manager)
         {
             PriceSetup.FormatType = DecimalEditFormatTypes.Currency;
+            Location = "Test";
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)

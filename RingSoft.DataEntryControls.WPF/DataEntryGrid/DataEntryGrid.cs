@@ -905,7 +905,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         case DataEntryGridCellStates.ReadOnly:
                             break;
                         case DataEntryGridCellStates.Disabled:
-                            displayStyle = DisabledCellDisplayStyle;
+                            displayStyle = new DataEntryGridDisplayStyle
+                            {
+                                DisplayId = 0,
+                                BackgroundBrush = DisabledCellDisplayStyle.BackgroundBrush,
+                                ForegroundBrush = DisabledCellDisplayStyle.ForegroundBrush,
+                                SelectionBrush = DisabledCellDisplayStyle.SelectionBrush
+                            };
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
