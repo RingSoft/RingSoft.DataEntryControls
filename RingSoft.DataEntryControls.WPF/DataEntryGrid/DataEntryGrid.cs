@@ -753,11 +753,24 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public void RefreshDataSource()
         {
+            var refreshEdit = false;
+            DataEntryGridRow currentRow = null;
+            int currentColumnId = 0;
+            if (EditingControlHost != null)
+            {
+                refreshEdit = true;
+                currentRow = Manager.Rows[GetCurrentRowIndex()];
+                currentColumnId = Columns[GetCurrentColumnIndex()].ColumnId;
+                CancelEdit();
+            }
             _dataSourceTable.Rows.Clear();
             foreach (var gridRow in Manager.Rows)
             {
                 AddRow(gridRow);
             }
+
+            if (refreshEdit)
+                GotoCell(currentRow, currentColumnId);
         }
 
         private void AddRow(DataEntryGridRow gridRow, int index = -1)

@@ -95,7 +95,7 @@ namespace TestDummyApp
                 case AppGridColumns.CheckBox:
                     if (value is DataEntryGridCheckBoxCellProps checkBoxCellProps)
                         CheckBoxValue = checkBoxCellProps.Value;
-
+                    Manager.Grid.RefreshDataSource();
                     break;
                 case AppGridColumns.Price:
                     break;
