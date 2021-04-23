@@ -105,6 +105,10 @@ namespace TestDummyApp
 
             TestButton.Click += (_, _) =>
             {
+                //GridManager.Grid.TakeCellSnapshot(true, true);
+                //GridManager.RemoveRow(0);
+                //GridManager.Grid.RestoreCellSnapshot(true, true);
+
                 var win = new DummyWindow();
                 win.Owner = this;
                 win.ShowInTaskbar = false;

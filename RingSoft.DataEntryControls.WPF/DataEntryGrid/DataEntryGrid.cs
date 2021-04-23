@@ -641,10 +641,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 RefreshGridView();
         }
 
-        public void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true)
+        public void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false)
         {
             bool takeSnapshot = !(doOnlyWhenGridHasFocus && !IsKeyboardFocusWithin);
-            if (takeSnapshot)
+            if (takeSnapshot && !forceSnapshot)
                 takeSnapshot = StoreCurrentCellOnLoadGrid;
 
             if (takeSnapshot)
@@ -735,14 +735,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
-        public void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true)
+        public void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false)
         {
             bool restoreSnapshot = !(doOnlyWhenGridHasFocus && !IsKeyboardFocusWithin);
             if (restoreSnapshot)
             {
                 if (_cellSnapshot == null)
                     ResetGridFocus();
-                else if (StoreCurrentCellOnLoadGrid)
+                else if (StoreCurrentCellOnLoadGrid || forceSnapshot)
                 {
                     SetFocusToCell(_cellSnapshot.BottomVisibleRowIndex, _cellSnapshot.RightVisibleColumnIndex, false);
                     SetFocusToCell(_cellSnapshot.RowIndex, _cellSnapshot.ColumnIndex, IsKeyboardFocusWithin);
@@ -1131,7 +1131,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             if (EditingControlHost != null && EditingControlHost.Control != null)
             {
-                var currentRow = Manager.Rows[GetCurrentRowIndex()];
+                var currentRowIndex = GetCurrentRowIndex();
+                if (currentRowIndex < 0)
+                {
+                    CancelEdit();
+                    return true;
+                }
+                var currentRow = Manager.Rows[currentRowIndex];
                 var cellValue = EditingControlHost.GetCellValue();
                 cellValue.CellLostFocusType = cellLostFocusType;
                 

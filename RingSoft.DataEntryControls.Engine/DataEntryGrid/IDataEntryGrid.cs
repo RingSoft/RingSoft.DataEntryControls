@@ -20,8 +20,8 @@
 
         void SetBulkInsertMode(bool value = true);
 
-        void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true);
+        void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false);
 
-        void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true);
+        void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false);
     }
 }
