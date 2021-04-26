@@ -4,6 +4,12 @@
     {
         bool DataEntryCanUserAddRows { get; set; }
 
+        DataEntryGridRow CurrentRow { get; }
+
+        int CurrentRowIndex { get; }
+
+        int CurrentColumnId { get; }
+
         void UpdateRow(DataEntryGridRow gridRow);
 
         void UpdateRow(DataEntryGridRow gridRow, int rowIndex);
@@ -20,8 +26,8 @@
 
         void SetBulkInsertMode(bool value = true);
 
-        void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false);
+        void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true);
 
-        void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false);
+        void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true);
     }
 }

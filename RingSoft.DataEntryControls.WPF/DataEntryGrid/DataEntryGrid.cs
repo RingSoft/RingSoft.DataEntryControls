@@ -178,6 +178,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } = new ObservableCollection<DataEntryGridDisplayStyle>();
 
         public bool DataEntryCanUserAddRows { get; set; } = true;
+        public DataEntryGridRow CurrentRow => GetCurrentRow();
+        public int CurrentRowIndex => GetCurrentRowIndex();
+        public int CurrentColumnId => GetCurrentColumnId();
 
         public new bool AutoGenerateColumns
         {
@@ -641,10 +644,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 RefreshGridView();
         }
 
-        public void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false)
+        public void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true)
         {
             bool takeSnapshot = !(doOnlyWhenGridHasFocus && !IsKeyboardFocusWithin);
-            if (takeSnapshot && !forceSnapshot)
+            if (takeSnapshot)
                 takeSnapshot = StoreCurrentCellOnLoadGrid;
 
             if (takeSnapshot)
@@ -735,14 +738,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
-        public void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true, bool forceSnapshot = false)
+        public void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true)
         {
             bool restoreSnapshot = !(doOnlyWhenGridHasFocus && !IsKeyboardFocusWithin);
             if (restoreSnapshot)
             {
                 if (_cellSnapshot == null)
                     ResetGridFocus();
-                else if (StoreCurrentCellOnLoadGrid || forceSnapshot)
+                else if (StoreCurrentCellOnLoadGrid)
                 {
                     SetFocusToCell(_cellSnapshot.BottomVisibleRowIndex, _cellSnapshot.RightVisibleColumnIndex, false);
                     SetFocusToCell(_cellSnapshot.RowIndex, _cellSnapshot.ColumnIndex, IsKeyboardFocusWithin);
@@ -1419,6 +1422,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private int GetCurrentColumnIndex(DataGridCellInfo cellInfo)
         {
             return base.Columns.IndexOf(cellInfo.Column);
+        }
+
+        public int GetCurrentColumnId()
+        {
+            var currentColumnIndex = GetCurrentColumnIndex();
+            if (currentColumnIndex < 0)
+                return -1;
+
+            return Columns[currentColumnIndex].ColumnId;
         }
 
         public DataEntryGridRow GetCurrentRow()

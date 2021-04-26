@@ -109,6 +109,9 @@ namespace TestDummyApp
                 //GridManager.RemoveRow(0);
                 //GridManager.Grid.RestoreCellSnapshot(true, true);
 
+                MessageBox.Show(
+                    $"Current Row Index = {GridManager.Grid.CurrentRowIndex}.  Current Column ID = {GridManager.Grid.CurrentColumnId}.");
+
                 var win = new DummyWindow();
                 win.Owner = this;
                 win.ShowInTaskbar = false;
