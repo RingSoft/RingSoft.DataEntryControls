@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 using System;
 using System.Collections.ObjectModel;
+using System.Media;
 using System.Windows;
 using System.Windows.Input;
 
@@ -43,8 +44,11 @@ namespace RingSoft.DataEntryControls.WPF
             MessageBox.Show(text, caption, MessageBoxButton.OK, messageBoxImage);
         }
 
-        public MessageBoxButtonsResult ShowYesNoMessageBox(string text, string caption)
+        public MessageBoxButtonsResult ShowYesNoMessageBox(string text, string caption, bool playSound = false)
         {
+            if (playSound)
+                SystemSounds.Exclamation.Play();
+
             switch (MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question))
             {
                 case MessageBoxResult.Yes:
@@ -54,8 +58,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        public MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption)
+        public MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false)
         {
+            if (playSound)
+                SystemSounds.Exclamation.Play();
+
             switch (MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question))
             {
                 case MessageBoxResult.Yes:

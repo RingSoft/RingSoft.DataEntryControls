@@ -401,8 +401,18 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     var startIndex = -1;
                     if (e.NewStartingIndex < base.Columns.Count)
                         startIndex = e.NewStartingIndex;
+
                     foreach (DataEntryGridColumn column in e.NewItems)
                     {
+                        var columnIdCount = Columns.Count(w => w.ColumnId == column.ColumnId);
+                        
+                        if (columnIdCount > 1)
+                        {
+                            var message = $"There are {columnIdCount} columns with Column ID '{column.ColumnId}'";
+                            MessageBox.Show(message);
+                            throw new Exception(message);
+                        }
+
                         if (startIndex < 0)
                             base.Columns.Add(column);
                         else
@@ -444,7 +454,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 //}
                 _dataSourceTable.Columns.Add(columnName);
                 column.DataColumnName = columnName;
-
                 index++;
             }
             DesignerFillGrid(nameof(Columns_CollectionChanged));

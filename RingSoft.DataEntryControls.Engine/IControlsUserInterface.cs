@@ -33,8 +33,8 @@
 
         void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon);
 
-        MessageBoxButtonsResult ShowYesNoMessageBox(string text, string caption);
+        MessageBoxButtonsResult ShowYesNoMessageBox(string text, string caption, bool playSound = false);
 
-        MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption);
+        MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false);
     }
 }
