@@ -1561,8 +1561,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool IsDeleteOk()
         {
             var rowIndex = Items.IndexOf(CurrentCell.Item);
-            var deleteOk = CanUserDeleteRows && rowIndex < Items.Count - 1;
-            if (deleteOk && rowIndex >= 0)
+            var deleteOk = CanUserDeleteRows;
+            if (deleteOk)
+            {
+                if (DataEntryCanUserAddRows)
+                {
+                    deleteOk = rowIndex < Items.Count - 1 && rowIndex >= 0;
+                }
+            }
+
+            if (deleteOk)
             {
                 var row = Manager.Rows[rowIndex];
                 deleteOk = row.AllowUserDelete;
