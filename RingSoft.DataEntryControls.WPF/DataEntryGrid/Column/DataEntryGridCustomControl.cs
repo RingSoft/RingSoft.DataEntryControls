@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using RingSoft.DataEntryControls.Engine;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+using System;
+using System.Windows;
+using System.Windows.Data;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
@@ -46,7 +44,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 throw new Exception($"The {nameof(ContentTemplate)} Property has not been set.");
 
             factory.SetBinding(DataEntryGridCustomControl.DataValueProperty, new Binding(dataColumnName));
-            factory.SetValue(DataEntryGridCustomControl.ContentTemplateProperty, ContentTemplate);
+            factory.SetValue(CustomContentControl.ContentTemplateProperty, ContentTemplate);
             factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
             factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Left);
         }
@@ -80,26 +78,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     ///     <MyNamespace:DataEntryGridCustomControl/>
     ///
     /// </summary>
-    [TemplatePart(Name = "ContentPresenter", Type = typeof(ContentPresenter))]
-    public class DataEntryGridCustomControl : Control
+    public class DataEntryGridCustomControl : CustomContentControl
     {
-        public static readonly DependencyProperty ContentTemplateProperty =
-            DependencyProperty.Register(nameof(ContentTemplate), typeof(DataEntryCustomContentTemplate), typeof(DataEntryGridCustomControl),
-                new FrameworkPropertyMetadata(ContentTemplateChangedCallback));
-
-        public DataEntryCustomContentTemplate ContentTemplate
-        {
-            get { return (DataEntryCustomContentTemplate)GetValue(ContentTemplateProperty); }
-            set { SetValue(ContentTemplateProperty, value); }
-        }
-
-        private static void ContentTemplateChangedCallback(DependencyObject obj,
-            DependencyPropertyChangedEventArgs args)
-        {
-            var customControl = (DataEntryGridCustomControl)obj;
-            customControl.SelectItem(customControl.SelectedItemId);
-        }
-
         public static readonly DependencyProperty DataValueProperty =
             DependencyProperty.Register(nameof(DataValue), typeof(string), typeof(DataEntryGridCustomControl),
                 new FrameworkPropertyMetadata(DataValueChangedCallback));
@@ -117,26 +97,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             customControl.SetDataValue();
         }
 
-        private int _selectedItemId;
-
-        public int SelectedItemId
-        {
-            get => _selectedItemId;
-            private set
-            {
-                if (_selectedItemId == value)
-                    return;
-
-                _selectedItemId = value;
-
-                SelectItem(SelectedItemId);
-            }
-        }
-
-
-        public ContentPresenter ContentPresenter { get; set; }
-
-        private bool _controlLoaded;
         private DataEntryGridControlColumnProcessor _processor;
 
         static DataEntryGridCustomControl()
@@ -157,17 +117,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         }
 
-        public override void OnApplyTemplate()
-        {
-            ContentPresenter = GetTemplateChild(nameof(ContentPresenter)) as ContentPresenter;
-
-            _controlLoaded = true;
-
-            SelectItem(SelectedItemId);
-
-            base.OnApplyTemplate();
-        }
-
         private void OnLoaded()
         {
         }
@@ -175,16 +124,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private void SetDataValue()
         {
             _processor.SetDataValue(DataValue);
-        }
-
-        protected void SelectItem(int itemId)
-        {
-            if (!_controlLoaded || ContentTemplate == null)
-                return;
-
-            var contentItem = ContentTemplate.FirstOrDefault(f => f.ItemId == itemId);
-            if (contentItem != null)
-                ContentPresenter.ContentTemplate = contentItem.DataTemplate;
         }
     }
 }

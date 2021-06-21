@@ -1,14 +1,15 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
+﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -128,28 +129,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Close();
         }
 
-        public MessageButtons ShowYesNoCancelMessage(string text, string caption)
+        public MessageButtons ShowYesNoCancelMessage(string text, string caption, bool playSound = false)
         {
-            var result = MessageBox.Show(text, caption, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            var result = ControlsGlobals.UserInterface.ShowYesNoCancelMessageBox(text, caption, playSound);
             switch (result)
             {
-                case MessageBoxResult.Yes:
+                case MessageBoxButtonsResult.Yes:
                     return MessageButtons.Yes;
-                case MessageBoxResult.No:
+                case MessageBoxButtonsResult.No:
                     return MessageButtons.No;
             }
 
-            
             return MessageButtons.Cancel;
         }
 
-        public bool ShowYesNoMessage(string text, string caption)
+        public bool ShowYesNoMessage(string text, string caption, bool playSound = false)
         {
-            if (MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
-                MessageBoxResult.Yes)
-                return true;
+            var result = ControlsGlobals.UserInterface.ShowYesNoMessageBox(text, caption, playSound);
 
-            return false;
+            return result == MessageBoxButtonsResult.Yes;
         }
 
         public void ShowRecordSavedMessage()

@@ -9,20 +9,65 @@ namespace RingSoft.DataEntryControls.Engine
         DateOnly = 0,
         DateTime = 1,
     }
+    /// <summary>
+    ///   All the properties necessary to setup a date edit control.
+    /// </summary>
     public class DateEditControlSetup
     {
+        /// <summary>
+        /// Gets or sets the entry format.  Use to override DateFormatType.
+        /// </summary>
+        /// <value>
+        /// The entry format.
+        /// </value>
         public string EntryFormat { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display format.  Use to override DateFormatType.
+        /// </summary>
+        /// <value>
+        /// The display format.
+        /// </value>
         public string DisplayFormat { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type of the default date format.
+        /// </summary>
+        /// <value>
+        /// The type of the date format.
+        /// </value>
         public DateFormatTypes DateFormatType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the maximum date.
+        /// </summary>
+        /// <value>
+        /// The maximum date.
+        /// </value>
         public DateTime? MaximumDate { get; set; }
 
+        /// <summary>
+        /// Gets or sets the minimum date.
+        /// </summary>
+        /// <value>
+        /// The minimum date.
+        /// </value>
         public DateTime? MinimumDate { get; set; }
 
+        /// <summary>
+        /// Gets the culture.
+        /// </summary>
+        /// <value>
+        /// The culture.
+        /// </value>
         public CultureInfo Culture { get; private set; } = CultureInfo.CurrentCulture;
 
+        /// <summary>
+        /// Gets or sets the culture ID.
+        /// </summary>
+        /// <value>
+        /// The culture ID.
+        /// </value>
         public string CultureId
         {
             get => Culture.Name;
@@ -35,6 +80,12 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether null values are allowed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow null value]; otherwise, <c>false</c>.
+        /// </value>
         public bool AllowNullValue { get; set; }
 
         public DateEditControlSetup()

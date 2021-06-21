@@ -35,4 +35,5 @@
 
     <Style TargetType="{x:Type local:DataEntryMemoTabItem}" BasedOn="{StaticResource {x:Type TabItem}}"/>
 
+
 </ResourceDictionary>
