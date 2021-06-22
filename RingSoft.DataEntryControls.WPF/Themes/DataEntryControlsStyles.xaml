@@ -9,6 +9,10 @@
             Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DateEditControlTemplate.xaml" />
         <ResourceDictionary
             Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DecimalEditControlTemplate.xaml" />
+
+        <ResourceDictionary 
+            Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/CustomContentControlTemplate.xaml"/>
+
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type local:ContentComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
