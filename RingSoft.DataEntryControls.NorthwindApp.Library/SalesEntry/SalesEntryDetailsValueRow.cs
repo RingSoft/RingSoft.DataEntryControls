@@ -50,7 +50,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var column = (SalesEntryGridColumns)columnId;
             switch (column)
             {
+                case SalesEntryGridColumns.Price:
+                    if (Price < 0)
+                        return new DataEntryGridCellStyle {DisplayStyleId = AppGlobals.NegativeDisplayStyleId};
+                    break;
                 case SalesEntryGridColumns.ExtendedPrice:
+                    if (ExtendedPrice < 0)
+                        return new DataEntryGridCellStyle { State = DataEntryGridCellStates.Disabled, DisplayStyleId = AppGlobals.NegativeDisplayStyleId};
+
                     return new DataEntryGridCellStyle {State = DataEntryGridCellStates.Disabled};
             }
             return base.GetCellStyle(columnId);

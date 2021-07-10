@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "RingSoft WPF Data Entry Controls Demo"
-#define MyAppVersion "1.00.03"
+#define MyAppVersion "1.00.00"
 #define MyAppPublisher "RingSoft"
 #define MyAppURL "http://www.ringsoft.site/"
 #define MyAppExeName "RingSoft.DataEntryControls.NorthwindApp.exe"
@@ -25,7 +25,7 @@ DisableProgramGroupPage=no
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=C:\Inno Install Output
-OutputBaseFilename=RingSoft.WPFDataEntryControlsDemoApp
+OutputBaseFilename=RingSoft.WPFDataEntryControlsDemoApp.1.00.00
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

@@ -16,6 +16,7 @@
 
             <Style TargetType="dec:DecimalEditControl" x:Key="{x:Type dec:DecimalEditControl}">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={StaticResource ValueToForeground}}"/>
             </Style>
 
             <Style TargetType="dec:DateEditControl" x:Key="{x:Type dec:DateEditControl}">
@@ -27,6 +28,7 @@
             <Style TargetType="dec:DecimalReadOnlyBox" x:Key="{x:Type dec:DecimalReadOnlyBox}"
                    BasedOn="{StaticResource {x:Type dec:ReadOnlyBox}}">
                 <Setter Property="CultureId" Value="{Binding Source={x:Static lib:AppGlobals.NumberCultureId}}" />
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={StaticResource ValueToForeground}}"/>
             </Style>
 
             <deg:DataEntryGridDisplayStyle x:Key="CommentCellStyle" DisplayId="{x:Static lib:AppGlobals.CommentDisplayStyleId}" ForegroundBrush="White">
@@ -46,6 +48,8 @@
                     </LinearGradientBrush>
                 </deg:DataEntryGridDisplayStyle.BackgroundBrush>
             </deg:DataEntryGridDisplayStyle>
+
+            <deg:DataEntryGridDisplayStyle x:Key="NegativeCellStyle" DisplayId="{x:Static lib:AppGlobals.NegativeDisplayStyleId}" ForegroundBrush="Red"/>
 
             <dec:DataEntryCustomContentTemplate x:Key="PoLineTypeContent">
 

@@ -84,6 +84,7 @@ namespace RingSoft.DataEntryControls.WPF
                 var formatString =
                     DecimalEditControlSetup.GetDecimalFormatString(FormatType, Precision, NumberFormatString);
                 var displayValue = (decimal) Value;
+
                 text = displayValue.ToString(formatString, Culture.NumberFormat);
             }
 

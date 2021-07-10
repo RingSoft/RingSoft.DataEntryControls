@@ -87,7 +87,8 @@
                                     </deg:DataEntryGridDisplayStyle.BackgroundBrush>
 
                                 </deg:DataEntryGridDisplayStyle>
-                            </deg:DataEntryGrid.DisplayStyles>
+                                <StaticResource ResourceKey="NegativeCellStyle"/>
+                                           </deg:DataEntryGrid.DisplayStyles>
 
                         </deg:DataEntryGrid>
                     </DockPanel>

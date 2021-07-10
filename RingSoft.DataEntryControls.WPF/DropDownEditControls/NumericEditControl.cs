@@ -116,6 +116,7 @@ namespace RingSoft.DataEntryControls.WPF
             var numericEditControl = (NumericEditControl<T>) obj;
             var culture = new CultureInfo(numericEditControl.CultureId);
             numericEditControl.Culture = culture;
+            numericEditControl.Culture.NumberFormat.CurrencyNegativePattern = 1;
             if (!numericEditControl._settingText)
                 numericEditControl.SetValue();
         }

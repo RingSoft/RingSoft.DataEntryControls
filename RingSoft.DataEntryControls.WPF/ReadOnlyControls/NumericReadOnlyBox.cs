@@ -77,6 +77,7 @@ namespace RingSoft.DataEntryControls.WPF
             var numericReadOnlyBox = (NumericReadOnlyBox<T>)obj;
             var culture = new CultureInfo(numericReadOnlyBox.CultureId);
             numericReadOnlyBox.Culture = culture;
+            numericReadOnlyBox.Culture.NumberFormat.CurrencyNegativePattern = 1;
             numericReadOnlyBox.SetValue();
         }
 

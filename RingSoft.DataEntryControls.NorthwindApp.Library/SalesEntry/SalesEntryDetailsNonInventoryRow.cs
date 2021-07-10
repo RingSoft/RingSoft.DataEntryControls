@@ -47,6 +47,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                         ColumnHeader = "Non Inventory Code"
                     };
                 case SalesEntryGridColumns.Price:
+                    if (Price < 0)
+                        return new DataEntryGridCellStyle { DisplayStyleId = AppGlobals.NegativeDisplayStyleId };
+
                     return new DataEntryGridCellStyle{DisplayStyleId = AppGlobals.NonInventoryDisplayStyleId};
                 case SalesEntryGridColumns.Quantity:
                 case SalesEntryGridColumns.ExtendedPrice:

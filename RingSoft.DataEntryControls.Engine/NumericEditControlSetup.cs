@@ -44,6 +44,7 @@ namespace RingSoft.DataEntryControls.Engine
         protected virtual void SetupNumericInfo(string cultureId)
         {
             Culture = new CultureInfo(cultureId);
+            Culture.NumberFormat.CurrencyNegativePattern = 1;
         }
 
         public virtual string GetNumberFormatString()
