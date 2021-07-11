@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -10,15 +12,14 @@ namespace RingSoft.DataEntryControls.WPF
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            SolidColorBrush brush = new SolidColorBrush(Colors.Black);
-
-            Double doubleValue = 0.0;
-            if (value != null) Double.TryParse(value.ToString(), out doubleValue);
+            var doubleValue = 0.0;
+            if (value != null) 
+                double.TryParse(value.ToString().NumTextToString(culture), out doubleValue);
 
             if (doubleValue < 0)
-                brush = new SolidColorBrush(Colors.Red);
+                return new SolidColorBrush(Colors.Red);
 
-            return brush;
+            return parameter ?? DependencyProperty.UnsetValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

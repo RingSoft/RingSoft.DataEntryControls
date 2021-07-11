@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <Version>1.00.01</Version>
+    <Version>1.00.02</Version>
     <Description>WPF Controls which allow for quick user data entry.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>

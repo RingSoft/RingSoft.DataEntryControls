@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using RingSoft.DataEntryControls.Engine;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -77,7 +78,8 @@ namespace RingSoft.DataEntryControls.WPF
             var numericReadOnlyBox = (NumericReadOnlyBox<T>)obj;
             var culture = new CultureInfo(numericReadOnlyBox.CultureId);
             numericReadOnlyBox.Culture = culture;
-            numericReadOnlyBox.Culture.NumberFormat.CurrencyNegativePattern = 1;
+            
+            DecimalEditControlSetup.FormatCulture(numericReadOnlyBox.Culture);
             numericReadOnlyBox.SetValue();
         }
 
@@ -92,7 +94,9 @@ namespace RingSoft.DataEntryControls.WPF
         public NumericReadOnlyBox()
         {
             if (Culture == null)
-                Culture = CultureInfo.CurrentCulture;
+                Culture = new CultureInfo(CultureInfo.CurrentCulture.Name);
+
+            DecimalEditControlSetup.FormatCulture(Culture);
         }
 
         public override void OnApplyTemplate()

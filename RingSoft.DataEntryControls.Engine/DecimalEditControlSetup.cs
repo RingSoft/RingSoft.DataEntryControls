@@ -50,6 +50,15 @@ namespace RingSoft.DataEntryControls.Engine
             SetupNumericInfo(CultureInfo.CurrentCulture.Name);
         }
 
+        public static void FormatCulture(CultureInfo culture)
+        {
+            culture.NumberFormat.CurrencyNegativePattern =
+                culture.NumberFormat.NumberNegativePattern =
+                    culture.NumberFormat.PercentNegativePattern = 1;
+
+        }
+
+
         protected sealed override void SetupNumericInfo(string cultureId)
         {
             base.SetupNumericInfo(cultureId);
