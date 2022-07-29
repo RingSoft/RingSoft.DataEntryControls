@@ -1020,18 +1020,28 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         EditingControlHost =
                             WPFControlsGlobals.DataEntryGridHostFactory.GetControlHost(this,
                                 cellProps.EditingControlId);
-                        if (EditingControlHost.SetSelection && !SelectedCells.Any())
-                            SelectedCells.Add(CurrentCell);
 
-                        dataEntryGridColumn.CellEditingTemplate =
-                            EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle, dataEntryGridColumn);
-                        EditingControlHost.ControlDirty += EditingControl_ControlDirty;
-                        EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
-
-                        if (_buttonClick)
+                        if (!EditingControlHost.SetReadOnlyMode(_readOnlyMode))
                         {
-                            dataEntryGridRow.SetCellValue(cellProps);
-                            _buttonClick = false;
+                            EditingControlHost = null;
+                            cellProps.ControlMode = false;
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            if (EditingControlHost.SetSelection && !SelectedCells.Any())
+                                SelectedCells.Add(CurrentCell);
+
+                            dataEntryGridColumn.CellEditingTemplate =
+                                EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle, dataEntryGridColumn);
+                            EditingControlHost.ControlDirty += EditingControl_ControlDirty;
+                            EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
+
+                            if (_buttonClick)
+                            {
+                                dataEntryGridRow.SetCellValue(cellProps);
+                                _buttonClick = false;
+                            }
                         }
                     }
                 }
@@ -1492,8 +1502,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             var cellStyle = GetCellStyle(gridRow, gridColumn.ColumnId);
 
             var setFocus = cellStyle.State == DataEntryGridCellStates.Enabled;
-            if (_readOnlyMode)
-                setFocus = cellStyle.State == DataEntryGridCellStates.ReadOnly;
+            //if (_readOnlyMode)
+            //    setFocus = cellStyle.State == DataEntryGridCellStates.ReadOnly;
 
             if (setFocus)
                 setFocus = gridColumn.Visibility == Visibility.Visible;
@@ -1767,8 +1777,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private DataEntryGridCellStyle GetCellStyle(DataEntryGridRow row, int columnId)
         {
             var cellStyle = row.GetCellStyle(columnId);
-            if (_readOnlyMode && cellStyle.State == DataEntryGridCellStates.Enabled)
-                cellStyle.State = DataEntryGridCellStates.ReadOnly;
+            //if (_readOnlyMode && cellStyle.State == DataEntryGridCellStates.Enabled)
+            //    cellStyle.State = DataEntryGridCellStates.ReadOnly;
 
             return cellStyle;
         }

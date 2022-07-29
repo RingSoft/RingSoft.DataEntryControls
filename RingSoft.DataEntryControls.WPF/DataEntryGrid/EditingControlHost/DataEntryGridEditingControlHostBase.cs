@@ -56,6 +56,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             return true;
         }
 
+        public virtual bool SetReadOnlyMode(bool readOnlyMode)
+        {
+            return !readOnlyMode;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

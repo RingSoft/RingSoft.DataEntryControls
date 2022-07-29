@@ -148,7 +148,7 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (readOnlyValue)
             {
-                if (!focusedElement.IsEnabled)
+                if (focusedElement != null && !focusedElement.IsEnabled)
                 {
                     WPFControlsGlobals.SendKey(Key.Tab);
                 }

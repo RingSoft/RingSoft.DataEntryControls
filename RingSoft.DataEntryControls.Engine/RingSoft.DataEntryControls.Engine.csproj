@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Version>2.00.02</Version>
+    <Version>2.00.09</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>Library to handle RingSoft.DataEntryControls.</Description>
@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://www.ringsoft.site</PackageProjectUrl>
     <PackageTags>WPF Controls</PackageTags>
     <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <BaseOutputPath>C:\Users\petem\source\repos\RingSoft\Nuget</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
