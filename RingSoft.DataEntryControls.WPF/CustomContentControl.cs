@@ -53,21 +53,36 @@ namespace RingSoft.DataEntryControls.WPF
             customControl.SelectItem(customControl.SelectedItemId);
         }
 
-        private int _selectedItemId;
+        public static readonly DependencyProperty SelectedItemIdProperty =
+            DependencyProperty.Register(nameof(SelectedItemId), typeof(int), typeof(CustomContentControl),
+                new FrameworkPropertyMetadata(SelectedItemIdChangedCallback));
 
         public int SelectedItemId
         {
-            get => _selectedItemId;
-            set
-            {
-                if (_selectedItemId == value)
-                    return;
-
-                _selectedItemId = value;
-
-                SelectItem(SelectedItemId);
-            }
+            get { return (int)GetValue(SelectedItemIdProperty); }
+            set { SetValue(SelectedItemIdProperty, value); }
         }
+
+        private static void SelectedItemIdChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var customControl = (CustomContentControl)obj;
+            customControl.SelectItem(customControl.SelectedItemId);
+        }
+
+        //public int SelectedItemId
+        //{
+        //    get => _selectedItemId;
+        //    set
+        //    {
+        //        if (_selectedItemId == value)
+        //            return;
+
+        //        _selectedItemId = value;
+
+        //        SelectItem(SelectedItemId);
+        //    }
+        //}
 
 
         public ContentPresenter ContentPresenter { get; set; }

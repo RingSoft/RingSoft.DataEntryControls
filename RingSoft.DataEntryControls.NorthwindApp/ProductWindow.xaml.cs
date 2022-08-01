@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+﻿using System.Windows.Controls;
+using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 

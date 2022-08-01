@@ -129,6 +129,9 @@
                     </Grid>
                 </dec:DataEntryMemoTabItem>
             </TabControl>
+            <StackPanel Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left">
+                <dec:CustomContentControl ContentTemplate="{StaticResource SalesLineTypeContent}" SelectedItemId="{Binding ItemType, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
             <Grid Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

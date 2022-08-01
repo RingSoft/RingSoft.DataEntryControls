@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine.Date;
 
@@ -40,7 +41,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///
     /// </summary>
     [TemplatePart(Name = "Calendar", Type = typeof(IDropDownCalendar))]
-    public class DateEditControl : DropDownEditControl, IDateEditControl
+    public class DateEditControl : DropDownEditControl, IDateEditControl, IReadOnlyControl
     {
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(DateTime?), typeof(DateEditControl),
@@ -229,6 +230,7 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public bool ReadOnlyMode { get; private set; }
 
         private bool _innerValidateLostFocus;
         private DateTime? _pendingNewValue;
@@ -383,12 +385,20 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void _calendar_SelectedDateChanged(object sender, EventArgs e)
         {
+            if (ReadOnlyMode)
+            {
+                return;
+            }
             SetValueChanged();
             _innerValidateLostFocus = true;
         }
 
         private void _calendar_DatePicked(object sender, EventArgs e)
         {
+            if (ReadOnlyMode)
+            {
+                return;
+            }
             SetValueChanged();
             OnDropDownButtonClick();
         }
@@ -403,43 +413,54 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override bool ProcessKeyChar(char keyChar)
         {
-            switch (_processor.ProcessChar(GetSetup(), keyChar))
+            if (!ReadOnlyMode)
             {
-                case ProcessCharResults.Ignored:
-                    return false;
-                case ProcessCharResults.Processed:
-                    _innerValidateLostFocus = true;
-                    return true;
-                case ProcessCharResults.ValidationFailed:
-                    System.Media.SystemSounds.Exclamation.Play();
-                    return true;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                switch (_processor.ProcessChar(GetSetup(), keyChar))
+                {
+                    case ProcessCharResults.Ignored:
+                        return false;
+                    case ProcessCharResults.Processed:
+                        _innerValidateLostFocus = true;
+                        return true;
+                    case ProcessCharResults.ValidationFailed:
+                        System.Media.SystemSounds.Exclamation.Play();
+                        return true;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 
         protected override bool ProcessKey(Key key)
         {
-            switch (key)
+            if (!ReadOnlyMode)
             {
-                case Key.Space:
-                    if (_processor.OnSpaceKey(GetSetup()) == ProcessCharResults.ValidationFailed)
-                        System.Media.SystemSounds.Exclamation.Play();
-                    else if (Text != _processor.GetNullDatePattern())
-                        _innerValidateLostFocus = true;
-                    return true;
-                case Key.Back:
-                    if (_processor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
-                        System.Media.SystemSounds.Exclamation.Play();
-                    else if (Text != _processor.GetNullDatePattern())
-                        _innerValidateLostFocus = true;
-                    return true;
-                case Key.Delete:
-                    if (_processor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
-                        System.Media.SystemSounds.Exclamation.Play();
+                switch (key)
+                {
+                    case Key.Space:
+                        if (_processor.OnSpaceKey(GetSetup()) == ProcessCharResults.ValidationFailed)
+                            System.Media.SystemSounds.Exclamation.Play();
+                        else if (Text != _processor.GetNullDatePattern())
+                            _innerValidateLostFocus = true;
+                        return true;
+                    case Key.Back:
+                        if (_processor.OnBackspaceKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
+                            System.Media.SystemSounds.Exclamation.Play();
+                        else if (Text != _processor.GetNullDatePattern())
+                            _innerValidateLostFocus = true;
+                        return true;
+                    case Key.Delete:
+                        if (_processor.OnDeleteKeyDown(GetSetup()) == ProcessCharResults.ValidationFailed)
+                            System.Media.SystemSounds.Exclamation.Play();
 
-                    return true;
+                        return true;
+                }
             }
+
             return base.ProcessKey(key);
         }
 
@@ -453,8 +474,16 @@ namespace RingSoft.DataEntryControls.WPF
 
             _textSettingValue = true;
 
-            if (!_processor.PasteText(GetSetup(), newText))
+            if (ReadOnlyMode)
+            {
                 System.Media.SystemSounds.Exclamation.Play();
+            }
+            else
+            {
+                if (!_processor.PasteText(GetSetup(), newText))
+                    System.Media.SystemSounds.Exclamation.Play();
+            }
+
 
             _textSettingValue = false;
 
@@ -470,6 +499,12 @@ namespace RingSoft.DataEntryControls.WPF
             OnValueChanged(Text);
 
             _textSettingValue = false;
+        }
+
+        public void SetReadOnlyMode(bool readOnlyValue)
+        {
+            TextBox.IsReadOnly = readOnlyValue;
+            ReadOnlyMode = readOnlyValue;
         }
     }
 }

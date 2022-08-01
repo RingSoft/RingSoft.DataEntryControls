@@ -21,6 +21,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public event EventHandler<LookupSelectArgs> LookupFormReturn;
 
+        public AutoFillControl KeyAutoFillControl { get; private set; }
+
         public DbMaintenanceWindow()
         {
             EnterToTab = true;
@@ -48,6 +50,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         protected void RegisterFormKeyControl(AutoFillControl keyAutoFillControl)
         {
+            KeyAutoFillControl = keyAutoFillControl;
             BindingOperations.SetBinding(keyAutoFillControl, AutoFillControl.IsDirtyProperty, new Binding
             {
                 Source = ViewModel,
@@ -169,6 +172,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             }
 
             base.OnReadOnlyModeSet(readOnlyValue);
+        }
+
+        public override void SetControlReadOnlyMode(Control control, bool readOnlyValue)
+        {
+            if (control == KeyAutoFillControl)
+            {
+                return;
+            }
+            base.SetControlReadOnlyMode(control, readOnlyValue);
         }
     }
 }
