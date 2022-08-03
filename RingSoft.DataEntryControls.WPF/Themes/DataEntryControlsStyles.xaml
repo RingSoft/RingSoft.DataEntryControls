@@ -15,7 +15,9 @@
 
     </ResourceDictionary.MergedDictionaries>
 
-    <local:ValueToForegroundColorConverter x:Key="ValueToForeground" />
+    <local:ValueToForegroundConverter x:Key="ValueToForeground" />
+    <local:ValueToForegroundParameter ShowNegativeValuesInRed="True" x:Key="ShowNegativeValuesInRed" />
+    <local:ValueToForegroundParameter ShowPositiveValuesInGreen="True" ShowNegativeValuesInRed="True" x:Key="NegativeRedPositiveGreen"/>
 
     <Style TargetType="{x:Type local:ContentComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
 
