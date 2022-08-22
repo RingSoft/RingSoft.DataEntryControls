@@ -187,6 +187,8 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
         }
 
+        private bool _collapseDateButton;
+
         public DataEntryMemoEditor()
         {
             Loaded += (sender, args) => OnLoad();
@@ -215,6 +217,10 @@ namespace RingSoft.DataEntryControls.WPF
 
             SetText();
             SetReadOnlyMode(_readOnlyMode);
+            if (_collapseDateButton)
+            {
+                DateStampButton.Visibility = Visibility.Collapsed;
+            }
             base.OnApplyTemplate();
         }
 
@@ -305,6 +311,11 @@ namespace RingSoft.DataEntryControls.WPF
                         break;
                 }
             }
+        }
+
+        public void CollapseDateButton()
+        {
+            _collapseDateButton = true;
         }
     }
 }

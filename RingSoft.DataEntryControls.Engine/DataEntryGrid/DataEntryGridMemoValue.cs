@@ -47,6 +47,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         private void SetText(string text)
         {
+            if (MaxCharactersPerLine == 0)
+                return;
+
             _lines.Clear();
 
             var remainder = text;

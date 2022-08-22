@@ -76,7 +76,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
                 control.ContextMenu = contextMenu;
 
                 Control.Width = double.NaN;
-
+                
                 OnControlLoaded(control, _cellProps, _cellStyle);
 
                 var dataGridCell = Grid.GetCurrentCell();
@@ -94,6 +94,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
                 dataGridCell.BorderThickness = Grid.CellEditingControlBorderThickness;
 
             Control.BorderThickness = new Thickness(0);
+            Control.VerticalAlignment = VerticalAlignment.Center;
+            Control.Height = dataGridCell.ActualHeight;
         }
 
         protected DataEntryGridDisplayStyle GetCellDisplayStyle()
