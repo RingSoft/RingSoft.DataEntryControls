@@ -38,14 +38,14 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public class TextComboBoxControl : ComboBox
     {
-        public new static readonly DependencyProperty SelectedItemProperty =
+        public new static readonly DependencyProperty RSSelectedItemProperty =
             DependencyProperty.Register(nameof(SelectedItem), typeof(TextComboBoxItem), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(SelectedItemPropertyChangedCallback));
 
         public new TextComboBoxItem SelectedItem
         {
-            get { return (TextComboBoxItem)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get { return (TextComboBoxItem)GetValue(RSSelectedItemProperty); }
+            set { SetValue(RSSelectedItemProperty, value); }
         }
 
         private static void SelectedItemPropertyChangedCallback(DependencyObject obj,
@@ -104,6 +104,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         private ObservableCollection<string> _designerList = new ObservableCollection<string>();
+        private TextComboBoxItem _selectedComboBoxItem;
 
         static TextComboBoxControl()
         {
@@ -146,6 +147,11 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (Setup != null)
                 ItemsSource = Setup.Items;
+
+            if (_selectedComboBoxItem != null)
+                SelectedItem = _selectedComboBoxItem;
+
+            _selectedComboBoxItem = null;
         }
 
         private IEnumerable GetItemsSource()
@@ -160,7 +166,14 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void SetSelectedItem()
         {
-            base.SelectedItem = SelectedItem;
+            if (Setup == null)
+            {
+                _selectedComboBoxItem = SelectedItem;
+            }
+            else
+            {
+                base.SelectedItem = SelectedItem;
+            }
         }
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)

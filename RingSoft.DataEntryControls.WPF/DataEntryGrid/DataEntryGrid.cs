@@ -586,7 +586,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private void UpdateColumnHeaders()
         {
             var rowIndex = GetCurrentRowIndex();
-            if (rowIndex >= 0)
+            if (rowIndex >= 0 && rowIndex < Manager.Rows.Count - 1)
             {
                 var gridRow = Manager.Rows[rowIndex];
                 foreach (var column in Columns)
@@ -855,7 +855,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private void RefreshGridView()
         {
             UpdateLayout();
-
+            
             var rowIndex = 0;
             foreach (var gridRow in Manager.Rows)
             {
@@ -1560,6 +1560,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 if (!row.IsNew)
                     Manager.RaiseDirtyFlag();
 
+                RefreshGridView();
                 SetFocusToCell(rowIndex, columnIndex);
             }
             else
@@ -1762,9 +1763,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             if (!CommitCellEdit())
                 return;
-
-            Manager.SetupForNewRecord();
             Manager.RaiseDirtyFlag();
+            Manager.SetupForNewRecord();
+            
 
             if (!DataEntryCanUserAddRows)
             {

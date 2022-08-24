@@ -121,7 +121,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             RemoveRow(_rows[rowIndex]);
         }
 
-        public void RemoveRow(DataEntryGridRow rowToDelete)
+        public virtual void RemoveRow(DataEntryGridRow rowToDelete)
         {
             var descendants = rowToDelete.GetDescendants();
 

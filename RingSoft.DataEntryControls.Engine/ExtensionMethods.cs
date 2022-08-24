@@ -159,7 +159,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public static double ToDouble(this decimal value)
         {
-            return value.ToDouble();
+            return Decimal.ToDouble(value);
         }
 
         public static int ToInt(this string text, CultureInfo culture = null)
