@@ -125,12 +125,15 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         {
             var descendants = rowToDelete.GetDescendants();
 
+            rowToDelete.Dispose();
             _rows.Remove(rowToDelete);
 
             foreach (var descendant in descendants)
             {
+                descendant.Dispose();
                 _rows.Remove(descendant);
             }
+            Grid?.RefreshGridView();
         }
     }
 }

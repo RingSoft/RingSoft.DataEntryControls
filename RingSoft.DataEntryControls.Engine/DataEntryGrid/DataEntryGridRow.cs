@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
-    public abstract class DataEntryGridRow
+    public abstract class DataEntryGridRow : IDisposable
     {
         public DataEntryGridManager Manager { get; }
 
@@ -113,6 +113,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public virtual bool AllowEndEdit(DataEntryGridEditingCellProps cellProps)
         {
             return true;
+        }
+
+        public virtual void Dispose()
+        {
+            
         }
     }
 }

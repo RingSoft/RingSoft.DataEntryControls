@@ -631,7 +631,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         _dataSourceTable.Rows.RemoveAt(e.OldStartingIndex);
                     }
-                    RefreshGridView();
+                    //RefreshGridView();
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     break;
@@ -852,13 +852,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
-        private void RefreshGridView()
+        public void RefreshGridView()
         {
             UpdateLayout();
             
             var rowIndex = 0;
             foreach (var gridRow in Manager.Rows)
             {
+                UpdateRow(gridRow);
                 if (ItemContainerGenerator.ContainerFromItem(Items[rowIndex]) is DataGridRow dataGridRow)
                 {
                     UpdateRowColors(dataGridRow, gridRow);

@@ -29,5 +29,7 @@
         void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true);
 
         void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true);
+
+        void RefreshGridView();
     }
 }
