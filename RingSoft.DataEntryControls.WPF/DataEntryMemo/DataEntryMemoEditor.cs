@@ -315,7 +315,12 @@ namespace RingSoft.DataEntryControls.WPF
 
         public void CollapseDateButton()
         {
-            _collapseDateButton = true;
+            if (DateStampButton != null)
+            {
+                DateStampButton.Visibility = Visibility.Collapsed;
+            }
+            else
+                _collapseDateButton = true;
         }
     }
 }

@@ -16,6 +16,10 @@
         <ResourceDictionary
             Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryGridMemoEditorTemplate.xaml"/>
 
+        <ResourceDictionary
+            Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/NotificationButtonTemplate.xaml"/>
+
+
     </ResourceDictionary.MergedDictionaries>
 
     <local:ValueToForegroundConverter x:Key="ValueToForeground" />
