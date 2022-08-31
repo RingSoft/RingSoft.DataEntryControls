@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         protected abstract DataEntryGridRow GetNewRow();
 
-        private void ClearRows(bool addRowToBottom = true)
+        protected virtual void ClearRows(bool addRowToBottom = true)
         {
             Grid?.DataEntryGridCancelEdit();
 
