@@ -119,9 +119,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            GridMemoValue.Text = MemoEditor.Text;
-            _dialogResult = true;
-            Close();
+            if (Validate())
+            {
+                GridMemoValue.Text = MemoEditor.Text;
+                _dialogResult = true;
+                Close();
+            }
+        }
+
+        protected virtual bool Validate()
+        {
+            return true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
