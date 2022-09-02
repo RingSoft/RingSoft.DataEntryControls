@@ -100,6 +100,26 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        private static void HeightChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl.TextBox != null)
+            {
+                var height = dropDownEditControl.Height;
+                if (height > dropDownEditControl.ActualHeight)
+                {
+                    height = dropDownEditControl.ActualHeight;
+                }
+                dropDownEditControl.TextBox.Height = height;
+                if (dropDownEditControl.DropDownButton != null)
+                {
+                    dropDownEditControl.DropDownButton.Height = height;
+                }
+            }
+        }
+
+
         private static void ForegroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -256,6 +276,9 @@ namespace RingSoft.DataEntryControls.WPF
 
             ForegroundProperty.OverrideMetadata(typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(ForegroundChangedCallback));
+
+            HeightProperty.OverrideMetadata(typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(HeightChangedCallback));
         }
 
         public DropDownEditControl()
