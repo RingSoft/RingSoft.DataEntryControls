@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
+using RingSoft.DbLookup;
 using RingSoft.DbLookup.DataProcessor;
 using RingSoft.DbLookup.EfCore;
 using RingSoft.DbLookup.Lookup;
@@ -59,17 +60,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         }
         protected override void InitializeLookupDefinitions()
         {
-            var orderEmployeeNameFormula = "[Orders_Employees_EmployeeID].[FirstName] || ' ' || [Orders_Employees_EmployeeID].[LastName]";
-            var employeeNameFormula = "[Employees].[FirstName] || ' ' || [Employees].[LastName]";
-            var employeeSupervisorFormula = "[Employees_Employees_ReportsTo].[FirstName] || ' ' || [Employees_Employees_ReportsTo].[LastName]";
+            //var orderEmployeeNameFormula = "[{Alias}].[FirstName] || ' ' || [{Alias}].[LastName]";
+            var employeeNameFormula = "[{Alias}].[FirstName] || ' ' || [{Alias}].[LastName]";
+            //var employeeSupervisorFormula = "[Employees_Employees_ReportsTo].[FirstName] || ' ' || [Employees_Employees_ReportsTo].[LastName]";
 
             OrdersLookup = new LookupDefinition<OrderLookup, Orders>(Orders);
             //OrdersLookup.AddVisibleColumnDefinition(p => p.OrderId, "Order ID", p => p.OrderId, 15);
             OrdersLookup.AddVisibleColumnDefinition(p => p.OrderDate, "Date", p => p.OrderDate, 20);
             OrdersLookup.Include(p => p.Customer)
                 .AddVisibleColumnDefinition(p => p.Customer, "Customer", p => p.CompanyName, 50);
-            OrdersLookup.Include(p => p.Employee);
-            OrdersLookup.AddVisibleColumnDefinition(p => p.Employee, "Employee", orderEmployeeNameFormula, 30);
+            OrdersLookup.Include(p => p.Employee)
+                .AddVisibleColumnDefinition(p => p.Employee, "Employee", employeeNameFormula, 30, FieldDataTypes.String);
 
             Orders.HasLookupDefinition(OrdersLookup);
 
@@ -90,10 +91,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             Customers.HasLookupDefinition(CustomerIdLookup);
 
             EmployeesLookup = new LookupDefinition<EmployeeLookup, Employees>(Employees);
-            EmployeesLookup.AddVisibleColumnDefinition(p => p.Name, "Name", employeeNameFormula, 40);
+            EmployeesLookup.AddVisibleColumnDefinition(p => p.Name, "Name", employeeNameFormula, 40, "");
             EmployeesLookup.AddVisibleColumnDefinition(p => p.Title, "Title", p => p.Title, 20);
-            EmployeesLookup.Include(p => p.Supervisor);
-            EmployeesLookup.AddVisibleColumnDefinition(p => p.Supervisor, "Supervisor", employeeSupervisorFormula, 40);
+            EmployeesLookup.Include(p => p.Supervisor)
+                .AddVisibleColumnDefinition(p => p.Supervisor, "Supervisor", employeeNameFormula, 40, FieldDataTypes.String);
 
             Employees.HasLookupDefinition(EmployeesLookup);
 

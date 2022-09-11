@@ -21,8 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="2.0.16" />
-    <PackageReference Include="RingSoft.DbMaintenance" Version="2.0.16" />
+    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="2.1.4" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" />
   </ItemGroup>
 
