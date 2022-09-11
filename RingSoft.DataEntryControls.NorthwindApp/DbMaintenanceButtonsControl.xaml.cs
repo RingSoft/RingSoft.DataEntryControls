@@ -14,7 +14,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public void SetReadOnlyMode(bool readOnlyValue)
         {
-            
         }
     }
 }

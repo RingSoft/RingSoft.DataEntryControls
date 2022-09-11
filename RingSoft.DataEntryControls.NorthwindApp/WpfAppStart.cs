@@ -55,6 +55,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             AppGlobals.LookupContext.LookupAddView += LookupContext_LookupAddView;
 
+            LookupControlsGlobals.DbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
+            LookupControlsGlobals.DbMaintenanceButtonsFactory = new AppDbMaintenanceButtonsFactory();
+
             _application.MainWindow = _mainWindow;
             _mainWindow.Show();
         }
@@ -81,7 +84,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 maintenanceWindow.Owner = ownerWindow;
 
             maintenanceWindow.ShowInTaskbar = false;
-            maintenanceWindow.InitializeFromLookupData(e);
+            maintenanceWindow.Processor.InitializeFromLookupData(e);
             maintenanceWindow.ShowDialog();
         }
     }
