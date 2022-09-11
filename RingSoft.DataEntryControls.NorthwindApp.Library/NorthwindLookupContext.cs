@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
+using RingSoft.DbLookup.AdvancedFind;
 using RingSoft.DbLookup.DataProcessor;
 using RingSoft.DbLookup.EfCore;
 using RingSoft.DbLookup.Lookup;
@@ -10,7 +11,7 @@ using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
-    public class NorthwindLookupContext : LookupContext
+    public class NorthwindLookupContext : LookupContext, IAdvancedFindLookupContext
     {
         public override DbDataProcessor DataProcessor => NorthwindDataProcessor;
         protected override DbContext DbContext { get; }
@@ -26,6 +27,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public virtual TableDefinition<Purchases> Purchases { get; set; }
         public virtual TableDefinition<Shippers> Shippers { get; set; }
         public virtual TableDefinition<Suppliers> Suppliers { get; set; }
+
+        public LookupContextBase Context => this;
+        public TableDefinition<AdvancedFind> AdvancedFinds { get; set; }
+        public TableDefinition<AdvancedFindColumn> AdvancedFindColumns { get; set; }
+        public TableDefinition<AdvancedFindFilter> AdvancedFindFilters { get; set; }
+        public LookupDefinition<AdvancedFindLookup, AdvancedFind> AdvancedFindLookup { get; set; }
 
         public LookupDefinition<OrderLookup, Orders> OrdersLookup { get; private set; }
 
@@ -55,7 +62,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 FileName = "RSDEC_Northwind.sqlite"
             };
             DbContext = new NorthwindDbContext(this);
-
+            SetAdvancedFind();
             Initialize();
         }
         protected override void InitializeLookupDefinitions()
@@ -132,6 +139,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         {
             Products.GetFieldDefinition(p => p.UnitPrice).HasDecimalFieldType(DecimalFieldTypes.Currency);
             NonInventoryCodes.GetFieldDefinition(p => p.Price).HasDecimalFieldType(DecimalFieldTypes.Currency);
+        }
+
+        public void SetAdvancedFind()
+        {
+            SystemGlobals.AdvancedFindLookupContext = this;
+            var configuration = new AdvancedFindLookupConfiguration(SystemGlobals.AdvancedFindLookupContext);
+            configuration.InitializeModel();
+            configuration.ConfigureLookups();
+
         }
 
     }

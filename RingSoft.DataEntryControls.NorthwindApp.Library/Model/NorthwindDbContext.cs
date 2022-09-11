@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RingSoft.DbLookup.AdvancedFind;
+using RingSoft.DbLookup.EfCore;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 {
-    public class NorthwindDbContext : DbContext
+    public class NorthwindDbContext : DbContext, IAdvancedFindDbContextEfCore
     {
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
@@ -15,6 +17,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public virtual DbSet<Purchases> Purchases { get; set; }
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
+
+        public DbSet<AdvancedFind> AdvancedFinds { get; set; }
+        public DbSet<AdvancedFindColumn> AdvancedFindColumns { get; set; }
+        public DbSet<AdvancedFindFilter> AdvancedFindFilters { get; set; }
 
         private static NorthwindLookupContext _lookupContext;
 
@@ -460,7 +466,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.Region).HasColumnType("nvarchar(15)").HasMaxLength(15);
             });
+            AdvancedFindDataProcessorEfCore.ConfigureAdvancedFind(modelBuilder);
 
         }
+
+        public DbContext GetDbContextEf()
+        {
+            return this;
+        }
+
+        public IAdvancedFindDbContextEfCore GetNewDbContext()
+        {
+            return new NorthwindDbContext();
+        }
+
     }
 }
