@@ -139,7 +139,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         {
             Products.GetFieldDefinition(p => p.UnitPrice).HasDecimalFieldType(DecimalFieldTypes.Currency);
             NonInventoryCodes.GetFieldDefinition(p => p.Price).HasDecimalFieldType(DecimalFieldTypes.Currency);
+            Employees.GetFieldDefinition(p => p.ReportsTo).HasDescription("Supervisor")
+                .DoesAllowRecursion(false);
         }
+
 
         public void SetAdvancedFind()
         {

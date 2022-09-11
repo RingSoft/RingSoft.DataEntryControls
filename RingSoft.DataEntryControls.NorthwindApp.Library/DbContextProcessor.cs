@@ -3,11 +3,18 @@ using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup.EfCore;
 using System.Collections.Generic;
 using System.Linq;
+using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
     public class DbContextProcessor
     {
+        public DbContextProcessor()
+        {
+            EfCoreGlobals.DbAdvancedFindContextCore = new NorthwindDbContext();
+            SystemGlobals.AdvancedFindDbProcessor = new AdvancedFindDataProcessorEfCore();
+        }
+
         public Customers GetCustomer(string customerId)
         {
             var context = new NorthwindDbContext();
