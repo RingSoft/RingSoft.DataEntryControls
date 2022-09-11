@@ -13,6 +13,7 @@
                 <MenuItem x:Name="SalesEntryMenu" Header="_Sales Entry..."/>
                 <MenuItem x:Name="PoMenu" Header="_Purchase Order..."/>
                 <MenuItem x:Name="OptionsMenu" Header="_Options..."/>
+                <MenuItem x:Name="AdvancedFindMenuItem" Header="_Advanced Find..."/>
             </Menu>
             <ToolBar Background="LightSkyBlue">
                 <Button x:Name="ExitButton">

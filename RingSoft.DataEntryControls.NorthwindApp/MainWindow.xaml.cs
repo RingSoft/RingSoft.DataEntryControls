@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Threading;
+using RingSoft.DbLookup.Controls.WPF.AdvancedFind;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -37,6 +38,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             PoMenu.Click += (_, _) => ShowPurchaseOrderWindow();
             PoButton.Click += (_, _) => ShowPurchaseOrderWindow();
             OptionsMenu.Click += (_, _) => ShowOptionsWindow();
+            AdvancedFindMenuItem.Click += (_, _) => ShowAdvancedFindWindow();
             ExitButton.Click += (_, _) => Close();
             ExitMenu.Click += (_, _) => Close();
         }
@@ -60,6 +62,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             var optionsWindow = new OptionsWindow();
             optionsWindow.Owner = this;
             optionsWindow.ShowDialog();
+        }
+
+        private void ShowAdvancedFindWindow()
+        {
+            var advancedFindWindow = new AdvancedFindWindow();
+            advancedFindWindow.Owner = this;
+            advancedFindWindow.ShowInTaskbar = false;
+            advancedFindWindow.Show();
         }
     }
 }
