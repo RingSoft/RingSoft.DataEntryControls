@@ -40,6 +40,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            DbConstants.ConstantGenerator = new SqliteDbConstants();
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlite(_lookupContext.DataProcessor.ConnectionString);

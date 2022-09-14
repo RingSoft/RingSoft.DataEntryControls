@@ -769,7 +769,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
                 var tableFilterDefinition = new TableFilterDefinition<Orders>(TableDefinition);
                 var sql = sqlStringBuilder.ToString();
-                tableFilterDefinition.AddFixedFilter(sql);
+                tableFilterDefinition.AddFixedFilter("Order Details", null, "", sql);
 
                 return tableFilterDefinition;
             }
