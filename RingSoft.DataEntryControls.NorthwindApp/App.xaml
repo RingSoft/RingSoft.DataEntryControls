@@ -11,6 +11,10 @@
                 <ResourceDictionary Source="pack://application:,,,/Resources/ControlStylesResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <Image x:Key="RedIcon" Source="Images/bullet_red.ico" Width="16" Height="16"/>
+            <Image x:Key="YellowIcon" Source="Images/bullet_yellow.ico" Width="16" Height="16"/>
+            <Image x:Key="GreenIcon" Source="Images/control_panel_1.ico" Width="16" Height="16"/>
+
             <dec:ComparisonConverter x:Key="ComparisonConverter" />
 
 

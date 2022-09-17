@@ -11,6 +11,8 @@
   <ItemGroup>
     <None Remove="Images\application_exit.png" />
     <None Remove="Images\barcode.png" />
+    <None Remove="Images\bullet_red.ico" />
+    <None Remove="Images\bullet_yellow.ico" />
     <None Remove="Images\cash_register_sh.png" />
     <None Remove="Images\coins.png" />
     <None Remove="Images\Comment.png" />
@@ -21,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="2.1.11" />
+    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="2.1.13" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.6" />
   </ItemGroup>
 
@@ -37,6 +39,8 @@
     <Resource Include="Images\barcode.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\bullet_red.ico" />
+    <Resource Include="Images\bullet_yellow.ico" />
     <Resource Include="Images\cash_register_sh.png" />
     <Resource Include="Images\coins.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

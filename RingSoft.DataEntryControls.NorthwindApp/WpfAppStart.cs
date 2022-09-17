@@ -3,6 +3,7 @@ using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using System.Windows;
+using RingSoft.DbLookup.App.WPFCore;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -57,6 +58,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             LookupControlsGlobals.DbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
             LookupControlsGlobals.DbMaintenanceButtonsFactory = new AppDbMaintenanceButtonsFactory();
+            LookupControlsGlobals.LookupControlContentTemplateFactory =
+                new AppLookupContentTemplateFactory(_application);
 
             _application.MainWindow = _mainWindow;
             _mainWindow.Show();
