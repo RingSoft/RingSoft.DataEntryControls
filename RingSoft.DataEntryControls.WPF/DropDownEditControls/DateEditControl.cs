@@ -230,7 +230,17 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        public bool ReadOnlyMode { get; private set; }
+        private bool _readOnlyMode;
+
+        public bool ReadOnlyMode
+        {
+            get => _readOnlyMode;
+            set
+            {
+                _readOnlyMode = value;
+                if (TextBox != null) TextBox.IsEnabled = !_readOnlyMode;
+            }
+        }
 
         private bool _innerValidateLostFocus;
         private DateTime? _pendingNewValue;
@@ -264,6 +274,7 @@ namespace RingSoft.DataEntryControls.WPF
             if (_pendingNewValue != null)
                 SetValue();
 
+            SetReadOnlyMode(ReadOnlyMode);
             _pendingNewValue = null;
         }
 
@@ -503,7 +514,6 @@ namespace RingSoft.DataEntryControls.WPF
 
         public void SetReadOnlyMode(bool readOnlyValue)
         {
-            TextBox.IsReadOnly = readOnlyValue;
             ReadOnlyMode = readOnlyValue;
         }
     }

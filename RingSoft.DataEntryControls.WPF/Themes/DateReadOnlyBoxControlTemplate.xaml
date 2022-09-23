@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:RingSoft.DataEntryControls.WPF">
+
+    <BitmapImage x:Key="DateEditImage" UriSource="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png"/>
+
+    <Style TargetType="{x:Type local:DateReadOnlyBox}" BasedOn="{StaticResource {x:Type Control}}">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DateReadOnlyBox}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Border BorderThickness="0,0,1,1" BorderBrush="Gainsboro">
+                                    <Border BorderThickness="1,1,0,0" BorderBrush="Black">
+                                        <TextBlock x:Name="TextBlock" Grid.Column="0" Margin="5,0,0,0" VerticalAlignment="Center" Focusable="False" Visibility="Visible"/>
+                                    </Border>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Button Name="DropDownButton" Grid.Column="1" Width="20" VerticalAlignment="Center" Margin="0,0,5,0" Focusable="False" IsTabStop="False" Visibility="Visible">
+                                    <Image Source="{StaticResource DateEditImage}"/>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type local:StringReadOnlyBox}" BasedOn="{StaticResource {x:Type local:ReadOnlyBox}}"/>
+
+    <Style TargetType="{x:Type local:DecimalReadOnlyBox}" BasedOn="{StaticResource {x:Type local:ReadOnlyBox}}"/>
+
+</ResourceDictionary>
