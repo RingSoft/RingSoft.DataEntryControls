@@ -216,7 +216,7 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnPreviewKeyDown(e);
         }
 
-        protected override void OnDropDownButtonClick()
+        public override void OnDropDownButtonClick()
         {
             base.OnDropDownButtonClick();
 

@@ -258,6 +258,23 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        private bool _readOnlyMode;
+
+        public bool ReadOnlyMode
+        {
+            get => _readOnlyMode;
+            set
+            {
+                _readOnlyMode = value;
+                if (TextBox != null) TextBox.Focusable = !_readOnlyMode;
+                if (_readOnlyMode && DropDownButton != null)
+                {
+                    DropDownButton.Focus();
+                }
+            }
+        }
+
+
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
         private bool _processingKey;
@@ -418,13 +435,22 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnPreviewKeyDown(e);
         }
 
-        protected virtual void OnDropDownButtonClick()
+        public virtual void OnDropDownButtonClick()
         {
             if (Popup != null)
             {
                 Popup.IsOpen = !Popup.IsOpen;
                 if (!Popup.IsOpen)
-                    TextBox.Focus();
+                {
+                    if (ReadOnlyMode)
+                    {
+                        DropDownButton.Focus();
+                    }
+                    else
+                    {
+                        TextBox.Focus();
+                    }
+                }
             }
         }
 

@@ -230,18 +230,6 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        private bool _readOnlyMode;
-
-        public bool ReadOnlyMode
-        {
-            get => _readOnlyMode;
-            set
-            {
-                _readOnlyMode = value;
-                if (TextBox != null) TextBox.IsEnabled = !_readOnlyMode;
-            }
-        }
-
         private bool _innerValidateLostFocus;
         private DateTime? _pendingNewValue;
         private bool _textSettingValue;
@@ -380,7 +368,7 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnPreviewKeyDown(e);
         }
 
-        protected override void OnDropDownButtonClick()
+        public override void OnDropDownButtonClick()
         {
             base.OnDropDownButtonClick();
 

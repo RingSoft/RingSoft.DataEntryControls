@@ -7,8 +7,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     public class DataEntryGridDateHost : DataEntryGridDropDownControlHost<DateEditControl>
     {
+        public override bool AllowReadOnlyEdit => true;
+
         private DateEditControlSetup _setup;
         private DateTime? _value;
+        private bool _gridReadOnlyMode;
 
         public DataEntryGridDateHost(DataEntryGrid grid) : base(grid)
         {
@@ -38,6 +41,31 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             control.Setup = _setup = dateCellProps.Setup;
             control.Value = _value = dateCellProps.Value;
 
+            switch (cellStyle.State)
+            {
+                case DataEntryGridCellStates.Enabled:
+                    break;
+                case DataEntryGridCellStates.ReadOnly:
+                case DataEntryGridCellStates.Disabled:
+                    _gridReadOnlyMode = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            if (_gridReadOnlyMode)
+            {
+                Control.SetReadOnlyMode(true);
+                Control.DropDownButton.Focus();
+                Control.KeyDown += (sender, args) =>
+                {
+                    if (args.Key == Key.F4)
+                    {
+                        Control.OnDropDownButtonClick();
+                        args.Handled = true;
+                    }
+                };
+            }
+
             base.OnControlLoaded(control, cellProps, cellStyle);
         }
 
@@ -56,5 +84,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             }
             return base.CanGridProcessKey(key);
         }
+
+        public override bool SetReadOnlyMode(bool readOnlyMode)
+        {
+            _gridReadOnlyMode = readOnlyMode;
+
+            if (readOnlyMode)
+                return true;
+
+            return base.SetReadOnlyMode(readOnlyMode);
+        }
+
     }
 }

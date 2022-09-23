@@ -990,9 +990,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         case DataEntryGridCellStates.Enabled:
                             break;
-                        case DataEntryGridCellStates.ReadOnly:
                         case DataEntryGridCellStates.Disabled:
-                            e.Cancel = true;
+                        case DataEntryGridCellStates.ReadOnly:
+                            var readOnlyCellProps = dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId) as DataEntryGridEditingCellProps;
+
+                            if (readOnlyCellProps == null)
+                                e.Cancel = true;
+
+                            var host =
+                                WPFControlsGlobals.DataEntryGridHostFactory.GetControlHost(this,
+                                    readOnlyCellProps.EditingControlId);
+                            if (!host.AllowReadOnlyEdit)
+                            {
+                                e.Cancel = true;
+                            }
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();

@@ -23,6 +23,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 
         public virtual bool SetSelection { get; } = false;
 
+        public virtual bool AllowReadOnlyEdit { get; } = false;
+
         public event EventHandler ControlDirty;
 
         public event EventHandler<DataEntryGridEditingCellProps> UpdateSource;
