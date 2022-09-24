@@ -1051,7 +1051,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             
                             if (_buttonClick)
                             {
-                                dataEntryGridRow.SetCellValue(cellProps);
+                                if (!ReadOnlyMode)
+                                {
+                                    dataEntryGridRow.SetCellValue(cellProps);
+                                }
+
                                 _buttonClick = false;
                             }
                         }

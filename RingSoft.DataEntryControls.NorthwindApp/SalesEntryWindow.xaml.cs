@@ -44,6 +44,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             RegionEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipRegion).MaxLength;
             PostalCodeEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipPostalCode).MaxLength;
             CountryEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipCountry).MaxLength;
+            DetailsGrid.ReadOnlyMode = true;
         }
 
         public override void ResetViewForNewRecord()

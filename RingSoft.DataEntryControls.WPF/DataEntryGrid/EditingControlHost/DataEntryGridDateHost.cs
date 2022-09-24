@@ -1,6 +1,8 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
@@ -55,7 +57,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             if (_gridReadOnlyMode)
             {
                 Control.SetReadOnlyMode(true);
-                Control.DropDownButton.Focus();
                 Control.KeyDown += (sender, args) =>
                 {
                     if (args.Key == Key.F4)
@@ -67,6 +68,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             }
 
             base.OnControlLoaded(control, cellProps, cellStyle);
+        }
+
+        protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
+        {
+            base.ImportDataGridCellProperties(dataGridCell);
+            if (_gridReadOnlyMode)
+            {
+                dataGridCell.BorderThickness = new Thickness(1);
+            }
         }
 
         public override bool CanGridProcessKey(Key key)

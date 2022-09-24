@@ -267,10 +267,10 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 _readOnlyMode = value;
                 if (TextBox != null) TextBox.Focusable = !_readOnlyMode;
-                if (_readOnlyMode && DropDownButton != null)
-                {
-                    DropDownButton.Focus();
-                }
+                //if (_readOnlyMode && DropDownButton != null)
+                //{
+                //    DropDownButton.Focus();
+                //}
             }
         }
 
@@ -304,6 +304,17 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 if (Popup != null && !IsKeyboardFocusWithin)
                     Popup.IsOpen = false;
+            };
+            MouseMove += (sender, args) =>
+            {
+                if (ReadOnlyMode)
+                {
+                    Mouse.OverrideCursor = Cursors.Arrow;
+                }
+                else
+                {
+                    Mouse.OverrideCursor = null;
+                }
             };
         }
 
