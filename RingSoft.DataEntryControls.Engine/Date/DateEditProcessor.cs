@@ -111,6 +111,10 @@ namespace RingSoft.DataEntryControls.Engine.Date
                     return ProcessCharResults.Ignored;
             }
 
+            if (Control.SelectionStart >= Control.Text.Length)
+            {
+                return ProcessCharResults.ValidationFailed;
+            }
             if (IsCharAtIndexDateSeparator(Control.SelectionStart))
                 Control.SelectionStart++;
 
