@@ -146,7 +146,9 @@ namespace RingSoft.DataEntryControls.WPF
         private void DoSetup()
         {
             if (Setup != null)
+            {
                 ItemsSource = Setup.Items;
+            }
 
             if (_selectedComboBoxItem != null)
                 SelectedItem = _selectedComboBoxItem;

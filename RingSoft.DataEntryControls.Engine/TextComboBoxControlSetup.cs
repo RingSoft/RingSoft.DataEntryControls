@@ -60,23 +60,42 @@ namespace RingSoft.DataEntryControls.Engine
         /// <param name="enumType">Type of the enum.</param>
         public void LoadFromEnum(Type enumType)
         {
+            //Items.Clear();
+            //var enumValues = Enum.GetValues(enumType);
+
+            //foreach (var enumValue in enumValues)
+            //{
+            //    var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+            //    var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            //    var textValue = attributes.Length > 0 ? attributes[0].Description : enumValue.ToString();
+
+            //    var comboItem = new TextComboBoxItem
+            //    {
+            //        NumericValue = (int)enumValue,
+            //        TextValue = textValue
+            //    };
+            //    Items.Add(comboItem);
+            //}
+            var typeTranslation = new EnumFieldTranslation();
+            typeTranslation.LoadFromEnum(enumType);
+            LoadFromEnum(typeTranslation);
+        }
+
+        public void LoadFromEnum(EnumFieldTranslation enumField)
+        {
             Items.Clear();
-            var enumValues = Enum.GetValues(enumType);
-
-            foreach (var enumValue in enumValues)
+            foreach (var enumFieldTypeTranslation in enumField.TypeTranslations)
             {
-                var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
-                var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                var textValue = attributes.Length > 0 ? attributes[0].Description : enumValue.ToString();
-
                 var comboItem = new TextComboBoxItem
                 {
-                    NumericValue = (int)enumValue,
-                    TextValue = textValue
+                    NumericValue = (int)enumFieldTypeTranslation.NumericValue,
+                    TextValue = enumFieldTypeTranslation.TextValue
                 };
                 Items.Add(comboItem);
+
             }
         }
+        
 
         /// <summary>
         /// Gets the combo box item of the associated numeric value.

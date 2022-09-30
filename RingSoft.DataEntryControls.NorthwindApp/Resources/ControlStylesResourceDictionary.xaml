@@ -144,6 +144,12 @@
 
     <Style TargetType="dec:ContentComboBoxControl" BasedOn="{StaticResource {x:Type ComboBox}}"/>
 
+    <Style TargetType="dec:TextComboBoxControl" x:Key="{x:Type dec:TextComboBoxControl}"
+           BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Setter Property="Height" Value="20"/>
+    </Style>
+
+
     <Style TargetType="TextBox" x:Key="{x:Type TextBox}">
         <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
     </Style>
