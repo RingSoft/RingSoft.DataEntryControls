@@ -69,6 +69,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             var advancedFindWindow = new AdvancedFindWindow();
             advancedFindWindow.Owner = this;
             advancedFindWindow.ShowInTaskbar = false;
+            advancedFindWindow.Closed += (sender, args) => Activate();
             advancedFindWindow.Show();
         }
     }
