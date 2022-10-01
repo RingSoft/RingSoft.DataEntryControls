@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -74,6 +75,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         
         private bool _controlLoaded;
+        private double _height;
 
         static ContentComboBoxControl()
         {
@@ -98,6 +100,39 @@ namespace RingSoft.DataEntryControls.WPF
 
             _controlLoaded = true;
             SetContent();
+
+            UpdateLayout();
+            _height = ActualHeight;
+            if (IsFocused)
+            {
+                ContentComboBoxControl_GotFocus(this, new RoutedEventArgs());
+            }
+
+            GotFocus += ContentComboBoxControl_GotFocus;
+            LostFocus += (o, eventArgs) =>
+            {
+                var border = this.GetVisualChild<Border>();
+                border.BorderThickness = new Thickness(1);
+                border.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            };
+            DropDownOpened += (o, eventArgs) =>
+            {
+                if (SelectedItem == null)
+                {
+                    SelectedItem = Items[0];
+                }
+            };
+
+        }
+
+        private void ContentComboBoxControl_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var border = this.GetVisualChild<Border>();
+            border.BorderThickness = new Thickness(2);
+            border.BorderBrush = new SolidColorBrush(Colors.Blue);
+            Height = _height + 5;
+            UpdateLayout();
+
         }
 
         private void SetContent()

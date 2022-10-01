@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -103,8 +106,12 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public TextBox TextBox { get; set; }
+
         private ObservableCollection<string> _designerList = new ObservableCollection<string>();
         private TextComboBoxItem _selectedComboBoxItem;
+        private double _height;
+
 
         static TextComboBoxControl()
         {
@@ -122,6 +129,50 @@ namespace RingSoft.DataEntryControls.WPF
         //{
         //    SetResourceReference(StyleProperty, typeof(ComboBox));
         //}
+
+        public TextComboBoxControl()
+        {
+            Loaded += (sender, args) =>
+            {
+                UpdateLayout(); 
+                _height  = ActualHeight;
+                if (IsFocused)
+                {
+                    TextComboBoxControl_GotFocus(this, new RoutedEventArgs());
+                }
+                GotFocus += TextComboBoxControl_GotFocus;
+                LostFocus += (o, eventArgs) =>
+                {
+                    var border = this.GetVisualChild<Border>();
+                    border.BorderThickness = new Thickness(1);
+                    border.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                };
+                DropDownOpened += (o, eventArgs) =>
+                {
+                    if (SelectedItem == null)
+                    {
+                        SelectedItem = Setup.Items.FirstOrDefault();
+                    }
+                };
+            };
+        }
+
+        private void TextComboBoxControl_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var border = this.GetVisualChild<Border>();
+            border.BorderThickness = new Thickness(2);
+            border.BorderBrush = new SolidColorBrush(Colors.Blue);
+            Height = _height + 5;
+            UpdateLayout();
+
+        }
+
+        public override void OnApplyTemplate()
+        {
+            TextBox = GetTemplateChild("PART_EditableTextBox") as TextBox;
+            var selBox = GetTemplateChild("SelectionBoxItem");
+            base.OnApplyTemplate();
+        }
 
         private void SetDesignText()
         {

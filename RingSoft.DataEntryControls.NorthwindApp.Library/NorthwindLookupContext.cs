@@ -138,6 +138,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         protected override void SetupModel()
         {
             Products.GetFieldDefinition(p => p.UnitPrice).HasDecimalFieldType(DecimalFieldTypes.Currency);
+            Products.GetFieldDefinition(p => p.Notes).IsMemo();
             NonInventoryCodes.GetFieldDefinition(p => p.Price).HasDecimalFieldType(DecimalFieldTypes.Currency);
             Employees.GetFieldDefinition(p => p.ReportsTo).HasDescription("Supervisor")
                 .DoesAllowRecursion(false);
