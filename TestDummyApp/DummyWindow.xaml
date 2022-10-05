@@ -29,7 +29,8 @@
                 <!--<dec:IntegerEditControl MinimumValue="1000" AllowNullValue="False"/>
                 <dec:TextComboBoxControl Setup="{Binding ComboBoxSetup}" SelectedItem="{Binding Path=SelectedComboBoxItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="Test" Width="150"/>-->
 
-                <dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>
+                <!--<dec:DecimalEditControl FormatType="Currency" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" MinimumValue="1000"/>-->
+
             </StackPanel>
             <dec:ContentComboBoxControl ContentTemplate="{StaticResource LineTypeContent}" Width="150"/>
             <xctk:CalculatorUpDown x:Name="CalculatorUpDown" Value="{Binding Path=DecimalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

@@ -4,7 +4,7 @@
 
     <BitmapImage x:Key="DateEditImage" UriSource="/RingSoft.DataEntryControls.WPF;component/Resources/datepicker16.png"/>
 
-    <Style TargetType="{x:Type local:DateReadOnlyBox}" BasedOn="{StaticResource {x:Type Control}}">
+    <Style TargetType="{x:Type local:DateReadOnlyBox}">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
@@ -13,23 +13,28 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0">
+                            <Grid>
                                 <Border BorderThickness="0,0,1,1" BorderBrush="Gainsboro">
                                     <Border BorderThickness="1,1,0,0" BorderBrush="Black">
-                                        <TextBlock x:Name="TextBlock" Grid.Column="0" Margin="5,0,0,0" VerticalAlignment="Center" Focusable="False" Visibility="Visible"/>
-                                    </Border>
+                                        <Grid>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="TextBlock" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <Button Name="DropDownButton" Grid.Column="1" Width="20" Height="{Binding ElementName=TextBlock, Path=ActualHeight}" VerticalAlignment="Center">
+                                                <Image Source="{StaticResource DateEditImage}"/>
+                                            </Button>
+                                            <Popup x:Name="Popup" Grid.Column="0" Grid.ColumnSpan="2" PlacementTarget="{Binding ElementName=TextBlock}" StaysOpen="False" Placement="Bottom" AllowsTransparency="True">
+                                                <Grid>
+                                                    <local:DropDownCalendar x:Name="Calendar"/>
+                                                </Grid>
+                                            </Popup>
+
+                                    </Grid>
                                 </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1">
-                                <Button Name="DropDownButton" Grid.Column="1" Width="20" VerticalAlignment="Center" Margin="0,0,5,0" Focusable="False" IsTabStop="False" Visibility="Visible">
-                                    <Image Source="{StaticResource DateEditImage}"/>
-                                </Button>
-                            </StackPanel>
+                            </Border>
                         </Grid>
                     </Border>
                 </ControlTemplate>

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using RingSoft.DataEntryControls.Engine;
+using Calendar = System.Windows.Controls.Calendar;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
@@ -37,6 +40,10 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public class DateReadOnlyBox : ReadOnlyBox
     {
+        public Button DropDownButton { get; set; }
+        public Popup Popup { get; set; }
+        public DropDownCalendar Calendar { get; set; }
+
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(DateTime?), typeof(DateReadOnlyBox),
                 new FrameworkPropertyMetadata(ValueChangedCallback));
@@ -121,8 +128,15 @@ namespace RingSoft.DataEntryControls.WPF
                 Culture = CultureInfo.CurrentCulture;
         }
 
+        private bool _isPopupOpened;
+
         public override void OnApplyTemplate()
         {
+            DropDownButton = GetTemplateChild(nameof(DropDownButton)) as Button;
+            Popup = GetTemplateChild(nameof(Popup)) as Popup;
+            Calendar = GetTemplateChild(nameof(Calendar)) as DropDownCalendar;
+
+            DropDownButton.Click += (sender, args) => OnDropDownButtonClick();
             base.OnApplyTemplate();
             SetValue();
         }
@@ -142,6 +156,21 @@ namespace RingSoft.DataEntryControls.WPF
             }
 
             Text = text;
+        }
+
+        public void OnDropDownButtonClick()
+        {
+            if (Calendar != null && Popup != null)
+            {
+                _isPopupOpened = !_isPopupOpened;
+                Popup.IsOpen = _isPopupOpened;
+
+                if (_isPopupOpened)
+                {
+                    Calendar.SelectedDate = Value ?? DateTime.Today;
+                    Calendar.Focus();
+                }
+            }
         }
 
     }

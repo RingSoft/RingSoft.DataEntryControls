@@ -15,6 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--<StackPanel x:Name="EditHost" Orientation="Horizontal"/>-->
         <!--<dec:DecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" EditFormatType="Currency" HorizontalAlignment="Left" MaximumValue="10000" MinimumValue="-10000"/>-->
@@ -43,6 +44,7 @@
         <Button x:Name="LoadGridButton" Content="_Load Grid"/>
         <Button x:Name="TestButton" Content="_Test"/>
         <Button x:Name="FocusButton" Content="Focus"/>
+        <dec:DateReadOnlyBox Width="200" Value="10/05/2022"/>
         </StackPanel>
     </Grid>
 </dec:BaseWindow>
