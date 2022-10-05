@@ -38,7 +38,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:DateReadOnlyBox/>
     ///
     /// </summary>
-    public class DateReadOnlyBox : ReadOnlyBox
+    public class DateReadOnlyBox : ReadOnlyBox, IReadOnlyControl
     {
         public Button DropDownButton { get; set; }
         public Popup Popup { get; set; }
@@ -173,5 +173,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public void SetReadOnlyMode(bool readOnlyValue)
+        {
+            DropDownButton.IsEnabled = true;
+        }
     }
 }
