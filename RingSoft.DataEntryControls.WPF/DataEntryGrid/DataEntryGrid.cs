@@ -928,6 +928,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     switch (cellStyle.State)
                     {
                         case DataEntryGridCellStates.Enabled:
+                            break;
                         case DataEntryGridCellStates.ReadOnly:
                             break;
                         case DataEntryGridCellStates.Disabled:

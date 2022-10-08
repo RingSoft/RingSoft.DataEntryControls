@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine;
 using Calendar = System.Windows.Controls.Calendar;
 
@@ -126,6 +127,15 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (Culture == null)
                 Culture = CultureInfo.CurrentCulture;
+
+            PreviewKeyDown += (sender, args) =>
+            {
+                if (args.Key == Key.Escape && Popup.IsOpen)
+                {
+                    Popup.IsOpen = false;
+                    args.Handled = true;
+                }
+            };
         }
 
         private bool _isPopupOpened;
