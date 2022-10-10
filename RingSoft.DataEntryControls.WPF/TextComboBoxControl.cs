@@ -151,7 +151,10 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     if (SelectedItem == null)
                     {
-                        SelectedItem = Setup.Items.FirstOrDefault();
+                        if (!IsEditable)
+                        {
+                            SelectedItem = Setup?.Items.FirstOrDefault();
+                        }
                     }
                 };
             };
@@ -164,6 +167,7 @@ namespace RingSoft.DataEntryControls.WPF
             border.BorderBrush = new SolidColorBrush(Colors.Blue);
             Height = _height + 5;
             UpdateLayout();
+            TextBox.Focus();
 
         }
 
