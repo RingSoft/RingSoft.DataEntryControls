@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RingSoft.DbLookup.AdvancedFind;
 using RingSoft.DbLookup.EfCore;
+using RingSoft.DbLookup.RecordLocking;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 {
@@ -481,5 +482,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
             return new NorthwindDbContext();
         }
 
+        public DbSet<RecordLock> RecordLocks { get; set; }
     }
 }

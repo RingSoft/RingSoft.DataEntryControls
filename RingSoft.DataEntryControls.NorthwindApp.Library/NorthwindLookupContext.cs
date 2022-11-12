@@ -8,6 +8,7 @@ using RingSoft.DbLookup.EfCore;
 using RingSoft.DbLookup.Lookup;
 using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
+using RingSoft.DbLookup.RecordLocking;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
@@ -29,10 +30,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public virtual TableDefinition<Suppliers> Suppliers { get; set; }
 
         public LookupContextBase Context => this;
+        public TableDefinition<RecordLock> RecordLocks { get; set; }
         public TableDefinition<AdvancedFind> AdvancedFinds { get; set; }
         public TableDefinition<AdvancedFindColumn> AdvancedFindColumns { get; set; }
         public TableDefinition<AdvancedFindFilter> AdvancedFindFilters { get; set; }
         public LookupDefinition<AdvancedFindLookup, AdvancedFind> AdvancedFindLookup { get; set; }
+        public LookupDefinition<RecordLockingLookup, RecordLock> RecordLockingLookup { get; set; }
 
         public LookupDefinition<OrderLookup, Orders> OrdersLookup { get; private set; }
 
