@@ -92,6 +92,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public DataEntryGridMemoValue GridMemoValue { get; }
 
+        
+
         private bool _dialogResult;
 
         static DataEntryGridMemoEditor()
@@ -102,7 +104,24 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public DataEntryGridMemoEditor(DataEntryGridMemoValue gridMemoValue)
         {
+            if (SnugWidth == 0)
+            {
+                SnugWidth = 300;
+            }
+            if (SnugHeight == 0)
+            {
+                SnugHeight = 300;
+            }
+
             GridMemoValue = gridMemoValue;
+
+            Loaded += (sender, args) =>
+            {
+                if (MemoEditor != null)
+                {
+                    MemoEditor.Text = GridMemoValue.Text;
+                }
+            };
         }
 
         public override void OnApplyTemplate()
@@ -111,8 +130,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             OkButton = GetTemplateChild(nameof(OkButton)) as Button;
             CancelButton = GetTemplateChild(nameof(CancelButton)) as Button;
 
-            if (MemoEditor != null)
-                MemoEditor.Text = GridMemoValue.Text;
 
             base.OnApplyTemplate();
         }

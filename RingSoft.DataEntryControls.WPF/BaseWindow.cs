@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using RingSoft.DataEntryControls.WPF.DataEntryGrid;
+
 // ReSharper disable InconsistentNaming
 
 namespace RingSoft.DataEntryControls.WPF
@@ -51,6 +53,27 @@ namespace RingSoft.DataEntryControls.WPF
         private const int GWL_STYLE = -16;
 
         private const int WS_BOTH = 0x30000; //maximize and minimize buttons
+
+        public static readonly DependencyProperty SnugWidthProperty =
+            DependencyProperty.Register(nameof(SnugWidthProperty), typeof(double), typeof(BaseWindow));
+
+        public double SnugWidth
+        {
+            get { return (double)GetValue(SnugWidthProperty); }
+            set { SetValue(SnugWidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty SnugHeightProperty =
+            DependencyProperty.Register(nameof(SnugHeightProperty), typeof(double), typeof(BaseWindow));
+
+        public double SnugHeight
+        {
+            get { return (double)GetValue(SnugHeightProperty); }
+            set { SetValue(SnugHeightProperty, value); }
+        }
+
+
+
 
         /// <summary>
         /// Gets or sets a value indicating whether to close window when the escape key is pressed.
@@ -127,9 +150,38 @@ namespace RingSoft.DataEntryControls.WPF
 
             Loaded += (sender, args) =>
             {
+                SnugWindow();
+
                 if (SetFocusToFirstControl)
                     MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             };
+        }
+
+        public void SnugWindow()
+        {
+            if (SnugWidth == 0 && SnugHeight == 0)
+            {
+                return;
+            }
+            var horizontalBorderHeight = SystemParameters.ResizeFrameHorizontalBorderHeight;
+            var verticalBorderWidth = SystemParameters.ResizeFrameVerticalBorderWidth;
+            var captionHeight = SystemParameters.CaptionHeight;
+
+            Width = SnugWidth + 2 * verticalBorderWidth;
+            Height = SnugHeight + captionHeight + 2 * horizontalBorderHeight;
+
+            CenterWindowOnScreen();
+
+        }
+
+        public void CenterWindowOnScreen()
+        {
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = this.Width;
+            double windowHeight = this.Height;
+            this.Left = (screenWidth / 2) - (windowWidth / 2);
+            this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
         public void SetReadOnlyMode(bool readOnlyValue)
