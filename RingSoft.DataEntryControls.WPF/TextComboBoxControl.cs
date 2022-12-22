@@ -162,11 +162,11 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void TextComboBoxControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            var border = this.GetVisualChild<Border>();
-            border.BorderThickness = new Thickness(2);
-            border.BorderBrush = new SolidColorBrush(Colors.Blue);
-            Height = _height + 5;
-            UpdateLayout();
+            //var border = this.GetVisualChild<Border>();
+            //border.BorderThickness = new Thickness(2);
+            //border.BorderBrush = new SolidColorBrush(Colors.Blue);
+            //Height = _height + 5;
+            //UpdateLayout();
             TextBox.Focus();
 
         }
