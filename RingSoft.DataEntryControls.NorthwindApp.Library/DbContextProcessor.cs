@@ -12,7 +12,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public DbContextProcessor()
         {
             EfCoreGlobals.DbAdvancedFindContextCore = new NorthwindDbContext();
-            SystemGlobals.AdvancedFindDbProcessor = new AdvancedFindDataProcessorEfCore();
+            var processor = new AdvancedFindDataProcessorEfCore();
+            SystemGlobals.DataRepository = processor;
+            SystemGlobals.AdvancedFindDbProcessor = processor;
         }
 
         public Customers GetCustomer(string customerId)
