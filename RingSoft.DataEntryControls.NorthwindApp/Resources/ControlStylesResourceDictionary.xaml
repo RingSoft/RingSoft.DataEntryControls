@@ -28,6 +28,10 @@
 
     <Style TargetType="af:AdvancedFindRefreshRateWindow" BasedOn="{StaticResource WindowStyle}"/>
 
+    <Style TargetType="lc:RecordLockingWindow" BasedOn="{StaticResource WindowStyle}"/>
+
+    <Style TargetType="lc:DeleteRecordWindow" BasedOn="{StaticResource WindowStyle}"/>
+
     <Style TargetType="deg:DataEntryGridMemoEditor" BasedOn="{StaticResource WindowStyle}"/>
 
     <Style TargetType="ListView">

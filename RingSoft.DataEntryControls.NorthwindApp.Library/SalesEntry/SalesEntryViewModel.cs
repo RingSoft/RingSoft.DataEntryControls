@@ -426,6 +426,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         private bool _customerDirty;
 
+        public SalesEntryViewModel()
+        {
+            TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
+        }
+
         protected override void Initialize()
         {
             SalesEntryView = View as ISalesEntryMaintenanceView ??

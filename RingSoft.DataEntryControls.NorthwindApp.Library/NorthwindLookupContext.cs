@@ -38,6 +38,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public LookupDefinition<RecordLockingLookup, RecordLock> RecordLockingLookup { get; set; }
 
         public LookupDefinition<OrderLookup, Orders> OrdersLookup { get; private set; }
+        public LookupDefinition<OrderDetailLookup, OrderDetails> OrderDetailsLookup { get; private set; }
 
         public LookupDefinition<ProductLookup, Products> ProductsLookup { get; private set; }
 
@@ -55,6 +56,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public LookupDefinition<PurchaseOrderLookup, Purchases> PurchaseOrderLookup { get; private set; }
 
+        public LookupDefinition<PurchaseDetailsLookup, PurchaseDetails> PurchaseDetailsLookup { get; private set; }
         public SqliteDataProcessor NorthwindDataProcessor { get; }
 
         public NorthwindLookupContext()
@@ -83,6 +85,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 .AddVisibleColumnDefinition(p => p.Employee, "Employee", employeeNameFormula, 30, FieldDataTypes.String);
 
             Orders.HasLookupDefinition(OrdersLookup);
+
+            OrderDetailsLookup = new LookupDefinition<OrderDetailLookup, OrderDetails>(OrderDetails);
+            OrderDetailsLookup.Include(p => p.Order)
+                .AddVisibleColumnDefinition(p => p.OrderDate, "Order Date", p => p.OrderDate, 30);
+            OrderDetailsLookup.Include(p => p.Product)
+                .AddVisibleColumnDefinition(p => p.Product, "Product", p => p.ProductName, 50);
+            
+            OrderDetails.HasLookupDefinition(OrderDetailsLookup);
 
             ProductsLookup = new LookupDefinition<ProductLookup, Products>(Products);
             ProductsLookup.AddVisibleColumnDefinition(p => p.ProductName, "Name", p => p.ProductName, 40);
@@ -136,6 +146,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             PurchaseOrderLookup.Include(p => p.Supplier)
                 .AddVisibleColumnDefinition(p => p.Supplier, "Supplier", p => p.CompanyName, 50);
             Purchases.HasLookupDefinition(PurchaseOrderLookup);
+
+            PurchaseDetailsLookup = new LookupDefinition<PurchaseDetailsLookup, PurchaseDetails>(PurchaseDetails);
+            PurchaseDetailsLookup.Include(p => p.PurchaseOrder)
+                .AddVisibleColumnDefinition(p => p.PurchaseOrderNumber, "PO Number", p => p.PoNumber, 50);
+            PurchaseDetailsLookup.Include(p => p.Product)
+                .AddVisibleColumnDefinition(p => p.Product, "Product", p => p.ProductName, 50);
+
+            PurchaseDetails.HasLookupDefinition(PurchaseDetailsLookup);
         }
 
         protected override void SetupModel()
@@ -147,6 +165,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 .DoesAllowRecursion(false);
             Orders.GetFieldDefinition(p => p.Notes).IsMemo();
             Purchases.GetFieldDefinition(p => p.Notes).IsMemo();
+
+            PurchaseDetails.GetFieldDefinition(p => p.ProductId).CanSetNull(false);
+            OrderDetails.GetFieldDefinition(p => p.NonInventoryCodeId).CanSetNull(false);
+            OrderDetails.GetFieldDefinition(p => p.ProductId).CanSetNull(false);
         }
 
 

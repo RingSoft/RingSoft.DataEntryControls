@@ -274,6 +274,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         public PurchaseOrderViewModel()
         {
             SupplierEnabled = true;
+            TablesToDelete.Add(AppGlobals.LookupContext.PurchaseDetails);
         }
 
         protected override void Initialize()
