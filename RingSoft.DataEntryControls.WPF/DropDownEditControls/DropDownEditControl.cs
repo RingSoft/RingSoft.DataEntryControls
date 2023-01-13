@@ -80,6 +80,26 @@ namespace RingSoft.DataEntryControls.WPF
             dropDownEditControl.SetDesignText();
         }
 
+        public static new readonly DependencyProperty RsIsTabStopProperty =
+            DependencyProperty.Register(nameof(RsIsTabStop), typeof(bool), typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(true, RsIsTabStopChangedCallback));
+
+        public new bool RsIsTabStop
+        {
+            get { return (bool)GetValue(RsIsTabStopProperty); }
+            set { SetValue(RsIsTabStopProperty, value); }
+        }
+
+        private static void RsIsTabStopChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl.TextBox != null)
+            {
+                dropDownEditControl.TextBox.IsTabStop = dropDownEditControl.RsIsTabStop;
+            }
+        }
+
         private static void BorderThicknessChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -282,6 +302,7 @@ namespace RingSoft.DataEntryControls.WPF
         static DropDownEditControl()
         {
             IsTabStopProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
+
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
 
@@ -350,6 +371,8 @@ namespace RingSoft.DataEntryControls.WPF
 
                 if (SelectionBrush != null)
                     TextBox.SelectionBrush = SelectionBrush;
+
+                TextBox.IsTabStop = RsIsTabStop;
             }
         }
 

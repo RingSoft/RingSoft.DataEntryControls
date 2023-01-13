@@ -3,7 +3,7 @@
   <PropertyGroup>
 	  <TargetFrameworks>net7.0</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Version>4</Version>
+    <Version>5</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>Library to handle RingSoft.DataEntryControls.</Description>

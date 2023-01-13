@@ -57,7 +57,7 @@
             </StackPanel>
             <Label Grid.Row="2" Grid.Column="0" Content="Order Date" Style="{StaticResource ControlLabel}"/>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <dec:DateEditControl Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" />
+                <dec:DateEditControl Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AllowNullValue="False" RsIsTabStop="False"/>
                 <Label Content="Required Date" Style="{StaticResource ControlLabel}"/>
                 <dec:DateEditControl Value="{Binding Path=RequiredDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Shipped Date" Style="{StaticResource ControlLabel}"/>
@@ -151,7 +151,7 @@
                 </Border>-->
                 <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="1" Value="{Binding TotalDiscount}"/>
                 <Label Grid.Column="0" Grid.Row="2" Content="Freight" Style="{StaticResource ControlLabel}"/>
-                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" HorizontalAlignment="Stretch"/>
+                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" HorizontalAlignment="Stretch" RsIsTabStop="False"/>
                 <Label Grid.Column="0" Grid.Row="3" Content="Total" Style="{StaticResource ControlLabel}"/>
                 <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="3" Value="{Binding Path=Total}"/>
             </Grid>
