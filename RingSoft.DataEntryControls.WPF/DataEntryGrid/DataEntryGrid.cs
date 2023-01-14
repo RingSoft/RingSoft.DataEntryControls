@@ -200,7 +200,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             set
             {
                 base.RowHeight = value;
-                DesignerFillGrid(nameof(RowHeight));
+                //DesignerFillGrid(nameof(RowHeight));
             }
         }
 
@@ -456,12 +456,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 column.DataColumnName = columnName;
                 index++;
             }
-            DesignerFillGrid(nameof(Columns_CollectionChanged));
+            //DesignerFillGrid(nameof(Columns_CollectionChanged));
         }
 
         private void Column_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            DesignerFillGrid(nameof(Column_PropertyChanged));
+            //DesignerFillGrid(nameof(Column_PropertyChanged));
         }
 
         private int GetColumnIndexOfColumnId(int columnId)
@@ -472,75 +472,75 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-            DesignerFillGrid(nameof(OnRenderSizeChanged));
+            //DesignerFillGrid(nameof(OnRenderSizeChanged));
 
             base.OnRenderSizeChanged(sizeInfo);
         }
 
         // ReSharper disable once UnusedParameter.Local
-        private void DesignerFillGrid(string trace)
-        {
-            if (!DesignerProperties.GetIsInDesignMode(this))
-                return;
+        //private void DesignerFillGrid(string trace)
+        //{
+        //    if (!DesignerProperties.GetIsInDesignMode(this))
+        //        return;
 
-            if (_designerFillingGrid)
-                return;
+        //    if (_designerFillingGrid)
+        //        return;
 
-            _designerFillingGrid = true;
+        //    _designerFillingGrid = true;
 
-            _dataSourceTable.Rows.Clear();
+        //    _dataSourceTable.Rows.Clear();
 
-            UpdateLayout();
+        //    UpdateLayout();
 
-            if (ActualHeight < 15)
-            {
-                _designerFillingGrid = false;
-                return;
-            }
+        //    if (ActualHeight < 15)
+        //    {
+        //        _designerFillingGrid = false;
+        //        return;
+        //    }
 
-            var columnHeaderHeight = double.NaN;
+        //    var columnHeaderHeight = double.NaN;
 
-            var headersPresenter = this.GetVisualChild<DataGridColumnHeadersPresenter>();
+        //    var headersPresenter = this.GetVisualChild<DataGridColumnHeadersPresenter>();
 
-            if (headersPresenter != null)
-                columnHeaderHeight = headersPresenter.ActualHeight;
+        //    if (headersPresenter != null)
+        //        columnHeaderHeight = headersPresenter.ActualHeight;
 
-            if (double.IsNaN(columnHeaderHeight) && Columns.Any())
-            {
-                if (ActualHeight < 30)
-                {
-                    _designerFillingGrid = false;
-                    return;
-                }
-            }
-            else if (!double.IsNaN(columnHeaderHeight))
-            {
-                if (ActualHeight < columnHeaderHeight + 10)
-                {
-                    _designerFillingGrid = false;
-                    return;
-                }
-            }
+        //    if (double.IsNaN(columnHeaderHeight) && Columns.Any())
+        //    {
+        //        if (ActualHeight < 30)
+        //        {
+        //            _designerFillingGrid = false;
+        //            return;
+        //        }
+        //    }
+        //    else if (!double.IsNaN(columnHeaderHeight))
+        //    {
+        //        if (ActualHeight < columnHeaderHeight + 10)
+        //        {
+        //            _designerFillingGrid = false;
+        //            return;
+        //        }
+        //    }
 
-            //MessageBox.Show($"RowHeight={RowHeight}\r\nColumn Header Height={columnHeaderHeight}\r\nActualHeight={ActualHeight}", trace);
+        //    //MessageBox.Show($"RowHeight={RowHeight}\r\nColumn Header Height={columnHeaderHeight}\r\nActualHeight={ActualHeight}", trace);
 
-            AddDesignerRow();
-            var lastRowIndex = _dataSourceTable.Rows.Count - 1;
+        //    AddDesignerRow();
+        //    var lastRowIndex = _dataSourceTable.Rows.Count - 1;
 
-            UpdateLayout();
-            var dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
+        //    UpdateLayout();
+        //    var dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
 
-            while (dataGridRow != null)
-            {
-                AddDesignerRow();
-                lastRowIndex++;
-                UpdateLayout();
+        //    while (dataGridRow != null)
+        //    {
+        //        AddDesignerRow();
+        //        lastRowIndex++;
+        //        UpdateLayout();
 
-                dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
-            }
+        //        dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
+        //    }
 
-            _designerFillingGrid = false;
-        }
+        //    _designerFillingGrid = false;
+        //}
 
         private void AddDesignerRow()
         {
