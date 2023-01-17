@@ -8,8 +8,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
-    <PackageReference Include="RingSoft.DbLookup.EfCore" Version="5.1.0" />
-    <PackageReference Include="RingSoft.DbMaintenance" Version="5.1.0" />
+    <PackageReference Include="RingSoft.DbLookup.EfCore" Version="5.1.2" />
+    <PackageReference Include="RingSoft.DbMaintenance" Version="5.1.2" />
   </ItemGroup>
 
   <ItemGroup>
