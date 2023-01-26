@@ -298,6 +298,7 @@ namespace RingSoft.DataEntryControls.WPF
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
         private bool _processingKey;
+        private bool _setFocus;
 
         static DropDownEditControl()
         {
@@ -357,6 +358,11 @@ namespace RingSoft.DataEntryControls.WPF
 
             SetDesignText();
             SetControlStyleProperties();
+            if (_setFocus)
+            {
+                _setFocus = false;
+                TextBox?.Focus();
+            }
         }
 
         private void SetControlStyleProperties()
@@ -378,7 +384,14 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            TextBox?.Focus();
+            if (TextBox == null)
+            {
+                _setFocus = true;
+            }
+            else
+            {
+                TextBox?.Focus();
+            }
 
             base.OnGotFocus(e);
         }
