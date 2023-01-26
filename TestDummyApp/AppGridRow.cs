@@ -22,12 +22,15 @@ namespace TestDummyApp
 
         public TextComboBoxControlSetup LineTypeComboBoxSetup { get; } = new TextComboBoxControlSetup();
 
+        public TextComboBoxItem LineTypeComboBoxItem { get; set; }
+
         public AppGridManager AppGridManager { get; }
 
         public AppGridRow(AppGridManager manager) : base(manager)
         {
             AppGridManager = manager;
             LineTypeComboBoxSetup.LoadFromEnum<AppGridLineTypes>();
+            LineTypeComboBoxItem = LineTypeComboBoxSetup.GetItem(0);
 
             DateSetup = new DateEditControlSetup{AllowNullValue = true};
             IntegerSetup = new IntegerEditControlSetup{AllowNullValue = true};
@@ -41,8 +44,7 @@ namespace TestDummyApp
                 case AppGridColumns.Disabled:
                     return new DataEntryGridTextCellProps(this, columnId);
                 case AppGridColumns.LineType:
-                    return new DataEntryGridCustomControlCellProps(this, columnId, (int)LineType,
-                        ComboBoxValueChangedTypes.SelectedItemChanged);
+                    return new DataEntryGridTextComboBoxCellProps(this, columnId, LineTypeComboBoxSetup, LineTypeComboBoxItem);
                 case AppGridColumns.CheckBox:
                     return new DataEntryGridCheckBoxCellProps(this, columnId, CheckBoxValue);
                 case AppGridColumns.Date:

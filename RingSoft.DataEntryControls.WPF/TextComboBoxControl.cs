@@ -111,7 +111,7 @@ namespace RingSoft.DataEntryControls.WPF
         private ObservableCollection<string> _designerList = new ObservableCollection<string>();
         private TextComboBoxItem _selectedComboBoxItem;
         private double _height;
-
+        private bool _setFocus;
 
         static TextComboBoxControl()
         {
@@ -167,7 +167,14 @@ namespace RingSoft.DataEntryControls.WPF
             //border.BorderBrush = new SolidColorBrush(Colors.Blue);
             //Height = _height + 5;
             //UpdateLayout();
-            TextBox.Focus();
+            if (TextBox == null)
+            {
+                _setFocus = true;
+            }
+            else
+            {
+                TextBox.Focus();
+            }
 
         }
 
@@ -175,6 +182,12 @@ namespace RingSoft.DataEntryControls.WPF
         {
             TextBox = GetTemplateChild("PART_EditableTextBox") as TextBox;
             var selBox = GetTemplateChild("SelectionBoxItem");
+
+            if (_setFocus)
+            {
+                _setFocus = false;
+                TextBox.Focus();
+            }
             base.OnApplyTemplate();
         }
 

@@ -96,7 +96,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             Control.BorderThickness = new Thickness(0);
             Control.VerticalAlignment = VerticalAlignment.Center;
             Control.Height = 17;
-
+            Control.MinHeight = dataGridCell.MinHeight;
+            Control.MinWidth = dataGridCell.MinWidth;
         }
 
         protected DataEntryGridDisplayStyle GetCellDisplayStyle()

@@ -94,6 +94,7 @@ namespace TestDummyApp
             {
                 ExpandPanel.Visibility = Visibility.Visible;
             };
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -108,6 +108,7 @@ namespace TestDummyApp
                 //GridManager.Grid.TakeCellSnapshot(true, true);
                 //GridManager.RemoveRow(0);
                 //GridManager.Grid.RestoreCellSnapshot(true, true);
+                IntegerEditControl.Focus();
 
                 MessageBox.Show(
                     $"Current Row Index = {GridManager.Grid.CurrentRowIndex}.  Current Column ID = {GridManager.Grid.CurrentColumnId}.");

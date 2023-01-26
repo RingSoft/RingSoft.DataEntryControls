@@ -164,6 +164,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 
         protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
         {
+            Control.MinHeight = dataGridCell.MinHeight;
+            Control.MinWidth = dataGridCell.MinWidth;
+
+            //base.ImportDataGridCellProperties(dataGridCell);
         }
     }
 }
