@@ -25,10 +25,25 @@ namespace RingSoft.DataEntryControls.WPF
 
     public class ControlsUserInterface : IControlsUserInterface
     {
+        private static Window _activeWindow;
+
+        public static void SetActiveWindow(Window activeWindow)
+        {
+            _activeWindow = activeWindow;
+            _activeWindow.Closed += (sender, args) => _activeWindow = null;
+        }
         public static Window GetActiveWindow()
         {
-            var activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            return activeWindow;
+            try
+            {
+                var activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                return activeWindow;
+            }
+            catch (Exception e)
+            {
+                return _activeWindow;
+            }
+            return null;
         }
 
         public void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
@@ -131,21 +146,7 @@ namespace RingSoft.DataEntryControls.WPF
         public void SetWindowCursor(WindowCursorTypes cursor)
         {
             var activeWindow = GetActiveWindow();
-            if (activeWindow == null)
-            {
-                switch (cursor)
-                {
-                    case WindowCursorTypes.Default:
-                        Mouse.OverrideCursor = null;
-                        break;
-                    case WindowCursorTypes.Wait:
-                        Mouse.OverrideCursor = Cursors.Wait;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(cursor), cursor, null);
-                }
-            }
-            else
+            if (activeWindow != null)
             {
                 activeWindow.Dispatcher.Invoke(() =>
                 {
