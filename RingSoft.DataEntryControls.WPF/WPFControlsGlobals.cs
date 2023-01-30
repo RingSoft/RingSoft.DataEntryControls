@@ -2,6 +2,7 @@
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
@@ -24,6 +25,12 @@ namespace RingSoft.DataEntryControls.WPF
 
     public class ControlsUserInterface : IControlsUserInterface
     {
+        public static Window GetActiveWindow()
+        {
+            var activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            return activeWindow;
+        }
+
         public void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
         {
             var messageBoxImage = MessageBoxImage.Error;
@@ -41,15 +48,43 @@ namespace RingSoft.DataEntryControls.WPF
                     throw new ArgumentOutOfRangeException(nameof(icon), icon, null);
             }
 
-            MessageBox.Show(text, caption, MessageBoxButton.OK, messageBoxImage);
+            var activeWindow = GetActiveWindow();
+            if (activeWindow == null)
+            {
+                MessageBox.Show(text, caption, MessageBoxButton.OK, messageBoxImage);
+            }
+            else
+            {
+                activeWindow.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show(text, caption, MessageBoxButton.OK, messageBoxImage);
+                });
+            }
         }
 
         public MessageBoxButtonsResult ShowYesNoMessageBox(string text, string caption, bool playSound = false)
         {
-            if (playSound)
-                SystemSounds.Exclamation.Play();
+            var messageBoxResult = MessageBoxResult.Yes;
+            var activeWindow = GetActiveWindow();
+            if (activeWindow == null)
+            {
+                if (playSound)
+                    SystemSounds.Exclamation.Play();
 
-            switch (MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question))
+                messageBoxResult = MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            }
+            else
+            {
+                activeWindow.Dispatcher.Invoke(() =>
+                {
+                    if (playSound)
+                        SystemSounds.Exclamation.Play();
+
+                    messageBoxResult = MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                });
+            }
+
+            switch (messageBoxResult)
             {
                 case MessageBoxResult.Yes:
                     return MessageBoxButtonsResult.Yes;
@@ -60,10 +95,29 @@ namespace RingSoft.DataEntryControls.WPF
 
         public MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false)
         {
-            if (playSound)
-                SystemSounds.Exclamation.Play();
+            var messageBoxResult = MessageBoxResult.Yes;
+            var activeWindow = GetActiveWindow();
+            if (activeWindow == null)
+            {
+                if (playSound)
+                    SystemSounds.Exclamation.Play();
 
-            switch (MessageBox.Show(text, caption, MessageBoxButton.YesNo, MessageBoxImage.Question))
+                messageBoxResult =
+                    MessageBox.Show(text, caption, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            }
+            else
+            {
+                activeWindow.Dispatcher.Invoke(() =>
+                {
+                    if (playSound)
+                        SystemSounds.Exclamation.Play();
+
+                    messageBoxResult =
+                        MessageBox.Show(text, caption, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                });
+            }
+
+            switch (messageBoxResult)
             {
                 case MessageBoxResult.Yes:
                     return MessageBoxButtonsResult.Yes;
@@ -76,22 +130,45 @@ namespace RingSoft.DataEntryControls.WPF
 
         public void SetWindowCursor(WindowCursorTypes cursor)
         {
-            switch (cursor)
+            var activeWindow = GetActiveWindow();
+            if (activeWindow == null)
             {
-                case WindowCursorTypes.Default:
-                    Mouse.OverrideCursor = null;
-                    break;
-                case WindowCursorTypes.Wait:
-                    Mouse.OverrideCursor = Cursors.Wait;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(cursor), cursor, null);
+                switch (cursor)
+                {
+                    case WindowCursorTypes.Default:
+                        Mouse.OverrideCursor = null;
+                        break;
+                    case WindowCursorTypes.Wait:
+                        Mouse.OverrideCursor = Cursors.Wait;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(cursor), cursor, null);
+                }
+            }
+            else
+            {
+                activeWindow.Dispatcher.Invoke(() =>
+                {
+                    switch (cursor)
+                    {
+                        case WindowCursorTypes.Default:
+                            Mouse.OverrideCursor = null;
+                            break;
+                        case WindowCursorTypes.Wait:
+                            Mouse.OverrideCursor = Cursors.Wait;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(cursor), cursor, null);
+                    }
+                });
             }
         }
     }
     // ReSharper disable once InconsistentNaming
     public static class WPFControlsGlobals
     {
+        public static Window ActiveWindow => ControlsUserInterface.GetActiveWindow();
+
         public static DataEntryGridHostFactory DataEntryGridHostFactory { get; set; } = new DataEntryGridHostFactory();
 
         private static ControlsUserInterface _userInterface = new ControlsUserInterface();
