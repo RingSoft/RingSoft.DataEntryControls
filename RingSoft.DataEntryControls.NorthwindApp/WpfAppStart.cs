@@ -3,6 +3,7 @@ using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using System.Windows;
+using RingSoft.DbLookup;
 using RingSoft.DbLookup.App.WPFCore;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
@@ -10,6 +11,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp
     public class WpfAppStart : AppStart
     {
         public override IAppSplashWindow AppSplashWindow => _splashWindow;
+
+        public static string ProgramDataFolder
+        {
+            get
+            {
+#if DEBUG
+                return AppDomain.CurrentDomain.BaseDirectory;
+#else
+                return
+                    $"{Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}\\RingSoft\\DbLookup\\";
+#endif
+            }
+        }
+
 
         private Application _application;
         private MainWindow _mainWindow;
@@ -22,6 +37,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public override void StartApp(string[] args)
         {
+            SystemGlobals.ProgramDataFolder = ProgramDataFolder;
+
             LookupControlsGlobals.InitUi();
 
             _mainWindow = new MainWindow();

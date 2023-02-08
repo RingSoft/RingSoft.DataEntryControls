@@ -34,6 +34,12 @@
 
     <Style TargetType="deg:DataEntryGridMemoEditor" BasedOn="{StaticResource WindowStyle}"/>
 
+    <Style TargetType="lc:PrintSetupWindow" BasedOn="{StaticResource WindowStyle}"/>
+
+    <Style TargetType="lc:PrintingProcessingWindow" BasedOn="{StaticResource WindowStyle}"/>
+
+    <Style TargetType="lc:GenericReportFilterWindow" BasedOn="{StaticResource WindowStyle}"/>
+
     <Style TargetType="ListView">
         <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
     </Style>
