@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Security;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
@@ -166,8 +167,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             NonInventoryCodes.GetFieldDefinition(p => p.Price).HasDecimalFieldType(DecimalFieldTypes.Currency);
             Employees.GetFieldDefinition(p => p.ReportsTo).HasDescription("Supervisor")
                 .DoesAllowRecursion(false);
+
+            Orders.GetFieldDefinition(p => p.Freight).HasDecimalFieldType(DecimalFieldTypes.Currency);
             Orders.GetFieldDefinition(p => p.Notes).IsMemo();
             Purchases.GetFieldDefinition(p => p.Notes).IsMemo();
+
+            Purchases.GetFieldDefinition(p => p.Freight).HasDecimalFieldType(DecimalFieldTypes.Currency);
 
             PurchaseDetails.GetFieldDefinition(p => p.ProductId).CanSetNull(false);
             OrderDetails.GetFieldDefinition(p => p.NonInventoryCodeId).CanSetNull(false);
