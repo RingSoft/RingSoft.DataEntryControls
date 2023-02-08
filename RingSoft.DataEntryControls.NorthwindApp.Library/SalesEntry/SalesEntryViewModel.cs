@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using RingSoft.DbLookup.QueryBuilder;
 using RingSoft.DbLookup.TableProcessing;
+using Org.BouncyCastle.Asn1.X509;
 
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
@@ -801,6 +802,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             base.OnWindowClosing(e);
             if (!e.Cancel)
                 ViewModelInput.SalesEntryViewModels.Remove(this);
+        }
+
+        protected override void SetupPrinterArgs(PrinterSetupArgs printerSetupArgs, int stringFieldIndex = 1, int numericFieldIndex = 1,
+            int memoFieldIndex = 1)
+        {
+            if (MaintenanceMode == DbMaintenanceModes.EditMode)
+            {
+                var order = new Orders()
+                {
+                    OrderId = OrderId
+                };
+                var orderSetup = new AutoFillSetup(FindButtonLookupDefinition);
+                printerSetupArgs.CodeAutoFillValue = orderSetup.GetAutoFillValueForIdValue(OrderId);
+            }
+            base.SetupPrinterArgs(printerSetupArgs, stringFieldIndex, numericFieldIndex, memoFieldIndex);
         }
     }
 }

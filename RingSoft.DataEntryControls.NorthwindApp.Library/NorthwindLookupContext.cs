@@ -1,13 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AdvancedFind;
+using RingSoft.DbLookup.AutoFill;
 using RingSoft.DbLookup.DataProcessor;
 using RingSoft.DbLookup.EfCore;
 using RingSoft.DbLookup.Lookup;
 using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
+using RingSoft.DbLookup.QueryBuilder;
 using RingSoft.DbLookup.RecordLocking;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
@@ -181,5 +184,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         }
 
+        public override AutoFillValue OnAutoFillTextRequest(TableDefinitionBase tableDefinition, string primaryKeyString)
+        {
+            if (tableDefinition == Employees)
+            {
+                var employee = AppGlobals.DbContextProcessor.GetEmployee(primaryKeyString.ToInt());
+                var primaryKeyValue = Employees.GetPrimaryKeyValueFromEntity(employee);
+                return new AutoFillValue(primaryKeyValue, employee.FirstName + " " + employee.LastName);
+            }
+
+            if (tableDefinition == Orders)
+            {
+                var order = AppGlobals.DbContextProcessor.GetOrder(primaryKeyString.ToInt());
+                var primaryKeyValue = Orders.GetPrimaryKeyValueFromEntity(order);
+                return new AutoFillValue(primaryKeyValue,
+                    order.OrderDate.Value.FormatDateValue(DbDateTypes.DateOnly) + " " + order.CustomerId);
+            }
+
+
+            return base.OnAutoFillTextRequest(tableDefinition, primaryKeyString);
+        }
     }
 }
