@@ -81,9 +81,14 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             Grid?.RestoreCellSnapshot(false);
         }
 
+        protected virtual bool CanInsertRow(int startIndex)
+        {
+            return true;
+        }
+
         public void InsertNewRow(int startIndex = -1)
         {
-            if (Grid != null && Grid.DataEntryCanUserAddRows)
+            if (Grid != null && Grid.DataEntryCanUserAddRows && CanInsertRow(startIndex))
             {
                 var newRow = GetNewRow();
                 newRow.IsNew = true;
@@ -114,6 +119,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             if (rowIndex > _rows.Count - 1)
                 throw new Exception($"Row index: {rowIndex} is outside the Rows collection.");
         }
+
         public void RemoveRow(int rowIndex)
         {
             ValidateRowIndex(rowIndex);
