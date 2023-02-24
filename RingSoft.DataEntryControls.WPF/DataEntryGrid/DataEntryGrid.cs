@@ -1594,7 +1594,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 if (DataEntryCanUserAddRows)
                 {
-                    deleteOk = rowIndex < Items.Count - 1 && rowIndex >= 0;
+
+                    deleteOk = Manager.IsDeleteOk(rowIndex);
                 }
             }
 

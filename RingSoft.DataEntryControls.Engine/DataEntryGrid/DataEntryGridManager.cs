@@ -141,5 +141,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             }
             Grid?.RefreshGridView();
         }
+
+        public virtual bool IsDeleteOk(int rowIndex)
+        {
+            var deleteOk = rowIndex < Rows.Count - 1 && rowIndex >= 0;
+            return deleteOk;
+        }
     }
 }
