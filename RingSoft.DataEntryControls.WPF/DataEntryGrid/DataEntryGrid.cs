@@ -586,7 +586,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private void UpdateColumnHeaders()
         {
             var rowIndex = GetCurrentRowIndex();
-            if (rowIndex >= 0 && rowIndex < Manager.Rows.Count - 1)
+            if (rowIndex >= 0 && rowIndex < Manager.Rows.Count)
             {
                 var gridRow = Manager.Rows[rowIndex];
                 foreach (var column in Columns)
