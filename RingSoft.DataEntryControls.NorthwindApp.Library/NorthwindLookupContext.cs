@@ -165,8 +165,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             Products.GetFieldDefinition(p => p.UnitPrice).HasDecimalFieldType(DecimalFieldTypes.Currency);
             Products.GetFieldDefinition(p => p.Notes).IsMemo();
             NonInventoryCodes.GetFieldDefinition(p => p.Price).HasDecimalFieldType(DecimalFieldTypes.Currency);
-            Employees.GetFieldDefinition(p => p.ReportsTo).HasDescription("Supervisor")
-                .DoesAllowRecursion(false);
+            Employees.GetFieldDefinition(p => p.ReportsTo).HasDescription("Supervisor");
+                //.DoesAllowRecursion(false);
 
             Orders.GetFieldDefinition(p => p.Freight).HasDecimalFieldType(DecimalFieldTypes.Currency);
             Orders.GetFieldDefinition(p => p.Notes).IsMemo();
