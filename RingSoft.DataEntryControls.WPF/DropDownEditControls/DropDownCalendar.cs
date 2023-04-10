@@ -153,7 +153,7 @@ namespace RingSoft.DataEntryControls.WPF
         {
             if (Calendar != null)
             {
-                Calendar.SelectedDate = Calendar.DisplayDate = DateTime.Today;
+                Calendar.SelectedDate = Calendar.DisplayDate = DateTime.Now;
                 Calendar.Focus();
             }
         }

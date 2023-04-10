@@ -9,7 +9,7 @@
                     <Border Background="LightGray" BorderBrush="Black" BorderThickness="2" Width="200">
                         <StackPanel Orientation=" Vertical">
                             <Calendar x:Name="Calendar"/>
-                            <Button x:Name="TodayButton" Content="_Today" Width="100" Margin="5"/>
+                            <Button x:Name="TodayButton" Content="_Now" Width="100" Margin="5"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>
