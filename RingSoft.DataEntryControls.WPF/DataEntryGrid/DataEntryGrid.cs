@@ -96,7 +96,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         public static readonly DependencyProperty CellEditingControlBorderThicknessProperty =
-            DependencyProperty.Register(nameof(CellEditingControlBorderThickness), typeof(Thickness), typeof(DataEntryGrid));
+            DependencyProperty.Register(nameof(CellEditingControlBorderThickness), typeof(Thickness),
+                typeof(DataEntryGrid));
 
         public Thickness CellEditingControlBorderThickness
         {
@@ -150,7 +151,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         public static readonly DependencyProperty DisabledCellDisplayStyleProperty =
-            DependencyProperty.Register(nameof(DisabledCellDisplayStyle), typeof(DataEntryGridDisplayStyle), typeof(DataEntryGrid));
+            DependencyProperty.Register(nameof(DisabledCellDisplayStyle), typeof(DataEntryGridDisplayStyle),
+                typeof(DataEntryGrid));
 
         public DataEntryGridDisplayStyle DisabledCellDisplayStyle
         {
@@ -173,9 +175,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
 
-        public new ObservableCollection<DataEntryGridColumn> Columns { get; } = new ObservableCollection<DataEntryGridColumn>();
+        public new ObservableCollection<DataEntryGridColumn> Columns { get; } =
+            new ObservableCollection<DataEntryGridColumn>();
 
-        public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } = new ObservableCollection<DataEntryGridDisplayStyle>();
+        public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } =
+            new ObservableCollection<DataEntryGridDisplayStyle>();
 
         public bool DataEntryCanUserAddRows { get; set; } = true;
         public DataEntryGridRow CurrentRow => GetCurrentRow();
@@ -265,7 +269,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (!IsKeyboardFocusWithin)
             {
                 _gridHasFocus = false;
-                EditingControlHost = null; //This is done when DbMaintenance window resets focus on New Record operation.
+                EditingControlHost =
+                    null; //This is done when DbMaintenance window resets focus on New Record operation.
 
                 if (!StoreCurrentCellOnLostFocus)
                     SelectedCells.Clear();
@@ -274,10 +279,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
         {
-            if (SelectedCells.Any() && EditingControlHost != null && EditingControlHost.Control != null) 
+            if (SelectedCells.Any() && EditingControlHost != null && EditingControlHost.Control != null)
                 //This needs to run when user clicks on the lookup button.
                 SelectedCells.Clear();
-            
+
             base.OnSelectedCellsChanged(e);
         }
 
@@ -341,7 +346,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         public void Refocus()
-        { 
+        {
             BeginEdit();
         }
 
@@ -366,6 +371,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                         RefreshGridView();
                     }
+
                     _controlLoaded = true;
 
                 }
@@ -405,7 +411,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     foreach (DataEntryGridColumn column in e.NewItems)
                     {
                         var columnIdCount = Columns.Count(w => w.ColumnId == column.ColumnId);
-                        
+
                         if (columnIdCount > 1)
                         {
                             var message = $"There are {columnIdCount} columns with Column ID '{column.ColumnId}'";
@@ -420,12 +426,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                         column.PropertyChanged += Column_PropertyChanged;
                     }
+
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var unused in e.OldItems)
                     {
                         base.Columns.RemoveAt(e.OldStartingIndex);
                     }
+
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     break;
@@ -631,6 +639,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         _dataSourceTable.Rows.RemoveAt(e.OldStartingIndex);
                     }
+
                     //RefreshGridView();
                     break;
                 case NotifyCollectionChangedAction.Replace:
@@ -775,6 +784,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 currentColumnId = Columns[GetCurrentColumnIndex()].ColumnId;
                 CancelEdit();
             }
+
             _dataSourceTable.Rows.Clear();
             foreach (var gridRow in Manager.Rows)
             {
@@ -819,7 +829,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 UpdateRow(gridRow, _dataSourceTable.Rows[rowIndex], rowIndex);
         }
 
-        
+
 
         private void UpdateRow(DataEntryGridRow gridRow, DataRow dataRow, int rowIndex)
         {
@@ -855,7 +865,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         public void RefreshGridView()
         {
             UpdateLayout();
-            
+
             var rowIndex = 0;
             foreach (var gridRow in Manager.Rows)
             {
@@ -924,7 +934,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     var cellStyle = GetCellStyle(gridRow, column.ColumnId);
 
                     DataEntryGridDisplayStyle displayStyle = null;
-                    
+
                     switch (cellStyle.State)
                     {
                         case DataEntryGridCellStates.Enabled:
@@ -993,7 +1003,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             break;
                         case DataEntryGridCellStates.Disabled:
                         case DataEntryGridCellStates.ReadOnly:
-                            var readOnlyCellProps = dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId) as DataEntryGridEditingCellProps;
+                            var readOnlyCellProps =
+                                dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId) as
+                                    DataEntryGridEditingCellProps;
 
                             if (readOnlyCellProps == null)
                                 e.Cancel = true;
@@ -1005,6 +1017,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             {
                                 e.Cancel = true;
                             }
+
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -1015,7 +1028,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     e.Cancel = true;
                 }
 
-                var cellProps = dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId) as DataEntryGridEditingCellProps;
+                var cellProps =
+                    dataEntryGridRow.GetCellProps(dataEntryGridColumn.ColumnId) as DataEntryGridEditingCellProps;
 
                 if (cellProps == null)
                     e.Cancel = true;
@@ -1046,10 +1060,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                                 SelectedCells.Add(CurrentCell);
 
                             dataEntryGridColumn.CellEditingTemplate =
-                                EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle, dataEntryGridColumn);
+                                EditingControlHost.GetEditingControlDataTemplate(cellProps, cellStyle,
+                                    dataEntryGridColumn);
                             EditingControlHost.ControlDirty += EditingControl_ControlDirty;
                             EditingControlHost.UpdateSource += EditingControlHost_UpdateSource;
-                            
+
                             if (_buttonClick)
                             {
                                 if (!ReadOnlyMode)
@@ -1071,10 +1086,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             var element = e.EditingElement;
 
-            element.Dispatcher.BeginInvoke(
-                DispatcherPriority.Input,
-                new Action(() => element.MoveFocus(
-                    new TraversalRequest(FocusNavigationDirection.First))));
+            var thisWindow = Window.GetWindow(this);
+            var activeWindow = WPFControlsGlobals.ActiveWindow;
+            if (thisWindow == activeWindow)
+            {
+                element.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Input,
+                    new Action(() => element.MoveFocus(
+                        new TraversalRequest(FocusNavigationDirection.First))));
+            }
 
             base.OnPreparingCellForEdit(e);
         }
@@ -1109,6 +1129,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 if (DataEntryCanUserAddRows)
                     Manager.InsertNewRow();
             }
+
             Manager.RaiseDirtyFlag();
         }
 
@@ -1145,6 +1166,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     }
                 }
             }
+
             base.OnPreviewLostKeyboardFocus(e);
         }
 
@@ -1159,6 +1181,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 _buttonClick = true;
             }
+
+            var thisWindow = Window.GetWindow(this);
+            var activeWindow = WPFControlsGlobals.ActiveWindow;
+            if (thisWindow != activeWindow)
+            {
+                e.Handled = true;
+            }
+
             base.OnPreviewGotKeyboardFocus(e);
         }
 
@@ -1166,6 +1196,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             return CommitCellEdit(CellLostFocusTypes.LostFocus, false);
         }
+
         public bool CommitCellEdit(CellLostFocusTypes cellLostFocusType, bool cancelEdit = true)
         {
             if (EditingControlHost != null && EditingControlHost.Control != null)
@@ -1176,10 +1207,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     CancelEdit();
                     return true;
                 }
+
                 var currentRow = Manager.Rows[currentRowIndex];
                 var cellValue = EditingControlHost.GetCellValue();
                 cellValue.CellLostFocusType = cellLostFocusType;
-                
+
                 if (EditingControlHost.HasDataChanged())
                 {
                     var currentEditHost = EditingControlHost;
@@ -1218,7 +1250,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         public void DataEntryGridCancelEdit()
         {
             CancelEdit();
-            
+
             EditingControlHost = null;
             _gridHasFocus = false;
         }
@@ -1258,8 +1290,8 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             if (IsKeyboardFocusWithin)
             {
                 if (_readOnlyMode)
-                    SetFocusToCell(0,0);
-                else 
+                    SetFocusToCell(0, 0);
+                else
                     TabRight(0, -1);
             }
         }
@@ -1294,6 +1326,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             e.Handled = true;
                             return;
                         }
+
                         checkKey = true;
                         break;
                     case Key.Right:
@@ -1302,6 +1335,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             e.Handled = true;
                             return;
                         }
+
                         checkKey = true;
                         break;
                     case Key.Up:
@@ -1310,6 +1344,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             e.Handled = true;
                             return;
                         }
+
                         checkKey = true;
                         break;
                     case Key.Down:
@@ -1318,6 +1353,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             e.Handled = true;
                             return;
                         }
+
                         checkKey = true;
                         break;
                     case Key.PageUp:
@@ -1326,6 +1362,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             e.Handled = true;
                             return;
                         }
+
                         checkKey = true;
                         break;
                     case Key.PageDown:
@@ -1334,6 +1371,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             e.Handled = true;
                             return;
                         }
+
                         checkKey = true;
                         break;
                 }
@@ -1373,6 +1411,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                         ProcessTab();
                         e.Handled = true;
                     }
+
                     break;
                 case Key.Escape:
                     if (canProcessKey)
@@ -1382,6 +1421,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                             var window = Window.GetWindow(this);
                             window?.Close();
                         }
+
                         e.Handled = true;
                     }
 
@@ -1401,6 +1441,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     //We don't set handled because otherwise the calculator won't update the edit control when the user presses Enter to
                     //get the results of a calculation.
                     return;
+                }
+                else
+                {
+                    if (e.Key == Key.Tab)
+                    {
+                        e.Handled = true;
+                        TabRight();
+                    }
                 }
             }
             else
@@ -1478,7 +1526,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return Manager.Rows[currentRowIndex];
         }
 
-        private void TabRight(int startRowIndex, int startColumnIndex)
+        public void TabRight()
+        {
+            TabRight(GetCurrentRowIndex(), GetCurrentColumnIndex());
+        }
+
+    private void TabRight(int startRowIndex, int startColumnIndex)
         {
             if (!CommitCellEdit(CellLostFocusTypes.TabRight))
                 return;

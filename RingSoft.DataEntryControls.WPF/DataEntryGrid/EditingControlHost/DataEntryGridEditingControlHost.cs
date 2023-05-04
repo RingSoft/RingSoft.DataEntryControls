@@ -55,7 +55,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
                 if (!SetSelection)
                     Grid.SelectedCells.Clear();
 
-                control.Focus();
+                var thisWindow = Window.GetWindow(Control);
+                var activeWindow = WPFControlsGlobals.ActiveWindow;
+                if (thisWindow == activeWindow)
+                {
+                    control.Focus();
+                }
 
                 var contextMenu = control.ContextMenu;
                 Separator separator = null;

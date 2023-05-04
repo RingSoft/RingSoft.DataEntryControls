@@ -142,7 +142,13 @@ namespace TestDummyApp
             var memoEditor = new DataEntryGridMemoEditor(gridMemoValue);
             memoEditor.Owner = this;
             memoEditor.Title = "Edit Comment";
-            return memoEditor.ShowDialog();
+            //return memoEditor.ShowDialog();
+            memoEditor.Deactivated += (sender, args) =>
+            {
+
+            };
+            memoEditor.Show();
+            return true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -37,7 +37,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         {
             factory.SetBinding(DataEntryGridButton.DataValueProperty, new Binding(dataColumnName));
             factory.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center);
-            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+            factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
         }
     }
 
