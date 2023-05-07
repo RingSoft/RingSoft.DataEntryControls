@@ -1176,10 +1176,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 e.OldFocus == null && e.NewFocus.GetType() == typeof(DataGridCell))
             {
                 SetFocusToCell(GetCurrentRowIndex(), GetCurrentColumnIndex());
+                _buttonClick = false;
             }
-            else if (EditingControlHost == null && e.NewFocus is Button)
+            else if ((EditingControlHost == null
+                     || EditingControlHost is DataEntryGridButtonHost) && e.NewFocus is Button)
             {
                 _buttonClick = true;
+            }
+            else
+            {
+                _buttonClick = false;
             }
 
             var thisWindow = Window.GetWindow(this);
