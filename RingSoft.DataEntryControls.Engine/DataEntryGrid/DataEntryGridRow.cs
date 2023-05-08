@@ -14,7 +14,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public abstract DataEntryGridCellProps GetCellProps(int columnId);
 
-        public int DisplayStyleId { get; set; }
+        public virtual int DisplayStyleId { get; set; }
 
         public bool IsNew { get; set; }
 
