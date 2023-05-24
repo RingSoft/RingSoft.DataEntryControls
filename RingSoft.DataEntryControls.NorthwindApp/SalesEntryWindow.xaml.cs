@@ -4,8 +4,10 @@ using RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry;
 using RingSoft.DataEntryControls.WPF;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DbLookup.AutoFill;
+using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
+using System.Windows.Controls.Primitives;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -16,6 +18,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
     {
         public override DbMaintenanceViewModelBase ViewModel => SalesEntryViewModel;
         public override DbMaintenanceButtonsControl MaintenanceButtonsControl => ButtonsControl;
+        public override DbMaintenanceStatusBar DbStatusBar => StatusBar;
 
         public SalesEntryWindow()
         {

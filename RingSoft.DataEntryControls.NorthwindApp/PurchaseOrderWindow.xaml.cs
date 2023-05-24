@@ -1,8 +1,10 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
+using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 
@@ -15,6 +17,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
     {
         public override DbMaintenanceViewModelBase ViewModel => PurchaseOrderViewModel;
         public override DbMaintenanceButtonsControl MaintenanceButtonsControl => ButtonsControl;
+        public override DbMaintenanceStatusBar DbStatusBar => StatusBar;
 
         public PurchaseOrderWindow()
         {

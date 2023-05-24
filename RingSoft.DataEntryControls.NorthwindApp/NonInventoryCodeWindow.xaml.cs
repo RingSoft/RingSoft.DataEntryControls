@@ -1,6 +1,8 @@
 ﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
+using System.Windows.Controls.Primitives;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -11,6 +13,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
     {
         public override DbMaintenanceViewModelBase ViewModel => NonInventoryCodeViewModel;
         public override DbMaintenanceButtonsControl MaintenanceButtonsControl => ButtonsControl;
+        public override DbMaintenanceStatusBar DbStatusBar => StatusBar;
 
         public NonInventoryCodeWindow()
         {

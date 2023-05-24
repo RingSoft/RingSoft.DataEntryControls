@@ -12,6 +12,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public abstract DbMaintenanceButtonsControl MaintenanceButtonsControl { get; }
 
+        public abstract DbMaintenanceStatusBar DbStatusBar { get; }
+
         public AutoFillControl KeyAutoFillControl { get; private set; }
 
         public IDbMaintenanceProcessor Processor { get; set; }
@@ -19,7 +21,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         public void Initialize()
         {
             Processor = LookupControlsGlobals.DbMaintenanceProcessorFactory.GetProcessor();
-            Processor.Initialize(this, MaintenanceButtonsControl, ViewModel, this);
+            Processor.Initialize(this, MaintenanceButtonsControl, ViewModel, this, DbStatusBar);
             Closing += (sender, args) => ViewModel.OnWindowClosing(args);
 
         }

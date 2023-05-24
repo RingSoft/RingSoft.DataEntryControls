@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
+using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
 
@@ -12,6 +14,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
     {
         public override DbMaintenanceViewModelBase ViewModel => ProductViewModel;
         public override DbMaintenanceButtonsControl MaintenanceButtonsControl => ButtonsControl;
+        public override DbMaintenanceStatusBar DbStatusBar => StatusBar;
 
         public ProductWindow()
         {

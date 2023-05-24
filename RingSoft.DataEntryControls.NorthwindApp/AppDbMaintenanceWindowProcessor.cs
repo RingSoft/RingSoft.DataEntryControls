@@ -25,11 +25,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         public override Control MaintenanceButtonsControl { get; set; }
 
         public override void Initialize(BaseWindow window, Control buttonsControl,
-            DbMaintenanceViewModelBase viewModel, IDbMaintenanceView view)
+            DbMaintenanceViewModelBase viewModel, IDbMaintenanceView view, DbMaintenanceStatusBar statusBar)
         {
             MaintenanceWindow = window;
             ViewModel = viewModel;
             MaintenanceButtonsControl = buttonsControl;
+            SetupStatusBar(viewModel, statusBar);
             
             var dbMaintenanceButtons = (DbMaintenanceButtonsControl) buttonsControl;
             SaveButton = dbMaintenanceButtons.SaveButton;
