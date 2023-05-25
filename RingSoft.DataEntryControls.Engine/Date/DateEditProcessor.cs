@@ -26,13 +26,13 @@ namespace RingSoft.DataEntryControls.Engine.Date
             if (value == null)
             {
                 Control.Text = GetNullDatePattern();
-                Control.SetSelectAll();
             }
             else
             {
                 var newValue = (DateTime) value;
                 Control.Text = newValue.ToString(entryFormat, _setup.Culture);
             }
+            Control.SetSelectAll();
         }
 
         public string GetNullDatePattern()

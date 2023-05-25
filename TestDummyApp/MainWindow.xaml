@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--<StackPanel x:Name="EditHost" Orientation="Horizontal"/>-->
-        <!--<dec:DecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" EditFormatType="Currency" HorizontalAlignment="Left" MaximumValue="10000" MinimumValue="-10000"/>-->
+        <dec:DecimalEditControl Value="{Binding Path=CalcValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" DesignText="$1,000,000.00" FormatType="Currency" HorizontalAlignment="Left" MaximumValue="10000" MinimumValue="-10000" AllowNullValue="True"/>
         <dec:DateEditControl x:Name="DateEditControl" Width="200" HorizontalAlignment="Left" DateFormatType="DateTime" MaximumDate="01/15/2021" MinimumDate="01/15/2020"/>
         <!--<dec:IntegerEditControl HorizontalAlignment="Left" Width="100"/>-->
         <dec:IntegerEditControl x:Name="IntegerEditControl"/>

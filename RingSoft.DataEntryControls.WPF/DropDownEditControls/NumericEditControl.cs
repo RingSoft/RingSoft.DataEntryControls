@@ -135,6 +135,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private DataEntryNumericControlProcessor _numericProcessor;
         private bool _settingText;
+        private bool _overrideSelChanged;
 
         static NumericEditControl()
         {
@@ -251,8 +252,23 @@ namespace RingSoft.DataEntryControls.WPF
                 _settingText = true;
                 TextBox.Text = _numericProcessor.FormatTextForEntry(setup, newText);
                 _settingText = false;
+                TextBox.ScrollToTop();
+                _overrideSelChanged = true;
+                TextBox.SelectionChanged += TextBox_SelectionChanged;
+
             }
         }
+
+        private void TextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (TextBox.SelectionLength == 0 && _overrideSelChanged)
+            {
+                TextBox.SelectionChanged -= TextBox_SelectionChanged;
+                _overrideSelChanged = false;
+                TextBox.ScrollToTop();
+            }
+        }
+
 
         private DecimalEditControlSetup GetSetup()
         {
