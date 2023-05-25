@@ -6,6 +6,7 @@ using System.Linq;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -192,6 +193,12 @@ namespace RingSoft.DataEntryControls.WPF
                     InputManager.Current.ProcessInput(e);
                 }
             }
+        }
+
+        public static void DoEvents()
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+                new Action(delegate { }));
         }
     }
 }

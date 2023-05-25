@@ -176,6 +176,7 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _controlLoaded;
         private bool _settingText;
         private bool _readOnlyMode;
+        private bool _overrideSelChanged;
 
         static DataEntryMemoEditor()
         {
@@ -183,6 +184,8 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(typeof(DataEntryMemoEditor)));
 
             FocusableProperty.OverrideMetadata(typeof(DataEntryMemoEditor), new FrameworkPropertyMetadata(false));
+
+            SelectAllOnGotFocusProperty.OverrideMetadata(typeof(DataEntryMemoEditor), new FrameworkPropertyMetadata(true));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
         }
@@ -232,9 +235,23 @@ namespace RingSoft.DataEntryControls.WPF
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (SelectAllOnGotFocus)
-                TextBox.SelectAll();
+            {
+                TextBox.ScrollToTop();
+                _overrideSelChanged = true;
+                TextBox.SelectionChanged += TextBox_SelectionChanged;
+
+            }
         }
 
+        private void TextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (TextBox.SelectionLength == 0 && _overrideSelChanged)
+            {
+                TextBox.SelectionChanged -= TextBox_SelectionChanged;
+                _overrideSelChanged = false;
+                TextBox.ScrollToTop();
+            }
+        }
         private void DateStampButton_Click(object sender, RoutedEventArgs e)
         {
             if (TextBox != null)

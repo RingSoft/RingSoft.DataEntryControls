@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,6 +58,7 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        private bool _overrideSelChanged;
         static StringEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StringEditControl),
@@ -74,8 +76,23 @@ namespace RingSoft.DataEntryControls.WPF
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             if (SelectAllOnGotFocus)
-                SelectAll();
+            {
+                this.ScrollToTop();
+                _overrideSelChanged = true;
+                SelectionChanged += StringEditControl_SelectionChanged;
+            }
+
             base.OnGotFocus(e);
+        }
+
+        private void StringEditControl_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (SelectionLength == 0 && _overrideSelChanged)
+            {
+                SelectionChanged -= StringEditControl_SelectionChanged;
+                _overrideSelChanged = false;
+                this.ScrollToTop();
+            }
         }
 
         private void SetDesignText()

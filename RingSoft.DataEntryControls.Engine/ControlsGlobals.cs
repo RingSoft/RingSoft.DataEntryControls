@@ -17,5 +17,6 @@ namespace RingSoft.DataEntryControls.Engine
             }
             set => _userInterface = value;
         }
+
     }
 }

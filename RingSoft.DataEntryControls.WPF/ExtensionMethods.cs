@@ -280,5 +280,19 @@ namespace RingSoft.DataEntryControls.WPF
             Rect rect = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
             return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
         }
+
+        public static void ScrollToTop(this TextBox textBox)
+        {
+            //Peter Ringering - 05/25/2023 01:48:19 PM - E-40
+            var selectionStart = 0;
+            var selectionLength = textBox.Text.Length;
+            textBox.Select(selectionStart, selectionLength);
+            var line = textBox.GetLineIndexFromCharacterIndex(textBox.SelectionStart);
+            if (line >= 0)
+            {
+                textBox.ScrollToLine(line);
+            }
+        }
+
     }
 }

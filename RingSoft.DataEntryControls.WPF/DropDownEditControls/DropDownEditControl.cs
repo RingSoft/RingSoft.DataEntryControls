@@ -177,7 +177,7 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     //_textBox.PreviewTextInput -= _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown -= _textBox_PreviewKeyDown;
-                    _textBox.GotFocus -= _textBox_GotFocus;
+                    //_textBox.GotFocus -= _textBox_GotFocus;
                     _textBox.TextChanged -= _textBox_TextChanged;
                 }
 
@@ -187,7 +187,7 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     //_textBox.PreviewTextInput += _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown += _textBox_PreviewKeyDown;
-                    _textBox.GotFocus += _textBox_GotFocus;
+                    //_textBox.GotFocus += _textBox_GotFocus;
                     _textBox.TextChanged += _textBox_TextChanged;
                 }
             }
@@ -342,7 +342,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public override void OnApplyTemplate()
         {
-            TextBox = GetTemplateChild("TextBox") as TextBox;
+            TextBox = GetTemplateChild("TextBox") as StringEditControl;
             DropDownButton = GetTemplateChild("DropDownButton") as Button;
             Popup = GetTemplateChild("Popup") as Popup;
 
@@ -354,6 +354,7 @@ namespace RingSoft.DataEntryControls.WPF
                 ContextMenu = new ContextMenu();
                 ContextMenu.AddTextBoxContextMenuItems();
                 TextBox.ContextMenu = ContextMenu;
+                //TextBox.SelectAllOnGotFocus = true;
             }
 
             SetDesignText();
@@ -382,19 +383,19 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            if (TextBox == null)
-            {
-                _setFocus = true;
-            }
-            else
-            {
-                TextBox?.Focus();
-            }
+        //protected override void OnGotFocus(RoutedEventArgs e)
+        //{
+        //    if (TextBox == null)
+        //    {
+        //        _setFocus = true;
+        //    }
+        //    else
+        //    {
+        //        TextBox?.Focus();
+        //    }
 
-            base.OnGotFocus(e);
-        }
+        //    base.OnGotFocus(e);
+        //}
 
         public new bool Focus()
         {
@@ -452,13 +453,13 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected virtual void OnTextBoxGotFocus()
         {
-            _textBox.SelectionStart = 0;
-            _textBox.SelectionLength = _textBox.Text.Length;
+            //_textBox.SelectionStart = 0;
+            //_textBox.SelectionLength = _textBox.Text.Length;
         }
-        private void _textBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            OnTextBoxGotFocus();
-        }
+        //private void _textBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    OnTextBoxGotFocus();
+        //}
 
         private void _textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
