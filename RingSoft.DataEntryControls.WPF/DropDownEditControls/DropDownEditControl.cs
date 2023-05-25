@@ -177,7 +177,7 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     //_textBox.PreviewTextInput -= _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown -= _textBox_PreviewKeyDown;
-                    //_textBox.GotFocus -= _textBox_GotFocus;
+                    _textBox.GotFocus -= _textBox_GotFocus;
                     _textBox.TextChanged -= _textBox_TextChanged;
                 }
 
@@ -187,7 +187,7 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     //_textBox.PreviewTextInput += _textBox_PreviewTextInput;
                     _textBox.PreviewKeyDown += _textBox_PreviewKeyDown;
-                    //_textBox.GotFocus += _textBox_GotFocus;
+                    _textBox.GotFocus += _textBox_GotFocus;
                     _textBox.TextChanged += _textBox_TextChanged;
                 }
             }
@@ -456,10 +456,10 @@ namespace RingSoft.DataEntryControls.WPF
             //_textBox.SelectionStart = 0;
             //_textBox.SelectionLength = _textBox.Text.Length;
         }
-        //private void _textBox_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    OnTextBoxGotFocus();
-        //}
+        private void _textBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            OnTextBoxGotFocus();
+        }
 
         private void _textBox_TextChanged(object sender, TextChangedEventArgs e)
         {

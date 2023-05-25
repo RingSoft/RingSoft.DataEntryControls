@@ -235,6 +235,7 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _textSettingValue;
         private bool _validatingEntryFormat;
         private DateEditProcessor _processor;
+        private bool _overrideSelChanged;
 
         static DateEditControl()
         {
@@ -504,5 +505,23 @@ namespace RingSoft.DataEntryControls.WPF
         {
             ReadOnlyMode = readOnlyValue;
         }
+
+        public void SetSelectAll()
+        {
+            TextBox.ScrollToTop();
+            _overrideSelChanged = true;
+            TextBox.SelectionChanged += TextBox_SelectionChanged;
+        }
+
+        private void TextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (TextBox.SelectionLength == 0 && _overrideSelChanged)
+            {
+                TextBox.SelectionChanged -= TextBox_SelectionChanged;
+                _overrideSelChanged = false;
+                TextBox.ScrollToTop();
+            }
+        }
+
     }
 }

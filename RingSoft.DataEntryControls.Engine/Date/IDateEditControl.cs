@@ -3,5 +3,6 @@ namespace RingSoft.DataEntryControls.Engine
 {
     public interface IDateEditControl : IDropDownControl
     {
+        void SetSelectAll();
     }
 }

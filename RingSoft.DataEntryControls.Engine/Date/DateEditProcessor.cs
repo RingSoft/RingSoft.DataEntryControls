@@ -26,6 +26,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
             if (value == null)
             {
                 Control.Text = GetNullDatePattern();
+                Control.SetSelectAll();
             }
             else
             {
