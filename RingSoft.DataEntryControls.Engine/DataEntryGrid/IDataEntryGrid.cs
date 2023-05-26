@@ -1,5 +1,24 @@
-﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
+﻿using System.Collections.Generic;
+
+namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
+    public class ColumnMap
+    {
+        public int ColumnId { get; }
+
+        public string ColumnName { get; }
+
+        public ColumnMap(int id, string name)
+        {
+            ColumnId = id;
+            ColumnName = name;
+        }
+
+        public override string ToString()
+        {
+            return ColumnName;
+        }
+    }
     public interface IDataEntryGrid
     {
         bool DataEntryCanUserAddRows { get; set; }
@@ -31,5 +50,7 @@
         void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true);
 
         void RefreshGridView();
+
+        List<ColumnMap> GetColumns();
     }
 }

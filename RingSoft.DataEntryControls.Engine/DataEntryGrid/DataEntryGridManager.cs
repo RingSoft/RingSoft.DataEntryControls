@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
@@ -11,6 +12,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public ReadOnlyObservableCollection<DataEntryGridRow> Rows { get; }
 
         public IDataEntryGrid Grid { get; private set; }
+
+        public List<ColumnMap> Columns { get; private set; }
 
         public event EventHandler<NotifyCollectionChangedEventArgs> RowsChanged;
         public DataEntryGridManager()
@@ -39,6 +42,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         protected virtual void Initialize()
         {
+            Columns = Grid.GetColumns();
         }
 
         public virtual void RaiseDirtyFlag()

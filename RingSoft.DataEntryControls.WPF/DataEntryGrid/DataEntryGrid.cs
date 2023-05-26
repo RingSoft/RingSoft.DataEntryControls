@@ -884,6 +884,17 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        public List<ColumnMap> GetColumns()
+        {
+            var result = new List<ColumnMap>();
+            foreach (var column in Columns)
+            {
+                var header = column.Header as string;
+                result.Add(new ColumnMap(column.ColumnId, header));
+            }
+            return result;
+        }
+
         private void UpdateRowColors(DataGridRow dataGridRow, DataEntryGridRow gridRow)
         {
             dataGridRow.ClearValue(BackgroundProperty);
