@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 using RingSoft.DataEntryControls.WPF;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
@@ -37,8 +38,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Processor.OnValidationFail(fieldDefinition, text, caption);
         }
 
+        public void HandleAutoFillValFail(DbAutoFillMap autoFillMap)
+        {
+            LookupControlsGlobals.HandleValFail(this, autoFillMap);
+        }
+
         public virtual void ResetViewForNewRecord()
         {
+        }
+
+        public List<DbAutoFillMap> GetAutoFills()
+        {
+            return LookupControlsGlobals.GetAutoFills(this);
         }
 
 

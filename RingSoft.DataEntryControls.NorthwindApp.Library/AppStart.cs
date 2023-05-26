@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using RingSoft.DbLookup;
 using RingSoft.DbLookup.QueryBuilder;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
@@ -45,6 +46,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
             AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.InitStructure);
             AppGlobals.LookupContext = new NorthwindLookupContext();
+            SystemGlobals.LookupContext = AppGlobals.LookupContext;
 
             AppGlobals.DbContextProcessor = new DbContextProcessor();
 
