@@ -156,7 +156,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             if (ProductValue == null || !ProductValue.PrimaryKeyValue.IsValid)
             {
-                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
+                //SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
                 SalesEntryDetailsManager.Grid?.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Product must contain a valid value.";

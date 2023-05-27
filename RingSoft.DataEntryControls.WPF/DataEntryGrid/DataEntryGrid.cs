@@ -1315,6 +1315,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         public void GotoCell(DataEntryGridRow row, int columnId)
         {
+            if (!IsKeyboardFocusWithin)
+            {
+                this.SetTabFocusToControl();
+            }
             var rowIndex = Manager.Rows.IndexOf(row);
             var columnIndex = GetColumnIndexOfColumnId(columnId);
             SetFocusToCell(rowIndex, columnIndex);

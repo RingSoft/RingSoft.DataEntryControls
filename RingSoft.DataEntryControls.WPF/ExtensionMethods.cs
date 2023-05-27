@@ -101,6 +101,25 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
+        public static List<T> GetLogicalChildren<T>(this DependencyObject obj)
+            where T : DependencyObject
+
+        {
+            var result = new List<T>();
+            var children = LogicalTreeHelper.GetChildren(obj);
+            foreach (var child in children)
+            {
+
+                if (child is T)
+                    result.Add((T)child);
+                else if (child is DependencyObject dependencyChild)
+                {
+                    result.AddRange(GetLogicalChildren<T>(dependencyChild));
+                }
+            }
+            return result;
+        }
+
         public static List<Control> GetChildControls(this DependencyObject parent, bool applyTemplates = false)
         {
             return parent.GetChildrenOfType<Control>();
@@ -291,6 +310,19 @@ namespace RingSoft.DataEntryControls.WPF
             if (line >= 0)
             {
                 textBox.ScrollToLine(line);
+            }
+        }
+        public static void SetTabFocusToControl(this Control foundControl)
+        {
+            var tabItem = foundControl.GetLogicalParent<TabItem>();
+            if (tabItem != null)
+            {
+                var tabControl = foundControl.GetParentOfType<TabControl>();
+                if (tabControl != null)
+                {
+                    tabControl.SelectedItem = tabItem;
+                    tabControl.UpdateLayout();
+                }
             }
         }
 
