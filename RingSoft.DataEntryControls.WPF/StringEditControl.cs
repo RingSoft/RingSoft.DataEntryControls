@@ -73,24 +73,19 @@ namespace RingSoft.DataEntryControls.WPF
             ContextMenu.AddTextBoxContextMenuItems();
         }
 
-        protected override void OnGotFocus(RoutedEventArgs e)
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
-            if (SelectAllOnGotFocus)
-            {
-                this.ScrollToTop();
-                _overrideSelChanged = true;
-                SelectionChanged += StringEditControl_SelectionChanged;
-            }
-
-            base.OnGotFocus(e);
+            base.OnMouseDoubleClick(e);
+            this.ScrollToTop();
         }
 
-        private void StringEditControl_SelectionChanged(object sender, RoutedEventArgs e)
+        protected override void OnGotFocus(RoutedEventArgs e)
         {
-            if (SelectionLength == 0 && _overrideSelChanged)
+            base.OnGotFocus(e);
+            var mouseClick = Mouse.LeftButton == MouseButtonState.Pressed ||
+                             Mouse.RightButton == MouseButtonState.Pressed;
+            if (SelectAllOnGotFocus && !mouseClick)
             {
-                SelectionChanged -= StringEditControl_SelectionChanged;
-                _overrideSelChanged = false;
                 this.ScrollToTop();
             }
         }

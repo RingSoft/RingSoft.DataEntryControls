@@ -508,20 +508,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public void SetSelectAll()
         {
-            TextBox.ScrollToTop();
-            _overrideSelChanged = true;
-            TextBox.SelectionChanged += TextBox_SelectionChanged;
+            //TextBox.ScrollToTop();
         }
-
-        private void TextBox_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            if (TextBox.SelectionLength == 0 && _overrideSelChanged)
-            {
-                TextBox.SelectionChanged -= TextBox_SelectionChanged;
-                _overrideSelChanged = false;
-                TextBox.ScrollToTop();
-            }
-        }
-
     }
 }
