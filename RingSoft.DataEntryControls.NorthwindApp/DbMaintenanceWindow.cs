@@ -38,20 +38,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Processor.OnValidationFail(fieldDefinition, text, caption);
         }
 
-        public void HandleAutoFillValFail(DbAutoFillMap autoFillMap)
-        {
-            LookupControlsGlobals.HandleValFail(this, autoFillMap);
-        }
-
         public virtual void ResetViewForNewRecord()
         {
         }
-
-        public List<DbAutoFillMap> GetAutoFills()
-        {
-            return LookupControlsGlobals.GetAutoFills(this);
-        }
-
 
         protected override void OnReadOnlyModeSet(bool readOnlyValue)
         {
