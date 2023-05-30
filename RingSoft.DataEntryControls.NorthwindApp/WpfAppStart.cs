@@ -20,7 +20,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 return AppDomain.CurrentDomain.BaseDirectory;
 #else
                 return
-                    $"{Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}\\RingSoft\\DbLookup\\";
+                    $"{Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}\\RingSoft\\DataEntryNorthwindDemoApp\\";
 #endif
             }
         }
