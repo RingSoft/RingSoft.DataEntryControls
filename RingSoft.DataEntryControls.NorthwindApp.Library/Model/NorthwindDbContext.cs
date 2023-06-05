@@ -7,7 +7,7 @@ using RingSoft.DbLookup.RecordLocking;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 {
-    public class NorthwindDbContext : DbContext, IAdvancedFindDbContextEfCore
+    public class NorthwindDbContext : DbContextEfCore, IAdvancedFindDbContextEfCore
     {
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
@@ -21,10 +21,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
 
-        public DbSet<AdvancedFind> AdvancedFinds { get; set; }
-        public DbSet<AdvancedFindColumn> AdvancedFindColumns { get; set; }
-        public DbSet<AdvancedFindFilter> AdvancedFindFilters { get; set; }
-
         private static NorthwindLookupContext _lookupContext;
 
         public NorthwindDbContext()
@@ -36,10 +32,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
             _lookupContext = lookupContext;
         }
 
-        public NorthwindDbContext(DbContextOptions<NorthwindDbContext> options)
-            : base(options)
-        {
-        }
+        //public NorthwindDbContext(DbContextOptions<NorthwindDbContext> options)
+        //    : base(options)
+        //{
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -479,65 +475,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
             return this;
         }
 
+        public override DbContextEfCore GetNewDbContextEfCore()
+        {
+            return new NorthwindDbContext();
+        }
+
         public IAdvancedFindDbContextEfCore GetNewDbContext()
         {
             return new NorthwindDbContext();
         }
 
-        public DbSet<RecordLock> RecordLocks { get; set; }
-        public bool SaveNoCommitEntity<TEntity>(TEntity entity, string message) where TEntity : class
-        {
-            var context = GetDbContextEf();
-            if (!context.SaveNoCommitEntity(Set<TEntity>(), entity, message))
-                return false;
 
-            return true;
-        }
-        public bool SaveEntity<TEntity>(TEntity entity, string message) where TEntity : class
-        {
-            return GetDbContextEf().SaveEntity(Set<TEntity>(), entity, message);
-        }
-
-        public bool DeleteEntity<TEntity>(TEntity entity, string message) where TEntity : class
-        {
-            return GetDbContextEf().DeleteEntity(Set<TEntity>(), entity, message);
-        }
-
-        public bool DeleteNoCommitEntity<TEntity>(TEntity entity, string message) where TEntity : class
-        {
-            return GetDbContextEf().DeleteNoCommitEntity(Set<TEntity>(), entity, message);
-        }
-
-        public bool AddNewNoCommitEntity<TEntity>(TEntity entity, string message) where TEntity : class
-        {
-            return GetDbContextEf().AddNewNoCommitEntity(Set<TEntity>(), entity, message);
-        }
-
-        public bool Commit(string message)
-        {
-            var result = GetDbContextEf().SaveEfChanges(message);
-
-            return result;
-        }
-
-        public void RemoveRange<TEntity>(IEnumerable<TEntity> listToRemove) where TEntity : class
-        {
-            var dbSet = Set<TEntity>();
-
-            dbSet.RemoveRange(listToRemove);
-        }
-
-        public void AddRange<TEntity>(List<TEntity> listToAdd) where TEntity : class
-        {
-            var dbSet = Set<TEntity>();
-
-            dbSet.AddRange(listToAdd);
-        }
-
-        public IQueryable<TEntity> GetTable<TEntity>() where TEntity : class
-        {
-            var dbSet = Set<TEntity>();
-            return dbSet;
-        }
     }
 }
