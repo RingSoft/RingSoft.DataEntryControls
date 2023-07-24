@@ -206,9 +206,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
-        private decimal _subTotal;
+        private double _subTotal;
 
-        public decimal SubTotal
+        public double SubTotal
         {
             get => _subTotal;
             set
@@ -221,9 +221,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
-        private decimal _freight;
+        private double _freight;
 
-        public decimal Freight
+        public double Freight
         {
             get => _freight;
             set
@@ -236,9 +236,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
-        private decimal _total;
+        private double _total;
 
-        public decimal Total
+        public double Total
         {
             get => _total;
             set
@@ -455,7 +455,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public void RefreshTotalControls()
         {
-            decimal subTotal = 0;
+            double subTotal = 0;
             foreach (var gridRow in DetailsGridManager.Rows)
             {
                 if (gridRow is PurchaseOrderDetailsProductRow productRow)

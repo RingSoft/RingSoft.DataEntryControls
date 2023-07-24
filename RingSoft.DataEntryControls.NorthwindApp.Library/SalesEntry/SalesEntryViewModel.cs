@@ -223,8 +223,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         }
 
 
-        private decimal _freight;
-        public decimal Freight
+        private double _freight;
+        public double Freight
         {
             get => _freight;
             set
@@ -333,9 +333,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private decimal _subTotal;
+        private double _subTotal;
 
-        public decimal SubTotal
+        public double SubTotal
         {
             get => _subTotal;
             set
@@ -348,8 +348,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private decimal _totalDiscount;
-        public decimal TotalDiscount
+        private double _totalDiscount;
+        public double TotalDiscount
         {
             get => _totalDiscount;
             set
@@ -362,9 +362,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        private decimal _total;
+        private double _total;
 
-        public decimal Total
+        public double Total
         {
             get => _total;
             set
@@ -516,7 +516,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 shipCompanyName);
 
             if (entity.Freight != null) 
-                Freight = (decimal) entity.Freight;
+                Freight = (double) entity.Freight;
             ShipName = entity.ShipName;
             Address = entity.ShipAddress;
             City = entity.ShipCity;
@@ -538,8 +538,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public void RefreshTotalControls()
         {
-            decimal subTotal = 0;
-            decimal totalDiscount = 0;
+            double subTotal = 0;
+            double totalDiscount = 0;
 
             foreach (var dataEntryGridRow in DetailsGridManager.Rows)
             {

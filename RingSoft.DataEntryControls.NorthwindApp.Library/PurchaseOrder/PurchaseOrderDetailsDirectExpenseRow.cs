@@ -10,7 +10,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         private DecimalEditControlSetup _priceSetup = AppGlobals.CreateNewDecimalEditControlSetup();
 
@@ -74,7 +74,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     {
                         if (decimalCellProps.Value != null)
                         {
-                            Price = (decimal) decimalCellProps.Value;
+                            Price = (double) decimalCellProps.Value;
                             PurchaseOrderDetailsManager.PurchaseOrderViewModel.RefreshTotalControls();
                         }
                     }
@@ -108,7 +108,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         {
             Description = entity.DirectExpenseText;
             if (entity.Price != null)
-                Price = (decimal) entity.Price;
+                Price = (double) entity.Price;
 
             base.LoadFromEntity(entity);
         }

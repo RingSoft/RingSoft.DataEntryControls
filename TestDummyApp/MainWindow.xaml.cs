@@ -37,9 +37,9 @@ namespace TestDummyApp
             }
         }
 
-        private decimal? _calcValue;
+        private double? _calcValue;
 
-        public decimal? CalcValue
+        public double? CalcValue
         {
             get => _calcValue;
             set
@@ -57,8 +57,8 @@ namespace TestDummyApp
             InitializeComponent();
 
             GridManager = new AppGridManager(this);
-            CalcValue = (decimal)-2345.67;
-            //CalcValue = (decimal)0.67;
+            CalcValue = (double)-2345.67;
+            //CalcValue = (double)0.67;
             //DateEditControl.EntryFormat = "M/d/yy";
             //DateEditControl.DisplayFormat = "D";
             //DateEditControl.Value = DateTime.Parse("01/01/1980");

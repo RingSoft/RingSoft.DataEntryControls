@@ -19,18 +19,18 @@ namespace RingSoft.DataEntryControls.Engine
     /// <summary>
     /// All the properties necessary to set up a DecimalEditControl.
     /// </summary>
-    public class DecimalEditControlSetup : NumericEditControlSetup<decimal?>
+    public class DecimalEditControlSetup : NumericEditControlSetup<double?>
     {
         /// <summary>
-        /// Gets or sets the number of digits to the right of the decimal point.
+        /// Gets or sets the number of digits to the right of the double point.
         /// </summary>
         /// <value>
-        /// The decimal count.
+        /// The double count.
         /// </value>
         public int Precision { get; set; } = 2;
 
         /// <summary>
-        /// Gets or sets the format type of the decimal edit control.
+        /// Gets or sets the format type of the double edit control.
         /// </summary>
         /// <value>
         /// The format type of the numeric edit control.

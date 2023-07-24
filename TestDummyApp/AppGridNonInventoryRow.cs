@@ -37,7 +37,7 @@ namespace TestDummyApp
                     };
                     break;
                 case AppGridColumns.Price:
-                    result = new DataEntryGridDecimalCellProps(this, columnId, PriceSetup, (decimal)Price);
+                    result = new DataEntryGridDecimalCellProps(this, columnId, PriceSetup, (double)Price);
                     break;
             }
 

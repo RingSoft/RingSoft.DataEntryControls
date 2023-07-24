@@ -13,7 +13,7 @@ namespace RingSoft.DataEntryControls.Tests
         public bool MemoryMinusEnabled { get; set; }
         public bool MemoryStatusVisible { get; set; }
 
-        public void OnValueChanged(decimal? oldValue, decimal? newValue)
+        public void OnValueChanged(double? oldValue, double? newValue)
         {
             
         }

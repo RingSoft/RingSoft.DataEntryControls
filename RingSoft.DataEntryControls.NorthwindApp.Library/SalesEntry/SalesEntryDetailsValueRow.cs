@@ -10,11 +10,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
     public abstract class SalesEntryDetailsValueRow : SalesEntryDetailsRow
     
     {
-        public decimal Quantity { get; protected set; }
+        public double Quantity { get; protected set; }
 
-        public decimal Price { get; protected set; }
+        public double Price { get; protected set; }
 
-        public decimal ExtendedPrice => Math.Round(Quantity * Price, 2);
+        public double ExtendedPrice => Math.Round(Quantity * Price, 2);
 
         private DecimalEditControlSetup _quantitySetup;
         private DecimalEditControlSetup _priceSetup;
@@ -73,7 +73,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     {
                         if (quantityDecimalCellProps.Value != null)
                         {
-                            Quantity = (decimal)quantityDecimalCellProps.Value;
+                            Quantity = (double)quantityDecimalCellProps.Value;
                             SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
                         }
                     }
@@ -83,7 +83,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     {
                         if (priceDecimalCellProps.Value != null)
                         {
-                            Price = (decimal)priceDecimalCellProps.Value;
+                            Price = (double)priceDecimalCellProps.Value;
                             SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
                         }
                     }
@@ -95,10 +95,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public override void LoadFromEntity(OrderDetails entity)
         {
             if (entity.Quantity != null)
-                Quantity = (decimal)entity.Quantity;
+                Quantity = (double)entity.Quantity;
 
             if (entity.UnitPrice != null)
-                Price = (decimal)entity.UnitPrice;
+                Price = (double)entity.UnitPrice;
 
             base.LoadFromEntity(entity);
         }

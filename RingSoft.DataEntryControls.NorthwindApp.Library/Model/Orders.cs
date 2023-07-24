@@ -18,7 +18,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public DateTime? RequiredDate { get; set; }
         public DateTime? ShippedDate { get; set; }
         public int? ShipVia { get; set; }
-        public decimal? Freight { get; set; }
+        public double? Freight { get; set; }
         public string ShipName { get; set; }
         public string ShipAddress { get; set; }
         public string ShipCity { get; set; }

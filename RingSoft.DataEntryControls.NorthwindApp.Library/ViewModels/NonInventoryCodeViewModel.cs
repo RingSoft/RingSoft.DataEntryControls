@@ -26,8 +26,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private decimal _price;
-        public decimal Price
+        private double _price;
+        public double Price
         {
             get => _price;
             set

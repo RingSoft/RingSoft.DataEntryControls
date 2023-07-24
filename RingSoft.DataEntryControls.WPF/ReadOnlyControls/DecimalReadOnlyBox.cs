@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:DecimalReadOnlyBox/>
     ///
     /// </summary>
-    public class DecimalReadOnlyBox : NumericReadOnlyBox<decimal?>
+    public class DecimalReadOnlyBox : NumericReadOnlyBox<double?>
     {
         public static readonly DependencyProperty PrecisionProperty =
             DependencyProperty.Register(nameof(Precision), typeof(int), typeof(DecimalReadOnlyBox),
@@ -83,7 +83,7 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 var formatString =
                     DecimalEditControlSetup.GetDecimalFormatString(FormatType, Precision, NumberFormatString);
-                var displayValue = (decimal) Value;
+                var displayValue = (double) Value;
 
                 text = displayValue.ToString(formatString, Culture.NumberFormat);
             }

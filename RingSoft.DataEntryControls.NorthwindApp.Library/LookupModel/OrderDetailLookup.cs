@@ -8,8 +8,8 @@
 
         public string Product { get; set; }
 
-        public decimal UnitPrice { get; set; }
+        public double UnitPrice { get; set; }
 
-        public decimal Quantity { get; set; }
+        public double Quantity { get; set; }
     }
 }

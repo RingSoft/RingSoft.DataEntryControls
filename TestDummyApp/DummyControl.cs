@@ -64,7 +64,7 @@ namespace TestDummyApp
             if (e.Key == Key.F4)
             {
                 Popup.IsOpen = !Popup.IsOpen;
-                //Calculator.Value = (decimal)298.32;
+                //Calculator.Value = (double)298.32;
                 //Calculator.Focus();
             }
         }

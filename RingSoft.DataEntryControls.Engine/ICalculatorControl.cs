@@ -11,6 +11,6 @@
         bool MemoryMinusEnabled { get; set; }
         bool MemoryStatusVisible { get; set; }
         
-        void OnValueChanged(decimal? oldValue, decimal? newValue);
+        void OnValueChanged(double? oldValue, double? newValue);
     }
 }

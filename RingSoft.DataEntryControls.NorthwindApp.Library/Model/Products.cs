@@ -16,10 +16,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public int? SupplierId { get; set; }
         public int? CategoryId { get; set; }
         public string QuantityPerUnit { get; set; }
-        public decimal? UnitPrice { get; set; }
-        public decimal? UnitsInStock { get; set; }
-        public decimal? UnitsOnOrder { get; set; }
-        public decimal? ReorderLevel { get; set; }
+        public double? UnitPrice { get; set; }
+        public double? UnitsInStock { get; set; }
+        public double? UnitsOnOrder { get; set; }
+        public double? ReorderLevel { get; set; }
         public bool Discontinued { get; set; }
         public string OrderComment { get; set; }
         public string PurchaseComment { get; set; }

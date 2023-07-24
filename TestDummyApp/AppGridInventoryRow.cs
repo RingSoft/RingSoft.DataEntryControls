@@ -44,7 +44,7 @@ namespace TestDummyApp
                     result = new DataEntryGridTextCellProps(this, columnId) { Text = Location };
                     break;
                 case AppGridColumns.Price:
-                    result = new DataEntryGridDecimalCellProps(this, columnId, PriceSetup, (decimal)Price);
+                    result = new DataEntryGridDecimalCellProps(this, columnId, PriceSetup, (double)Price);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -52,12 +52,12 @@ namespace RingSoft.DataEntryControls.Engine
             return NumberFormatString;
         }
 
-        public string FormatValue(decimal? value)
+        public string FormatValue(double? value)
         {
             if (value == null)
                 return string.Empty;
 
-            var newValue = (decimal)value;
+            var newValue = (double)value;
 
             return newValue.ToString(GetNumberFormatString(), Culture.NumberFormat);
         }

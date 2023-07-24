@@ -12,11 +12,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public AutoFillValue ProductValue { get; private set; }
 
-        public decimal Quantity { get; private set; }
+        public double Quantity { get; private set; }
 
-        public decimal Price { get; private set; }
+        public double Price { get; private set; }
 
-        public decimal ExtendedPrice => Quantity * Price;
+        public double ExtendedPrice => Quantity * Price;
 
         public bool ValidProduct =>
             ProductValue?.PrimaryKeyValue != null && ProductValue.PrimaryKeyValue.IsValid;
@@ -154,12 +154,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 case PurchaseOrderColumns.Quantity:
                     if (value is DataEntryGridDecimalCellProps quantityCellProps)
                         if (quantityCellProps.Value != null)
-                            Quantity = (decimal) quantityCellProps.Value;
+                            Quantity = (double) quantityCellProps.Value;
                     break;
                 case PurchaseOrderColumns.Price:
                     if (value is DataEntryGridDecimalCellProps priceCellProps)
                         if (priceCellProps.Value != null)
-                            Price = (decimal) priceCellProps.Value;
+                            Price = (double) priceCellProps.Value;
                     break;
             }
             PurchaseOrderDetailsManager.PurchaseOrderViewModel.RefreshTotalControls();
@@ -177,7 +177,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
                 Quantity = 1;
                 if (product.UnitPrice != null)
-                    Price = (decimal)product.UnitPrice;
+                    Price = (double)product.UnitPrice;
 
                 LoadChildRows(product);
 
@@ -202,10 +202,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     entity.Product.ProductName);
 
             if (entity.Quantity != null) 
-                Quantity = (decimal) entity.Quantity;
+                Quantity = (double) entity.Quantity;
 
             if (entity.Price != null) 
-                Price = (decimal) entity.Price;
+                Price = (double) entity.Price;
 
             var children = GetDetailChildren(entity);
             foreach (var child in children)

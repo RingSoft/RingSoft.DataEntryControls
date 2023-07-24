@@ -7,7 +7,7 @@ namespace RingSoft.DataEntryControls.WPF.DropDownEditControls
     {
         Control Control { get; }
 
-        decimal? Value { get; set; }
+        double? Value { get; set; }
 
         int Precision { get; set; }
 

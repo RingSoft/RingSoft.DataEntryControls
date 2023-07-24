@@ -18,11 +18,11 @@ namespace RingSoft.DataEntryControls.Engine
 
         public int Precision { get; set; } = -1;
 
-        public decimal? ComittedValue { get; private set; }
+        public double? ComittedValue { get; private set; }
 
-        private decimal? _memory;
+        private double? _memory;
 
-        public decimal? Memory
+        public double? Memory
         {
             get => _memory;
             private set
@@ -45,10 +45,10 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
         private CalculatorOperators? _lastOperator;
-        private decimal _currentValue;
-        private decimal? _valueAtOperator;
-        private decimal? _initialValue;
-        private decimal? _valueAtEquals;
+        private double _currentValue;
+        private double? _valueAtOperator;
+        private double? _initialValue;
+        private double? _valueAtEquals;
         private bool _equalsProcessed;
         private bool _enteringData;
 
@@ -64,7 +64,7 @@ namespace RingSoft.DataEntryControls.Engine
             SetEntryText(ComittedValue);
         }
 
-        public void ReinitializeValue(decimal? value)
+        public void ReinitializeValue(double? value)
         {
             if (ComittedValue != value)
             {
@@ -84,7 +84,7 @@ namespace RingSoft.DataEntryControls.Engine
             CalculationError = false;
         }
 
-        private void SetEntryText(decimal? value)
+        private void SetEntryText(double? value)
         {
             if (CalculationError)
                 Reset();
@@ -92,21 +92,21 @@ namespace RingSoft.DataEntryControls.Engine
             Control.EntryText = FormatValue(value);
         }
 
-        private decimal GetEntryValue()
+        private double GetEntryValue()
         {
-            decimal result = 0;
+            double result = 0;
             if (!CalculationError)
                 result = Control.EntryText.ToDecimal();
 
             return result;
         }
 
-        private string FormatValue(decimal? value)
+        private string FormatValue(double? value)
         {
             var text = "0";
             if (value != null)
             {
-                var newValue = (decimal) value;
+                var newValue = (double) value;
                 var wholeNumberText = text = newValue.ToString(CultureInfo.CurrentCulture);
                 var decimalIndex = text.IndexOf(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator,
                     StringComparison.Ordinal);
@@ -189,7 +189,7 @@ namespace RingSoft.DataEntryControls.Engine
             _enteringData = true;
         }
 
-        private void ProcessEntryValue(decimal number)
+        private void ProcessEntryValue(double number)
         {
             PreProcessEntryValue();
 
@@ -302,7 +302,7 @@ namespace RingSoft.DataEntryControls.Engine
                 AddToEquationText(CalculatorOperators.Equals, _valueAtEquals);
                 if (_valueAtEquals != null)
                 {
-                    var valueAtEquals = (decimal) _valueAtEquals;
+                    var valueAtEquals = (double) _valueAtEquals;
                     if (!PerformOperation(lastOperator, valueAtEquals))
                         return;
                 }
@@ -324,11 +324,11 @@ namespace RingSoft.DataEntryControls.Engine
             _equalsProcessed = true;
         }
 
-        private void SetEqualsValue(decimal? value)
+        private void SetEqualsValue(double? value)
         {
             if (Precision >= 0 && value != null)
             {
-                var newValue = (decimal)value;
+                var newValue = (double)value;
                 var text = newValue.ToString(CultureInfo.CurrentCulture);
                 var decimalIndex = text.IndexOf(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator,
                     StringComparison.Ordinal);
@@ -346,7 +346,7 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
 
-        private bool PerformOperation(CalculatorOperators currentOperator, decimal entryValue)
+        private bool PerformOperation(CalculatorOperators currentOperator, double entryValue)
         {
             switch (currentOperator)
             {
@@ -379,7 +379,7 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
-        private void AddToEquationText(CalculatorOperators calculatorOperator, decimal? entryValue = null)
+        private void AddToEquationText(CalculatorOperators calculatorOperator, double? entryValue = null)
         {
             var entryText = Control.EntryText;
             if (entryValue != null)
@@ -439,7 +439,7 @@ namespace RingSoft.DataEntryControls.Engine
         {
             if (Memory != null)
             {
-                var memory = (decimal) Memory;
+                var memory = (double) Memory;
                 ProcessEntryValue(memory);
                 _initialValue = memory;
             }
@@ -447,9 +447,9 @@ namespace RingSoft.DataEntryControls.Engine
 
         public void ProcessMemoryAdd()
         {
-            decimal newMemory = 0;
+            double newMemory = 0;
             if (Memory != null)
-                newMemory = (decimal) Memory;
+                newMemory = (double) Memory;
 
             newMemory += GetEntryValue();
             Memory = newMemory;
@@ -457,9 +457,9 @@ namespace RingSoft.DataEntryControls.Engine
 
         public void ProcessMemorySubtract()
         {
-            decimal newMemory = 0;
+            double newMemory = 0;
             if (Memory != null)
-                newMemory = (decimal)Memory;
+                newMemory = (double)Memory;
 
             newMemory -= GetEntryValue();
             Memory = newMemory;

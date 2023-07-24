@@ -176,7 +176,7 @@ CREATE TABLE [dbo].[Order Details](
 	[Comment] [nvarchar](50) NULL,
 	[CommentCrLf] [bit] NOT NULL,
 	[UnitPrice] [money] NULL,
-	[Quantity] [decimal](18, 4) NULL,
+	[Quantity] [double](18, 4) NULL,
 	[Discount] [real] NULL,
  CONSTRAINT [PK_Order_Details] PRIMARY KEY CLUSTERED 
 (
@@ -223,9 +223,9 @@ CREATE TABLE [dbo].[Products](
 	[CategoryID] [int] NULL,
 	[QuantityPerUnit] [nvarchar](20) NULL,
 	[UnitPrice] [money] NULL,
-	[UnitsInStock] [decimal](18, 4) NULL,
-	[UnitsOnOrder] [decimal](18, 4) NULL,
-	[ReorderLevel] [decimal](18, 4) NULL,
+	[UnitsInStock] [double](18, 4) NULL,
+	[UnitsOnOrder] [double](18, 4) NULL,
+	[ReorderLevel] [double](18, 4) NULL,
 	[Discontinued] [bit] NOT NULL,
 	[OrderComment] [ntext] NULL,
 	[PurchaseComment] [ntext] NULL,
@@ -253,7 +253,7 @@ CREATE TABLE [dbo].[Purchase Details](
 	[DirectExpenseText] [nvarchar](50) NULL,
 	[Comment] [nvarchar](50) NULL,
 	[CommentCrLf] [bit] NULL,
-	[Quantity] [decimal](18, 4) NULL,
+	[Quantity] [double](18, 4) NULL,
 	[Price] [money] NULL,
  CONSTRAINT [PK_Purchase Details] PRIMARY KEY CLUSTERED 
 (

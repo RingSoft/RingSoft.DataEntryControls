@@ -122,13 +122,13 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
-        public static decimal ToDecimal(this string text, CultureInfo culture = null)
+        public static double ToDecimal(this string text, CultureInfo culture = null)
         {
             text.TryParseDecimal(out var result, culture);
             return result;
         }
 
-        public static bool TryParseDecimal(this string text, out decimal resultDecimal, CultureInfo culture = null)
+        public static bool TryParseDecimal(this string text, out double resultDecimal, CultureInfo culture = null)
         {
             if (culture == null)
                 culture = CultureInfo.CurrentCulture;
@@ -141,7 +141,7 @@ namespace RingSoft.DataEntryControls.Engine
                     text = text.StripText(culture.NumberFormat.PercentSymbol);
             }
 
-            var result = decimal.TryParse(text,
+            var result = double.TryParse(text,
                 NumberStyles.AllowParentheses |
                 NumberStyles.AllowLeadingWhite |
                 NumberStyles.AllowTrailingWhite |
@@ -157,10 +157,6 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
-        public static double ToDouble(this decimal value)
-        {
-            return Decimal.ToDouble(value);
-        }
 
         public static int ToInt(this string text, CultureInfo culture = null)
         {

@@ -39,7 +39,7 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
 
     [TemplatePart(Name = "Calculator", Type = typeof(IDropDownCalculator))]
-    public class DecimalEditControl : NumericEditControl<decimal?>
+    public class DecimalEditControl : NumericEditControl<double?>
     {
         private IDropDownCalculator _calculatorControl;
 
@@ -115,7 +115,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         public event EventHandler CalculatorValueChanged;
 
-        private decimal? _pendingNewValue;
+        private double? _pendingNewValue;
 
         static DecimalEditControl()
         {
@@ -135,7 +135,7 @@ namespace RingSoft.DataEntryControls.WPF
             _pendingNewValue = null;
         }
 
-        protected override void LoadFromSetup(NumericEditControlSetup<decimal?> setup)
+        protected override void LoadFromSetup(NumericEditControlSetup<double?> setup)
         {
             FormatType = Setup.FormatType;
             Precision = Setup.Precision;
@@ -159,20 +159,20 @@ namespace RingSoft.DataEntryControls.WPF
         {
             var result = string.Empty;
             if (Value != null)
-                result = ((decimal) Value).ToString(Culture);
+                result = ((double) Value).ToString(Culture);
 
             return result;
         }
 
-        protected override void GetMinimumValueProperties(out decimal? value, out decimal? minimumValue)
+        protected override void GetMinimumValueProperties(out double? value, out double? minimumValue)
         {
             value = Value;
             minimumValue = MinimumValue;
         }
 
-        protected decimal? ValidateValue(decimal? newValue)
+        protected double? ValidateValue(double? newValue)
         {
-            decimal? result = null;
+            double? result = null;
             if (MaximumValue != null)
             {
                 if (newValue > MaximumValue)
@@ -227,7 +227,7 @@ namespace RingSoft.DataEntryControls.WPF
                 CalculatorControl.Precision = precision;
                 if (Value != null)
                 {
-                    var calcValue = (decimal)Value;
+                    var calcValue = (double)Value;
                     if (FormatType == DecimalEditFormatTypes.Percent)
                     {
                         calcValue *= 100;

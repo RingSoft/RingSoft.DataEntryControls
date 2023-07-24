@@ -21,7 +21,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public string Region { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-        public decimal Freight { get; set; }
+        public double Freight { get; set; }
         public string Notes { get; set; }
 
         public virtual Suppliers Supplier { get; set; }

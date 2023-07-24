@@ -12,8 +12,8 @@
         public string SpecialOrderText { get; set; }
         public string Comment { get; set; }
         public bool CommentCrLf { get; set; }
-        public decimal? UnitPrice { get; set; }
-        public decimal? Quantity { get; set; }
+        public double? UnitPrice { get; set; }
+        public double? Quantity { get; set; }
         public float? Discount { get; set; }
 
         public virtual NonInventoryCodes NonInventoryCode { get; set; }

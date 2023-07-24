@@ -43,9 +43,9 @@ namespace TestDummyApp
         }
 
 
-        private decimal _decimalValue;
+        private double _decimalValue;
 
-        public decimal DecimalValue
+        public double DecimalValue
         {
             get => _decimalValue;
             set
@@ -79,7 +79,7 @@ namespace TestDummyApp
             InitializeComponent();
 
             Grid.ItemsSource = _gridSource.DefaultView;
-            //CalculatorDec.Value = (decimal)-2345.67;
+            //CalculatorDec.Value = (double)-2345.67;
             IntegerValue = 12345;
             DecimalValue = 1234;
 

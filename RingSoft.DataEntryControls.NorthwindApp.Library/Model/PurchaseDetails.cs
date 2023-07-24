@@ -14,8 +14,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public string DirectExpenseText { get; set; }
         public string Comment { get; set; }
         public bool? CommentCrLf { get; set; }
-        public decimal? Quantity { get; set; }
-        public decimal? Price { get; set; }
+        public double? Quantity { get; set; }
+        public double? Price { get; set; }
         public DateTime? PickDate { get; set; }
         public int? DelayDays { get; set; }
 

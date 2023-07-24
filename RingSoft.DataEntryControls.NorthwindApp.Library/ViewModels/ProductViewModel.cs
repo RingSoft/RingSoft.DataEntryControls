@@ -122,9 +122,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private decimal? _unitPrice;
+        private double? _unitPrice;
 
-        public decimal? UnitPrice
+        public double? UnitPrice
         {
             get => _unitPrice;
             set
@@ -137,9 +137,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private decimal? _unitsInStock;
+        private double? _unitsInStock;
 
-        public decimal? UnitsInStock
+        public double? UnitsInStock
         {
             get => _unitsInStock;
             set
@@ -152,9 +152,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private decimal? _unitsOnOrder;
+        private double? _unitsOnOrder;
 
-        public decimal? UnitsOnOrder
+        public double? UnitsOnOrder
         {
             get => _unitsOnOrder;
             set
@@ -167,9 +167,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private decimal? _reorderLevel;
+        private double? _reorderLevel;
 
-        public decimal? ReorderLevel
+        public double? ReorderLevel
         {
             get => _reorderLevel;
             set

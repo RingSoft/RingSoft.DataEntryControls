@@ -168,9 +168,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private decimal _numericValue;
+        private double _numericValue;
 
-        public decimal NumericValue
+        public double NumericValue
         {
             get => _numericValue;
             set
@@ -225,7 +225,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             NumberCultureId = registrySettings.NumberCultureId;
             if (NumberCultureType == NumericCultureTypes.Other)
                 OtherNumberCultureId = NumberCultureId;
-            NumericValue = (decimal)1234.56;
+            NumericValue = (double)1234.56;
 
             DateCultureType = registrySettings.DateCultureType;
             DateCultureId = registrySettings.DateCultureId;

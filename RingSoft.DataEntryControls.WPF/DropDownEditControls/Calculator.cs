@@ -496,7 +496,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         #region ICalculatorControl Interface
 
-        public decimal? Value
+        public double? Value
         {
             get => Processor.ComittedValue;
             set => Processor.ReinitializeValue(value);
@@ -850,7 +850,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         #endregion
 
-        public void OnValueChanged(decimal? oldValue, decimal? newValue)
+        public void OnValueChanged(double? oldValue, double? newValue)
         {
             ValueChanged?.Invoke(this, new RoutedPropertyChangedEventArgs<object>(oldValue, newValue));
         }

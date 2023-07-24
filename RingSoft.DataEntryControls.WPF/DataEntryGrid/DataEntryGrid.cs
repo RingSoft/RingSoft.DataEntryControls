@@ -1458,7 +1458,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             {
                 if (!EditingControlHost.CanGridProcessKey(e.Key))
                 {
-                    //This is so calculator on decimal edit control can process enter key and prevents grid from cancelling edit on Enter.
+                    //This is so calculator on double edit control can process enter key and prevents grid from cancelling edit on Enter.
                     //We don't set handled because otherwise the calculator won't update the edit control when the user presses Enter to
                     //get the results of a calculation.
                     return;

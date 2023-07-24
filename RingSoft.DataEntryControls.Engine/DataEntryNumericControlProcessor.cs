@@ -47,7 +47,7 @@ namespace RingSoft.DataEntryControls.Engine
 
         public INumericControl Control { get; }
 
-        public decimal? Value { get; private set; }
+        public double? Value { get; private set; }
 
         public event EventHandler<ValueChangedArgs> ValueChanged;
 

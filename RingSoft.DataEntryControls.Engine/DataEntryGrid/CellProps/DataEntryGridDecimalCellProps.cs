@@ -7,9 +7,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 
         public DecimalEditControlSetup NumericEditSetup { get; }
 
-        public decimal? Value { get; set; }
+        public double? Value { get; set; }
 
-        public DataEntryGridDecimalCellProps(DataEntryGridRow row, int columnId, DecimalEditControlSetup setup, decimal? value) : base(row, columnId)
+        public DataEntryGridDecimalCellProps(DataEntryGridRow row, int columnId, DecimalEditControlSetup setup, double? value) : base(row, columnId)
         {
             NumericEditSetup = setup;
             Value = value;

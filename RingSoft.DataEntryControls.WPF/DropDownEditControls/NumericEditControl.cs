@@ -174,7 +174,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         protected abstract string ConvertValueToString();
 
-        protected abstract void GetMinimumValueProperties(out decimal? value, out decimal? minimumValue);
+        protected abstract void GetMinimumValueProperties(out double? value, out double? minimumValue);
 
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -183,7 +183,7 @@ namespace RingSoft.DataEntryControls.WPF
                 if (ValidateMinimumValue())
                 {
                     if (Value == null)
-                        SetText((decimal?) null);
+                        SetText((double?) null);
                     else
                         SetText(TextBox.Text);
                 }
@@ -213,7 +213,7 @@ namespace RingSoft.DataEntryControls.WPF
             SetText(text.ToDecimal(Culture));
         }
 
-        protected void SetText(decimal? newValue)
+        protected void SetText(double? newValue)
         {
             if (TextBox == null)
                 return;
@@ -228,7 +228,7 @@ namespace RingSoft.DataEntryControls.WPF
                 TextBox.Text = String.Empty;
             else
             {
-                var value = (decimal) newValue;
+                var value = (double) newValue;
                 var newText = value.ToString(setup.GetNumberFormatString(), Culture.NumberFormat);
                 if (TextBox.IsFocused)
                     OnFocusedSetText(newText, setup);

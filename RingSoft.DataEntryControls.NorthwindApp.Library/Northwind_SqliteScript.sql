@@ -156,7 +156,7 @@ CREATE TABLE [AdvancedFindColumns] (
 , [TableName] nvarchar(50) NOT NULL
 , [FieldName] nvarchar(50) NOT NULL
 , [Caption] nvarchar(50) NOT NULL
-, [PercentWidth] [decimal](18, 4) NULL
+, [PercentWidth] [double](18, 4) NULL
 , CONSTRAINT [PK_AdvancedFindColumns] PRIMARY KEY ([AdvancedFindId],[ColumnId])
 , FOREIGN KEY ([AdvancedFindId]) REFERENCES [AdvancedFinds] ([Id]) ON DELETE NO ACTION ON UPDATE NO ACTION
 );

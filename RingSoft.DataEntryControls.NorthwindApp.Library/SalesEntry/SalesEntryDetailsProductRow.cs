@@ -11,7 +11,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public override SalesEntryDetailsLineTypes LineType => SalesEntryDetailsLineTypes.Product;
         public AutoFillValue ProductValue { get; private set; }
 
-        public decimal Discount { get; private set; }
+        public double Discount { get; private set; }
 
         private AutoFillSetup _productAutoFillSetup;
         private DecimalEditControlSetup _discountSetup;
@@ -81,7 +81,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     {
                         if (discountDecimalCellProps.Value != null)
                         {
-                            Discount = (decimal)discountDecimalCellProps.Value;
+                            Discount = (double)discountDecimalCellProps.Value;
                             SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
                         }
                     }
@@ -101,7 +101,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 product = AppGlobals.DbContextProcessor.GetProduct(product.ProductId);
                 Quantity = 1;
                 if (product.UnitPrice != null)
-                    Price = (decimal)product.UnitPrice;
+                    Price = (double)product.UnitPrice;
 
                 LoadChildRows(product);
 
@@ -137,7 +137,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
 
             if (entity.Discount != null)
-                Discount = (decimal)entity.Discount;
+                Discount = (double)entity.Discount;
 
             var children = GetDetailChildren(entity);
             foreach (var child in children)
