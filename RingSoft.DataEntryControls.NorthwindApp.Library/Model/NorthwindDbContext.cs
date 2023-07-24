@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DbLookup.AdvancedFind;
+using RingSoft.DbLookup.DataProcessor;
 using RingSoft.DbLookup.EfCore;
 using RingSoft.DbLookup.RecordLocking;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 {
-    public class NorthwindDbContext : DbContextEfCore, IAdvancedFindDbContextEfCore
+    public class NorthwindDbContext : DbContextEfCore
     {
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
@@ -22,6 +24,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public virtual DbSet<Suppliers> Suppliers { get; set; }
 
         private static NorthwindLookupContext _lookupContext;
+        private string? _connectionString;
 
         public NorthwindDbContext()
         {
@@ -42,7 +45,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
             DbConstants.ConstantGenerator = new SqliteDbConstants();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite(_lookupContext.DataProcessor.ConnectionString);
+                var connectionString = _connectionString;
+                if (connectionString.IsNullOrEmpty())
+                {
+                    connectionString = _lookupContext.DataProcessor.ConnectionString;
+                }
+                optionsBuilder.UseSqlite(connectionString);
 
             }
         }
@@ -112,6 +120,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.Property(e => e.Country).HasColumnType("nvarchar(15)").HasMaxLength(15);
 
                 entity.Property(e => e.Extension).HasColumnType("nvarchar(4)").HasMaxLength(4);
+
+                entity.Property(e => e.FullName)
+                    .HasColumnType("nvarchar(50)")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -467,7 +479,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
                 entity.Property(e => e.Region).HasColumnType("nvarchar(15)").HasMaxLength(15);
             });
             AdvancedFindDataProcessorEfCore.ConfigureAdvancedFind(modelBuilder);
-
         }
 
         public DbContext GetDbContextEf()
@@ -478,6 +489,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public override DbContextEfCore GetNewDbContextEfCore()
         {
             return new NorthwindDbContext();
+        }
+
+        public override void SetProcessor(DbDataProcessor processor)
+        {
+            
+        }
+
+        public override void SetConnectionString(string connectionString)
+        {
+            _connectionString = connectionString;
         }
 
         public IAdvancedFindDbContextEfCore GetNewDbContext()

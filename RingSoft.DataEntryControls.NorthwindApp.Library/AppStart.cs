@@ -54,9 +54,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             {
                 AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.ConnectingToDb);
                 AppGlobals.DbContextProcessor.GetProduct(1);
-
-                var query = new SelectQuery(AppGlobals.LookupContext.Products.TableName).SetMaxRecords(1);
-                AppGlobals.LookupContext.DataProcessor.GetData(query);
             }
             catch (Exception)
             {

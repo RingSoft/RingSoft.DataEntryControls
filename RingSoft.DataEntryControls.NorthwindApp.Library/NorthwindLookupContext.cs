@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Security;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
@@ -34,12 +33,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public virtual TableDefinition<Suppliers> Suppliers { get; set; }
 
         public LookupContextBase Context => this;
-        public TableDefinition<RecordLock> RecordLocks { get; set; }
-        public TableDefinition<AdvancedFind> AdvancedFinds { get; set; }
-        public TableDefinition<AdvancedFindColumn> AdvancedFindColumns { get; set; }
-        public TableDefinition<AdvancedFindFilter> AdvancedFindFilters { get; set; }
-        public LookupDefinition<AdvancedFindLookup, AdvancedFind> AdvancedFindLookup { get; set; }
-        public LookupDefinition<RecordLockingLookup, RecordLock> RecordLockingLookup { get; set; }
 
         public LookupDefinition<OrderLookup, Orders> OrdersLookup { get; private set; }
         public LookupDefinition<OrderDetailLookup, OrderDetails> OrderDetailsLookup { get; private set; }
@@ -71,7 +64,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 FileName = "RSDEC_Northwind.sqlite"
             };
             DbContext = new NorthwindDbContext(this);
-            SetAdvancedFind();
+            //SetAdvancedFind();
             Initialize();
         }
         protected override void InitializeLookupDefinitions()
@@ -86,7 +79,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             OrdersLookup.Include(p => p.Customer)
                 .AddVisibleColumnDefinition(p => p.Customer, "Customer", p => p.CompanyName, 50);
             OrdersLookup.Include(p => p.Employee)
-                .AddVisibleColumnDefinition(p => p.Employee, "Employee", employeeNameFormula, 30, FieldDataTypes.String);
+                .AddVisibleColumnDefinition(p => p.Employee, "Employee", p => p.FullName, 30);
 
             Orders.HasLookupDefinition(OrdersLookup);
 
@@ -115,10 +108,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             Customers.HasLookupDefinition(CustomerIdLookup);
 
             EmployeesLookup = new LookupDefinition<EmployeeLookup, Employees>(Employees);
-            EmployeesLookup.AddVisibleColumnDefinition(p => p.Name, "Name", employeeNameFormula, 40, "");
+            EmployeesLookup.AddVisibleColumnDefinition(p => p.Name, "Name", p => p.FullName, 40);
             EmployeesLookup.AddVisibleColumnDefinition(p => p.Title, "Title", p => p.Title, 20);
             EmployeesLookup.Include(p => p.Supervisor)
-                .AddVisibleColumnDefinition(p => p.Supervisor, "Supervisor", employeeNameFormula, 40, FieldDataTypes.String);
+                .AddVisibleColumnDefinition(p => p.Supervisor, "Supervisor", p => p.FullName, 40);
 
             Employees.HasLookupDefinition(EmployeesLookup);
 
@@ -183,10 +176,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public void SetAdvancedFind()
         {
             SystemGlobals.AdvancedFindLookupContext = this;
-            var configuration = new AdvancedFindLookupConfiguration(SystemGlobals.AdvancedFindLookupContext);
-            configuration.InitializeModel();
-            configuration.ConfigureLookups();
-
+            //var configuration = new AdvancedFindLookupConfiguration(SystemGlobals.AdvancedFindLookupContext);
+            //configuration.InitializeModel();
+            //configuration.ConfigureLookups();
+            SystemGlobals.LookupContext = this;
         }
 
         public override AutoFillValue OnAutoFillTextRequest(TableDefinitionBase tableDefinition, string primaryKeyString)

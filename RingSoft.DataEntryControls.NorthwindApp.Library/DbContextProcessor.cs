@@ -15,8 +15,29 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             var processor = new AdvancedFindDataProcessorEfCore();
             SystemGlobals.DataRepository = processor;
             SystemGlobals.AdvancedFindDbProcessor = processor;
+            CheckDataExists();
         }
 
+        private void CheckDataExists()
+        {
+            var context = SystemGlobals.DataRepository.GetDataContext();
+            var employeesTable = context.GetTable<Employees>();
+
+            if (employeesTable.Any(p => p.FullName == null))
+            {
+                var employeesList = employeesTable.Where(p => p.FullName == null).ToList();
+                foreach (var employee in employeesList)
+                {
+                    employee.FullName = $"{employee.FirstName} {employee.LastName}";
+
+                    if (!context.SaveEntity(employee, "Updating Employee Full Name"))
+                    {
+                        return;
+                    }
+                }
+            }
+
+        }
         public Customers GetCustomer(string customerId)
         {
             var context = new NorthwindDbContext();
