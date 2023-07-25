@@ -9,8 +9,11 @@
             var mainPage = new MainPage();
             MainPage = new NavigationPage(mainPage);
 
-            var mauiAppStart = new MauiAppStart(mainPage);
-            mauiAppStart.StartApp(new List<string>().ToArray());
+            if (DeviceInfo.Platform == DevicePlatform.WinUI)
+            {
+                var mauiAppStart = new MauiAppStart(mainPage);
+                mauiAppStart.StartApp(new List<string>().ToArray());
+            }
         }
     }
 }
