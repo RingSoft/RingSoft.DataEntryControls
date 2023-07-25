@@ -24,16 +24,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         private object _lockCloseWindow = new object();
 
-        public virtual void StartApp(string[] args)
+        public virtual void StartApp(string[] args, bool doThread = true)
         {
             AppGlobals.Initialize();
 
             InitializeSplash();
 
-            SplashThread = new Thread(ShowSplash);
-            SplashThread.SetApartmentState(ApartmentState.STA);
-            SplashThread.IsBackground = true;
-            SplashThread.Start();
+            if (doThread)
+            {
+                SplashThread = new Thread(ShowSplash);
+                SplashThread.SetApartmentState(ApartmentState.STA);
+                SplashThread.IsBackground = true;
+                SplashThread.Start();
+            }
 
             while (AppSplashWindow == null)
             {
@@ -76,8 +79,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 {
                     Monitor.Exit(_lockCloseWindow);
                 }
-                while (SplashThread.IsAlive)
-                    Thread.Sleep(500);
+
+                if (SplashThread != null)
+                {
+                    while (SplashThread.IsAlive)
+                        Thread.Sleep(500);
+                }
 
                 SplashThread = null;	// we don't need it any more.
             }

@@ -35,7 +35,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             _application = application;
         }
 
-        public override void StartApp(string[] args)
+        public override void StartApp(string[] args, bool doThread = true)
         {
             SystemGlobals.ProgramDataFolder = ProgramDataFolder;
 
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             try
             {
-                base.StartApp(args);
+                base.StartApp(args, doThread);
             }
             catch (Exception e)
             {
