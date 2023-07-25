@@ -53,6 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\RingSoft.DataEntryControls.Maui\RingSoft.DataEntryControls.Maui.csproj" />
 	  <ProjectReference Include="..\RingSoft.DataEntryControls.NorthwindApp.Library\RingSoft.DataEntryControls.NorthwindApp.Library.csproj" />
 	</ItemGroup>
 

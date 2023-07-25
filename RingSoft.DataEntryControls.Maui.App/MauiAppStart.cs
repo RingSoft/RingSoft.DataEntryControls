@@ -17,26 +17,28 @@ namespace RingSoft.DataEntryControls.Maui.App
             }
         }
 
-        public override IAppSplashWindow AppSplashWindow => _splashPage;
+        public override IAppSplashWindow AppSplashWindow => _mainPage;
 
-        public MauiAppStart(MainPage splashPage)
+        public MauiAppStart(MainPage mainPage)
         {
-            _splashPage = splashPage;
+            _mainPage = mainPage;
         }
 
-        private MainPage _splashPage;
+        private MainPage _mainPage;
 
         protected override void InitializeSplash()
         {
             
         }
 
-        protected override async void ShowSplash()
+        protected override void ShowSplash()
         {
+            
         }
 
-        protected override async void FinishStartup()
+        protected override void FinishStartup()
         {
+            
         }
     }
 }

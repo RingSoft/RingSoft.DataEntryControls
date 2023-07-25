@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RingSoft.DataEntryControls.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDummyApp", "TestDummyApp\TestDummyApp.csproj", "{251A138E-A04D-4149-8E17-DD565233BEA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RingSoft.DataEntryControls.Maui.App", "RingSoft.DataEntryControls.Maui.App\RingSoft.DataEntryControls.Maui.App.csproj", "{D4328AF7-C90D-4ECF-A147-34B0AD487A58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RingSoft.DataEntryControls.Maui.App", "RingSoft.DataEntryControls.Maui.App\RingSoft.DataEntryControls.Maui.App.csproj", "{D4328AF7-C90D-4ECF-A147-34B0AD487A58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RingSoft.DataEntryControls.Maui", "RingSoft.DataEntryControls.Maui\RingSoft.DataEntryControls.Maui.csproj", "{8C153F20-4C72-4FC1-95CA-F8962272730B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{D4328AF7-C90D-4ECF-A147-34B0AD487A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4328AF7-C90D-4ECF-A147-34B0AD487A58}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4328AF7-C90D-4ECF-A147-34B0AD487A58}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8C153F20-4C72-4FC1-95CA-F8962272730B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C153F20-4C72-4FC1-95CA-F8962272730B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C153F20-4C72-4FC1-95CA-F8962272730B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C153F20-4C72-4FC1-95CA-F8962272730B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
