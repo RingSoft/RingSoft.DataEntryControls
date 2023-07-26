@@ -1,4 +1,6 @@
-﻿namespace RingSoft.DataEntryControls.Maui.App
+﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+
+namespace RingSoft.DataEntryControls.Maui.App
 {
     public partial class App : Application
     {
@@ -9,16 +11,23 @@
             var mainPage = new MainPage();
             MainPage = new NavigationPage(mainPage);
 
-            MauiControlsGlobals.Initialize(provider, mainPage);
+            MauiControlsGlobals.Initialize(mainPage);
             var doThread = false;
+            var mauiAppStart = new MauiAppStart(mainPage);
 
             if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
-                doThread = true;
+                mauiAppStart.StartApp(new List<string>().ToArray());
+                var tables = AppGlobals.LookupContext.TableDefinitions;
             }
-            var mauiAppStart = new MauiAppStart(mainPage);
-            mauiAppStart.StartApp(new List<string>().ToArray(), doThread);
-
+            else
+            {
+#if DEBUG
+                mauiAppStart.StartAppEmulator();
+#else         
+                mauiAppStart.StartAppMobile();
+#endif
+            }
         }
     }
 }

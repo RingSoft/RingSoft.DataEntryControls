@@ -58,6 +58,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             }
         }
 
+        public static string DataDirectory { get; set; }
+
         public static NorthwindLookupContext LookupContext { get; set; }
 
         public static DbContextProcessor DbContextProcessor { get; set; }
@@ -80,6 +82,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public static void Initialize()
         {
+            DataDirectory = AppDataDirectory;
             var registryElementName = "RegistryFileName";
             var appSettingsFile = $"{AppDataDirectory}\\AppSettings.xml";
             var xmlProcessor = new XmlProcessor("AppSettings");

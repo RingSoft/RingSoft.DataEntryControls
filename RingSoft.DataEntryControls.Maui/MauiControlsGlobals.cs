@@ -32,7 +32,7 @@ namespace RingSoft.DataEntryControls.Maui
     {
         public static ContentPage MainPage { get; internal set; }
 
-        public static void Initialize(IServiceProvider provider, ContentPage mainPage)
+        public static void Initialize(ContentPage mainPage)
         {
             MainPage = mainPage;
         }

@@ -56,14 +56,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public LookupDefinition<PurchaseDetailsLookup, PurchaseDetails> PurchaseDetailsLookup { get; private set; }
         public SqliteDataProcessor NorthwindDataProcessor { get; }
 
-        public NorthwindLookupContext()
+        public NorthwindLookupContext(bool migrate)
         {
             NorthwindDataProcessor = new SqliteDataProcessor()
             {
-                FilePath = AppGlobals.AppDataDirectory,
+                FilePath = AppGlobals.DataDirectory,
                 FileName = "RSDEC_Northwind.sqlite"
             };
             DbContext = new NorthwindDbContext(this);
+            if (migrate)
+            {
+                DbContext.Database.Migrate();
+            }
             //SetAdvancedFind();
             Initialize();
         }

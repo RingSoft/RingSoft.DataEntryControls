@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.QueryBuilder;
@@ -25,19 +27,33 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         private object _lockCloseWindow = new object();
 
-        public async virtual void StartApp(string[] args, bool doThread = true)
+        public virtual void StartAppEmulator()
+        {
+            AppGlobals.Initialize();
+            AppGlobals.LookupContext = new NorthwindLookupContext(false);
+            SystemGlobals.LookupContext = AppGlobals.LookupContext;
+
+            AppGlobals.DbContextProcessor = new DbContextProcessor(false);
+        }
+
+        public virtual void StartAppMobile()
+        {
+            AppGlobals.Initialize();
+            AppGlobals.LookupContext = new NorthwindLookupContext(true);
+            SystemGlobals.LookupContext = AppGlobals.LookupContext;
+
+            AppGlobals.DbContextProcessor = new DbContextProcessor();
+        }
+        public virtual void StartApp(string[] args)
         {
             AppGlobals.Initialize();
 
             InitializeSplash();
 
-            if (doThread)
-            {
-                SplashThread = new Thread(ShowSplash);
-                SplashThread.SetApartmentState(ApartmentState.STA);
-                SplashThread.IsBackground = true;
-                SplashThread.Start();
-            }
+            SplashThread = new Thread(ShowSplash);
+            SplashThread.SetApartmentState(ApartmentState.STA);
+            SplashThread.IsBackground = true;
+            SplashThread.Start();
 
             while (AppSplashWindow == null)
             {
@@ -49,10 +65,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             };
 
             AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.InitStructure);
-            AppGlobals.LookupContext = new NorthwindLookupContext();
+            AppGlobals.LookupContext = new NorthwindLookupContext(false);
             SystemGlobals.LookupContext = AppGlobals.LookupContext;
 
-            AppGlobals.DbContextProcessor = new DbContextProcessor(doThread);
+            AppGlobals.DbContextProcessor = new DbContextProcessor();
+
 
             try
             {
