@@ -60,7 +60,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             return new DataEntryGridTextCellProps(this, columnId);
         }
 
-        public override void SetCellValue(DataEntryGridEditingCellProps value)
+        public async override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (PurchaseOrderColumns) value.ColumnId;
             switch (column)
@@ -69,7 +69,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     if (!IsNew)
                     {
                         var message = "Changing the line type will erase all row data.  Do you wish to continue?";
-                        if (ControlsGlobals.UserInterface.ShowYesNoMessageBox(message, "Erase Row?") ==
+                        if (await ControlsGlobals.UserInterface.ShowYesNoMessageBox(message, "Erase Row?") ==
                             MessageBoxButtonsResult.No)
                         {
                             value.OverrideCellMovement = true;

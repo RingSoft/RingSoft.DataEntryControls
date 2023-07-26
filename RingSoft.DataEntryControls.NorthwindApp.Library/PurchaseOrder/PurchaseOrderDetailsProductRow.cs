@@ -112,7 +112,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 cellStyle.State = DataEntryGridCellStates.Disabled;
         }
 
-        public override void SetCellValue(DataEntryGridEditingCellProps value)
+        public async override void SetCellValue(DataEntryGridEditingCellProps value)
         {
             var column = (PurchaseOrderColumns) value.ColumnId;
 
@@ -134,7 +134,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                         {
                             var message =
                                 $"{PurchaseOrderDetailsManager.PurchaseOrderViewModel.SupplierAutoFillValue.Text} does not carry this Product.  Do you wish to erase this entry?";
-                            var messageResult =
+                            var messageResult = await 
                                 ControlsGlobals.UserInterface.ShowYesNoMessageBox(message, "Invalid Product");
                             switch (messageResult)
                             {

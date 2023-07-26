@@ -1,16 +1,14 @@
 namespace RingSoft.DataEntryControls.Maui;
 
-public partial class MessageBox
+public partial class MessagePage : ContentPage
 {
-    public bool Result { get; private set; }
-    public MessageBox()
+	public MessagePage()
 	{
 		InitializeComponent();
 	}
 
     private void Button_OnClicked(object sender, EventArgs e)
     {
-        Result = true;
-        Close(true);
+        Navigation.PopModalAsync();
     }
 }

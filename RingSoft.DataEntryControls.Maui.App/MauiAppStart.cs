@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.NorthwindApp.Library;
 
 namespace RingSoft.DataEntryControls.Maui.App
 {
@@ -22,6 +23,7 @@ namespace RingSoft.DataEntryControls.Maui.App
         public MauiAppStart(MainPage mainPage)
         {
             _mainPage = mainPage;
+            ControlsGlobals.UserInterface = new ControlsUserInterface();
         }
 
         private MainPage _mainPage;

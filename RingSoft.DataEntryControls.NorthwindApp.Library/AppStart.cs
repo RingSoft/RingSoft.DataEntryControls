@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.QueryBuilder;
 
@@ -24,7 +25,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         private object _lockCloseWindow = new object();
 
-        public virtual void StartApp(string[] args, bool doThread = true)
+        public async virtual void StartApp(string[] args, bool doThread = true)
         {
             AppGlobals.Initialize();
 

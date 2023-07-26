@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
 
 namespace RingSoft.DataEntryControls.Maui.App
@@ -12,8 +13,9 @@ namespace RingSoft.DataEntryControls.Maui.App
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
+            var result = await ControlsGlobals.UserInterface.ShowYesNoMessageBox("Testing", "Testing");
             count++;
 
             if (count == 1)

@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Media;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -78,8 +79,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        public MessageBoxButtonsResult ShowYesNoMessageBox(string text, string caption, bool playSound = false)
+        public async Task<MessageBoxButtonsResult> ShowYesNoMessageBox(string text, string caption, bool playSound = false)
         {
+
             var messageBoxResult = MessageBoxResult.Yes;
             var activeWindow = GetActiveWindow();
             if (activeWindow == null)

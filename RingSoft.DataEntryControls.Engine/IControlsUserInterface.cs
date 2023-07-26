@@ -1,4 +1,6 @@
-﻿namespace RingSoft.DataEntryControls.Engine
+﻿using System.Threading.Tasks;
+
+namespace RingSoft.DataEntryControls.Engine
 {
     public enum WindowCursorTypes
     {
@@ -33,7 +35,7 @@
 
         void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon);
 
-        MessageBoxButtonsResult ShowYesNoMessageBox(string text, string caption, bool playSound = false);
+        Task<MessageBoxButtonsResult> ShowYesNoMessageBox(string text, string caption, bool playSound = false);
 
         MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false);
     }

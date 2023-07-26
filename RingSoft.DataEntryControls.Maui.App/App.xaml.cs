@@ -2,12 +2,14 @@
 {
     public partial class App : Application
     {
-        public App()
+        public App(IServiceProvider provider)
         {
             InitializeComponent();
 
             var mainPage = new MainPage();
             MainPage = new NavigationPage(mainPage);
+
+            MauiControlsGlobals.Initialize(provider, mainPage);
 
             if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
