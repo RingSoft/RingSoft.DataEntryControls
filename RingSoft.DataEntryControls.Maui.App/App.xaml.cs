@@ -10,12 +10,15 @@
             MainPage = new NavigationPage(mainPage);
 
             MauiControlsGlobals.Initialize(provider, mainPage);
+            var doThread = false;
 
             if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
-                var mauiAppStart = new MauiAppStart(mainPage);
-                mauiAppStart.StartApp(new List<string>().ToArray());
+                doThread = true;
             }
+            var mauiAppStart = new MauiAppStart(mainPage);
+            mauiAppStart.StartApp(new List<string>().ToArray(), doThread);
+
         }
     }
 }

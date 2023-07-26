@@ -52,7 +52,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             AppGlobals.LookupContext = new NorthwindLookupContext();
             SystemGlobals.LookupContext = AppGlobals.LookupContext;
 
-            AppGlobals.DbContextProcessor = new DbContextProcessor();
+            AppGlobals.DbContextProcessor = new DbContextProcessor(doThread);
 
             try
             {

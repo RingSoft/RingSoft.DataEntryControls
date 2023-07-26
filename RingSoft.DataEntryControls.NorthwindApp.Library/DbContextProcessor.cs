@@ -9,13 +9,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 {
     public class DbContextProcessor
     {
-        public DbContextProcessor()
+        public DbContextProcessor(bool checkDataExists = true)
         {
             EfCoreGlobals.DbAdvancedFindContextCore = new NorthwindDbContext();
             var processor = new AdvancedFindDataProcessorEfCore();
             SystemGlobals.DataRepository = processor;
             SystemGlobals.AdvancedFindDbProcessor = processor;
-            CheckDataExists();
+            if (checkDataExists)
+            {
+                CheckDataExists();
+            }
         }
 
         private void CheckDataExists()
