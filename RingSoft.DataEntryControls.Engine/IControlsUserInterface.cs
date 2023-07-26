@@ -33,10 +33,10 @@ namespace RingSoft.DataEntryControls.Engine
         /// <param name="cursor">The cursor.</param>
         void SetWindowCursor(WindowCursorTypes cursor);
 
-        void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon);
+        Task ShowMessageBox(string text, string caption, RsMessageBoxIcons icon);
 
         Task<MessageBoxButtonsResult> ShowYesNoMessageBox(string text, string caption, bool playSound = false);
 
-        MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false);
+        Task<MessageBoxButtonsResult> ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false);
     }
 }

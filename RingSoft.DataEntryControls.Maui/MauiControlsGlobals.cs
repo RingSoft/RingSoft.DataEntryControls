@@ -10,20 +10,30 @@ namespace RingSoft.DataEntryControls.Maui
             throw new NotImplementedException();
         }
 
-        public async void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
+        public async Task ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
         {
             //await DisplayMessageBox(text, caption);
         }
 
         public async Task<MessageBoxButtonsResult> ShowYesNoMessageBox(string text, string caption, bool playSound = false)
         {
-            //await MauiControlsGlobals.MainPage.DisplayAlert(text, caption, "OK");
-            var messageBox = new MessageBox();
-            await MauiControlsGlobals.MainPage.ShowPopupAsync(messageBox);
-            return MessageBoxButtonsResult.Yes;
+            var result = await MauiControlsGlobals.MainPage.DisplayActionSheet(text
+                , null
+                , null
+                , FlowDirection.LeftToRight
+                , "Yes"
+                , "No");
+
+            if (result == "Yes")
+            {
+                return MessageBoxButtonsResult.Yes;
+            }
+
+            return MessageBoxButtonsResult.No;
         }
 
-        public MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false)
+        public Task<MessageBoxButtonsResult> ShowYesNoCancelMessageBox(string text, string caption,
+            bool playSound = false)
         {
             throw new NotImplementedException();
         }

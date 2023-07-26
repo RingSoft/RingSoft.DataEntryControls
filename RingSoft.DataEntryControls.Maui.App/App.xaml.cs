@@ -1,4 +1,5 @@
 ﻿using RingSoft.DataEntryControls.NorthwindApp.Library;
+using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.Maui.App
 {
@@ -22,11 +23,7 @@ namespace RingSoft.DataEntryControls.Maui.App
             }
             else
             {
-#if DEBUG
-                mauiAppStart.StartAppEmulator();
-#else         
-                mauiAppStart.StartAppMobile();
-#endif
+                mauiAppStart.StartAppMobile(FileSystem.AppDataDirectory);
             }
         }
     }

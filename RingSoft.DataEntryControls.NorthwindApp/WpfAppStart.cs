@@ -3,6 +3,7 @@ using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Lookup;
 using System.Windows;
+using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.App.WPFCore;
 
@@ -35,22 +36,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             _application = application;
         }
 
-        public override void StartAppMobile()
+        public override void StartAppMobile(string dataDir)
         {
             SystemGlobals.ProgramDataFolder = ProgramDataFolder;
 
             LookupControlsGlobals.InitUi();
 
-            base.StartAppMobile();
-        }
-
-        public override void StartAppEmulator()
-        {
-            SystemGlobals.ProgramDataFolder = ProgramDataFolder;
-
-            LookupControlsGlobals.InitUi();
-
-            base.StartAppEmulator();
+            base.StartAppMobile(dataDir);
         }
 
         public override void StartApp(string[] args)

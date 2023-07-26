@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DbLookup.AdvancedFind;
 using RingSoft.DbLookup.DataProcessor;
@@ -22,6 +23,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         public virtual DbSet<Purchases> Purchases { get; set; }
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public bool IsDesignTime { get; set; }
 
         private static NorthwindLookupContext _lookupContext;
         private string? _connectionString;
@@ -43,15 +45,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             DbConstants.ConstantGenerator = new SqliteDbConstants();
-            if (!optionsBuilder.IsConfigured)
+            if (IsDesignTime)
+                optionsBuilder.UseSqlite("DataSource=C:\\");
+            else
             {
-                var connectionString = _connectionString;
-                if (connectionString.IsNullOrEmpty())
+                if (!optionsBuilder.IsConfigured)
                 {
-                    connectionString = _lookupContext.DataProcessor.ConnectionString;
-                }
-                optionsBuilder.UseSqlite(connectionString);
+                    var connectionString = _connectionString;
+                    if (connectionString.IsNullOrEmpty())
+                    {
+                        connectionString = _lookupContext.DataProcessor.ConnectionString;
+                    }
 
+                    optionsBuilder.UseSqlite(connectionString);
+
+                }
             }
         }
 
@@ -505,7 +513,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         {
             return new NorthwindDbContext();
         }
+    }
 
-
+    public class ContextDesignTimeFactory : IDesignTimeDbContextFactory<NorthwindDbContext>
+    {
+        NorthwindDbContext IDesignTimeDbContextFactory<NorthwindDbContext>.CreateDbContext(string[] args)
+        {
+            return new NorthwindDbContext() { IsDesignTime = true };
+        }
     }
 }

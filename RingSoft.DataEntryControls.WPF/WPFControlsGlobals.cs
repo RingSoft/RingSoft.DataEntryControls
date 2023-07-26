@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
-        public void ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
+        public async Task ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
         {
             var messageBoxImage = MessageBoxImage.Error;
             switch (icon)
@@ -111,7 +111,8 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        public MessageBoxButtonsResult ShowYesNoCancelMessageBox(string text, string caption, bool playSound = false)
+        public async Task<MessageBoxButtonsResult> ShowYesNoCancelMessageBox(string text, string caption,
+            bool playSound = false)
         {
             var messageBoxResult = MessageBoxResult.Yes;
             var activeWindow = GetActiveWindow();
