@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dec="clr-namespace:RingSoft.DataEntryControls.Maui;assembly=RingSoft.DataEntryControls.Maui"
+             xmlns:vm="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
              x:Class="RingSoft.DataEntryControls.Maui.App.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:MauiDemoViewModel x:Name="LocalViewModel"/>
+    </ContentPage.BindingContext>
 
     <ScrollView>
         <VerticalStackLayout
@@ -17,7 +22,7 @@
                 Wrap="Wrap">
 
                 <dec:LabelControl Caption="Date Only">
-                    <dec:DateEditControl/>
+                    <dec:DateEditControl Date="{Binding DateOnly}"/>
                 </dec:LabelControl>
 
                 <dec:LabelControl Caption="Date Time">
