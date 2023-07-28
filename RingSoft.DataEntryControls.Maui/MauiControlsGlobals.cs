@@ -7,12 +7,12 @@ namespace RingSoft.DataEntryControls.Maui
     {
         public void SetWindowCursor(WindowCursorTypes cursor)
         {
-            throw new NotImplementedException();
+            
         }
 
         public async Task ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
         {
-            //await DisplayMessageBox(text, caption);
+            await MauiControlsGlobals.MainPage.DisplayAlert(caption, text, "OK");
         }
 
         public async Task<MessageBoxButtonsResult> ShowYesNoMessageBox(string text, string caption, bool playSound = false)
