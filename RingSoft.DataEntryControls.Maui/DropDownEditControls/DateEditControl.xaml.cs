@@ -13,17 +13,10 @@ public partial class DateEditControl : ContentView
     static void OnDateChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var dateEditControl = bindable as DateEditControl;
-        var dateString = string.Empty;
         if (newValue is DateTime dateValue)
         {
-            var formatter = new DateEditControlSetup();
-            formatter.DateFormatType = DateFormatTypes.DateOnly;
-            dateEditControl._value = formatter.FormatValueForDisplay(dateValue);
-            dateEditControl.SetText(dateEditControl._value);
-        }
-        else
-        {
-            dateEditControl.SetText(string.Empty);
+            dateEditControl.DatePicker.Date = dateValue;
+            dateEditControl.SetupTimeControl(dateValue);
         }
     }
 
@@ -33,101 +26,55 @@ public partial class DateEditControl : ContentView
         set => SetValue(DateProperty, value);
     }
 
-    public Entry TextBox { get; set; }
+    public static readonly BindableProperty FormatTypeProperty
+        = BindableProperty.Create(nameof(FormatType)
+            , typeof(DateFormatTypes)
+            , typeof(DateEditControl)
+            , propertyChanged: OnFormatTypeChanged);
 
-    private bool _settingText;
-    private string _value;
+    public DateFormatTypes FormatType
+    {
+        get => (DateFormatTypes)GetValue(FormatTypeProperty);
+        set => SetValue(FormatTypeProperty, value);
+    }
+
+    static void OnFormatTypeChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var dateEditControl = bindable as DateEditControl;
+        dateEditControl.SetupTimeControl(dateEditControl.Date);
+    }
+
+    public DatePicker DatePicker { get; private set; }
+
+    public TimePicker TimePicker { get; private set; }
 
     public DateEditControl()
     {
         InitializeComponent();
-        WidthRequest = 150;
-
-        if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
-        {
-            TextBox.Completed += (sender, args) =>
-            {
-                var validDate = ValidDate();
-
-                if (!validDate)
-                {
-                    SetText("mm/dd/yyyy");
-                }
-            };
-
-            TextBox.Focused += (sender, args) =>
-            {
-                if (_value.IsNullOrEmpty())
-                {
-                    SetText("mm/dd/yyyy");
-                    TextBox.CursorPosition = 1;
-                    TextBox.CursorPosition = 0;
-                    TextBox.SelectionLength = TextBox.Text.Length;
-                }
-            };
-
-            TextBox.Unfocused += (sender, args) =>
-            {
-                if (_value.IsNullOrEmpty())
-                {
-                    SetText(string.Empty);
-                }
-            };
-
-            TextBox.TextChanged += (sender, args) =>
-            {
-                if (!_settingText)
-                {
-                    var text = args.NewTextValue[TextBox.CursorPosition - 1];
-                    _value = args.NewTextValue;
-                    //TextBox.Text = "10/26/2023";
-                    //TextBox.CursorPosition = TextBox.Text.Length;
-                }
-            };
-        }
-        else
-        {
-            TextBox.Placeholder = "mm/dd/yyyy";
-
-            TextBox.Completed += (sender, args) =>
-            {
-                var validDate = ValidDate();
-
-                if (!validDate)
-                {
-                    SetText(string.Empty);
-                }
-            };
-
-        }
     }
 
     protected override void OnApplyTemplate()
     {
-        TextBox = GetTemplateChild(nameof(TextBox)) as Entry;
+        DatePicker = GetTemplateChild(nameof(DatePicker)) as DatePicker;
+        TimePicker = GetTemplateChild(nameof(TimePicker)) as TimePicker;
+
+        SetupTimeControl(Date);
+        DatePicker.DateSelected += (sender, args) =>
+        {
+            Date = args.NewDate;
+        };
         base.OnApplyTemplate();
     }
 
-    private void SetText(string value)
+    private void SetupTimeControl(DateTime newDate)
     {
-        _settingText = true;
-        TextBox.Text = value;
-        _settingText = false;
-    }
-    private bool ValidDate()
-    {
-        if (TextBox.Text.IsNullOrEmpty())
+        if (TimePicker != null)
         {
-            return true;
+            TimePicker.IsVisible = FormatType != DateFormatTypes.DateOnly;
+            if (TimePicker.IsVisible)
+            {
+                TimePicker.Time = newDate.TimeOfDay;
+            }
         }
-        var validDate = true;
-        if (!DateTime.TryParse(TextBox.Text, out var dateValue))
-        {
-            validDate = false;
-            ControlsGlobals.UserInterface.ShowMessageBox("Invalid Date Value", "Invalid Date Value",
-                RsMessageBoxIcons.Exclamation);
-        }
-
-        return validDate;
     }
 }

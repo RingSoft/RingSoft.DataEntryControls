@@ -5,14 +5,11 @@
 
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Entry x:Name="TextBox" VerticalTextAlignment="Center"/>
-                <ImageButton x:Name="DropDownButton" Grid.Column="1" Source="datepicker16.png"/>
-            </Grid>
+            <VerticalStackLayout
+                Spacing="5">
+                <DatePicker x:Name="DatePicker"/>
+                <TimePicker x:Name="TimePicker"/>
+            </VerticalStackLayout>
         </ControlTemplate>
     </ContentView.ControlTemplate>
 

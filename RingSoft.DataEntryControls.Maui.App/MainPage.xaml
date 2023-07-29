@@ -20,14 +20,15 @@
                 HorizontalOptions="Center"
                 Direction="Row"
                 AlignItems="Center"
-                Wrap="Wrap">
+                Wrap="Wrap"
+                x:Name="FlexLayout">
 
                 <dec:LabelControl Caption="Date Only">
-                    <dec:DateEditControl Date="{Binding DateOnly}"/>
+                    <dec:DateEditControl Date="{Binding DateOnly, Mode=TwoWay}"/>
                 </dec:LabelControl>
 
                 <dec:LabelControl Caption="Date Time">
-                    <dec:DateEditControl/>
+                    <dec:DateEditControl Date="{Binding DateTime, Mode=TwoWay}" FormatType="DateTime"/>
                 </dec:LabelControl>
 
             </FlexLayout>

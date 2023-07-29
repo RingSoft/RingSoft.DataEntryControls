@@ -23,9 +23,27 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        private DateTime _dateTime;
+
+        public DateTime DateTime
+        {
+            get => _dateTime;
+            set
+            {
+                if (_dateTime == value)
+                {
+                    return;
+                }
+                _dateTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public MauiDemoViewModel()
         {
-            DateOnly = DateTime.Today;
+            DateOnly = DateTime.Today.AddDays(2);
+            DateTime = DateTime.Now.AddDays(3);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

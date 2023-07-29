@@ -19,5 +19,13 @@
     <Style TargetType="ImageButton">
         <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
     </Style>
+    
+    <Style TargetType="DatePicker">
+        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
+    </Style>
+
+    <Style TargetType="TimePicker">
+        <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush}"/>
+    </Style>
 
 </ResourceDictionary>
