@@ -5,11 +5,12 @@
 
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Margin="5">
                 <Label 
                     Text="{TemplateBinding Caption}"
                     VerticalOptions="Center" 
-                    HorizontalOptions="End" />
+                    HorizontalOptions="End" 
+                    Margin="0,0,5,0"/>
                 <ContentPresenter/>
             </HorizontalStackLayout>
         </ControlTemplate>

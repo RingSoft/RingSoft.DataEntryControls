@@ -11,7 +11,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Entry x:Name="TextBox" VerticalTextAlignment="Center"/>
-                <Button x:Name="DropDownButton" Grid.Column="1" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" ImageSource="datepicker16.png" />
+                <ImageButton x:Name="DropDownButton" Grid.Column="1" Source="datepicker16.png"/>
             </Grid>
         </ControlTemplate>
     </ContentView.ControlTemplate>

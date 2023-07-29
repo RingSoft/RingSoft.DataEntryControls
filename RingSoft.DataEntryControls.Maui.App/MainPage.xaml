@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dec="clr-namespace:RingSoft.DataEntryControls.Maui;assembly=RingSoft.DataEntryControls.Maui"
              xmlns:vm="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
-             x:Class="RingSoft.DataEntryControls.Maui.App.MainPage">
+             x:Class="RingSoft.DataEntryControls.Maui.App.MainPage"
+             Style="{StaticResource PageStyle}">
 
     <ContentPage.BindingContext>
         <vm:MauiDemoViewModel x:Name="LocalViewModel"/>

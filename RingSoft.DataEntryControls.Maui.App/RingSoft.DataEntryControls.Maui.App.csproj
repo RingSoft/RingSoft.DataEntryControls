@@ -57,4 +57,13 @@
 	  <ProjectReference Include="..\RingSoft.DataEntryControls.NorthwindApp.Library\RingSoft.DataEntryControls.NorthwindApp.Library.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\BrushesResourceDictionary.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\ControlStylesResourceDictionary.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
