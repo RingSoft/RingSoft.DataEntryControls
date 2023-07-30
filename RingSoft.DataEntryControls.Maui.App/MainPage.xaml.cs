@@ -14,7 +14,7 @@ namespace RingSoft.DataEntryControls.Maui.App
             InitializeComponent();
             var labelControl = new LabelControl();
             labelControl.Caption = "Testing";
-            labelControl.Content = new DateEditControl() { Date = DateTime.Today.AddDays(7) };
+            labelControl.Content = new DateEditControl() { Value = DateTime.Today.AddDays(7) };
             FlexLayout.Children.Add(labelControl);
         }
 

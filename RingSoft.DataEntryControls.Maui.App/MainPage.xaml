@@ -24,13 +24,16 @@
                 x:Name="FlexLayout">
 
                 <dec:LabelControl Caption="Date Only">
-                    <dec:DateEditControl Date="{Binding DateOnly, Mode=TwoWay}"/>
+                    <dec:DateEditControl Value="{Binding DateOnly, Mode=TwoWay}"/>
                 </dec:LabelControl>
 
                 <dec:LabelControl Caption="Date Time">
-                    <dec:DateEditControl Date="{Binding DateTime, Mode=TwoWay}" FormatType="DateTime"/>
+                    <dec:DateEditControl Value="{Binding DateTime, Mode=TwoWay}" FormatType="DateTime"/>
                 </dec:LabelControl>
 
+                <dec:LabelControl Caption="String Read Only Box">
+                    <dec:StringReadOnlyBox/>
+                </dec:LabelControl>
             </FlexLayout>
 
             <Image

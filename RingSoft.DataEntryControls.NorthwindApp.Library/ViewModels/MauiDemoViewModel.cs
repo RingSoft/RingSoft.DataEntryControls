@@ -43,8 +43,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         public MauiDemoViewModel()
         {
             DateOnly = DateTime.Today.AddDays(2);
-            DateTime = DateTime.Now.AddDays(3);
+            DateTime = DateTime.Now.AddDays(3).AddHours(3);
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
