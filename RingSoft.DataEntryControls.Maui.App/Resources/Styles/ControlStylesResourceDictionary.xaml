@@ -5,6 +5,7 @@
              xmlns:dec="clr-namespace:RingSoft.DataEntryControls.Maui;assembly=RingSoft.DataEntryControls.Maui">
 
     <ResourceDictionary.MergedDictionaries>
+        <dec:DataEntryControlStyles/>
         <ResourceDictionary Source="/Resources/Styles/BrushesResourceDictionary.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

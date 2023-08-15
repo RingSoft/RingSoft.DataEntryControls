@@ -34,6 +34,10 @@
                 <dec:LabelControl Caption="String Read Only Box">
                     <dec:StringReadOnlyBox/>
                 </dec:LabelControl>
+
+                <dec:LabelControl Caption="Decimal Edit Box">
+                    <dec:DecimalEditControl/>
+                </dec:LabelControl>
             </FlexLayout>
 
             <Image
