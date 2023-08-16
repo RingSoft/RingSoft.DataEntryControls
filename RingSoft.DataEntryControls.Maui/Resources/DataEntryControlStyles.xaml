@@ -4,6 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RingSoft.DataEntryControls.Maui.DataEntryControlStyles">
 
-    <x:String x:Key="DecimalEditImage">/Resources/calculator16.png</x:String>
+    <x:String x:Key="DecimalEditImage">calculator16.png</x:String>
 
 </ResourceDictionary>

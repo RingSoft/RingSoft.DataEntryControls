@@ -5,14 +5,19 @@
              x:Class="RingSoft.DataEntryControls.Maui.DecimalEditControl">
 
     <ContentView.Resources>
-        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DataEntryControlStyles/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
     </ContentView.Resources>
 
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <HorizontalStackLayout>
                 <Entry x:Name="Entry" WidthRequest="100" Keyboard="Numeric"/>
-                <ImageButton Source="{StaticResource DecimalEditImage}"/>
+                <ImageButton Source="{StaticResource DecimalEditImage}" WidthRequest="20"/>
             </HorizontalStackLayout>
         </ControlTemplate>
     </ContentView.ControlTemplate>
