@@ -17,7 +17,7 @@
         <ControlTemplate>
             <HorizontalStackLayout>
                 <Entry x:Name="Entry" WidthRequest="100" Keyboard="Numeric"/>
-                <ImageButton Source="{StaticResource DecimalEditImage}" WidthRequest="20"/>
+                <ImageButton x:Name="Button" Source="{StaticResource DecimalEditImage}" WidthRequest="20"/>
             </HorizontalStackLayout>
         </ControlTemplate>
     </ContentView.ControlTemplate>
