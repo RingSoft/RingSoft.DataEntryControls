@@ -27,6 +27,11 @@ public partial class CalculatorControl : ContentView
     public Button Button6 { get; private set; }
     public Button SubtractButton { get; private set; }
 
+    public Button Button1 { get; private set; }
+    public Button Button2 { get; private set; }
+    public Button Button3 { get; private set; }
+    public Button AdditionButton { get; private set; }
+
     public CalculatorControl()
 	{
 		InitializeComponent();
@@ -59,6 +64,11 @@ public partial class CalculatorControl : ContentView
         Button6 = GetTemplateChild(nameof(Button6)) as Button;
         SubtractButton = GetTemplateChild(nameof(SubtractButton)) as Button;
 
+        Button1 = GetTemplateChild(nameof(Button1)) as Button;
+        Button2 = GetTemplateChild(nameof(Button2)) as Button;
+        Button3 = GetTemplateChild(nameof(Button3)) as Button;
+        AdditionButton = GetTemplateChild(nameof(AdditionButton)) as Button;
+
         var controlValidator = new ControlValidator(typeof(CalculatorControl));
         controlValidator.Controls.Add(new ControlValidatorControl(MemoryStatusLabel, nameof(MemoryStatusLabel), typeof(Label)));
         controlValidator.Controls.Add(new ControlValidatorControl(EquationLabel, nameof(EquationLabel), typeof(Label)));
@@ -84,6 +94,12 @@ public partial class CalculatorControl : ContentView
         controlValidator.Controls.Add(new ControlValidatorControl(Button5, nameof(Button5), typeof(Button)));
         controlValidator.Controls.Add(new ControlValidatorControl(Button6, nameof(Button6), typeof(Button)));
         controlValidator.Controls.Add(new ControlValidatorControl(SubtractButton, nameof(SubtractButton), typeof(Button)));
+
+        controlValidator.Controls.Add(new ControlValidatorControl(Button1, nameof(Button1), typeof(Button)));
+        controlValidator.Controls.Add(new ControlValidatorControl(Button2, nameof(Button2), typeof(Button)));
+        controlValidator.Controls.Add(new ControlValidatorControl(Button3, nameof(Button3), typeof(Button)));
+        controlValidator.Controls.Add(new ControlValidatorControl(AdditionButton, nameof(AdditionButton), typeof(Button)));
+        
         controlValidator.Validate();
 
         base.OnApplyTemplate();

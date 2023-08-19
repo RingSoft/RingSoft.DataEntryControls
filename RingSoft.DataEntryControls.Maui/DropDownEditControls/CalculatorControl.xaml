@@ -7,16 +7,19 @@
         <Style TargetType="Label" x:Key="CalcLabelStyle">
             <Setter Property="Background" Value="#FFA1E5EC"/>
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="Margin" Value="0"/>
         </Style>
         <Style TargetType="Button" x:Key="CalcProcessButtonStyle">
             <Setter Property="Background" Value="#FFD1D7E8"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="BorderWidth" Value="1"/>
         </Style>
         <Style TargetType="Button" x:Key="CalcNumberButtonStyle">
             <Setter Property="Background" Value="FloralWhite"/>
             <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="BorderWidth" Value="1"/>
         </Style>
     </ContentView.Resources>
 
@@ -51,11 +54,11 @@
                 </Grid>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
@@ -77,6 +80,17 @@
                     <Button x:Name="Button5" Grid.Row="2" Grid.Column="1" Style="{StaticResource CalcNumberButtonStyle}" Text="5"/>
                     <Button x:Name="Button6" Grid.Row="2" Grid.Column="2" Style="{StaticResource CalcNumberButtonStyle}" Text="6"/>
                     <Button x:Name="SubtractButton" Grid.Row="2" Grid.Column="3" Style="{StaticResource CalcProcessButtonStyle}" Text="-"/>
+
+                    <Button x:Name="Button1" Grid.Row="3" Grid.Column="0" Style="{StaticResource CalcNumberButtonStyle}" Text="1"/>
+                    <Button x:Name="Button2" Grid.Row="3" Grid.Column="1" Style="{StaticResource CalcNumberButtonStyle}" Text="2"/>
+                    <Button x:Name="Button3" Grid.Row="3" Grid.Column="2" Style="{StaticResource CalcNumberButtonStyle}" Text="3"/>
+                    <Button x:Name="AdditionButton" Grid.Row="3" Grid.Column="3" Style="{StaticResource CalcProcessButtonStyle}" Text="+"/>
+
+                    <Button x:Name="PlusMinusButton" Grid.Row="4" Grid.Column="0" Style="{StaticResource CalcNumberButtonStyle}" Text="+/-"/>
+                    <Button x:Name="Button0" Grid.Row="4" Grid.Column="1" Style="{StaticResource CalcNumberButtonStyle}" Text="0"/>
+                    <Button x:Name="DecimalButton" Grid.Row="4" Grid.Column="2" Style="{StaticResource CalcNumberButtonStyle}" Text="."/>
+                    <Button x:Name="EqualsButton" Grid.Row="4" Grid.Column="3" Style="{StaticResource CalcProcessButtonStyle}" Text="="/>
+
                 </Grid>
             </VerticalStackLayout>
         </ControlTemplate>
