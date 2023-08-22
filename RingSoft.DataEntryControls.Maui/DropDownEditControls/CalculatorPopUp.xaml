@@ -8,11 +8,13 @@
 
     <VerticalStackLayout Background="Gray" Margin="5">
 
-        <dec:CalculatorControl/>
+        <dec:CalculatorControl x:Name="CalculatorControl"/>
 
         <HorizontalStackLayout HorizontalOptions="End">
 
             <Button x:Name="OkButton" Text="OK"/>
+
+            <Button x:Name="CancelButton" Text="Cancel"/>
 
         </HorizontalStackLayout>
     </VerticalStackLayout>
