@@ -61,7 +61,6 @@ public partial class DecimalEditControl : ContentView
     {
         var calculator = new CalculatorPopUp();
         var value = Entry.Text.ToDecimal();
-        double.TryParse(Entry.Text, out value);
         calculator.Value = value;
 
         await MauiControlsGlobals.MainPage.ShowPopupAsync(calculator);
