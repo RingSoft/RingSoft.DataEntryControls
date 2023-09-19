@@ -424,15 +424,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         internal NorthwindViewModelInput ViewModelInput { get; private set; }
 
+        public UiCommand ShipDateCommand { get; }
+
         private bool _customerDirty;
 
         public SalesEntryViewModel()
         {
             TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
+            ShipDateCommand = new UiCommand();
         }
 
         protected override void Initialize()
         {
+            ShipDateCommand.IsEnabled = false;
             SalesEntryView = View as ISalesEntryMaintenanceView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");

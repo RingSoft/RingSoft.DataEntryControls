@@ -167,6 +167,25 @@ namespace RingSoft.DataEntryControls.WPF
             dropDownEditControl.SetControlStyleProperties();
         }
 
+        public static readonly DependencyProperty UiCommandProperty =
+            DependencyProperty.Register(nameof(UiCommand), typeof(UiCommand), typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(UiCommandChangedCallback));
+
+        public UiCommand UiCommand
+        {
+            get { return (UiCommand)GetValue(UiCommandProperty); }
+            set { SetValue(UiCommandProperty, value); }
+        }
+
+        private static void UiCommandChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl._vmUiControl == null)
+                dropDownEditControl._vmUiControl = new VmUiControl(dropDownEditControl, dropDownEditControl.UiCommand);
+        }
+
+
         private TextBox _textBox;
         public TextBox TextBox
         {
@@ -299,6 +318,7 @@ namespace RingSoft.DataEntryControls.WPF
 
         private bool _processingKey;
         private bool _setFocus;
+        private VmUiControl _vmUiControl;
 
         static DropDownEditControl()
         {

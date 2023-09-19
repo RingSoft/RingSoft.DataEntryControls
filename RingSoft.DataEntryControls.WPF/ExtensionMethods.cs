@@ -322,9 +322,10 @@ namespace RingSoft.DataEntryControls.WPF
                 {
                     tabControl.SelectedItem = tabItem;
                     tabControl.UpdateLayout();
-                    foundControl.Focus();
                 }
             }
+
+            foundControl.Focus();
         }
 
         public static IInputElement GetFocusedControl(this DependencyObject control)
