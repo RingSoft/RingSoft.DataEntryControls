@@ -182,7 +182,31 @@ namespace RingSoft.DataEntryControls.WPF
         {
             var dropDownEditControl = (DropDownEditControl)obj;
             if (dropDownEditControl._vmUiControl == null)
+            {
                 dropDownEditControl._vmUiControl = new VmUiControl(dropDownEditControl, dropDownEditControl.UiCommand);
+                if (dropDownEditControl.UiLabel != null)
+                {
+                    dropDownEditControl._vmUiControl.SetLabel(dropDownEditControl.UiLabel);
+                }
+            }
+        }
+
+        public static readonly DependencyProperty UiLabelProperty =
+            DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(DropDownEditControl),
+                new FrameworkPropertyMetadata(UiLabelChangedCallback));
+
+        public Label UiLabel
+        {
+            get { return (Label)GetValue(UiLabelProperty); }
+            set { SetValue(UiLabelProperty, value); }
+        }
+
+        private static void UiLabelChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (DropDownEditControl)obj;
+            if (dropDownEditControl._vmUiControl != null)
+                dropDownEditControl._vmUiControl.SetLabel(dropDownEditControl.UiLabel);
         }
 
 

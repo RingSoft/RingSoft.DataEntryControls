@@ -62,7 +62,7 @@
                 <Label Content="Required Date" Style="{StaticResource ControlLabel}"/>
                 <dec:DateEditControl Value="{Binding Path=RequiredDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label x:Name="ShipDateLabel" Content="Shipped Date" Style="{StaticResource ControlLabel}"/>
-                <dec:DateEditControl Value="{Binding Path=ShippedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" UiCommand="{Binding ShipDateCommand}"/>
+                <dec:DateEditControl Value="{Binding Path=ShippedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" UiCommand="{Binding ShipDateCommand}" UiLabel="{Binding ElementName=ShipDateLabel}"/>
             </StackPanel>
             <TabControl Grid.Row="3" Grid.Column="1" x:Name="TabControl" Margin="0,5,0,0" VerticalAlignment="Stretch">
                 <TabItem Header="Details">
