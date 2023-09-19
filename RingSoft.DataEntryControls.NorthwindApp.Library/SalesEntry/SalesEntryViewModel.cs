@@ -424,14 +424,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         internal NorthwindViewModelInput ViewModelInput { get; private set; }
 
-        public UiCommand ShipDateCommand { get; }
-
         private bool _customerDirty;
 
         public SalesEntryViewModel()
         {
             TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
-            ShipDateCommand = new UiCommand();
         }
 
         protected override void Initialize()
@@ -486,7 +483,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override void LoadFromEntity(Orders entity)
         {
-            ShipDateCommand.SetFocus();
             Customer = new AutoFillValue(AppGlobals.LookupContext.Customers.GetPrimaryKeyValueFromEntity(entity.Customer),
                 entity.CustomerId);
 

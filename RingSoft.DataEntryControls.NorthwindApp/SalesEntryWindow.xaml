@@ -107,7 +107,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Label x:Name="ShipNameLabel" Content="Name" Style="{StaticResource ControlLabel}"/>
-                        <dec:StringEditControl x:Name="ShipNameEdit" Grid.Column="1" Grid.Row="0" Text="{Binding Path=ShipName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" UiCommand="{Binding ShipDateCommand}" UiLabel="{Binding ElementName=ShipNameLabel}"/>
+                        <dec:StringEditControl x:Name="ShipNameEdit" Grid.Column="1" Grid.Row="0" Text="{Binding Path=ShipName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"  UiLabel="{Binding ElementName=ShipNameLabel}"/>
                         <Label Grid.Column="0" Grid.Row="1" Content="Address" Style="{StaticResource ControlLabel}"/>
                         <dec:StringEditControl x:Name="AddressEdit" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Grid.Column="0" Grid.Row="2" Content="City" Style="{StaticResource ControlLabel}"/>
@@ -151,8 +151,8 @@
                     <TextBlock Text="{Binding Path=TotalDiscount, StringFormat= 'c'}" Style="{StaticResource ReadOnlyNumericTextBlock}"/>
                 </Border>-->
                 <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="1" Value="{Binding TotalDiscount}"/>
-                <Label Grid.Column="0" Grid.Row="2" Content="Freight" Style="{StaticResource ControlLabel}"/>
-                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" HorizontalAlignment="Stretch" RsIsTabStop="False"/>
+                <Label Grid.Column="0" Grid.Row="2" x:Name="FreightLabel" Content="Freight" Style="{StaticResource ControlLabel}"/>
+                <dec:DecimalEditControl Grid.Column="1" Grid.Row="2" FormatType="Currency" Value="{Binding Path=Freight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="$100.00" HorizontalAlignment="Stretch" RsIsTabStop="False" UiLabel="{Binding  ElementName=FreightLabel}"/>
                 <Label Grid.Column="0" Grid.Row="3" Content="Total" Style="{StaticResource ControlLabel}"/>
                 <dec:DecimalReadOnlyBox Grid.Column="1" Grid.Row="3" Value="{Binding Path=Total}"/>
             </Grid>

@@ -36,7 +36,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:StringEditControl/>
     ///
     /// </summary>
-    public class StringEditControl : TextBox
+    public class StringEditControl : TextBox, IReadOnlyControl
     {
         public static readonly DependencyProperty SelectAllOnGotFocusProperty =
             DependencyProperty.Register(nameof(SelectAllOnGotFocus), typeof(bool), typeof(StringEditControl));
@@ -149,6 +149,15 @@ namespace RingSoft.DataEntryControls.WPF
                 return;
             }
             base.OnPreviewTextInput(e);
+        }
+
+        public void SetReadOnlyMode(bool readOnlyValue)
+        {
+            if (UiLabel != null)
+            {
+                UiLabel.IsEnabled = !readOnlyValue;
+            }
+            IsEnabled = !readOnlyValue;
         }
     }
 }

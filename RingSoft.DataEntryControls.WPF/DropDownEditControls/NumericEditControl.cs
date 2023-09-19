@@ -38,7 +38,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:NumericEditControl/>
     ///
     /// </summary>
-    public abstract class NumericEditControl<T> : DropDownEditControl, INumericControl
+    public abstract class NumericEditControl<T> : DropDownEditControl, INumericControl, IReadOnlyControl
     {
         public static readonly DependencyProperty DataEntryModeProperty =
             DependencyProperty.Register(nameof(DataEntryMode), typeof(DataEntryModes), typeof(NumericEditControl<T>));
@@ -354,6 +354,16 @@ namespace RingSoft.DataEntryControls.WPF
             _settingText = false;
 
             base.OnTextChanged(newText);
+        }
+
+        public void SetReadOnlyMode(bool readOnlyValue)
+        {
+            if (UiLabel != null)
+            {
+                UiLabel.IsEnabled = !readOnlyValue;
+            }
+
+            IsEnabled = !readOnlyValue;
         }
     }
 }
