@@ -122,7 +122,21 @@ namespace RingSoft.DataEntryControls.WPF
 
         public static List<Control> GetChildControls(this DependencyObject parent, bool applyTemplates = false)
         {
-            return parent.GetChildrenOfType<Control>();
+            var result = new List<Control>();
+            var list = parent.GetChildrenOfType<Control>();
+            foreach (var control in list)
+            {
+                if (control is GroupBox groupBox)
+                {
+                    var groupControls = groupBox.GetChildControls(applyTemplates);
+                    result.AddRange(groupControls);
+                }
+                else
+                {
+                    result.Add(control);
+                }
+            }
+            return result;
         }
 
         public static List<T> GetChildrenOfType<T>(this DependencyObject parent, bool applyTemplates = false)

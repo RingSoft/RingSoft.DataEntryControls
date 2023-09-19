@@ -436,7 +436,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override void Initialize()
         {
-            ShipDateCommand.IsEnabled = false;
             SalesEntryView = View as ISalesEntryMaintenanceView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");
@@ -487,6 +486,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override void LoadFromEntity(Orders entity)
         {
+            ShipDateCommand.SetFocus();
             Customer = new AutoFillValue(AppGlobals.LookupContext.Customers.GetPrimaryKeyValueFromEntity(entity.Customer),
                 entity.CustomerId);
 
@@ -677,7 +677,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         protected override bool ValidateEntity(Orders entity)
         {
             if (!ValidateCustomer())
+            {
                 return false;
+            }
 
             if (!base.ValidateEntity(entity))
                 return false;

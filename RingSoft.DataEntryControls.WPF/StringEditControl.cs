@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -46,6 +47,49 @@ namespace RingSoft.DataEntryControls.WPF
             set { SetValue(SelectAllOnGotFocusProperty, value); }
         }
 
+        public static readonly DependencyProperty UiCommandProperty =
+            DependencyProperty.Register(nameof(UiCommand), typeof(UiCommand), typeof(StringEditControl),
+                new FrameworkPropertyMetadata(UiCommandChangedCallback));
+
+        public UiCommand UiCommand
+        {
+            get { return (UiCommand)GetValue(UiCommandProperty); }
+            set { SetValue(UiCommandProperty, value); }
+        }
+
+        private static void UiCommandChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var stringEditControl = (StringEditControl)obj;
+            if (stringEditControl._vmUiControl == null)
+            {
+                stringEditControl._vmUiControl = new VmUiControl(stringEditControl, stringEditControl.UiCommand);
+                if (stringEditControl.UiLabel != null)
+                {
+                    stringEditControl._vmUiControl.SetLabel(stringEditControl.UiLabel);
+                }
+            }
+        }
+
+        public static readonly DependencyProperty UiLabelProperty =
+            DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(StringEditControl),
+                new FrameworkPropertyMetadata(UiLabelChangedCallback));
+
+        public Label UiLabel
+        {
+            get { return (Label)GetValue(UiLabelProperty); }
+            set { SetValue(UiLabelProperty, value); }
+        }
+
+        private static void UiLabelChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var stringEditControl = (StringEditControl)obj;
+            if (stringEditControl._vmUiControl != null)
+                stringEditControl._vmUiControl.SetLabel(stringEditControl.UiLabel);
+        }
+
+
         private string _designText;
 
         public string DesignText
@@ -59,6 +103,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         private bool _overrideSelChanged;
+        private VmUiControl _vmUiControl;
         static StringEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StringEditControl),
