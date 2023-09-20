@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.WPF
 {
@@ -73,9 +74,53 @@ namespace RingSoft.DataEntryControls.WPF
             contentComboBoxControl.SetContent();
         }
 
-        
+        public static readonly DependencyProperty UiCommandProperty =
+            DependencyProperty.Register(nameof(UiCommand), typeof(UiCommand), typeof(ContentComboBoxControl),
+                new FrameworkPropertyMetadata(UiCommandChangedCallback));
+
+        public UiCommand UiCommand
+        {
+            get { return (UiCommand)GetValue(UiCommandProperty); }
+            set { SetValue(UiCommandProperty, value); }
+        }
+
+        private static void UiCommandChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var customComboBoxControl = (ContentComboBoxControl)obj;
+            if (customComboBoxControl._vmUiControl == null)
+            {
+                customComboBoxControl._vmUiControl = WPFControlsGlobals.VmUiFactory.CreateUiControl(
+                    customComboBoxControl, customComboBoxControl.UiCommand);
+                if (customComboBoxControl.UiLabel != null)
+                {
+                    customComboBoxControl._vmUiControl.SetLabel(customComboBoxControl.UiLabel);
+                }
+            }
+        }
+
+        public static readonly DependencyProperty UiLabelProperty =
+            DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(ContentComboBoxControl),
+                new FrameworkPropertyMetadata(UiLabelChangedCallback));
+
+        public Label UiLabel
+        {
+            get { return (Label)GetValue(UiLabelProperty); }
+            set { SetValue(UiLabelProperty, value); }
+        }
+
+        private static void UiLabelChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var customContentControl = (ContentComboBoxControl)obj;
+            if (customContentControl._vmUiControl != null)
+                customContentControl._vmUiControl.SetLabel(customContentControl.UiLabel);
+        }
+
+
         private bool _controlLoaded;
         private double _height;
+        private VmUiControl _vmUiControl;
 
         static ContentComboBoxControl()
         {

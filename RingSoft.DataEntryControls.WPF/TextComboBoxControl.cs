@@ -93,6 +93,49 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
+        public static readonly DependencyProperty UiCommandProperty =
+            DependencyProperty.Register(nameof(UiCommand), typeof(UiCommand), typeof(TextComboBoxControl),
+                new FrameworkPropertyMetadata(UiCommandChangedCallback));
+
+        public UiCommand UiCommand
+        {
+            get { return (UiCommand)GetValue(UiCommandProperty); }
+            set { SetValue(UiCommandProperty, value); }
+        }
+
+        private static void UiCommandChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var textComboBoxControl = (TextComboBoxControl)obj;
+            if (textComboBoxControl._vmUiControl == null)
+            {
+                textComboBoxControl._vmUiControl = WPFControlsGlobals.VmUiFactory.CreateUiControl(
+                    textComboBoxControl, textComboBoxControl.UiCommand);
+                if (textComboBoxControl.UiLabel != null)
+                {
+                    textComboBoxControl._vmUiControl.SetLabel(textComboBoxControl.UiLabel);
+                }
+            }
+        }
+
+        public static readonly DependencyProperty UiLabelProperty =
+            DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(TextComboBoxControl),
+                new FrameworkPropertyMetadata(UiLabelChangedCallback));
+
+        public Label UiLabel
+        {
+            get { return (Label)GetValue(UiLabelProperty); }
+            set { SetValue(UiLabelProperty, value); }
+        }
+
+        private static void UiLabelChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var customContentControl = (TextComboBoxControl)obj;
+            if (customContentControl._vmUiControl != null)
+                customContentControl._vmUiControl.SetLabel(customContentControl.UiLabel);
+        }
+
 
         private string _designText;
 
@@ -112,6 +155,7 @@ namespace RingSoft.DataEntryControls.WPF
         private TextComboBoxItem _selectedComboBoxItem;
         private double _height;
         private bool _setFocus;
+        private VmUiControl _vmUiControl;
 
         static TextComboBoxControl()
         {

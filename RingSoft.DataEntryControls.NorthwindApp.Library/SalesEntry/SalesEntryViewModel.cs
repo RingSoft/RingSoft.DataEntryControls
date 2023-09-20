@@ -411,6 +411,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public int InitDetailId { get; internal set; } = -1;
 
+        public UiCommand ShipUiCommand { get; }
+
         protected override string FindButtonInitialSearchFor
         {
             get
@@ -429,10 +431,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public SalesEntryViewModel()
         {
             TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
+            ShipUiCommand = new UiCommand();
         }
 
         protected override void Initialize()
         {
+            ShipUiCommand.IsEnabled = false;
             SalesEntryView = View as ISalesEntryMaintenanceView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");

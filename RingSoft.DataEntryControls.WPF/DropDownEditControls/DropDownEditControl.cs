@@ -183,7 +183,7 @@ namespace RingSoft.DataEntryControls.WPF
             var dropDownEditControl = (DropDownEditControl)obj;
             if (dropDownEditControl._vmUiControl == null)
             {
-                dropDownEditControl._vmUiControl = new VmUiControl(dropDownEditControl, dropDownEditControl.UiCommand);
+                dropDownEditControl._vmUiControl = WPFControlsGlobals.VmUiFactory.CreateUiControl(dropDownEditControl, dropDownEditControl.UiCommand);
                 if (dropDownEditControl.UiLabel != null)
                 {
                     dropDownEditControl._vmUiControl.SetLabel(dropDownEditControl.UiLabel);

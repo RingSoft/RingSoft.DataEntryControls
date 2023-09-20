@@ -17,57 +17,86 @@ namespace RingSoft.DataEntryControls.WPF
         {
             Control = control;
             Command = command;
-            
-            Command.SetVisibility += (sender, args) =>
+
+            Command.SetVisibility += Command_SetVisibility;
+
+            Command.SetEnabled += Command_SetEnabled;
+
+            Command.SetReadOnly += Command_SetReadOnly;
+
+            Command.OnSetFocus += Command_OnSetFocus;
+        }
+
+        private void Command_OnSetFocus(object sender, EventArgs e)
+        {
+            OnSetFocus();
+        }
+
+        protected virtual void OnSetFocus()
+        {
+            Control.SetTabFocusToControl();
+        }
+
+        private void Command_SetReadOnly(object sender, UiReadOnlyArgs e)
+        {
+            OnSetReadOnly(e);
+        }
+
+        protected virtual void OnSetReadOnly(UiReadOnlyArgs e)
+        {
+            if (Control is TextBox textBox)
             {
-                switch (args.VisibilityType)
-                {
-                    case UiVisibilityTypes.Visible:
-                        Control.Visibility = Visibility.Visible;
-                        break;
-                    case UiVisibilityTypes.Hidden:
-                        Control.Visibility = Visibility.Hidden;
-                        break;
-                    case UiVisibilityTypes.Collapsed:
-                        Control.Visibility = Visibility.Collapsed;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                textBox.IsReadOnly = e.IsReadOnly;
+                textBox.IsReadOnlyCaretVisible = e.IsReadOnly;
+            }
 
-                if (Label != null)
-                {
-                    Label.Visibility = Control.Visibility;
-                }
-            };
-
-            Command.SetEnabled += (sender, args) =>
+            if (Control is IReadOnlyControl readOnlyControl)
             {
-                Control.IsEnabled = args.IsEnabled;
-                if (Label != null)
-                {
-                    Label.IsEnabled = args.IsEnabled;
-                }
-            };
+                Command.IsEnabled = true;
+                readOnlyControl.SetReadOnlyMode(e.IsReadOnly);
+            }
+        }
 
-            Command.SetReadOnly += (sender, args) =>
+        private void Command_SetEnabled(object sender, UiEnabledArgs e)
+        {
+            OnSetEnabled(e);
+        }
+
+        protected virtual void OnSetEnabled(UiEnabledArgs e)
+        {
+            Control.IsEnabled = e.IsEnabled;
+            if (Label != null)
             {
-                if (Control is TextBox textBox)
-                {
-                    textBox.IsReadOnly = args.IsReadOnly;
-                    textBox.IsReadOnlyCaretVisible = args.IsReadOnly;
-                }
+                Label.IsEnabled = e.IsEnabled;
+            }
+        }
 
-                if (Control is IReadOnlyControl readOnlyControl)
-                {
-                    Command.IsEnabled = true;
-                    readOnlyControl.SetReadOnlyMode(args.IsReadOnly);
-                }
-            };
+        private void Command_SetVisibility(object sender, UiVisibilityArgs e)
+        {
+            OnSetVisibility(e);
+        }
 
-            Command.OnSetFocus += (sender, args) =>
+        protected virtual void OnSetVisibility(UiVisibilityArgs e)
+        {
+            switch (e.VisibilityType)
             {
-                Control.SetTabFocusToControl();            };
+                case UiVisibilityTypes.Visible:
+                    Control.Visibility = Visibility.Visible;
+                    break;
+                case UiVisibilityTypes.Hidden:
+                    Control.Visibility = Visibility.Hidden;
+                    break;
+                case UiVisibilityTypes.Collapsed:
+                    Control.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (Label != null)
+            {
+                Label.Visibility = Control.Visibility;
+            }
         }
 
         public void SetLabel(Label label)

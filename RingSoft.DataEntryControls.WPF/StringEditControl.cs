@@ -63,7 +63,8 @@ namespace RingSoft.DataEntryControls.WPF
             var stringEditControl = (StringEditControl)obj;
             if (stringEditControl._vmUiControl == null)
             {
-                stringEditControl._vmUiControl = new VmUiControl(stringEditControl, stringEditControl.UiCommand);
+                stringEditControl._vmUiControl = WPFControlsGlobals.VmUiFactory.CreateUiControl(
+                    stringEditControl, stringEditControl.UiCommand);
                 if (stringEditControl.UiLabel != null)
                 {
                     stringEditControl._vmUiControl.SetLabel(stringEditControl.UiLabel);

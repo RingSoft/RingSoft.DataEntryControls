@@ -6,6 +6,7 @@ using System.Linq;
 using System.Media;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -23,6 +24,15 @@ namespace RingSoft.DataEntryControls.WPF
         public DataTemplate DataTemplate { get; set; }
 
         public Key HotKey { get; set; }
+    }
+
+    public class VmUiControlFactory
+    {
+        public virtual VmUiControl CreateUiControl(Control control, UiCommand uiCommand)
+        {
+            var result = new VmUiControl(control, uiCommand);
+            return result;
+        }
     }
 
     public class ControlsUserInterface : IControlsUserInterface
@@ -175,6 +185,8 @@ namespace RingSoft.DataEntryControls.WPF
         public static Window ActiveWindow => ControlsUserInterface.GetActiveWindow();
 
         public static DataEntryGridHostFactory DataEntryGridHostFactory { get; set; } = new DataEntryGridHostFactory();
+
+        public static VmUiControlFactory VmUiFactory { get; set; } = new VmUiControlFactory();
 
         private static ControlsUserInterface _userInterface = new ControlsUserInterface();
 
