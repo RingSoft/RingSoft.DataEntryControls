@@ -432,7 +432,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
             ShipUiCommand = new UiCommand();
-            DeleteUiCommand.Visibility = UiVisibilityTypes.Collapsed;
         }
 
         protected override void Initialize()
