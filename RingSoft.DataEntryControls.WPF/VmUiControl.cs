@@ -25,6 +25,10 @@ namespace RingSoft.DataEntryControls.WPF
             Command.SetReadOnly += Command_SetReadOnly;
 
             Command.OnSetFocus += Command_OnSetFocus;
+
+            OnSetVisibility(Command.Visibility);
+            OnSetReadOnly(command.IsReadOnly);
+            OnSetEnabled(command.IsEnabled);
         }
 
         private void Command_OnSetFocus(object sender, EventArgs e)
@@ -39,46 +43,46 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void Command_SetReadOnly(object sender, UiReadOnlyArgs e)
         {
-            OnSetReadOnly(e);
+            OnSetReadOnly(e.IsReadOnly);
         }
 
-        protected virtual void OnSetReadOnly(UiReadOnlyArgs e)
+        protected void OnSetReadOnly(bool readOnly)
         {
             if (Control is TextBox textBox)
             {
-                textBox.IsReadOnly = e.IsReadOnly;
-                textBox.IsReadOnlyCaretVisible = e.IsReadOnly;
+                textBox.IsReadOnly = readOnly;
+                textBox.IsReadOnlyCaretVisible = readOnly;
             }
 
             if (Control is IReadOnlyControl readOnlyControl)
             {
                 Command.IsEnabled = true;
-                readOnlyControl.SetReadOnlyMode(e.IsReadOnly);
+                readOnlyControl.SetReadOnlyMode(readOnly);
             }
         }
 
         private void Command_SetEnabled(object sender, UiEnabledArgs e)
         {
-            OnSetEnabled(e);
+            OnSetEnabled(e.IsEnabled);
         }
 
-        protected virtual void OnSetEnabled(UiEnabledArgs e)
+        protected void OnSetEnabled(bool isEnabled)
         {
-            Control.IsEnabled = e.IsEnabled;
+            Control.IsEnabled = isEnabled;
             if (Label != null)
             {
-                Label.IsEnabled = e.IsEnabled;
+                Label.IsEnabled = isEnabled;
             }
         }
 
         private void Command_SetVisibility(object sender, UiVisibilityArgs e)
         {
-            OnSetVisibility(e);
+            OnSetVisibility(e.VisibilityType);
         }
 
-        protected virtual void OnSetVisibility(UiVisibilityArgs e)
+        protected void OnSetVisibility(UiVisibilityTypes visibilityType)
         {
-            switch (e.VisibilityType)
+            switch (visibilityType)
             {
                 case UiVisibilityTypes.Visible:
                     Control.Visibility = Visibility.Visible;

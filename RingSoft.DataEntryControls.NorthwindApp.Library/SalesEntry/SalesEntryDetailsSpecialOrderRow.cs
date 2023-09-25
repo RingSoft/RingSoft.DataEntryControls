@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
@@ -67,9 +68,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Special Order text cannot be empty.";
-                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.OnValidationFail(
-                    AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
-                    "Validation Failure!");
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Failure!",
+                    RsMessageBoxIcons.Exclamation);
 
                 return false;
             }

@@ -228,9 +228,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 PurchaseOrderDetailsManager.Grid.GotoCell(this, (int)PurchaseOrderColumns.Item);
 
                 var message = "Product must contain a valid value.";
-                PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.OnValidationFail(
-                    AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
-                    "Validation Failure!");
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Failure!",
+                    RsMessageBoxIcons.Exclamation);
 
                 return false;
             }

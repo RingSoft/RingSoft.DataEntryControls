@@ -160,9 +160,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 SalesEntryDetailsManager.Grid?.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Product must contain a valid value.";
-                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.OnValidationFail(
-                    AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
-                    "Validation Failure!");
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Failure!",
+                    RsMessageBoxIcons.Exclamation);
 
                 return false;
             }

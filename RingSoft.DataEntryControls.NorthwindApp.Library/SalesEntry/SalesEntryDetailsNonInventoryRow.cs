@@ -1,4 +1,5 @@
-﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
+﻿using RingSoft.DataEntryControls.Engine;
+using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
@@ -114,9 +115,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Non Inventory Code must contain a valid value.";
-                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.OnValidationFail(
-                    AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId), message,
-                    "Validation Failure!");
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Failure!",
+                    RsMessageBoxIcons.Exclamation);
 
                 return false;
             }

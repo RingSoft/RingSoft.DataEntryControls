@@ -27,7 +27,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="7.17.5" />
+    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="7.18.0" />
   </ItemGroup>
 
   <ItemGroup>
