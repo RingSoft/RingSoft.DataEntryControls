@@ -24,6 +24,11 @@ namespace RingSoft.DataEntryControls.Engine
         public bool IsReadOnly { get; internal set; }
     }
 
+    public class UiCaptionArgs
+    {
+        public string Caption { get; internal set; }
+    }
+
     public class UiCommand
     {
         private UiVisibilityTypes _uiVisibilityType = UiVisibilityTypes.Visible;
@@ -71,13 +76,28 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        private string _caption;
 
+        public string Caption
+        {
+            get => _caption;
+            set
+            {
+                _caption = value;
+                SetCaption?.Invoke(this, new UiCaptionArgs
+                {
+                    Caption = _caption
+                });
+            }
+        }
 
         public event EventHandler<UiVisibilityArgs> SetVisibility;
 
         public event EventHandler<UiEnabledArgs> SetEnabled;
 
         public event EventHandler<UiReadOnlyArgs> SetReadOnly;
+
+        public event EventHandler<UiCaptionArgs> SetCaption;
 
         public event EventHandler OnSetFocus;
 

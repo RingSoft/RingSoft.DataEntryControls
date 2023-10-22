@@ -24,11 +24,54 @@ namespace RingSoft.DataEntryControls.WPF
 
             Command.SetReadOnly += Command_SetReadOnly;
 
+            Command.SetCaption += Command_SetCaption;
+
             Command.OnSetFocus += Command_OnSetFocus;
 
             OnSetVisibility(Command.Visibility);
             OnSetReadOnly(command.IsReadOnly);
             OnSetEnabled(command.IsEnabled);
+            if (command.Caption.IsNullOrEmpty())
+            {
+                if (Label != null)
+                {
+                    command.Caption = Label.Content.ToString();
+                }
+                else
+                {
+                    if (Control is Button button)
+                    {
+                        command.Caption = button.Content.ToString();
+                    }
+                }
+            }
+            else
+            {
+                if (Label != null)
+                {
+                    Label.Content = command.Caption;
+                }
+                else
+                {
+                    if (Control is Button button)
+                    {
+                        button.Content = command.Caption;
+                    }
+                }
+            }
+        }
+
+        private void Command_SetCaption(object sender, UiCaptionArgs e)
+        {
+            if (Label != null)
+            {
+                Label.Content = e.Caption;
+            }
+
+            if (Control is Button button)
+            {
+                button.Content = e.Caption;
+            }
         }
 
         private void Command_OnSetFocus(object sender, EventArgs e)
@@ -106,6 +149,21 @@ namespace RingSoft.DataEntryControls.WPF
         public void SetLabel(Label label)
         {
             Label = label;
+            if (Command != null)
+            {
+                if (Command.Caption.IsNullOrEmpty())
+                {
+                    if (Label != null)
+                    {
+                        Command.Caption = Label.Content.ToString();
+                    }
+                }
+                else
+                {
+                    Label.Content = Command.Caption;
+                }
+            }
+
             Label.IsEnabled = Control.IsEnabled;
             Label.Visibility = Control.Visibility;
         }
