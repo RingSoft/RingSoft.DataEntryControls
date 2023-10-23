@@ -437,6 +437,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override void Initialize()
         {
+            ShipUiCommand.Caption = "Testing";
             SalesEntryView = View as ISalesEntryMaintenanceView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");
