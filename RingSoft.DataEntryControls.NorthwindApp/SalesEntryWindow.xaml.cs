@@ -26,14 +26,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Initialize();
 
             CustomerControl.LostFocus += (_, _) => SalesEntryViewModel.OnCustomerIdLostFocus();
-            CustomerControl.PreviewLostKeyboardFocus += (_, args) =>
-            {
-                if (!this.IsWindowClosing(args.NewFocus))
-                {
-                    if (!SalesEntryViewModel.ValidateCustomer())
-                        args.Handled = true;
-                }
-            };
+            //CustomerControl.PreviewLostKeyboardFocus += (_, args) =>
+            //{
+            //    if (!this.IsWindowClosing(args.NewFocus))
+            //    {
+            //        if (!SalesEntryViewModel.ValidateCustomer())
+            //            args.Handled = true;
+            //    }
+            //};
             SalesEntryViewModel.CheckDirtyMessageShown += (_, args) =>
             {
                 if (args.Result == MessageButtons.Cancel)

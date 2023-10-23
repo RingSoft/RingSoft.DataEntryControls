@@ -411,7 +411,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public int InitDetailId { get; internal set; } = -1;
 
-        public UiCommand ShipUiCommand { get; }
+        public UiCommand CustomerUiCommand { get; } = new UiCommand();
+        public UiCommand EmployeeUiCommand { get; } = new UiCommand();
+        public UiCommand ShipUiCommand { get; } = new UiCommand();
 
         protected override string FindButtonInitialSearchFor
         {
@@ -431,12 +433,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public SalesEntryViewModel()
         {
             TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
-            ShipUiCommand = new UiCommand();
         }
 
         protected override void Initialize()
         {
-            ShipUiCommand.IsEnabled = false;
             SalesEntryView = View as ISalesEntryMaintenanceView ??
                              throw new ArgumentException(
                                  $"ViewModel requires an {nameof(ISalesEntryMaintenanceView)} interface.");
@@ -660,23 +660,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             _customerDirty = false;
         }
 
-        protected override AutoFillValue GetAutoFillValueForNullableForeignKeyField(FieldDefinition fieldDefinition)
-        {
-            if (fieldDefinition == TableDefinition.GetFieldDefinition(p => p.CustomerId))
-                return Customer;
-
-            if (fieldDefinition == TableDefinition.GetFieldDefinition(p => p.EmployeeId))
-                return Employee;
-
-            if (fieldDefinition == TableDefinition.GetFieldDefinition(p => p.ShipVia))
-                return ShipVia;
-
-            return base.GetAutoFillValueForNullableForeignKeyField(fieldDefinition);
-        }
-
         protected override bool ValidateEntity(Orders entity)
         {
             if (!ValidateCustomer())
+            {
+                return false;
+            }
+
+            if (!ValidateEmployee())
+            {
+                return false;
+            }
+
+            if (!ValidateShipVia())
             {
                 return false;
             }
@@ -734,10 +730,36 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public bool ValidateCustomer()
         {
-            if (Customer != null && !string.IsNullOrEmpty(Customer.Text) &&
-                !Customer.PrimaryKeyValue.IsValid)
+            if (!Customer.IsValid())
             {
                 var message = "Invalid Customer!";
+                CustomerUiCommand.SetFocus();
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool ValidateEmployee()
+        {
+            if (!Employee.IsValid())
+            {
+                var message = "Invalid Employee!";
+                EmployeeUiCommand.SetFocus();
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool ValidateShipVia()
+        {
+            if (!ShipVia.IsValid())
+            {
+                var message = "Invalid Ship Via!";
+                ShipUiCommand.SetFocus();
                 ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
                 return false;
             }
