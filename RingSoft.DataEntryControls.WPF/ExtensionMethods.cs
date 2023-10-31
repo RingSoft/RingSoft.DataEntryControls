@@ -347,5 +347,11 @@ namespace RingSoft.DataEntryControls.WPF
             return FocusManager.GetFocusedElement(control);
         }
 
+        public static bool IsChildControl(this DependencyObject parent, Control control)
+        {
+            var result = false;
+            result = parent.GetChildControls().Contains(control);
+            return result;
+        }
     }
 }

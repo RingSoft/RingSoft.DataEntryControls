@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using RingSoft.DataEntryControls.Engine;
@@ -17,6 +18,10 @@ namespace RingSoft.DataEntryControls.WPF
         {
             Control = control;
             Command = command;
+
+            Control.PreviewLostKeyboardFocus += Control_PreviewLostKeyboardFocus;
+
+            Control.GotFocus += Control_GotFocus;
 
             Command.SetVisibility += Command_SetVisibility;
 
@@ -56,6 +61,46 @@ namespace RingSoft.DataEntryControls.WPF
                     if (Control is Button button)
                     {
                         button.Content = command.Caption;
+                    }
+                }
+            }
+        }
+
+        private void Control_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Command.FireGotFocusEvent();
+        }
+
+        private void Control_PreviewLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            var activeWindow = WPFControlsGlobals.ActiveWindow;
+            var controlWindow = Window.GetWindow(Control);
+            if (activeWindow == controlWindow)
+            {
+                var isChild = false;
+                if (e.NewFocus is Control newControl)
+                {
+                    if (Control == newControl)
+                    {
+                        isChild = true;
+                    }
+                }
+
+                if (!isChild)
+                {
+                    if (e.NewFocus is Control newControl1)
+                    {
+                        if (Control.IsChildControl(newControl1))
+                        {
+                            isChild = true;
+                        }
+                    }
+
+                    if (!isChild)
+                    {
+                        var uiLostFocusArgs = new UiLostFocusArgs();
+                        Command.FireLostFocusEvent(uiLostFocusArgs);
+                        e.Handled = !uiLostFocusArgs.ContinueFocusChange;
                     }
                 }
             }

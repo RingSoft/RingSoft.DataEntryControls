@@ -29,6 +29,11 @@ namespace RingSoft.DataEntryControls.Engine
         public string Caption { get; internal set; }
     }
 
+    public class UiLostFocusArgs
+    {
+        public bool ContinueFocusChange { get; set; } = true;
+    }
+
     public class UiCommand
     {
         private UiVisibilityTypes _uiVisibilityType = UiVisibilityTypes.Visible;
@@ -101,9 +106,24 @@ namespace RingSoft.DataEntryControls.Engine
 
         public event EventHandler OnSetFocus;
 
+        public event EventHandler<UiLostFocusArgs> LostFocus;
+
+        public event EventHandler GotFocus;
+
         public void SetFocus()
         {
             OnSetFocus?.Invoke(this, EventArgs.Empty);
+        }
+
+
+        public void FireLostFocusEvent(UiLostFocusArgs args)
+        {
+            LostFocus?.Invoke(this, args);
+        }
+
+        public void FireGotFocusEvent()
+        {
+            GotFocus?.Invoke(this, EventArgs.Empty);
         }
     }
 }

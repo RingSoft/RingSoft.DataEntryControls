@@ -433,6 +433,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public SalesEntryViewModel()
         {
             TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
+
+            CustomerUiCommand.LostFocus += CustomerUiCommand_LostFocus;
+        }
+
+        private void CustomerUiCommand_LostFocus(object sender, UiLostFocusArgs e)
+        {
+            if (Customer != null && !Customer.Text.IsNullOrEmpty() && !Customer.IsValid())
+            {
+                var message = $"Customer {Customer.Text} was not found.";
+                ControlsGlobals.UserInterface.ShowMessageBox(message, "Invalid Customer", RsMessageBoxIcons.Exclamation);
+                e.ContinueFocusChange = false;
+            }
+            else
+            {
+                if (Customer.IsValid())
+                {
+                    OnCustomerIdLostFocus();
+                }
+            }
         }
 
         protected override void Initialize()

@@ -25,7 +25,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             InitializeComponent();
             Initialize();
 
-            CustomerControl.LostFocus += (_, _) => SalesEntryViewModel.OnCustomerIdLostFocus();
+            //CustomerControl.LostFocus += (_, _) => SalesEntryViewModel.OnCustomerIdLostFocus();
             //CustomerControl.PreviewLostKeyboardFocus += (_, args) =>
             //{
             //    if (!this.IsWindowClosing(args.NewFocus))

@@ -80,7 +80,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public bool AddNewNonInventoryCode(object ownerWindow)
         {
             var newNiCodeResult =
-                AppGlobals.LookupContext.NonInventoryCodesLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, ownerWindow);
+                AppGlobals.LookupContext.NonInventoryCodesLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, null);
 
             if (!newNiCodeResult.NewPrimaryKeyValue.IsValid)
                 return false;
