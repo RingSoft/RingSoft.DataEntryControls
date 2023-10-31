@@ -79,8 +79,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         public void SetInitGridFocus(SalesEntryDetailsRow row, int columnId)
         {
-            TabControl.SelectedIndex = 0;
-            DetailsGrid.Focus();
+            //TabControl.SelectedIndex = 0;
+            //DetailsGrid.Focus();
             DetailsGrid.GotoCell(row, columnId);
         }
 

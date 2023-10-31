@@ -111,7 +111,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                     .FirstOrDefault(f => f.DbOrderDetailId == SalesEntryViewModel.InitDetailId);
 
                 SalesEntryViewModel.InitDetailId = -1;
-                SalesEntryViewModel.SalesEntryView.SetInitGridFocus(row, ItemColumnId);
+                GotoCell(row, ItemColumnId);
+                //SalesEntryViewModel.SalesEntryView.SetInitGridFocus(row, ItemColumnId);
             }
         }
     }

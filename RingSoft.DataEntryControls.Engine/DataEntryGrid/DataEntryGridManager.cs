@@ -16,6 +16,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public List<ColumnMap> Columns { get; private set; }
 
         public event EventHandler<NotifyCollectionChangedEventArgs> RowsChanged;
+
+        private DataEntryGridRow _initRow;
+        private int _initColumnId = -1;
+
         public DataEntryGridManager()
         {
             _rows.CollectionChanged += _rows_CollectionChanged;
@@ -38,6 +42,26 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             
             Initialize();
             InsertNewRow();
+
+            if (_initRow != null && _initColumnId != -1)
+            {
+                Grid.GotoCell(_initRow, _initColumnId);
+                _initRow = null;
+                _initColumnId = -1;
+            }
+        }
+
+        public void GotoCell(DataEntryGridRow row, int columnId)
+        {
+            if (Grid == null)
+            {
+                _initRow = row;
+                _initColumnId = columnId;
+            }
+            else
+            {
+                Grid.GotoCell(row, columnId);
+            }
         }
 
         protected virtual void Initialize()

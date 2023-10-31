@@ -64,8 +64,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             if (string.IsNullOrEmpty(SpecialOrderText))
             {
-                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
-                SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
+                SalesEntryDetailsManager.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Special Order text cannot be empty.";
                 ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Failure!",

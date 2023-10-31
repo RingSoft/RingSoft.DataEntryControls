@@ -21,10 +21,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         InvalidProductResult CorrectInvalidProduct(AutoFillValue invalidProductValue);
 
         bool ShowCommentEditor(DataEntryGridMemoValue comment);
-
-        void GridValidationFail();
-
-        void SetInitGridFocus(SalesEntryDetailsRow row, int columnId);
     }
 
     public class SalesEntryViewModel : DbMaintenanceViewModel<Orders>

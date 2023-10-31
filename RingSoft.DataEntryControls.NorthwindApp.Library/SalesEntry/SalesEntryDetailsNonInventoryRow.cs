@@ -111,8 +111,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             if (NonInventoryValue == null || !NonInventoryValue.PrimaryKeyValue.IsValid)
             {
-                SalesEntryDetailsManager.SalesEntryViewModel.SalesEntryView.GridValidationFail();
-                SalesEntryDetailsManager.Grid.GotoCell(this, (int)SalesEntryGridColumns.Item);
+                SalesEntryDetailsManager.GotoCell(this, (int)SalesEntryGridColumns.Item);
 
                 var message = "Non Inventory Code must contain a valid value.";
                 ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Failure!",
