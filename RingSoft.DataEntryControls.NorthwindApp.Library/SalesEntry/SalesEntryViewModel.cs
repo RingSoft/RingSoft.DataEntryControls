@@ -599,19 +599,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var order = new Orders();
             order.OrderId = OrderId;
 
-            if (Customer != null && Customer.PrimaryKeyValue.IsValid)
+            if (Customer != null && Customer.PrimaryKeyValue.IsValid())
             {
                 var customer = AppGlobals.LookupContext.Customers.GetEntityFromPrimaryKeyValue(Customer.PrimaryKeyValue);
                 order.CustomerId = customer.CustomerId;
             }
 
-            if (Employee != null && Employee.PrimaryKeyValue.IsValid)
+            if (Employee != null && Employee.PrimaryKeyValue.IsValid())
             {
                 var employee = AppGlobals.LookupContext.Employees.GetEntityFromPrimaryKeyValue(Employee.PrimaryKeyValue);
                 order.EmployeeId = employee.EmployeeId;
             }
 
-            if (ShipVia != null && ShipVia.PrimaryKeyValue.IsValid)
+            if (ShipVia != null && ShipVia.PrimaryKeyValue.IsValid())
             {
                 var shipVia = AppGlobals.LookupContext.Shippers.GetEntityFromPrimaryKeyValue(ShipVia.PrimaryKeyValue);
                 order.ShipVia = shipVia.ShipperId;
@@ -717,7 +717,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             if (_customerDirty)
             {
-                if (Customer?.PrimaryKeyValue == null || !Customer.PrimaryKeyValue.IsValid)
+                if (Customer?.PrimaryKeyValue == null || !Customer.PrimaryKeyValue.IsValid())
                 {
                     CompanyName = string.Empty;
                 }

@@ -2,6 +2,7 @@
 using RingSoft.DbLookup.AutoFill;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using RingSoft.DbLookup;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 {
@@ -66,11 +67,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var newProductResult =
                 AppGlobals.LookupContext.ProductsLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, ownerWindow);
 
-            if (!newProductResult.NewPrimaryKeyValue.IsValid)
+            if (!newProductResult.NewPrimaryKeyValue.IsValid())
                 return false;
 
+            var product = AppGlobals
+                .LookupContext
+                .Products
+                .GetAutoFillValue(newProductResult.NewPrimaryKeyValue.KeyString);
             Result.NewItemValue = new AutoFillValue(newProductResult.NewPrimaryKeyValue,
-                newProductResult.NewLookupEntity.ProductName);
+                product.Text);
 
             Result.ReturnCode = InvalidProductResultReturnCodes.NewProduct;
 
@@ -82,12 +87,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             var newNiCodeResult =
                 AppGlobals.LookupContext.NonInventoryCodesLookup.ShowAddOnTheFlyWindow(InvalidProductValue.Text, null);
 
-            if (!newNiCodeResult.NewPrimaryKeyValue.IsValid)
+            if (!newNiCodeResult.NewPrimaryKeyValue.IsValid())
                 return false;
 
+            var niCode = AppGlobals
+                .LookupContext
+                .NonInventoryCodes
+                .GetAutoFillValue(newNiCodeResult.NewPrimaryKeyValue.KeyString);
             Result.NewItemValue = new AutoFillValue(newNiCodeResult.NewPrimaryKeyValue,
-                newNiCodeResult.NewLookupEntity.Description);
-
+                niCode.Text);
             Result.ReturnCode = InvalidProductResultReturnCodes.NewNonInventory;
 
             return true;

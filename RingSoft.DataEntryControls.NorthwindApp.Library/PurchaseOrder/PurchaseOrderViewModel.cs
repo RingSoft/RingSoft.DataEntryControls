@@ -302,7 +302,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             if (_supplierDirty)
             {
                 if (SupplierAutoFillValue?.PrimaryKeyValue != null &&
-                    SupplierAutoFillValue.PrimaryKeyValue.IsValid)
+                    SupplierAutoFillValue.PrimaryKeyValue.IsValid())
                 {
                     var supplier =
                         AppGlobals.LookupContext.Suppliers.GetEntityFromPrimaryKeyValue(SupplierAutoFillValue
@@ -365,7 +365,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             var supplierId = 0;
 
             if (SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue != null &&
-                SupplierAutoFillValue.PrimaryKeyValue.IsValid)
+                SupplierAutoFillValue.PrimaryKeyValue.IsValid())
             {
                 var supplier =
                     AppGlobals.LookupContext.Suppliers.GetEntityFromPrimaryKeyValue(SupplierAutoFillValue
@@ -434,7 +434,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public bool ValidSupplier()
         {
-            return SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue.IsValid;
+            return SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue.IsValid();
         }
 
         public void CheckSupplier()
