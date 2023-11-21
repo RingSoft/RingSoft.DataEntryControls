@@ -96,6 +96,8 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        public bool IsFocused { get; private set; }
+
         public event EventHandler<UiVisibilityArgs> SetVisibility;
 
         public event EventHandler<UiEnabledArgs> SetEnabled;
@@ -112,17 +114,20 @@ namespace RingSoft.DataEntryControls.Engine
 
         public void SetFocus()
         {
+            IsFocused = true;
             OnSetFocus?.Invoke(this, EventArgs.Empty);
         }
 
 
         public void FireLostFocusEvent(UiLostFocusArgs args)
         {
+            IsFocused = false;
             LostFocus?.Invoke(this, args);
         }
 
         public void FireGotFocusEvent()
         {
+            IsFocused = true;
             GotFocus?.Invoke(this, EventArgs.Empty);
         }
     }
