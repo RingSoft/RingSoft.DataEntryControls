@@ -6,6 +6,7 @@ using Microsoft.VisualBasic;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
+using RingSoft.DbLookup.EfCore;
 using RingSoft.DbLookup.QueryBuilder;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library
@@ -34,7 +35,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             AppGlobals.Initialize();
             AppGlobals.DataDirectory = dataDir;
             AppGlobals.LookupContext = new NorthwindLookupContext(true);
-            SystemGlobals.LookupContext = AppGlobals.LookupContext;
             AppGlobals.DbContextProcessor = new DbContextProcessor();
 
             //var context = SystemGlobals.DataRepository.GetDataContext();
@@ -71,10 +71,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
             AppGlobals.UpdateGlobalsProgressStatus(StartupProgress.InitStructure);
             AppGlobals.LookupContext = new NorthwindLookupContext(false);
-            SystemGlobals.LookupContext = AppGlobals.LookupContext;
 
             AppGlobals.DbContextProcessor = new DbContextProcessor();
-
 
             try
             {

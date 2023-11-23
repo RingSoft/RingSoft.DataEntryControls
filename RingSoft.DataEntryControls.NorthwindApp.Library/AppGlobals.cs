@@ -1,6 +1,7 @@
 ﻿using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
+using RingSoft.DbLookup.EfCore;
 using System;
 using System.IO;
 using System.Reflection;
@@ -82,6 +83,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
 
         public static void Initialize()
         {
+            var processor = new SystemDataRepositoryEfCore();
+            processor.Initialize();
             DataDirectory = AppDataDirectory;
             var registryElementName = "RegistryFileName";
             var appSettingsFile = $"{AppDataDirectory}\\AppSettings.xml";

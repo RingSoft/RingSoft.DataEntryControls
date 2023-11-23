@@ -176,16 +176,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             OrderDetails.GetFieldDefinition(p => p.ProductId).CanSetNull(false);
         }
 
-
-        public void SetAdvancedFind()
-        {
-            SystemGlobals.AdvancedFindLookupContext = this;
-            //var configuration = new AdvancedFindLookupConfiguration(SystemGlobals.AdvancedFindLookupContext);
-            //configuration.InitializeModel();
-            //configuration.ConfigureLookups();
-            SystemGlobals.LookupContext = this;
-        }
-
         public override AutoFillValue OnAutoFillTextRequest(TableDefinitionBase tableDefinition, string primaryKeyString)
         {
             if (tableDefinition == Employees)
