@@ -508,11 +508,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
         {
             _connectionString = connectionString;
         }
-
-        public IAdvancedFindDbContextEfCore GetNewDbContext()
-        {
-            return new NorthwindDbContext();
-        }
     }
 
     public class ContextDesignTimeFactory : IDesignTimeDbContextFactory<NorthwindDbContext>
