@@ -486,7 +486,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.Region).HasColumnType("nvarchar(15)").HasMaxLength(15);
             });
-            SystemDataRepositoryEfCore.ConfigureAdvancedFind(modelBuilder);
+            DbContextEfCore.ConfigureAdvancedFind(modelBuilder);
         }
 
         public DbContext GetDbContextEf()
