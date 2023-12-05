@@ -427,19 +427,20 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
-        //protected override void OnGotFocus(RoutedEventArgs e)
-        //{
-        //    if (TextBox == null)
-        //    {
-        //        _setFocus = true;
-        //    }
-        //    else
-        //    {
-        //        TextBox?.Focus();
-        //    }
+        //Necessary
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            if (TextBox == null)
+            {
+                _setFocus = true;
+            }
+            else
+            {
+                TextBox?.Focus();
+            }
 
-        //    base.OnGotFocus(e);
-        //}
+            base.OnGotFocus(e);
+        }
 
         public new bool Focus()
         {
