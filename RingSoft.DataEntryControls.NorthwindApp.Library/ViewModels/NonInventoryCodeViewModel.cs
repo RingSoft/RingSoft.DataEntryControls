@@ -40,13 +40,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
         
-        protected override NonInventoryCodes PopulatePrimaryKeyControls(NonInventoryCodes newEntity, PrimaryKeyValue primaryKeyValue)
+        protected override void PopulatePrimaryKeyControls(NonInventoryCodes newEntity, PrimaryKeyValue primaryKeyValue)
         {
             NonInventoryCodeId = newEntity.NonInventoryCodeId;
-
-            var nonInventoryCode = AppGlobals.DbContextProcessor.GetNonInventoryCode(newEntity.NonInventoryCodeId);
-            KeyAutoFillValue = new AutoFillValue(primaryKeyValue, nonInventoryCode.Description);
-            return nonInventoryCode;
         }
 
         protected override void LoadFromEntity(NonInventoryCodes entity)

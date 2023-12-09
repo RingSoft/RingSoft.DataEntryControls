@@ -486,25 +486,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 AllowLookupView = false
             };
             DetailsGridManager = new SalesEntryDetailsGridManager(this);
-            //DetailsGridReadOnlyMode = true;
+            RegisterGrid(DetailsGridManager);
 
             base.Initialize();
         }
 
-        protected override Orders PopulatePrimaryKeyControls(Orders newEntity, PrimaryKeyValue primaryKeyValue)
+        protected override void PopulatePrimaryKeyControls(Orders newEntity, PrimaryKeyValue primaryKeyValue)
         {
-            var order = AppGlobals.DbContextProcessor.GetOrder(newEntity.OrderId);
-            OrderId = order.OrderId;
+            OrderId = newEntity.OrderId;
 
             ReadOnlyMode = ViewModelInput.SalesEntryViewModels.Any(a => a != this && a.OrderId == OrderId);
-
-            return order;
         }
 
         protected override void LoadFromEntity(Orders entity)
         {
-            Customer = new AutoFillValue(AppGlobals.LookupContext.Customers.GetPrimaryKeyValueFromEntity(entity.Customer),
-                entity.CustomerId);
+            Customer = entity.Customer.GetAutoFillValue();
 
             if (entity.Customer != null)
                 CompanyName = entity.Customer.CompanyName;
@@ -543,8 +539,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             PostalCode = entity.ShipPostalCode;
             Country = entity.ShipCountry;
             Notes = entity.Notes;
-
-            DetailsGridManager.LoadGrid(entity.OrderDetails);
 
             RefreshTotalControls();
             _customerDirty = false;
@@ -672,7 +666,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
 
             Notes = string.Empty;
-            DetailsGridManager.SetupForNewRecord();
             _customerDirty = false;
         }
 

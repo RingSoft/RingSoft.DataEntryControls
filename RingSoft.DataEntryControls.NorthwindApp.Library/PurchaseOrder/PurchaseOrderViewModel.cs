@@ -327,14 +327,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
-        protected override Purchases PopulatePrimaryKeyControls(Purchases newEntity, PrimaryKeyValue primaryKeyValue)
+        protected override void PopulatePrimaryKeyControls(Purchases newEntity, PrimaryKeyValue primaryKeyValue)
         {
-            var purchase = AppGlobals.DbContextProcessor.GetPurchase(newEntity.PurchaseOrderId);
-            PurchaseOrderId = purchase.PurchaseOrderId;
-
-            KeyAutoFillValue = new AutoFillValue(primaryKeyValue, purchase.PoNumber);
-            //ReadOnlyMode = true;
-            return purchase;
+            PurchaseOrderId = newEntity.PurchaseOrderId;
         }
 
         protected override void LoadFromEntity(Purchases entity)

@@ -176,25 +176,25 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             OrderDetails.GetFieldDefinition(p => p.ProductId).CanSetNull(false);
         }
 
-        public override AutoFillValue OnAutoFillTextRequest(TableDefinitionBase tableDefinition, string primaryKeyString)
-        {
-            if (tableDefinition == Employees)
-            {
-                var employee = AppGlobals.DbContextProcessor.GetEmployee(primaryKeyString.ToInt());
-                var primaryKeyValue = Employees.GetPrimaryKeyValueFromEntity(employee);
-                return new AutoFillValue(primaryKeyValue, employee.FirstName + " " + employee.LastName);
-            }
+        //public override AutoFillValue OnAutoFillTextRequest(TableDefinitionBase tableDefinition, string primaryKeyString)
+        //{
+        //    if (tableDefinition == Employees)
+        //    {
+        //        var employee = AppGlobals.DbContextProcessor.GetEmployee(primaryKeyString.ToInt());
+        //        var primaryKeyValue = Employees.GetPrimaryKeyValueFromEntity(employee);
+        //        return new AutoFillValue(primaryKeyValue, employee.FirstName + " " + employee.LastName);
+        //    }
 
-            if (tableDefinition == Orders)
-            {
-                var order = AppGlobals.DbContextProcessor.GetOrder(primaryKeyString.ToInt());
-                var primaryKeyValue = Orders.GetPrimaryKeyValueFromEntity(order);
-                return new AutoFillValue(primaryKeyValue,
-                    order.OrderDate.Value.FormatDateValue(DbDateTypes.DateOnly) + " " + order.CustomerId);
-            }
+        //    if (tableDefinition == Orders)
+        //    {
+        //        var order = AppGlobals.DbContextProcessor.GetOrder(primaryKeyString.ToInt());
+        //        var primaryKeyValue = Orders.GetPrimaryKeyValueFromEntity(order);
+        //        return new AutoFillValue(primaryKeyValue,
+        //            order.OrderDate.Value.FormatDateValue(DbDateTypes.DateOnly) + " " + order.CustomerId);
+        //    }
 
 
-            return base.OnAutoFillTextRequest(tableDefinition, primaryKeyString);
-        }
+        //    return base.OnAutoFillTextRequest(tableDefinition, primaryKeyString);
+        //}
     }
 }

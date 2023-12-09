@@ -369,24 +369,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             orderDetailsLookupDefinition.AddVisibleColumnDefinition(p => p.Quantity, p => p.Quantity);
             orderDetailsLookupDefinition.AddVisibleColumnDefinition(p => p.UnitPrice, p => p.UnitPrice);
             OrderDetailsLookupDefinition = orderDetailsLookupDefinition;
+            RegisterLookup(OrderDetailsLookupDefinition);
 
             base.Initialize();
         }
 
-        protected override Products PopulatePrimaryKeyControls(Products newEntity, PrimaryKeyValue primaryKeyValue)
+        protected override void PopulatePrimaryKeyControls(Products newEntity, PrimaryKeyValue primaryKeyValue)
         {
             ProductId = newEntity.ProductId;
-            var product = AppGlobals.DbContextProcessor.GetProduct(ProductId);
-
-           
-            KeyAutoFillValue = new AutoFillValue(primaryKeyValue, product.ProductName);
-
-            _orderDetailsLookup.FilterDefinition.ClearFixedFilters();
-            _orderDetailsLookup.FilterDefinition.AddFixedFilter(p => p.ProductId, Conditions.Equals, ProductId);
-
-            OrderDetailsLookupCommand = GetLookupCommand(LookupCommands.Refresh, primaryKeyValue, _viewModelInput);
 
             ReadOnlyMode = _viewModelInput.ProductViewModels.Any(a => a != this && a.ProductId == ProductId);
+        }
+
+        protected override Products GetEntityFromDb(Products newEntity, PrimaryKeyValue primaryKeyValue)
+        {
+            var product = AppGlobals.DbContextProcessor.GetProduct(newEntity.ProductId);
 
             if (product.PurchaseDetails.Any())
             {
