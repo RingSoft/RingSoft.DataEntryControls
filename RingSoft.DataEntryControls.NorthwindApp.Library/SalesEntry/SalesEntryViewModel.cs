@@ -501,18 +501,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         protected override void LoadFromEntity(Orders entity)
         {
             Customer = entity.Customer.GetAutoFillValue();
-
-            if (entity.Customer != null)
-                CompanyName = entity.Customer.CompanyName;
-            else
-                CompanyName = string.Empty;
-
-            var employeeName = string.Empty;
-            if (entity.Employee != null)
-                employeeName = GetEmployeeAutoFillValueText(entity.Employee);
-
-            Employee = new AutoFillValue(AppGlobals.LookupContext.Employees.GetPrimaryKeyValueFromEntity(entity.Employee),
-                employeeName);
+            CompanyName = entity.Customer.CompanyName;
+            Employee = entity.Employee.GetAutoFillValue();
 
             RequiredDate = entity.RequiredDate;
             if (entity.OrderDate != null) 
@@ -523,12 +513,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
             ShippedDate = entity.ShippedDate;
 
-            var shipCompanyName = string.Empty;
-            if (entity.ShipVia != null)
-                shipCompanyName = entity.Shipper.CompanyName;
-
-            ShipVia = new AutoFillValue(AppGlobals.LookupContext.Shippers.GetPrimaryKeyValueFromEntity(entity.Shipper),
-                shipCompanyName);
+            ShipVia = entity.Shipper.GetAutoFillValue();
 
             if (entity.Freight != null) 
                 Freight = (double) entity.Freight;
@@ -583,10 +568,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             Total = (SubTotal - TotalDiscount) + Freight;
         }
         
-        private string GetEmployeeAutoFillValueText(Employees employee)
-        {
-            return $"{employee.FirstName} {employee.LastName}";
-        }
 
         protected override Orders GetEntityData()
         {
@@ -659,8 +640,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                                 .ParentWindowPrimaryKeyValue);
                         employee =
                             AppGlobals.DbContextProcessor.GetEmployee(employee.EmployeeId);
-                        Employee = new AutoFillValue(LookupAddViewArgs.ParentWindowPrimaryKeyValue,
-                            GetEmployeeAutoFillValueText(employee));
+                        Employee = employee.GetAutoFillValue();
                     }
                 }
             }
