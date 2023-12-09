@@ -10,7 +10,7 @@
         xmlns:lm="clr-namespace:RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;assembly=RingSoft.DataEntryControls.NorthwindApp.Library"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
-        Title="Products" Width="500" Height="450">
+        Title="Products" Width="500" Height="550">
     <Window.Resources>
         <Style TargetType="dec:StringEditControl" x:Key="CommentStringEditControl" BasedOn="{StaticResource GlobalStringEditControlStyle}">
             <Setter Property="Height" Value="85"/>

@@ -21,9 +21,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
     public class PurchaseOrderViewModel : DbMaintenanceViewModel<Purchases>
     {
-        public override TableDefinition<Purchases> TableDefinition => AppGlobals.LookupContext.Purchases;
-
         public IPurchaseOrderView PurchaseOrderView { get; private set; }
+
+        #region Properties
 
         private int _purchaseOrderId;
 
@@ -68,21 +68,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 _supplierAutoFillValue = value;
                 _supplierDirty = true;
                 OnPropertyChanged(nameof(SupplierAutoFillValue));
-            }
-        }
-
-        private bool _supplierEnabled;
-
-        public bool SupplierEnabled
-        {
-            get => _supplierEnabled;
-            set
-            {
-                if (_supplierEnabled == value)
-                    return;
-
-                _supplierEnabled = value;
-                OnPropertyChanged(nameof(SupplierEnabled));
             }
         }
 
@@ -266,15 +251,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             }
         }
 
+        #endregion
 
         public LookupDefinition<ProductLookup, Products> ProductsLookup { get; private set; }
+        public UiCommand SupplierUiCommand { get; } = new UiCommand();
 
         private bool _supplierDirty;
 
         public PurchaseOrderViewModel()
         {
-            SupplierEnabled = true;
-            TablesToDelete.Add(AppGlobals.LookupContext.PurchaseDetails);
+            SupplierUiCommand.LostFocus += (sender, args) =>
+            {
+                OnSupplierLostFocus();
+            };
         }
 
         protected override void Initialize()
@@ -293,11 +282,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 };
 
             DetailsGridManager = new PurchaseOrderDetailsGridManager(this);
+            RegisterGrid(DetailsGridManager);
 
             base.Initialize();
         }
 
-        public void OnSupplierLostFocus()
+        private void OnSupplierLostFocus()
         {
             if (_supplierDirty)
             {
@@ -335,10 +325,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         protected override void LoadFromEntity(Purchases entity)
         {
             _supplierDirty = false;
-            SupplierAutoFillValue =
-                new AutoFillValue(AppGlobals.LookupContext.Suppliers.GetPrimaryKeyValueFromEntity(entity.Supplier),
-                    entity.Supplier.CompanyName);
-
+            SupplierAutoFillValue = entity.Supplier.GetAutoFillValue();
             OrderDate = entity.OrderDate;
             RequiredDate = entity.RequiredDate;
             Address = entity.Address;
@@ -349,30 +336,17 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             Freight = entity.Freight;
             Notes = entity.Notes;
 
-            DetailsGridManager.LoadGrid(entity.PurchaseDetails);
-            UpdateSupplierEnabled();
             UpdateProductLookup(entity.Supplier);
             RefreshTotalControls();
         }
 
         protected override Purchases GetEntityData()
         {
-            var supplierId = 0;
-
-            if (SupplierAutoFillValue != null && SupplierAutoFillValue.PrimaryKeyValue != null &&
-                SupplierAutoFillValue.PrimaryKeyValue.IsValid())
-            {
-                var supplier =
-                    AppGlobals.LookupContext.Suppliers.GetEntityFromPrimaryKeyValue(SupplierAutoFillValue
-                        .PrimaryKeyValue);
-                supplierId = supplier.SupplierId;
-            }
-
             var purchase = new Purchases
             {
                 PurchaseOrderId = PurchaseOrderId, 
                 PoNumber = KeyAutoFillValue.Text,
-                SupplierId = supplierId,
+                SupplierId = SupplierAutoFillValue.GetEntity<Suppliers>().SupplierId,
                 OrderDate = OrderDate,
                 RequiredDate = RequiredDate,
                 Address = Address,
@@ -387,17 +361,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             return purchase;
         }
 
-        protected override bool ValidateEntity(Purchases entity)
-        {
-            if (!base.ValidateEntity(entity))
-                return false;
-
-            if (!DetailsGridManager.ValidateGrid())
-                return false;
-
-            return true;
-        }
-
         protected override void ClearData()
         {
             PurchaseOrderId = 0;
@@ -409,22 +372,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             Freight = 0;
             Notes = string.Empty;
 
-            DetailsGridManager.SetupForNewRecord();
             _supplierDirty = false;
-            SupplierEnabled = true;
+            SupplierUiCommand.IsEnabled = true;
 
             RefreshTotalControls();
-        }
-
-        protected override bool SaveEntity(Purchases entity)
-        {
-            var purchaseDetails = DetailsGridManager.GetEntityList();
-            return AppGlobals.DbContextProcessor.SavePurchase(entity, purchaseDetails);
-        }
-
-        protected override bool DeleteEntity()
-        {
-            return AppGlobals.DbContextProcessor.DeletePurchase(PurchaseOrderId);
         }
 
         public bool ValidSupplier()
@@ -439,7 +390,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
 
         public void UpdateSupplierEnabled()
         {
-            SupplierEnabled = !DetailsGridManager.ValidProductInGrid();
+            SupplierUiCommand.IsEnabled = !DetailsGridManager.ValidProductInGrid();
         }
 
         private void UpdateProductLookup(Suppliers supplier)

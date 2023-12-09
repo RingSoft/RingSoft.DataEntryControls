@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
@@ -87,6 +88,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         {
             var productRows = Rows.OfType<PurchaseOrderDetailsProductRow>();
             return productRows.Any(a => a.ValidProduct);
+        }
+
+        public override void LoadGrid(IEnumerable<PurchaseDetails> entityList)
+        {
+            base.LoadGrid(entityList);
+            PurchaseOrderViewModel.UpdateSupplierEnabled();
         }
     }
 }

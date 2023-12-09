@@ -1,15 +1,12 @@
 ﻿using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
-using RingSoft.DbLookup.AutoFill;
-using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbMaintenance;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
     public class NonInventoryCodeViewModel : DbMaintenanceViewModel<NonInventoryCodes>
     {
-        public override TableDefinition<NonInventoryCodes> TableDefinition =>
-            AppGlobals.LookupContext.NonInventoryCodes;
+        #region Properties
 
         private int _nonInventoryCodeId;
 
@@ -39,7 +36,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                 OnPropertyChanged(nameof(Price));
             }
         }
-        
+
+        #endregion
+
         protected override void PopulatePrimaryKeyControls(NonInventoryCodes newEntity, PrimaryKeyValue primaryKeyValue)
         {
             NonInventoryCodeId = newEntity.NonInventoryCodeId;
@@ -65,16 +64,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
         {
             NonInventoryCodeId = 0;
             Price = 0;
-        }
-
-        protected override bool SaveEntity(NonInventoryCodes entity)
-        {
-            return AppGlobals.DbContextProcessor.SaveNonInventoryCode(entity);
-        }
-
-        protected override bool DeleteEntity()
-        {
-            return AppGlobals.DbContextProcessor.DeleteNonInventoryCode(NonInventoryCodeId);
         }
     }
 }

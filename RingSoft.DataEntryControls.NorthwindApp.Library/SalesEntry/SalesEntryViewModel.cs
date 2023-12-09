@@ -25,10 +25,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
     public class SalesEntryViewModel : DbMaintenanceViewModel<Orders>
     {
-        public override TableDefinition<Orders> TableDefinition =>
-            AppGlobals.LookupContext.Orders;
-
         public ISalesEntryMaintenanceView SalesEntryView { get; private set; }
+
+        #region Properties
 
         private int _orderId;
         public int OrderId
@@ -402,6 +401,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
+        #endregion
 
         public bool SetInitialFocusToGrid { get; internal set; }
 
@@ -428,8 +428,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         public SalesEntryViewModel()
         {
-            TablesToDelete.Add(AppGlobals.LookupContext.OrderDetails);
-
             CustomerUiCommand.LostFocus += CustomerUiCommand_LostFocus;
         }
 
@@ -489,6 +487,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             RegisterGrid(DetailsGridManager);
 
             base.Initialize();
+        }
+
+        public override void OnNewButton()
+        {
+            base.OnNewButton();
+            CustomerUiCommand.SetFocus();
         }
 
         protected override void PopulatePrimaryKeyControls(Orders newEntity, PrimaryKeyValue primaryKeyValue)
@@ -571,38 +575,24 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
         protected override Orders GetEntityData()
         {
-            var order = new Orders();
-            order.OrderId = OrderId;
-
-            if (Customer != null && Customer.PrimaryKeyValue.IsValid())
+            var order = new Orders
             {
-                var customer = AppGlobals.LookupContext.Customers.GetEntityFromPrimaryKeyValue(Customer.PrimaryKeyValue);
-                order.CustomerId = customer.CustomerId;
-            }
-
-            if (Employee != null && Employee.PrimaryKeyValue.IsValid())
-            {
-                var employee = AppGlobals.LookupContext.Employees.GetEntityFromPrimaryKeyValue(Employee.PrimaryKeyValue);
-                order.EmployeeId = employee.EmployeeId;
-            }
-
-            if (ShipVia != null && ShipVia.PrimaryKeyValue.IsValid())
-            {
-                var shipVia = AppGlobals.LookupContext.Shippers.GetEntityFromPrimaryKeyValue(ShipVia.PrimaryKeyValue);
-                order.ShipVia = shipVia.ShipperId;
-            }
-
-            order.OrderDate = OrderDate;
-            order.RequiredDate = RequiredDate;
-            order.ShippedDate = ShippedDate;
-            order.Freight = Freight;
-            order.ShipName = ShipName;
-            order.ShipAddress = Address;
-            order.ShipCity = City;
-            order.ShipRegion = Region;
-            order.ShipPostalCode = PostalCode;
-            order.ShipCountry = Country;
-            order.Notes = Notes;
+                OrderId = OrderId,
+                CustomerId = Customer.GetEntity<Customers>().CustomerId,
+                EmployeeId = Employee.GetEntity<Employees>().EmployeeId,
+                ShipVia = ShipVia.GetEntity<Shippers>().ShipperId,
+                OrderDate = OrderDate,
+                RequiredDate = RequiredDate,
+                ShippedDate = ShippedDate,
+                Freight = Freight,
+                ShipName = ShipName,
+                ShipAddress = Address,
+                ShipCity = City,
+                ShipRegion = Region,
+                ShipPostalCode = PostalCode,
+                ShipCountry = Country,
+                Notes = Notes
+            };
 
             return order;
         }
@@ -628,7 +618,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                             .ParentWindowPrimaryKeyValue);
                     customer =
                         AppGlobals.DbContextProcessor.GetCustomer(customer.CustomerId);
-                    Customer = new AutoFillValue(LookupAddViewArgs.ParentWindowPrimaryKeyValue, customer.CustomerId);
+                    Customer = customer.GetAutoFillValue();
                     CompanyName = customer.CompanyName;
                 }
                 else if (table == AppGlobals.LookupContext.Employees)
@@ -647,43 +637,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
 
             Notes = string.Empty;
             _customerDirty = false;
-        }
-
-        protected override bool ValidateEntity(Orders entity)
-        {
-            if (!ValidateCustomer())
-            {
-                return false;
-            }
-
-            if (!ValidateEmployee())
-            {
-                return false;
-            }
-
-            if (!ValidateShipVia())
-            {
-                return false;
-            }
-
-            if (!base.ValidateEntity(entity))
-                return false;
-
-            if (!DetailsGridManager.ValidateGrid())
-                return false;
-
-            return true;
-        }
-
-        protected override bool SaveEntity(Orders entity)
-        {
-            var orderDetails = DetailsGridManager.GetEntityList();
-            return AppGlobals.DbContextProcessor.SaveOrder(entity, orderDetails);
-        }
-
-        protected override bool DeleteEntity()
-        {
-            return AppGlobals.DbContextProcessor.DeleteOrder(OrderId);
         }
 
         public void OnCustomerIdLostFocus()
@@ -717,44 +670,44 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             }
         }
 
-        public bool ValidateCustomer()
-        {
-            if (!Customer.IsValid())
-            {
-                var message = "Invalid Customer!";
-                CustomerUiCommand.SetFocus();
-                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
-                return false;
-            }
+        //public bool ValidateCustomer()
+        //{
+        //    if (!Customer.IsValid())
+        //    {
+        //        var message = "Invalid Customer!";
+        //        CustomerUiCommand.SetFocus();
+        //        ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public bool ValidateEmployee()
-        {
-            if (!Employee.IsValid())
-            {
-                var message = "Invalid Employee!";
-                EmployeeUiCommand.SetFocus();
-                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
-                return false;
-            }
+        //public bool ValidateEmployee()
+        //{
+        //    if (!Employee.IsValid())
+        //    {
+        //        var message = "Invalid Employee!";
+        //        EmployeeUiCommand.SetFocus();
+        //        ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public bool ValidateShipVia()
-        {
-            if (!ShipVia.IsValid())
-            {
-                var message = "Invalid Ship Via!";
-                ShipUiCommand.SetFocus();
-                ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
-                return false;
-            }
+        //public bool ValidateShipVia()
+        //{
+        //    if (!ShipVia.IsValid())
+        //    {
+        //        var message = "Invalid Ship Via!";
+        //        ShipUiCommand.SetFocus();
+        //        ControlsGlobals.UserInterface.ShowMessageBox(message, "Validation Fail", RsMessageBoxIcons.Exclamation);
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         protected override TableFilterDefinitionBase GetAddViewFilter()
         {

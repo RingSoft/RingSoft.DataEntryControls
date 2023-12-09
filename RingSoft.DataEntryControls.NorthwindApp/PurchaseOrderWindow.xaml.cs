@@ -1,12 +1,9 @@
-﻿using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using RingSoft.DataEntryControls.Engine.DataEntryGrid;
-using RingSoft.DataEntryControls.NorthwindApp.Library;
+﻿using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 using RingSoft.DbLookup.Controls.WPF;
-using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
 using RingSoft.DbMaintenance;
+using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -25,7 +22,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             Initialize();
             RegisterFormKeyControl(PoNumberControl);
 
-            SupplierControl.LostFocus += (_, _) => PurchaseOrderViewModel.OnSupplierLostFocus();
             PurchaseOrderViewModel.CheckDirtyMessageShown += (_, args) =>
             {
                 if (args.Result == MessageButtons.Cancel)
@@ -44,20 +40,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         private void PoNumberControl_LostFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.Tab) && !SupplierControl.IsEnabled)
+            if (Keyboard.IsKeyDown(Key.Tab) && !PurchaseOrderViewModel.SupplierUiCommand.IsEnabled)
             {
                 if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)))
                 {
                     OrderDateControl.Focus();
                 }
             }
-        }
-
-        public override void ResetViewForNewRecord()
-        {
-            TabControl.SelectedIndex = 0;
-            PoNumberControl.Focus();
-            base.ResetViewForNewRecord();
         }
 
         public bool ShowCommentEditor(DataEntryGridMemoValue comment)
@@ -72,20 +61,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             TabControl.SelectedIndex = 0;
             DetailsGrid.Focus();
-        }
-
-        public override void OnValidationFail(FieldDefinition fieldDefinition, string text, string caption)
-        {
-            var table = AppGlobals.LookupContext.Purchases;
-            var focusSuccess = true;
-
-            if (fieldDefinition == table.GetFieldDefinition(p => p.PoNumber))
-                focusSuccess = PoNumberControl.Focus();
-            else if (fieldDefinition == table.GetFieldDefinition(p => p.SupplierId))
-                focusSuccess = SupplierControl.Focus();
-
-            if (focusSuccess)
-                base.OnValidationFail(fieldDefinition, text, caption);
         }
     }
 }

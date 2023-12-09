@@ -49,8 +49,8 @@
             <dec:StringReadOnlyBox Grid.Row="0" Grid.Column="1"  Text="{Binding PurchaseOrderId}" DesignText="1234567" Width="70" HorizontalAlignment="Left"/>
             <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="PO Number"/>
             <lc:AutoFillControl x:Name="PoNumberControl" Grid.Row="0" Grid.Column="3" DesignText="202010281146" Width="125"/>
-            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Supplier"/>
-            <lc:AutoFillControl x:Name="SupplierControl" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Setup="{Binding Path=SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=SupplierEnabled}" DesignText="New England Seafood Cannery" Width="200"/>
+            <Label Grid.Row="1" Grid.Column="0" x:Name="SupplierLabel" Style="{StaticResource ControlLabel}" Content="Supplier"/>
+            <lc:AutoFillControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SupplierControl" Setup="{Binding Path=SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DesignText="New England Seafood Cannery" Width="200" UiCommand="{Binding SupplierUiCommand}" UiLabel="{Binding ElementName=SupplierLabel}"/>
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Order Date"/>
             <dec:DateEditControl x:Name="OrderDateControl" Grid.Row="2" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Required Date"/>

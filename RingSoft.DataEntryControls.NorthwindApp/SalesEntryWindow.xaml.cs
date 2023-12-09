@@ -25,15 +25,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             InitializeComponent();
             Initialize();
 
-            //CustomerControl.LostFocus += (_, _) => SalesEntryViewModel.OnCustomerIdLostFocus();
-            //CustomerControl.PreviewLostKeyboardFocus += (_, args) =>
-            //{
-            //    if (!this.IsWindowClosing(args.NewFocus))
-            //    {
-            //        if (!SalesEntryViewModel.ValidateCustomer())
-            //            args.Handled = true;
-            //    }
-            //};
             SalesEntryViewModel.CheckDirtyMessageShown += (_, args) =>
             {
                 if (args.Result == MessageButtons.Cancel)
@@ -47,13 +38,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             RegionEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipRegion).MaxLength;
             PostalCodeEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipPostalCode).MaxLength;
             CountryEdit.MaxLength = tableDefinition.GetFieldDefinition(p => p.ShipCountry).MaxLength;
-        }
-
-        public override void ResetViewForNewRecord()
-        {
-            TabControl.SelectedIndex = 0;
-            CustomerControl.Focus();
-            base.ResetViewForNewRecord();
         }
 
         public InvalidProductResult CorrectInvalidProduct(AutoFillValue invalidProductValue)
@@ -82,22 +66,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             //TabControl.SelectedIndex = 0;
             //DetailsGrid.Focus();
             DetailsGrid.GotoCell(row, columnId);
-        }
-
-        public override void OnValidationFail(FieldDefinition fieldDefinition, string text, string caption)
-        {
-            var table = AppGlobals.LookupContext.Orders;
-            var focusSuccess = true;
-
-            if (fieldDefinition == table.GetFieldDefinition(p => p.CustomerId))
-                focusSuccess = CustomerControl.Focus();
-            else if (fieldDefinition == table.GetFieldDefinition(p => p.EmployeeId))
-                focusSuccess = EmployeeControl.Focus();
-            else if (fieldDefinition == table.GetFieldDefinition(p => p.ShipVia))
-                focusSuccess = ShipViaControl.Focus();
-
-            if (focusSuccess)
-                base.OnValidationFail(fieldDefinition, text, caption);
         }
     }
 }
