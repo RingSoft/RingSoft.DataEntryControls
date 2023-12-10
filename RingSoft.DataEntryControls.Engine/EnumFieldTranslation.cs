@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="EnumFieldTranslation.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -9,21 +22,30 @@ namespace RingSoft.DataEntryControls.Engine
     /// </summary>
     public class EnumFieldTranslation
     {
+        /// <summary>
+        /// The type translations
+        /// </summary>
         private readonly List<TypeTranslation> _typeTranslations = new List<TypeTranslation>();
 
         /// <summary>
         /// Gets the type translations.
         /// </summary>
-        /// <value>
-        /// The type translations.
-        /// </value>
+        /// <value>The type translations.</value>
         public IReadOnlyList<TypeTranslation> TypeTranslations => _typeTranslations;
 
+        /// <summary>
+        /// Loads from enum.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public void LoadFromEnum<T>() where T : Enum
         {
             LoadFromEnum(typeof(T));
         }
 
+        /// <summary>
+        /// Loads from enum.
+        /// </summary>
+        /// <param name="enumType">Type of the enum.</param>
         public void LoadFromEnum(Type enumType)
         {
             var enumValues = Enum.GetValues(enumType);
@@ -43,6 +65,11 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Loads from boolean.
+        /// </summary>
+        /// <param name="trueText">The true text.</param>
+        /// <param name="falseText">The false text.</param>
         public void LoadFromBoolean(string trueText, string falseText)
         {
             _typeTranslations.Add(new TypeTranslation
@@ -67,19 +94,19 @@ namespace RingSoft.DataEntryControls.Engine
         /// <summary>
         /// Gets the numeric value.
         /// </summary>
-        /// <value>
-        /// The numeric value.
-        /// </value>
+        /// <value>The numeric value.</value>
         public int NumericValue { get; internal set; }
 
         /// <summary>
         /// Gets the text value.
         /// </summary>
-        /// <value>
-        /// The text value.
-        /// </value>
+        /// <value>The text value.</value>
         public string TextValue { get; internal set; }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return TextValue;

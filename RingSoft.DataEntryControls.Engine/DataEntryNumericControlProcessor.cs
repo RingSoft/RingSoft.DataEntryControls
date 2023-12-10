@@ -1,63 +1,192 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 07-24-2023
+// ***********************************************************************
+// <copyright file="DataEntryNumericControlProcessor.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Globalization;
 
 namespace RingSoft.DataEntryControls.Engine
 {
+    /// <summary>
+    /// Enum ProcessCharResults
+    /// </summary>
     public enum ProcessCharResults
     {
+        /// <summary>
+        /// The processed
+        /// </summary>
         Processed = 0,
+        /// <summary>
+        /// The ignored
+        /// </summary>
         Ignored = 1,
+        /// <summary>
+        /// The validation failed
+        /// </summary>
         ValidationFailed = 2
     }
 
+    /// <summary>
+    /// Class ValueChangedArgs.
+    /// </summary>
     public class ValueChangedArgs
     {
+        /// <summary>
+        /// Creates new value.
+        /// </summary>
+        /// <value>The new value.</value>
         public string NewValue { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValueChangedArgs"/> class.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
         public ValueChangedArgs(string newValue)
         {
             NewValue = newValue;
         }
     }
 
+    /// <summary>
+    /// Class DataEntryNumericControlProcessor.
+    /// </summary>
     public class DataEntryNumericControlProcessor
     {
+        /// <summary>
+        /// Class NumericTextProperties.
+        /// </summary>
         private class NumericTextProperties
         {
+            /// <summary>
+            /// Gets or sets the character being processed.
+            /// </summary>
+            /// <value>The character being processed.</value>
             public string CharacterBeingProcessed { get; set; }
+            /// <summary>
+            /// Gets or sets the left text.
+            /// </summary>
+            /// <value>The left text.</value>
             public string LeftText { get; set; }
+            /// <summary>
+            /// Gets or sets the selected text.
+            /// </summary>
+            /// <value>The selected text.</value>
             public string SelectedText { get; set; }
+            /// <summary>
+            /// Gets or sets the right text.
+            /// </summary>
+            /// <value>The right text.</value>
             public string RightText { get; set; }
+            /// <summary>
+            /// Gets or sets the index of the decimal.
+            /// </summary>
+            /// <value>The index of the decimal.</value>
             public int DecimalIndex { get; set; } = -1;
+            /// <summary>
+            /// Gets or sets the symbol properties.
+            /// </summary>
+            /// <value>The symbol properties.</value>
             public SymbolProperties SymbolProperties { get; set; }
+            /// <summary>
+            /// Gets or sets the group separator count.
+            /// </summary>
+            /// <value>The group separator count.</value>
             public int GroupSeparatorCount { get; set; }
+            /// <summary>
+            /// Creates new wholenumbertext.
+            /// </summary>
+            /// <value>The new whole number text.</value>
             public string NewWholeNumberText { get; set; }
+            /// <summary>
+            /// Creates new decimaltext.
+            /// </summary>
+            /// <value>The new decimal text.</value>
             public string NewDecimalText { get; set; }
+            /// <summary>
+            /// Gets or sets the index of the negative sign.
+            /// </summary>
+            /// <value>The index of the negative sign.</value>
             public int NegativeSignIndex { get; set; } = -1;
+            /// <summary>
+            /// Gets or sets the index of the symbol.
+            /// </summary>
+            /// <value>The index of the symbol.</value>
             public int SymbolIndex { get; set; }
+            /// <summary>
+            /// Gets or sets the first index of the digit.
+            /// </summary>
+            /// <value>The first index of the digit.</value>
             public int FirstDigitIndex { get; set; }
+            /// <summary>
+            /// Gets or sets the end index.
+            /// </summary>
+            /// <value>The end index.</value>
             public int EndIndex { get; set; }
         }
 
+        /// <summary>
+        /// Class SymbolProperties.
+        /// </summary>
         private class SymbolProperties
         {
+            /// <summary>
+            /// Gets or sets the symbol location.
+            /// </summary>
+            /// <value>The symbol location.</value>
             public NumberSymbolLocations SymbolLocation { get; set; }
+            /// <summary>
+            /// Gets or sets the symbol text.
+            /// </summary>
+            /// <value>The symbol text.</value>
             public string SymbolText { get; set; }
         }
 
+        /// <summary>
+        /// Gets the control.
+        /// </summary>
+        /// <value>The control.</value>
         public INumericControl Control { get; }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <value>The value.</value>
         public double? Value { get; private set; }
 
+        /// <summary>
+        /// Occurs when [value changed].
+        /// </summary>
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
+        /// <summary>
+        /// The setup
+        /// </summary>
         private DecimalEditControlSetup _setup;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryNumericControlProcessor"/> class.
+        /// </summary>
+        /// <param name="control">The control.</param>
         public DataEntryNumericControlProcessor(INumericControl control)
         {
             Control = control;
         }
 
+        /// <summary>
+        /// Processes the character.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <param name="keyChar">The key character.</param>
+        /// <returns>ProcessCharResults.</returns>
         public ProcessCharResults ProcessChar(DecimalEditControlSetup setup, char keyChar)
         {
             var stringChar = keyChar.ToString();
@@ -93,6 +222,13 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.ValidationFailed;
         }
 
+        /// <summary>
+        /// Formats the text for entry.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <param name="controlText">The control text.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         public string FormatTextForEntry(DecimalEditControlSetup setup, string controlText)
         {
             _setup = setup;
@@ -123,6 +259,11 @@ namespace RingSoft.DataEntryControls.Engine
             return newText;
         }
 
+        /// <summary>
+        /// Gets the symbol properties.
+        /// </summary>
+        /// <returns>SymbolProperties.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private SymbolProperties GetSymbolProperties()
         {
             var result = new SymbolProperties();
@@ -146,11 +287,25 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Gets the numeric text properties.
+        /// </summary>
+        /// <param name="charText">The character text.</param>
+        /// <returns>NumericTextProperties.</returns>
         private NumericTextProperties GetNumericTextProperties(string charText)
         {
             return GetNumericPropertiesForText(Control.Text, Control.SelectionStart, Control.SelectionLength, charText);
         }
 
+        /// <summary>
+        /// Gets the numeric properties for text.
+        /// </summary>
+        /// <param name="controlText">The control text.</param>
+        /// <param name="selectionStart">The selection start.</param>
+        /// <param name="selectionLength">Length of the selection.</param>
+        /// <param name="charText">The character text.</param>
+        /// <returns>NumericTextProperties.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private NumericTextProperties GetNumericPropertiesForText(string controlText, int selectionStart,
             int selectionLength, string charText)
         {
@@ -218,6 +373,11 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Gets the decimal position.
+        /// </summary>
+        /// <param name="numberText">The number text.</param>
+        /// <returns>System.Int32.</returns>
         private int GetDecimalPosition(string numberText)
         {
             if (numberText.IsNullOrEmpty())
@@ -226,6 +386,11 @@ namespace RingSoft.DataEntryControls.Engine
             return numberText.IndexOf(GetDecimalPointString(), StringComparison.Ordinal);
         }
 
+        /// <summary>
+        /// Processes the number digit.
+        /// </summary>
+        /// <param name="numberChar">The number character.</param>
+        /// <returns>ProcessCharResults.</returns>
         protected virtual ProcessCharResults ProcessNumberDigit(char numberChar)
         {
             var numericTextProperties = GetNumericTextProperties(numberChar.ToString());
@@ -261,6 +426,11 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.Processed;
         }
 
+        /// <summary>
+        /// Scrubs the data entry selection start.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <param name="numberChar">The number character.</param>
         private void ScrubDataEntrySelectionStart(NumericTextProperties numericTextProperties, string numberChar)
         {
             ScrubSelectionProperties(numericTextProperties);
@@ -288,6 +458,13 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Updates the selection start.
+        /// </summary>
+        /// <param name="newText">The new text.</param>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <param name="newSelectionStart">The new selection start.</param>
+        /// <returns>System.Int32.</returns>
         private int UpdateSelectionStart(string newText, NumericTextProperties numericTextProperties, int newSelectionStart)
         {
             if ((numericTextProperties.LeftText + numericTextProperties.RightText).IsNullOrEmpty())
@@ -299,6 +476,11 @@ namespace RingSoft.DataEntryControls.Engine
             return newSelectionStart;
         }
 
+        /// <summary>
+        /// Gets the new value.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <returns>System.String.</returns>
         private string GetNewValue(NumericTextProperties numericTextProperties)
         {
             var result = numericTextProperties.NewWholeNumberText;
@@ -311,6 +493,11 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Gets the decimal point string.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private string GetDecimalPointString()
         {
             var decimalPoint = _setup.Culture.NumberFormat.CurrencyDecimalSeparator;
@@ -329,6 +516,12 @@ namespace RingSoft.DataEntryControls.Engine
             return decimalPoint;
         }
 
+        /// <summary>
+        /// Gets the formatted text.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private string GetFormattedText(NumericTextProperties numericTextProperties)
         {
             var result = string.Empty;
@@ -387,6 +580,11 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Validates the number.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool ValidateNumber(NumericTextProperties numericTextProperties)
         {
             if (numericTextProperties.NewWholeNumberText == "00")
@@ -395,6 +593,11 @@ namespace RingSoft.DataEntryControls.Engine
             return ValidateNewText(numericTextProperties);
         }
 
+        /// <summary>
+        /// Processes the decimal.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <returns>ProcessCharResults.</returns>
         private ProcessCharResults ProcessDecimal(DecimalEditControlSetup setup)
         {
             _setup = setup;
@@ -448,6 +651,11 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.Processed;
         }
 
+        /// <summary>
+        /// Strips the non numeric characters.
+        /// </summary>
+        /// <param name="formattedText">The formatted text.</param>
+        /// <returns>System.String.</returns>
         public virtual string StripNonNumericCharacters(string formattedText)
         {
             var result = formattedText.Replace(_setup.CurrencyText, "");
@@ -455,6 +663,11 @@ namespace RingSoft.DataEntryControls.Engine
             return result.NumTextToString(_setup.Culture);
         }
 
+        /// <summary>
+        /// Counts the number group separators.
+        /// </summary>
+        /// <param name="formattedText">The formatted text.</param>
+        /// <returns>System.Int32.</returns>
         public virtual int CountNumberGroupSeparators(string formattedText)
         {
             var searchString = GetGroupSeparatorString();
@@ -462,6 +675,10 @@ namespace RingSoft.DataEntryControls.Engine
             return formattedText.CountTextForChars(searchString);
         }
 
+        /// <summary>
+        /// Gets the group separator string.
+        /// </summary>
+        /// <returns>System.String.</returns>
         private string GetGroupSeparatorString()
         {
             if (_setup.FormatType == DecimalEditFormatTypes.Currency)
@@ -470,6 +687,11 @@ namespace RingSoft.DataEntryControls.Engine
             return _setup.Culture.NumberFormat.NumberGroupSeparator;
         }
 
+        /// <summary>
+        /// Validates the decimal.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool ValidateDecimal(NumericTextProperties numericTextProperties)
         {
             if (_setup.Precision <= 0)
@@ -481,6 +703,11 @@ namespace RingSoft.DataEntryControls.Engine
             return ValidateNewText(numericTextProperties);
         }
 
+        /// <summary>
+        /// Validates the new text.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool ValidateNewText(NumericTextProperties numericTextProperties)
         {
             if (!numericTextProperties.NewDecimalText.IsNullOrEmpty())
@@ -501,6 +728,11 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
+        /// <summary>
+        /// Called when [backspace key down].
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <returns>ProcessCharResults.</returns>
         public virtual ProcessCharResults OnBackspaceKeyDown(DecimalEditControlSetup setup)
         {
             if (Control.SelectionStart == 0 && Control.SelectionLength == 0)
@@ -561,6 +793,11 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.Processed;
         }
 
+        /// <summary>
+        /// Scrubs the backspace.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool ScrubBackspace(NumericTextProperties numericTextProperties)
         {
             if (Control.SelectionLength == 0)
@@ -589,6 +826,9 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
+        /// <summary>
+        /// Deletes the selected text.
+        /// </summary>
         private void DeleteSelectedText()
         {
             var numericTextProperties = GetNumericTextProperties(string.Empty);
@@ -638,6 +878,10 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Scrubs the selection properties.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
         private void ScrubSelectionProperties(NumericTextProperties numericTextProperties)
         {
             if (Control.SelectionLength > 0)
@@ -673,6 +917,11 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Called when [delete key down].
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <returns>ProcessCharResults.</returns>
         public virtual ProcessCharResults OnDeleteKeyDown(DecimalEditControlSetup setup)
         {
             _setup = setup;
@@ -721,6 +970,11 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.Processed;
         }
 
+        /// <summary>
+        /// Scrubs the delete.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool ScrubDelete(NumericTextProperties numericTextProperties)
         {
             if (Control.SelectionStart + Control.SelectionLength <= numericTextProperties.FirstDigitIndex)
@@ -751,6 +1005,10 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
+        /// <summary>
+        /// Processes the negative character.
+        /// </summary>
+        /// <returns>ProcessCharResults.</returns>
         private ProcessCharResults ProcessNegativeChar()
         {
             if (_setup.MinimumValue != null && _setup.MinimumValue >= 0)
@@ -775,6 +1033,11 @@ namespace RingSoft.DataEntryControls.Engine
             return ProcessCharResults.Processed;
         }
 
+        /// <summary>
+        /// Sets the empty negative text.
+        /// </summary>
+        /// <param name="numericTextProperties">The numeric text properties.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private void SetEmptyNegativeText(NumericTextProperties numericTextProperties)
         {
             Control.SelectionLength = 0;
@@ -800,6 +1063,12 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Pastes the text.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <param name="newText">The new text.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool PasteText(DecimalEditControlSetup setup, string newText)
         {
             _setup = setup;
@@ -843,6 +1112,10 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
+        /// <summary>
+        /// Called when [value changed].
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
         public virtual void OnValueChanged(string newValue)
         {
             var decimalValue = newValue.ToDecimal(_setup.Culture);

@@ -1,41 +1,97 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 10-31-2023
+// ***********************************************************************
+// <copyright file="DataEntryGridManager.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
+    /// <summary>
+    /// Class DataEntryGridManager.
+    /// </summary>
     public abstract class DataEntryGridManager
     {
+        /// <summary>
+        /// The rows
+        /// </summary>
         private ObservableCollection<DataEntryGridRow> _rows = new ObservableCollection<DataEntryGridRow>();
 
+        /// <summary>
+        /// Gets the rows.
+        /// </summary>
+        /// <value>The rows.</value>
         public ReadOnlyObservableCollection<DataEntryGridRow> Rows { get; }
 
+        /// <summary>
+        /// Gets the grid.
+        /// </summary>
+        /// <value>The grid.</value>
         public IDataEntryGrid Grid { get; private set; }
 
+        /// <summary>
+        /// Gets the columns.
+        /// </summary>
+        /// <value>The columns.</value>
         public List<ColumnMap> Columns { get; private set; }
 
+        /// <summary>
+        /// Occurs when [rows changed].
+        /// </summary>
         public event EventHandler<NotifyCollectionChangedEventArgs> RowsChanged;
 
+        /// <summary>
+        /// The initialize row
+        /// </summary>
         private DataEntryGridRow _initRow;
+        /// <summary>
+        /// The initialize column identifier
+        /// </summary>
         private int _initColumnId = -1;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridManager"/> class.
+        /// </summary>
         public DataEntryGridManager()
         {
             _rows.CollectionChanged += _rows_CollectionChanged;
             Rows = new ReadOnlyObservableCollection<DataEntryGridRow>(_rows);
         }
 
+        /// <summary>
+        /// Handles the CollectionChanged event of the _rows control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
         private void _rows_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnRowsChanged(e);
         }
 
+        /// <summary>
+        /// Handles the <see cref="E:RowsChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
         protected virtual void OnRowsChanged(NotifyCollectionChangedEventArgs e)
         {
             RowsChanged?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Setups the grid.
+        /// </summary>
+        /// <param name="grid">The grid.</param>
         public void SetupGrid(IDataEntryGrid grid)
         {
             Grid = grid;
@@ -51,6 +107,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gotoes the cell.
+        /// </summary>
+        /// <param name="row">The row.</param>
+        /// <param name="columnId">The column identifier.</param>
         public void GotoCell(DataEntryGridRow row, int columnId)
         {
             if (Grid == null)
@@ -64,18 +125,32 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         protected virtual void Initialize()
         {
             Columns = Grid.GetColumns();
         }
 
+        /// <summary>
+        /// Raises the dirty flag.
+        /// </summary>
         public virtual void RaiseDirtyFlag()
         {
 
         }
 
+        /// <summary>
+        /// Gets the new row.
+        /// </summary>
+        /// <returns>DataEntryGridRow.</returns>
         protected abstract DataEntryGridRow GetNewRow();
 
+        /// <summary>
+        /// Clears the rows.
+        /// </summary>
+        /// <param name="addRowToBottom">if set to <c>true</c> [add row to bottom].</param>
         protected virtual void ClearRows(bool addRowToBottom = true)
         {
             Grid?.DataEntryGridCancelEdit();
@@ -89,6 +164,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
                 InsertNewRow();
         }
 
+        /// <summary>
+        /// Setups for new record.
+        /// </summary>
         public void SetupForNewRecord()
         {
             ClearRows();
@@ -97,23 +175,38 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
                 Grid.ResetGridFocus();
         }
 
+        /// <summary>
+        /// Pres the load grid from entity.
+        /// </summary>
         protected void PreLoadGridFromEntity()
         {
             Grid?.TakeCellSnapshot(false);
             ClearRows(false);
         }
 
+        /// <summary>
+        /// Posts the load grid from entity.
+        /// </summary>
         protected void PostLoadGridFromEntity()
         {
             InsertNewRow();
             Grid?.RestoreCellSnapshot(false);
         }
 
+        /// <summary>
+        /// Determines whether this instance [can insert row] the specified start index.
+        /// </summary>
+        /// <param name="startIndex">The start index.</param>
+        /// <returns><c>true</c> if this instance [can insert row] the specified start index; otherwise, <c>false</c>.</returns>
         protected virtual bool CanInsertRow(int startIndex)
         {
             return true;
         }
 
+        /// <summary>
+        /// Inserts the new row.
+        /// </summary>
+        /// <param name="startIndex">The start index.</param>
         public void InsertNewRow(int startIndex = -1)
         {
             if (Grid != null && Grid.DataEntryCanUserAddRows && CanInsertRow(startIndex))
@@ -124,6 +217,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Adds the row.
+        /// </summary>
+        /// <param name="newRow">The new row.</param>
+        /// <param name="startIndex">The start index.</param>
         public void AddRow(DataEntryGridRow newRow, int startIndex = -1)
         {
             if (startIndex < 0)
@@ -132,6 +230,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
                 _rows.Insert(startIndex, newRow);
         }
 
+        /// <summary>
+        /// Replaces the row.
+        /// </summary>
+        /// <param name="existingRow">The existing row.</param>
+        /// <param name="newRow">The new row.</param>
         public void ReplaceRow(DataEntryGridRow existingRow, DataEntryGridRow newRow)
         {
             existingRow.DeleteDescendants();
@@ -142,12 +245,21 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             existingRow.RowReplacedBy = newRow;
         }
 
+        /// <summary>
+        /// Validates the index of the row.
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
+        /// <exception cref="System.Exception">Row index: {rowIndex} is outside the Rows collection.</exception>
         private void ValidateRowIndex(int rowIndex)
         {
             if (rowIndex > _rows.Count - 1)
                 throw new Exception($"Row index: {rowIndex} is outside the Rows collection.");
         }
 
+        /// <summary>
+        /// Removes the row.
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
         public void RemoveRow(int rowIndex)
         {
             ValidateRowIndex(rowIndex);
@@ -155,6 +267,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             RemoveRow(_rows[rowIndex]);
         }
 
+        /// <summary>
+        /// Removes the row.
+        /// </summary>
+        /// <param name="rowToDelete">The row to delete.</param>
         public virtual void RemoveRow(DataEntryGridRow rowToDelete)
         {
             var descendants = rowToDelete.GetDescendants();
@@ -170,6 +286,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             Grid?.RefreshGridView();
         }
 
+        /// <summary>
+        /// Determines whether [is delete ok] [the specified row index].
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
+        /// <returns><c>true</c> if [is delete ok] [the specified row index]; otherwise, <c>false</c>.</returns>
         public virtual bool IsDeleteOk(int rowIndex)
         {
             var deleteOk = rowIndex < Rows.Count - 1 && rowIndex >= 0;

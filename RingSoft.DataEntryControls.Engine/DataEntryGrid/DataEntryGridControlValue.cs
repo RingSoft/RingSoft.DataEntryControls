@@ -1,17 +1,58 @@
-﻿namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="DataEntryGridControlValue.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
+    /// <summary>
+    /// Class DataEntryGridControlValue.
+    /// </summary>
     public class DataEntryGridControlValue
     {
+        /// <summary>
+        /// Gets a value indicating whether this instance is enabled.
+        /// </summary>
+        /// <value><c>true</c> if this instance is enabled; otherwise, <c>false</c>.</value>
         public bool IsEnabled { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is visible.
+        /// </summary>
+        /// <value><c>true</c> if this instance is visible; otherwise, <c>false</c>.</value>
         public bool IsVisible { get; }
 
+        /// <summary>
+        /// Gets the display style identifier.
+        /// </summary>
+        /// <value>The display style identifier.</value>
         public int DisplayStyleId { get; }
 
+        /// <summary>
+        /// Gets the cell value.
+        /// </summary>
+        /// <value>The cell value.</value>
         public string CellValue { get; }
 
+        /// <summary>
+        /// Gets the data value.
+        /// </summary>
+        /// <value>The data value.</value>
         public string DataValue { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridControlValue"/> class.
+        /// </summary>
+        /// <param name="cellStyle">The cell style.</param>
+        /// <param name="cellValue">The cell value.</param>
         public DataEntryGridControlValue(DataEntryGridControlCellStyle cellStyle, string cellValue)
         {
             IsEnabled = cellStyle.IsEnabled;
@@ -24,6 +65,10 @@
             DataValue = $"{visibleBit}{enabledBit}{DisplayStyleId};{CellValue}";
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridControlValue"/> class.
+        /// </summary>
+        /// <param name="dataValue">The data value.</param>
         public DataEntryGridControlValue(string dataValue)
         {
             DataValue = dataValue;

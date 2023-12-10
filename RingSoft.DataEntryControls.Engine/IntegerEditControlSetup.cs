@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="IntegerEditControlSetup.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 
 namespace RingSoft.DataEntryControls.Engine
 {
@@ -7,11 +20,19 @@ namespace RingSoft.DataEntryControls.Engine
     /// </summary>
     public class IntegerEditControlSetup : NumericEditControlSetup<int?>
     {
+        /// <summary>
+        /// Initializes from type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public void InitializeFromType<T>()
         {
             InitializeFromType(typeof(T));
         }
 
+        /// <summary>
+        /// Initializes from type.
+        /// </summary>
+        /// <param name="type">The type.</param>
         public void InitializeFromType(Type type)
         {
             if (type == typeof(int)
@@ -34,6 +55,10 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Gets the number format string.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string GetNumberFormatString()
         {
             var result = base.GetNumberFormatString();

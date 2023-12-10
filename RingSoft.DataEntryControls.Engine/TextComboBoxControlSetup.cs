@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="TextComboBoxControlSetup.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,19 +26,19 @@ namespace RingSoft.DataEntryControls.Engine
         /// <summary>
         /// Gets or sets the text value.
         /// </summary>
-        /// <value>
-        /// The text value.
-        /// </value>
+        /// <value>The text value.</value>
         public string TextValue { get; set; }
 
         /// <summary>
         /// Gets or sets the numeric value.
         /// </summary>
-        /// <value>
-        /// The numeric value.
-        /// </value>
+        /// <value>The numeric value.</value>
         public int NumericValue { get; set; }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return TextValue;
@@ -40,9 +53,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// <summary>
         /// Gets the combo box items.
         /// </summary>
-        /// <value>
-        /// The combo box items.
-        /// </value>
+        /// <value>The combo box items.</value>
         public List<TextComboBoxItem> Items { get; } = new List<TextComboBoxItem>();
 
         /// <summary>
@@ -81,6 +92,10 @@ namespace RingSoft.DataEntryControls.Engine
             LoadFromEnum(typeTranslation);
         }
 
+        /// <summary>
+        /// Loads from enum.
+        /// </summary>
+        /// <param name="enumField">The enum field.</param>
         public void LoadFromEnum(EnumFieldTranslation enumField)
         {
             Items.Clear();
@@ -95,14 +110,14 @@ namespace RingSoft.DataEntryControls.Engine
 
             }
         }
-        
+
 
         /// <summary>
         /// Gets the combo box item of the associated numeric value.
         /// </summary>
         /// <param name="numericValue">The numeric value.</param>
         /// <returns>The combo box item of the numeric value.</returns>
-        /// <exception cref="ArgumentException">No Combo Box Item found for numeric value: {numericValue}</exception>
+        /// <exception cref="System.ArgumentException">No Combo Box Item found for numeric value: {numericValue}</exception>
         public TextComboBoxItem GetItem(int numericValue)
         {
             var item = Items.FirstOrDefault(f => f.NumericValue == numericValue);

@@ -1,16 +1,43 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 07-24-2023
+// ***********************************************************************
+// <copyright file="ExtensionMethods.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Globalization;
 using System.Linq;
 
 namespace RingSoft.DataEntryControls.Engine
 {
+    /// <summary>
+    /// Class ExtensionMethods.
+    /// </summary>
     public static class ExtensionMethods
     {
+        /// <summary>
+        /// Determines whether [is null or empty] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [is null or empty] [the specified value]; otherwise, <c>false</c>.</returns>
         public static bool IsNullOrEmpty(this string value)
         {
             return String.IsNullOrEmpty(value);
         }
 
+        /// <summary>
+        /// Lefts the string.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>System.String.</returns>
         public static string LeftStr(this string param, int length)
         {
             //we start at 0 since we want to get the characters starting from the
@@ -22,6 +49,12 @@ namespace RingSoft.DataEntryControls.Engine
             //return the result of the operation
             return result;
         }
+        /// <summary>
+        /// Rights the string.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>System.String.</returns>
         public static string RightStr(this string param, int length)
         {
             //start at the index based on the lenght of the sting minus
@@ -35,6 +68,13 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Mids the string.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>System.String.</returns>
         public static string MidStr(this string param, int startIndex, int length)
         {
             //start at the specified index in the string ang get N number of
@@ -47,6 +87,11 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Converts to bool.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool ToBool(this string value)
         {
             value = value.ToUpper();
@@ -61,6 +106,13 @@ namespace RingSoft.DataEntryControls.Engine
             return (intVal != 0);
         }
 
+        /// <summary>
+        /// Gets the right text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="selectionStart">The selection start.</param>
+        /// <param name="selectionLength">Length of the selection.</param>
+        /// <returns>System.String.</returns>
         public static string GetRightText(this string text, int selectionStart, int selectionLength)
         {
             if (text.IsNullOrEmpty())
@@ -105,6 +157,12 @@ namespace RingSoft.DataEntryControls.Engine
             return returnString;
         }
 
+        /// <summary>
+        /// Counts the text for chars.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="searchString">The search string.</param>
+        /// <returns>System.Int32.</returns>
         public static int CountTextForChars(this string text, string searchString)
         {
             var result = 0;
@@ -122,12 +180,25 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Converts to decimal.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="culture">The culture.</param>
+        /// <returns>System.Double.</returns>
         public static double ToDecimal(this string text, CultureInfo culture = null)
         {
             text.TryParseDecimal(out var result, culture);
             return result;
         }
 
+        /// <summary>
+        /// Tries the parse decimal.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="resultDecimal">The result decimal.</param>
+        /// <param name="culture">The culture.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool TryParseDecimal(this string text, out double resultDecimal, CultureInfo culture = null)
         {
             if (culture == null)
@@ -158,6 +229,12 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
 
+        /// <summary>
+        /// Converts the string representation of a number to an integer.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="culture">The culture.</param>
+        /// <returns>System.Int32.</returns>
         public static int ToInt(this string text, CultureInfo culture = null)
         {
             if (culture == null)
@@ -174,6 +251,13 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Tries the parse date time.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="result">The result.</param>
+        /// <param name="culture">The culture.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool TryParseDateTime(this string text, out DateTime result, CultureInfo culture = null)
         {
             if (culture == null)
@@ -185,6 +269,12 @@ namespace RingSoft.DataEntryControls.Engine
             return parseResult;
         }
 
+        /// <summary>
+        /// Determines whether the specified object is nullable.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns><c>true</c> if the specified object is nullable; otherwise, <c>false</c>.</returns>
         public static bool IsNullable<T>(this T obj)
         {
             if (obj == null)

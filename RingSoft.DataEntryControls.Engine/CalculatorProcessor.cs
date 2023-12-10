@@ -1,27 +1,80 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 07-24-2023
+// ***********************************************************************
+// <copyright file="CalculatorProcessor.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Globalization;
 
 namespace RingSoft.DataEntryControls.Engine
 {
+    /// <summary>
+    /// Enum CalculatorOperators
+    /// </summary>
     public enum CalculatorOperators
     {
+        /// <summary>
+        /// The add
+        /// </summary>
         Add = 0,
+        /// <summary>
+        /// The subtract
+        /// </summary>
         Subtract = 1,
+        /// <summary>
+        /// The multiply
+        /// </summary>
         Multiply =  2,
+        /// <summary>
+        /// The divide
+        /// </summary>
         Divide = 3,
+        /// <summary>
+        /// The equals
+        /// </summary>
         Equals = 4
     }
 
+    /// <summary>
+    /// Class CalculatorProcessor.
+    /// </summary>
     public class CalculatorProcessor
     {
+        /// <summary>
+        /// Gets the control.
+        /// </summary>
+        /// <value>The control.</value>
         public ICalculatorControl Control { get; }
 
+        /// <summary>
+        /// Gets or sets the precision.
+        /// </summary>
+        /// <value>The precision.</value>
         public int Precision { get; set; } = -1;
 
+        /// <summary>
+        /// Gets the comitted value.
+        /// </summary>
+        /// <value>The comitted value.</value>
         public double? ComittedValue { get; private set; }
 
+        /// <summary>
+        /// The memory
+        /// </summary>
         private double? _memory;
 
+        /// <summary>
+        /// Gets the memory.
+        /// </summary>
+        /// <value>The memory.</value>
         public double? Memory
         {
             get => _memory;
@@ -32,8 +85,15 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// The calculation error
+        /// </summary>
         private bool _calculationError;
 
+        /// <summary>
+        /// Gets a value indicating whether [calculation error].
+        /// </summary>
+        /// <value><c>true</c> if [calculation error]; otherwise, <c>false</c>.</value>
         public bool CalculationError
         {
             get => _calculationError;
@@ -44,19 +104,47 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// The last operator
+        /// </summary>
         private CalculatorOperators? _lastOperator;
+        /// <summary>
+        /// The current value
+        /// </summary>
         private double _currentValue;
+        /// <summary>
+        /// The value at operator
+        /// </summary>
         private double? _valueAtOperator;
+        /// <summary>
+        /// The initial value
+        /// </summary>
         private double? _initialValue;
+        /// <summary>
+        /// The value at equals
+        /// </summary>
         private double? _valueAtEquals;
+        /// <summary>
+        /// The equals processed
+        /// </summary>
         private bool _equalsProcessed;
+        /// <summary>
+        /// The entering data
+        /// </summary>
         private bool _enteringData;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalculatorProcessor"/> class.
+        /// </summary>
+        /// <param name="control">The control.</param>
         public CalculatorProcessor(ICalculatorControl control)
         {
             Control = control;
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public void Initialize()
         {
             OnMemoryChanged();
@@ -64,6 +152,10 @@ namespace RingSoft.DataEntryControls.Engine
             SetEntryText(ComittedValue);
         }
 
+        /// <summary>
+        /// Reinitializes the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
         public void ReinitializeValue(double? value)
         {
             if (ComittedValue != value)
@@ -74,6 +166,9 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         private void Reset()
         {
             _currentValue = 0;
@@ -84,6 +179,10 @@ namespace RingSoft.DataEntryControls.Engine
             CalculationError = false;
         }
 
+        /// <summary>
+        /// Sets the entry text.
+        /// </summary>
+        /// <param name="value">The value.</param>
         private void SetEntryText(double? value)
         {
             if (CalculationError)
@@ -92,6 +191,10 @@ namespace RingSoft.DataEntryControls.Engine
             Control.EntryText = FormatValue(value);
         }
 
+        /// <summary>
+        /// Gets the entry value.
+        /// </summary>
+        /// <returns>System.Double.</returns>
         private double GetEntryValue()
         {
             double result = 0;
@@ -101,6 +204,11 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
 
+        /// <summary>
+        /// Formats the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String.</returns>
         private string FormatValue(double? value)
         {
             var text = "0";
@@ -125,6 +233,11 @@ namespace RingSoft.DataEntryControls.Engine
             return text;
         }
 
+        /// <summary>
+        /// Processes the character.
+        /// </summary>
+        /// <param name="keyChar">The key character.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool ProcessChar(char keyChar)
         {
             switch (keyChar)
@@ -176,6 +289,10 @@ namespace RingSoft.DataEntryControls.Engine
             return false;
         }
 
+        /// <summary>
+        /// Processes the digit.
+        /// </summary>
+        /// <param name="digit">The digit.</param>
         private void ProcessDigit(string digit)
         {
             var newText = digit;
@@ -189,6 +306,10 @@ namespace RingSoft.DataEntryControls.Engine
             _enteringData = true;
         }
 
+        /// <summary>
+        /// Processes the entry value.
+        /// </summary>
+        /// <param name="number">The number.</param>
         private void ProcessEntryValue(double number)
         {
             PreProcessEntryValue();
@@ -196,6 +317,9 @@ namespace RingSoft.DataEntryControls.Engine
             SetEntryText(number);
         }
 
+        /// <summary>
+        /// Pres the process entry value.
+        /// </summary>
         private void PreProcessEntryValue()
         {
             if (_valueAtEquals == null)
@@ -209,6 +333,9 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Processes the decimal.
+        /// </summary>
         public void ProcessDecimal()
         {
             var newText = $"0{NumberFormatInfo.CurrentInfo.NumberDecimalSeparator}";
@@ -235,6 +362,9 @@ namespace RingSoft.DataEntryControls.Engine
             _enteringData = true;
         }
 
+        /// <summary>
+        /// Processes the ce button.
+        /// </summary>
         public void ProcessCeButton()
         {
             if (_equalsProcessed)
@@ -243,6 +373,10 @@ namespace RingSoft.DataEntryControls.Engine
             SetEntryText(0);
         }
 
+        /// <summary>
+        /// Processes the operator.
+        /// </summary>
+        /// <param name="calculatorOperator">The calculator operator.</param>
         private void ProcessOperator(CalculatorOperators calculatorOperator)
         {
             if (CalculationError)
@@ -278,6 +412,9 @@ namespace RingSoft.DataEntryControls.Engine
             _initialValue = null; //Once we press any operator, initial value should be reset so tape doesn't get cleared when entering digits.
         }
 
+        /// <summary>
+        /// Processes the equals.
+        /// </summary>
         private void ProcessEquals()
         {
             if (CalculationError)
@@ -324,6 +461,10 @@ namespace RingSoft.DataEntryControls.Engine
             _equalsProcessed = true;
         }
 
+        /// <summary>
+        /// Sets the equals value.
+        /// </summary>
+        /// <param name="value">The value.</param>
         private void SetEqualsValue(double? value)
         {
             if (Precision >= 0 && value != null)
@@ -346,6 +487,13 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
 
+        /// <summary>
+        /// Performs the operation.
+        /// </summary>
+        /// <param name="currentOperator">The current operator.</param>
+        /// <param name="entryValue">The entry value.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException">_lastOperator - null</exception>
         private bool PerformOperation(CalculatorOperators currentOperator, double entryValue)
         {
             switch (currentOperator)
@@ -379,6 +527,12 @@ namespace RingSoft.DataEntryControls.Engine
             return true;
         }
 
+        /// <summary>
+        /// Adds to equation text.
+        /// </summary>
+        /// <param name="calculatorOperator">The calculator operator.</param>
+        /// <param name="entryValue">The entry value.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException">calculatorOperator - null</exception>
         private void AddToEquationText(CalculatorOperators calculatorOperator, double? entryValue = null)
         {
             var entryText = Control.EntryText;
@@ -412,12 +566,18 @@ namespace RingSoft.DataEntryControls.Engine
             Control.EquationText += $" {entryText} {operatorText}";
         }
 
+        /// <summary>
+        /// Processes the c button.
+        /// </summary>
         public void ProcessCButton()
         {
             Reset();
             SetEqualsValue(0);
         }
 
+        /// <summary>
+        /// Processes the plus minus button.
+        /// </summary>
         public void ProcessPlusMinusButton()
         {
             var entryValue = GetEntryValue();
@@ -425,16 +585,25 @@ namespace RingSoft.DataEntryControls.Engine
             SetEntryText(entryValue);
         }
 
+        /// <summary>
+        /// Processes the memory store.
+        /// </summary>
         public void ProcessMemoryStore()
         {
             Memory = GetEntryValue();
         }
 
+        /// <summary>
+        /// Processes the memory clear.
+        /// </summary>
         public void ProcessMemoryClear()
         {
             Memory = null;
         }
 
+        /// <summary>
+        /// Processes the memory recall.
+        /// </summary>
         public void ProcessMemoryRecall()
         {
             if (Memory != null)
@@ -445,6 +614,9 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        /// <summary>
+        /// Processes the memory add.
+        /// </summary>
         public void ProcessMemoryAdd()
         {
             double newMemory = 0;
@@ -455,6 +627,9 @@ namespace RingSoft.DataEntryControls.Engine
             Memory = newMemory;
         }
 
+        /// <summary>
+        /// Processes the memory subtract.
+        /// </summary>
         public void ProcessMemorySubtract()
         {
             double newMemory = 0;
@@ -465,6 +640,9 @@ namespace RingSoft.DataEntryControls.Engine
             Memory = newMemory;
         }
 
+        /// <summary>
+        /// Called when [memory changed].
+        /// </summary>
         private void OnMemoryChanged()
         {
             Control.MemoryStatusVisible = Memory != null;
@@ -472,11 +650,17 @@ namespace RingSoft.DataEntryControls.Engine
             Control.MemoryRecallEnabled = Control.MemoryClearEnabled = Memory != null;
         }
 
+        /// <summary>
+        /// Called when [calculation status changed].
+        /// </summary>
         private void OnCalculationStatusChanged()
         {
             Control.MemoryPlusEnabled = Control.MemoryMinusEnabled = Control.MemoryStoreEnabled = !CalculationError;
         }
 
+        /// <summary>
+        /// Processes the backspace.
+        /// </summary>
         public void ProcessBackspace()
         {
             if (_valueAtEquals != null)

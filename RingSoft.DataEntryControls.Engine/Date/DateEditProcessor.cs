@@ -1,23 +1,62 @@
-﻿using RingSoft.DataEntryControls.Engine.Date.Segments;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.Engine
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 05-25-2023
+// ***********************************************************************
+// <copyright file="DateEditProcessor.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine.Date.Segments;
 using System;
 
 namespace RingSoft.DataEntryControls.Engine.Date
 {
+    /// <summary>
+    /// Class DateEditProcessor.
+    /// </summary>
     public class DateEditProcessor
     {
+        /// <summary>
+        /// Gets the control.
+        /// </summary>
+        /// <value>The control.</value>
         public IDateEditControl Control { get; }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <value>The value.</value>
         public DateTime? Value { get; private set; }
 
+        /// <summary>
+        /// Occurs when [value changed].
+        /// </summary>
         public event EventHandler ValueChanged;
 
+        /// <summary>
+        /// The setup
+        /// </summary>
         private DateEditControlSetup _setup;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateEditProcessor"/> class.
+        /// </summary>
+        /// <param name="control">The control.</param>
         public DateEditProcessor(IDateEditControl control)
         {
             Control = control;
         }
 
+        /// <summary>
+        /// Called when [set focus].
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <param name="value">The value.</param>
         public void OnSetFocus(DateEditControlSetup setup, DateTime? value)
         {
             _setup = setup;
@@ -35,6 +74,10 @@ namespace RingSoft.DataEntryControls.Engine.Date
             Control.SetSelectAll();
         }
 
+        /// <summary>
+        /// Gets the null date pattern.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public string GetNullDatePattern()
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -53,6 +96,12 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return nullDate;
         }
 
+        /// <summary>
+        /// Called when [lost focus].
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Nullable&lt;DateTime&gt;.</returns>
         public DateTime? OnLostFocus(DateEditControlSetup setup, DateTime? value)
         {
             _setup = setup;
@@ -76,6 +125,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return result;
         }
 
+        /// <summary>
+        /// Validates the date.
+        /// </summary>
+        /// <param name="dateValue">The date value.</param>
+        /// <returns>System.Nullable&lt;DateTime&gt;.</returns>
         private DateTime? ValidateDate(DateTime dateValue)
         {
             DateTime? result = null;
@@ -98,6 +152,12 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return result;
         }
 
+        /// <summary>
+        /// Processes the character.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <param name="keyChar">The key character.</param>
+        /// <returns>ProcessCharResults.</returns>
         public ProcessCharResults ProcessChar(DateEditControlSetup setup, char keyChar)
         {
             _setup = setup;
@@ -132,6 +192,9 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return ProcessCharResults.ValidationFailed;
         }
 
+        /// <summary>
+        /// Sets the new date.
+        /// </summary>
         private void SetNewDate()
         {
             if (Control.Text.TryParseDateTime(out var newDate, _setup.Culture))
@@ -144,6 +207,12 @@ namespace RingSoft.DataEntryControls.Engine.Date
             }
         }
 
+        /// <summary>
+        /// Gets the active segment.
+        /// </summary>
+        /// <param name="cChar">The c character.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>DateSegment.</returns>
         internal DateSegment GetActiveSegment(char cChar, int index = -1)
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -186,6 +255,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return null;
         }
 
+        /// <summary>
+        /// Called when [backspace key down].
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <returns>ProcessCharResults.</returns>
         public ProcessCharResults OnBackspaceKeyDown(DateEditControlSetup setup)
         {
             _setup = setup;
@@ -222,6 +296,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return ProcessCharResults.Processed;
         }
 
+        /// <summary>
+        /// Determines whether [is character at index date separator] [the specified character index].
+        /// </summary>
+        /// <param name="charIndex">Index of the character.</param>
+        /// <returns><c>true</c> if [is character at index date separator] [the specified character index]; otherwise, <c>false</c>.</returns>
         private bool IsCharAtIndexDateSeparator(int charIndex)
         {
             if (charIndex > 0)
@@ -239,6 +318,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return false;
         }
 
+        /// <summary>
+        /// Called when [space key].
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <returns>ProcessCharResults.</returns>
         public ProcessCharResults OnSpaceKey(DateEditControlSetup setup)
         {
             _setup = setup;
@@ -258,6 +342,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
             SetNewDate();
             return ProcessCharResults.Processed;
         }
+        /// <summary>
+        /// Called when [delete key down].
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <returns>ProcessCharResults.</returns>
         public ProcessCharResults OnDeleteKeyDown(DateEditControlSetup setup)
         {
             _setup = setup;
@@ -268,6 +357,10 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return ProcessCharResults.ValidationFailed;
         }
 
+        /// <summary>
+        /// Checks the delete all.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool CheckDeleteAll()
         {
             if (Control.SelectionLength == Control.Text.Length)
@@ -281,6 +374,12 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return false;
         }
 
+        /// <summary>
+        /// Pastes the text.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
+        /// <param name="newText">The new text.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool PasteText(DateEditControlSetup setup, string newText)
         {
             _setup = setup;
@@ -309,6 +408,11 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return false;
         }
 
+        /// <summary>
+        /// Replaces the date character advance.
+        /// </summary>
+        /// <param name="newChar">The new character.</param>
+        /// <param name="segmentEnd">The segment end.</param>
         internal void ReplaceDateCharAdvance(char newChar, int segmentEnd)
         {
             var newText = Control.Text.LeftStr(Control.SelectionStart)
@@ -324,11 +428,20 @@ namespace RingSoft.DataEntryControls.Engine.Date
                     Control.SelectionStart++;
         }
 
+        /// <summary>
+        /// Gets the date segment month.
+        /// </summary>
+        /// <returns>DateSegmentMonth.</returns>
         internal DateSegmentMonth GetDateSegmentMonth()
         {
             return GetDateSegmentMonth('Z');
         }
 
+        /// <summary>
+        /// Gets the date segment month.
+        /// </summary>
+        /// <param name="cChar">The c character.</param>
+        /// <returns>DateSegmentMonth.</returns>
         internal DateSegmentMonth GetDateSegmentMonth(char cChar)
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -339,11 +452,20 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return new DateSegmentMonth(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
         }
 
+        /// <summary>
+        /// Gets the date segment day.
+        /// </summary>
+        /// <returns>DateSegmentDay.</returns>
         internal DateSegmentDay GetDateSegmentDay()
         {
             return GetDateSegmentDay('Z');
         }
 
+        /// <summary>
+        /// Gets the date segment day.
+        /// </summary>
+        /// <param name="cChar">The c character.</param>
+        /// <returns>DateSegmentDay.</returns>
         internal DateSegmentDay GetDateSegmentDay(char cChar)
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -354,11 +476,20 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return new DateSegmentDay(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
         }
 
+        /// <summary>
+        /// Gets the date segment year.
+        /// </summary>
+        /// <returns>DateSegmentYear.</returns>
         internal DateSegmentYear GetDateSegmentYear()
         {
             return GetDateSegmentYear('Z');
         }
 
+        /// <summary>
+        /// Gets the date segment year.
+        /// </summary>
+        /// <param name="cChar">The c character.</param>
+        /// <returns>DateSegmentYear.</returns>
         internal DateSegmentYear GetDateSegmentYear(char cChar)
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -369,11 +500,20 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return new DateSegmentYear(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
         }
 
+        /// <summary>
+        /// Gets the date segment hour.
+        /// </summary>
+        /// <returns>DateSegmentHour.</returns>
         internal DateSegmentHour GetDateSegmentHour()
         {
             return GetDateSegmentHour('Z');
         }
 
+        /// <summary>
+        /// Gets the date segment hour.
+        /// </summary>
+        /// <param name="cChar">The c character.</param>
+        /// <returns>DateSegmentHour.</returns>
         internal DateSegmentHour GetDateSegmentHour(char cChar)
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -384,11 +524,20 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return new DateSegmentHour(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
         }
 
+        /// <summary>
+        /// Gets the date segment minute second.
+        /// </summary>
+        /// <returns>DateSegmentMinuteSecond.</returns>
         internal DateSegmentMinuteSecond GetDateSegmentMinuteSecond()
         {
             return GetDateSegmentMinuteSecond('Z');
         }
 
+        /// <summary>
+        /// Gets the date segment minute second.
+        /// </summary>
+        /// <param name="cChar">The c character.</param>
+        /// <returns>DateSegmentMinuteSecond.</returns>
         internal DateSegmentMinuteSecond GetDateSegmentMinuteSecond(char cChar)
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -399,11 +548,20 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return new DateSegmentMinuteSecond(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
         }
 
+        /// <summary>
+        /// Gets the date segment am pm.
+        /// </summary>
+        /// <returns>DateSegmentAmPm.</returns>
         internal DateSegmentAmPm GetDateSegmentAmPm()
         {
             return GetDateSegmentAmPm('Z');
         }
 
+        /// <summary>
+        /// Gets the date segment am pm.
+        /// </summary>
+        /// <param name="cChar">The c character.</param>
+        /// <returns>DateSegmentAmPm.</returns>
         internal DateSegmentAmPm GetDateSegmentAmPm(char cChar)
         {
             var entryFormat = _setup.GetEntryFormat();
@@ -414,6 +572,10 @@ namespace RingSoft.DataEntryControls.Engine.Date
             return new DateSegmentAmPm(this, firstSegIndex, lastSegIndex, cChar, segmentFormatChar);
         }
 
+        /// <summary>
+        /// Called when [value changed].
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
         private void OnValueChanged(DateTime? newValue)
         {
             if (_setup.AllowNullValue || newValue != null)
