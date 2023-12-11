@@ -56,7 +56,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridCellProps.
+    /// Properties of a data entry grid cell.
     /// </summary>
     public abstract class DataEntryGridCellProps
     {
@@ -102,7 +102,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Gets the data value.
+        /// Gets the data value to display on the cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -112,7 +112,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridEditingCellProps.
+    /// DataEntryGridEditingCell properties.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridCellProps" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridCellProps" />
@@ -157,7 +157,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public abstract int EditingControlId { get; }
 
         /// <summary>
-        /// Gets the type.
+        /// Gets the cell property type.
         /// </summary>
         /// <value>The type.</value>
         public override CellPropsTypes Type { get; internal set; } = CellPropsTypes.Editable;
@@ -169,7 +169,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public bool OverrideCellMovement { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the cell lost focus.
+        /// Gets or sets the cell lost focus type.
         /// </summary>
         /// <value>The type of the cell lost focus.</value>
         public CellLostFocusTypes CellLostFocusType { get; set; }
