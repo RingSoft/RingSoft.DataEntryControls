@@ -23,5 +23,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             result.UpdateLayout();
             return result;
         }
+
+        public override Control GetRecordLockingButtonsControl(RecordLockingViewModel viewModel)
+        {
+            return new DbMaintenanceButtonsControl();
+        }
     }
 }
