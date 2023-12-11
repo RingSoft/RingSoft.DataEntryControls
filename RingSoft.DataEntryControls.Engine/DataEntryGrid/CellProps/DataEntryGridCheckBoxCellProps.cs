@@ -7,14 +7,14 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridCheckBoxCellProps.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c) 2023. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridCheckBoxCellProps.
+    /// A grid CheckBox cell properties  Will create a CheckBox in a data entry grid cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
@@ -27,24 +27,23 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public override int EditingControlId => DataEntryGridEditingCellProps.CheckBoxHostId;
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="DataEntryGridCheckBoxCellProps"/> is value.
+        /// Gets or sets the CheckBox checked value.
         /// </summary>
-        /// <value><c>true</c> if value; otherwise, <c>false</c>.</value>
         public bool Value { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridCheckBoxCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridCheckBoxCellProps"/> class.  Causes a check box to be created in te grid cell when returned.  Used in conjunction with DataEntryGridCheckBoxColumn.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
-        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <param name="value">The cell Checkbox checked value.</param>
         public DataEntryGridCheckBoxCellProps(DataEntryGridRow row, int columnId, bool value) : base(row, columnId)
         {
             Value = value;
         }
 
         /// <summary>
-        /// Gets the data value.
+        /// Returns all the cell property display bits.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
