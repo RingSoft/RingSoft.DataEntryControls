@@ -7,7 +7,7 @@
 // Last Modified On : 10-31-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridManager.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -19,7 +19,7 @@ using System.Collections.Specialized;
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridManager.
+    /// Data Entry Grid Manager
     /// </summary>
     public abstract class DataEntryGridManager
     {
@@ -47,7 +47,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public List<ColumnMap> Columns { get; private set; }
 
         /// <summary>
-        /// Occurs when [rows changed].
+        /// Fired when row changes.
         /// </summary>
         public event EventHandler<NotifyCollectionChangedEventArgs> RowsChanged;
 
@@ -108,7 +108,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Gotoes the cell.
+        /// Sets grid cell focus.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -142,7 +142,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Gets the new row.
+        /// Creates a new row.
         /// </summary>
         /// <returns>DataEntryGridRow.</returns>
         protected abstract DataEntryGridRow GetNewRow();
@@ -176,7 +176,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Pres the load grid from entity.
+        /// Preload grid from entity.
         /// </summary>
         protected void PreLoadGridFromEntity()
         {
@@ -185,7 +185,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Posts the load grid from entity.
+        /// Postloads grid from entity.
         /// </summary>
         protected void PostLoadGridFromEntity()
         {
@@ -287,7 +287,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Determines whether [is delete ok] [the specified row index].
+        /// Determines whether is delete ok at the specified row index.
         /// </summary>
         /// <param name="rowIndex">Index of the row.</param>
         /// <returns><c>true</c> if [is delete ok] [the specified row index]; otherwise, <c>false</c>.</returns>
