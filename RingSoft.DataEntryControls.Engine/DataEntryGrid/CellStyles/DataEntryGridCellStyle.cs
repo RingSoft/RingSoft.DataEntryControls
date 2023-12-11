@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridCellStyle.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,20 +18,20 @@
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Enum DataEntryGridCellStates
+    /// Cell visual state.
     /// </summary>
     public enum DataEntryGridCellStates
     {
         /// <summary>
-        /// The enabled
+        /// Enabled
         /// </summary>
         Enabled = 0,
         /// <summary>
-        /// The read only
+        /// Read only
         /// </summary>
         ReadOnly = 1,
         /// <summary>
-        /// The disabled
+        /// Disabled
         /// </summary>
         Disabled = 2
     }
@@ -61,7 +61,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridControlCellStyle.
+    /// The display properties of a data grid cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridCellStyle" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridCellStyle" />
@@ -94,16 +94,16 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridButtonCellStyle.
+    /// The display properties of a data grid button cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridControlCellStyle" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridControlCellStyle" />
     public class DataEntryGridButtonCellStyle : DataEntryGridControlCellStyle
     {
         /// <summary>
-        /// Gets or sets the content.
+        /// Gets or sets the button content.
         /// </summary>
-        /// <value>The content.</value>
+        /// <value>The button content.</value>
         public string Content { get; set; }
     }
 }
