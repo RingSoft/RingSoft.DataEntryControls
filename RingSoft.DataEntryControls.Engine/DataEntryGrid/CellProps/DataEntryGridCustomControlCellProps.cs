@@ -7,14 +7,14 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridCustomControlCellProps.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
 {
     /// <summary>
-    /// Class DataEntryGridCustomControlCellProps.
+    /// Creates a custom control in the data entry grid cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridComboBoxCellProps" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridComboBoxCellProps" />
@@ -27,13 +27,13 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
         public override int EditingControlId => ContentControlHostId;
 
         /// <summary>
-        /// Gets or sets the selected item identifier.
+        /// Gets or sets the selected item identifier.  Used to determine the image identifier.
         /// </summary>
         /// <value>The selected item identifier.</value>
         public int SelectedItemId { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridCustomControlCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridCustomControlCellProps"/> class and creates a custom control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
         }
 
         /// <summary>
-        /// Gets the data value.
+        /// /// Gets the control properties.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

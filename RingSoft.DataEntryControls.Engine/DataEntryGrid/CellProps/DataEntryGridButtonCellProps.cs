@@ -17,7 +17,7 @@ using System;
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// The  Data Entry Grid  Button cell properties
+    /// Creates a button in the data entry grid cell.
     /// </summary>
     public class DataEntryGridButtonCellProps : DataEntryGridTextCellProps
     {
@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public override int EditingControlId => DataEntryGridEditingCellProps.ButtonHostId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridButtonCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridButtonCellProps"/> class and Creates a button in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

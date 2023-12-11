@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridTextCellProps.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridTextCellProps.
+    /// Creates a string edit control in the data entry grid cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
@@ -73,7 +73,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridTextCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridTextCellProps"/> class and creates a string edit control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

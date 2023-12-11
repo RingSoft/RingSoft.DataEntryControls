@@ -7,19 +7,19 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridComboBoxCellProps.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Enum ComboBoxValueChangedTypes
+    /// Enum defining how the combo box selected value change should trigger SetCellValue.
     /// </summary>
     public enum ComboBoxValueChangedTypes
     {
         /// <summary>
-        /// The end edit
+        /// On End edit
         /// </summary>
         EndEdit = 0,
         /// <summary>
@@ -29,24 +29,24 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridComboBoxCellProps.
+    /// Creates a combo box control in the data entry grid cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
     public abstract class DataEntryGridComboBoxCellProps : DataEntryGridEditingCellProps
     {
         /// <summary>
-        /// Gets the type of the change.
+        /// The change type.
         /// </summary>
         /// <value>The type of the change.</value>
         public ComboBoxValueChangedTypes ChangeType { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridComboBoxCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridComboBoxCellProps"/> class and creates a combo box control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
-        /// <param name="changeType">Type of the change.</param>
+        /// <param name="changeType">Enum defining how the combo box selected value change should trigger SetCellValue.</param>
         protected DataEntryGridComboBoxCellProps(DataEntryGridRow row, int columnId,
             ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(row, columnId)
         {
@@ -55,7 +55,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridTextComboBoxCellProps.
+    /// Creates a text combo box control in the data entry grid cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridComboBoxCellProps" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridComboBoxCellProps" />
@@ -80,13 +80,13 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public TextComboBoxItem SelectedItem { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridTextComboBoxCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridTextComboBoxCellProps"/> class and creates a text combo box control in the data entry grid cell..
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
         /// <param name="comboBoxSetup">The combo box setup.</param>
         /// <param name="selectedItem">The selected item.</param>
-        /// <param name="changeType">Type of the change.</param>
+        /// <param name="changeType">Enum defining how the combo box selected value change should trigger SetCellValue.</param>
         public DataEntryGridTextComboBoxCellProps(DataEntryGridRow row, int columnId, TextComboBoxControlSetup comboBoxSetup,
             TextComboBoxItem selectedItem, ComboBoxValueChangedTypes changeType = ComboBoxValueChangedTypes.EndEdit) : base(
             row, columnId, changeType)
@@ -96,7 +96,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Gets the data value.
+        /// Gets the control properties.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

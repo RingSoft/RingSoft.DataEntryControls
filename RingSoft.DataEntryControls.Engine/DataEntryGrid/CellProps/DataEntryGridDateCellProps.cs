@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridDateCellProps.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -17,7 +17,7 @@ using System;
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridDateCellProps.
+    /// Creates a date edit control in the data entry grid cell.
     /// Implements the <see cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.DataEntryGrid.DataEntryGridEditingCellProps" />
@@ -42,12 +42,12 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public DateTime? Value { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridDateCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridDateCellProps"/> class and creates a date edit control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
-        /// <param name="setup">The setup.</param>
-        /// <param name="value">The value.</param>
+        /// <param name="setup">The date edit control setup.</param>
+        /// <param name="value">The datetime value.</param>
         public DataEntryGridDateCellProps(DataEntryGridRow row, int columnId, DateEditControlSetup setup,
             DateTime? value) : base(row, columnId)
         {
@@ -56,7 +56,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Gets the data value.
+        /// Gets the control properties.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
