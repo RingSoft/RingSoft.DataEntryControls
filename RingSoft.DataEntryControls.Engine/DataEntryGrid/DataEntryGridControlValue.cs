@@ -7,14 +7,14 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridControlValue.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridControlValue.
+    /// A data entry grid control value to set properties and display text.
     /// </summary>
     public class DataEntryGridControlValue
     {
