@@ -7,50 +7,50 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridCellProps.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Enum CellLostFocusTypes
+    /// Enum how the cell was lost focus
     /// </summary>
     public enum CellLostFocusTypes
     {
         /// <summary>
-        /// The lost focus
+        /// The cell lost focus through other means.
         /// </summary>
         LostFocus = 0,
         /// <summary>
-        /// The tab left
+        /// The user tabbed left
         /// </summary>
         TabLeft = 1,
         /// <summary>
-        /// The tab right
+        /// The user tabbed right
         /// </summary>
         TabRight = 2,
         /// <summary>
-        /// The keyboard navigation
+        /// Lost focus via keyboard navigation
         /// </summary>
         KeyboardNavigation = 3,
         /// <summary>
-        /// The validating grid
+        /// Lost focus when validating grid
         /// </summary>
         ValidatingGrid = 4
     }
 
     /// <summary>
-    /// Enum CellPropsTypes
+    /// Enum Cel state.
     /// </summary>
     public enum CellPropsTypes
     {
         /// <summary>
-        /// The editable
+        /// Cell is editable
         /// </summary>
         Editable = 0,
         /// <summary>
-        /// The read only
+        /// Cell is read only
         /// </summary>
         ReadOnly = 1
     }
@@ -163,9 +163,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public override CellPropsTypes Type { get; internal set; } = CellPropsTypes.Editable;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [override cell movement].
+        /// Gets or sets a value indicating whether to override cell movement.
         /// </summary>
-        /// <value><c>true</c> if [override cell movement]; otherwise, <c>false</c>.</value>
+        /// <value><c>true</c> if override cell movement; otherwise, <c>false</c>.</value>
         public bool OverrideCellMovement { get; set; }
 
         /// <summary>

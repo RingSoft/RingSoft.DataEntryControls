@@ -7,7 +7,7 @@
 // Last Modified On : 12-10-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridButtonCellProps.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -37,7 +37,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Gets the data value.
+        /// Gets the data value that's displayed in the grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
