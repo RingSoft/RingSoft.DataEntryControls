@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridMemoValue.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Class GridMemoValueLine.
+    /// A grid control memo line.
     /// </summary>
     public class GridMemoValueLine
     {
@@ -54,7 +54,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
     }
     /// <summary>
-    /// Class DataEntryGridMemoValue.
+    /// A grid memo value.
     /// </summary>
     public class DataEntryGridMemoValue
     {
@@ -153,7 +153,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Clears this instance.
+        /// Clears the lines and text.
         /// </summary>
         public void Clear()
         {
@@ -162,7 +162,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Adds the line.
+        /// Adds a memo line.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="crLf">if set to <c>true</c> [cr lf].</param>
