@@ -7,7 +7,7 @@
 // Last Modified On : 07-24-2023
 // ***********************************************************************
 // <copyright file="DecimalEditControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -22,7 +22,7 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DecimalEditControl.
+    /// A control that edits decimal values.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Double?}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Double?}" />
@@ -67,7 +67,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(2, PrecisionChangedCallback));
 
         /// <summary>
-        /// Gets or sets the precision.
+        /// Gets or sets the precision.  This is a bind-able property.
         /// </summary>
         /// <value>The precision.</value>
         public int Precision
@@ -96,7 +96,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(SetupChangedCallback));
 
         /// <summary>
-        /// Sets the setup.
+        /// Sets the setup.  This is a bind-able property.
         /// </summary>
         /// <value>The setup.</value>
         public DecimalEditControlSetup Setup
@@ -125,7 +125,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(FormatTypeChangedCallback));
 
         /// <summary>
-        /// Gets or sets the type of the format.
+        /// Gets or sets the type of the format.  This is a bind-able property.
         /// </summary>
         /// <value>The type of the format.</value>
         public DecimalEditFormatTypes FormatType

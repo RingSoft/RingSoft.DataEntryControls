@@ -7,7 +7,7 @@
 // Last Modified On : 04-06-2023
 // ***********************************************************************
 // <copyright file="DropDownCalendar.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -22,7 +22,7 @@ using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DropDownCalendar.
+    /// The calendar popup control that appears when the user clicks on the date edit control's calendar button.
     /// Implements the <see cref="Control" />
     /// Implements the <see cref="IDropDownCalendar" />
     /// </summary>

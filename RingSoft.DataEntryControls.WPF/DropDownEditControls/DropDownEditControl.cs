@@ -7,7 +7,7 @@
 // Last Modified On : 12-05-2023
 // ***********************************************************************
 // <copyright file="DropDownEditControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -24,7 +24,7 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DropDownEditControl.
+    /// the base class of all dropdown edit controls.
     /// Implements the <see cref="Control" />
     /// Implements the <see cref="IDropDownControl" />
     /// </summary>
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(TextAlignmentChangedCallback));
 
         /// <summary>
-        /// Gets or sets the text alignment.
+        /// Gets or sets the text alignment.  This is a bind-able property.
         /// </summary>
         /// <value>The text alignment.</value>
         public TextAlignment TextAlignment
@@ -75,7 +75,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(DesignTextChangedCallback));
 
         /// <summary>
-        /// Gets or sets the design text.
+        /// Gets or sets the design text.  This is a bind-able property.
         /// </summary>
         /// <value>The design text.</value>
         public string DesignText
@@ -104,7 +104,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(true, RsIsTabStopChangedCallback));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [rs is tab stop].
+        /// Gets or sets a value indicating whether [rs is tab stop].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [rs is tab stop]; otherwise, <c>false</c>.</value>
         public new bool RsIsTabStop
@@ -235,7 +235,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(UiCommandChangedCallback));
 
         /// <summary>
-        /// Gets or sets the UI command.
+        /// Gets or sets the UI command.  This is a bind-able property.
         /// </summary>
         /// <value>The UI command.</value>
         public UiCommand UiCommand
@@ -271,7 +271,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(UiLabelChangedCallback));
 
         /// <summary>
-        /// Gets or sets the UI label.
+        /// Gets or sets the UI label.  This is a bind-able property.
         /// </summary>
         /// <value>The UI label.</value>
         public Label UiLabel

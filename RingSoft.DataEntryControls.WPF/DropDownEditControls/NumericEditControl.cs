@@ -7,7 +7,7 @@
 // Last Modified On : 09-18-2023
 // ***********************************************************************
 // <copyright file="NumericEditControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -23,7 +23,7 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class NumericEditControl.
+    /// The decimal and integer control base class.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DropDownEditControl" />
     /// Implements the <see cref="INumericControl" />
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
@@ -42,7 +42,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(DataEntryMode), typeof(DataEntryModes), typeof(NumericEditControl<T>));
 
         /// <summary>
-        /// Gets or sets the data entry mode.
+        /// Gets or sets the data entry mode.  This is a bind-able property.
         /// </summary>
         /// <value>The data entry mode.</value>
         public DataEntryModes DataEntryMode
@@ -58,7 +58,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(NumberFormatString), typeof(string), typeof(NumericEditControl<T>));
 
         /// <summary>
-        /// Gets or sets the number format string.
+        /// Gets or sets the number format string.  This is a bind-able property.
         /// </summary>
         /// <value>The number format string.</value>
         public string NumberFormatString
@@ -74,7 +74,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(MaximumValue), typeof(T), typeof(NumericEditControl<T>));
 
         /// <summary>
-        /// Gets or sets the maximum value.
+        /// Gets or sets the maximum value.  This is a bind-able property.
         /// </summary>
         /// <value>The maximum value.</value>
         public T MaximumValue
@@ -90,7 +90,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(MinimumValue), typeof(T), typeof(NumericEditControl<T>));
 
         /// <summary>
-        /// Gets or sets the minimum value.
+        /// Gets or sets the minimum value.  This is a bind-able property.
         /// </summary>
         /// <value>The minimum value.</value>
         public T MinimumValue
@@ -107,7 +107,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ValueChangedCallback));
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the value.  This is a bind-able property.
         /// </summary>
         /// <value>The value.</value>
         public T Value
@@ -143,7 +143,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(CultureIdChangedCallback));
 
         /// <summary>
-        /// Gets or sets the culture identifier.
+        /// Gets or sets the culture identifier.  This is a bind-able property.
         /// </summary>
         /// <value>The culture identifier.</value>
         public string CultureId
@@ -176,7 +176,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(AllowNullValue), typeof(bool), typeof(NumericEditControl<T>));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [allow null value].
+        /// Gets or sets a value indicating whether [allow null value].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [allow null value]; otherwise, <c>false</c>.</value>
         public bool AllowNullValue

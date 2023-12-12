@@ -7,7 +7,7 @@
 // Last Modified On : 07-24-2023
 // ***********************************************************************
 // <copyright file="IntegerEditControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,7 +18,7 @@ using System.Windows;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class IntegerEditControl.
+    /// A control that edits integer values.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Int32?}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Int32?}" />
@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(SetupChangedCallback));
 
         /// <summary>
-        /// Sets the setup.
+        /// Sets the setup.  This is a bind-able property.
         /// </summary>
         /// <value>The setup.</value>
         public IntegerEditControlSetup Setup
