@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0-windows</TargetFrameworks>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <UseWPF>true</UseWPF>
-    <Version>8.2</Version>
+    <Version>8.3</Version>
     <Description>WPF Controls which allow for quick user data entry.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>
