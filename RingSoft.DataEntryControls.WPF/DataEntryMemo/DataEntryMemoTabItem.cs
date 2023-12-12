@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryMemoTabItem.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,7 +18,7 @@ using System.Windows.Controls;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DataEntryMemoTabItem.
+    /// A tab item control that hosts a Memo Editor control. Puts a red dot on the right side of the header when there is tet inside the memo editor.
     /// Implements the <see cref="TabItem" />
     /// </summary>
     /// <seealso cref="TabItem" />
@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(Visibility.Collapsed));
 
         /// <summary>
-        /// Gets or sets the notification visibility.
+        /// Gets or sets the notification visibility.  This is a bind-able property.
         /// </summary>
         /// <value>The notification visibility.</value>
         public Visibility NotificationVisibility
@@ -49,7 +49,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(MemoHasText), typeof(bool), typeof(DataEntryMemoTabItem));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [memo has text].
+        /// Gets or sets a value indicating whether [memo has text].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [memo has text]; otherwise, <c>false</c>.</value>
         public bool MemoHasText

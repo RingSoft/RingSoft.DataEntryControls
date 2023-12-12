@@ -7,7 +7,7 @@
 // Last Modified On : 06-28-2023
 // ***********************************************************************
 // <copyright file="DataEntryMemoEditor.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -23,7 +23,7 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DataEntryMemoEditor.
+    /// A memo editor control.
     /// Implements the <see cref="Control" />
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
     /// </summary>
@@ -42,7 +42,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(TextChangedCallback));
 
         /// <summary>
-        /// Gets or sets the text.
+        /// Gets or sets the text.  This is a bind-able property.
         /// </summary>
         /// <value>The text.</value>
         public string Text
@@ -71,7 +71,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(SelectAllOnGotFocus), typeof(bool), typeof(DataEntryMemoEditor));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [select all on got focus].
+        /// Gets or sets a value indicating whether [select all on got focus].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [select all on got focus]; otherwise, <c>false</c>.</value>
         public bool SelectAllOnGotFocus
@@ -88,7 +88,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata("G", DateFormatChangedCallback));
 
         /// <summary>
-        /// Gets or sets the date format.
+        /// Gets or sets the date format.  This is a bind-able property.
         /// </summary>
         /// <value>The date format.</value>
         public string DateFormat
@@ -117,7 +117,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(CultureInfo.CurrentCulture.Name, CultureIdChangedCallback));
 
         /// <summary>
-        /// Gets or sets the culture identifier.
+        /// Gets or sets the culture identifier.  This is a bind-able property.
         /// </summary>
         /// <value>The culture identifier.</value>
         public string CultureId
@@ -147,7 +147,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ReadOnlyModeChangedCallback));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [read only mode].
+        /// Gets or sets a value indicating whether [read only mode].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [read only mode]; otherwise, <c>false</c>.</value>
         public bool ReadOnlyMode
@@ -359,7 +359,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Called when [date stamp].
+        /// Called when user clicks the Date/Time Stamp button.
         /// </summary>
         protected virtual void OnDateStamp()
         {
