@@ -7,14 +7,14 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="INumericControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 namespace RingSoft.DataEntryControls.Engine
 {
     /// <summary>
-    /// Interface INumericControl
+    /// A numeric control (Decimal, Integer)
     /// Extends the <see cref="RingSoft.DataEntryControls.Engine.IDropDownControl" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.Engine.IDropDownControl" />

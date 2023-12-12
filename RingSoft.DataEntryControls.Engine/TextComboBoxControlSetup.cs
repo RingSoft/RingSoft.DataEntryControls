@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="TextComboBoxControlSetup.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -71,22 +71,6 @@ namespace RingSoft.DataEntryControls.Engine
         /// <param name="enumType">Type of the enum.</param>
         public void LoadFromEnum(Type enumType)
         {
-            //Items.Clear();
-            //var enumValues = Enum.GetValues(enumType);
-
-            //foreach (var enumValue in enumValues)
-            //{
-            //    var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
-            //    var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            //    var textValue = attributes.Length > 0 ? attributes[0].Description : enumValue.ToString();
-
-            //    var comboItem = new TextComboBoxItem
-            //    {
-            //        NumericValue = (int)enumValue,
-            //        TextValue = textValue
-            //    };
-            //    Items.Add(comboItem);
-            //}
             var typeTranslation = new EnumFieldTranslation();
             typeTranslation.LoadFromEnum(enumType);
             LoadFromEnum(typeTranslation);

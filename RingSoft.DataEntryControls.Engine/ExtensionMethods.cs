@@ -7,7 +7,7 @@
 // Last Modified On : 07-24-2023
 // ***********************************************************************
 // <copyright file="ExtensionMethods.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -23,7 +23,7 @@ namespace RingSoft.DataEntryControls.Engine
     public static class ExtensionMethods
     {
         /// <summary>
-        /// Determines whether [is null or empty] [the specified value].
+        /// Determines whether a string is null or empty.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if [is null or empty] [the specified value]; otherwise, <c>false</c>.</returns>
@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
         /// <summary>
-        /// Lefts the string.
+        /// Gets the left string value starting at length.
         /// </summary>
         /// <param name="param">The parameter.</param>
         /// <param name="length">The length.</param>
@@ -50,7 +50,7 @@ namespace RingSoft.DataEntryControls.Engine
             return result;
         }
         /// <summary>
-        /// Rights the string.
+        /// Gets the right string value starting at length.
         /// </summary>
         /// <param name="param">The parameter.</param>
         /// <param name="length">The length.</param>
@@ -69,7 +69,7 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
         /// <summary>
-        /// Mids the string.
+        /// Gets the left string value starting at index and ending at length.
         /// </summary>
         /// <param name="param">The parameter.</param>
         /// <param name="startIndex">The start index.</param>

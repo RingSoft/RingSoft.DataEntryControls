@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="RelayCommand.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -17,7 +17,7 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.Engine
 {
     /// <summary>
-    /// Class RelayCommand.
+    /// Class RelayCommand.  Used to set ViewModel commands.
     /// Implements the <see cref="ICommand" />
     /// </summary>
     /// <seealso cref="ICommand" />
@@ -84,7 +84,7 @@ namespace RingSoft.DataEntryControls.Engine
     }
 
     /// <summary>
-    /// Class RelayCommand.
+    /// Class RelayCommand.  Used to set ViewModel commands with event input parameters.
     /// Implements the <see cref="ICommand" />
     /// </summary>
     /// <typeparam name="T"></typeparam>

@@ -7,7 +7,7 @@
 // Last Modified On : 07-24-2023
 // ***********************************************************************
 // <copyright file="DecimalEditControlSetup.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -62,7 +62,7 @@ namespace RingSoft.DataEntryControls.Engine
         public int Precision { get; set; } = 2;
 
         /// <summary>
-        /// Gets or sets the format type of the double edit control.
+        /// Gets or sets the format type of the decimal edit control.
         /// </summary>
         /// <value>The format type of the numeric edit control.</value>
         public DecimalEditFormatTypes FormatType { get; set; }

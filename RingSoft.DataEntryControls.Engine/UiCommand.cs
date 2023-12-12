@@ -7,7 +7,7 @@
 // Last Modified On : 11-20-2023
 // ***********************************************************************
 // <copyright file="UiCommand.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -16,20 +16,20 @@ using System;
 namespace RingSoft.DataEntryControls.Engine
 {
     /// <summary>
-    /// Enum UiVisibilityTypes
+    /// Visibility Types
     /// </summary>
     public enum UiVisibilityTypes
     {
         /// <summary>
-        /// The visible
+        /// Visible
         /// </summary>
         Visible = 0,
         /// <summary>
-        /// The hidden
+        /// Hidden
         /// </summary>
         Hidden = 1,
         /// <summary>
-        /// The collapsed
+        /// Collapsed
         /// </summary>
         Collapsed = 2,
     }

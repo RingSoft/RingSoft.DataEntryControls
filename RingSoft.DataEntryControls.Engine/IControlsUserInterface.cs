@@ -7,7 +7,7 @@
 // Last Modified On : 07-26-2023
 // ***********************************************************************
 // <copyright file="IControlsUserInterface.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -31,39 +31,39 @@ namespace RingSoft.DataEntryControls.Engine
     }
 
     /// <summary>
-    /// Enum RsMessageBoxIcons
+    /// Message Box icons.
     /// </summary>
     public enum RsMessageBoxIcons
     {
         /// <summary>
-        /// The error
+        /// Error
         /// </summary>
         Error = 0,
         /// <summary>
-        /// The exclamation
+        /// Exclamation
         /// </summary>
         Exclamation = 1,
         /// <summary>
-        /// The information
+        /// Information
         /// </summary>
         Information = 2
     }
 
     /// <summary>
-    /// Enum MessageBoxButtonsResult
+    /// Message Box result
     /// </summary>
     public enum MessageBoxButtonsResult
     {
         /// <summary>
-        /// The yes
+        /// Yes
         /// </summary>
         Yes = 0,
         /// <summary>
-        /// The no
+        /// No
         /// </summary>
         No = 1,
         /// <summary>
-        /// The cancel
+        /// Cancel
         /// </summary>
         Cancel = 2
     }

@@ -7,7 +7,7 @@
 // Last Modified On : 05-25-2023
 // ***********************************************************************
 // <copyright file="ControlsGlobals.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -16,7 +16,7 @@ using System;
 namespace RingSoft.DataEntryControls.Engine
 {
     /// <summary>
-    /// Class ControlsGlobals.
+    /// Static class to handle common user interface functions
     /// </summary>
     public static class ControlsGlobals
     {

@@ -7,7 +7,7 @@
 // Last Modified On : 07-24-2023
 // ***********************************************************************
 // <copyright file="NumericEditControlSetup.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -16,20 +16,20 @@ using System.Globalization;
 namespace RingSoft.DataEntryControls.Engine
 {
     /// <summary>
-    /// Enum DataEntryModes
+    /// Data Entry Modes
     /// </summary>
     public enum DataEntryModes
     {
         /// <summary>
-        /// The format on entry
+        /// Format on entry
         /// </summary>
         FormatOnEntry = 0,
         /// <summary>
-        /// The validate only
+        /// Validate only
         /// </summary>
         ValidateOnly = 1,
         /// <summary>
-        /// The raw entry
+        /// Raw Entry
         /// </summary>
         RawEntry = 2
     }
