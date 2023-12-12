@@ -7,7 +7,7 @@
 // Last Modified On : 05-26-2023
 // ***********************************************************************
 // <copyright file="IDataEntryGrid.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -53,7 +53,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
     }
     /// <summary>
-    /// Interface IDataEntryGrid
+    /// Connects grid manager to grid.
     /// </summary>
     public interface IDataEntryGrid
     {
@@ -116,7 +116,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         void ResetGridFocus();
 
         /// <summary>
-        /// Gotoes the cell.
+        /// Goes to the cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
