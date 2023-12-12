@@ -7,7 +7,7 @@
 // Last Modified On : 10-30-2023
 // ***********************************************************************
 // <copyright file="VmUiControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -20,7 +20,7 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class VmUiControl.
+    /// Maps UiCommand to control.
     /// </summary>
     public class VmUiControl
     {

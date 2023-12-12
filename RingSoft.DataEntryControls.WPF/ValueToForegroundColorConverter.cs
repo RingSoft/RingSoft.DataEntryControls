@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="ValueToForegroundColorConverter.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -41,7 +41,7 @@ namespace RingSoft.DataEntryControls.WPF
         public object Parameter { get; set; }
     }
     /// <summary>
-    /// Class ValueToForegroundConverter.
+    /// Gets color based on double value.  Red if negative.  Green if positive.
     /// Implements the <see cref="IValueConverter" />
     /// </summary>
     /// <seealso cref="IValueConverter" />
@@ -95,7 +95,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
     }
     /// <summary>
-    /// Class ValueToForegroundColorConverterGreen.
+    /// Converts positive values to green color.
     /// Implements the <see cref="IValueConverter" />
     /// </summary>
     /// <seealso cref="IValueConverter" />

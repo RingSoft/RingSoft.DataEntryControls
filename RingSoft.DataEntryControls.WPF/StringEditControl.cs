@@ -7,7 +7,7 @@
 // Last Modified On : 09-19-2023
 // ***********************************************************************
 // <copyright file="StringEditControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -21,7 +21,7 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class StringEditControl.
+    /// A control that edits string values.
     /// Implements the <see cref="TextBox" />
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
     /// </summary>
@@ -39,7 +39,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Gets or sets a value indicating whether [select all on got focus].
         /// </summary>
-        /// <value><c>true</c> if [select all on got focus]; otherwise, <c>false</c>.</value>
+        /// <value><c>true</c> if [select all on got focus]; otherwise, <c>false</c>.</value>  This is a bind-able property.
         public bool SelectAllOnGotFocus
         {
             get { return (bool)GetValue(SelectAllOnGotFocusProperty); }
@@ -54,7 +54,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(UiCommandChangedCallback));
 
         /// <summary>
-        /// Gets or sets the UI command.
+        /// Gets or sets the UI command.  This is a bind-able property.
         /// </summary>
         /// <value>The UI command.</value>
         public UiCommand UiCommand
@@ -91,7 +91,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(UiLabelChangedCallback));
 
         /// <summary>
-        /// Gets or sets the UI label.
+        /// Gets or sets the UI label.  This is a bind-able property.
         /// </summary>
         /// <value>The UI label.</value>
         public Label UiLabel

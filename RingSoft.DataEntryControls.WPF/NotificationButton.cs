@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="NotificationButton.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class NotificationButton.
+    /// Button that displays a red ellipse notification when set.
     /// Implements the <see cref="Button" />
     /// </summary>
     /// <seealso cref="Button" />
@@ -32,7 +32,7 @@ namespace RingSoft.DataEntryControls.WPF
                 , new FrameworkPropertyMetadata(Visibility.Visible));
 
         /// <summary>
-        /// Gets or sets the notification visibility.
+        /// Gets or sets the notification visibility.  This is a bind-able property.
         /// </summary>
         /// <value>The notification visibility.</value>
         public Visibility NotificationVisibility
@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(MemoHasText), typeof(bool), typeof(NotificationButton));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [memo has text].
+        /// Gets or sets a value indicating whether [memo has text].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [memo has text]; otherwise, <c>false</c>.</value>
         public bool MemoHasText

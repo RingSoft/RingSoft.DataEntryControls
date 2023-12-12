@@ -7,7 +7,7 @@
 // Last Modified On : 09-19-2023
 // ***********************************************************************
 // <copyright file="WPFControlsGlobals.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -26,7 +26,7 @@ using System.Windows.Threading;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DataEntryCustomContentTemplate.
+    /// Class that displays custom content to user.
     /// Implements the <see cref="System.Collections.ObjectModel.ObservableCollection{RingSoft.DataEntryControls.WPF.DataEntryCustomContentTemplateItem}" />
     /// </summary>
     /// <seealso cref="System.Collections.ObjectModel.ObservableCollection{RingSoft.DataEntryControls.WPF.DataEntryCustomContentTemplateItem}" />
@@ -36,7 +36,7 @@ namespace RingSoft.DataEntryControls.WPF
     }
 
     /// <summary>
-    /// Class DataEntryCustomContentTemplateItem.
+    /// A custom control content item.
     /// </summary>
     public class DataEntryCustomContentTemplateItem
     {
@@ -60,7 +60,7 @@ namespace RingSoft.DataEntryControls.WPF
     }
 
     /// <summary>
-    /// Class VmUiControlFactory.
+    /// Creates a vmUiControl based on ctrol.
     /// </summary>
     public class VmUiControlFactory
     {
@@ -78,7 +78,7 @@ namespace RingSoft.DataEntryControls.WPF
     }
 
     /// <summary>
-    /// Class ControlsUserInterface.
+    /// The user interface.
     /// Implements the <see cref="IControlsUserInterface" />
     /// </summary>
     /// <seealso cref="IControlsUserInterface" />

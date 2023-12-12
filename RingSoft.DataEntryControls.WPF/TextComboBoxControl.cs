@@ -7,7 +7,7 @@
 // Last Modified On : 09-19-2023
 // ***********************************************************************
 // <copyright file="TextComboBoxControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -24,7 +24,7 @@ using System.Windows.Media;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class TextComboBoxControl.
+    /// A combo box which displays text values.
     /// Implements the <see cref="ComboBox" />
     /// </summary>
     /// <seealso cref="ComboBox" />
@@ -39,7 +39,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(SelectedItemPropertyChangedCallback));
 
         /// <summary>
-        /// Gets or sets the selected item.
+        /// Gets or sets the selected item.  This is a bind-able property.
         /// </summary>
         /// <value>The selected item.</value>
         public new TextComboBoxItem SelectedItem
@@ -49,7 +49,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Selecteds the item property changed callback.
+        /// Selectes the item property changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
@@ -61,14 +61,14 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// The setup property
+        /// The setup property.
         /// </summary>
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(TextComboBoxControlSetup), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(SetupPropertyChangedCallback));
 
         /// <summary>
-        /// Gets or sets the setup.
+        /// Gets or sets the setup.  This is a bind-able property.
         /// </summary>
         /// <value>The setup.</value>
         public TextComboBoxControlSetup Setup
@@ -127,7 +127,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(UiCommandChangedCallback));
 
         /// <summary>
-        /// Gets or sets the UI command.
+        /// Gets or sets the UI command.  This is a bind-able property.
         /// </summary>
         /// <value>The UI command.</value>
         public UiCommand UiCommand
@@ -164,7 +164,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(UiLabelChangedCallback));
 
         /// <summary>
-        /// Gets or sets the UI label.
+        /// Gets or sets the UI label.  This is a bind-able property.
         /// </summary>
         /// <value>The UI label.</value>
         public Label UiLabel
