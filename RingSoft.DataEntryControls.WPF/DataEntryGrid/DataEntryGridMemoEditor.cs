@@ -7,7 +7,7 @@
 // Last Modified On : 11-29-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridMemoEditor.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,7 +18,7 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridMemoEditor.
+    /// A grid memo editor.  Breaks down text to lines to display on a grid.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.BaseWindow" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.BaseWindow" />

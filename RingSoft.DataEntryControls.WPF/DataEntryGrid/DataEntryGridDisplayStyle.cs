@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridDisplayStyle.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -16,7 +16,7 @@ using System.Windows.Media;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridDisplayStyle.
+    /// Grid row/cell display style.
     /// </summary>
     public class DataEntryGridDisplayStyle
     {
