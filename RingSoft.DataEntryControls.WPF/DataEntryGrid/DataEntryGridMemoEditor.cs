@@ -22,7 +22,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.BaseWindow" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.BaseWindow" />
-    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "MemoEditor", Type = typeof(DataEntryMemoEditor))]
     [TemplatePart(Name = "OkButton", Type = typeof(Button))]
     [TemplatePart(Name = "CancelButton", Type = typeof(Button))]

@@ -27,7 +27,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     /// <seealso cref="TextBox" />
     /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class StringEditControl : TextBox, IReadOnlyControl
     {
         /// <summary>

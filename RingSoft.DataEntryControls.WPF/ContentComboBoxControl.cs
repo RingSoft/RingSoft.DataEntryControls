@@ -27,7 +27,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="ComboBox" />
     /// </summary>
     /// <seealso cref="ComboBox" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class ContentComboBoxControl : ComboBox
     {
         /// <summary>

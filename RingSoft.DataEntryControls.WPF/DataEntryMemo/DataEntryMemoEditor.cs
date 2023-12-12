@@ -29,7 +29,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     /// <seealso cref="Control" />
     /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
-    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "DateStampButton", Type = typeof(Button))]
     public class DataEntryMemoEditor : Control, IReadOnlyControl

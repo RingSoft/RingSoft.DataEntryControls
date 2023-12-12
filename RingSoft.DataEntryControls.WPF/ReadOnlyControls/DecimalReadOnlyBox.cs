@@ -22,7 +22,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.NumericReadOnlyBox{System.Double?}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.NumericReadOnlyBox{System.Double?}" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class DecimalReadOnlyBox : NumericReadOnlyBox<double?>
     {
         /// <summary>

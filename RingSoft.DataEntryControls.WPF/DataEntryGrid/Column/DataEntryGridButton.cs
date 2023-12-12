@@ -80,7 +80,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     /// Implements the <see cref="Button" />
     /// </summary>
     /// <seealso cref="Button" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryGridButton : Button
     {
         /// <summary>

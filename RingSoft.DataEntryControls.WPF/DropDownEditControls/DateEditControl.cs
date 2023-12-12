@@ -33,7 +33,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DropDownEditControl" />
     /// <seealso cref="IDateEditControl" />
     /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
-    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "Calendar", Type = typeof(IDropDownCalendar))]
     public class DateEditControl : DropDownEditControl, IDateEditControl, IReadOnlyControl
     {

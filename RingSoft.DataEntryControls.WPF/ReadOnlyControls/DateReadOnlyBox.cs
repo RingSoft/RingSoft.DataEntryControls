@@ -30,7 +30,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
     /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class DateReadOnlyBox : ReadOnlyBox, IReadOnlyControl
     {
         /// <summary>

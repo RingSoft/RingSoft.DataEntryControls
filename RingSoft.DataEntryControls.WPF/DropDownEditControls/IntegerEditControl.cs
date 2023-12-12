@@ -22,7 +22,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Int32?}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Int32?}" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class IntegerEditControl : NumericEditControl<int?>
     {
         /// <summary>

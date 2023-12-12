@@ -29,7 +29,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// <seealso cref="Control" />
     /// <seealso cref="IDropDownCalculator" />
     /// <seealso cref="ICalculatorControl" />
-    /// <font color="red">Badly formed XML comment.</font>
 
     [TemplatePart(Name = "MemoryStatusTextBlock", Type = typeof(TextBlock))]
     [TemplatePart(Name = "EquationTextBlock", Type = typeof(TextBlock))]

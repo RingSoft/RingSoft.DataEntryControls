@@ -21,7 +21,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class StringReadOnlyBox : ReadOnlyBox
     {
         /// <summary>

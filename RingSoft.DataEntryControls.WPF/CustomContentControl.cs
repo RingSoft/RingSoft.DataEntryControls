@@ -22,7 +22,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="Control" />
     /// </summary>
     /// <seealso cref="Control" />
-    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "ContentPresenter", Type = typeof(ContentPresenter))]
     public class CustomContentControl : Control
     {

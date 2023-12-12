@@ -24,7 +24,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
-    /// <font color="red">Badly formed XML comment.</font>
     public abstract class NumericReadOnlyBox<T> : ReadOnlyBox
     {
         /// <summary>

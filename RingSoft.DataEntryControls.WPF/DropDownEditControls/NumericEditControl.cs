@@ -32,7 +32,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DropDownEditControl" />
     /// <seealso cref="INumericControl" />
     /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
-    /// <font color="red">Badly formed XML comment.</font>
     public abstract class NumericEditControl<T> : DropDownEditControl, INumericControl, IReadOnlyControl
     {
         /// <summary>

@@ -22,7 +22,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="TabItem" />
     /// </summary>
     /// <seealso cref="TabItem" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryMemoTabItem : TabItem
     {
         /// <summary>

@@ -28,7 +28,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     /// <seealso cref="Control" />
     /// <seealso cref="IDropDownCalendar" />
-    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "Calendar", Type = typeof(Calendar))]
     [TemplatePart(Name = "TodayButton", Type = typeof(Button))]
     public class DropDownCalendar : Control, IDropDownCalendar

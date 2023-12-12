@@ -30,7 +30,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     /// <seealso cref="Control" />
     /// <seealso cref="IDropDownControl" />
-    /// <font color="red">Badly formed XML comment.</font>
 
     [TemplatePart(Name = "TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "DropDownButton", Type = typeof(Button))]

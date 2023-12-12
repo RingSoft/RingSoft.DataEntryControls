@@ -39,7 +39,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="Window" />
     /// </summary>
     /// <seealso cref="Window" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class BaseWindow : Window
     {
         /// <summary>

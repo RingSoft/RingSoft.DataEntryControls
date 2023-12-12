@@ -32,7 +32,7 @@ using System.Windows.Threading;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGrid.
+    /// A control that enters data in a grid.
     /// Implements the <see cref="DataGrid" />
     /// Implements the <see cref="IDataEntryGrid" />
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
@@ -40,7 +40,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     /// <seealso cref="DataGrid" />
     /// <seealso cref="IDataEntryGrid" />
     /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryGrid : DataGrid, IDataEntryGrid, IReadOnlyControl
     {
         /// <summary>

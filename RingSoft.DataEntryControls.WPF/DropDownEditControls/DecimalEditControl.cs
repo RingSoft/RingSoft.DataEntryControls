@@ -26,7 +26,6 @@ namespace RingSoft.DataEntryControls.WPF
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Double?}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Double?}" />
-    /// <font color="red">Badly formed XML comment.</font>
 
     [TemplatePart(Name = "Calculator", Type = typeof(IDropDownCalculator))]
     public class DecimalEditControl : NumericEditControl<double?>
