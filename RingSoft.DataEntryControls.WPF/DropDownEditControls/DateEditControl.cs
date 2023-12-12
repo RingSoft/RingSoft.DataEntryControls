@@ -7,7 +7,7 @@
 // Last Modified On : 12-05-2023
 // ***********************************************************************
 // <copyright file="DateEditControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -25,7 +25,7 @@ using RingSoft.DataEntryControls.Engine.Date;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DateEditControl.
+    /// A control that edits dates and times.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DropDownEditControl" />
     /// Implements the <see cref="IDateEditControl" />
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ValueChangedCallback));
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the value.  This is a bind-able property.
         /// </summary>
         /// <value>The value.</value>
         public DateTime? Value
@@ -79,7 +79,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(EntryFormatChangedCallback));
 
         /// <summary>
-        /// Gets or sets the entry format.
+        /// Gets or sets the entry format.  This is a bind-able property.
         /// </summary>
         /// <value>The entry format.</value>
         public string EntryFormat
@@ -123,7 +123,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(DisplayFormatChangedCallback));
 
         /// <summary>
-        /// Gets or sets the display format.
+        /// Gets or sets the display format.  This is a bind-able property.
         /// </summary>
         /// <value>The display format.</value>
         public string DisplayFormat
@@ -153,7 +153,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(DateFormatType), typeof(DateFormatTypes), typeof(DateEditControl));
 
         /// <summary>
-        /// Gets or sets the type of the date format.
+        /// Gets or sets the type of the date format.  This is a bind-able property.
         /// </summary>
         /// <value>The type of the date format.</value>
         public DateFormatTypes DateFormatType
@@ -169,7 +169,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(MinimumDate), typeof(DateTime?), typeof(DateEditControl));
 
         /// <summary>
-        /// Gets or sets the minimum date.
+        /// Gets or sets the minimum date.  This is a bind-able property.
         /// </summary>
         /// <value>The minimum date.</value>
         public DateTime? MinimumDate
@@ -185,7 +185,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(MaximumDate), typeof(DateTime?), typeof(DateEditControl));
 
         /// <summary>
-        /// Gets or sets the maximum date.
+        /// Gets or sets the maximum date.  This is a bind-able property.
         /// </summary>
         /// <value>The maximum date.</value>
         public DateTime? MaximumDate
@@ -202,7 +202,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(CultureIdChangedCallback));
 
         /// <summary>
-        /// Gets or sets the culture identifier.
+        /// Gets or sets the culture identifier.  This is a bind-able property.
         /// </summary>
         /// <value>The culture identifier.</value>
         public string CultureId
@@ -241,7 +241,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(SetupChangedCallback));
 
         /// <summary>
-        /// Sets the setup.
+        /// Sets the setup.  This is a bind-able property.
         /// </summary>
         /// <value>The setup.</value>
         public DateEditControlSetup Setup
@@ -275,7 +275,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(AllowNullValue), typeof(bool), typeof(DateEditControl));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [allow null value].
+        /// Gets or sets a value indicating whether [allow null value].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [allow null value]; otherwise, <c>false</c>.</value>
         public bool AllowNullValue
@@ -291,7 +291,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(PlayValidationSoundOnLostFocus), typeof(bool), typeof(DateEditControl));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [play validation sound on lost focus].
+        /// Gets or sets a value indicating whether [play validation sound on lost focus].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [play validation sound on lost focus]; otherwise, <c>false</c>.</value>
         public bool PlayValidationSoundOnLostFocus

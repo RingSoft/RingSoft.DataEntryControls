@@ -7,7 +7,7 @@
 // Last Modified On : 08-18-2023
 // ***********************************************************************
 // <copyright file="Calculator.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -21,7 +21,7 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class Calculator.
+    /// The popup calculator control that appears below a decimal edit control when the calculator button is pushed.
     /// Implements the <see cref="Control" />
     /// Implements the <see cref="IDropDownCalculator" />
     /// Implements the <see cref="ICalculatorControl" />
