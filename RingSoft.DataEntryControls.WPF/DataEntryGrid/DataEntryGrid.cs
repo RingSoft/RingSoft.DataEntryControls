@@ -7,7 +7,7 @@
 // Last Modified On : 07-24-2023
 // ***********************************************************************
 // <copyright file="DataEntryGrid.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -80,7 +80,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 new FrameworkPropertyMetadata(ManagerChangedCallback));
 
         /// <summary>
-        /// Gets or sets the manager.
+        /// Gets or sets the manager.  This is a bind-able property.
         /// </summary>
         /// <value>The manager.</value>
         public DataEntryGridManager Manager
@@ -109,7 +109,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             DependencyProperty.Register(nameof(EnterToTab), typeof(bool), typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enter to tab].
+        /// Gets or sets a value indicating whether to convert ENTER key to Tab key.  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [enter to tab]; otherwise, <c>false</c>.</value>
         public bool EnterToTab
@@ -125,7 +125,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             DependencyProperty.Register(nameof(CloseWindowOnEscape), typeof(bool), typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [close window on escape].
+        /// Gets or sets a value indicating whether [close window on escape].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [close window on escape]; otherwise, <c>false</c>.</value>
         public bool CloseWindowOnEscape
@@ -135,14 +135,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         /// <summary>
-        /// The cell editing control border thickness property
+        /// The cell editing control border thickness property.
         /// </summary>
         public static readonly DependencyProperty CellEditingControlBorderThicknessProperty =
             DependencyProperty.Register(nameof(CellEditingControlBorderThickness), typeof(Thickness),
                 typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets the cell editing control border thickness.
+        /// Gets or sets the cell editing control border thickness.  This is a bind-able property.
         /// </summary>
         /// <value>The cell editing control border thickness.</value>
         public Thickness CellEditingControlBorderThickness
@@ -159,7 +159,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 new FrameworkPropertyMetadata(ReadOnlyModeChangedCallback));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [read only mode].
+        /// Gets or sets a value indicating whether [read only mode].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [read only mode]; otherwise, <c>false</c>.</value>
         public bool ReadOnlyMode
@@ -188,7 +188,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             DependencyProperty.Register(nameof(SetTabFocusToSelectedCell), typeof(bool), typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [set tab focus to selected cell].
+        /// Gets or sets a value indicating whether [set tab focus to selected cell].This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [set tab focus to selected cell]; otherwise, <c>false</c>.</value>
         public bool SetTabFocusToSelectedCell
@@ -204,7 +204,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             DependencyProperty.Register(nameof(StoreCurrentCellOnLoadGrid), typeof(bool), typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [store current cell on load grid].
+        /// Gets or sets a value indicating whether [store current cell on load grid].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [store current cell on load grid]; otherwise, <c>false</c>.</value>
         public bool StoreCurrentCellOnLoadGrid
@@ -220,7 +220,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             DependencyProperty.Register(nameof(StoreCurrentCellOnLostFocus), typeof(bool), typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets a value indicating whether [store current cell on lost focus].
+        /// Gets or sets a value indicating whether [store current cell on lost focus].  This is a bind-able property.
         /// </summary>
         /// <value><c>true</c> if [store current cell on lost focus]; otherwise, <c>false</c>.</value>
         public bool StoreCurrentCellOnLostFocus
@@ -237,7 +237,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets the disabled cell display style.
+        /// Gets or sets the disabled cell display style.  This is a bind-able property.
         /// </summary>
         /// <value>The disabled cell display style.</value>
         public DataEntryGridDisplayStyle DisabledCellDisplayStyle
@@ -253,7 +253,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             DependencyProperty.Register(nameof(DefaultSelectionBrush), typeof(Brush), typeof(DataEntryGrid));
 
         /// <summary>
-        /// Gets or sets the default selection brush.
+        /// Gets or sets the default selection brush.  This is a bind-able property.
         /// </summary>
         /// <value>The default selection brush.</value>
         public Brush DefaultSelectionBrush
@@ -344,7 +344,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         /// <summary>
-        /// Gets the editing control host.
+        /// Gets the active cell editing control host.
         /// </summary>
         /// <value>The editing control host.</value>
         public DataEntryGridEditingControlHostBase EditingControlHost { get; private set; }
@@ -695,81 +695,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return Columns.IndexOf(column);
         }
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.FrameworkElement.SizeChanged" /> event, using the specified information as part of the eventual event data.
-        /// </summary>
-        /// <param name="sizeInfo">Details of the old and new size involved in the change.</param>
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            //DesignerFillGrid(nameof(OnRenderSizeChanged));
-
-            base.OnRenderSizeChanged(sizeInfo);
-        }
-
-        // ReSharper disable once UnusedParameter.Local
-        //private void DesignerFillGrid(string trace)
-        //{
-        //    if (!DesignerProperties.GetIsInDesignMode(this))
-        //        return;
-
-        //    if (_designerFillingGrid)
-        //        return;
-
-        //    _designerFillingGrid = true;
-
-        //    _dataSourceTable.Rows.Clear();
-
-        //    UpdateLayout();
-
-        //    if (ActualHeight < 15)
-        //    {
-        //        _designerFillingGrid = false;
-        //        return;
-        //    }
-
-        //    var columnHeaderHeight = double.NaN;
-
-        //    var headersPresenter = this.GetVisualChild<DataGridColumnHeadersPresenter>();
-
-        //    if (headersPresenter != null)
-        //        columnHeaderHeight = headersPresenter.ActualHeight;
-
-        //    if (double.IsNaN(columnHeaderHeight) && Columns.Any())
-        //    {
-        //        if (ActualHeight < 30)
-        //        {
-        //            _designerFillingGrid = false;
-        //            return;
-        //        }
-        //    }
-        //    else if (!double.IsNaN(columnHeaderHeight))
-        //    {
-        //        if (ActualHeight < columnHeaderHeight + 10)
-        //        {
-        //            _designerFillingGrid = false;
-        //            return;
-        //        }
-        //    }
-
-        //    //MessageBox.Show($"RowHeight={RowHeight}\r\nColumn Header Height={columnHeaderHeight}\r\nActualHeight={ActualHeight}", trace);
-
-        //    AddDesignerRow();
-        //    var lastRowIndex = _dataSourceTable.Rows.Count - 1;
-
-        //    UpdateLayout();
-        //    var dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
-
-        //    while (dataGridRow != null)
-        //    {
-        //        AddDesignerRow();
-        //        lastRowIndex++;
-        //        UpdateLayout();
-
-        //        dataGridRow = ItemContainerGenerator.ContainerFromItem(Items[lastRowIndex]) as DataGridRow;
-        //    }
-
-        //    _designerFillingGrid = false;
-        //}
 
         /// <summary>
         /// Adds the designer row.
@@ -780,14 +705,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             foreach (var column in Columns)
             {
-                //if (column is DataEntryGridCheckBoxColumn)
-                //{
-                //    designerRow[column.DataColumnName] = false;
-                //}
-                //else
-                //{
-                //    designerRow[column.DataColumnName] = column.DesignText;
-                //}
                 column.ValidateDesignerDataValue();
                 designerRow[column.DataColumnName] = column.DesignerDataValue;
             }
@@ -1641,36 +1558,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             _gridHasFocus = false;
         }
 
-        //public new bool CancelEdit()
-        //{
-        //    if (EditingControlHost == null)
-        //        return true;
-
-        //    _cancellingEdit = true;
-        //    var result = base.CancelEdit();
-        //    _cancellingEdit = false;
-        //    return result;
-        //}
-
-        //public new bool CancelEdit(DataGridEditingUnit editingUnit)
-        //{
-        //    if (EditingControlHost == null)
-        //        return true;
-
-        //    _cancellingEdit = true;
-        //    var result = base.CancelEdit(editingUnit);
-        //    _cancellingEdit = false;
-        //    return result;
-        //}
-
-        //public bool CancelEdit(bool undoEdit)
-        //{
-        //    _undoEdit = undoEdit;
-        //    var result = CancelEdit();
-        //    _undoEdit = false;
-        //    return result;
-        //}
-
         /// <summary>
         /// Resets the grid focus.
         /// </summary>
@@ -2229,25 +2116,6 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
             return columnIndex;
         }
-
-        //private TChildItem FindVisualChild<TChildItem>(DependencyObject obj)
-        //    where TChildItem : DependencyObject
-
-        //{
-        //    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-        //    {
-        //        DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-        //        if (child is TChildItem)
-        //            return (TChildItem)child;
-        //        else
-        //        {
-        //            TChildItem childOfChild = FindVisualChild<TChildItem>(child);
-        //            if (childOfChild != null)
-        //                return childOfChild;
-        //        }
-        //    }
-        //    return null;
-        //}
 
         /// <summary>
         /// Gets the first visual child.
