@@ -14,7 +14,7 @@
 namespace RingSoft.DataEntryControls.Engine.Date.Segments
 {
     /// <summary>
-    /// Class DateSegment.
+    /// A date segment.
     /// </summary>
     internal class DateSegment
     {
@@ -78,7 +78,7 @@ namespace RingSoft.DataEntryControls.Engine.Date.Segments
         }
 
         /// <summary>
-        /// Values the numeric.
+        /// Validates the character.
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected bool ValNumeric()

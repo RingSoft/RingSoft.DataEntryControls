@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DateSegmentDay.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -69,7 +69,7 @@ namespace RingSoft.DataEntryControls.Engine.Date.Segments
         /// <summary>
         /// Gets the last day.
         /// </summary>
-        /// <param name="nMonth">The n month.</param>
+        /// <param name="nMonth">The month.</param>
         /// <param name="nYear">The n year.</param>
         /// <returns>System.Int32.</returns>
         internal static int GetLastDay(int nMonth, int nYear)
