@@ -7,7 +7,7 @@
 // Last Modified On : 05-07-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridRow.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,7 +18,7 @@ using System.Linq;
 namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridRow.
+    /// Manages a data entry grid row.
     /// Implements the <see cref="IDisposable" />
     /// </summary>
     /// <seealso cref="IDisposable" />
@@ -33,13 +33,13 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// <summary>
         /// Gets the row identifier.
         /// </summary>
-        /// <value>The row identifier.</value>
+        /// <value>The row identifier.  This is a GUID.</value>
         public string RowId { get; }
 
         /// <summary>
         /// Gets the parent row identifier.
         /// </summary>
-        /// <value>The parent row identifier.</value>
+        /// <value>The parent row identifier.  This is a GUID</value>
         public string ParentRowId { get; private set; }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public DataEntryGridRow RowReplacedBy { get; internal set; }
 
         /// <summary>
-        /// Gets a value indicating whether [allow user delete].
+        /// Gets a value indicating whether allow user delete.
         /// </summary>
-        /// <value><c>true</c> if [allow user delete]; otherwise, <c>false</c>.</value>
+        /// <value><c>true</c> if allow user delete; otherwise, <c>false</c>.</value>
         public virtual bool AllowUserDelete { get; } = true;
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Adds the child row.
+        /// Adds a child row to grid.
         /// </summary>
         /// <param name="childRow">The child row.</param>
         /// <exception cref="System.Exception">This row must be added to the Rows collection before child rows can be added to it.</exception>
