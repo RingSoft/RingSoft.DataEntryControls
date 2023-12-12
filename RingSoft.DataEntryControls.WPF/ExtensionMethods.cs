@@ -7,7 +7,7 @@
 // Last Modified On : 10-30-2023
 // ***********************************************************************
 // <copyright file="ExtensionMethods.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -55,7 +55,7 @@ namespace RingSoft.DataEntryControls.WPF
     public static class ExtensionMethods
     {
         /// <summary>
-        /// Gets the color of the media.
+        /// Converts System.color to Media.color.
         /// </summary>
         /// <param name="drawingColor">Color of the drawing.</param>
         /// <returns>Color.</returns>
@@ -320,7 +320,7 @@ namespace RingSoft.DataEntryControls.WPF
         public static extern uint MapVirtualKey(uint uCode, MapType uMapType);
 
         /// <summary>
-        /// Gets the character from key.
+        /// Converts key value to char.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.Char.</returns>

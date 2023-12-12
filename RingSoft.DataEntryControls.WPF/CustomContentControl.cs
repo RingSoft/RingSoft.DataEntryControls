@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="CustomContentControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,7 +18,7 @@ using System.Windows.Controls;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class CustomContentControl.
+    /// A control that displays custom content.
     /// Implements the <see cref="Control" />
     /// </summary>
     /// <seealso cref="Control" />
@@ -34,7 +34,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ContentTemplateChangedCallback));
 
         /// <summary>
-        /// Gets or sets the content template.
+        /// Gets or sets the content template.  This is a bind-able property.
         /// </summary>
         /// <value>The content template.</value>
         public DataEntryCustomContentTemplate ContentTemplate
@@ -56,14 +56,14 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// The selected item identifier property
+        /// The selected item identifier property.
         /// </summary>
         public static readonly DependencyProperty SelectedItemIdProperty =
             DependencyProperty.Register(nameof(SelectedItemId), typeof(int), typeof(CustomContentControl),
                 new FrameworkPropertyMetadata(SelectedItemIdChangedCallback));
 
         /// <summary>
-        /// Gets or sets the selected item identifier.
+        /// Gets or sets the selected item identifier.  This is a bind-able property.
         /// </summary>
         /// <value>The selected item identifier.</value>
         public int SelectedItemId

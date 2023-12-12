@@ -35,7 +35,7 @@ namespace RingSoft.DataEntryControls.WPF
         void SetReadOnlyMode(bool readOnlyValue);
     }
     /// <summary>
-    /// Class BaseWindow.
+    /// Base window class.
     /// Implements the <see cref="Window" />
     /// </summary>
     /// <seealso cref="Window" />
@@ -77,7 +77,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(SnugWidthProperty), typeof(double), typeof(BaseWindow));
 
         /// <summary>
-        /// Gets or sets the width of the snug.
+        /// Gets or sets the width of the snug.  This is a bind-able property.
         /// </summary>
         /// <value>The width of the snug.</value>
         public double SnugWidth

@@ -7,7 +7,7 @@
 // Last Modified On : 09-19-2023
 // ***********************************************************************
 // <copyright file="ContentComboBoxControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -23,7 +23,7 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class ContentComboBoxControl.
+    /// Combobox control that displays custom content.
     /// Implements the <see cref="ComboBox" />
     /// </summary>
     /// <seealso cref="ComboBox" />
@@ -38,7 +38,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(SelectedItemIdChangedCallback));
 
         /// <summary>
-        /// Gets or sets the selected item identifier.
+        /// Gets or sets the selected item identifier.  This is a bind-able property.
         /// </summary>
         /// <value>The selected item identifier.</value>
         public int SelectedItemId
@@ -67,7 +67,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ContentTemplateChangedCallback));
 
         /// <summary>
-        /// Gets or sets the content template.
+        /// Gets or sets the content template.  This is a bind-able property.
         /// </summary>
         /// <value>The content template.</value>
         public DataEntryCustomContentTemplate ContentTemplate
@@ -96,7 +96,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(UiCommandChangedCallback));
 
         /// <summary>
-        /// Gets or sets the UI command.
+        /// Gets or sets the UI command.  This is a bind-able property.
         /// </summary>
         /// <value>The UI command.</value>
         public UiCommand UiCommand
@@ -126,7 +126,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// The UI label property
+        /// The UI label property.  This is a bind-able property.
         /// </summary>
         public static readonly DependencyProperty UiLabelProperty =
             DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(ContentComboBoxControl),
