@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="ReadOnlyBox.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -20,7 +20,7 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class ReadOnlyBox.
+    /// A base control that displays values to the user.  User is not allowed to edit.
     /// Implements the <see cref="Control" />
     /// </summary>
     /// <seealso cref="Control" />
@@ -36,7 +36,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(DesignTextChangedCallback));
 
         /// <summary>
-        /// Gets or sets the design text.
+        /// Gets or sets the design text.  This is a bind-able property.
         /// </summary>
         /// <value>The design text.</value>
         public string DesignText
@@ -65,7 +65,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(TextAlignmentChangedCallback));
 
         /// <summary>
-        /// Gets or sets the text alignment.
+        /// Gets or sets the text alignment.  This is a bind-able property.
         /// </summary>
         /// <value>The text alignment.</value>
         public TextAlignment TextAlignment

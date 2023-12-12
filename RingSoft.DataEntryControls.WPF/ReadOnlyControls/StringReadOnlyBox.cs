@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="StringReadOnlyBox.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -17,7 +17,7 @@ using System.Windows;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class StringReadOnlyBox.
+    /// A control that displays string values to the user.  User is not allowed to edit.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
@@ -32,7 +32,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(TextChangedCallback));
 
         /// <summary>
-        /// Gets or sets the text.
+        /// Gets or sets the text.  This is a bind-able property.
         /// </summary>
         /// <value>The text.</value>
         public new string Text

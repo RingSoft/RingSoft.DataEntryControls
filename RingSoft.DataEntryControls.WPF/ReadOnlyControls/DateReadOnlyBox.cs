@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DateReadOnlyBox.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -24,7 +24,7 @@ using Calendar = System.Windows.Controls.Calendar;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class DateReadOnlyBox.
+    /// A control that displays date values to the user.  User is not allowed to edit.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
     /// </summary>
@@ -57,7 +57,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ValueChangedCallback));
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the value.  This is a bind-able property.
         /// </summary>
         /// <value>The value.</value>
         public DateTime? Value
@@ -86,7 +86,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(DateFormatChangedCallback));
 
         /// <summary>
-        /// Gets or sets the date format.
+        /// Gets or sets the date format.  This is a bind-able property.
         /// </summary>
         /// <value>The date format.</value>
         public string DateFormat
@@ -116,7 +116,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(DateFormatTypeChangedCallback));
 
         /// <summary>
-        /// Gets or sets the type of the date format.
+        /// Gets or sets the type of the date format.  This is a bind-able property.
         /// </summary>
         /// <value>The type of the date format.</value>
         public DateFormatTypes DateFormatType
@@ -145,7 +145,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(CultureIdChangedCallback));
 
         /// <summary>
-        /// Gets or sets the culture identifier.
+        /// Gets or sets the culture identifier.  This is a bind-able property.
         /// </summary>
         /// <value>The culture identifier.</value>
         public string CultureId

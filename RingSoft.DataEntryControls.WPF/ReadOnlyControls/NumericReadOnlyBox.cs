@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="NumericReadOnlyBox.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -19,7 +19,7 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Class NumericReadOnlyBox.
+    /// A control that displays decimal/integer values to the user.  User is not allowed to edit.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -34,7 +34,7 @@ namespace RingSoft.DataEntryControls.WPF
             DependencyProperty.Register(nameof(NumberFormatString), typeof(string), typeof(NumericReadOnlyBox<T>));
 
         /// <summary>
-        /// Gets or sets the number format string.
+        /// Gets or sets the number format string.  This is a bind-able property.
         /// </summary>
         /// <value>The number format string.</value>
         public string NumberFormatString
@@ -51,7 +51,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ValueChangedCallback));
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the value.  This is a bind-able property.
         /// </summary>
         /// <value>The value.</value>
         public T Value
@@ -80,7 +80,7 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(CultureIdChangedCallback));
 
         /// <summary>
-        /// Gets or sets the culture identifier.
+        /// Gets or sets the culture identifier.  This is a bind-able property.
         /// </summary>
         /// <value>The culture identifier.</value>
         public string CultureId
