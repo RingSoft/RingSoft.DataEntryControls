@@ -1,4 +1,17 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 07-24-2023
+// ***********************************************************************
+// <copyright file="DataEntryGrid.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 using System;
@@ -19,56 +32,68 @@ using System.Windows.Threading;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:DataEntryGrid/>
-    ///
+    /// Class DataEntryGrid.
+    /// Implements the <see cref="DataGrid" />
+    /// Implements the <see cref="IDataEntryGrid" />
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
     /// </summary>
+    /// <seealso cref="DataGrid" />
+    /// <seealso cref="IDataEntryGrid" />
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
+    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryGrid : DataGrid, IDataEntryGrid, IReadOnlyControl
     {
+        /// <summary>
+        /// Class CellSnapshot.
+        /// </summary>
         private class CellSnapshot
         {
+            /// <summary>
+            /// Gets or sets the index of the row.
+            /// </summary>
+            /// <value>The index of the row.</value>
             public int RowIndex { get; set; }
+            /// <summary>
+            /// Gets or sets the index of the column.
+            /// </summary>
+            /// <value>The index of the column.</value>
             public int ColumnIndex { get; set; }
 
+            /// <summary>
+            /// Gets or sets the index of the bottom visible row.
+            /// </summary>
+            /// <value>The index of the bottom visible row.</value>
             public int BottomVisibleRowIndex { get; set; }
 
+            /// <summary>
+            /// Gets or sets the index of the right visible column.
+            /// </summary>
+            /// <value>The index of the right visible column.</value>
             public int RightVisibleColumnIndex { get; set; }
         }
 
+        /// <summary>
+        /// The manager property
+        /// </summary>
         public static readonly DependencyProperty ManagerProperty =
             DependencyProperty.Register(nameof(Manager), typeof(DataEntryGridManager), typeof(DataEntryGrid),
                 new FrameworkPropertyMetadata(ManagerChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the manager.
+        /// </summary>
+        /// <value>The manager.</value>
         public DataEntryGridManager Manager
         {
             get { return (DataEntryGridManager)GetValue(ManagerProperty); }
             set { SetValue(ManagerProperty, value); }
         }
 
+        /// <summary>
+        /// Managers the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ManagerChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -77,44 +102,77 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 dataEntryGrid.SetManager();
         }
 
+        /// <summary>
+        /// The enter to tab property
+        /// </summary>
         public static readonly DependencyProperty EnterToTabProperty =
             DependencyProperty.Register(nameof(EnterToTab), typeof(bool), typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [enter to tab].
+        /// </summary>
+        /// <value><c>true</c> if [enter to tab]; otherwise, <c>false</c>.</value>
         public bool EnterToTab
         {
             get { return (bool)GetValue(EnterToTabProperty); }
             set { SetValue(EnterToTabProperty, value); }
         }
 
+        /// <summary>
+        /// The close window on escape property
+        /// </summary>
         public static readonly DependencyProperty CloseWindowOnEscapeProperty =
             DependencyProperty.Register(nameof(CloseWindowOnEscape), typeof(bool), typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [close window on escape].
+        /// </summary>
+        /// <value><c>true</c> if [close window on escape]; otherwise, <c>false</c>.</value>
         public bool CloseWindowOnEscape
         {
             get { return (bool)GetValue(CloseWindowOnEscapeProperty); }
             set { SetValue(CloseWindowOnEscapeProperty, value); }
         }
 
+        /// <summary>
+        /// The cell editing control border thickness property
+        /// </summary>
         public static readonly DependencyProperty CellEditingControlBorderThicknessProperty =
             DependencyProperty.Register(nameof(CellEditingControlBorderThickness), typeof(Thickness),
                 typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets the cell editing control border thickness.
+        /// </summary>
+        /// <value>The cell editing control border thickness.</value>
         public Thickness CellEditingControlBorderThickness
         {
             get { return (Thickness)GetValue(CellEditingControlBorderThicknessProperty); }
             set { SetValue(CellEditingControlBorderThicknessProperty, value); }
         }
 
+        /// <summary>
+        /// The read only mode property
+        /// </summary>
         public static readonly DependencyProperty ReadOnlyModeProperty =
             DependencyProperty.Register(nameof(ReadOnlyMode), typeof(bool), typeof(DataEntryGrid),
                 new FrameworkPropertyMetadata(ReadOnlyModeChangedCallback));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [read only mode].
+        /// </summary>
+        /// <value><c>true</c> if [read only mode]; otherwise, <c>false</c>.</value>
         public bool ReadOnlyMode
         {
             get { return (bool)GetValue(ReadOnlyModeProperty); }
             set { SetValue(ReadOnlyModeProperty, value); }
         }
 
+        /// <summary>
+        /// Reads the only mode changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ReadOnlyModeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -123,81 +181,158 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
 
+        /// <summary>
+        /// The set tab focus to selected cell property
+        /// </summary>
         public static readonly DependencyProperty SetTabFocusToSelectedCellProperty =
             DependencyProperty.Register(nameof(SetTabFocusToSelectedCell), typeof(bool), typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [set tab focus to selected cell].
+        /// </summary>
+        /// <value><c>true</c> if [set tab focus to selected cell]; otherwise, <c>false</c>.</value>
         public bool SetTabFocusToSelectedCell
         {
             get { return (bool)GetValue(SetTabFocusToSelectedCellProperty); }
             set { SetValue(SetTabFocusToSelectedCellProperty, value); }
         }
 
+        /// <summary>
+        /// The store current cell on load grid property
+        /// </summary>
         public static readonly DependencyProperty StoreCurrentCellOnLoadGridProperty =
             DependencyProperty.Register(nameof(StoreCurrentCellOnLoadGrid), typeof(bool), typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [store current cell on load grid].
+        /// </summary>
+        /// <value><c>true</c> if [store current cell on load grid]; otherwise, <c>false</c>.</value>
         public bool StoreCurrentCellOnLoadGrid
         {
             get { return (bool)GetValue(StoreCurrentCellOnLoadGridProperty); }
             set { SetValue(StoreCurrentCellOnLoadGridProperty, value); }
         }
 
+        /// <summary>
+        /// The store current cell on lost focus property
+        /// </summary>
         public static readonly DependencyProperty StoreCurrentCellOnLostFocusProperty =
             DependencyProperty.Register(nameof(StoreCurrentCellOnLostFocus), typeof(bool), typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [store current cell on lost focus].
+        /// </summary>
+        /// <value><c>true</c> if [store current cell on lost focus]; otherwise, <c>false</c>.</value>
         public bool StoreCurrentCellOnLostFocus
         {
             get { return (bool)GetValue(StoreCurrentCellOnLostFocusProperty); }
             set { SetValue(StoreCurrentCellOnLostFocusProperty, value); }
         }
 
+        /// <summary>
+        /// The disabled cell display style property
+        /// </summary>
         public static readonly DependencyProperty DisabledCellDisplayStyleProperty =
             DependencyProperty.Register(nameof(DisabledCellDisplayStyle), typeof(DataEntryGridDisplayStyle),
                 typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets the disabled cell display style.
+        /// </summary>
+        /// <value>The disabled cell display style.</value>
         public DataEntryGridDisplayStyle DisabledCellDisplayStyle
         {
             get { return (DataEntryGridDisplayStyle)GetValue(DisabledCellDisplayStyleProperty); }
             set { SetValue(DisabledCellDisplayStyleProperty, value); }
         }
 
+        /// <summary>
+        /// The default selection brush property
+        /// </summary>
         public static readonly DependencyProperty DefaultSelectionBrushProperty =
             DependencyProperty.Register(nameof(DefaultSelectionBrush), typeof(Brush), typeof(DataEntryGrid));
 
+        /// <summary>
+        /// Gets or sets the default selection brush.
+        /// </summary>
+        /// <value>The default selection brush.</value>
         public Brush DefaultSelectionBrush
         {
             get { return (Brush)GetValue(DefaultSelectionBrushProperty); }
             set { SetValue(DefaultSelectionBrushProperty, value); }
         }
 
+        /// <summary>
+        /// Coerces the can user add rows property.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="baseValue">The base value.</param>
+        /// <returns>System.Object.</returns>
         private static object CoerceCanUserAddRowsProperty(DependencyObject obj, object baseValue)
         {
             return false;
         }
 
 
+        /// <summary>
+        /// Gets the columns.
+        /// </summary>
+        /// <value>The columns.</value>
         public new ObservableCollection<DataEntryGridColumn> Columns { get; } =
             new ObservableCollection<DataEntryGridColumn>();
 
+        /// <summary>
+        /// Gets the display styles.
+        /// </summary>
+        /// <value>The display styles.</value>
         public ObservableCollection<DataEntryGridDisplayStyle> DisplayStyles { get; } =
             new ObservableCollection<DataEntryGridDisplayStyle>();
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [data entry can user add rows].
+        /// </summary>
+        /// <value><c>true</c> if [data entry can user add rows]; otherwise, <c>false</c>.</value>
         public bool DataEntryCanUserAddRows { get; set; } = true;
+        /// <summary>
+        /// Gets the current row.
+        /// </summary>
+        /// <value>The current row.</value>
         public DataEntryGridRow CurrentRow => GetCurrentRow();
+        /// <summary>
+        /// Gets the index of the current row.
+        /// </summary>
+        /// <value>The index of the current row.</value>
         public int CurrentRowIndex => GetCurrentRowIndex();
+        /// <summary>
+        /// Gets the current column identifier.
+        /// </summary>
+        /// <value>The current column identifier.</value>
         public int CurrentColumnId => GetCurrentColumnId();
 
+        /// <summary>
+        /// Gets a value indicating whether [automatic generate columns].
+        /// </summary>
+        /// <value><c>true</c> if [automatic generate columns]; otherwise, <c>false</c>.</value>
         public new bool AutoGenerateColumns
         {
             get => base.AutoGenerateColumns;
             private set => base.AutoGenerateColumns = value;
         }
 
+        /// <summary>
+        /// Gets the selection unit.
+        /// </summary>
+        /// <value>The selection unit.</value>
         public new DataGridSelectionUnit SelectionUnit
         {
             get => base.SelectionUnit;
             private set => base.SelectionUnit = value;
         }
 
+        /// <summary>
+        /// Gets or sets the height of the row.
+        /// </summary>
+        /// <value>The height of the row.</value>
         public new double RowHeight
         {
             get => base.RowHeight;
@@ -208,18 +343,52 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gets the editing control host.
+        /// </summary>
+        /// <value>The editing control host.</value>
         public DataEntryGridEditingControlHostBase EditingControlHost { get; private set; }
 
+        /// <summary>
+        /// The data source table
+        /// </summary>
         private DataTable _dataSourceTable = new DataTable("DataSource");
+        /// <summary>
+        /// The control loaded
+        /// </summary>
         private bool _controlLoaded;
+        /// <summary>
+        /// The grid has focus
+        /// </summary>
         private bool _gridHasFocus;
+        /// <summary>
+        /// The bulk insert mode
+        /// </summary>
         private bool _bulkInsertMode;
+        /// <summary>
+        /// The designer filling grid
+        /// </summary>
         private bool _designerFillingGrid;
+        /// <summary>
+        /// The button click
+        /// </summary>
         private bool _buttonClick;
+        /// <summary>
+        /// The initialize cell
+        /// </summary>
         private CellSnapshot _initCell;
+        /// <summary>
+        /// The read only mode
+        /// </summary>
         private bool _readOnlyMode;
+        /// <summary>
+        /// The cell snapshot
+        /// </summary>
         private CellSnapshot _cellSnapshot;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DataEntryGrid"/> class.
+        /// </summary>
         static DataEntryGrid()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGrid),
@@ -241,6 +410,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 new FrameworkPropertyMetadata(null, CoerceCanUserAddRowsProperty));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGrid"/> class.
+        /// </summary>
         public DataEntryGrid()
         {
             AutoGenerateColumns = false;
@@ -264,6 +436,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             };
         }
 
+        /// <summary>
+        /// Handles the LostFocus event of the DataEntryGrid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DataEntryGrid_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!IsKeyboardFocusWithin)
@@ -277,6 +454,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Controls.DataGrid.SelectedCellsChanged" /> event.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
         {
             if (SelectedCells.Any() && EditingControlHost != null && EditingControlHost.Control != null)
@@ -286,6 +467,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnSelectedCellsChanged(e);
         }
 
+        /// <summary>
+        /// Focuses this instance.
+        /// </summary>
+        /// <returns><see langword="true" /> if keyboard focus and logical focus were set to this element; <see langword="false" /> if only logical focus was set to this element, or if the call to this method did not force the focus to change.</returns>
         public new bool Focus()
         {
             base.Focus();
@@ -293,6 +478,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return IsKeyboardFocusWithin;
         }
 
+        /// <summary>
+        /// Handles the GotFocus event of the DataEntryGrid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DataEntryGrid_GotFocus(object sender, RoutedEventArgs e)
         {
             var beginEdit = true;
@@ -336,6 +526,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             _gridHasFocus = true;
         }
 
+        /// <summary>
+        /// Sets the focus to selected cell.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool SetFocusToSelectedCell()
         {
             if (!SetTabFocusToSelectedCell || !SelectedCells.Any())
@@ -345,6 +539,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return true;
         }
 
+        /// <summary>
+        /// Refocuses this instance.
+        /// </summary>
         public void Refocus()
         {
             BeginEdit();
@@ -358,6 +555,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         //    base.OnSelectedCellsChanged(e);
         //}
 
+        /// <summary>
+        /// Called when [load].
+        /// </summary>
         private void OnLoad()
         {
             if (IsVisible)
@@ -399,6 +599,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Handles the CollectionChanged event of the Columns control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private void Columns_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -467,17 +674,31 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             //DesignerFillGrid(nameof(Columns_CollectionChanged));
         }
 
+        /// <summary>
+        /// Handles the PropertyChanged event of the Column control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void Column_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //DesignerFillGrid(nameof(Column_PropertyChanged));
         }
 
+        /// <summary>
+        /// Gets the column index of column identifier.
+        /// </summary>
+        /// <param name="columnId">The column identifier.</param>
+        /// <returns>System.Int32.</returns>
         private int GetColumnIndexOfColumnId(int columnId)
         {
             var column = Columns.FirstOrDefault(f => f.ColumnId == columnId);
             return Columns.IndexOf(column);
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.FrameworkElement.SizeChanged" /> event, using the specified information as part of the eventual event data.
+        /// </summary>
+        /// <param name="sizeInfo">Details of the old and new size involved in the change.</param>
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             //DesignerFillGrid(nameof(OnRenderSizeChanged));
@@ -550,6 +771,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         //    _designerFillingGrid = false;
         //}
 
+        /// <summary>
+        /// Adds the designer row.
+        /// </summary>
         private void AddDesignerRow()
         {
             var designerRow = _dataSourceTable.NewRow();
@@ -572,6 +796,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Controls.DataGrid.CurrentCellChanged" /> event.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnCurrentCellChanged(EventArgs e)
         {
             UpdateColumnHeaders();
@@ -591,6 +819,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnCurrentCellChanged(e);
         }
 
+        /// <summary>
+        /// Updates the column headers.
+        /// </summary>
         private void UpdateColumnHeaders()
         {
             var rowIndex = GetCurrentRowIndex();
@@ -607,6 +838,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Sets the manager.
+        /// </summary>
         private void SetManager()
         {
             Manager.RowsChanged += GridRows_CollectionChanged;
@@ -617,6 +851,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             Manager.SetupGrid(this);
         }
 
+        /// <summary>
+        /// Handles the CollectionChanged event of the GridRows control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private void GridRows_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -655,6 +895,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Sets the bulk insert mode.
+        /// </summary>
+        /// <param name="value">if set to <c>true</c> [value].</param>
         public void SetBulkInsertMode(bool value = true)
         {
             _bulkInsertMode = value;
@@ -662,6 +906,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 RefreshGridView();
         }
 
+        /// <summary>
+        /// Takes the cell snapshot.
+        /// </summary>
+        /// <param name="doOnlyWhenGridHasFocus">if set to <c>true</c> [do only when grid has focus].</param>
         public void TakeCellSnapshot(bool doOnlyWhenGridHasFocus = true)
         {
             bool takeSnapshot = !(doOnlyWhenGridHasFocus && !IsKeyboardFocusWithin);
@@ -680,6 +928,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gets the index of the bottom visible row.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private int GetBottomVisibleRowIndex()
         {
             var result = Manager.Rows.Count - 1;
@@ -707,6 +959,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return result;
         }
 
+        /// <summary>
+        /// Gets the index of the right visible column.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private int GetRightVisibleColumnIndex()
         {
             var result = Columns.Count - 1;
@@ -734,6 +990,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return result;
         }
 
+        /// <summary>
+        /// Gets the data grid cell.
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <returns>DataGridCell.</returns>
         private DataGridCell GetDataGridCell(int rowIndex, int columnIndex)
         {
             if (rowIndex < 0)
@@ -756,6 +1018,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
+        /// <summary>
+        /// Restores the cell snapshot.
+        /// </summary>
+        /// <param name="doOnlyWhenGridHasFocus">if set to <c>true</c> [do only when grid has focus].</param>
         public void RestoreCellSnapshot(bool doOnlyWhenGridHasFocus = true)
         {
             bool restoreSnapshot = !(doOnlyWhenGridHasFocus && !IsKeyboardFocusWithin);
@@ -772,6 +1038,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Refreshes the data source.
+        /// </summary>
         public void RefreshDataSource()
         {
             var refreshEdit = false;
@@ -795,6 +1064,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 GotoCell(currentRow, currentColumnId);
         }
 
+        /// <summary>
+        /// Adds the row.
+        /// </summary>
+        /// <param name="gridRow">The grid row.</param>
+        /// <param name="index">The index.</param>
         private void AddRow(DataEntryGridRow gridRow, int index = -1)
         {
             var dataRow = _dataSourceTable.NewRow();
@@ -812,6 +1086,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         //This overload should only be run outside by the interface.  Otherwise it will update column headers for each row and slow down performance.
+        /// <summary>
+        /// Updates the row.
+        /// </summary>
+        /// <param name="gridRow">The grid row.</param>
+        /// <exception cref="System.Exception">This row must be added to the Rows collection before it can be updated.</exception>
         public void UpdateRow(DataEntryGridRow gridRow)
         {
             var rowIndex = Manager.Rows.IndexOf(gridRow);
@@ -823,6 +1102,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             UpdateColumnHeaders();
         }
 
+        /// <summary>
+        /// Updates the row.
+        /// </summary>
+        /// <param name="gridRow">The grid row.</param>
+        /// <param name="rowIndex">Index of the row.</param>
         public void UpdateRow(DataEntryGridRow gridRow, int rowIndex)
         {
             if (rowIndex < _dataSourceTable.Rows.Count)
@@ -831,6 +1115,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
 
 
+        /// <summary>
+        /// Updates the row.
+        /// </summary>
+        /// <param name="gridRow">The grid row.</param>
+        /// <param name="dataRow">The data row.</param>
+        /// <param name="rowIndex">Index of the row.</param>
         private void UpdateRow(DataEntryGridRow gridRow, DataRow dataRow, int rowIndex)
         {
             if (ItemContainerGenerator.ContainerFromItem(Items[rowIndex]) is DataGridRow dataGridRow)
@@ -862,6 +1152,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Refreshes the grid view.
+        /// </summary>
         public void RefreshGridView()
         {
             UpdateLayout();
@@ -884,6 +1177,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gets the columns.
+        /// </summary>
+        /// <returns>List&lt;ColumnMap&gt;.</returns>
         public List<ColumnMap> GetColumns()
         {
             var result = new List<ColumnMap>();
@@ -895,6 +1192,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return result;
         }
 
+        /// <summary>
+        /// Updates the row colors.
+        /// </summary>
+        /// <param name="dataGridRow">The data grid row.</param>
+        /// <param name="gridRow">The grid row.</param>
         private void UpdateRowColors(DataGridRow dataGridRow, DataEntryGridRow gridRow)
         {
             dataGridRow.ClearValue(BackgroundProperty);
@@ -911,6 +1213,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gets the display style.
+        /// </summary>
+        /// <param name="displayStyleId">The display style identifier.</param>
+        /// <param name="dataEntryGridRow">The data entry grid row.</param>
+        /// <returns>DataEntryGridDisplayStyle.</returns>
+        /// <exception cref="System.Exception"></exception>
         internal DataEntryGridDisplayStyle GetDisplayStyle(int displayStyleId, DataEntryGridRow dataEntryGridRow = null)
         {
             var displayStyle = DisplayStyles.FirstOrDefault(f => f.DisplayId == displayStyleId);
@@ -926,6 +1235,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return displayStyle;
         }
 
+        /// <summary>
+        /// Updates the cell colors.
+        /// </summary>
+        /// <param name="gridRow">The grid row.</param>
+        /// <param name="column">The column.</param>
         private void UpdateCellColors(DataEntryGridRow gridRow, DataEntryGridColumn column)
         {
             var rowIndex = Manager.Rows.IndexOf(gridRow);
@@ -935,6 +1249,13 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Updates the cell colors.
+        /// </summary>
+        /// <param name="column">The column.</param>
+        /// <param name="dataGridRow">The data grid row.</param>
+        /// <param name="gridRow">The grid row.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private void UpdateCellColors(DataEntryGridColumn column, DataGridRow dataGridRow, DataEntryGridRow gridRow)
         {
             var cellContent = column.GetCellContent(dataGridRow);
@@ -999,6 +1320,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Controls.DataGrid.BeginningEdit" /> event.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         protected override void OnBeginningEdit(DataGridBeginningEditEventArgs e)
         {
             if (e.Column is DataEntryGridColumn dataEntryGridColumn)
@@ -1093,6 +1419,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnBeginningEdit(e);
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Controls.DataGrid.PreparingCellForEdit" /> event.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnPreparingCellForEdit(DataGridPreparingCellForEditEventArgs e)
         {
             var element = e.EditingElement;
@@ -1110,6 +1440,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreparingCellForEdit(e);
         }
 
+        /// <summary>
+        /// Gets the current cell.
+        /// </summary>
+        /// <returns>DataGridCell.</returns>
         public DataGridCell GetCurrentCell()
         {
             var cellContent = CurrentCell.Column.GetCellContent(CurrentCell.Item);
@@ -1121,6 +1455,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
+        /// <summary>
+        /// Editings the control host update source.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void EditingControlHost_UpdateSource(object sender, DataEntryGridEditingCellProps e)
         {
             var rowIndex = Items.IndexOf(CurrentCell.Item);
@@ -1132,6 +1471,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             dataEntryGridRow.SetCellValue(e);
         }
 
+        /// <summary>
+        /// Handles the ControlDirty event of the EditingControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void EditingControl_ControlDirty(object sender, EventArgs e)
         {
             var currentRowIndex = Items.IndexOf(CurrentCell.Item);
@@ -1144,12 +1488,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             Manager.RaiseDirtyFlag();
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Controls.DataGrid.CellEditEnding" /> event.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
         {
             EditingControlHost = null;
             base.OnCellEditEnding(e);
         }
 
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown" /> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs" /> that contains the event data.</param>
         protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             if (EditingControlHost != null && EditingControlHost.Control != null &&
@@ -1181,6 +1533,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewLostKeyboardFocus(e);
         }
 
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewGotKeyboardFocus" /> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs" /> that contains the event data.</param>
         protected override void OnPreviewGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             if (EditingControlHost != null && EditingControlHost.Control != null &&
@@ -1209,11 +1565,21 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewGotKeyboardFocus(e);
         }
 
+        /// <summary>
+        /// Commits the cell edit.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool CommitCellEdit()
         {
             return CommitCellEdit(CellLostFocusTypes.LostFocus, false);
         }
 
+        /// <summary>
+        /// Commits the cell edit.
+        /// </summary>
+        /// <param name="cellLostFocusType">Type of the cell lost focus.</param>
+        /// <param name="cancelEdit">if set to <c>true</c> [cancel edit].</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool CommitCellEdit(CellLostFocusTypes cellLostFocusType, bool cancelEdit = true)
         {
             if (EditingControlHost != null && EditingControlHost.Control != null)
@@ -1264,6 +1630,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return true;
         }
 
+        /// <summary>
+        /// Datas the entry grid cancel edit.
+        /// </summary>
         public void DataEntryGridCancelEdit()
         {
             CancelEdit();
@@ -1302,6 +1671,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         //    return result;
         //}
 
+        /// <summary>
+        /// Resets the grid focus.
+        /// </summary>
         public void ResetGridFocus()
         {
             if (IsKeyboardFocusWithin)
@@ -1313,6 +1685,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Goes to the cell.
+        /// </summary>
+        /// <param name="row">The row.</param>
+        /// <param name="columnId">The column identifier.</param>
         public void GotoCell(DataEntryGridRow row, int columnId)
         {
             if (!IsKeyboardFocusWithin)
@@ -1324,6 +1701,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             SetFocusToCell(rowIndex, columnIndex);
         }
 
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown" /> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.KeyEventArgs" /> that contains the event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             var canProcessKey = true;
@@ -1452,6 +1833,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewKeyDown(e);
         }
 
+        /// <summary>
+        /// Invoked when the <see cref="E:System.Windows.UIElement.KeyDown" /> event is received.
+        /// </summary>
+        /// <param name="e">The Information about the event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (EditingControlHost != null && EditingControlHost.Control != null)
@@ -1489,6 +1874,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnKeyDown(e);
         }
 
+        /// <summary>
+        /// Processes the tab.
+        /// </summary>
         private void ProcessTab()
         {
             var currentRowIndex = GetCurrentRowIndex();
@@ -1499,6 +1887,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 TabRight(currentRowIndex, currentColumnIndex);
         }
 
+        /// <summary>
+        /// Gets the index of the selected row.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private int GetSelectedRowIndex()
         {
             if (SelectedCells.Any())
@@ -1507,13 +1899,26 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return GetCurrentRowIndex();
         }
 
+        /// <summary>
+        /// Gets the index of the current row.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private int GetCurrentRowIndex() => GetCurrentRowIndex(CurrentCell);
 
+        /// <summary>
+        /// Gets the index of the current row.
+        /// </summary>
+        /// <param name="cellInfo">The cell information.</param>
+        /// <returns>System.Int32.</returns>
         private int GetCurrentRowIndex(DataGridCellInfo cellInfo)
         {
             return Items.IndexOf(cellInfo.Item);
         }
 
+        /// <summary>
+        /// Gets the index of the selected column.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private int GetSelectedColumnIndex()
         {
             if (SelectedCells.Any())
@@ -1522,13 +1927,26 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return GetCurrentColumnIndex();
         }
 
+        /// <summary>
+        /// Gets the index of the current column.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         private int GetCurrentColumnIndex() => GetCurrentColumnIndex(CurrentCell);
 
+        /// <summary>
+        /// Gets the index of the current column.
+        /// </summary>
+        /// <param name="cellInfo">The cell information.</param>
+        /// <returns>System.Int32.</returns>
         private int GetCurrentColumnIndex(DataGridCellInfo cellInfo)
         {
             return base.Columns.IndexOf(cellInfo.Column);
         }
 
+        /// <summary>
+        /// Gets the current column identifier.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
         public int GetCurrentColumnId()
         {
             var currentColumnIndex = GetCurrentColumnIndex();
@@ -1538,6 +1956,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return Columns[currentColumnIndex].ColumnId;
         }
 
+        /// <summary>
+        /// Gets the current row.
+        /// </summary>
+        /// <returns>DataEntryGridRow.</returns>
         public DataEntryGridRow GetCurrentRow()
         {
             var currentRowIndex = GetCurrentRowIndex();
@@ -1547,12 +1969,20 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return Manager.Rows[currentRowIndex];
         }
 
+        /// <summary>
+        /// Tabs the right.
+        /// </summary>
         public void TabRight()
         {
             TabRight(GetCurrentRowIndex(), GetCurrentColumnIndex());
         }
 
-    private void TabRight(int startRowIndex, int startColumnIndex)
+        /// <summary>
+        /// Tabs the right.
+        /// </summary>
+        /// <param name="startRowIndex">Start index of the row.</param>
+        /// <param name="startColumnIndex">Start index of the column.</param>
+        private void TabRight(int startRowIndex, int startColumnIndex)
         {
             if (!CommitCellEdit(CellLostFocusTypes.TabRight))
                 return;
@@ -1586,6 +2016,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 TabRight(startRowIndex, startColumnIndex);
         }
 
+        /// <summary>
+        /// Determines whether this instance [can cell get tab focus] the specified row index.
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <returns><c>true</c> if this instance [can cell get tab focus] the specified row index; otherwise, <c>false</c>.</returns>
         private bool CanCellGetTabFocus(int rowIndex, int columnIndex)
         {
             var gridRow = Manager.Rows[rowIndex];
@@ -1608,6 +2044,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return setFocus;
         }
 
+        /// <summary>
+        /// Tabs the left.
+        /// </summary>
+        /// <param name="startRowIndex">Start index of the row.</param>
+        /// <param name="startColumnIndex">Start index of the column.</param>
         private void TabLeft(int startRowIndex, int startColumnIndex)
         {
             if (!CommitCellEdit(CellLostFocusTypes.TabLeft))
@@ -1636,6 +2077,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             else
                 TabLeft(startRowIndex, startColumnIndex);
         }
+        /// <summary>
+        /// Deletes the current row.
+        /// </summary>
         private void DeleteCurrentRow()
         {
             if (IsDeleteOk())
@@ -1660,6 +2104,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Determines whether [is delete ok].
+        /// </summary>
+        /// <returns><c>true</c> if [is delete ok]; otherwise, <c>false</c>.</returns>
         private bool IsDeleteOk()
         {
             var rowIndex = Items.IndexOf(CurrentCell.Item);
@@ -1682,6 +2130,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return deleteOk;
         }
 
+        /// <summary>
+        /// Inserts the row.
+        /// </summary>
         private void InsertRow()
         {
             if (DataEntryCanUserAddRows)
@@ -1705,6 +2156,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Sets the focus to cell.
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <param name="beginEdit">if set to <c>true</c> [begin edit].</param>
         private void SetFocusToCell(int rowIndex, int columnIndex, bool beginEdit = true)
         {
             if (Items.Count == 0)
@@ -1737,6 +2194,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Scrubs the index of the row.
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
+        /// <returns>System.Int32.</returns>
         private int ScrubRowIndex(int rowIndex)
         {
             var lastRowIndex = Items.Count - 1;
@@ -1750,6 +2212,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return rowIndex;
         }
 
+        /// <summary>
+        /// Scrubs the index of the column.
+        /// </summary>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <returns>System.Int32.</returns>
         private int ScrubColumnIndex(int columnIndex)
         {
             var lastColumnIndex = Columns.Count - 1;
@@ -1782,6 +2249,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         //    return null;
         //}
 
+        /// <summary>
+        /// Gets the first visual child.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="depObj">The dep object.</param>
+        /// <returns>T.</returns>
         public static T GetFirstVisualChild<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
@@ -1802,6 +2275,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return null;
         }
 
+        /// <summary>
+        /// Adds the grid context menu items.
+        /// </summary>
+        /// <param name="contextMenu">The context menu.</param>
         internal void AddGridContextMenuItems(ContextMenu contextMenu)
         {
             if (DataEntryCanUserAddRows)
@@ -1851,6 +2328,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Clears the grid.
+        /// </summary>
         private void ClearGrid()
         {
             if (!CommitCellEdit())
@@ -1867,6 +2347,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gets the cell style.
+        /// </summary>
+        /// <param name="row">The row.</param>
+        /// <param name="columnId">The column identifier.</param>
+        /// <returns>DataEntryGridCellStyle.</returns>
         private DataEntryGridCellStyle GetCellStyle(DataEntryGridRow row, int columnId)
         {
             var cellStyle = row.GetCellStyle(columnId);
@@ -1876,6 +2362,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return cellStyle;
         }
 
+        /// <summary>
+        /// Sets the read only mode.
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public void SetReadOnlyMode(bool readOnlyValue)
         {
             if (!readOnlyValue && ReadOnlyMode)
@@ -1896,6 +2386,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gets the cell props.
+        /// </summary>
+        /// <param name="dataGridRow">The data grid row.</param>
+        /// <param name="dataEntryGridColumn">The data entry grid column.</param>
+        /// <returns>DataEntryGridCellProps.</returns>
         public DataEntryGridCellProps GetCellProps(DataGridRow dataGridRow, DataEntryGridColumn dataEntryGridColumn)
         {
             if (this.IsDesignMode())

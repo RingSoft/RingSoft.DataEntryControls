@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-29-2022
+// ***********************************************************************
+// <copyright file="BaseWindow.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,62 +23,79 @@ using RingSoft.DataEntryControls.WPF.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF
 {
+    /// <summary>
+    /// Interface IReadOnlyControl
+    /// </summary>
     public interface IReadOnlyControl
     {
+        /// <summary>
+        /// Sets the read only mode.
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         void SetReadOnlyMode(bool readOnlyValue);
     }
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:BaseWindow/>
-    ///
+    /// Class BaseWindow.
+    /// Implements the <see cref="Window" />
     /// </summary>
+    /// <seealso cref="Window" />
+    /// <font color="red">Badly formed XML comment.</font>
     public class BaseWindow : Window
     {
+        /// <summary>
+        /// Gets the window long.
+        /// </summary>
+        /// <param name="hWnd">The h WND.</param>
+        /// <param name="nIndex">Index of the n.</param>
+        /// <returns>System.Int32.</returns>
         [DllImport("user32.dll")]
         private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        /// <summary>
+        /// Sets the window long.
+        /// </summary>
+        /// <param name="hWnd">The h WND.</param>
+        /// <param name="nIndex">Index of the n.</param>
+        /// <param name="dwNewLong">The dw new long.</param>
+        /// <returns>System.Int32.</returns>
         [DllImport("user32.dll")]
         private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
+        /// <summary>
+        /// The GWL style
+        /// </summary>
         private const int GWL_STYLE = -16;
 
+        /// <summary>
+        /// The ws both
+        /// </summary>
         private const int WS_BOTH = 0x30000; //maximize and minimize buttons
 
+        /// <summary>
+        /// The snug width property
+        /// </summary>
         public static readonly DependencyProperty SnugWidthProperty =
             DependencyProperty.Register(nameof(SnugWidthProperty), typeof(double), typeof(BaseWindow));
 
+        /// <summary>
+        /// Gets or sets the width of the snug.
+        /// </summary>
+        /// <value>The width of the snug.</value>
         public double SnugWidth
         {
             get { return (double)GetValue(SnugWidthProperty); }
             set { SetValue(SnugWidthProperty, value); }
         }
 
+        /// <summary>
+        /// The snug height property
+        /// </summary>
         public static readonly DependencyProperty SnugHeightProperty =
             DependencyProperty.Register(nameof(SnugHeightProperty), typeof(double), typeof(BaseWindow));
 
+        /// <summary>
+        /// Gets or sets the height of the snug.
+        /// </summary>
+        /// <value>The height of the snug.</value>
         public double SnugHeight
         {
             get { return (double)GetValue(SnugHeightProperty); }
@@ -78,37 +108,47 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Gets or sets a value indicating whether to close window when the escape key is pressed.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if to close window when the escape key is pressed; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if to close window when the escape key is pressed; otherwise, <c>false</c>.</value>
         public bool CloseOnEscape { get; set; } = true;
 
         /// <summary>
         /// Gets or sets a value whether to set focus to the first editable control when the window first shows.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [set focus to first control]; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if [set focus to first control]; otherwise, <c>false</c>.</value>
         public bool SetFocusToFirstControl { get; set; } = true;
 
         /// <summary>
         /// Gets or sets a value indicating whether to hide the control box.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [hide control box]; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if [hide control box]; otherwise, <c>false</c>.</value>
         public bool HideControlBox { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [enter to tab].
+        /// </summary>
+        /// <value><c>true</c> if [enter to tab]; otherwise, <c>false</c>.</value>
         public bool EnterToTab { get; set; }
 
+        /// <summary>
+        /// The read only tab control
+        /// </summary>
         private TabControl _readOnlyTabControl;
+        /// <summary>
+        /// The read only mode
+        /// </summary>
         private bool _readOnlyMode;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="BaseWindow"/> class.
+        /// </summary>
         static BaseWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseWindow), new FrameworkPropertyMetadata(typeof(BaseWindow)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseWindow"/> class.
+        /// </summary>
         public BaseWindow()
         {
             if (Application.Current.MainWindow != this)
@@ -157,6 +197,9 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
+        /// <summary>
+        /// Snugs the window.
+        /// </summary>
         public void SnugWindow()
         {
             if (SnugWidth == 0 && SnugHeight == 0)
@@ -174,6 +217,9 @@ namespace RingSoft.DataEntryControls.WPF
 
         }
 
+        /// <summary>
+        /// Centers the window on screen.
+        /// </summary>
         public void CenterWindowOnScreen()
         {
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -184,6 +230,10 @@ namespace RingSoft.DataEntryControls.WPF
             this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
+        /// <summary>
+        /// Sets the read only mode.
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public void SetReadOnlyMode(bool readOnlyValue)
         {
             _readOnlyMode = readOnlyValue;
@@ -209,10 +259,19 @@ namespace RingSoft.DataEntryControls.WPF
             OnReadOnlyModeSet(readOnlyValue);
         }
 
+        /// <summary>
+        /// Called when [read only mode set].
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         protected virtual void OnReadOnlyModeSet(bool readOnlyValue)
         {
         }
 
+        /// <summary>
+        /// Sets the control read only mode.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public virtual void SetControlReadOnlyMode(Control control, bool readOnlyValue)
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
@@ -222,6 +281,9 @@ namespace RingSoft.DataEntryControls.WPF
                 control.IsEnabled = !readOnlyValue;
         }
 
+        /// <summary>
+        /// Called when [tab selection changed].
+        /// </summary>
         private void OnTabSelectionChanged()
         {
             if (_readOnlyTabControl.SelectedContent is DependencyObject rootDependencyObject)

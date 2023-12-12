@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="DataEntryGridControlColumnProcessor.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using RingSoft.DataEntryControls.Engine;
@@ -7,24 +20,52 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
+    /// <summary>
+    /// Class ControlValueChangedArgs.
+    /// </summary>
     public class ControlValueChangedArgs
     {
+        /// <summary>
+        /// Gets the control value.
+        /// </summary>
+        /// <value>The control value.</value>
         public string ControlValue { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ControlValueChangedArgs"/> class.
+        /// </summary>
+        /// <param name="controlValue">The control value.</param>
         public ControlValueChangedArgs(string controlValue)
         {
             ControlValue = controlValue;
         }
     }
 
+    /// <summary>
+    /// Class DataEntryGridControlColumnProcessor.
+    /// </summary>
     public class DataEntryGridControlColumnProcessor
     {
+        /// <summary>
+        /// Gets the display style.
+        /// </summary>
+        /// <value>The display style.</value>
         public DataEntryGridDisplayStyle DisplayStyle { get; private set; } = new DataEntryGridDisplayStyle();
 
+        /// <summary>
+        /// Occurs when [control value changed].
+        /// </summary>
         public event EventHandler<ControlValueChangedArgs> ControlValueChanged;
 
+        /// <summary>
+        /// The control
+        /// </summary>
         private Control _control;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridControlColumnProcessor"/> class.
+        /// </summary>
+        /// <param name="control">The control.</param>
         public DataEntryGridControlColumnProcessor(Control control)
         {
             _control = control;
@@ -33,6 +74,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             _control.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Sets the data value.
+        /// </summary>
+        /// <param name="dataValue">The data value.</param>
+        /// <exception cref="System.Exception"></exception>
         public void SetDataValue(string dataValue)
         {
             if (!dataValue.IsNullOrEmpty() && dataValue.Length < DataEntryGridDataValue.CheckDataValue.Length)

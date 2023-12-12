@@ -1,4 +1,17 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 07-24-2023
+// ***********************************************************************
+// <copyright file="DecimalEditControl.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 using System;
 using System.Media;
@@ -9,40 +22,24 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls;assembly=RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:DecimalEditControl/>
-    ///
+    /// Class DecimalEditControl.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Double?}" />
     /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.NumericEditControl{System.Double?}" />
+    /// <font color="red">Badly formed XML comment.</font>
 
     [TemplatePart(Name = "Calculator", Type = typeof(IDropDownCalculator))]
     public class DecimalEditControl : NumericEditControl<double?>
     {
+        /// <summary>
+        /// The calculator control
+        /// </summary>
         private IDropDownCalculator _calculatorControl;
 
+        /// <summary>
+        /// Gets or sets the calculator control.
+        /// </summary>
+        /// <value>The calculator control.</value>
         public IDropDownCalculator CalculatorControl
         {
             get => _calculatorControl;
@@ -62,16 +59,28 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The precision property
+        /// </summary>
         public static readonly DependencyProperty PrecisionProperty =
             DependencyProperty.Register(nameof(Precision), typeof(int), typeof(DecimalEditControl),
                 new FrameworkPropertyMetadata(2, PrecisionChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the precision.
+        /// </summary>
+        /// <value>The precision.</value>
         public int Precision
         {
             get { return (int)GetValue(PrecisionProperty); }
             set { SetValue(PrecisionProperty, value); }
         }
 
+        /// <summary>
+        /// Precisions the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void PrecisionChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -79,16 +88,28 @@ namespace RingSoft.DataEntryControls.WPF
             decimalEditControl.SetValue();
         }
 
+        /// <summary>
+        /// The setup property
+        /// </summary>
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(DecimalEditControlSetup), typeof(DecimalEditControl),
                 new FrameworkPropertyMetadata(SetupChangedCallback));
 
+        /// <summary>
+        /// Sets the setup.
+        /// </summary>
+        /// <value>The setup.</value>
         public DecimalEditControlSetup Setup
         {
             private get { return (DecimalEditControlSetup)GetValue(SetupProperty); }
             set { SetValue(SetupProperty, value); }
         }
 
+        /// <summary>
+        /// Setups the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void SetupChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -96,16 +117,28 @@ namespace RingSoft.DataEntryControls.WPF
             decimalEditControl.LoadFromSetup(decimalEditControl.Setup);
         }
 
+        /// <summary>
+        /// The format type property
+        /// </summary>
         public static readonly DependencyProperty FormatTypeProperty =
             DependencyProperty.Register(nameof(FormatType), typeof(DecimalEditFormatTypes), typeof(DecimalEditControl),
                 new FrameworkPropertyMetadata(FormatTypeChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the type of the format.
+        /// </summary>
+        /// <value>The type of the format.</value>
         public DecimalEditFormatTypes FormatType
         {
             get { return (DecimalEditFormatTypes)GetValue(FormatTypeProperty); }
             set { SetValue(FormatTypeProperty, value); }
         }
 
+        /// <summary>
+        /// Formats the type changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void FormatTypeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -113,16 +146,28 @@ namespace RingSoft.DataEntryControls.WPF
             decimalEditControl.SetValue();
         }
 
+        /// <summary>
+        /// Occurs when [calculator value changed].
+        /// </summary>
         public event EventHandler CalculatorValueChanged;
 
+        /// <summary>
+        /// The pending new value
+        /// </summary>
         private double? _pendingNewValue;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DecimalEditControl"/> class.
+        /// </summary>
         static DecimalEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(typeof(DecimalEditControl)));
             TextAlignmentProperty.OverrideMetadata(typeof(DecimalEditControl), new FrameworkPropertyMetadata(TextAlignment.Right));
         }
 
+        /// <summary>
+        /// Called when [apply template].
+        /// </summary>
         public override void OnApplyTemplate()
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
@@ -135,6 +180,10 @@ namespace RingSoft.DataEntryControls.WPF
             _pendingNewValue = null;
         }
 
+        /// <summary>
+        /// Loads from setup.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
         protected override void LoadFromSetup(NumericEditControlSetup<double?> setup)
         {
             FormatType = Setup.FormatType;
@@ -143,6 +192,9 @@ namespace RingSoft.DataEntryControls.WPF
             base.LoadFromSetup(setup);
         }
 
+        /// <summary>
+        /// Sets the value.
+        /// </summary>
         protected override void SetValue()
         {
             if (TextBox == null)
@@ -155,6 +207,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Converts the value to string.
+        /// </summary>
+        /// <returns>System.String.</returns>
         protected override string ConvertValueToString()
         {
             var result = string.Empty;
@@ -164,12 +220,22 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        /// <summary>
+        /// Gets the minimum value properties.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="minimumValue">The minimum value.</param>
         protected override void GetMinimumValueProperties(out double? value, out double? minimumValue)
         {
             value = Value;
             minimumValue = MinimumValue;
         }
 
+        /// <summary>
+        /// Validates the value.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
+        /// <returns>System.Nullable&lt;System.Double&gt;.</returns>
         protected double? ValidateValue(double? newValue)
         {
             double? result = null;
@@ -188,6 +254,10 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        /// <summary>
+        /// Handles the <see cref="E:PreviewKeyDown" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
@@ -216,6 +286,9 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnPreviewKeyDown(e);
         }
 
+        /// <summary>
+        /// Called when [drop down button click].
+        /// </summary>
         public override void OnDropDownButtonClick()
         {
             base.OnDropDownButtonClick();
@@ -240,6 +313,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Calculators the control value changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void _calculatorControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var newValue = CalculatorControl.Value;
@@ -264,11 +342,18 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Called when [calculator value changed].
+        /// </summary>
         protected virtual void OnCalculatorValueChanged()
         {
             CalculatorValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Populates the setup.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
         protected override void PopulateSetup(DecimalEditControlSetup setup)
         {
             setup.FormatType = FormatType;
@@ -278,6 +363,10 @@ namespace RingSoft.DataEntryControls.WPF
             base.PopulateSetup(setup);
         }
 
+        /// <summary>
+        /// Called when [value changed].
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
         public override void OnValueChanged(string newValue)
         {
             if (newValue.IsNullOrEmpty())

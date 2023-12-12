@@ -1,51 +1,53 @@
-﻿using System.Linq;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="CustomContentControl.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:CustomContentControl/>
-    ///
+    /// Class CustomContentControl.
+    /// Implements the <see cref="Control" />
     /// </summary>
+    /// <seealso cref="Control" />
+    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "ContentPresenter", Type = typeof(ContentPresenter))]
     public class CustomContentControl : Control
     {
+        /// <summary>
+        /// The content template property
+        /// </summary>
         public static readonly DependencyProperty ContentTemplateProperty =
             DependencyProperty.Register(nameof(ContentTemplate), typeof(DataEntryCustomContentTemplate), typeof(CustomContentControl),
                 new FrameworkPropertyMetadata(ContentTemplateChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the content template.
+        /// </summary>
+        /// <value>The content template.</value>
         public DataEntryCustomContentTemplate ContentTemplate
         {
             get { return (DataEntryCustomContentTemplate)GetValue(ContentTemplateProperty); }
             set { SetValue(ContentTemplateProperty, value); }
         }
 
+        /// <summary>
+        /// Contents the template changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ContentTemplateChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -53,16 +55,28 @@ namespace RingSoft.DataEntryControls.WPF
             customControl.SelectItem(customControl.SelectedItemId);
         }
 
+        /// <summary>
+        /// The selected item identifier property
+        /// </summary>
         public static readonly DependencyProperty SelectedItemIdProperty =
             DependencyProperty.Register(nameof(SelectedItemId), typeof(int), typeof(CustomContentControl),
                 new FrameworkPropertyMetadata(SelectedItemIdChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the selected item identifier.
+        /// </summary>
+        /// <value>The selected item identifier.</value>
         public int SelectedItemId
         {
             get { return (int)GetValue(SelectedItemIdProperty); }
             set { SetValue(SelectedItemIdProperty, value); }
         }
 
+        /// <summary>
+        /// Selecteds the item identifier changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void SelectedItemIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -85,16 +99,29 @@ namespace RingSoft.DataEntryControls.WPF
         //}
 
 
+        /// <summary>
+        /// Gets or sets the content presenter.
+        /// </summary>
+        /// <value>The content presenter.</value>
         public ContentPresenter ContentPresenter { get; set; }
 
+        /// <summary>
+        /// The control loaded
+        /// </summary>
         private bool _controlLoaded;
 
 
+        /// <summary>
+        /// Initializes static members of the <see cref="CustomContentControl"/> class.
+        /// </summary>
         static CustomContentControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomContentControl), new FrameworkPropertyMetadata(typeof(CustomContentControl)));
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             ContentPresenter = GetTemplateChild(nameof(ContentPresenter)) as ContentPresenter;
@@ -106,6 +133,10 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Selects the item.
+        /// </summary>
+        /// <param name="itemId">The item identifier.</param>
         protected void SelectItem(int itemId)
         {
             if (!_controlLoaded || ContentTemplate == null)

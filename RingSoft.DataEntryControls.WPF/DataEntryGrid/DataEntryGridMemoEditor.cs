@@ -1,44 +1,41 @@
-﻿using System.Windows;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-29-2022
+// ***********************************************************************
+// <copyright file="DataEntryGridMemoEditor.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Windows;
 using System.Windows.Controls;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid;assembly=RingSoft.DataEntryControls.WPF.DataEntryGrid"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:NewDataEntryGridMemoEditor/>
-    ///
+    /// Class DataEntryGridMemoEditor.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.BaseWindow" />
     /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.BaseWindow" />
+    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "MemoEditor", Type = typeof(DataEntryMemoEditor))]
     [TemplatePart(Name = "OkButton", Type = typeof(Button))]
     [TemplatePart(Name = "CancelButton", Type = typeof(Button))]
     public class DataEntryGridMemoEditor : BaseWindow
     {
+        /// <summary>
+        /// The memo editor
+        /// </summary>
         private DataEntryMemoEditor _memoEditor;
+        /// <summary>
+        /// Gets or sets the memo editor.
+        /// </summary>
+        /// <value>The memo editor.</value>
         public DataEntryMemoEditor MemoEditor
         {
             get => _memoEditor;
@@ -48,8 +45,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// The ok button
+        /// </summary>
         private Button _okButton;
 
+        /// <summary>
+        /// Gets or sets the ok button.
+        /// </summary>
+        /// <value>The ok button.</value>
         public Button OkButton
         {
             get => _okButton;
@@ -69,8 +73,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// The cancel button
+        /// </summary>
         private Button _cancelButton;
 
+        /// <summary>
+        /// Gets or sets the cancel button.
+        /// </summary>
+        /// <value>The cancel button.</value>
         public Button CancelButton
         {
             get => _cancelButton;
@@ -90,18 +101,32 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Gets the grid memo value.
+        /// </summary>
+        /// <value>The grid memo value.</value>
         public DataEntryGridMemoValue GridMemoValue { get; }
 
-        
 
+
+        /// <summary>
+        /// The dialog result
+        /// </summary>
         private bool _dialogResult;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DataEntryGridMemoEditor"/> class.
+        /// </summary>
         static DataEntryGridMemoEditor()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGridMemoEditor), new FrameworkPropertyMetadata(typeof(DataEntryGridMemoEditor)));
             ShowInTaskbarProperty.OverrideMetadata(typeof(DataEntryGridMemoEditor), new FrameworkPropertyMetadata(false));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridMemoEditor"/> class.
+        /// </summary>
+        /// <param name="gridMemoValue">The grid memo value.</param>
         public DataEntryGridMemoEditor(DataEntryGridMemoValue gridMemoValue)
         {
             if (SnugWidth == 0)
@@ -124,6 +149,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             };
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             MemoEditor = GetTemplateChild(nameof(MemoEditor)) as DataEntryMemoEditor;
@@ -134,6 +162,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Handles the Click event of the OkButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             if (Validate())
@@ -144,16 +177,29 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Validates this instance.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected virtual bool Validate()
         {
             return true;
         }
 
+        /// <summary>
+        /// Handles the Click event of the CancelButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Shows the dialog.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public new bool ShowDialog()
         {
             base.ShowDialog();

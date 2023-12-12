@@ -1,4 +1,17 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 09-19-2023
+// ***********************************************************************
+// <copyright file="TextComboBoxControl.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,46 +24,35 @@ using System.Windows.Media;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:ComboBoxControl/>
-    ///
+    /// Class TextComboBoxControl.
+    /// Implements the <see cref="ComboBox" />
     /// </summary>
+    /// <seealso cref="ComboBox" />
+    /// <font color="red">Badly formed XML comment.</font>
     public class TextComboBoxControl : ComboBox
     {
+        /// <summary>
+        /// The rs selected item property
+        /// </summary>
         public new static readonly DependencyProperty RSSelectedItemProperty =
             DependencyProperty.Register(nameof(SelectedItem), typeof(TextComboBoxItem), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(SelectedItemPropertyChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the selected item.
+        /// </summary>
+        /// <value>The selected item.</value>
         public new TextComboBoxItem SelectedItem
         {
             get { return (TextComboBoxItem)GetValue(RSSelectedItemProperty); }
             set { SetValue(RSSelectedItemProperty, value); }
         }
 
+        /// <summary>
+        /// Selecteds the item property changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void SelectedItemPropertyChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -58,16 +60,28 @@ namespace RingSoft.DataEntryControls.WPF
             comboBoxControl.SetSelectedItem();
         }
 
+        /// <summary>
+        /// The setup property
+        /// </summary>
         public static readonly DependencyProperty SetupProperty =
             DependencyProperty.Register(nameof(Setup), typeof(TextComboBoxControlSetup), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(SetupPropertyChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the setup.
+        /// </summary>
+        /// <value>The setup.</value>
         public TextComboBoxControlSetup Setup
         {
             get { return (TextComboBoxControlSetup)GetValue(SetupProperty); }
             set { SetValue(SetupProperty, value); }
         }
 
+        /// <summary>
+        /// Setups the property changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void SetupPropertyChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -75,6 +89,12 @@ namespace RingSoft.DataEntryControls.WPF
             comboBoxControl.DoSetup();
         }
 
+        /// <summary>
+        /// Coerces the items source property.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="baseValue">The base value.</param>
+        /// <returns>System.Object.</returns>
         private static object CoerceItemsSourceProperty(DependencyObject obj, object baseValue)
         {
             var comboBoxControl = (TextComboBoxControl)obj;
@@ -84,6 +104,12 @@ namespace RingSoft.DataEntryControls.WPF
             return comboBoxControl.GetItemsSource();
         }
 
+        /// <summary>
+        /// Coerces the item template property.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="baseValue">The base value.</param>
+        /// <returns>System.Object.</returns>
         private static object CoerceItemTemplateProperty(DependencyObject obj, object baseValue)
         {
             var comboBoxControl = (TextComboBoxControl)obj;
@@ -93,16 +119,28 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
+        /// <summary>
+        /// The UI command property
+        /// </summary>
         public static readonly DependencyProperty UiCommandProperty =
             DependencyProperty.Register(nameof(UiCommand), typeof(UiCommand), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(UiCommandChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the UI command.
+        /// </summary>
+        /// <value>The UI command.</value>
         public UiCommand UiCommand
         {
             get { return (UiCommand)GetValue(UiCommandProperty); }
             set { SetValue(UiCommandProperty, value); }
         }
 
+        /// <summary>
+        /// UIs the command changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void UiCommandChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -118,16 +156,28 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The UI label property
+        /// </summary>
         public static readonly DependencyProperty UiLabelProperty =
             DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(TextComboBoxControl),
                 new FrameworkPropertyMetadata(UiLabelChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the UI label.
+        /// </summary>
+        /// <value>The UI label.</value>
         public Label UiLabel
         {
             get { return (Label)GetValue(UiLabelProperty); }
             set { SetValue(UiLabelProperty, value); }
         }
 
+        /// <summary>
+        /// UIs the label changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void UiLabelChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -137,8 +187,15 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
 
+        /// <summary>
+        /// The design text
+        /// </summary>
         private string _designText;
 
+        /// <summary>
+        /// Gets or sets the design text.
+        /// </summary>
+        /// <value>The design text.</value>
         public string DesignText
         {
             get => _designText;
@@ -149,14 +206,36 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the text box.
+        /// </summary>
+        /// <value>The text box.</value>
         public TextBox TextBox { get; set; }
 
+        /// <summary>
+        /// The designer list
+        /// </summary>
         private ObservableCollection<string> _designerList = new ObservableCollection<string>();
+        /// <summary>
+        /// The selected ComboBox item
+        /// </summary>
         private TextComboBoxItem _selectedComboBoxItem;
+        /// <summary>
+        /// The height
+        /// </summary>
         private double _height;
+        /// <summary>
+        /// The set focus
+        /// </summary>
         private bool _setFocus;
+        /// <summary>
+        /// The vm UI control
+        /// </summary>
         private VmUiControl _vmUiControl;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="TextComboBoxControl"/> class.
+        /// </summary>
         static TextComboBoxControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TextComboBoxControl),
@@ -174,6 +253,9 @@ namespace RingSoft.DataEntryControls.WPF
         //    SetResourceReference(StyleProperty, typeof(ComboBox));
         //}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextComboBoxControl"/> class.
+        /// </summary>
         public TextComboBoxControl()
         {
             Loaded += (sender, args) =>
@@ -204,6 +286,11 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
+        /// <summary>
+        /// Handles the GotFocus event of the TextComboBoxControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void TextComboBoxControl_GotFocus(object sender, RoutedEventArgs e)
         {
             //var border = this.GetVisualChild<Border>();
@@ -222,6 +309,9 @@ namespace RingSoft.DataEntryControls.WPF
 
         }
 
+        /// <summary>
+        /// Called when <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" /> is called.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             TextBox = GetTemplateChild("PART_EditableTextBox") as TextBox;
@@ -235,6 +325,9 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Sets the design text.
+        /// </summary>
         private void SetDesignText()
         {
             if (DesignerProperties.GetIsInDesignMode(this))
@@ -255,6 +348,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Does the setup.
+        /// </summary>
         private void DoSetup()
         {
             if (Setup != null)
@@ -268,6 +364,10 @@ namespace RingSoft.DataEntryControls.WPF
             _selectedComboBoxItem = null;
         }
 
+        /// <summary>
+        /// Gets the items source.
+        /// </summary>
+        /// <returns>IEnumerable.</returns>
         private IEnumerable GetItemsSource()
         {
             if (DesignerProperties.GetIsInDesignMode(this))
@@ -278,6 +378,9 @@ namespace RingSoft.DataEntryControls.WPF
             return ItemsSource;
         }
 
+        /// <summary>
+        /// Sets the selected item.
+        /// </summary>
         private void SetSelectedItem()
         {
             if (Setup == null)
@@ -290,6 +393,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the <see cref="E:SelectionChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             if (base.SelectedItem is TextComboBoxItem comboBoxItem)

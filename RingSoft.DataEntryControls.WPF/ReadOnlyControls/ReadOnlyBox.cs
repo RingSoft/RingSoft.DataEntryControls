@@ -1,4 +1,17 @@
-﻿using System.ComponentModel;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="ReadOnlyBox.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using RingSoft.DataEntryControls.Engine;
@@ -7,47 +20,36 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.ReadOnlyControls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.ReadOnlyControls;assembly=RingSoft.DataEntryControls.WPF.ReadOnlyControls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:ReadOnlyBox/>
-    ///
+    /// Class ReadOnlyBox.
+    /// Implements the <see cref="Control" />
     /// </summary>
+    /// <seealso cref="Control" />
+    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "TextBlock", Type = typeof(TextBlock))]
     public class ReadOnlyBox : Control
     {
+        /// <summary>
+        /// The design text property
+        /// </summary>
         public static readonly DependencyProperty DesignTextProperty =
             DependencyProperty.Register(nameof(DesignText), typeof(string), typeof(ReadOnlyBox),
                 new FrameworkPropertyMetadata(DesignTextChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the design text.
+        /// </summary>
+        /// <value>The design text.</value>
         public string DesignText
         {
             get { return (string)GetValue(DesignTextProperty); }
             set { SetValue(DesignTextProperty, value); }
         }
 
+        /// <summary>
+        /// Designs the text changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void DesignTextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -55,16 +57,28 @@ namespace RingSoft.DataEntryControls.WPF
             readOnlyBox.SetDesignText();
         }
 
+        /// <summary>
+        /// The text alignment property
+        /// </summary>
         public static readonly DependencyProperty TextAlignmentProperty =
             DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(ReadOnlyBox),
                 new FrameworkPropertyMetadata(TextAlignmentChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the text alignment.
+        /// </summary>
+        /// <value>The text alignment.</value>
         public TextAlignment TextAlignment
         {
             get { return (TextAlignment)GetValue(TextAlignmentProperty); }
             set { SetValue(TextAlignmentProperty, value); }
         }
 
+        /// <summary>
+        /// Texts the alignment changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void TextAlignmentChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -72,6 +86,11 @@ namespace RingSoft.DataEntryControls.WPF
             readOnlyBox.SetTextAlignment();
         }
 
+        /// <summary>
+        /// Backgrounds the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void BackgroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -82,6 +101,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Foregrounds the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ForegroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -92,10 +116,21 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the text block.
+        /// </summary>
+        /// <value>The text block.</value>
         public TextBlock TextBlock { get; set; }
 
+        /// <summary>
+        /// The text
+        /// </summary>
         private string _text;
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>The text.</value>
         protected string Text
         {
             get => _text;
@@ -109,6 +144,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Initializes static members of the <see cref="ReadOnlyBox"/> class.
+        /// </summary>
         static ReadOnlyBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyBox), new FrameworkPropertyMetadata(typeof(ReadOnlyBox)));
@@ -120,11 +158,17 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(ForegroundChangedCallback));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadOnlyBox"/> class.
+        /// </summary>
         public ReadOnlyBox()
         {
             IsTabStop = false;
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             TextBlock = GetTemplateChild(nameof(TextBlock)) as TextBlock;
@@ -136,6 +180,9 @@ namespace RingSoft.DataEntryControls.WPF
             SetTextAlignment();
         }
 
+        /// <summary>
+        /// Sets the text.
+        /// </summary>
         private void SetText()
         {
             if (TextBlock != null)
@@ -147,12 +194,18 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Sets the design text.
+        /// </summary>
         private void SetDesignText()
         {
             if (DesignerProperties.GetIsInDesignMode(this) && TextBlock != null && !DesignText.IsNullOrEmpty())
                 TextBlock.Text = DesignText;
         }
 
+        /// <summary>
+        /// Sets the text alignment.
+        /// </summary>
         private void SetTextAlignment()
         {
             if (TextBlock != null)

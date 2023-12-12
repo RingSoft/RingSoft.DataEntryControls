@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 10-30-2023
+// ***********************************************************************
+// <copyright file="ExtensionMethods.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
@@ -13,21 +26,50 @@ using System.Windows.Media.Media3D;
 
 namespace RingSoft.DataEntryControls.WPF
 {
+    /// <summary>
+    /// Enum MapType
+    /// </summary>
     public enum MapType : uint
     {
+        /// <summary>
+        /// The mapvk vk to VSC
+        /// </summary>
         MAPVK_VK_TO_VSC = 0x0,
+        /// <summary>
+        /// The mapvk VSC to vk
+        /// </summary>
         MAPVK_VSC_TO_VK = 0x1,
+        /// <summary>
+        /// The mapvk vk to character
+        /// </summary>
         MAPVK_VK_TO_CHAR = 0x2,
+        /// <summary>
+        /// The mapvk VSC to vk ex
+        /// </summary>
         MAPVK_VSC_TO_VK_EX = 0x3,
     }
 
+    /// <summary>
+    /// Class ExtensionMethods.
+    /// </summary>
     public static class ExtensionMethods
     {
+        /// <summary>
+        /// Gets the color of the media.
+        /// </summary>
+        /// <param name="drawingColor">Color of the drawing.</param>
+        /// <returns>Color.</returns>
         public static Color GetMediaColor(this System.Drawing.Color drawingColor)
         {
             return Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B);
         }
 
+        /// <summary>
+        /// Gets the type of the parent of.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="element">The element.</param>
+        /// <returns>T.</returns>
         public static T GetParentOfType<T>(this DependencyObject element) where T : DependencyObject
         {
             Type type = typeof(T);
@@ -39,6 +81,12 @@ namespace RingSoft.DataEntryControls.WPF
             return GetParentOfType<T>(parent);
         }
 
+        /// <summary>
+        /// Gets the logical parent.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="child">The child.</param>
+        /// <returns>T.</returns>
         public static T GetLogicalParent<T>(this DependencyObject child)
             where T : DependencyObject
         {
@@ -52,6 +100,12 @@ namespace RingSoft.DataEntryControls.WPF
             return GetLogicalParent<T>(parentObject);
         }
 
+        /// <summary>
+        /// Gets the type of the parent of.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>DependencyObject.</returns>
         public static DependencyObject GetParentOfType(this DependencyObject element, Type type)
         {
             if (element == null) return null;
@@ -62,6 +116,12 @@ namespace RingSoft.DataEntryControls.WPF
             return GetParentOfType(parent, type);
         }
 
+        /// <summary>
+        /// Gets the visual child.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns>T.</returns>
         public static T GetVisualChild<T>(this DependencyObject obj)
             where T : DependencyObject
 
@@ -81,6 +141,12 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
+        /// <summary>
+        /// Gets the logical child.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns>T.</returns>
         public static T GetLogicalChild<T>(this DependencyObject obj)
             where T : DependencyObject
 
@@ -101,6 +167,12 @@ namespace RingSoft.DataEntryControls.WPF
             return null;
         }
 
+        /// <summary>
+        /// Gets the logical children.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> GetLogicalChildren<T>(this DependencyObject obj)
             where T : DependencyObject
 
@@ -120,6 +192,12 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        /// <summary>
+        /// Gets the child controls.
+        /// </summary>
+        /// <param name="parent">The parent.</param>
+        /// <param name="applyTemplates">if set to <c>true</c> [apply templates].</param>
+        /// <returns>List&lt;Control&gt;.</returns>
         public static List<Control> GetChildControls(this DependencyObject parent, bool applyTemplates = false)
         {
             var result = new List<Control>();
@@ -139,6 +217,13 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        /// <summary>
+        /// Gets the type of the children of.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="parent">The parent.</param>
+        /// <param name="applyTemplates">if set to <c>true</c> [apply templates].</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> GetChildrenOfType<T>(this DependencyObject parent, bool applyTemplates = false)
             where T : DependencyObject
         {
@@ -179,6 +264,11 @@ namespace RingSoft.DataEntryControls.WPF
             return results;
         }
 
+        /// <summary>
+        /// Sets all child controls read only mode.
+        /// </summary>
+        /// <param name="parent">The parent.</param>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public static void SetAllChildControlsReadOnlyMode(this DependencyObject parent, bool readOnlyValue)
         {
             if (!(parent is BaseWindow baseWindow))
@@ -192,6 +282,16 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
 
+        /// <summary>
+        /// Converts to unicode.
+        /// </summary>
+        /// <param name="wVirtKey">The w virt key.</param>
+        /// <param name="wScanCode">The w scan code.</param>
+        /// <param name="lpKeyState">State of the lp key.</param>
+        /// <param name="pwszBuff">The PWSZ buff.</param>
+        /// <param name="cchBuff">The CCH buff.</param>
+        /// <param name="wFlags">The w flags.</param>
+        /// <returns>System.Int32.</returns>
         [DllImport("user32.dll")]
         public static extern int ToUnicode(
             uint wVirtKey,
@@ -202,12 +302,28 @@ namespace RingSoft.DataEntryControls.WPF
             int cchBuff,
             uint wFlags);
 
+        /// <summary>
+        /// Gets the state of the keyboard.
+        /// </summary>
+        /// <param name="lpKeyState">State of the lp key.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [DllImport("user32.dll")]
         public static extern bool GetKeyboardState(byte[] lpKeyState);
 
+        /// <summary>
+        /// Maps the virtual key.
+        /// </summary>
+        /// <param name="uCode">The u code.</param>
+        /// <param name="uMapType">Type of the u map.</param>
+        /// <returns>System.UInt32.</returns>
         [DllImport("user32.dll")]
         public static extern uint MapVirtualKey(uint uCode, MapType uMapType);
 
+        /// <summary>
+        /// Gets the character from key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>System.Char.</returns>
         public static char GetCharFromKey(this Key key)
         {
             char ch = ' ';
@@ -240,6 +356,10 @@ namespace RingSoft.DataEntryControls.WPF
             return ch;
         }
 
+        /// <summary>
+        /// Adds the text box context menu items.
+        /// </summary>
+        /// <param name="contextMenu">The context menu.</param>
         public static void AddTextBoxContextMenuItems(this ContextMenu contextMenu)
         {
             contextMenu.Items.Add(new MenuItem { Header = "Cu_t", Command = ApplicationCommands.Cut });
@@ -247,10 +367,23 @@ namespace RingSoft.DataEntryControls.WPF
             contextMenu.Items.Add(new MenuItem { Header = "_Paste", Command = ApplicationCommands.Paste });
         }
 
+        /// <summary>
+        /// Gets the absolute placement.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="relativeToScreen">if set to <c>true</c> [relative to screen].</param>
+        /// <returns>Rect.</returns>
         public static Rect GetAbsolutePlacement(this FrameworkElement element, bool relativeToScreen = false)
         {
             return GetAbsolutePlacement(element, Application.Current.MainWindow, relativeToScreen);
         }
+        /// <summary>
+        /// Gets the absolute placement.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="parentWindow">The parent window.</param>
+        /// <param name="relativeToScreen">if set to <c>true</c> [relative to screen].</param>
+        /// <returns>Rect.</returns>
         public static Rect GetAbsolutePlacement(this FrameworkElement element, Window parentWindow, bool relativeToScreen = false)
         {
             var absolutePos = element.PointToScreen(new Point(0, 0));
@@ -268,6 +401,11 @@ namespace RingSoft.DataEntryControls.WPF
             return new Rect(absolutePos.X, absolutePos.Y, element.ActualWidth, element.ActualHeight);
         }
 
+        /// <summary>
+        /// Converts to textalignment.
+        /// </summary>
+        /// <param name="horizontalAlignment">The horizontal alignment.</param>
+        /// <returns>TextAlignment.</returns>
         public static TextAlignment ToTextAlignment(
             this HorizontalAlignment horizontalAlignment)
         {
@@ -282,6 +420,12 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Determines whether [is window closing] [the specified new focus].
+        /// </summary>
+        /// <param name="hostWindow">The host window.</param>
+        /// <param name="newFocus">The new focus.</param>
+        /// <returns><c>true</c> if [is window closing] [the specified new focus]; otherwise, <c>false</c>.</returns>
         public static bool IsWindowClosing(this Window hostWindow, IInputElement newFocus)
         {
             var result = false;
@@ -300,8 +444,19 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        /// <summary>
+        /// Determines whether [is design mode] [the specified dependency object].
+        /// </summary>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <returns><c>true</c> if [is design mode] [the specified dependency object]; otherwise, <c>false</c>.</returns>
         public static bool IsDesignMode(this DependencyObject dependencyObject) => DesignerProperties.GetIsInDesignMode(dependencyObject);
 
+        /// <summary>
+        /// Determines whether [is user visible] [the specified container].
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <param name="container">The container.</param>
+        /// <returns><c>true</c> if [is user visible] [the specified container]; otherwise, <c>false</c>.</returns>
         public static bool IsUserVisible(this FrameworkElement element, FrameworkElement container)
         {
             if (element == null)
@@ -314,6 +469,10 @@ namespace RingSoft.DataEntryControls.WPF
             return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
         }
 
+        /// <summary>
+        /// Scrolls to top.
+        /// </summary>
+        /// <param name="textBox">The text box.</param>
         public static void ScrollToTop(this TextBox textBox)
         {
             //Peter Ringering - 05/25/2023 01:48:19 PM - E-40
@@ -326,6 +485,10 @@ namespace RingSoft.DataEntryControls.WPF
                 textBox.ScrollToLine(line);
             }
         }
+        /// <summary>
+        /// Sets the tab focus to control.
+        /// </summary>
+        /// <param name="foundControl">The found control.</param>
         public static void SetTabFocusToControl(this Control foundControl)
         {
             var tabItem = foundControl.GetLogicalParent<TabItem>();
@@ -342,11 +505,22 @@ namespace RingSoft.DataEntryControls.WPF
             foundControl.Focus();
         }
 
+        /// <summary>
+        /// Gets the focused control.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>IInputElement.</returns>
         public static IInputElement GetFocusedControl(this DependencyObject control)
         {
             return FocusManager.GetFocusedElement(control);
         }
 
+        /// <summary>
+        /// Determines whether [is child control] [the specified control].
+        /// </summary>
+        /// <param name="parent">The parent.</param>
+        /// <param name="control">The control.</param>
+        /// <returns><c>true</c> if [is child control] [the specified control]; otherwise, <c>false</c>.</returns>
         public static bool IsChildControl(this DependencyObject parent, Control control)
         {
             var result = false;

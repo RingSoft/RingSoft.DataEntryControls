@@ -1,4 +1,17 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 09-18-2023
+// ***********************************************************************
+// <copyright file="NumericEditControl.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -10,82 +23,104 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls;assembly=RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:NumericEditControl/>
-    ///
+    /// Class NumericEditControl.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DropDownEditControl" />
+    /// Implements the <see cref="INumericControl" />
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.DropDownEditControl" />
+    /// <seealso cref="INumericControl" />
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
+    /// <font color="red">Badly formed XML comment.</font>
     public abstract class NumericEditControl<T> : DropDownEditControl, INumericControl, IReadOnlyControl
     {
+        /// <summary>
+        /// The data entry mode property
+        /// </summary>
         public static readonly DependencyProperty DataEntryModeProperty =
             DependencyProperty.Register(nameof(DataEntryMode), typeof(DataEntryModes), typeof(NumericEditControl<T>));
 
+        /// <summary>
+        /// Gets or sets the data entry mode.
+        /// </summary>
+        /// <value>The data entry mode.</value>
         public DataEntryModes DataEntryMode
         {
             get { return (DataEntryModes)GetValue(DataEntryModeProperty); }
             set { SetValue(DataEntryModeProperty, value); }
         }
 
+        /// <summary>
+        /// The number format string property
+        /// </summary>
         public static readonly DependencyProperty NumberFormatStringProperty =
             DependencyProperty.Register(nameof(NumberFormatString), typeof(string), typeof(NumericEditControl<T>));
 
+        /// <summary>
+        /// Gets or sets the number format string.
+        /// </summary>
+        /// <value>The number format string.</value>
         public string NumberFormatString
         {
             get { return (string)GetValue(NumberFormatStringProperty); }
             set { SetValue(NumberFormatStringProperty, value); }
         }
 
+        /// <summary>
+        /// The maximum value property
+        /// </summary>
         public static readonly DependencyProperty MaximumValueProperty =
             DependencyProperty.Register(nameof(MaximumValue), typeof(T), typeof(NumericEditControl<T>));
 
+        /// <summary>
+        /// Gets or sets the maximum value.
+        /// </summary>
+        /// <value>The maximum value.</value>
         public T MaximumValue
         {
             get { return (T)GetValue(MaximumValueProperty); }
             set { SetValue(MaximumValueProperty, value); }
         }
 
+        /// <summary>
+        /// The minimum value property
+        /// </summary>
         public static readonly DependencyProperty MinimumValueProperty =
             DependencyProperty.Register(nameof(MinimumValue), typeof(T), typeof(NumericEditControl<T>));
 
+        /// <summary>
+        /// Gets or sets the minimum value.
+        /// </summary>
+        /// <value>The minimum value.</value>
         public T MinimumValue
         {
             get { return (T)GetValue(MinimumValueProperty); }
             set { SetValue(MinimumValueProperty, value); }
         }
 
+        /// <summary>
+        /// The value property
+        /// </summary>
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(T), typeof(NumericEditControl<T>),
                 new FrameworkPropertyMetadata(ValueChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>The value.</value>
         public T Value
         {
             get { return (T)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 
+        /// <summary>
+        /// Values the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ValueChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -100,16 +135,28 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The culture identifier property
+        /// </summary>
         public static readonly DependencyProperty CultureIdProperty =
             DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(NumericEditControl<T>),
                 new FrameworkPropertyMetadata(CultureIdChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the culture identifier.
+        /// </summary>
+        /// <value>The culture identifier.</value>
         public string CultureId
         {
             get { return (string)GetValue(CultureIdProperty); }
             set { SetValue(CultureIdProperty, value); }
         }
 
+        /// <summary>
+        /// Cultures the identifier changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -122,26 +169,52 @@ namespace RingSoft.DataEntryControls.WPF
                 numericEditControl.SetValue();
         }
 
+        /// <summary>
+        /// The allow null value property
+        /// </summary>
         public static readonly DependencyProperty AllowNullValueProperty =
             DependencyProperty.Register(nameof(AllowNullValue), typeof(bool), typeof(NumericEditControl<T>));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [allow null value].
+        /// </summary>
+        /// <value><c>true</c> if [allow null value]; otherwise, <c>false</c>.</value>
         public bool AllowNullValue
         {
             get { return (bool)GetValue(AllowNullValueProperty); }
             set { SetValue(AllowNullValueProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the culture.
+        /// </summary>
+        /// <value>The culture.</value>
         public CultureInfo Culture { get; protected internal set; }
 
+        /// <summary>
+        /// The numeric processor
+        /// </summary>
         private DataEntryNumericControlProcessor _numericProcessor;
+        /// <summary>
+        /// The setting text
+        /// </summary>
         private bool _settingText;
+        /// <summary>
+        /// The override sel changed
+        /// </summary>
         private bool _overrideSelChanged;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="NumericEditControl{T}"/> class.
+        /// </summary>
         static NumericEditControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericEditControl<T>), new FrameworkPropertyMetadata(typeof(NumericEditControl<T>)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumericEditControl{T}"/> class.
+        /// </summary>
         public NumericEditControl()
         {
             if (Culture == null)
@@ -160,6 +233,10 @@ namespace RingSoft.DataEntryControls.WPF
             LostFocus += NumericEditControl_LostFocus;
         }
 
+        /// <summary>
+        /// Loads from setup.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
         protected virtual void LoadFromSetup(NumericEditControlSetup<T> setup)
         {
             DataEntryMode = setup.DataEntryMode;
@@ -170,12 +247,29 @@ namespace RingSoft.DataEntryControls.WPF
             AllowNullValue = setup.AllowNullValue;
         }
 
+        /// <summary>
+        /// Sets the value.
+        /// </summary>
         protected abstract void SetValue();
 
+        /// <summary>
+        /// Converts the value to string.
+        /// </summary>
+        /// <returns>System.String.</returns>
         protected abstract string ConvertValueToString();
 
+        /// <summary>
+        /// Gets the minimum value properties.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="minimumValue">The minimum value.</param>
         protected abstract void GetMinimumValueProperties(out double? value, out double? minimumValue);
 
+        /// <summary>
+        /// Handles the LostFocus event of the NumericEditControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void NumericEditControl_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!IsKeyboardFocusWithin && TextBox != null)
@@ -190,6 +284,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Validates the minimum value.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool ValidateMinimumValue()
         {
             GetMinimumValueProperties(out var value, out var minimumValue);
@@ -208,11 +306,19 @@ namespace RingSoft.DataEntryControls.WPF
             return true;
         }
 
+        /// <summary>
+        /// Sets the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
         private void SetText(string text)
         {
             SetText(text.ToDecimal(Culture));
         }
 
+        /// <summary>
+        /// Sets the text.
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
         protected void SetText(double? newValue)
         {
             if (TextBox == null)
@@ -239,12 +345,20 @@ namespace RingSoft.DataEntryControls.WPF
             _settingText = false;
         }
 
+        /// <summary>
+        /// Called when [text box got focus].
+        /// </summary>
         protected override void OnTextBoxGotFocus()
         {
             OnFocusedSetText(TextBox.Text, GetSetup());
             base.OnTextBoxGotFocus();
         }
 
+        /// <summary>
+        /// Called when [focused set text].
+        /// </summary>
+        /// <param name="newText">The new text.</param>
+        /// <param name="setup">The setup.</param>
         private void OnFocusedSetText(string newText, DecimalEditControlSetup setup)
         {
             if (TextBox != null)
@@ -257,6 +371,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets the setup.
+        /// </summary>
+        /// <returns>DecimalEditControlSetup.</returns>
         private DecimalEditControlSetup GetSetup()
         {
             var result = new DecimalEditControlSetup();
@@ -264,6 +382,10 @@ namespace RingSoft.DataEntryControls.WPF
             return result;
         }
 
+        /// <summary>
+        /// Populates the setup.
+        /// </summary>
+        /// <param name="setup">The setup.</param>
         protected virtual void PopulateSetup(DecimalEditControlSetup setup)
         {
             setup.DataEntryMode = DataEntryMode;
@@ -272,6 +394,12 @@ namespace RingSoft.DataEntryControls.WPF
             setup.AllowNullValue = AllowNullValue;
         }
 
+        /// <summary>
+        /// Processes the key character.
+        /// </summary>
+        /// <param name="keyChar">The key character.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         protected override bool ProcessKeyChar(char keyChar)
         {
             switch (DataEntryMode)
@@ -299,6 +427,12 @@ namespace RingSoft.DataEntryControls.WPF
             return base.ProcessKeyChar(keyChar);
         }
 
+        /// <summary>
+        /// Processes the key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         protected override bool ProcessKey(Key key)
         {
             switch (DataEntryMode)
@@ -328,6 +462,11 @@ namespace RingSoft.DataEntryControls.WPF
             return base.ProcessKey(key);
         }
 
+        /// <summary>
+        /// Called when [text changed].
+        /// </summary>
+        /// <param name="newText">The new text.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         protected override void OnTextChanged(string newText)
         {
             if (_settingText)
@@ -356,6 +495,10 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnTextChanged(newText);
         }
 
+        /// <summary>
+        /// Sets the read only mode.
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public void SetReadOnlyMode(bool readOnlyValue)
         {
             if (UiLabel != null)

@@ -1,49 +1,51 @@
-﻿using System.Windows;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="StringReadOnlyBox.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Windows;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.ReadOnlyControls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.ReadOnlyControls;assembly=RingSoft.DataEntryControls.WPF.ReadOnlyControls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:StringReadOnlyBox/>
-    ///
+    /// Class StringReadOnlyBox.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
     /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.ReadOnlyBox" />
+    /// <font color="red">Badly formed XML comment.</font>
     public class StringReadOnlyBox : ReadOnlyBox
     {
+        /// <summary>
+        /// The text property
+        /// </summary>
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(StringReadOnlyBox),
                 new FrameworkPropertyMetadata(TextChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>The text.</value>
         public new string Text
         {
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
 
+        /// <summary>
+        /// Texts the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void TextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -51,11 +53,17 @@ namespace RingSoft.DataEntryControls.WPF
             readOnlyBox.SetText();
         }
 
+        /// <summary>
+        /// Initializes static members of the <see cref="StringReadOnlyBox"/> class.
+        /// </summary>
         static StringReadOnlyBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StringReadOnlyBox), new FrameworkPropertyMetadata(typeof(StringReadOnlyBox)));
         }
 
+        /// <summary>
+        /// Sets the text.
+        /// </summary>
         private void SetText()
         {
             base.Text = Text;

@@ -1,4 +1,17 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="DataEntryGridCustomControl.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System;
 using System.Windows;
@@ -7,24 +20,47 @@ using System.Windows.Data;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
+    /// <summary>
+    /// Class DataEntryGridCustomControlColumn.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCustomControl}" />
+    /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCustomControl}" />
     public class DataEntryGridCustomControlColumn : DataEntryGridControlColumn<DataEntryGridCustomControl>
     {
+        /// <summary>
+        /// The content template property
+        /// </summary>
         public static readonly DependencyProperty ContentTemplateProperty =
             DependencyProperty.Register(nameof(ContentTemplate), typeof(DataEntryCustomContentTemplate),
                 typeof(DataEntryGridCustomControlColumn));
 
+        /// <summary>
+        /// Gets or sets the content template.
+        /// </summary>
+        /// <value>The content template.</value>
         public DataEntryCustomContentTemplate ContentTemplate
         {
             get { return (DataEntryCustomContentTemplate)GetValue(ContentTemplateProperty); }
             set { SetValue(ContentTemplateProperty, value); }
         }
 
+        /// <summary>
+        /// Gets the designer data value.
+        /// </summary>
+        /// <value>The designer data value.</value>
         public override string DesignerDataValue =>
             new DataEntryGridDataValue().CreateDataValue(new DataEntryGridControlCellStyle(),
                 DesignerSelectedId.ToString());
 
+        /// <summary>
+        /// The designer selected identifier
+        /// </summary>
         private int _designerSelectedId;
 
+        /// <summary>
+        /// Gets or sets the designer selected identifier.
+        /// </summary>
+        /// <value>The designer selected identifier.</value>
         public int DesignerSelectedId
         {
             get => _designerSelectedId;
@@ -38,6 +74,12 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Processes the cell framework element factory.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
+        /// <param name="dataColumnName">Name of the data column.</param>
+        /// <exception cref="System.Exception">The {nameof(ContentTemplate)} Property has not been set.</exception>
         protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory, string dataColumnName)
         {
             if (ContentTemplate == null)
@@ -50,46 +92,35 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
     }
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid.Column"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid.Column;assembly=RingSoft.DataEntryControls.WPF.DataEntryGrid.Column"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:DataEntryGridCustomControl/>
-    ///
+    /// Class DataEntryGridCustomControl.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.CustomContentControl" />
     /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.CustomContentControl" />
+    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryGridCustomControl : CustomContentControl
     {
+        /// <summary>
+        /// The data value property
+        /// </summary>
         public static readonly DependencyProperty DataValueProperty =
             DependencyProperty.Register(nameof(DataValue), typeof(string), typeof(DataEntryGridCustomControl),
                 new FrameworkPropertyMetadata(DataValueChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the data value.
+        /// </summary>
+        /// <value>The data value.</value>
         public string DataValue
         {
             get { return (string)GetValue(DataValueProperty); }
             set { SetValue(DataValueProperty, value); }
         }
 
+        /// <summary>
+        /// Datas the value changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void DataValueChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -97,13 +128,22 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             customControl.SetDataValue();
         }
 
+        /// <summary>
+        /// The processor
+        /// </summary>
         private DataEntryGridControlColumnProcessor _processor;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DataEntryGridCustomControl"/> class.
+        /// </summary>
         static DataEntryGridCustomControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGridCustomControl), new FrameworkPropertyMetadata(typeof(DataEntryGridCustomControl)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridCustomControl"/> class.
+        /// </summary>
         public DataEntryGridCustomControl()
         {
             Loaded += (sender, args) => OnLoaded();
@@ -117,10 +157,16 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
         }
 
+        /// <summary>
+        /// Called when [loaded].
+        /// </summary>
         private void OnLoaded()
         {
         }
 
+        /// <summary>
+        /// Sets the data value.
+        /// </summary>
         private void SetDataValue()
         {
             _processor.SetDataValue(DataValue);

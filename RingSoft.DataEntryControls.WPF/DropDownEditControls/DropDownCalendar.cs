@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 04-06-2023
+// ***********************************************************************
+// <copyright file="DropDownCalendar.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -9,44 +22,38 @@ using RingSoft.DataEntryControls.WPF.DropDownEditControls;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls;assembly=RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:DropDownCalendar/>
-    ///
+    /// Class DropDownCalendar.
+    /// Implements the <see cref="Control" />
+    /// Implements the <see cref="IDropDownCalendar" />
     /// </summary>
+    /// <seealso cref="Control" />
+    /// <seealso cref="IDropDownCalendar" />
+    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "Calendar", Type = typeof(Calendar))]
     [TemplatePart(Name = "TodayButton", Type = typeof(Button))]
     public class DropDownCalendar : Control, IDropDownCalendar
     {
+        /// <summary>
+        /// Gets or sets the minimum date.
+        /// </summary>
+        /// <value>The minimum date.</value>
         public DateTime? MinimumDate { get; set; }
 
+        /// <summary>
+        /// Gets or sets the maximum date.
+        /// </summary>
+        /// <value>The maximum date.</value>
         public DateTime? MaximumDate { get; set; }
 
+        /// <summary>
+        /// The calendar
+        /// </summary>
         private Calendar _calendar;
 
+        /// <summary>
+        /// Gets or sets the calendar.
+        /// </summary>
+        /// <value>The calendar.</value>
         public Calendar Calendar
         {
             get => _calendar;
@@ -70,8 +77,15 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The today button
+        /// </summary>
         private Button _todayButton;
 
+        /// <summary>
+        /// Gets or sets the today button.
+        /// </summary>
+        /// <value>The today button.</value>
         public Button TodayButton
         {
             get => _todayButton;
@@ -87,8 +101,16 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets the control.
+        /// </summary>
+        /// <value>The control.</value>
         public Control Control => this;
 
+        /// <summary>
+        /// Gets or sets the selected date.
+        /// </summary>
+        /// <value>The selected date.</value>
         public DateTime? SelectedDate
         {
             get => Calendar?.SelectedDate;
@@ -107,16 +129,31 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Occurs when [selected date changed].
+        /// </summary>
         public event EventHandler SelectedDateChanged;
+        /// <summary>
+        /// Occurs when [date picked].
+        /// </summary>
         public event EventHandler DatePicked;
 
+        /// <summary>
+        /// The setting value
+        /// </summary>
         private bool _settingValue;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DropDownCalendar"/> class.
+        /// </summary>
         static DropDownCalendar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownCalendar), new FrameworkPropertyMetadata(typeof(DropDownCalendar)));
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             Calendar = GetTemplateChild(nameof(Calendar)) as Calendar;
@@ -129,6 +166,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         }
 
+        /// <summary>
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.UIElement.GotFocus" /> event reaches this element in its route.
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs" /> that contains the event data.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             if (Calendar != null)
@@ -141,6 +182,11 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnGotFocus(e);
         }
 
+        /// <summary>
+        /// Handles the SelectedDatesChanged event of the _calendar control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void _calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!_settingValue)
@@ -149,6 +195,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the _todayButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void _todayButton_Click(object sender, RoutedEventArgs e)
         {
             if (Calendar != null)
@@ -158,6 +209,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the PreviewMouseUp event of the _calendar control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void _calendar_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             DependencyObject originalSource = e.OriginalSource as DependencyObject;
@@ -169,6 +225,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the PreviewKeyDown event of the _calendar control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void _calendar_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

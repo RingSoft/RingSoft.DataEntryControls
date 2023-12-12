@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 12-05-2023
+// ***********************************************************************
+// <copyright file="DropDownEditControl.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,50 +24,41 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DropDownEditControls;assembly=RingSoft.DataEntryControls.WPF.DropDownEditControls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:DropDownEditControl/>
-    ///
+    /// Class DropDownEditControl.
+    /// Implements the <see cref="Control" />
+    /// Implements the <see cref="IDropDownControl" />
     /// </summary>
+    /// <seealso cref="Control" />
+    /// <seealso cref="IDropDownControl" />
+    /// <font color="red">Badly formed XML comment.</font>
 
     [TemplatePart(Name = "TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "DropDownButton", Type = typeof(Button))]
     [TemplatePart(Name = "Popup", Type = typeof(Popup))]
     public abstract class DropDownEditControl : Control, IDropDownControl
     {
+        /// <summary>
+        /// The text alignment property
+        /// </summary>
         public static readonly DependencyProperty TextAlignmentProperty =
             DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(TextAlignmentChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the text alignment.
+        /// </summary>
+        /// <value>The text alignment.</value>
         public TextAlignment TextAlignment
         {
             get { return (TextAlignment)GetValue(TextAlignmentProperty); }
             set { SetValue(TextAlignmentProperty, value); }
         }
 
+        /// <summary>
+        /// Texts the alignment changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void TextAlignmentChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -63,16 +67,28 @@ namespace RingSoft.DataEntryControls.WPF
                 dropDownEditControl.TextBox.TextAlignment = dropDownEditControl.TextAlignment;
         }
 
+        /// <summary>
+        /// The design text property
+        /// </summary>
         public static readonly DependencyProperty DesignTextProperty =
             DependencyProperty.Register(nameof(DesignText), typeof(string), typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(DesignTextChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the design text.
+        /// </summary>
+        /// <value>The design text.</value>
         public string DesignText
         {
             get { return (string)GetValue(DesignTextProperty); }
             set { SetValue(DesignTextProperty, value); }
         }
 
+        /// <summary>
+        /// Designs the text changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void DesignTextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -80,16 +96,28 @@ namespace RingSoft.DataEntryControls.WPF
             dropDownEditControl.SetDesignText();
         }
 
+        /// <summary>
+        /// The rs is tab stop property
+        /// </summary>
         public static new readonly DependencyProperty RsIsTabStopProperty =
             DependencyProperty.Register(nameof(RsIsTabStop), typeof(bool), typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(true, RsIsTabStopChangedCallback));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [rs is tab stop].
+        /// </summary>
+        /// <value><c>true</c> if [rs is tab stop]; otherwise, <c>false</c>.</value>
         public new bool RsIsTabStop
         {
             get { return (bool)GetValue(RsIsTabStopProperty); }
             set { SetValue(RsIsTabStopProperty, value); }
         }
 
+        /// <summary>
+        /// Rses the is tab stop changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void RsIsTabStopChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -100,6 +128,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Borders the thickness changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void BorderThicknessChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -110,6 +143,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Backgrounds the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void BackgroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -120,6 +158,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Heights the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void HeightChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -140,6 +183,11 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
 
+        /// <summary>
+        /// Foregrounds the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ForegroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -150,16 +198,28 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The selection brush property
+        /// </summary>
         public static readonly DependencyProperty SelectionBrushProperty =
             DependencyProperty.Register(nameof(SelectionBrush), typeof(Brush), typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(SelectionBrushChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the selection brush.
+        /// </summary>
+        /// <value>The selection brush.</value>
         public Brush SelectionBrush
         {
             get { return (Brush)GetValue(SelectionBrushProperty); }
             set { SetValue(SelectionBrushProperty, value); }
         }
 
+        /// <summary>
+        /// Selections the brush changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void SelectionBrushChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -167,16 +227,28 @@ namespace RingSoft.DataEntryControls.WPF
             dropDownEditControl.SetControlStyleProperties();
         }
 
+        /// <summary>
+        /// The UI command property
+        /// </summary>
         public static readonly DependencyProperty UiCommandProperty =
             DependencyProperty.Register(nameof(UiCommand), typeof(UiCommand), typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(UiCommandChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the UI command.
+        /// </summary>
+        /// <value>The UI command.</value>
         public UiCommand UiCommand
         {
             get { return (UiCommand)GetValue(UiCommandProperty); }
             set { SetValue(UiCommandProperty, value); }
         }
 
+        /// <summary>
+        /// UIs the command changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void UiCommandChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -191,16 +263,28 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The UI label property
+        /// </summary>
         public static readonly DependencyProperty UiLabelProperty =
             DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(DropDownEditControl),
                 new FrameworkPropertyMetadata(UiLabelChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the UI label.
+        /// </summary>
+        /// <value>The UI label.</value>
         public Label UiLabel
         {
             get { return (Label)GetValue(UiLabelProperty); }
             set { SetValue(UiLabelProperty, value); }
         }
 
+        /// <summary>
+        /// UIs the label changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void UiLabelChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -210,7 +294,14 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
 
+        /// <summary>
+        /// The text box
+        /// </summary>
         private TextBox _textBox;
+        /// <summary>
+        /// Gets or sets the text box.
+        /// </summary>
+        /// <value>The text box.</value>
         public TextBox TextBox
         {
             get => _textBox;
@@ -236,8 +327,15 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The drop down button
+        /// </summary>
         private Button _dropDownButton;
 
+        /// <summary>
+        /// Gets or sets the drop down button.
+        /// </summary>
+        /// <value>The drop down button.</value>
         public Button DropDownButton
         {
             get => _dropDownButton;
@@ -256,8 +354,15 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The popup
+        /// </summary>
         private Popup _popup;
 
+        /// <summary>
+        /// Gets or sets the popup.
+        /// </summary>
+        /// <value>The popup.</value>
         public Popup Popup
         {
             get => _popup;
@@ -273,6 +378,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>The text.</value>
         public string Text
         {
             get
@@ -289,6 +398,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selection start.
+        /// </summary>
+        /// <value>The selection start.</value>
         public int SelectionStart
         {
             get
@@ -305,6 +418,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the length of the selection.
+        /// </summary>
+        /// <value>The length of the selection.</value>
         public int SelectionLength
         {
             get
@@ -321,8 +438,15 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The read only mode
+        /// </summary>
         private bool _readOnlyMode;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [read only mode].
+        /// </summary>
+        /// <value><c>true</c> if [read only mode]; otherwise, <c>false</c>.</value>
         public bool ReadOnlyMode
         {
             get => _readOnlyMode;
@@ -338,12 +462,27 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
 
+        /// <summary>
+        /// Occurs when [value changed].
+        /// </summary>
         public event EventHandler<ValueChangedArgs> ValueChanged;
 
+        /// <summary>
+        /// The processing key
+        /// </summary>
         private bool _processingKey;
+        /// <summary>
+        /// The set focus
+        /// </summary>
         private bool _setFocus;
+        /// <summary>
+        /// The vm UI control
+        /// </summary>
         private VmUiControl _vmUiControl;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DropDownEditControl"/> class.
+        /// </summary>
         static DropDownEditControl()
         {
             IsTabStopProperty.OverrideMetadata(typeof(DropDownEditControl), new FrameworkPropertyMetadata(false));
@@ -364,6 +503,9 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(HeightChangedCallback));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DropDownEditControl"/> class.
+        /// </summary>
         public DropDownEditControl()
         {
             LostFocus += (sender, args) =>
@@ -384,6 +526,9 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             TextBox = GetTemplateChild("TextBox") as StringEditControl;
@@ -410,6 +555,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Sets the control style properties.
+        /// </summary>
         private void SetControlStyleProperties()
         {
             if (TextBox != null)
@@ -428,6 +576,10 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         //Necessary
+        /// <summary>
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.UIElement.GotFocus" /> event reaches this element in its route.
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs" /> that contains the event data.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             if (TextBox == null)
@@ -442,23 +594,40 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnGotFocus(e);
         }
 
+        /// <summary>
+        /// Focuses this instance.
+        /// </summary>
+        /// <returns><see langword="true" /> if keyboard focus and logical focus were set to this element; <see langword="false" /> if only logical focus was set to this element, or if the call to this method did not force the focus to change.</returns>
         public new bool Focus()
         {
             base.Focus();
             return IsKeyboardFocusWithin;
         }
 
+        /// <summary>
+        /// Sets the design text.
+        /// </summary>
         private void SetDesignText()
         {
             if (DesignerProperties.GetIsInDesignMode(this) && TextBox != null)
                 TextBox.Text = DesignText;
         }
 
+        /// <summary>
+        /// Handles the Click event of the _dropDownButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void _dropDownButton_Click(object sender, RoutedEventArgs e)
         {
             OnDropDownButtonClick();
         }
 
+        /// <summary>
+        /// Handles the PreviewKeyDown event of the _textBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void _textBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             _processingKey = true;
@@ -490,33 +659,59 @@ namespace RingSoft.DataEntryControls.WPF
             _processingKey = false;
         }
 
+        /// <summary>
+        /// Handles the Closed event of the _popup control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void _popup_Closed(object sender, EventArgs e)
         {
             if (TextBox != null)
                 TextBox.Focus();
         }
 
+        /// <summary>
+        /// Called when [text box got focus].
+        /// </summary>
         protected virtual void OnTextBoxGotFocus()
         {
             //_textBox.SelectionStart = 0;
             //_textBox.SelectionLength = _textBox.Text.Length;
         }
+        /// <summary>
+        /// Handles the GotFocus event of the _textBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void _textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             OnTextBoxGotFocus();
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the _textBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void _textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!_processingKey && !DesignerProperties.GetIsInDesignMode(this))
                 OnTextChanged(TextBox.Text);
         }
 
+        /// <summary>
+        /// Called when [text changed].
+        /// </summary>
+        /// <param name="newText">The new text.</param>
         protected virtual void OnTextChanged(string newText)
         {
 
         }
 
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown" /> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.KeyEventArgs" /> that contains the event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             if (Popup != null && Popup.IsOpen && e.Key == Key.Escape)
@@ -528,6 +723,9 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnPreviewKeyDown(e);
         }
 
+        /// <summary>
+        /// Called when [drop down button click].
+        /// </summary>
         public virtual void OnDropDownButtonClick()
         {
             if (Popup != null)
@@ -547,26 +745,47 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Processes the key character.
+        /// </summary>
+        /// <param name="keyChar">The key character.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected virtual bool ProcessKeyChar(char keyChar)
         {
             return false;
         }
 
+        /// <summary>
+        /// Processes the key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected virtual bool ProcessKey(Key key)
         {
             return false;
         }
 
+        /// <summary>
+        /// Determines whether [is popup open].
+        /// </summary>
+        /// <returns><c>true</c> if [is popup open]; otherwise, <c>false</c>.</returns>
         public bool IsPopupOpen()
         {
             return Popup != null && Popup.IsOpen;
         }
 
+        /// <summary>
+        /// Called when [value changed].
+        /// </summary>
+        /// <param name="newValue">The new value.</param>
         public virtual void OnValueChanged(string newValue)
         {
             ValueChanged?.Invoke(this, new ValueChangedArgs(newValue));
         }
 
+        /// <summary>
+        /// Selects all.
+        /// </summary>
         public void SelectAll()
         {
             TextBox?.SelectAll();

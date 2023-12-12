@@ -1,4 +1,17 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="DataEntryGridDateHost.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 using System;
 using System.Windows;
@@ -7,34 +20,75 @@ using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
+    /// <summary>
+    /// Class DataEntryGridDateHost.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridDropDownControlHost{RingSoft.DataEntryControls.WPF.DateEditControl}" />
+    /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridDropDownControlHost{RingSoft.DataEntryControls.WPF.DateEditControl}" />
     public class DataEntryGridDateHost : DataEntryGridDropDownControlHost<DateEditControl>
     {
+        /// <summary>
+        /// Gets a value indicating whether [allow read only edit].
+        /// </summary>
+        /// <value><c>true</c> if [allow read only edit]; otherwise, <c>false</c>.</value>
         public override bool AllowReadOnlyEdit => true;
 
+        /// <summary>
+        /// The setup
+        /// </summary>
         private DateEditControlSetup _setup;
+        /// <summary>
+        /// The value
+        /// </summary>
         private DateTime? _value;
+        /// <summary>
+        /// The grid read only mode
+        /// </summary>
         private bool _gridReadOnlyMode;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridDateHost"/> class.
+        /// </summary>
+        /// <param name="grid">The grid.</param>
         public DataEntryGridDateHost(DataEntryGrid grid) : base(grid)
         {
         }
 
+        /// <summary>
+        /// Gets the cell value.
+        /// </summary>
+        /// <returns>DataEntryGridEditingCellProps.</returns>
         public override DataEntryGridEditingCellProps GetCellValue()
         {
             return new DataEntryGridDateCellProps(Row, ColumnId, _setup, Control.Value);
         }
 
+        /// <summary>
+        /// Determines whether [has data changed].
+        /// </summary>
+        /// <returns><c>true</c> if [has data changed]; otherwise, <c>false</c>.</returns>
         public override bool HasDataChanged()
         {
             return Control.Value != _value;
         }
 
+        /// <summary>
+        /// Updates from cell props.
+        /// </summary>
+        /// <param name="cellProps">The cell props.</param>
         public override void UpdateFromCellProps(DataEntryGridCellProps cellProps)
         {
             var dateCellProps = (DataEntryGridDateCellProps)cellProps;
             _value = dateCellProps.Value;
         }
 
+        /// <summary>
+        /// Called when [control loaded].
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <param name="cellProps">The cell props.</param>
+        /// <param name="cellStyle">The cell style.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         protected override void OnControlLoaded(DateEditControl control, DataEntryGridEditingCellProps cellProps,
             DataEntryGridCellStyle cellStyle)
         {
@@ -70,6 +124,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             base.OnControlLoaded(control, cellProps, cellStyle);
         }
 
+        /// <summary>
+        /// Imports the data grid cell properties.
+        /// </summary>
+        /// <param name="dataGridCell">The data grid cell.</param>
         protected override void ImportDataGridCellProperties(DataGridCell dataGridCell)
         {
             base.ImportDataGridCellProperties(dataGridCell);
@@ -79,6 +137,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             }
         }
 
+        /// <summary>
+        /// Determines whether this instance [can grid process key] the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if this instance [can grid process key] the specified key; otherwise, <c>false</c>.</returns>
         public override bool CanGridProcessKey(Key key)
         {
             if (Control.IsPopupOpen())
@@ -95,6 +158,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             return base.CanGridProcessKey(key);
         }
 
+        /// <summary>
+        /// Sets the read only mode.
+        /// </summary>
+        /// <param name="readOnlyMode">if set to <c>true</c> [read only mode].</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool SetReadOnlyMode(bool readOnlyMode)
         {
             _gridReadOnlyMode = readOnlyMode;

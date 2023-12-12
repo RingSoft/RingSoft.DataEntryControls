@@ -1,4 +1,17 @@
-﻿using RingSoft.DataEntryControls.Engine;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="DataEntryGridCheckBox.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using RingSoft.DataEntryControls.Engine;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -7,8 +20,17 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
+    /// <summary>
+    /// Class DataEntryGridCheckBoxColumn.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCheckBox}" />
+    /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCheckBox}" />
     public class DataEntryGridCheckBoxColumn : DataEntryGridControlColumn<DataEntryGridCheckBox>
     {
+        /// <summary>
+        /// Gets the designer data value.
+        /// </summary>
+        /// <value>The designer data value.</value>
         public override string DesignerDataValue
         {
             get
@@ -18,8 +40,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// The designer value
+        /// </summary>
         private bool _designerValue;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [designer value].
+        /// </summary>
+        /// <value><c>true</c> if [designer value]; otherwise, <c>false</c>.</value>
         public bool DesignerValue
         {
             get => _designerValue;
@@ -33,6 +62,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             }
         }
 
+        /// <summary>
+        /// Processes the cell framework element factory.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
+        /// <param name="dataColumnName">Name of the data column.</param>
         protected override void ProcessCellFrameworkElementFactory(FrameworkElementFactory factory,
             string dataColumnName)
         {
@@ -43,46 +77,35 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     }
 
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid.Column"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF.DataEntryGrid.Column;assembly=RingSoft.DataEntryControls.WPF.DataEntryGrid.Column"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:DataEntryGridCheckBox/>
-    ///
+    /// Class DataEntryGridCheckBox.
+    /// Implements the <see cref="CheckBox" />
     /// </summary>
+    /// <seealso cref="CheckBox" />
+    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryGridCheckBox : CheckBox
     {
+        /// <summary>
+        /// The data value property
+        /// </summary>
         public static readonly DependencyProperty DataValueProperty =
             DependencyProperty.Register(nameof(DataValue), typeof(string), typeof(DataEntryGridCheckBox),
                 new FrameworkPropertyMetadata(DataValueChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the data value.
+        /// </summary>
+        /// <value>The data value.</value>
         public string DataValue
         {
             get { return (string)GetValue(DataValueProperty); }
             set { SetValue(DataValueProperty, value); }
         }
 
+        /// <summary>
+        /// Datas the value changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void DataValueChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -90,13 +113,22 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             dataEntryGridCheckBox.SetDataValue();
         }
 
+        /// <summary>
+        /// The processor
+        /// </summary>
         private DataEntryGridControlColumnProcessor _processor;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DataEntryGridCheckBox"/> class.
+        /// </summary>
         static DataEntryGridCheckBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryGridCheckBox), new FrameworkPropertyMetadata(typeof(DataEntryGridCheckBox)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridCheckBox"/> class.
+        /// </summary>
         public DataEntryGridCheckBox()
         {
             _processor = new DataEntryGridControlColumnProcessor(this);
@@ -104,6 +136,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             _processor.ControlValueChanged += (sender, args) => IsChecked = args.ControlValue.ToBool();
         }
 
+        /// <summary>
+        /// Sets the data value.
+        /// </summary>
         private void SetDataValue()
         {
             _processor.SetDataValue(DataValue);

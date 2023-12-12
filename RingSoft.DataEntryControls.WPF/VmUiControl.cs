@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 09-18-2023
+//
+// Last Modified By : petem
+// Last Modified On : 10-30-2023
+// ***********************************************************************
+// <copyright file="VmUiControl.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,14 +19,34 @@ using RingSoft.DataEntryControls.Engine;
 
 namespace RingSoft.DataEntryControls.WPF
 {
+    /// <summary>
+    /// Class VmUiControl.
+    /// </summary>
     public class VmUiControl
     {
+        /// <summary>
+        /// Gets the control.
+        /// </summary>
+        /// <value>The control.</value>
         public Control Control { get; }
 
+        /// <summary>
+        /// Gets the label.
+        /// </summary>
+        /// <value>The label.</value>
         public Label Label { get; private set; }
 
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <value>The command.</value>
         public UiCommand Command { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VmUiControl"/> class.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <param name="command">The command.</param>
         public VmUiControl(Control control, UiCommand command)
         {
             Control = control;
@@ -66,11 +99,21 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the GotFocus event of the Control control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Control_GotFocus(object sender, RoutedEventArgs e)
         {
             Command.FireGotFocusEvent();
         }
 
+        /// <summary>
+        /// Handles the PreviewLostKeyboardFocus event of the Control control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyboardFocusChangedEventArgs"/> instance containing the event data.</param>
         private void Control_PreviewLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
         {
             var activeWindow = WPFControlsGlobals.ActiveWindow;
@@ -106,6 +149,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Commands the set caption.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void Command_SetCaption(object sender, UiCaptionArgs e)
         {
             if (Label != null)
@@ -119,21 +167,38 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the OnSetFocus event of the Command control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Command_OnSetFocus(object sender, EventArgs e)
         {
             OnSetFocus();
         }
 
+        /// <summary>
+        /// Called when [set focus].
+        /// </summary>
         protected virtual void OnSetFocus()
         {
             Control.SetTabFocusToControl();
         }
 
+        /// <summary>
+        /// Commands the set read only.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void Command_SetReadOnly(object sender, UiReadOnlyArgs e)
         {
             OnSetReadOnly(e.IsReadOnly);
         }
 
+        /// <summary>
+        /// Called when [set read only].
+        /// </summary>
+        /// <param name="readOnly">if set to <c>true</c> [read only].</param>
         protected void OnSetReadOnly(bool readOnly)
         {
             if (Control is TextBox textBox)
@@ -149,11 +214,20 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Commands the set enabled.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void Command_SetEnabled(object sender, UiEnabledArgs e)
         {
             OnSetEnabled(e.IsEnabled);
         }
 
+        /// <summary>
+        /// Called when [set enabled].
+        /// </summary>
+        /// <param name="isEnabled">if set to <c>true</c> [is enabled].</param>
         protected void OnSetEnabled(bool isEnabled)
         {
             Control.IsEnabled = isEnabled;
@@ -163,11 +237,21 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Commands the set visibility.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void Command_SetVisibility(object sender, UiVisibilityArgs e)
         {
             OnSetVisibility(e.VisibilityType);
         }
 
+        /// <summary>
+        /// Called when [set visibility].
+        /// </summary>
+        /// <param name="visibilityType">Type of the visibility.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         protected void OnSetVisibility(UiVisibilityTypes visibilityType)
         {
             switch (visibilityType)
@@ -191,6 +275,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Sets the label.
+        /// </summary>
+        /// <param name="label">The label.</param>
         public void SetLabel(Label label)
         {
             Label = label;

@@ -1,59 +1,66 @@
-﻿using System.Windows;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 11-11-2022
+// ***********************************************************************
+// <copyright file="DataEntryMemoTabItem.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Windows;
 using System.Windows.Controls;
 
 // ReSharper disable once CheckNamespace
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:DataEntryMemoTabItem/>
-    ///
+    /// Class DataEntryMemoTabItem.
+    /// Implements the <see cref="TabItem" />
     /// </summary>
+    /// <seealso cref="TabItem" />
+    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryMemoTabItem : TabItem
     {
+        /// <summary>
+        /// The notification visibility property
+        /// </summary>
         public static readonly DependencyProperty NotificationVisibilityProperty =
             DependencyProperty.Register(nameof(NotificationVisibility), typeof(Visibility), typeof(DataEntryMemoTabItem),
                 new FrameworkPropertyMetadata(Visibility.Collapsed));
 
+        /// <summary>
+        /// Gets or sets the notification visibility.
+        /// </summary>
+        /// <value>The notification visibility.</value>
         public Visibility NotificationVisibility
         {
             get { return (Visibility)GetValue(NotificationVisibilityProperty); }
             set { SetValue(NotificationVisibilityProperty, value); }
         }
 
+        /// <summary>
+        /// The memo has text property
+        /// </summary>
         public static readonly DependencyProperty MemoHasTextProperty =
             DependencyProperty.Register(nameof(MemoHasText), typeof(bool), typeof(DataEntryMemoTabItem));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [memo has text].
+        /// </summary>
+        /// <value><c>true</c> if [memo has text]; otherwise, <c>false</c>.</value>
         public bool MemoHasText
         {
             get { return (bool)GetValue(MemoHasTextProperty); }
             set { SetValue(MemoHasTextProperty, value); }
         }
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DataEntryMemoTabItem"/> class.
+        /// </summary>
         static DataEntryMemoTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryMemoTabItem), new FrameworkPropertyMetadata(typeof(DataEntryMemoTabItem)));

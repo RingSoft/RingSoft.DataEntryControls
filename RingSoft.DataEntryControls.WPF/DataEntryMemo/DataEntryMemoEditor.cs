@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-11-2022
+//
+// Last Modified By : petem
+// Last Modified On : 06-28-2023
+// ***********************************************************************
+// <copyright file="DataEntryMemoEditor.cs" company="Peter Ringering">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Globalization;
 using System.Media;
 using System.Windows;
@@ -10,48 +23,39 @@ using RingSoft.DataEntryControls.Engine;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:NewDataEntryMemoEditor/>
-    ///
+    /// Class DataEntryMemoEditor.
+    /// Implements the <see cref="Control" />
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
     /// </summary>
+    /// <seealso cref="Control" />
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.IReadOnlyControl" />
+    /// <font color="red">Badly formed XML comment.</font>
     [TemplatePart(Name = "TextBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "DateStampButton", Type = typeof(Button))]
     public class DataEntryMemoEditor : Control, IReadOnlyControl
     {
+        /// <summary>
+        /// The text property
+        /// </summary>
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata(TextChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>The text.</value>
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
 
+        /// <summary>
+        /// Texts the changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void TextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -60,25 +64,44 @@ namespace RingSoft.DataEntryControls.WPF
                 memoEditor.SetText();
         }
 
+        /// <summary>
+        /// The select all on got focus property
+        /// </summary>
         public static readonly DependencyProperty SelectAllOnGotFocusProperty =
             DependencyProperty.Register(nameof(SelectAllOnGotFocus), typeof(bool), typeof(DataEntryMemoEditor));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [select all on got focus].
+        /// </summary>
+        /// <value><c>true</c> if [select all on got focus]; otherwise, <c>false</c>.</value>
         public bool SelectAllOnGotFocus
         {
             get { return (bool)GetValue(SelectAllOnGotFocusProperty); }
             set { SetValue(SelectAllOnGotFocusProperty, value); }
         }
 
+        /// <summary>
+        /// The date format property
+        /// </summary>
         public static readonly DependencyProperty DateFormatProperty =
             DependencyProperty.Register(nameof(DateFormat), typeof(string), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata("G", DateFormatChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the date format.
+        /// </summary>
+        /// <value>The date format.</value>
         public string DateFormat
         {
             get { return (string)GetValue(DateFormatProperty); }
             set { SetValue(DateFormatProperty, value); }
         }
 
+        /// <summary>
+        /// Dates the format changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void DateFormatChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -86,16 +109,28 @@ namespace RingSoft.DataEntryControls.WPF
             DateEditControlSetup.ValidateDateFormat(dataEntryMemoEditor.DateFormat);
         }
 
+        /// <summary>
+        /// The culture identifier property
+        /// </summary>
         public static readonly DependencyProperty CultureIdProperty =
             DependencyProperty.Register(nameof(CultureId), typeof(string), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata(CultureInfo.CurrentCulture.Name, CultureIdChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the culture identifier.
+        /// </summary>
+        /// <value>The culture identifier.</value>
         public string CultureId
         {
             get { return (string)GetValue(CultureIdProperty); }
             set { SetValue(CultureIdProperty, value); }
         }
 
+        /// <summary>
+        /// Cultures the identifier changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -104,16 +139,28 @@ namespace RingSoft.DataEntryControls.WPF
             newDataEntryMemoEditor.Culture = culture;
         }
 
+        /// <summary>
+        /// The read only mode property
+        /// </summary>
         public static readonly DependencyProperty ReadOnlyModeProperty =
             DependencyProperty.Register(nameof(ReadOnlyMode), typeof(bool), typeof(DataEntryMemoEditor),
                 new FrameworkPropertyMetadata(ReadOnlyModeChangedCallback));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [read only mode].
+        /// </summary>
+        /// <value><c>true</c> if [read only mode]; otherwise, <c>false</c>.</value>
         public bool ReadOnlyMode
         {
             get { return (bool)GetValue(ReadOnlyModeProperty); }
             set { SetValue(ReadOnlyModeProperty, value); }
         }
 
+        /// <summary>
+        /// Reads the only mode changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ReadOnlyModeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -121,11 +168,22 @@ namespace RingSoft.DataEntryControls.WPF
             dataEntryGrid.SetReadOnlyMode(dataEntryGrid.ReadOnlyMode);
         }
 
+        /// <summary>
+        /// Gets or sets the culture.
+        /// </summary>
+        /// <value>The culture.</value>
         public CultureInfo Culture { get; protected internal set; }
 
 
+        /// <summary>
+        /// The text box
+        /// </summary>
         private TextBox _textBox;
 
+        /// <summary>
+        /// Gets or sets the text box.
+        /// </summary>
+        /// <value>The text box.</value>
         public TextBox TextBox
         {
             get => _textBox;
@@ -148,8 +206,15 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// The date stamp button
+        /// </summary>
         private Button _dateStampButton;
 
+        /// <summary>
+        /// Gets or sets the date stamp button.
+        /// </summary>
+        /// <value>The date stamp button.</value>
         public Button DateStampButton
         {
             get => _dateStampButton;
@@ -169,14 +234,33 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the notifier.
+        /// </summary>
+        /// <value>The notifier.</value>
         public DataEntryMemoTabItem Notifier { get; set; }
 
+        /// <summary>
+        /// Occurs when [text changed].
+        /// </summary>
         public event EventHandler TextChanged;
 
+        /// <summary>
+        /// The control loaded
+        /// </summary>
         private bool _controlLoaded;
+        /// <summary>
+        /// The setting text
+        /// </summary>
         private bool _settingText;
+        /// <summary>
+        /// The read only mode
+        /// </summary>
         private bool _readOnlyMode;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DataEntryMemoEditor"/> class.
+        /// </summary>
         static DataEntryMemoEditor()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DataEntryMemoEditor),
@@ -189,13 +273,22 @@ namespace RingSoft.DataEntryControls.WPF
                 new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
         }
 
+        /// <summary>
+        /// The collapse date button
+        /// </summary>
         private bool _collapseDateButton;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryMemoEditor"/> class.
+        /// </summary>
         public DataEntryMemoEditor()
         {
             Loaded += (sender, args) => OnLoad();
         }
 
+        /// <summary>
+        /// Called when [load].
+        /// </summary>
         private void OnLoad()
         {
             if (!_controlLoaded)
@@ -212,6 +305,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             TextBox = GetTemplateChild(nameof(TextBox)) as TextBox;
@@ -226,11 +322,21 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the TextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = TextBox.Text;
         }
 
+        /// <summary>
+        /// Handles the GotFocus event of the TextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (SelectAllOnGotFocus)
@@ -239,6 +345,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the DateStampButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DateStampButton_Click(object sender, RoutedEventArgs e)
         {
             if (TextBox != null)
@@ -247,6 +358,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Called when [date stamp].
+        /// </summary>
         protected virtual void OnDateStamp()
         {
             var stamp = $"{DateTime.Now.ToString(DateFormat, Culture)} - ";
@@ -255,6 +369,9 @@ namespace RingSoft.DataEntryControls.WPF
             TextBox.SelectionLength = 0;
         }
 
+        /// <summary>
+        /// Sets the text.
+        /// </summary>
         private void SetText()
         {
             if (_settingText)
@@ -270,12 +387,19 @@ namespace RingSoft.DataEntryControls.WPF
             TextChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Notifies the has text.
+        /// </summary>
         private void NotifyHasText()
         {
             if (Notifier != null)
                 Notifier.MemoHasText = !Text.IsNullOrEmpty();
         }
 
+        /// <summary>
+        /// Sets the read only mode.
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public void SetReadOnlyMode(bool readOnlyValue)
         {
             if (!readOnlyValue && ReadOnlyMode)
@@ -295,6 +419,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the KeyDown event of the TextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (_readOnlyMode)
@@ -317,6 +446,9 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Collapses the date button.
+        /// </summary>
         public void CollapseDateButton()
         {
             if (DateStampButton != null)
