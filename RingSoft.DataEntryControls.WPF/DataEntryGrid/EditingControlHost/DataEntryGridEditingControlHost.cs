@@ -7,7 +7,7 @@
 // Last Modified On : 05-27-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridEditingControlHost.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -19,7 +19,7 @@ using System.Windows.Controls;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     /// <summary>
-    /// Class DataEntryGridEditingControlHost.
+    /// Grid cell's base control host.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridEditingControlHostBase" />
     /// </summary>
     /// <typeparam name="TControl">The type of the t control.</typeparam>

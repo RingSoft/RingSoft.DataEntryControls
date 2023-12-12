@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridContentComboBoxControlHost.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -22,7 +22,7 @@ using RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridContentComboBoxControlHost.
+    /// Grid cell's content combo box control's host.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridComboBoxHost{RingSoft.DataEntryControls.WPF.ContentComboBoxControl}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridComboBoxHost{RingSoft.DataEntryControls.WPF.ContentComboBoxControl}" />
@@ -105,7 +105,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         /// <summary>
-        /// Called when [combo control loaded].
+        /// Called by the control's loaded event.
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="cellProps">The cell props.</param>

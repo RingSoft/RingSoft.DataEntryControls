@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridHostFactory.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -17,7 +17,7 @@ using System;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     /// <summary>
-    /// Class DataEntryGridHostFactory.
+    /// Manufactures data entry grid cell control hosts.
     /// </summary>
     public class DataEntryGridHostFactory
     {

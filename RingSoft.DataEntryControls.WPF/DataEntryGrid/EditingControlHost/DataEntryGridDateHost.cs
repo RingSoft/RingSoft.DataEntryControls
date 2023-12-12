@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridDateHost.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -21,7 +21,7 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     /// <summary>
-    /// Class DataEntryGridDateHost.
+    /// Grid cell's date edit control host.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridDropDownControlHost{RingSoft.DataEntryControls.WPF.DateEditControl}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridDropDownControlHost{RingSoft.DataEntryControls.WPF.DateEditControl}" />
@@ -83,7 +83,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         }
 
         /// <summary>
-        /// Called when [control loaded].
+        /// Called by the control's loaded event.
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="cellProps">The cell props.</param>
@@ -138,7 +138,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         }
 
         /// <summary>
-        /// Determines whether this instance [can grid process key] the specified key.
+        /// Determines whether the grid can process the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns><c>true</c> if this instance [can grid process key] the specified key; otherwise, <c>false</c>.</returns>

@@ -7,7 +7,7 @@
 // Last Modified On : 01-26-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridComboBoxHost.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -20,7 +20,7 @@ using System.Windows.Input;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     /// <summary>
-    /// Class DataEntryGridTextComboBoxHost.
+    /// Grid cell's text combo box host.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridComboBoxHost{RingSoft.DataEntryControls.WPF.TextComboBoxControl}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridComboBoxHost{RingSoft.DataEntryControls.WPF.TextComboBoxControl}" />
@@ -107,7 +107,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         }
 
         /// <summary>
-        /// Called when [combo control loaded].
+        /// Called by the control's loaded event.
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="cellProps">The cell props.</param>
@@ -126,7 +126,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
     }
 
     /// <summary>
-    /// Class DataEntryGridComboBoxHost.
+    /// Grid cell's combo box host.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridEditingControlHost{TControl}" />
     /// </summary>
     /// <typeparam name="TControl">The type of the t control.</typeparam>
@@ -213,7 +213,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         protected abstract void SetSelectedItem(bool overrideCellMovement);
 
         /// <summary>
-        /// Called when [control loaded].
+        /// Called by the control's loaded event.
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="cellProps">The cell props.</param>
@@ -231,7 +231,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         }
 
         /// <summary>
-        /// Called when [combo control loaded].
+        /// Called by the combo box control's loaded event.
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="cellProps">The cell props.</param>
@@ -264,7 +264,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         }
 
         /// <summary>
-        /// Determines whether this instance [can grid process key] the specified key.
+        /// Determines whether the grid can process the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns><c>true</c> if this instance [can grid process key] the specified key; otherwise, <c>false</c>.</returns>

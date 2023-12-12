@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridIntegerControlHost.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -16,7 +16,7 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
 {
     /// <summary>
-    /// Class DataEntryGridIntegerControlHost.
+    /// Grid cell's integer edit control host.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridDropDownControlHost{RingSoft.DataEntryControls.WPF.IntegerEditControl}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost.DataEntryGridDropDownControlHost{RingSoft.DataEntryControls.WPF.IntegerEditControl}" />
@@ -64,7 +64,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         }
 
         /// <summary>
-        /// Called when [control loaded].
+        /// Called by the control's loaded event.
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="cellProps">The cell props.</param>
