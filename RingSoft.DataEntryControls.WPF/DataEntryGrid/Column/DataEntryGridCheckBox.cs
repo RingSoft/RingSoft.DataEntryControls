@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridCheckBox.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -21,7 +21,7 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridCheckBoxColumn.
+    /// A grid checkbox column
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCheckBox}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCheckBox}" />
@@ -77,11 +77,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridCheckBox.
+    /// A grid cell check box.
     /// Implements the <see cref="CheckBox" />
     /// </summary>
     /// <seealso cref="CheckBox" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryGridCheckBox : CheckBox
     {
         /// <summary>

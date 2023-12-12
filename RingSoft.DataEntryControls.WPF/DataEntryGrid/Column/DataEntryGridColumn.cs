@@ -7,7 +7,7 @@
 // Last Modified On : 05-05-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridColumn.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -28,11 +28,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     public enum DataEntryGridColumnTypes
     {
         /// <summary>
-        /// The text
+        /// Text column
         /// </summary>
         Text = 0,
         /// <summary>
-        /// The control
+        /// Control column
         /// </summary>
         Control = 1
     }

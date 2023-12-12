@@ -7,7 +7,7 @@
 // Last Modified On : 05-05-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridButton.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -20,7 +20,7 @@ using RingSoft.DataEntryControls.Engine.DataEntryGrid;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridButtonColumn.
+    /// A grid cell button column.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridButton}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridButton}" />
@@ -76,7 +76,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
     }
 
     /// <summary>
-    /// Class DataEntryGridButton.
+    /// A grid cell button.
     /// Implements the <see cref="Button" />
     /// </summary>
     /// <seealso cref="Button" />

@@ -7,7 +7,7 @@
 // Last Modified On : 11-11-2022
 // ***********************************************************************
 // <copyright file="DataEntryGridCustomControl.cs" company="Peter Ringering">
-//     Copyright (c) . All rights reserved.
+//     Copyright (c)2023 . All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -21,7 +21,7 @@ using System.Windows.Data;
 namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 {
     /// <summary>
-    /// Class DataEntryGridCustomControlColumn.
+    /// A grid custom control column.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCustomControl}" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridControlColumn{RingSoft.DataEntryControls.WPF.DataEntryGrid.DataEntryGridCustomControl}" />
@@ -92,22 +92,21 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
     }
     /// <summary>
-    /// Class DataEntryGridCustomControl.
+    /// A grid cell custom content control.
     /// Implements the <see cref="RingSoft.DataEntryControls.WPF.CustomContentControl" />
     /// </summary>
     /// <seealso cref="RingSoft.DataEntryControls.WPF.CustomContentControl" />
-    /// <font color="red">Badly formed XML comment.</font>
     public class DataEntryGridCustomControl : CustomContentControl
     {
         /// <summary>
-        /// The data value property
+        /// The data value property.
         /// </summary>
         public static readonly DependencyProperty DataValueProperty =
             DependencyProperty.Register(nameof(DataValue), typeof(string), typeof(DataEntryGridCustomControl),
                 new FrameworkPropertyMetadata(DataValueChangedCallback));
 
         /// <summary>
-        /// Gets or sets the data value.
+        /// Gets or sets the data value.  This is a bind-able property.
         /// </summary>
         /// <value>The data value.</value>
         public string DataValue
