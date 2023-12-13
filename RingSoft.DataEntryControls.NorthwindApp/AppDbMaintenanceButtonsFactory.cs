@@ -7,11 +7,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 {
     public class AppDbMaintenanceButtonsFactory : DbMaintenanceButtonsFactory
     {
-        public override Control GetButtonsControl()
-        {
-            return new DbMaintenanceButtonsControl();
-        }
-
         public override Control GetAdvancedFindButtonsControl(AdvancedFindViewModel viewModel)
         {
             var result = new DbMaintenanceButtonsControl();
