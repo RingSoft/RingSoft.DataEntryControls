@@ -292,10 +292,14 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         private static ControlsUserInterface _userInterface = new ControlsUserInterface();
 
+        static WPFControlsGlobals()
+        {
+            InitUi();
+        }
         /// <summary>
         /// Initializes the UI.
         /// </summary>
-        public static void InitUi()
+        private static void InitUi()
         {
             ControlsGlobals.UserInterface = _userInterface;
         }

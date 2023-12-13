@@ -40,16 +40,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             SystemGlobals.ProgramDataFolder = ProgramDataFolder;
 
-            LookupControlsGlobals.InitUi();
-
             base.StartAppMobile(dataDir);
         }
 
         public override void StartApp(string[] args)
         {
             SystemGlobals.ProgramDataFolder = ProgramDataFolder;
-
-            LookupControlsGlobals.InitUi();
 
             _mainWindow = new MainWindow();
 

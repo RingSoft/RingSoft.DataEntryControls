@@ -16,8 +16,6 @@ namespace TestDummyApp
             //var culture = new CultureInfo("sv-SE"); //Format = 1 234,56 kr
             //var culture = CultureInfo.CurrentCulture;
 
-            WPFControlsGlobals.InitUi();
-
             Globals.CultureId = culture.Name;
             Globals.Precision = culture.NumberFormat.CurrencyDecimalDigits;
 
