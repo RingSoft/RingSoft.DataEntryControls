@@ -23,8 +23,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         public SalesEntryWindow()
         {
             InitializeComponent();
-            Initialize();
-
+            
             SalesEntryViewModel.CheckDirtyMessageShown += (_, args) =>
             {
                 if (args.Result == MessageButtons.Cancel)

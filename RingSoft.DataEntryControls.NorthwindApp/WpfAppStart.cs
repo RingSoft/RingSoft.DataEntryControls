@@ -77,6 +77,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         protected override void FinishStartup()
         {
+            AppGlobals.LookupContext.Initialize();
             AppGlobals.LookupContext.LookupAddView += LookupContext_LookupAddView;
 
             LookupControlsGlobals.DbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
@@ -108,7 +109,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             }
         }
 
-        private void ShowAddOnTheFlyWindow(DbMaintenanceWindow maintenanceWindow, LookupAddViewArgs e)
+        private void ShowAddOnTheFlyWindow(AppDbMaintenanceWindow maintenanceWindow, LookupAddViewArgs e)
         {
             if (e.OwnerWindow is Window ownerWindow)
                 maintenanceWindow.Owner = ownerWindow;

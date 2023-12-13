@@ -19,7 +19,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         public PurchaseOrderWindow()
         {
             InitializeComponent();
-            Initialize();
             RegisterFormKeyControl(PoNumberControl);
 
             PurchaseOrderViewModel.CheckDirtyMessageShown += (_, args) =>

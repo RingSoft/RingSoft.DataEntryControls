@@ -20,7 +20,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             InitializeComponent();
 
-            Initialize();
             RegisterFormKeyControl(ProductNameControl);
 
             QtyPerUnitEdit.MaxLength =

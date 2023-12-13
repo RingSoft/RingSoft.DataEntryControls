@@ -84,7 +84,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
         public static void Initialize()
         {
             var processor = new SystemDataRepositoryEfCore();
-            processor.Initialize();
+            //processor.Initialize();
             DataDirectory = AppDataDirectory;
             var registryElementName = "RegistryFileName";
             var appSettingsFile = $"{AppDataDirectory}\\AppSettings.xml";

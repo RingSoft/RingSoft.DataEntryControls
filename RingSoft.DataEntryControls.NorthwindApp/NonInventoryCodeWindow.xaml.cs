@@ -19,7 +19,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             InitializeComponent();
 
-            Initialize();
             RegisterFormKeyControl(DescriptionControl);
         }
 
@@ -27,14 +26,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             DescriptionControl.Focus();
             base.ResetViewForNewRecord();
-        }
-
-        public override void OnValidationFail(FieldDefinition fieldDefinition, string text, string caption)
-        {
-            if (fieldDefinition == AppGlobals.LookupContext.NonInventoryCodes.GetFieldDefinition(p => p.Description))
-                DescriptionControl.Focus();
-
-            base.OnValidationFail(fieldDefinition, text, caption);
         }
     }
 }

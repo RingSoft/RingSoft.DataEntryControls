@@ -68,8 +68,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
             {
                 DbContext.Database.Migrate();
             }
-            //SetAdvancedFind();
-            Initialize();
         }
         protected override void InitializeLookupDefinitions()
         {
