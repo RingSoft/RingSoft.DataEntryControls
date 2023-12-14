@@ -280,13 +280,13 @@ namespace RingSoft.DataEntryControls.WPF
         public static Window ActiveWindow => ControlsUserInterface.GetActiveWindow();
 
         /// <summary>
-        /// Gets or sets the data entry grid host factory.
+        /// Gets the data entry grid host factory.
         /// </summary>
         /// <value>The data entry grid host factory.</value>
         public static DataEntryGridHostFactory DataEntryGridHostFactory { get; internal set; } = new DataEntryGridHostFactory();
 
         /// <summary>
-        /// Gets or sets the vm UI factory.
+        /// Gets the vm UI factory.
         /// </summary>
         /// <value>The vm UI factory.</value>
         public static VmUiControlFactory VmUiFactory { get; internal set; } = new VmUiControlFactory();
