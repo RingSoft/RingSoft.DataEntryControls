@@ -64,6 +64,10 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public class VmUiControlFactory
     {
+        public VmUiControlFactory()
+        {
+            WPFControlsGlobals.VmUiFactory = this;
+        }
         /// <summary>
         /// Creates the UI control.
         /// </summary>
@@ -279,13 +283,13 @@ namespace RingSoft.DataEntryControls.WPF
         /// Gets or sets the data entry grid host factory.
         /// </summary>
         /// <value>The data entry grid host factory.</value>
-        public static DataEntryGridHostFactory DataEntryGridHostFactory { get; set; } = new DataEntryGridHostFactory();
+        public static DataEntryGridHostFactory DataEntryGridHostFactory { get; internal set; } = new DataEntryGridHostFactory();
 
         /// <summary>
         /// Gets or sets the vm UI factory.
         /// </summary>
         /// <value>The vm UI factory.</value>
-        public static VmUiControlFactory VmUiFactory { get; set; } = new VmUiControlFactory();
+        public static VmUiControlFactory VmUiFactory { get; internal set; } = new VmUiControlFactory();
 
         /// <summary>
         /// The user interface

@@ -80,10 +80,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             AppGlobals.LookupContext.Initialize();
             AppGlobals.LookupContext.LookupAddView += LookupContext_LookupAddView;
 
-            LookupControlsGlobals.DbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
-            LookupControlsGlobals.DbMaintenanceButtonsFactory = new AppDbMaintenanceButtonsFactory();
-            LookupControlsGlobals.LookupControlContentTemplateFactory =
-                new AppLookupContentTemplateFactory(_application);
+            var appDbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
+            var appDbMaintenanceButtonsFactory = new AppDbMaintenanceButtonsFactory();
+            var appLookupContentTemplateFactory = new AppLookupContentTemplateFactory(_application);
 
             _application.MainWindow = _mainWindow;
             _mainWindow.Show();

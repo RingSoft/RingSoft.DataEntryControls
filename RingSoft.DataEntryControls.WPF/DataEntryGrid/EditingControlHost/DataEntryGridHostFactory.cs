@@ -21,6 +21,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
     /// </summary>
     public class DataEntryGridHostFactory
     {
+        public DataEntryGridHostFactory()
+        {
+            WPFControlsGlobals.DataEntryGridHostFactory = this;
+        }
         /// <summary>
         /// Gets the control host.
         /// </summary>
