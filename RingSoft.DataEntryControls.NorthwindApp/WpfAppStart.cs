@@ -98,15 +98,5 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             _application.MainWindow = _mainWindow;
             _mainWindow.Show();
         }
-
-        private void ShowAddOnTheFlyWindow(AppDbMaintenanceWindow maintenanceWindow, LookupAddViewArgs e)
-        {
-            if (e.OwnerWindow is Window ownerWindow)
-                maintenanceWindow.Owner = ownerWindow;
-
-            maintenanceWindow.ShowInTaskbar = false;
-            maintenanceWindow.Processor.InitializeFromLookupData(e);
-            maintenanceWindow.ShowDialog();
-        }
     }
 }

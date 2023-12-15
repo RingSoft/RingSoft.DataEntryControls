@@ -337,7 +337,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
             Notes = entity.Notes;
 
             UpdateProductLookup(entity.Supplier);
-            RefreshTotalControls();
         }
 
         protected override Purchases GetEntityData()

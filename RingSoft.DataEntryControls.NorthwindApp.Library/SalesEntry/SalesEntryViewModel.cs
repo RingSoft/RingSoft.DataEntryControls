@@ -529,7 +529,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             Country = entity.ShipCountry;
             Notes = entity.Notes;
 
-            RefreshTotalControls();
             _customerDirty = false;
 
             if (ReadOnlyMode)

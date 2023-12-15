@@ -94,6 +94,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         {
             base.LoadGrid(entityList);
             PurchaseOrderViewModel.UpdateSupplierEnabled();
+            PurchaseOrderViewModel.RefreshTotalControls();
         }
     }
 }

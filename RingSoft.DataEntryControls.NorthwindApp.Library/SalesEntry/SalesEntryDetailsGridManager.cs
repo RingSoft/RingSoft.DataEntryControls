@@ -114,6 +114,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 GotoCell(row, ItemColumnId);
                 //SalesEntryViewModel.SalesEntryView.SetInitGridFocus(row, ItemColumnId);
             }
+            SalesEntryViewModel.RefreshTotalControls();
         }
     }
 }
