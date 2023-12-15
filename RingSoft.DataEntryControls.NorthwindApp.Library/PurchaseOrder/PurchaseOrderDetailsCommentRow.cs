@@ -161,7 +161,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 {
                     Comment = gridMemoValueLine.Text;
                     CommentCrLf = gridMemoValueLine.CrLf;
-                    Manager.Grid.UpdateRow(this);
+                    Manager.Grid?.UpdateRow(this);
                     firstLine = false;
                 }
                 else

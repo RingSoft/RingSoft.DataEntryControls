@@ -78,7 +78,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         protected override void FinishStartup()
         {
             AppGlobals.LookupContext.Initialize();
-            AppGlobals.LookupContext.LookupAddView += LookupContext_LookupAddView;
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<ProductWindow>(
+                AppGlobals.LookupContext.Products);
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<NonInventoryCodeWindow>(
+                AppGlobals.LookupContext.NonInventoryCodes);
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow>(
+                AppGlobals.LookupContext.Orders);
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow>(
+                AppGlobals.LookupContext.OrderDetails);
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow>(
+                AppGlobals.LookupContext.Purchases);
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow>(
+                AppGlobals.LookupContext.PurchaseDetails);
 
             var appDbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
             var appDbMaintenanceButtonsFactory = new AppDbMaintenanceButtonsFactory();
@@ -86,26 +97,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             _application.MainWindow = _mainWindow;
             _mainWindow.Show();
-        }
-
-        private void LookupContext_LookupAddView(object sender, LookupAddViewArgs e)
-        {
-            if (e.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.Products)
-            {
-                ShowAddOnTheFlyWindow(new ProductWindow(), e);
-            }
-            else if (e.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.NonInventoryCodes)
-            {
-                ShowAddOnTheFlyWindow(new NonInventoryCodeWindow(), e);
-            }
-            else if (e.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.Orders)
-            {
-                ShowAddOnTheFlyWindow(new SalesEntryWindow(), e);
-            }
-            else if (e.LookupData.LookupDefinition.TableDefinition == AppGlobals.LookupContext.OrderDetails)
-            {
-                ShowAddOnTheFlyWindow(new SalesEntryWindow(), e);
-            }
         }
 
         private void ShowAddOnTheFlyWindow(AppDbMaintenanceWindow maintenanceWindow, LookupAddViewArgs e)

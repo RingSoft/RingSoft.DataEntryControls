@@ -214,7 +214,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                     PurchaseOrderDetailsManager.CreateRowFromLineType((PurchaseOrderDetailsLineTypes)child.LineType);
                 AddChildRow(childRow);
                 childRow.LoadFromEntity(child);
-                Manager.Grid.UpdateRow(childRow);
+                Manager.Grid?.UpdateRow(childRow);
             }
 
             base.LoadFromEntity(entity);
