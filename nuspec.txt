@@ -1,0 +1,8 @@
+<package>
+    <metadata>
+    <readme>docs\README.md</readme>
+    </metadata>
+    <files>
+    <file src="..\README.md" target="docs\" />
+    </files>
+</package>

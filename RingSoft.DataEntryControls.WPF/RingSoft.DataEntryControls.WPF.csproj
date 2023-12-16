@@ -5,21 +5,25 @@
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <UseWPF>true</UseWPF>
     <Version>8.4.1</Version>
-    <Description>WPF Controls which allow for quick user data entry.</Description>
+    <Description>This package contains multiple controls that makes data entry for the user quick and easy with little effort from the developer.  Popular controls are the Data Entry Grid, Date Edit Control and Decimal Edit Control.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Peter Ringering</Authors>
-    <PackageProjectUrl>https://www.ringsoft.site</PackageProjectUrl>
+    <PackageProjectUrl>https://ringsoft.site/wpf-data-entry-controls/</PackageProjectUrl>
     <PackageIcon>control_panel_1.png</PackageIcon>
     <PackageTags>WPF Controls</PackageTags>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
     <PackageId>RingSoft.DataEntryControls.WPF</PackageId>
     <BaseOutputPath>C:\Users\petem\source\repos\RingSoft\Nuget</BaseOutputPath>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <Company>RingSoft</Company>
+	  <Copyright>2023</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\calculator16.png" />
+	  <None Include="docs\README.md" Pack="true" PackagePath="\" />
+	  <None Remove="Resources\calculator16.png" />
     <None Remove="Resources\datepicker16.png" />
     <None Include="..\RingSoft.DataEntryControls.NorthwindApp\Images\control_panel_1.png" Link="Resources\control_panel_1.png">
       <Pack>True</Pack>
