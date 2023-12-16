@@ -83,11 +83,11 @@
                         <deg:DataEntryGrid x:Name="DetailsGrid" Manager="{Binding Path=DetailsGridManager}" ReadOnlyMode="{Binding Path=DetailsGridReadOnlyMode}">
                             <deg:DataEntryGrid.Columns>
                                 <deg:DataEntryGridCustomControlColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.LineTypeColumnId}" ContentTemplate="{StaticResource SalesLineTypeContent}" Header="Line Type" Width="100"/>
-                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.ItemColumnId}" Header="Item" DesignText="Chef Anton's Cajun Seasoning" Width="220"/>
-                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.QuantityColumnId}" Header="Quantity" Alignment="Right" DesignText="1,000" Width="75"/>
-                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.PriceColumnId}" Header="Price" Alignment="Right" DesignText="$10,000.00" Width="100"/>
-                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.ExtendedPriceColumnId}" Header="Extended&#10;Price" Alignment="Right" DesignText="$100,000.00" Width="100"/>
-                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.DiscountColumnId}" Header="Discount" Alignment="Right" DesignText="$100.00" Width="75"/>
+                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.ItemColumnId}" Header="Item" Width="220"/>
+                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.QuantityColumnId}" Header="Quantity" Alignment="Right" Width="75"/>
+                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.PriceColumnId}" Header="Price" Alignment="Right" Width="100"/>
+                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.ExtendedPriceColumnId}" Header="Extended&#10;Price" Alignment="Right" Width="100"/>
+                                <deg:DataEntryGridTextColumn ColumnId="{x:Static vmlib:SalesEntryDetailsGridManager.DiscountColumnId}" Header="Discount" Alignment="Right" Width="75"/>
                             </deg:DataEntryGrid.Columns>
                             <deg:DataEntryGrid.DisplayStyles>
                                 <StaticResource ResourceKey="CommentCellStyle"/>
