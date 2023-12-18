@@ -2,7 +2,7 @@
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
-    public class AppDbMaintenanceProcessorFactory : RingSoft.DbLookup.Controls.WPF.DbMaintenanceProcessorFactory
+    public class AppDbMaintenanceProcessorFactory : DbMaintenanceProcessorFactory
     {
         public override DbMaintenanceWindowProcessor GetProcessor()
         {

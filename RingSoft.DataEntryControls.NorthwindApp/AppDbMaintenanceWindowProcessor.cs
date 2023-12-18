@@ -7,10 +7,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 {
     public class AppDbMaintenanceWindowProcessor : DbMaintenanceWindowProcessor
     {
-        public AppDbMaintenanceWindowProcessor()
-        {
-        }
-
         public override Button SaveButton => _dbMaintenanceButtonsControl.SaveButton;
         public override Button SelectButton => _dbMaintenanceButtonsControl.SelectButton;
         public override Button DeleteButton => _dbMaintenanceButtonsControl.DeleteButton;
