@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "RingSoft WPF Data Entry Controls Demo"
-#define MyAppVersion "2.00.03"
+#define MyAppVersion "2.00.04"
 #define MyAppPublisher "RingSoft"
 #define MyAppURL "http://www.ringsoft.site/"
 #define MyAppExeName "RingSoft.DataEntryControls.NorthwindApp.exe"
