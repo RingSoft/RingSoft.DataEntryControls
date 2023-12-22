@@ -616,14 +616,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
 
                     foreach (DataEntryGridColumn column in e.NewItems)
                     {
-                        var columnIdCount = Columns.Count(w => w.ColumnId == column.ColumnId);
+                        //var columnIdCount = Columns.Count(w => w.ColumnId == column.ColumnId);
 
-                        if (columnIdCount > 1)
-                        {
-                            var message = $"There are {columnIdCount} columns with Column ID '{column.ColumnId}'";
-                            MessageBox.Show(message);
-                            throw new Exception(message);
-                        }
+                        //if (columnIdCount > 1)
+                        //{
+                        //    var message = $"There are {columnIdCount} columns with Column ID '{column.ColumnId}'";
+                        //    MessageBox.Show(message);
+                        //    throw new Exception(message);
+                        //}
 
                         if (startIndex < 0)
                             base.Columns.Add(column);
