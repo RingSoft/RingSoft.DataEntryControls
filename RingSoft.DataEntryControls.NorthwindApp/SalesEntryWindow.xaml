@@ -1,4 +1,4 @@
-﻿<local:AppDbMaintenanceWindow x:Class="RingSoft.DataEntryControls.NorthwindApp.SalesEntryWindow"
+﻿<lc:DbMaintenanceWindow x:Class="RingSoft.DataEntryControls.NorthwindApp.SalesEntryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -171,4 +171,4 @@
             </Grid>
         </Grid>
     </DockPanel>
-</local:AppDbMaintenanceWindow>
+</lc:DbMaintenanceWindow>
