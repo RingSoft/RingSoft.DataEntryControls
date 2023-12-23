@@ -4,7 +4,7 @@
     <TargetFrameworks>net8.0-windows</TargetFrameworks>
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <UseWPF>true</UseWPF>
-    <Version>8.5.2</Version>
+    <Version>8.6</Version>
     <Description>This package contains multiple controls that makes data entry for the user quick and easy with little effort from the developer.  Popular controls are the Data Entry Grid, Date Edit Control and Decimal Edit Control.  These controls are completely MVVM compatible.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>
@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://ringsoft.site/wpf-data-entry-controls/</PackageProjectUrl>
     <PackageIcon>control_panel_1.png</PackageIcon>
     <PackageTags>WPF Controls</PackageTags>
-    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <PackageReleaseNotes>Code Complete Release</PackageReleaseNotes>
     <PackageId>RingSoft.DataEntryControls.WPF</PackageId>
     <BaseOutputPath>C:\Users\petem\source\repos\RingSoft\Nuget</BaseOutputPath>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
