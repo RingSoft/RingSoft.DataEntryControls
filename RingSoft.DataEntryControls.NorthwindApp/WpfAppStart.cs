@@ -78,18 +78,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         protected override void FinishStartup()
         {
             AppGlobals.LookupContext.Initialize();
-            LookupControlsGlobals.WindowRegistry.RegisterWindow<ProductWindow>(
-                AppGlobals.LookupContext.Products);
-            LookupControlsGlobals.WindowRegistry.RegisterWindow<NonInventoryCodeWindow>(
-                AppGlobals.LookupContext.NonInventoryCodes);
-            LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow>(
-                AppGlobals.LookupContext.Orders);
-            LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow>(
-                AppGlobals.LookupContext.OrderDetails);
-            LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow>(
-                AppGlobals.LookupContext.Purchases);
-            LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow>(
-                AppGlobals.LookupContext.PurchaseDetails);
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<ProductWindow, Products>();
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<NonInventoryCodeWindow, NonInventoryCodes>();
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow, Orders>();
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow, OrderDetails>();
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow, Purchases>();
+            LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow, PurchaseDetails>();
 
             var appDbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
             var appDbMaintenanceButtonsFactory = new AppDbMaintenanceButtonsFactory();

@@ -130,7 +130,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// </summary>
         protected virtual void Initialize()
         {
-            Columns = Grid.GetColumns();
+            if (Grid != null) Columns = Grid.GetColumns();
         }
 
         /// <summary>

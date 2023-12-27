@@ -92,7 +92,8 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             IsNew = false;
             var rowIndex = Manager.Rows.IndexOf(this);
             if (rowIndex >= 0)
-                Manager.Grid.UpdateRow(this, rowIndex);
+                if (Manager.Grid != null)
+                    Manager.Grid.UpdateRow(this, rowIndex);
         }
 
         /// <summary>
