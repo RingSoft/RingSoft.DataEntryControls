@@ -5,7 +5,6 @@ using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
 using RingSoft.DbLookup.Lookup;
-using RingSoft.DbLookup.ModelDefinition;
 using RingSoft.DbLookup.QueryBuilder;
 using RingSoft.DbMaintenance;
 using System;
@@ -15,8 +14,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
     public interface IPurchaseOrderView : IDbMaintenanceView
     {
         bool ShowCommentEditor(DataEntryGridMemoValue comment);
-
-        void GridValidationFail();
     }
 
     public class PurchaseOrderViewModel : DbMaintenanceViewModel<Purchases>

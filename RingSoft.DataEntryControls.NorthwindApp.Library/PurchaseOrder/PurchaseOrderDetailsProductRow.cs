@@ -121,12 +121,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
                 case PurchaseOrderColumns.Item:
                     if (value is DataEntryGridAutoFillCellProps autoFillCellProps)
                     {
-                        var validProduct = autoFillCellProps.AutoFillValue.PrimaryKeyValue.IsValid();
+                        var validProduct = autoFillCellProps.AutoFillValue.IsValid();
                         if (validProduct)
                         {
                             LoadFromItemAutoFillValue(autoFillCellProps.AutoFillValue);
                         }
-                        else if (string.IsNullOrEmpty(autoFillCellProps.AutoFillValue.Text))
+                        else if (autoFillCellProps.AutoFillValue != null
+                            && string.IsNullOrEmpty(autoFillCellProps.AutoFillValue.Text))
                         {
                             ProductValue = null;
                         }
@@ -224,7 +225,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         {
             if (ProductValue == null || !ProductValue.PrimaryKeyValue.IsValid())
             {
-                PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.GridValidationFail();
+                //PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.GridValidationFail();
                 PurchaseOrderDetailsManager.Grid.GotoCell(this, (int)PurchaseOrderColumns.Item);
 
                 var message = "Product must contain a valid value.";

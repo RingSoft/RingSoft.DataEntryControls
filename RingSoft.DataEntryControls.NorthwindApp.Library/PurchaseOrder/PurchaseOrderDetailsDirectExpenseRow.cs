@@ -87,7 +87,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.PurchaseOrder
         {
             if (string.IsNullOrEmpty(Description))
             {
-                PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.GridValidationFail();
+                //PurchaseOrderDetailsManager.PurchaseOrderViewModel.PurchaseOrderView.GridValidationFail();
                 Manager.Grid.GotoCell(this, (int)PurchaseOrderColumns.Item);
                 ControlsGlobals.UserInterface.ShowMessageBox("Description must have a value",
                     "Invalid Direct Expense Description", RsMessageBoxIcons.Exclamation);
