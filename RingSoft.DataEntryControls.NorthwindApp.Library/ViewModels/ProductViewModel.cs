@@ -61,20 +61,20 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private bool _enableSupplier;
+        //private bool _enableSupplier;
 
-        public bool EnableSupplier
-        {
-            get => _enableSupplier;
-            set
-            {
-                if (_enableSupplier == value)
-                    return;
+        //public bool EnableSupplier
+        //{
+        //    get => _enableSupplier;
+        //    set
+        //    {
+        //        if (_enableSupplier == value)
+        //            return;
 
-                _enableSupplier = value;
-                OnPropertyChanged(nameof(EnableSupplier));
-            }
-        }
+        //        _enableSupplier = value;
+        //        OnPropertyChanged(nameof(EnableSupplier));
+        //    }
+        //}
 
         private AutoFillSetup _categoryAutoFillSetup;
 
@@ -317,12 +317,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
+        public UiCommand SupplierUiCommand { get; set; }
+
         private bool _lockSupplier;
         private NorthwindViewModelInput _viewModelInput;
         
         public ProductViewModel()
         {
-            EnableSupplier = true;
+            SupplierUiCommand = new UiCommand();
+            SupplierUiCommand.IsEnabled = true;
         }
 
         protected override void Initialize()
@@ -354,7 +357,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             {
                 _lockSupplier = true;
                 SupplierAutoFillValue = _viewModelInput.ProductInput.LockSupplier;
-                EnableSupplier = false;
+                //EnableSupplier = false;
+                SupplierUiCommand.IsEnabled = false;
                 _viewModelInput.ProductInput = null;
             }
 
@@ -387,11 +391,13 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 
             if (product.PurchaseDetails.Any())
             {
-                EnableSupplier = false;
+                //EnableSupplier = false;
+                SupplierUiCommand.IsEnabled = false;
             }
             else
             {
-                EnableSupplier = !ReadOnlyMode;
+                //EnableSupplier = !ReadOnlyMode;
+                SupplierUiCommand.IsEnabled = !ReadOnlyMode;
             }
 
 

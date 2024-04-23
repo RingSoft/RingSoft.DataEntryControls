@@ -47,8 +47,8 @@
             <dec:StringReadOnlyBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=ProductId}" DesignText="123456" Width="60" HorizontalAlignment="Left"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Product Name" Style="{StaticResource ControlLabel}"/>
             <lc:AutoFillControl x:Name="ProductNameControl" Grid.Row="1" Grid.Column="1" DesignText="Chef Anton's Cajun Seasoning"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Supplier" Style="{StaticResource ControlLabel}"/>
-            <lc:AutoFillControl Grid.Row="2" Grid.Column="1" x:Name="SupplierControl" DesignText="New England Seafood Cannery" Setup="{Binding SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=EnableSupplier}"/>
+            <Label Grid.Row="2" Grid.Column="0" x:Name="SupplierLabel" Content="Supplier" Style="{StaticResource ControlLabel}"/>
+            <lc:AutoFillControl Grid.Row="2" Grid.Column="1" x:Name="SupplierControl" DesignText="New England Seafood Cannery" Setup="{Binding SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" UiCommand="{Binding SupplierUiCommand}" UiLabel="{Binding ElementName=SupplierLabel}"/>
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Category"/>
             <lc:AutoFillControl Grid.Row="3" Grid.Column="1" x:Name="CategoryControl" DesignText="Grains/Cereals" Width="125" HorizontalAlignment="Left" Setup="{Binding CategoryAutoFillSetup}" Value="{Binding Path=CategoryAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TabControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" x:Name="TabControl">
