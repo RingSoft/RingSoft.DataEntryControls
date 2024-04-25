@@ -53,18 +53,5 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             memoEditor.Title = "Edit Comment";
             return memoEditor.ShowDialog();
         }
-
-        public void GridValidationFail()
-        {
-            TabControl.SelectedIndex = 0;
-            DetailsGrid.Focus();
-        }
-
-        public void SetInitGridFocus(SalesEntryDetailsRow row, int columnId)
-        {
-            //TabControl.SelectedIndex = 0;
-            //DetailsGrid.Focus();
-            DetailsGrid.GotoCell(row, columnId);
-        }
     }
 }

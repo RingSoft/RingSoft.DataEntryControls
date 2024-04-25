@@ -21,11 +21,5 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
             RegisterFormKeyControl(DescriptionControl);
         }
-
-        public override void ResetViewForNewRecord()
-        {
-            DescriptionControl.Focus();
-            base.ResetViewForNewRecord();
-        }
     }
 }
