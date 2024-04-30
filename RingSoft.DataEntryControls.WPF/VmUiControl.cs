@@ -30,6 +30,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// <value>The control.</value>
         public Control Control { get; }
 
+        public FrameworkElement Element { get; }
+
         /// <summary>
         /// Gets the label.
         /// </summary>
@@ -47,14 +49,18 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="command">The command.</param>
-        public VmUiControl(Control control, UiCommand command)
+        public VmUiControl(FrameworkElement element, UiCommand command)
         {
-            Control = control;
+            Element = element;
+            if (element is Control control)
+            {
+                Control = control;
+
+                Control.PreviewLostKeyboardFocus += Control_PreviewLostKeyboardFocus;
+
+                Control.GotFocus += Control_GotFocus;
+            }
             Command = command;
-
-            Control.PreviewLostKeyboardFocus += Control_PreviewLostKeyboardFocus;
-
-            Control.GotFocus += Control_GotFocus;
 
             Command.SetVisibility += Command_SetVisibility;
 
@@ -230,7 +236,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <param name="isEnabled">if set to <c>true</c> [is enabled].</param>
         protected void OnSetEnabled(bool isEnabled)
         {
-            Control.IsEnabled = isEnabled;
+            Element.IsEnabled = isEnabled;
             if (Label != null)
             {
                 Label.IsEnabled = isEnabled;
@@ -257,13 +263,13 @@ namespace RingSoft.DataEntryControls.WPF
             switch (visibilityType)
             {
                 case UiVisibilityTypes.Visible:
-                    Control.Visibility = Visibility.Visible;
+                    Element.Visibility = Visibility.Visible;
                     break;
                 case UiVisibilityTypes.Hidden:
-                    Control.Visibility = Visibility.Hidden;
+                    Element.Visibility = Visibility.Hidden;
                     break;
                 case UiVisibilityTypes.Collapsed:
-                    Control.Visibility = Visibility.Collapsed;
+                    Element.Visibility = Visibility.Collapsed;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -271,7 +277,7 @@ namespace RingSoft.DataEntryControls.WPF
 
             if (Label != null)
             {
-                Label.Visibility = Control.Visibility;
+                Label.Visibility = Element.Visibility;
             }
         }
 
@@ -297,8 +303,8 @@ namespace RingSoft.DataEntryControls.WPF
                 }
             }
 
-            Label.IsEnabled = Control.IsEnabled;
-            Label.Visibility = Control.Visibility;
+            Label.IsEnabled = Element.IsEnabled;
+            Label.Visibility = Element.Visibility;
         }
     }
 }
