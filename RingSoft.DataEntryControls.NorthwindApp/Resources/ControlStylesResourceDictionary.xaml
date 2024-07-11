@@ -34,7 +34,7 @@
 
     <Style TargetType="deg:DataEntryGridMemoEditor" BasedOn="{StaticResource WindowStyle}"/>
 
-    <Style TargetType="dec:TwoTierProgressWindow" BasedOn="{StaticResource WindowStyle}"/>
+    <Style TargetType="dec:TwoTierProcessingWindow" BasedOn="{StaticResource WindowStyle}"/>
 
     <Style TargetType="lc:PrintSetupWindow" BasedOn="{StaticResource WindowStyle}"/>
 

@@ -13,7 +13,7 @@
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoEditorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryGridMemoEditorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryGridControlTemplates.xaml"/>
-        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/TwoTierProgressWindowTemplate.xaml"/>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/TwoTierProcessingWindowTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 

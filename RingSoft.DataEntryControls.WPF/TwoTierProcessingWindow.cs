@@ -32,11 +32,11 @@ namespace RingSoft.DataEntryControls.WPF
     ///     <MyNamespace:TwoTierProgressWindow/>
     ///
     /// </summary>
-    public class TwoTierProgressWindow : BaseWindow
+    public class TwoTierProcessingWindow : BaseWindow
     {
-        static TwoTierProgressWindow()
+        static TwoTierProcessingWindow()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoTierProgressWindow), new FrameworkPropertyMetadata(typeof(TwoTierProgressWindow)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoTierProcessingWindow), new FrameworkPropertyMetadata(typeof(TwoTierProcessingWindow)));
         }
     }
 }

@@ -83,7 +83,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         private void ShowProcedureTest()
         {
-            var progreessWin = new TwoTierProgressWindow();
+            var progreessWin = new TwoTierProcessingWindow();
             progreessWin.Owner = this;
             progreessWin.ShowInTaskbar = false;
             progreessWin.ShowDialog();

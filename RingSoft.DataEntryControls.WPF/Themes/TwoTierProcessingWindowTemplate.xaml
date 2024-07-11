@@ -3,11 +3,11 @@
                     xmlns:lib="clr-namespace:RingSoft.DataEntryControls.Engine;assembly=RingSoft.DataEntryControls.Engine"
                     xmlns:dec="clr-namespace:RingSoft.DataEntryControls.WPF">
 
-    <Style TargetType="{x:Type dec:TwoTierProgressWindow}" BasedOn="{StaticResource {x:Type Window}}">
+    <Style TargetType="{x:Type dec:TwoTierProcessingWindow}" BasedOn="{StaticResource {x:Type Window}}">
         <Setter Property="SizeToContent" Value="WidthAndHeight"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type dec:TwoTierProgressWindow}">
+                <ControlTemplate TargetType="{x:Type dec:TwoTierProcessingWindow}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -23,13 +23,13 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <dec:StringReadOnlyBox Grid.Row="0" Text="{Binding Path=TopTierText}" HorizontalAlignment="Center" DesignText="Processing Record 1,000,000 of 1,000,000" Width="400"/>
+                            <dec:StringReadOnlyBox x:Name="TopTierText" Grid.Row="0" HorizontalAlignment="Center" Width="400"/>
 
-                            <ProgressBar Grid.Row="1" Height="20" Maximum="{Binding Path=TopTierMaximum}" Minimum="0" Value="{Binding TopTierProgress}" Width="400"/>
+                            <ProgressBar x:Name="TopTierProgressBar" Grid.Row="1" Height="20" Width="400"/>
 
-                            <dec:StringReadOnlyBox Grid.Row="2" Text="{Binding Path=BottomTierText}" HorizontalAlignment="Center" DesignText="Processing Record 1,000,000 of 1,000,000" Width="400"/>
+                            <dec:StringReadOnlyBox x:Name="BottomTierText" Grid.Row="2" HorizontalAlignment="Center" Width="400"/>
 
-                            <ProgressBar Grid.Row="3" Height="20" Maximum="{Binding Path=BottomTierMaximum}" Minimum="0" Value="{Binding BottomTierProgress}" Width="400"/>
+                            <ProgressBar x:Name="BottomTierProgressBar" Grid.Row="3" Height="20" Width="400"/>
 
                         </Grid>
                     </Border>
