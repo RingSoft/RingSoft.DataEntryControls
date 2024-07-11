@@ -13,6 +13,7 @@
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryMemoEditorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryGridMemoEditorTemplate.xaml"/>
         <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryGridControlTemplates.xaml"/>
+        <ResourceDictionary Source="/RingSoft.DataEntryControls.WPF;component/Themes/TwoTierProgressWindowTemplate.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -34,6 +35,5 @@
     <Style TargetType="{x:Type local:TextComboBoxControl}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
 
     <Style TargetType="{x:Type local:DataEntryMemoTabItem}" BasedOn="{StaticResource {x:Type TabItem}}"/>
-
 
 </ResourceDictionary>

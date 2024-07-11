@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Threading;
+using RingSoft.DataEntryControls.WPF;
 using RingSoft.DbLookup.Controls.WPF.AdvancedFind;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
@@ -41,6 +43,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             AdvancedFindMenuItem.Click += (_, _) => ShowAdvancedFindWindow();
             ExitButton.Click += (_, _) => Close();
             ExitMenu.Click += (_, _) => Close();
+
+#if DEBUG
+            ProcedureTest.Click += (_, _) => ShowProcedureTest();
+#else
+            ProcedureTest.Visibility = Visibility.Collapsed;
+#endif
         }
 
         private void ShowSalesEntryWindow()
@@ -71,6 +79,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             advancedFindWindow.ShowInTaskbar = false;
             advancedFindWindow.Closed += (sender, args) => Activate();
             advancedFindWindow.Show();
+        }
+
+        private void ShowProcedureTest()
+        {
+            var progreessWin = new TwoTierProgressWindow();
+            progreessWin.Owner = this;
+            progreessWin.ShowInTaskbar = false;
+            progreessWin.ShowDialog();
         }
     }
 }
