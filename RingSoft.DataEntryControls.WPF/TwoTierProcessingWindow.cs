@@ -50,6 +50,7 @@ namespace RingSoft.DataEntryControls.WPF
         internal TwoTierProcessingWindow(TwoTierProcessingProcedure procedure)
         {
             Procedure = procedure;
+            CloseOnEscape = false;
         }
 
         public override void OnApplyTemplate()
