@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using System.Timers;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RingSoft.DataEntryControls.WPF
@@ -34,9 +37,64 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public class TwoTierProcessingWindow : BaseWindow
     {
+        public StringReadOnlyBox TopTierText { get; private set; }
+        public ProgressBar TopTierProgressBar { get; private set; }
+        public StringReadOnlyBox BottomTierText { get; private set; }
+        public ProgressBar BottomTierProgressBar { get; private set; }
+        public TwoTierProcessingProcedure Procedure { get; }
         static TwoTierProcessingWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoTierProcessingWindow), new FrameworkPropertyMetadata(typeof(TwoTierProcessingWindow)));
+        }
+
+        internal TwoTierProcessingWindow(TwoTierProcessingProcedure procedure)
+        {
+            Procedure = procedure;
+        }
+
+        public override void OnApplyTemplate()
+        {
+            TopTierText = GetTemplateChild(nameof(TopTierText)) as StringReadOnlyBox;
+            TopTierProgressBar = GetTemplateChild(nameof(TopTierProgressBar)) as ProgressBar;
+            BottomTierText = GetTemplateChild(nameof(BottomTierText)) as StringReadOnlyBox;
+            BottomTierProgressBar = GetTemplateChild(nameof(BottomTierProgressBar)) as ProgressBar;
+            base.OnApplyTemplate();
+        }
+
+        internal void Process()
+        {
+            Owner = Procedure.OwnerWindow;
+            ShowInTaskbar = false;
+            Loaded += async (sender, args) =>
+            {
+                await Task.Run(() =>
+                {
+                    if (Procedure.DoProcedure())
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            Close();
+                        });
+                    }
+                });
+
+            };
+            ShowDialog();
+        }
+
+        internal void SetProgress(int topMax, int topValue, string topText, int bottomMax, int bottomValue, string bottomText)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                TopTierText.Text = topText;
+                TopTierProgressBar.Minimum = 1;
+                TopTierProgressBar.Maximum = topMax;
+                TopTierProgressBar.Value = topValue;
+                BottomTierText.Text = bottomText;
+                BottomTierProgressBar.Minimum = 1;
+                BottomTierProgressBar.Maximum = bottomMax;
+                BottomTierProgressBar.Value = bottomValue;
+            });
         }
     }
 }
