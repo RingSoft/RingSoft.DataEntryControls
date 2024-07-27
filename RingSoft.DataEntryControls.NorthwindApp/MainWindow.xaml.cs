@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
+using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.WPF;
+using RingSoft.DbLookup.Controls.WPF;
 using RingSoft.DbLookup.Controls.WPF.AdvancedFind;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
@@ -53,16 +55,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         private void ShowSalesEntryWindow()
         {
-            var salesEntryWindow = new SalesEntryWindow();
-            salesEntryWindow.Owner = this;
-            salesEntryWindow.ShowDialog();
+            LookupControlsGlobals.WindowRegistry.ShowDbMaintenanceWindow(AppGlobals.LookupContext.Orders);
         }
 
         private void ShowPurchaseOrderWindow()
         {
-            var purchaseOrderWindow = new PurchaseOrderWindow();
-            purchaseOrderWindow.Owner = this;
-            purchaseOrderWindow.ShowDialog();
+            LookupControlsGlobals.WindowRegistry.ShowDbMaintenanceWindow(AppGlobals.LookupContext.Purchases);
         }
 
         private void ShowOptionsWindow()
