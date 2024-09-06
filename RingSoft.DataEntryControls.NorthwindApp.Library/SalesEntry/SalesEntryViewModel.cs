@@ -549,7 +549,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                         if (salesEntryDetailsRow is SalesEntryDetailsProductRow productRow)
                         {
                             subTotal += productRow.ExtendedPrice;
-                            totalDiscount += productRow.Discount;
+                            totalDiscount += productRow.Discount.GetValueOrDefault();
                         }
                         break;
                     case SalesEntryDetailsLineTypes.NonInventoryCode:

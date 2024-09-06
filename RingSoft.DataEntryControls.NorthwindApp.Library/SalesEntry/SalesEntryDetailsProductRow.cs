@@ -11,7 +11,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public override SalesEntryDetailsLineTypes LineType => SalesEntryDetailsLineTypes.Product;
         public AutoFillValue ProductValue { get; private set; }
 
-        public double Discount { get; private set; }
+        public double? Discount { get; private set; }
 
         private AutoFillSetup _productAutoFillSetup;
         private DecimalEditControlSetup _discountSetup;
@@ -22,6 +22,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 new AutoFillSetup(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId));
             _discountSetup = AppGlobals.CreateNewDecimalEditControlSetup();
             _discountSetup.FormatType = DecimalEditFormatTypes.Currency;
+            _discountSetup.AllowNullValue = true;
         }
 
         public override DataEntryGridCellProps GetCellProps(int columnId)
@@ -79,9 +80,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 case SalesEntryGridColumns.Discount:
                     if (value is DataEntryGridDecimalCellProps discountDecimalCellProps)
                     {
-                        if (discountDecimalCellProps.Value != null)
+                        //if (discountDecimalCellProps.Value != null)
                         {
-                            Discount = (double)discountDecimalCellProps.Value;
+                            Discount = discountDecimalCellProps.Value;
                             SalesEntryDetailsManager.SalesEntryViewModel.RefreshTotalControls();
                         }
                     }

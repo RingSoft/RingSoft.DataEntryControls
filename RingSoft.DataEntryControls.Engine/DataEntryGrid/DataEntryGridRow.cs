@@ -59,7 +59,18 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// Gets or sets a value indicating whether this instance is new.
         /// </summary>
         /// <value><c>true</c> if this instance is new; otherwise, <c>false</c>.</value>
-        public bool IsNew { get; set; }
+        private bool _isNew;
+
+        public bool IsNew
+        {
+            get { return _isNew; }
+            set
+            {
+                OnIsNewChanged(_isNew, value);
+                _isNew = value;
+            }
+        }
+
 
         /// <summary>
         /// Gets the row replaced by.
@@ -81,6 +92,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         {
             Manager = manager;
             RowId = Guid.NewGuid().ToString();
+        }
+
+        public virtual void OnIsNewChanged(bool oldValue, bool newValue)
+        {
+
         }
 
         /// <summary>

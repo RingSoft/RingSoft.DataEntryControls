@@ -1,21 +1,20 @@
-﻿using System.ComponentModel;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library.LookupModel;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.AutoFill;
 using RingSoft.DbLookup.Lookup;
-using RingSoft.DbLookup.ModelDefinition;
-using RingSoft.DbLookup.ModelDefinition.FieldDefinitions;
-using RingSoft.DbLookup.QueryBuilder;
 using RingSoft.DbMaintenance;
+using System.ComponentModel;
+using System.Linq;
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
 {
     public class ProductViewModel : DbMaintenanceViewModel<Products>
     {
+        #region Properties
+
         private int _productId;
 
         public int ProductId
@@ -287,21 +286,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
             }
         }
 
-        private LookupCommand _orderDetailsLookupCommand;
-
-        public LookupCommand OrderDetailsLookupCommand
-        {
-            get => _orderDetailsLookupCommand;
-            set
-            {
-                if (_orderDetailsLookupCommand == value)
-                    return;
-
-                _orderDetailsLookupCommand = value;
-                OnPropertyChanged(nameof(OrderDetailsLookupCommand), false);
-            }
-        }
-
         private string _notes;
 
         public string Notes
@@ -316,6 +300,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.ViewModels
                 OnPropertyChanged(nameof(Notes));
             }
         }
+
+        #endregion
 
         public UiCommand SupplierUiCommand { get; set; }
 
