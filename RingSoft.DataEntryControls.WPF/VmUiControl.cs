@@ -4,7 +4,7 @@
 // Created          : 09-18-2023
 //
 // Last Modified By : petem
-// Last Modified On : 10-30-2023
+// Last Modified On : 04-30-2024
 // ***********************************************************************
 // <copyright file="VmUiControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -30,6 +30,10 @@ namespace RingSoft.DataEntryControls.WPF
         /// <value>The control.</value>
         public Control Control { get; }
 
+        /// <summary>
+        /// Gets the element.
+        /// </summary>
+        /// <value>The element.</value>
         public FrameworkElement Element { get; }
 
         /// <summary>
@@ -45,9 +49,9 @@ namespace RingSoft.DataEntryControls.WPF
         public UiCommand Command { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VmUiControl"/> class.
+        /// Initializes a new instance of the <see cref="VmUiControl" /> class.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="element">The element.</param>
         /// <param name="command">The command.</param>
         public VmUiControl(FrameworkElement element, UiCommand command)
         {
@@ -109,7 +113,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the GotFocus event of the Control control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void Control_GotFocus(object sender, RoutedEventArgs e)
         {
             Command.FireGotFocusEvent();
@@ -119,7 +123,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the PreviewLostKeyboardFocus event of the Control control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.KeyboardFocusChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyboardFocusChangedEventArgs" /> instance containing the event data.</param>
         private void Control_PreviewLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
         {
             var activeWindow = WPFControlsGlobals.ActiveWindow;
@@ -177,7 +181,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the OnSetFocus event of the Command control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void Command_OnSetFocus(object sender, EventArgs e)
         {
             OnSetFocus();

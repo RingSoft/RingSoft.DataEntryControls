@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 04-06-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DropDownCalendar.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -143,7 +143,7 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _settingValue;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DropDownCalendar"/> class.
+        /// Initializes static members of the <see cref="DropDownCalendar" /> class.
         /// </summary>
         static DropDownCalendar()
         {
@@ -185,7 +185,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the SelectedDatesChanged event of the _calendar control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs" /> instance containing the event data.</param>
         private void _calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!_settingValue)
@@ -198,7 +198,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _todayButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _todayButton_Click(object sender, RoutedEventArgs e)
         {
             if (Calendar != null)
@@ -212,7 +212,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the PreviewMouseUp event of the _calendar control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data.</param>
         private void _calendar_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             DependencyObject originalSource = e.OriginalSource as DependencyObject;
@@ -228,7 +228,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the PreviewKeyDown event of the _calendar control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
         private void _calendar_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

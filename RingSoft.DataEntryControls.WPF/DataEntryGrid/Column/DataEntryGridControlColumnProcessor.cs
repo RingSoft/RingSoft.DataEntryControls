@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridControlColumnProcessor.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -32,7 +32,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         public string ControlValue { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ControlValueChangedArgs"/> class.
+        /// Initializes a new instance of the <see cref="ControlValueChangedArgs" /> class.
         /// </summary>
         /// <param name="controlValue">The control value.</param>
         public ControlValueChangedArgs(string controlValue)
@@ -63,7 +63,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private Control _control;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridControlColumnProcessor"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridControlColumnProcessor" /> class.
         /// </summary>
         /// <param name="control">The control.</param>
         public DataEntryGridControlColumnProcessor(Control control)

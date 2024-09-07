@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridCustomControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -119,7 +119,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Datas the value changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void DataValueChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -133,7 +133,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private DataEntryGridControlColumnProcessor _processor;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DataEntryGridCustomControl"/> class.
+        /// Initializes static members of the <see cref="DataEntryGridCustomControl" /> class.
         /// </summary>
         static DataEntryGridCustomControl()
         {
@@ -141,7 +141,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridCustomControl"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridCustomControl" /> class.
         /// </summary>
         public DataEntryGridCustomControl()
         {

@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-22-2023
 // ***********************************************************************
 // <copyright file="DataEntryGrid.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -92,7 +92,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Managers the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ManagerChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -171,7 +171,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Reads the only mode changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ReadOnlyModeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -386,7 +386,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private CellSnapshot _cellSnapshot;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DataEntryGrid"/> class.
+        /// Initializes static members of the <see cref="DataEntryGrid" /> class.
         /// </summary>
         static DataEntryGrid()
         {
@@ -410,7 +410,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGrid"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGrid" /> class.
         /// </summary>
         public DataEntryGrid()
         {
@@ -439,7 +439,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the LostFocus event of the DataEntryGrid control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void DataEntryGrid_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!IsKeyboardFocusWithin)
@@ -481,7 +481,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the GotFocus event of the DataEntryGrid control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void DataEntryGrid_GotFocus(object sender, RoutedEventArgs e)
         {
             var beginEdit = true;
@@ -602,9 +602,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the CollectionChanged event of the Columns control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
-        /// <exception cref="System.Exception"></exception>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs" /> instance containing the event data.</param>
         /// <exception cref="System.ArgumentOutOfRangeException"></exception>
+        /// <exception cref="System.Exception"></exception>
         private void Columns_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -677,7 +677,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the PropertyChanged event of the Column control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
         private void Column_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //DesignerFillGrid(nameof(Column_PropertyChanged));
@@ -771,7 +771,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the CollectionChanged event of the GridRows control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs" /> instance containing the event data.</param>
         /// <exception cref="System.ArgumentOutOfRangeException"></exception>
         private void GridRows_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -1391,7 +1391,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the ControlDirty event of the EditingControl control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void EditingControl_ControlDirty(object sender, EventArgs e)
         {
             var currentRowIndex = Items.IndexOf(CurrentCell.Item);

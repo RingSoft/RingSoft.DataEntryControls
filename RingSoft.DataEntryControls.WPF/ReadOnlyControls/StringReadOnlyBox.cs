@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="StringReadOnlyBox.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -44,7 +44,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Texts the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void TextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -53,7 +53,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes static members of the <see cref="StringReadOnlyBox"/> class.
+        /// Initializes static members of the <see cref="StringReadOnlyBox" /> class.
         /// </summary>
         static StringReadOnlyBox()
         {

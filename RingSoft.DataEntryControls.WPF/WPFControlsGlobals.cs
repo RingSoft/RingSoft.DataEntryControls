@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 09-19-2023
+// Last Modified On : 12-13-2023
 // ***********************************************************************
 // <copyright file="WPFControlsGlobals.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -64,6 +64,9 @@ namespace RingSoft.DataEntryControls.WPF
     /// </summary>
     public class VmUiControlFactory
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VmUiControlFactory"/> class.
+        /// </summary>
         public VmUiControlFactory()
         {
             WPFControlsGlobals.VmUiFactory = this;
@@ -296,6 +299,9 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         private static ControlsUserInterface _userInterface = new ControlsUserInterface();
 
+        /// <summary>
+        /// Initializes static members of the <see cref="WPFControlsGlobals"/> class.
+        /// </summary>
         static WPFControlsGlobals()
         {
             InitUi();

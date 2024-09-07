@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 01-26-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridComboBoxHost.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -41,7 +41,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         private TextComboBoxItem _selectedItem;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridTextComboBoxHost"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridTextComboBoxHost" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         public DataEntryGridTextComboBoxHost(DataEntryGrid grid) : base(grid)
@@ -156,7 +156,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         private bool _proceessingValidationFail;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridComboBoxHost{TControl}"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridComboBoxHost{TControl}" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         protected DataEntryGridComboBoxHost(DataEntryGrid grid) : base(grid)

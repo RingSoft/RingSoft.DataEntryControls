@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 05-27-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridEditingControlHostBase.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -82,7 +82,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         public event EventHandler<DataEntryGridEditingCellProps> UpdateSource;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridEditingControlHostBase"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridEditingControlHostBase" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         protected internal DataEntryGridEditingControlHostBase(DataEntryGrid grid)

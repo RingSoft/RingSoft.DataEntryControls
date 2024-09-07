@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 08-18-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="Calculator.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -879,7 +879,7 @@ namespace RingSoft.DataEntryControls.WPF
         public event RoutedPropertyChangedEventHandler<object> ValueChanged;
 
         /// <summary>
-        /// Initializes static members of the <see cref="Calculator"/> class.
+        /// Initializes static members of the <see cref="Calculator" /> class.
         /// </summary>
         static Calculator()
         {
@@ -887,7 +887,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Calculator"/> class.
+        /// Initializes a new instance of the <see cref="Calculator" /> class.
         /// </summary>
         public Calculator()
         {
@@ -971,7 +971,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _mcButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _mcButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessMemoryClear();
@@ -981,7 +981,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _mrButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _mrButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessMemoryRecall();
@@ -991,7 +991,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _mAddButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _mAddButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessMemoryAdd();
@@ -1001,7 +1001,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _mSubtractButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _mSubtractButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessMemorySubtract();
@@ -1011,7 +1011,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _msButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _msButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessMemoryStore();
@@ -1021,7 +1021,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _ceButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _ceButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessCeButton();
@@ -1031,7 +1031,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _clrButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _clrButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessCButton();
@@ -1041,7 +1041,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _backButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _backButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessBackspace();
@@ -1051,7 +1051,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _divideButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _divideButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('/');
@@ -1061,7 +1061,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button7 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button7_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('7');
@@ -1071,7 +1071,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button8 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button8_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('8');
@@ -1081,7 +1081,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button9 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button9_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('9');
@@ -1091,7 +1091,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _multiplyButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _multiplyButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('*');
@@ -1101,7 +1101,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button4 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button4_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('4');
@@ -1111,7 +1111,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button5 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button5_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('5');
@@ -1121,7 +1121,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button6 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button6_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('6');
@@ -1131,7 +1131,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _subtractButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _subtractButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('-');
@@ -1141,7 +1141,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button1 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button1_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('1');
@@ -1151,7 +1151,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button2 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button2_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('2');
@@ -1161,7 +1161,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button3 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button3_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('3');
@@ -1171,7 +1171,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _additionButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _additionButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('+');
@@ -1181,7 +1181,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _plusMinusButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _plusMinusButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessPlusMinusButton();
@@ -1191,7 +1191,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _button0 control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _button0_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('0');
@@ -1201,7 +1201,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _decimalButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _decimalButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessDecimal();
@@ -1211,7 +1211,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _equalsButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _equalsButton_Click(object sender, RoutedEventArgs e)
         {
             Processor.ProcessChar('=');

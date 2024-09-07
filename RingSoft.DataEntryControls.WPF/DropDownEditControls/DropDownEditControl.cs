@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-05-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DropDownEditControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -57,7 +57,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Texts the alignment changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void TextAlignmentChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -87,7 +87,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Designs the text changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void DesignTextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -116,7 +116,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Rses the is tab stop changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void RsIsTabStopChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -131,7 +131,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Borders the thickness changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void BorderThicknessChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -146,7 +146,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Backgrounds the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void BackgroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -161,7 +161,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Heights the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void HeightChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -186,7 +186,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Foregrounds the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ForegroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -218,7 +218,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Selections the brush changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void SelectionBrushChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -247,7 +247,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the command changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiCommandChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -283,7 +283,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the label changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiLabelChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -480,7 +480,7 @@ namespace RingSoft.DataEntryControls.WPF
         private VmUiControl _vmUiControl;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DropDownEditControl"/> class.
+        /// Initializes static members of the <see cref="DropDownEditControl" /> class.
         /// </summary>
         static DropDownEditControl()
         {
@@ -503,7 +503,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DropDownEditControl"/> class.
+        /// Initializes a new instance of the <see cref="DropDownEditControl" /> class.
         /// </summary>
         public DropDownEditControl()
         {
@@ -616,7 +616,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the _dropDownButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _dropDownButton_Click(object sender, RoutedEventArgs e)
         {
             OnDropDownButtonClick();
@@ -626,7 +626,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the PreviewKeyDown event of the _textBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
         private void _textBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             _processingKey = true;
@@ -662,7 +662,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Closed event of the _popup control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void _popup_Closed(object sender, EventArgs e)
         {
             if (TextBox != null)
@@ -681,7 +681,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the GotFocus event of the _textBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void _textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             OnTextBoxGotFocus();
@@ -691,7 +691,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the TextChanged event of the _textBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs" /> instance containing the event data.</param>
         private void _textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!_processingKey && !DesignerProperties.GetIsInDesignMode(this))

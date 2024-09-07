@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 05-27-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridEditingControlHost.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -52,7 +52,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         private DataEntryGridCellStyle _cellStyle;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridEditingControlHost{TControl}"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridEditingControlHost{TControl}" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         protected DataEntryGridEditingControlHost(DataEntryGrid grid) : base(grid)
@@ -105,7 +105,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         /// Loadeds the specified sender.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void Loaded(object sender, RoutedEventArgs e)
         {
             if (sender is TControl control)

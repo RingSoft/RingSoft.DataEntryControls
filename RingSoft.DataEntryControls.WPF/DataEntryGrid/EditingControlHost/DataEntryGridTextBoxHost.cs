@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 09-19-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridTextBoxHost.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -38,7 +38,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         private string _text;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridTextBoxHost"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridTextBoxHost" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         public DataEntryGridTextBoxHost(DataEntryGrid grid) : base(grid)
@@ -122,7 +122,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         /// Handles the KeyDown event of the TextBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F2)

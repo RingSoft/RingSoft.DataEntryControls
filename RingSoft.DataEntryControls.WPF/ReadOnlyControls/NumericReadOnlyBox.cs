@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="NumericReadOnlyBox.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -63,7 +63,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Values the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ValueChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -92,7 +92,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Cultures the identifier changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -112,7 +112,7 @@ namespace RingSoft.DataEntryControls.WPF
 
 
         /// <summary>
-        /// Initializes static members of the <see cref="NumericReadOnlyBox{T}"/> class.
+        /// Initializes static members of the <see cref="NumericReadOnlyBox{T}" /> class.
         /// </summary>
         static NumericReadOnlyBox()
         {
@@ -120,7 +120,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NumericReadOnlyBox{T}"/> class.
+        /// Initializes a new instance of the <see cref="NumericReadOnlyBox{T}" /> class.
         /// </summary>
         public NumericReadOnlyBox()
         {

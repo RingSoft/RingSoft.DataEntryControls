@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="NotificationButton.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -64,7 +64,7 @@ namespace RingSoft.DataEntryControls.WPF
         public Ellipse Notifier { get; set; }
 
         /// <summary>
-        /// Initializes static members of the <see cref="NotificationButton"/> class.
+        /// Initializes static members of the <see cref="NotificationButton" /> class.
         /// </summary>
         static NotificationButton()
         {

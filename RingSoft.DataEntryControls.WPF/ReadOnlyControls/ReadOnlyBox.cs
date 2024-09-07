@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="ReadOnlyBox.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -48,7 +48,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Designs the text changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void DesignTextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -77,7 +77,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Texts the alignment changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void TextAlignmentChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -89,7 +89,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Backgrounds the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void BackgroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -104,7 +104,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Foregrounds the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ForegroundChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -144,7 +144,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes static members of the <see cref="ReadOnlyBox"/> class.
+        /// Initializes static members of the <see cref="ReadOnlyBox" /> class.
         /// </summary>
         static ReadOnlyBox()
         {
@@ -158,7 +158,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReadOnlyBox"/> class.
+        /// Initializes a new instance of the <see cref="ReadOnlyBox" /> class.
         /// </summary>
         public ReadOnlyBox()
         {

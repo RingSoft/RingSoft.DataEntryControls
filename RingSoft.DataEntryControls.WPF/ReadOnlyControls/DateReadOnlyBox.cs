@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DateReadOnlyBox.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -69,7 +69,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Values the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ValueChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -98,7 +98,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Dates the format changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void DateFormatChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -128,7 +128,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Dates the format type changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void DateFormatTypeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -157,7 +157,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Cultures the identifier changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -174,7 +174,7 @@ namespace RingSoft.DataEntryControls.WPF
         public CultureInfo Culture { get; protected internal set; }
 
         /// <summary>
-        /// Initializes static members of the <see cref="DateReadOnlyBox"/> class.
+        /// Initializes static members of the <see cref="DateReadOnlyBox" /> class.
         /// </summary>
         static DateReadOnlyBox()
         {
@@ -182,7 +182,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateReadOnlyBox"/> class.
+        /// Initializes a new instance of the <see cref="DateReadOnlyBox" /> class.
         /// </summary>
         public DateReadOnlyBox()
         {

@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DecimalEditControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -79,7 +79,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Precisions the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void PrecisionChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -108,7 +108,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Setups the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void SetupChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -137,7 +137,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Formats the type changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void FormatTypeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -156,7 +156,7 @@ namespace RingSoft.DataEntryControls.WPF
         private double? _pendingNewValue;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DecimalEditControl"/> class.
+        /// Initializes static members of the <see cref="DecimalEditControl" /> class.
         /// </summary>
         static DecimalEditControl()
         {
@@ -256,7 +256,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Handles the <see cref="E:PreviewKeyDown" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))

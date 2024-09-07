@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-05-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DateEditControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -57,7 +57,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Values the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ValueChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -91,7 +91,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Entries the format changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void EntryFormatChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -135,7 +135,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Displays the format changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void DisplayFormatChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -214,7 +214,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Cultures the identifier changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -253,7 +253,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Setups the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void SetupChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -355,7 +355,7 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _overrideSelChanged;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DateEditControl"/> class.
+        /// Initializes static members of the <see cref="DateEditControl" /> class.
         /// </summary>
         static DateEditControl()
         {
@@ -367,7 +367,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateEditControl"/> class.
+        /// Initializes a new instance of the <see cref="DateEditControl" /> class.
         /// </summary>
         public DateEditControl()
         {
@@ -499,7 +499,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Handles the <see cref="E:PreviewKeyDown" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
@@ -544,7 +544,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the SelectedDateChanged event of the _calendar control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void _calendar_SelectedDateChanged(object sender, EventArgs e)
         {
             if (ReadOnlyMode)
@@ -559,7 +559,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the DatePicked event of the _calendar control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void _calendar_DatePicked(object sender, EventArgs e)
         {
             if (ReadOnlyMode)
@@ -680,7 +680,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the ValueChanged event of the _processor control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void _processor_ValueChanged(object sender, EventArgs e)
         {
             _textSettingValue = true;

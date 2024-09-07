@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-29-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridMemoEditor.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -114,7 +114,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private bool _dialogResult;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DataEntryGridMemoEditor"/> class.
+        /// Initializes static members of the <see cref="DataEntryGridMemoEditor" /> class.
         /// </summary>
         static DataEntryGridMemoEditor()
         {
@@ -123,7 +123,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridMemoEditor"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridMemoEditor" /> class.
         /// </summary>
         /// <param name="gridMemoValue">The grid memo value.</param>
         public DataEntryGridMemoEditor(DataEntryGridMemoValue gridMemoValue)
@@ -165,7 +165,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the Click event of the OkButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             if (Validate())
@@ -189,7 +189,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// Handles the Click event of the CancelButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();

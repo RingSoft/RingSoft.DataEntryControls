@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-13-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridHostFactory.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -21,6 +21,9 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
     /// </summary>
     public class DataEntryGridHostFactory
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataEntryGridHostFactory"/> class.
+        /// </summary>
         public DataEntryGridHostFactory()
         {
             WPFControlsGlobals.DataEntryGridHostFactory = this;

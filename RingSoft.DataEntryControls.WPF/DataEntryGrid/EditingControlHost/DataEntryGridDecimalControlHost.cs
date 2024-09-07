@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridDecimalControlHost.cs" company="Peter Ringering">
 //     Copyright (c)2023. All rights reserved.
@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         /// <value>The decimal cell props.</value>
         public DataEntryGridDecimalCellProps DecimalCellProps { get; private set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridDecimalControlHost"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridDecimalControlHost" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         public DataEntryGridDecimalControlHost(DataEntryGrid grid) : base(grid)

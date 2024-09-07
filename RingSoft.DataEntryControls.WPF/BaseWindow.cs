@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-29-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="BaseWindow.cs" company="Peter Ringering">
 //     Copyright (c) . All rights reserved.
@@ -138,7 +138,7 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _readOnlyMode;
 
         /// <summary>
-        /// Initializes static members of the <see cref="BaseWindow"/> class.
+        /// Initializes static members of the <see cref="BaseWindow" /> class.
         /// </summary>
         static BaseWindow()
         {
@@ -146,7 +146,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseWindow"/> class.
+        /// Initializes a new instance of the <see cref="BaseWindow" /> class.
         /// </summary>
         public BaseWindow()
         {

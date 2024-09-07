@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 06-28-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryMemoEditor.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -54,7 +54,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Texts the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void TextChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -100,7 +100,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Dates the format changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void DateFormatChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -129,7 +129,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Cultures the identifier changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void CultureIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -159,7 +159,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Reads the only mode changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ReadOnlyModeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -258,7 +258,7 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _readOnlyMode;
 
         /// <summary>
-        /// Initializes static members of the <see cref="DataEntryMemoEditor"/> class.
+        /// Initializes static members of the <see cref="DataEntryMemoEditor" /> class.
         /// </summary>
         static DataEntryMemoEditor()
         {
@@ -278,7 +278,7 @@ namespace RingSoft.DataEntryControls.WPF
         private bool _collapseDateButton;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryMemoEditor"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryMemoEditor" /> class.
         /// </summary>
         public DataEntryMemoEditor()
         {
@@ -325,7 +325,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the TextChanged event of the TextBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs" /> instance containing the event data.</param>
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = TextBox.Text;
@@ -335,7 +335,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the GotFocus event of the TextBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (SelectAllOnGotFocus)
@@ -348,7 +348,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the Click event of the DateStampButton control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void DateStampButton_Click(object sender, RoutedEventArgs e)
         {
             if (TextBox != null)
@@ -422,7 +422,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the KeyDown event of the TextBox control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (_readOnlyMode)

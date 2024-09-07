@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridContentComboBoxControlHost.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -40,7 +40,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         private int _selectedItemId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridContentComboBoxControlHost"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridContentComboBoxControlHost" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         public DataEntryGridContentComboBoxControlHost(DataEntryGrid grid) : base(grid)

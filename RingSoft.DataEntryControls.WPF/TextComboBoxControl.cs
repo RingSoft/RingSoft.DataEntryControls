@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 09-19-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="TextComboBoxControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -51,7 +51,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Selectes the item property changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void SelectedItemPropertyChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -80,7 +80,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Setups the property changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void SetupPropertyChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -139,7 +139,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the command changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiCommandChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -176,7 +176,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the label changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiLabelChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -233,7 +233,7 @@ namespace RingSoft.DataEntryControls.WPF
         private VmUiControl _vmUiControl;
 
         /// <summary>
-        /// Initializes static members of the <see cref="TextComboBoxControl"/> class.
+        /// Initializes static members of the <see cref="TextComboBoxControl" /> class.
         /// </summary>
         static TextComboBoxControl()
         {
@@ -253,7 +253,7 @@ namespace RingSoft.DataEntryControls.WPF
         //}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextComboBoxControl"/> class.
+        /// Initializes a new instance of the <see cref="TextComboBoxControl" /> class.
         /// </summary>
         public TextComboBoxControl()
         {
@@ -289,7 +289,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the GotFocus event of the TextComboBoxControl control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void TextComboBoxControl_GotFocus(object sender, RoutedEventArgs e)
         {
             //var border = this.GetVisualChild<Border>();
@@ -395,7 +395,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Handles the <see cref="E:SelectionChanged" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs" /> instance containing the event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             if (base.SelectedItem is TextComboBoxItem comboBoxItem)

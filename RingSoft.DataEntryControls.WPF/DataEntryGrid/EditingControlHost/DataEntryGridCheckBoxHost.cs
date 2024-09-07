@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridCheckBoxHost.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -42,7 +42,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
         private bool _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridCheckBoxHost"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridCheckBoxHost" /> class.
         /// </summary>
         /// <param name="grid">The grid.</param>
         public DataEntryGridCheckBoxHost(DataEntryGrid grid) : base(grid)

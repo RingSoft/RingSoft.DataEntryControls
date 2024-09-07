@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="WaitSpinner.xaml.cs" company="Peter Ringering">
 //     Copyright (c) . All rights reserved.
@@ -83,7 +83,7 @@ namespace RingSoft.DataEntryControls.WPF
         public EllipseStartPosition EllipseNW { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WaitSpinner"/> class.
+        /// Initializes a new instance of the <see cref="WaitSpinner" /> class.
         /// </summary>
         public WaitSpinner()
         {
@@ -128,7 +128,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Handles the <see cref="E:PropertyChanged" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             if (e.Property.Name == "Height")

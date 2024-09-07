@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="IntegerEditControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Setups the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void SetupChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -59,7 +59,7 @@ namespace RingSoft.DataEntryControls.WPF
         private int? _pendingNewValue;
 
         /// <summary>
-        /// Initializes static members of the <see cref="IntegerEditControl"/> class.
+        /// Initializes static members of the <see cref="IntegerEditControl" /> class.
         /// </summary>
         static IntegerEditControl()
         {

@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DecimalReadOnlyBox.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Precisions the changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void PrecisionChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -74,7 +74,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Formats the type changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void FormatTypeChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -83,7 +83,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes static members of the <see cref="DecimalReadOnlyBox"/> class.
+        /// Initializes static members of the <see cref="DecimalReadOnlyBox" /> class.
         /// </summary>
         static DecimalReadOnlyBox()
         {

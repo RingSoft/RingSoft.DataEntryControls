@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryMemoTabItem.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -58,7 +58,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes static members of the <see cref="DataEntryMemoTabItem"/> class.
+        /// Initializes static members of the <see cref="DataEntryMemoTabItem" /> class.
         /// </summary>
         static DataEntryMemoTabItem()
         {

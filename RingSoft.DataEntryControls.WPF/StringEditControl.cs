@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 09-19-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="StringEditControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -38,7 +38,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Gets or sets a value indicating whether [select all on got focus].
         /// </summary>
-        /// <value><c>true</c> if [select all on got focus]; otherwise, <c>false</c>.</value>  This is a bind-able property.
+        /// <value><c>true</c> if [select all on got focus]; otherwise, <c>false</c>.</value>
+        /// This is a bind-able property.
         public bool SelectAllOnGotFocus
         {
             get { return (bool)GetValue(SelectAllOnGotFocusProperty); }
@@ -66,7 +67,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the command changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiCommandChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -103,7 +104,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the label changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiLabelChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -141,7 +142,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         private VmUiControl _vmUiControl;
         /// <summary>
-        /// Initializes static members of the <see cref="StringEditControl"/> class.
+        /// Initializes static members of the <see cref="StringEditControl" /> class.
         /// </summary>
         static StringEditControl()
         {
@@ -151,7 +152,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StringEditControl"/> class.
+        /// Initializes a new instance of the <see cref="StringEditControl" /> class.
         /// </summary>
         public StringEditControl()
         {

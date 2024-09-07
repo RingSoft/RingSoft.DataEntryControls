@@ -1,4 +1,17 @@
-﻿using System.Threading;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 07-11-2024
+//
+// Last Modified By : petem
+// Last Modified On : 07-11-2024
+// ***********************************************************************
+// <copyright file="TwoTierProcessingWindow.cs" company="RingSoft">
+//     2024
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -7,52 +20,58 @@ using System.Windows.Controls;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:TwoTierProgressWindow/>
-    ///
+    /// Class TwoTierProcessingWindow.
+    /// Implements the <see cref="RingSoft.DataEntryControls.WPF.BaseWindow" />
     /// </summary>
+    /// <seealso cref="RingSoft.DataEntryControls.WPF.BaseWindow" />
     public class TwoTierProcessingWindow : BaseWindow
     {
+        /// <summary>
+        /// Gets the top tier text.
+        /// </summary>
+        /// <value>The top tier text.</value>
         public StringReadOnlyBox TopTierText { get; private set; }
+        /// <summary>
+        /// Gets the top tier progress bar.
+        /// </summary>
+        /// <value>The top tier progress bar.</value>
         public ProgressBar TopTierProgressBar { get; private set; }
+        /// <summary>
+        /// Gets the bottom tier text.
+        /// </summary>
+        /// <value>The bottom tier text.</value>
         public StringReadOnlyBox BottomTierText { get; private set; }
+        /// <summary>
+        /// Gets the bottom tier progress bar.
+        /// </summary>
+        /// <value>The bottom tier progress bar.</value>
         public ProgressBar BottomTierProgressBar { get; private set; }
+        /// <summary>
+        /// Gets the procedure.
+        /// </summary>
+        /// <value>The procedure.</value>
         public TwoTierProcessingProcedure Procedure { get; }
+        /// <summary>
+        /// Initializes static members of the <see cref="TwoTierProcessingWindow"/> class.
+        /// </summary>
         static TwoTierProcessingWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoTierProcessingWindow), new FrameworkPropertyMetadata(typeof(TwoTierProcessingWindow)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TwoTierProcessingWindow"/> class.
+        /// </summary>
+        /// <param name="procedure">The procedure.</param>
         internal TwoTierProcessingWindow(TwoTierProcessingProcedure procedure)
         {
             Procedure = procedure;
             CloseOnEscape = false;
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             TopTierText = GetTemplateChild(nameof(TopTierText)) as StringReadOnlyBox;
@@ -62,6 +81,9 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Processes this instance.
+        /// </summary>
         internal void Process()
         {
             Owner = Procedure.OwnerWindow;
@@ -83,6 +105,15 @@ namespace RingSoft.DataEntryControls.WPF
             ShowDialog();
         }
 
+        /// <summary>
+        /// Sets the progress.
+        /// </summary>
+        /// <param name="topMax">The top maximum.</param>
+        /// <param name="topValue">The top value.</param>
+        /// <param name="topText">The top text.</param>
+        /// <param name="bottomMax">The bottom maximum.</param>
+        /// <param name="bottomValue">The bottom value.</param>
+        /// <param name="bottomText">The bottom text.</param>
         internal void SetProgress(int topMax, int topValue, string topText, int bottomMax, int bottomValue, string bottomText)
         {
             Dispatcher.Invoke(() =>

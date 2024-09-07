@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 09-19-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="ContentComboBoxControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -50,7 +50,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Selecteds the item identifier changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void SelectedItemIdChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -79,7 +79,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Contents the template changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void ContentTemplateChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -108,7 +108,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the command changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiCommandChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -145,7 +145,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// UIs the label changed callback.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void UiLabelChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -169,7 +169,7 @@ namespace RingSoft.DataEntryControls.WPF
         private VmUiControl _vmUiControl;
 
         /// <summary>
-        /// Initializes static members of the <see cref="ContentComboBoxControl"/> class.
+        /// Initializes static members of the <see cref="ContentComboBoxControl" /> class.
         /// </summary>
         static ContentComboBoxControl()
         {
@@ -177,7 +177,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContentComboBoxControl"/> class.
+        /// Initializes a new instance of the <see cref="ContentComboBoxControl" /> class.
         /// </summary>
         public ContentComboBoxControl()
         {
@@ -229,7 +229,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// Handles the GotFocus event of the ContentComboBoxControl control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void ContentComboBoxControl_GotFocus(object sender, RoutedEventArgs e)
         {
             var border = this.GetVisualChild<Border>();
@@ -282,7 +282,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Handles the <see cref="E:KeyDown" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             var item = ContentTemplate.FirstOrDefault(f => f.HotKey == e.Key);
