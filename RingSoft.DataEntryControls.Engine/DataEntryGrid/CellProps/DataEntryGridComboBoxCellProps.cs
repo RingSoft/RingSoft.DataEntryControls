@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridComboBoxCellProps.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -42,7 +42,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public ComboBoxValueChangedTypes ChangeType { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridComboBoxCellProps"/> class and creates a combo box control in the data entry grid cell.
+        /// Initializes a new instance of the <see cref="DataEntryGridComboBoxCellProps" /> class and creates a combo box control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -80,7 +80,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public TextComboBoxItem SelectedItem { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridTextComboBoxCellProps"/> class and creates a text combo box control in the data entry grid cell..
+        /// Initializes a new instance of the <see cref="DataEntryGridTextComboBoxCellProps" /> class and creates a text combo box control in the data entry grid cell..
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

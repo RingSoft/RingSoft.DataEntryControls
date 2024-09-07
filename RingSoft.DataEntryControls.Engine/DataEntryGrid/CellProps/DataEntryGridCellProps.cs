@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridCellProps.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -91,7 +91,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public string DataValue => GetDataValue(Row, ColumnId, ControlMode);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridCellProps" /> class.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -175,7 +175,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public CellLostFocusTypes CellLostFocusType { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridEditingCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridEditingCellProps" /> class.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

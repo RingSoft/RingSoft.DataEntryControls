@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridMemoValue.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -34,7 +34,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public bool CrLf { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GridMemoValueLine"/> class.
+        /// Initializes a new instance of the <see cref="GridMemoValueLine" /> class.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="crLf">if set to <c>true</c> [cr lf].</param>
@@ -95,7 +95,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         private List<GridMemoValueLine> _lines = new List<GridMemoValueLine>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridMemoValue"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridMemoValue" /> class.
         /// </summary>
         /// <param name="maxCharsPerLine">The maximum chars per line.</param>
         public DataEntryGridMemoValue(int maxCharsPerLine)

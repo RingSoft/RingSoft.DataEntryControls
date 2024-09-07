@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 05-26-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="IDataEntryGrid.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public string ColumnName { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ColumnMap"/> class.
+        /// Initializes a new instance of the <see cref="ColumnMap" /> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name.</param>

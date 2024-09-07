@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-10-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridButtonCellProps.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -28,7 +28,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public override int EditingControlId => DataEntryGridEditingCellProps.ButtonHostId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridButtonCellProps"/> class and Creates a button in the data entry grid cell.
+        /// Initializes a new instance of the <see cref="DataEntryGridButtonCellProps" /> class and Creates a button in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="CalculatorProcessor.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -134,7 +134,7 @@ namespace RingSoft.DataEntryControls.Engine
         private bool _enteringData;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CalculatorProcessor"/> class.
+        /// Initializes a new instance of the <see cref="CalculatorProcessor" /> class.
         /// </summary>
         /// <param name="control">The control.</param>
         public CalculatorProcessor(ICalculatorControl control)

@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridTextCellProps.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -64,7 +64,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public TextCasing CharacterCasing { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridTextCellProps"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridTextCellProps" /> class.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -73,7 +73,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridTextCellProps"/> class and creates a string edit control in the data entry grid cell.
+        /// Initializes a new instance of the <see cref="DataEntryGridTextCellProps" /> class and creates a string edit control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DateSegment.cs" company="Peter Ringering">
 //     Copyright (c) . All rights reserved.
@@ -49,7 +49,7 @@ namespace RingSoft.DataEntryControls.Engine.Date.Segments
         public char FormatChar { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateSegment"/> class.
+        /// Initializes a new instance of the <see cref="DateSegment" /> class.
         /// </summary>
         /// <param name="processor">The processor.</param>
         /// <param name="segmentStart">The segment start.</param>

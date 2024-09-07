@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DateEditControlSetup.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -95,7 +95,7 @@ namespace RingSoft.DataEntryControls.Engine
         public bool AllowNullValue { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateEditControlSetup"/> class.
+        /// Initializes a new instance of the <see cref="DateEditControlSetup" /> class.
         /// </summary>
         public DateEditControlSetup()
         {

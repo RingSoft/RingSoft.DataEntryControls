@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryNumericControlProcessor.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -47,7 +47,7 @@ namespace RingSoft.DataEntryControls.Engine
         public string NewValue { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueChangedArgs"/> class.
+        /// Initializes a new instance of the <see cref="ValueChangedArgs" /> class.
         /// </summary>
         /// <param name="newValue">The new value.</param>
         public ValueChangedArgs(string newValue)
@@ -173,7 +173,7 @@ namespace RingSoft.DataEntryControls.Engine
         private DecimalEditControlSetup _setup;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryNumericControlProcessor"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryNumericControlProcessor" /> class.
         /// </summary>
         /// <param name="control">The control.</param>
         public DataEntryNumericControlProcessor(INumericControl control)

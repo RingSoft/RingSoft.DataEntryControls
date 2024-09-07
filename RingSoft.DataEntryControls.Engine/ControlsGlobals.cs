@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 05-25-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="ControlsGlobals.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.

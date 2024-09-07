@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DateSegmentMonth.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -21,7 +21,7 @@ namespace RingSoft.DataEntryControls.Engine.Date.Segments
     internal class DateSegmentMonth : DateSegment
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateSegmentMonth"/> class.
+        /// Initializes a new instance of the <see cref="DateSegmentMonth" /> class.
         /// </summary>
         /// <param name="processor">The processor.</param>
         /// <param name="segmentStart">The segment start.</param>

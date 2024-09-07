@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridDecimalCellProps.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -39,7 +39,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public double? Value { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridDecimalCellProps"/> class and creates a decimal edit control in the data entry grid cell.
+        /// Initializes a new instance of the <see cref="DataEntryGridDecimalCellProps" /> class and creates a decimal edit control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -52,7 +52,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// /// Gets the control properties.
+        /// Gets the control properties.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

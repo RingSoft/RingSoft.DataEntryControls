@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridCustomControlCellProps.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
         public int SelectedItemId { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridCustomControlCellProps"/> class and creates a custom control in the data entry grid cell.
+        /// Initializes a new instance of the <see cref="DataEntryGridCustomControlCellProps" /> class and creates a custom control in the data entry grid cell.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid.CellProps
         }
 
         /// <summary>
-        /// /// Gets the control properties.
+        /// Gets the control properties.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>

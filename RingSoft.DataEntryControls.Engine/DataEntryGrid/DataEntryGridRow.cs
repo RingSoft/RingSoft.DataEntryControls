@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 05-07-2023
+// Last Modified On : 09-04-2024
 // ***********************************************************************
 // <copyright file="DataEntryGridRow.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -61,6 +61,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// <value><c>true</c> if this instance is new; otherwise, <c>false</c>.</value>
         private bool _isNew;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is new.
+        /// </summary>
+        /// <value><c>true</c> if this instance is new; otherwise, <c>false</c>.</value>
         public bool IsNew
         {
             get { return _isNew; }
@@ -85,7 +89,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public virtual bool AllowUserDelete { get; } = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridRow"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridRow" /> class.
         /// </summary>
         /// <param name="manager">The manager.</param>
         public DataEntryGridRow(DataEntryGridManager manager)
@@ -94,6 +98,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             RowId = Guid.NewGuid().ToString();
         }
 
+        /// <summary>
+        /// Called when [is new changed].
+        /// </summary>
+        /// <param name="oldValue">if set to <c>true</c> [old value].</param>
+        /// <param name="newValue">if set to <c>true</c> [new value].</param>
         public virtual void OnIsNewChanged(bool oldValue, bool newValue)
         {
 

@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridContextMenuItem.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -45,7 +45,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public object Icon { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridContextMenuItem"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridContextMenuItem" /> class.
         /// </summary>
         /// <param name="header">The header.</param>
         /// <param name="command">The command.</param>

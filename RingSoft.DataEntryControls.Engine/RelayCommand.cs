@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="RelayCommand.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -33,7 +33,7 @@ namespace RingSoft.DataEntryControls.Engine
         private bool _isEnabled = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RelayCommand"/> class.
+        /// Initializes a new instance of the <see cref="RelayCommand" /> class.
         /// </summary>
         /// <param name="handler">The handler.</param>
         public RelayCommand(Action handler)
@@ -101,7 +101,7 @@ namespace RingSoft.DataEntryControls.Engine
         private bool _isEnabled = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RelayCommand{T}"/> class.
+        /// Initializes a new instance of the <see cref="RelayCommand{T}" /> class.
         /// </summary>
         /// <param name="handler">The handler.</param>
         public RelayCommand(Action<T> handler)

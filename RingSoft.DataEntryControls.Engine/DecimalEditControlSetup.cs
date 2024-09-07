@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 07-24-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DecimalEditControlSetup.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -92,7 +92,7 @@ namespace RingSoft.DataEntryControls.Engine
         public string PercentText { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DecimalEditControlSetup"/> class.
+        /// Initializes a new instance of the <see cref="DecimalEditControlSetup" /> class.
         /// </summary>
         public DecimalEditControlSetup()
         {

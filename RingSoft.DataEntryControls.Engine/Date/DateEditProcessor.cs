@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 05-25-2023
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DateEditProcessor.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -44,7 +44,7 @@ namespace RingSoft.DataEntryControls.Engine.Date
         private DateEditControlSetup _setup;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateEditProcessor"/> class.
+        /// Initializes a new instance of the <see cref="DateEditProcessor" /> class.
         /// </summary>
         /// <param name="control">The control.</param>
         public DateEditProcessor(IDateEditControl control)

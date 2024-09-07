@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 10-31-2023
+// Last Modified On : 12-26-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridManager.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -61,7 +61,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         private int _initColumnId = -1;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridManager"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridManager" /> class.
         /// </summary>
         public DataEntryGridManager()
         {
@@ -73,7 +73,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// Handles the CollectionChanged event of the _rows control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs" /> instance containing the event data.</param>
         private void _rows_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnRowsChanged(e);
@@ -82,7 +82,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// <summary>
         /// Handles the <see cref="E:RowsChanged" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="NotifyCollectionChangedEventArgs" /> instance containing the event data.</param>
         protected virtual void OnRowsChanged(NotifyCollectionChangedEventArgs e)
         {
             RowsChanged?.Invoke(this, e);

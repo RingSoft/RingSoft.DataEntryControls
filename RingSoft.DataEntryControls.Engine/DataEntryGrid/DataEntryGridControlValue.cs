@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridControlValue.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -49,7 +49,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         public string DataValue { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridControlValue"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridControlValue" /> class.
         /// </summary>
         /// <param name="cellStyle">The cell style.</param>
         /// <param name="cellValue">The cell value.</param>
@@ -66,7 +66,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridControlValue"/> class.
+        /// Initializes a new instance of the <see cref="DataEntryGridControlValue" /> class.
         /// </summary>
         /// <param name="dataValue">The data value.</param>
         public DataEntryGridControlValue(string dataValue)

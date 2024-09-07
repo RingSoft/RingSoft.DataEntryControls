@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 11-11-2022
+// Last Modified On : 12-11-2023
 // ***********************************************************************
 // <copyright file="DataEntryGridCheckBoxCellProps.cs" company="Peter Ringering">
 //     Copyright (c) 2023. All rights reserved.
@@ -29,10 +29,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// <summary>
         /// Gets or sets the CheckBox checked value.
         /// </summary>
+        /// <value><c>true</c> if value; otherwise, <c>false</c>.</value>
         public bool Value { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataEntryGridCheckBoxCellProps"/> class.  Causes a check box to be created in te grid cell when returned.  Used in conjunction with DataEntryGridCheckBoxColumn.
+        /// Initializes a new instance of the <see cref="DataEntryGridCheckBoxCellProps" /> class.  Causes a check box to be created in te grid cell when returned.  Used in conjunction with DataEntryGridCheckBoxColumn.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="columnId">The column identifier.</param>
