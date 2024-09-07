@@ -87,7 +87,7 @@
                 </TabItem>
                 <TabItem Header="Sales">
                     <Grid>
-                        <lc:LookupControl LookupDefinition="{Binding Path=OrderDetailsLookupDefinition}" Command="{Binding Path=OrderDetailsLookupCommand}">
+                        <lc:LookupControl LookupDefinition="{Binding Path=OrderDetailsLookupDefinition}">
                             <lc:LookupControl.LookupColumns>
                                 <lc:LookupColumn PropertyName="{lc:NameOf OrderDate, Type={x:Type lm:OrderDetailLookup}}" Width="90" Header="Date" DesignText="01/01/1980"/>
 
