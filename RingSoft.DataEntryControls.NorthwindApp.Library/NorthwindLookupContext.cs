@@ -18,7 +18,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
     public class NorthwindLookupContext : LookupContext, IAdvancedFindLookupContext
     {
         public override DbDataProcessor DataProcessor => NorthwindDataProcessor;
-        protected override DbContext DbContext { get; }
+        //protected override DbContext DbContext { get; }
 
         public virtual TableDefinition<Categories> Categories { get; set; }
         public virtual TableDefinition<Customers> Customers { get; set; }
@@ -63,7 +63,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library
                 FilePath = AppGlobals.DataDirectory,
                 FileName = "RSDEC_Northwind.sqlite"
             };
-            DbContext = new NorthwindDbContext(this);
+            SetDbContext(new NorthwindDbContext(this));
             if (migrate)
             {
                 DbContext.Database.Migrate();
