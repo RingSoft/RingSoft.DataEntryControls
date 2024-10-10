@@ -271,13 +271,13 @@ namespace RingSoft.DataEntryControls.WPF
         /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public static void SetAllChildControlsReadOnlyMode(this DependencyObject parent, bool readOnlyValue)
         {
-            if (!(parent is BaseWindow baseWindow))
-                baseWindow = parent.GetParentOfType<BaseWindow>();
+            if (!(parent is BaseUserControl baseUserControl))
+                baseUserControl = parent.GetParentOfType<BaseUserControl>();
 
             var children = parent.GetChildControls();
             foreach (var child in children)
             {
-                baseWindow?.SetControlReadOnlyMode(child, readOnlyValue);
+                baseUserControl?.SetControlReadOnlyMode(child, readOnlyValue);
             }
         }
 
