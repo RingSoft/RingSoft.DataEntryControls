@@ -182,16 +182,21 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void Command_OnSetFocus(object sender, EventArgs e)
+        private void Command_OnSetFocus(object sender, SetFocusArgs e)
         {
-            OnSetFocus();
+            OnSetFocus(e.IgnoreTabFocus);
         }
 
         /// <summary>
         /// Called when [set focus].
         /// </summary>
-        protected virtual void OnSetFocus()
+        protected virtual void OnSetFocus(bool ignoreTabFocus)
         {
+            if (ignoreTabFocus)
+            {
+                Control.Focus();
+                return;
+            }
             Control.SetTabFocusToControl();
         }
 

@@ -94,6 +94,11 @@ namespace RingSoft.DataEntryControls.Engine
         public bool ContinueFocusChange { get; set; } = true;
     }
 
+    public class SetFocusArgs
+    {
+        public bool IgnoreTabFocus { get; set; }
+    }
+
     /// <summary>
     /// Class UiCommand.
     /// </summary>
@@ -216,7 +221,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// <summary>
         /// Occurs when [on set focus].
         /// </summary>
-        public event EventHandler OnSetFocus;
+        public event EventHandler<SetFocusArgs> OnSetFocus;
 
         /// <summary>
         /// Occurs when [lost focus].
@@ -231,10 +236,14 @@ namespace RingSoft.DataEntryControls.Engine
         /// <summary>
         /// Sets the focus.
         /// </summary>
-        public void SetFocus()
+        public void SetFocus(bool ignoreTabFocus = false)
         {
             IsFocused = true;
-            OnSetFocus?.Invoke(this, EventArgs.Empty);
+            var setFocusArgs = new SetFocusArgs()
+            {
+                IgnoreTabFocus = ignoreTabFocus,
+            };
+            OnSetFocus?.Invoke(this, setFocusArgs);
         }
 
 

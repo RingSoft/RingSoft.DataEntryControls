@@ -69,6 +69,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         private const int WS_BOTH = 0x30000; //maximize and minimize buttons
 
+        private const int WS_SYSMENU = 0x80000;
+
         /// <summary>
         /// The snug width property
         /// </summary>
@@ -121,6 +123,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         /// <value><c>true</c> if [hide control box]; otherwise, <c>false</c>.</value>
         public bool HideControlBox { get; set; }
+
+        public bool HideCloseButton { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [enter to tab].
@@ -189,6 +193,11 @@ namespace RingSoft.DataEntryControls.WPF
 
             Loaded += (sender, args) =>
             {
+                if (HideCloseButton)
+                {
+                    var hwnd = new WindowInteropHelper(this).Handle;
+                    SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+                }
                 SnugWindow();
 
                 if (SetFocusToFirstControl)

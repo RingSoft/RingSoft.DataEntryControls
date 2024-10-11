@@ -18,6 +18,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// <value><c>true</c> if [enter to tab]; otherwise, <c>false</c>.</value>
         public bool EnterToTab { get; set; }
 
+        public bool IgnoreTab { get; set; }
+
         /// <summary>
         /// The read only tab control
         /// </summary>
@@ -26,6 +28,33 @@ namespace RingSoft.DataEntryControls.WPF
         /// The read only mode
         /// </summary>
         private bool _readOnlyMode;
+
+        public BaseUserControl()
+        {
+            KeyDown += (sender, args) =>
+            {
+                if (args.Key == Key.Tab)
+                {
+                    if (IgnoreTab)
+                    {
+                        args.Handled = true;
+                        IgnoreTab = false;
+                        return;
+                    }
+                }
+
+                switch (args.Key)
+                {
+                    case Key.Enter:
+                        if (EnterToTab)
+                        {
+                            WPFControlsGlobals.SendKey(Key.Tab);
+                            args.Handled = true;
+                        }
+                        break;
+                }
+            };
+        }
 
         private void OnTabSelectionChanged()
         {
