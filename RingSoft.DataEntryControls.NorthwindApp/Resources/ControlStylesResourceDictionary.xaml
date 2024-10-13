@@ -7,12 +7,18 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary
+            Source="pack://application:,,,/RingSoft.DbLookup.Controls.WPF;component/Themes/DbLookupControlsStyles.xaml" />
+        <ResourceDictionary
             Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/DataEntryControlsStyles.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Resources/BrushesResourceDictionary.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Resources/ComboBoxResourceDictionary.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <dec:ComparisonConverter x:Key="ComparisonConverter" />
+
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+    </Style>
 
     <Style TargetType="Window" x:Key="WindowStyle">
         <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
@@ -75,11 +81,14 @@
 
     <Style TargetType="dec:NotificationButton" BasedOn="{StaticResource {x:Type Button}}"/>
 
-    <Style TargetType="TabControl">
+    <Style TargetType="TabControl" x:Key="{x:Type TabControl}">
         <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
+
+    <Style TargetType="lc:DbMaintenanceTabControl" BasedOn="{StaticResource {x:Type TabControl}}"/>
+    
 
     <Style TargetType="TabItem" x:Key="{x:Type TabItem}">
         <Setter Property="Template">

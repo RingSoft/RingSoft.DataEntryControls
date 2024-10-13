@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
@@ -37,6 +38,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp
                 timer.Start();
             };
 
+            LookupControlsGlobals.SetTabSwitcherWindow(this, TabControl);
+
             SalesEntryButton.Click += (_, _) => ShowSalesEntryWindow();
             SalesEntryMenu.Click += (_, _) => ShowSalesEntryWindow();
             PoMenu.Click += (_, _) => ShowPurchaseOrderWindow();
@@ -55,12 +58,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         private void ShowSalesEntryWindow()
         {
-            LookupControlsGlobals.WindowRegistry.ShowDbMaintenanceWindow(AppGlobals.LookupContext.Orders);
+            TabControl.ShowTableControl(AppGlobals.LookupContext.Orders);
         }
 
         private void ShowPurchaseOrderWindow()
         {
-            LookupControlsGlobals.WindowRegistry.ShowDbMaintenanceWindow(AppGlobals.LookupContext.Purchases);
+            TabControl.ShowTableControl(AppGlobals.LookupContext.Purchases);
         }
 
         private void ShowOptionsWindow()
@@ -83,6 +86,16 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         {
             var procTest = new TestProcedure(this, "Testing");
             procTest.Start();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (!TabControl.CloseAllTabs())
+            {
+                e.Cancel = true;
+            }
+
+            base.OnClosing(e);
         }
     }
 }

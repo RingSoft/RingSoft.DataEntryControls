@@ -9,6 +9,11 @@ namespace RingSoft.DataEntryControls.NorthwindApp
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(Window))
+            });
+
             var wpfAppStart = new WpfAppStart(this);
             wpfAppStart.StartApp(e.Args);
 

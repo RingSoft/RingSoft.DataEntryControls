@@ -20,6 +20,8 @@ namespace RingSoft.DataEntryControls.WPF
 
         public bool IgnoreTab { get; set; }
 
+        public Window OwnerWindow { get; private set; }
+
         /// <summary>
         /// The read only tab control
         /// </summary>
@@ -31,6 +33,10 @@ namespace RingSoft.DataEntryControls.WPF
 
         public BaseUserControl()
         {
+            Loaded += (sender, args) =>
+            {
+                OwnerWindow = Window.GetWindow(this);
+            };
             KeyDown += (sender, args) =>
             {
                 if (args.Key == Key.Tab)

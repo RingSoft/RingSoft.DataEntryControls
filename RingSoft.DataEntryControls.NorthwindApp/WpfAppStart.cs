@@ -82,8 +82,15 @@ namespace RingSoft.DataEntryControls.NorthwindApp
             LookupControlsGlobals.WindowRegistry.RegisterWindow<NonInventoryCodeWindow, NonInventoryCodes>();
             LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow, Orders>();
             LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow, OrderDetails>();
+
             LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow, Purchases>();
             LookupControlsGlobals.WindowRegistry.RegisterWindow<PurchaseOrderWindow, PurchaseDetails>();
+
+            LookupControlsGlobals.WindowRegistry.RegisterUserControl<PurchaseOrderUserControl, Purchases>();
+            LookupControlsGlobals.WindowRegistry.RegisterUserControl<PurchaseOrderUserControl, PurchaseDetails>();
+
+            LookupControlsGlobals.WindowRegistry.RegisterUserControl<SalesEntryUserControl, Orders>();
+            LookupControlsGlobals.WindowRegistry.RegisterUserControl<SalesEntryUserControl, OrderDetails>();
 
             var appDbMaintenanceProcessorFactory = new AppDbMaintenanceProcessorFactory();
             var appDbMaintenanceButtonsFactory = new AppDbMaintenanceButtonsFactory();
