@@ -1420,7 +1420,7 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs" /> that contains the event data.</param>
         protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-            if (EditingControlHost != null && EditingControlHost.Control != null &&
+            if (e.NewFocus != null && EditingControlHost != null && EditingControlHost.Control != null &&
                 !e.NewFocus.Equals(EditingControlHost.Control))
             {
                 if (e.NewFocus is DependencyObject newFocus)
