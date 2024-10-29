@@ -1738,8 +1738,15 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                 {
                     if (e.Key == Key.Tab)
                     {
-                        e.Handled = true;
                         TabRight();
+                        if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            e.Handled = true;
+                        }
                     }
                 }
             }

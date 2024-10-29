@@ -319,6 +319,15 @@ namespace RingSoft.DataEntryControls.WPF
         [DllImport("user32.dll")]
         public static extern uint MapVirtualKey(uint uCode, MapType uMapType);
 
+        public static char GetAsciiCharFromKey(this Key key)
+        {
+            int virtualKey = KeyInterop.VirtualKeyFromKey(key);
+            uint charCode = MapVirtualKey((uint)virtualKey, MapType.MAPVK_VK_TO_CHAR);
+            char mappedChar = Convert.ToChar(charCode);
+
+            return mappedChar;
+        }
+
         /// <summary>
         /// Converts key value to char.
         /// </summary>
