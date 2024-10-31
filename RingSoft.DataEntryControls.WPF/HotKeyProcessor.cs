@@ -101,12 +101,21 @@ namespace RingSoft.DataEntryControls.WPF
                         {
                             break;
                         }
-                        if (hotKeyKey == _keysPressed[hotKeyKeyIndex].Key)
-                        {
-                            _keysPressed[hotKeyKeyIndex].KeyFound = true;
-                        }
 
-                        hotKeyKeyIndex++;
+                        if (hotKey.Keys.Count == _keysPressed.Count)
+                        {
+                            var hotKeyPressedIndex = 0;
+                            foreach (var hotKeyPressed in _keysPressed)
+                            {
+                                if (hotKey.Keys[hotKeyPressedIndex] == hotKeyPressed.Key)
+                                {
+                                    hotKeyPressed.KeyFound = true;
+                                }
+                                hotKeyPressedIndex++;
+                            }
+                            hotKeyKeyIndex++;
+
+                        }
                     }
 
                     if (hotKey.Keys.Count == _keysPressed.Count)
