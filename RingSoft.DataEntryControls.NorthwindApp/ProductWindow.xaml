@@ -51,10 +51,11 @@
             <lc:AutoFillControl Grid.Row="2" Grid.Column="1" x:Name="SupplierControl" DesignText="New England Seafood Cannery" Setup="{Binding SupplierAutoFillSetup}" Value="{Binding Path=SupplierAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" UiCommand="{Binding SupplierUiCommand}" UiLabel="{Binding ElementName=SupplierLabel}"/>
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ControlLabel}" Content="Category"/>
             <lc:AutoFillControl Grid.Row="3" Grid.Column="1" x:Name="CategoryControl" DesignText="Grains/Cereals" Width="125" HorizontalAlignment="Left" Setup="{Binding CategoryAutoFillSetup}" Value="{Binding Path=CategoryAutoFillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TabControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" x:Name="TabControl">
+            <dec:DataEntryTabControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" x:Name="TabControl">
                 <TabItem Header="Qty/Price">
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -117,7 +118,7 @@
                 <dec:DataEntryMemoTabItem Header="Notes">
                     <dec:DataEntryMemoEditor Text="{Binding Path=Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </dec:DataEntryMemoTabItem>
-            </TabControl>
+            </dec:DataEntryTabControl>
         </Grid>
     </DockPanel>
 </lc:DbMaintenanceWindow>

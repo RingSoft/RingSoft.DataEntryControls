@@ -56,7 +56,7 @@
             <dec:DateEditControl x:Name="OrderDateControl" Grid.Row="2" Grid.Column="1" Value="{Binding Path=OrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource ControlLabel}" Content="Required Date"/>
             <dec:DateEditControl Grid.Row="2" Grid.Column="3" Value="{Binding Path=RequiredDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
-            <TabControl x:Name="TabControl" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
+            <dec:DataEntryTabControl x:Name="TabControl" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
                 <TabItem Header="Details">
                     <DockPanel>
                         <deg:DataEntryGrid x:Name="DetailsGrid" Manager="{Binding DetailsGridManager}" FrozenColumnCount="2">
@@ -115,7 +115,7 @@
                 <dec:DataEntryMemoTabItem Header="Notes">
                     <dec:DataEntryMemoEditor Text="{Binding Path=Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </dec:DataEntryMemoTabItem>
-            </TabControl>
+            </dec:DataEntryTabControl>
             <Grid Grid.Row="4" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

@@ -87,6 +87,8 @@
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
+    <Style TargetType="dec:DataEntryTabControl" BasedOn="{StaticResource {x:Type TabControl}}"/>
+
     <Style TargetType="lc:DbMaintenanceTabControl" BasedOn="{StaticResource {x:Type TabControl}}"/>
     
 
