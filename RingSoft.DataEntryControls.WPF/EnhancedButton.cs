@@ -58,56 +58,56 @@ namespace RingSoft.DataEntryControls.WPF
             dbMaintenanceButton.SetImage();
         }
 
-        private static void VisibilityChangedCallback(DependencyObject obj,
-            DependencyPropertyChangedEventArgs args)
-        {
-            var dbMaintenanceButton = (EnhancedButton)obj;
-            var grid = dbMaintenanceButton.GetParentOfType<Grid>();
-            if (grid != null)
-            {
-                if (grid.RowDefinitions.Count <= 1)
-                {
-                    var columnIndex = Grid.GetColumn(dbMaintenanceButton);
-                    var columnDefinition = grid.ColumnDefinitions[columnIndex];
-                    if (columnDefinition != null)
-                    {
-                        switch (dbMaintenanceButton.Visibility)
-                        {
-                            case Visibility.Visible:
-                                columnDefinition.Width = new GridLength(1, GridUnitType.Star);
-                                break;
-                            case Visibility.Hidden:
-                            case Visibility.Collapsed:
-                                columnDefinition.Width = new GridLength(0);
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
-                    }
-                }
+        //private static void VisibilityChangedCallback(DependencyObject obj,
+        //    DependencyPropertyChangedEventArgs args)
+        //{
+        //    var dbMaintenanceButton = (EnhancedButton)obj;
+        //    var grid = dbMaintenanceButton.GetParentOfType<Grid>();
+        //    if (grid != null)
+        //    {
+        //        if (grid.RowDefinitions.Count <= 1)
+        //        {
+        //            var columnIndex = Grid.GetColumn(dbMaintenanceButton);
+        //            var columnDefinition = grid.ColumnDefinitions[columnIndex];
+        //            if (columnDefinition != null)
+        //            {
+        //                switch (dbMaintenanceButton.Visibility)
+        //                {
+        //                    case Visibility.Visible:
+        //                        columnDefinition.Width = new GridLength(1, GridUnitType.Star);
+        //                        break;
+        //                    case Visibility.Hidden:
+        //                    case Visibility.Collapsed:
+        //                        columnDefinition.Width = new GridLength(0);
+        //                        break;
+        //                    default:
+        //                        throw new ArgumentOutOfRangeException();
+        //                }
+        //            }
+        //        }
 
-                if (grid.ColumnDefinitions.Count <= 1)
-                {
-                    var rowIndex = Grid.GetRow(dbMaintenanceButton);
-                    var rowDefinition = grid.RowDefinitions[rowIndex];
-                    if (rowDefinition != null)
-                    {
-                        switch (dbMaintenanceButton.Visibility)
-                        {
-                            case Visibility.Visible:
-                                rowDefinition.Height = new GridLength(1, GridUnitType.Star);
-                                break;
-                            case Visibility.Hidden:
-                            case Visibility.Collapsed:
-                                rowDefinition.Height = new GridLength(0);
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
-                    }
-                }
-            }
-        }
+        //        if (grid.ColumnDefinitions.Count <= 1)
+        //        {
+        //            var rowIndex = Grid.GetRow(dbMaintenanceButton);
+        //            var rowDefinition = grid.RowDefinitions[rowIndex];
+        //            if (rowDefinition != null)
+        //            {
+        //                switch (dbMaintenanceButton.Visibility)
+        //                {
+        //                    case Visibility.Visible:
+        //                        rowDefinition.Height = new GridLength(1, GridUnitType.Star);
+        //                        break;
+        //                    case Visibility.Hidden:
+        //                    case Visibility.Collapsed:
+        //                        rowDefinition.Height = new GridLength(0);
+        //                        break;
+        //                    default:
+        //                        throw new ArgumentOutOfRangeException();
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         public new EnhancedToolTip ToolTip { get; }
 
@@ -118,9 +118,9 @@ namespace RingSoft.DataEntryControls.WPF
                 typeof(EnhancedButton)
                 , new FrameworkPropertyMetadata(typeof(EnhancedButton)));
 
-            VisibilityProperty.OverrideMetadata(
-                typeof(EnhancedButton)
-                , new FrameworkPropertyMetadata(VisibilityChangedCallback));
+            //VisibilityProperty.OverrideMetadata(
+            //    typeof(EnhancedButton)
+            //    , new FrameworkPropertyMetadata(VisibilityChangedCallback));
         }
 
         public EnhancedButton()

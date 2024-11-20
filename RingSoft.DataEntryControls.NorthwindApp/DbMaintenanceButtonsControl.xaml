@@ -16,10 +16,10 @@
         <Button x:Name="PreviousButton" Content="&lt;--" IsTabStop="False"/>
         <Grid Grid.Column="1" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -27,7 +27,7 @@
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Button x:Name="NewButton" Content="New" Margin="2.5" IsTabStop="False"/>
-            <dec:EnhancedButton x:Name="SaveButton" Content="Save" Grid.Column="1" Grid.Row="0" Margin="2.5" IsTabStop="False"/>
+            <dec:EnhancedButton x:Name="SaveButton" Content="Save" ImageSource="{StaticResource DecimalEditImage}" Grid.Column="1" Grid.Row="0" Margin="2.5" IsTabStop="False"/>
             <dec:EnhancedButton x:Name="DeleteButton" Content="Delete" Grid.Column="2" Grid.Row="0" Margin="2.5" IsTabStop="False"/>
             <Button x:Name="FindButton" Content="Find" Grid.Column="0" Grid.Row="1" Margin="2.5" IsTabStop="False"/>
             <Button x:Name="SelectButton" Content="Select" Grid.Column="1" Grid.Row="1" Margin="2.5" IsTabStop="False"/>

@@ -47,19 +47,47 @@ namespace RingSoft.DataEntryControls.WPF
     {
         public IReadOnlyList<HotKey> HotKeys { get; }
 
+        public IReadOnlyList<Key> IgnoreKeys { get; }
+
         public event EventHandler<HotKeyPressedArgs> HotKeyPressed;
 
         private List<HotKey> _hotKeys = new List<HotKey>();
         private List<HotKeyPressed> _keysPressed = new List<HotKeyPressed>();
+        private List<Key> _ignoreKeys = new List<Key>();
 
         public HotKeyProcessor()
         {
             HotKeys= _hotKeys.AsReadOnly();
+            IgnoreKeys = _ignoreKeys.AsReadOnly();
+
+            AddIgnoreKey(Key.Delete);
+            AddIgnoreKey(Key.Insert);
         }
 
         public void AddHotKey(HotKey hotKey)
         {
             _hotKeys.Add(hotKey);
+        }
+
+        public void RemoveHotKey(HotKey hotKey)
+        {
+            if (_hotKeys.Contains(hotKey))
+            {
+                _hotKeys.Remove(hotKey);
+            }
+        }
+
+        public void AddIgnoreKey(Key ignoreKey)
+        {
+            _ignoreKeys.Add(ignoreKey);
+        }
+
+        public void RemoveIgnoreKey(Key ignoreKey)
+        {
+            if (_ignoreKeys.Contains(ignoreKey))
+            {
+                _ignoreKeys.Remove(ignoreKey);
+            }
         }
 
         public void OnKeyPressed(KeyEventArgs e)
@@ -82,6 +110,12 @@ namespace RingSoft.DataEntryControls.WPF
                         case Key.Y:
                             return;
                     }
+                }
+
+                if (IgnoreKeys.Contains(e.Key))
+                {
+                    ClearKeyPressed();
+                    return;
                 }
 
                 _keysPressed.Add(new HotKeyPressed()
