@@ -19,6 +19,8 @@
         <ResourceDictionary
             Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/NotificationButtonTemplate.xaml"/>
 
+        <ResourceDictionary
+            Source="pack://application:,,,/RingSoft.DataEntryControls.WPF;component/Themes/EnhancedButtonTemplate.xaml"/>
 
     </ResourceDictionary.MergedDictionaries>
 
