@@ -35,6 +35,7 @@ namespace RingSoft.DataEntryControls.WPF
     ///
     /// </summary>
     [TemplatePart(Name = "Image", Type = typeof(Image))]
+    [TemplatePart(Name = "EnhancedToolTip", Type = typeof(EnhancedToolTip))]
     public class EnhancedButton : Button
     {
         public static readonly DependencyProperty ImageSourceProperty =
@@ -108,6 +109,8 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        public new EnhancedToolTip ToolTip { get; }
+
         public Image Image { get; set; }
         static EnhancedButton()
         {
@@ -118,6 +121,11 @@ namespace RingSoft.DataEntryControls.WPF
             VisibilityProperty.OverrideMetadata(
                 typeof(EnhancedButton)
                 , new FrameworkPropertyMetadata(VisibilityChangedCallback));
+        }
+
+        public EnhancedButton()
+        {
+            base.ToolTip = ToolTip = new EnhancedToolTip();
         }
 
         public override void OnApplyTemplate()
