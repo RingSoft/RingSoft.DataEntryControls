@@ -1975,9 +1975,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
         /// </summary>
         private void DeleteCurrentRow()
         {
-            if (IsDeleteOk())
+            //Peter Ringering - 11/22/2024 08:51:47 PM - E-78
+            var rowIndex = Items.IndexOf(CurrentCell.Item);
+            if (Manager.OnDeletingRow(rowIndex) && IsDeleteOk())
             {
-                var rowIndex = Items.IndexOf(CurrentCell.Item);
                 var columnIndex = base.Columns.IndexOf(CurrentCell.Column);
                 CancelEdit();
                 EditingControlHost = null;

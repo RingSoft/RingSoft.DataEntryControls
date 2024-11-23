@@ -246,5 +246,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         {
             
         }
+
+        //Peter Ringering - 11/22/2024 09:03:21 PM - E-78
+        public virtual bool OnDeletingRow()
+        {
+            return true;
+        }
     }
 }

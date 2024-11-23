@@ -296,5 +296,12 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
             var deleteOk = rowIndex < Rows.Count - 1 && rowIndex >= 0;
             return deleteOk;
         }
+
+        //Peter Ringering - 11/22/2024 08:58:12 PM - E-78
+        public virtual bool OnDeletingRow(int rowIndex)
+        {
+            var row = Rows[rowIndex];
+            return row.OnDeletingRow();
+        }
     }
 }
