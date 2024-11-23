@@ -173,7 +173,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         {
             entity.ProductId = AppGlobals.LookupContext.Products
                 .GetEntityFromPrimaryKeyValue(ProductValue.PrimaryKeyValue).ProductId;
-            entity.Discount = (float)Discount;
+            if (Discount != null) entity.Discount = (float)Discount;
             base.SaveToEntity(entity, rowIndex);
         }
     }
