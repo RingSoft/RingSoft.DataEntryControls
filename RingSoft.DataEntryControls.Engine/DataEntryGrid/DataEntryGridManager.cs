@@ -298,10 +298,15 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         //Peter Ringering - 11/22/2024 08:58:12 PM - E-78
-        public virtual bool OnDeletingRow(int rowIndex)
+        public bool OnDeletingRow(int rowIndex)
         {
             var row = Rows[rowIndex];
-            return row.OnDeletingRow();
+            if (!row.IsNew)
+            {
+                return row.OnDeletingRow();
+            }
+
+            return true;
         }
     }
 }
