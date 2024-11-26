@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	  <TargetFrameworks>net8.0</TargetFrameworks>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TargetFrameworks>net9.0</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <Version>8.21</Version>
+    <Version>9.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>This package contains ViewModel classes that manage the RingSoft.DataEntryControls.WPF project.  Popular controls are the Data Entry Grid, Date Edit Control and Decimal Edit Control.  These classes are completely MVVM compatible.</Description>
@@ -15,16 +14,15 @@
     <PackageTags>WPF Controls</PackageTags>
     <PackageReleaseNotes>Bug Fix</PackageReleaseNotes>
     <BaseOutputPath>C:\Users\petem\source\repos\RingSoft\Nuget</BaseOutputPath>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <Copyright>2024</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>2024</Copyright>
   </PropertyGroup>
-
   <ItemGroup>
-	  <None Include="docs\README.md" Pack="true" PackagePath="\" />
-	  <None Include="..\RingSoft.DataEntryControls.NorthwindApp\Images\control_panel_1.png">
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\RingSoft.DataEntryControls.NorthwindApp\Images\control_panel_1.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

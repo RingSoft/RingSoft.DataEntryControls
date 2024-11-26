@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
   <PropertyGroup>
-    <TargetFrameworks>net8.0-windows</TargetFrameworks>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <UseWPF>true</UseWPF>
-    <Version>8.21</Version>
+    <Version>9.0</Version>
     <Description>This package contains multiple controls that makes data entry for the user quick and easy with little effort from the developer.  Popular controls are the Data Entry Grid, Date Edit Control and Decimal Edit Control.  These controls are completely MVVM compatible.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/RingSoft/RingSoft.DataEntryControls</RepositoryUrl>
@@ -16,30 +15,27 @@
     <PackageReleaseNotes>Bug Fix</PackageReleaseNotes>
     <PackageId>RingSoft.DataEntryControls.WPF</PackageId>
     <BaseOutputPath>C:\Users\petem\source\repos\RingSoft\Nuget</BaseOutputPath>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <Company>RingSoft</Company>
-	  <Copyright>2024</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Company>RingSoft</Company>
+    <Copyright>2024</Copyright>
   </PropertyGroup>
-
   <ItemGroup>
-	  <None Include="docs\README.md" Pack="true" PackagePath="\" />
-	  <None Remove="Resources\calculator16.png" />
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
+    <None Remove="Resources\calculator16.png" />
     <None Remove="Resources\datepicker16.png" />
     <None Include="..\RingSoft.DataEntryControls.NorthwindApp\Images\control_panel_1.png" Link="Resources\control_panel_1.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\RingSoft.DataEntryControls.Engine\RingSoft.DataEntryControls.Engine.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="Resources\calculator16.png" />
     <Resource Include="Resources\datepicker16.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Page Update="Themes\DateEditControlTemplate.xaml">
       <SubType>Designer</SubType>
@@ -48,5 +44,4 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-
 </Project>
