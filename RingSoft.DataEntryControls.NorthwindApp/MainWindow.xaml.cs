@@ -75,11 +75,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         private void ShowAdvancedFindWindow()
         {
-            var advancedFindWindow = new AdvancedFindWindow();
-            advancedFindWindow.Owner = this;
-            advancedFindWindow.ShowInTaskbar = false;
-            advancedFindWindow.Closed += (sender, args) => Activate();
-            advancedFindWindow.Show();
+            //var advancedFindWindow = new AdvancedFindWindow();
+            //advancedFindWindow.Owner = this;
+            //advancedFindWindow.ShowInTaskbar = false;
+            //advancedFindWindow.Closed += (sender, args) => Activate();
+            //advancedFindWindow.Show();
+            TabControl.ShowTableControl(AppGlobals.LookupContext.AdvancedFinds);
         }
 
         private void ShowProcedureTest()

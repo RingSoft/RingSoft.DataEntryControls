@@ -6,6 +6,7 @@ using System.Windows;
 using RingSoft.DataEntryControls.NorthwindApp.Library.Model;
 using RingSoft.DbLookup;
 using RingSoft.DbLookup.App.WPFCore;
+using RingSoft.DbLookup.Controls.WPF.AdvancedFind;
 
 namespace RingSoft.DataEntryControls.NorthwindApp
 {
@@ -78,6 +79,10 @@ namespace RingSoft.DataEntryControls.NorthwindApp
         protected override void FinishStartup()
         {
             AppGlobals.LookupContext.Initialize();
+
+            LookupControlsGlobals.WindowRegistry.RegisterUserControl
+                <AdvancedFindUserControl>(AppGlobals.LookupContext.AdvancedFinds);
+
             LookupControlsGlobals.WindowRegistry.RegisterWindow<ProductWindow, Products>();
             LookupControlsGlobals.WindowRegistry.RegisterWindow<NonInventoryCodeWindow, NonInventoryCodes>();
             LookupControlsGlobals.WindowRegistry.RegisterWindow<SalesEntryWindow, Orders>();
