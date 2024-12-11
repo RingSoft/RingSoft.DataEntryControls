@@ -1706,8 +1706,21 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
                     {
                         if (CloseWindowOnEscape)
                         {
+                            //Peter Ringering - 12/11/2024 01:30:34 PM - E-80
                             var window = Window.GetWindow(this);
-                            window?.Close();
+                            var userControl = this.GetParentOfType<UserControl>();
+                            if (userControl == null)
+                            {
+                                window?.Close();
+                            }
+                            else
+                            {
+                                var tabControl = userControl.GetParentOfType<TabControl>();
+                                if (tabControl == null)
+                                {
+                                    window?.Close();
+                                }
+                            }
                         }
 
                         e.Handled = true;
