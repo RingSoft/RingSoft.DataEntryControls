@@ -49,6 +49,8 @@ namespace RingSoft.DataEntryControls.WPF
 
         public IReadOnlyList<Key> IgnoreKeys { get; }
 
+        public bool TopLevel { get; set; } //Peter Ringering - 12/10/2024 04:51:33 PM - E-73
+
         public event EventHandler<HotKeyPressedArgs> HotKeyPressed;
 
         private List<HotKey> _hotKeys = new List<HotKey>();
@@ -57,11 +59,22 @@ namespace RingSoft.DataEntryControls.WPF
 
         public HotKeyProcessor()
         {
-            HotKeys= _hotKeys.AsReadOnly();
+            HotKeys = _hotKeys.AsReadOnly();
             IgnoreKeys = _ignoreKeys.AsReadOnly();
 
             AddIgnoreKey(Key.Delete);
             AddIgnoreKey(Key.Insert);
+            AddIgnoreKey(Key.F4);
+            AddIgnoreKey(Key.D0);
+            AddIgnoreKey(Key.D1);
+            AddIgnoreKey(Key.D2);
+            AddIgnoreKey(Key.D3);
+            AddIgnoreKey(Key.D4);
+            AddIgnoreKey(Key.D5);
+            AddIgnoreKey(Key.D6);
+            AddIgnoreKey(Key.D7);
+            AddIgnoreKey(Key.D8);
+            AddIgnoreKey(Key.D9);
         }
 
         public void AddHotKey(HotKey hotKey)
@@ -150,6 +163,14 @@ namespace RingSoft.DataEntryControls.WPF
                             hotKeyKeyIndex++;
 
                         }
+                        //Peter Ringering - 12/10/2024 08:48:01 PM - E-73
+                        else
+                        {
+                            if (hotKey.Keys[hotKeyKeyIndex] == _keysPressed[hotKeyKeyIndex].Key)
+                            {
+                                e.Handled = true;
+                            }
+                        }
                     }
 
                     if (hotKey.Keys.Count == _keysPressed.Count)
@@ -208,23 +229,21 @@ namespace RingSoft.DataEntryControls.WPF
                     p => p.KeyFound == false);
                 if (hotKeysNotFound != null && _keysPressed.Count == maxHotKeyCount)
                 {
-                    SystemSounds.Asterisk.Play();
+                    //Peter Ringering - 12/10/2024 04:51:33 PM - E-73
                     ClearKeyPressed();
-                    e.Handled = true;
+
+                    if (!TopLevel)
+                    {
+                        SystemSounds.Asterisk.Play();
+                        e.Handled = true;
+                    }
                 }
             }
         }
 
         public void OnKeyUp(KeyEventArgs e)
         {
-            //if (e.Key == Key.RightCtrl && !Keyboard.IsKeyDown(Key.LeftCtrl))
-            //{
-            //    ClearKeyPressed();
-            //}
-            //if (e.Key == Key.LeftCtrl && !Keyboard.IsKeyDown(Key.RightCtrl))
-            //{
-            //    ClearKeyPressed();
-            //}
+
         }
 
         private void ClearKeyPressed()

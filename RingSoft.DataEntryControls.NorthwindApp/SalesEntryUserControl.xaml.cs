@@ -40,8 +40,12 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 
         protected override void ShowRecordTitle()
         {
-            Host.ChangeTitle($"{Title} - {SalesEntryViewModel.Customer.Text}");
-            //base.ShowRecordTitle();
+            if (SalesEntryViewModel.Customer != null)
+            {
+                Host.ChangeTitle($"{Title} - {SalesEntryViewModel.Customer.Text}");
+                return;
+            }
+            base.ShowRecordTitle();
         }
 
         public override void SetInitialFocus()

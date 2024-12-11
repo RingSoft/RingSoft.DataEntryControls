@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
+using RingSoft.DataEntryControls.Engine;
 using RingSoft.DataEntryControls.NorthwindApp.Library;
 using RingSoft.DataEntryControls.WPF;
 using RingSoft.DbLookup.Controls.WPF;
@@ -14,11 +16,14 @@ namespace RingSoft.DataEntryControls.NorthwindApp
     /// </summary>
     public partial class MainWindow
     {
+        public HotKeyProcessor HotKeyProcessor { get; } = new HotKeyProcessor();
+
         public event EventHandler Done;
 
         public MainWindow()
         {
             InitializeComponent();
+            HotKeyProcessor.TopLevel = true;
 
             var timer = new DispatcherTimer
             {
@@ -54,6 +59,19 @@ namespace RingSoft.DataEntryControls.NorthwindApp
 #else
             ProcedureTest.Visibility = Visibility.Collapsed;
 #endif
+            var hotKey = new HotKey(new RelayCommand((() =>
+            {
+                MessageBox.Show("Main Hot Key");
+            })));
+            hotKey.AddKey(Key.M);
+            hotKey.AddKey(Key.T);
+            HotKeyProcessor.AddHotKey(hotKey);
+        }
+
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            HotKeyProcessor.OnKeyPressed(e);
+            base.OnPreviewKeyDown(e);
         }
 
         private void ShowSalesEntryWindow()
