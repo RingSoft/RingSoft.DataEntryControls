@@ -3,6 +3,7 @@ using RingSoft.DataEntryControls.Engine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
+using System.Timers;
 using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF
@@ -56,6 +57,8 @@ namespace RingSoft.DataEntryControls.WPF
         private List<HotKey> _hotKeys = new List<HotKey>();
         private List<HotKeyPressed> _keysPressed = new List<HotKeyPressed>();
         private List<Key> _ignoreKeys = new List<Key>();
+        private int _elapsedSeconds;
+        private Timer _timer = new Timer();
 
         public HotKeyProcessor()
         {
@@ -75,6 +78,16 @@ namespace RingSoft.DataEntryControls.WPF
             AddIgnoreKey(Key.D7);
             AddIgnoreKey(Key.D8);
             AddIgnoreKey(Key.D9);
+
+            _timer.Interval = 1000;
+            _timer.Elapsed += (sender, args) =>
+            {
+                _elapsedSeconds += 1;
+                if (_elapsedSeconds >= 5)
+                {
+                    ClearKeyPressed();
+                }
+            };
         }
 
         public void AddHotKey(HotKey hotKey)
@@ -131,6 +144,9 @@ namespace RingSoft.DataEntryControls.WPF
                     return;
                 }
 
+                _elapsedSeconds = 0;
+                _timer.Enabled = true;
+                _timer.Start();
                 _keysPressed.Add(new HotKeyPressed()
                 {
                     Key = e.Key,
@@ -248,6 +264,9 @@ namespace RingSoft.DataEntryControls.WPF
 
         private void ClearKeyPressed()
         {
+            _timer.Stop();
+            _timer.Enabled = false;
+            _elapsedSeconds = 0;
             _keysPressed.Clear();
         }
     }

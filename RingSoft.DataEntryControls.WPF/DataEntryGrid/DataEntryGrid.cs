@@ -1732,6 +1732,30 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewKeyDown(e);
         }
 
+        private TabItem GetHeaderTab()
+        {
+            var userControl = this.GetParentOfType<UserControl>();
+            if (userControl == null)
+            {
+                return null;
+            }
+            else
+            {
+                var tabControl = userControl.GetParentOfType<TabControl>();
+                if (tabControl == null)
+                {
+                    return null;
+                }
+
+                if (tabControl.SelectedItem is TabItem tabItem)
+                {
+                    return tabItem;
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Invoked when the <see cref="E:System.Windows.UIElement.KeyDown" /> event is received.
         /// </summary>

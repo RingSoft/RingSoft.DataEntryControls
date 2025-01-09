@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="DarkGray"
         Title="RingSoft Data Entry Controls Demo" Height="450" Width="800">
-    <DockPanel>
+
+     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Background="LightSkyBlue">
             <Menu Background="LightSkyBlue">
                 <MenuItem x:Name="ExitMenu" Header="E_xit"/>
