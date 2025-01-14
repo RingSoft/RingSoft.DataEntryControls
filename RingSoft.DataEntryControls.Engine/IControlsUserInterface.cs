@@ -79,6 +79,8 @@ namespace RingSoft.DataEntryControls.Engine
         /// <param name="cursor">The cursor.</param>
         void SetWindowCursor(WindowCursorTypes cursor);
 
+        WindowCursorTypes GetWindowCursor();
+
         /// <summary>
         /// Shows the message box.
         /// </summary>

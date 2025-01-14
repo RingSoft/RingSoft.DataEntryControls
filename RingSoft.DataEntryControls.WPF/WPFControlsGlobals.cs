@@ -95,6 +95,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// The active window
         /// </summary>
         private static Window _activeWindow;
+        private static WindowCursorTypes _cursorType = WindowCursorTypes.Default;
 
         /// <summary>
         /// Sets the active window.
@@ -133,6 +134,9 @@ namespace RingSoft.DataEntryControls.WPF
         /// <exception cref="System.ArgumentOutOfRangeException">icon - null</exception>
         public async Task ShowMessageBox(string text, string caption, RsMessageBoxIcons icon)
         {
+            var activeCursor = GetWindowCursor(); 
+            SetWindowCursor(WindowCursorTypes.Default);
+
             var messageBoxImage = MessageBoxImage.Error;
             switch (icon)
             {
@@ -160,6 +164,7 @@ namespace RingSoft.DataEntryControls.WPF
                     MessageBox.Show(text, caption, MessageBoxButton.OK, messageBoxImage);
                 });
             }
+            SetWindowCursor(activeCursor);
         }
 
         /// <summary>
@@ -171,6 +176,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// <returns>Task&lt;MessageBoxButtonsResult&gt;.</returns>
         public async Task<MessageBoxButtonsResult> ShowYesNoMessageBox(string text, string caption, bool playSound = false)
         {
+            var activeCursor = GetWindowCursor();
+            SetWindowCursor(WindowCursorTypes.Default);
 
             var messageBoxResult = MessageBoxResult.Yes;
             var activeWindow = GetActiveWindow();
@@ -192,6 +199,7 @@ namespace RingSoft.DataEntryControls.WPF
                 });
             }
 
+            SetWindowCursor(activeCursor);
             switch (messageBoxResult)
             {
                 case MessageBoxResult.Yes:
@@ -211,6 +219,9 @@ namespace RingSoft.DataEntryControls.WPF
         public async Task<MessageBoxButtonsResult> ShowYesNoCancelMessageBox(string text, string caption,
             bool playSound = false)
         {
+            var activeCursor = GetWindowCursor();
+            SetWindowCursor(WindowCursorTypes.Default);
+
             var messageBoxResult = MessageBoxResult.Yes;
             var activeWindow = GetActiveWindow();
             if (activeWindow == null)
@@ -232,6 +243,8 @@ namespace RingSoft.DataEntryControls.WPF
                         MessageBox.Show(text, caption, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                 });
             }
+
+            SetWindowCursor(activeCursor);
 
             switch (messageBoxResult)
             {
@@ -255,6 +268,7 @@ namespace RingSoft.DataEntryControls.WPF
             {
                 activeWindow.Dispatcher.Invoke(() =>
                 {
+                    _cursorType = cursor;
                     switch (cursor)
                     {
                         case WindowCursorTypes.Default:
@@ -268,6 +282,12 @@ namespace RingSoft.DataEntryControls.WPF
                     }
                 });
             }
+        }
+
+        //Peter Ringering - 01/14/2025 02:05:25 PM - E-109
+        public WindowCursorTypes GetWindowCursor()
+        {
+            return _cursorType;
         }
     }
     // ReSharper disable once InconsistentNaming
