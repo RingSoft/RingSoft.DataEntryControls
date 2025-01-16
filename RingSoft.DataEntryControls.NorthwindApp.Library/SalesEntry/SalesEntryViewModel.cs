@@ -428,8 +428,6 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public SalesEntryViewModel()
         {
             CustomerUiCommand.LostFocus += CustomerUiCommand_LostFocus;
-            ShipNameUiCommand.MaxLength = TableDefinition.GetFieldDefinition(p => p.ShipName)
-                .MaxLength;
         }
 
         private void CustomerUiCommand_LostFocus(object sender, UiLostFocusArgs e)
@@ -486,6 +484,9 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
             };
             DetailsGridManager = new SalesEntryDetailsGridManager(this);
             RegisterGrid(DetailsGridManager);
+
+            MapFieldToUiCommand(ShipNameUiCommand
+            , TableDefinition.GetFieldDefinition(p =>p.ShipName));
 
             base.Initialize();
         }
