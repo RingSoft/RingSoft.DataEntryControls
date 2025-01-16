@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 // ReSharper disable VirtualMemberCallInConstructor
 
 namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model

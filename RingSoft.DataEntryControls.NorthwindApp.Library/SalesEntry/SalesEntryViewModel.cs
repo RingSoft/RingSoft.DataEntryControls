@@ -408,6 +408,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public UiCommand CustomerUiCommand { get; } = new UiCommand();
         public UiCommand EmployeeUiCommand { get; } = new UiCommand();
         public UiCommand ShipUiCommand { get; } = new UiCommand();
+        public UiCommand ShipNameUiCommand { get; } = new UiCommand();
 
         protected override string FindButtonInitialSearchFor
         {
@@ -427,6 +428,8 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         public SalesEntryViewModel()
         {
             CustomerUiCommand.LostFocus += CustomerUiCommand_LostFocus;
+            ShipNameUiCommand.MaxLength = TableDefinition.GetFieldDefinition(p => p.ShipName)
+                .MaxLength;
         }
 
         private void CustomerUiCommand_LostFocus(object sender, UiLostFocusArgs e)
@@ -503,7 +506,7 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
         protected override void LoadFromEntity(Orders entity)
         {
             Customer = entity.Customer.GetAutoFillValue();
-            CompanyName = entity.Customer.CompanyName;
+            if (entity.Customer != null) CompanyName = entity.Customer.CompanyName;
             Employee = entity.Employee.GetAutoFillValue();
 
             RequiredDate = entity.RequiredDate;

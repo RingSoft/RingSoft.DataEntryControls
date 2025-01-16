@@ -82,6 +82,11 @@ namespace RingSoft.DataEntryControls.Engine
         public string Caption { get; internal set; }
     }
 
+    public class UiMaxLengthArgs
+    {
+        public int MaxLength { get; internal set; }
+    }
+
     /// <summary>
     /// Class UiLostFocusArgs.
     /// </summary>
@@ -192,6 +197,23 @@ namespace RingSoft.DataEntryControls.Engine
             }
         }
 
+        //Peter Ringering - 01/16/2025 12:52:34 PM - E-112
+        private int _maxLength;
+
+        public int MaxLength
+        {
+            get { return _maxLength; }
+            set
+            {
+                _maxLength = value;
+                SetMaxLength?.Invoke(this, new UiMaxLengthArgs
+                {
+                    MaxLength = _maxLength
+                });
+            }
+        }
+
+
         /// <summary>
         /// Gets a value indicating whether this instance is focused.
         /// </summary>
@@ -217,6 +239,8 @@ namespace RingSoft.DataEntryControls.Engine
         /// Occurs when [set caption].
         /// </summary>
         public event EventHandler<UiCaptionArgs> SetCaption;
+
+        public event EventHandler<UiMaxLengthArgs> SetMaxLength;
 
         /// <summary>
         /// Occurs when [on set focus].

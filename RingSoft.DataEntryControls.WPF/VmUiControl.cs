@@ -76,9 +76,12 @@ namespace RingSoft.DataEntryControls.WPF
 
             Command.OnSetFocus += Command_OnSetFocus;
 
+            Command.SetMaxLength += Command_SetMaxLength;
+
             OnSetVisibility(Command.Visibility);
             OnSetReadOnly(command.IsReadOnly);
             OnSetEnabled(command.IsEnabled);
+            OnSetMaxLength(command.MaxLength);
             if (command.Caption.IsNullOrEmpty())
             {
                 if (Label != null)
@@ -107,6 +110,11 @@ namespace RingSoft.DataEntryControls.WPF
                     }
                 }
             }
+        }
+
+        private void Command_SetMaxLength(object sender, UiMaxLengthArgs e)
+        {
+            OnSetMaxLength(e.MaxLength);
         }
 
         /// <summary>
@@ -249,6 +257,14 @@ namespace RingSoft.DataEntryControls.WPF
             if (Label != null)
             {
                 Label.IsEnabled = isEnabled;
+            }
+        }
+
+        protected void OnSetMaxLength(int maxLength)
+        {
+            if (Control is TextBox textBox)
+            {
+                textBox.MaxLength = maxLength;
             }
         }
 
