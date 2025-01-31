@@ -24,7 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="9.6.3" />
+    <PackageReference Include="RingSoft.DbLookup.Controls.WPF" Version="9.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RingSoft.DataEntryControls.NorthwindApp.Library\RingSoft.DataEntryControls.NorthwindApp.Library.csproj" />
