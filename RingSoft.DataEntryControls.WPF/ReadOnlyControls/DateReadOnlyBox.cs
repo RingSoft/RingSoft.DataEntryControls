@@ -262,7 +262,8 @@ namespace RingSoft.DataEntryControls.WPF
         /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public void SetReadOnlyMode(bool readOnlyValue)
         {
-            DropDownButton.IsEnabled = true;
+            if (DropDownButton != null) 
+                DropDownButton.IsEnabled = true;
         }
     }
 }

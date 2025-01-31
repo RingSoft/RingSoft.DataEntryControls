@@ -116,6 +116,72 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
+        /// The UI command property
+        /// </summary>
+        public static readonly DependencyProperty UiCommandProperty =
+            DependencyProperty.Register(nameof(UiCommand), typeof(UiCommand), typeof(ReadOnlyBox),
+                new FrameworkPropertyMetadata(UiCommandChangedCallback));
+
+        /// <summary>
+        /// Gets or sets the UI command.  This is a bind-able property.
+        /// </summary>
+        /// <value>The UI command.</value>
+        public UiCommand UiCommand
+        {
+            get { return (UiCommand)GetValue(UiCommandProperty); }
+            set { SetValue(UiCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// UIs the command changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
+        private static void UiCommandChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var readOnlyBox = (ReadOnlyBox)obj;
+            if (readOnlyBox._vmUiControl == null)
+            {
+                readOnlyBox._vmUiControl = WPFControlsGlobals.VmUiFactory.CreateUiControl(readOnlyBox, readOnlyBox.UiCommand);
+                if (readOnlyBox.UiLabel != null)
+                {
+                    readOnlyBox._vmUiControl.SetLabel(readOnlyBox.UiLabel);
+                }
+            }
+        }
+
+        /// <summary>
+        /// The UI label property
+        /// </summary>
+        public static readonly DependencyProperty UiLabelProperty =
+            DependencyProperty.Register(nameof(UiLabel), typeof(Label), typeof(ReadOnlyBox),
+                new FrameworkPropertyMetadata(UiLabelChangedCallback));
+
+        /// <summary>
+        /// Gets or sets the UI label.  This is a bind-able property.
+        /// </summary>
+        /// <value>The UI label.</value>
+        public Label UiLabel
+        {
+            get { return (Label)GetValue(UiLabelProperty); }
+            set { SetValue(UiLabelProperty, value); }
+        }
+
+        /// <summary>
+        /// UIs the label changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
+        private static void UiLabelChangedCallback(DependencyObject obj,
+            DependencyPropertyChangedEventArgs args)
+        {
+            var dropDownEditControl = (ReadOnlyBox)obj;
+            if (dropDownEditControl._vmUiControl != null)
+                dropDownEditControl._vmUiControl.SetLabel(dropDownEditControl.UiLabel);
+        }
+
+        /// <summary>
         /// Gets or sets the text block.
         /// </summary>
         /// <value>The text block.</value>
@@ -125,6 +191,10 @@ namespace RingSoft.DataEntryControls.WPF
         /// The text
         /// </summary>
         private string _text;
+        /// <summary>
+        /// The vm UI control
+        /// </summary>
+        private VmUiControl _vmUiControl;
 
         /// <summary>
         /// Gets or sets the text.
