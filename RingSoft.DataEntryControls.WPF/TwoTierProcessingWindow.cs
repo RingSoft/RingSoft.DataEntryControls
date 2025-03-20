@@ -4,7 +4,7 @@
 // Created          : 07-11-2024
 //
 // Last Modified By : petem
-// Last Modified On : 07-11-2024
+// Last Modified On : 09-07-2024
 // ***********************************************************************
 // <copyright file="TwoTierProcessingWindow.cs" company="RingSoft">
 //     2024
@@ -52,7 +52,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <value>The procedure.</value>
         public TwoTierProcessingProcedure Procedure { get; }
         /// <summary>
-        /// Initializes static members of the <see cref="TwoTierProcessingWindow"/> class.
+        /// Initializes static members of the <see cref="TwoTierProcessingWindow" /> class.
         /// </summary>
         static TwoTierProcessingWindow()
         {
@@ -60,7 +60,7 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TwoTierProcessingWindow"/> class.
+        /// Initializes a new instance of the <see cref="TwoTierProcessingWindow" /> class.
         /// </summary>
         /// <param name="procedure">The procedure.</param>
         internal TwoTierProcessingWindow(TwoTierProcessingProcedure procedure)

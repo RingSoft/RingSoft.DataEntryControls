@@ -4,7 +4,7 @@
 // Created          : 07-11-2024
 //
 // Last Modified By : petem
-// Last Modified On : 07-11-2024
+// Last Modified On : 09-07-2024
 // ***********************************************************************
 // <copyright file="TwoTierProgressViewModel.cs" company="Peter Ringering">
 //     2024

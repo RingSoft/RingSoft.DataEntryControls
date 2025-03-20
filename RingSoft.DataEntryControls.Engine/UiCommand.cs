@@ -4,7 +4,7 @@
 // Created          : 09-18-2023
 //
 // Last Modified By : petem
-// Last Modified On : 12-11-2023
+// Last Modified On : 01-16-2025
 // ***********************************************************************
 // <copyright file="UiCommand.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -82,8 +82,15 @@ namespace RingSoft.DataEntryControls.Engine
         public string Caption { get; internal set; }
     }
 
+    /// <summary>
+    /// Class UiMaxLengthArgs.
+    /// </summary>
     public class UiMaxLengthArgs
     {
+        /// <summary>
+        /// Gets the maximum length.
+        /// </summary>
+        /// <value>The maximum length.</value>
         public int MaxLength { get; internal set; }
     }
 
@@ -99,8 +106,15 @@ namespace RingSoft.DataEntryControls.Engine
         public bool ContinueFocusChange { get; set; } = true;
     }
 
+    /// <summary>
+    /// Class SetFocusArgs.
+    /// </summary>
     public class SetFocusArgs
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether [ignore tab focus].
+        /// </summary>
+        /// <value><c>true</c> if [ignore tab focus]; otherwise, <c>false</c>.</value>
         public bool IgnoreTabFocus { get; set; }
     }
 
@@ -198,8 +212,15 @@ namespace RingSoft.DataEntryControls.Engine
         }
 
         //Peter Ringering - 01/16/2025 12:52:34 PM - E-112
+        /// <summary>
+        /// The maximum length
+        /// </summary>
         private int _maxLength;
 
+        /// <summary>
+        /// Gets or sets the maximum length.
+        /// </summary>
+        /// <value>The maximum length.</value>
         public int MaxLength
         {
             get { return _maxLength; }
@@ -240,6 +261,9 @@ namespace RingSoft.DataEntryControls.Engine
         /// </summary>
         public event EventHandler<UiCaptionArgs> SetCaption;
 
+        /// <summary>
+        /// Occurs when [set maximum length].
+        /// </summary>
         public event EventHandler<UiMaxLengthArgs> SetMaxLength;
 
         /// <summary>
@@ -260,6 +284,7 @@ namespace RingSoft.DataEntryControls.Engine
         /// <summary>
         /// Sets the focus.
         /// </summary>
+        /// <param name="ignoreTabFocus">if set to <c>true</c> [ignore tab focus].</param>
         public void SetFocus(bool ignoreTabFocus = false)
         {
             IsFocused = true;

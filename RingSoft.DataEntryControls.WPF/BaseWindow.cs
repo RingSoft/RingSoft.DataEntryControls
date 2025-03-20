@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-11-2023
+// Last Modified On : 10-11-2024
 // ***********************************************************************
 // <copyright file="BaseWindow.cs" company="Peter Ringering">
 //     Copyright (c) . All rights reserved.
@@ -69,6 +69,9 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         private const int WS_BOTH = 0x30000; //maximize and minimize buttons
 
+        /// <summary>
+        /// The ws sysmenu
+        /// </summary>
         private const int WS_SYSMENU = 0x80000;
 
         /// <summary>
@@ -124,6 +127,10 @@ namespace RingSoft.DataEntryControls.WPF
         /// <value><c>true</c> if [hide control box]; otherwise, <c>false</c>.</value>
         public bool HideControlBox { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [hide close button].
+        /// </summary>
+        /// <value><c>true</c> if [hide close button]; otherwise, <c>false</c>.</value>
         public bool HideCloseButton { get; set; }
 
         /// <summary>

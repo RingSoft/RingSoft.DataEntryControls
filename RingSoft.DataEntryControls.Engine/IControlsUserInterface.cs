@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-11-2023
+// Last Modified On : 01-14-2025
 // ***********************************************************************
 // <copyright file="IControlsUserInterface.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -79,6 +79,10 @@ namespace RingSoft.DataEntryControls.Engine
         /// <param name="cursor">The cursor.</param>
         void SetWindowCursor(WindowCursorTypes cursor);
 
+        /// <summary>
+        /// Gets the window cursor.
+        /// </summary>
+        /// <returns>WindowCursorTypes.</returns>
         WindowCursorTypes GetWindowCursor();
 
         /// <summary>

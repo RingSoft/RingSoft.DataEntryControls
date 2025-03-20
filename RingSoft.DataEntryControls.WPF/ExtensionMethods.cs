@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-11-2023
+// Last Modified On : 10-27-2024
 // ***********************************************************************
 // <copyright file="ExtensionMethods.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -319,6 +319,11 @@ namespace RingSoft.DataEntryControls.WPF
         [DllImport("user32.dll")]
         public static extern uint MapVirtualKey(uint uCode, MapType uMapType);
 
+        /// <summary>
+        /// Gets the ASCII character from key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>System.Char.</returns>
         public static char GetAsciiCharFromKey(this Key key)
         {
             int virtualKey = KeyInterop.VirtualKeyFromKey(key);

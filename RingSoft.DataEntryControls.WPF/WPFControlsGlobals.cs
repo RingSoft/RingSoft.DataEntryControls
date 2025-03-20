@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-13-2023
+// Last Modified On : 01-14-2025
 // ***********************************************************************
 // <copyright file="WPFControlsGlobals.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -65,7 +65,7 @@ namespace RingSoft.DataEntryControls.WPF
     public class VmUiControlFactory
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VmUiControlFactory"/> class.
+        /// Initializes a new instance of the <see cref="VmUiControlFactory" /> class.
         /// </summary>
         public VmUiControlFactory()
         {
@@ -95,6 +95,9 @@ namespace RingSoft.DataEntryControls.WPF
         /// The active window
         /// </summary>
         private static Window _activeWindow;
+        /// <summary>
+        /// The cursor type
+        /// </summary>
         private static WindowCursorTypes _cursorType = WindowCursorTypes.Default;
 
         /// <summary>
@@ -285,6 +288,10 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
         //Peter Ringering - 01/14/2025 02:05:25 PM - E-109
+        /// <summary>
+        /// Gets the window cursor.
+        /// </summary>
+        /// <returns>WindowCursorTypes.</returns>
         public WindowCursorTypes GetWindowCursor()
         {
             return _cursorType;
@@ -320,7 +327,7 @@ namespace RingSoft.DataEntryControls.WPF
         private static ControlsUserInterface _userInterface = new ControlsUserInterface();
 
         /// <summary>
-        /// Initializes static members of the <see cref="WPFControlsGlobals"/> class.
+        /// Initializes static members of the <see cref="WPFControlsGlobals" /> class.
         /// </summary>
         static WPFControlsGlobals()
         {

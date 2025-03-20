@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-26-2023
+// Last Modified On : 11-22-2024
 // ***********************************************************************
 // <copyright file="DataEntryGridManager.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -298,6 +298,11 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         //Peter Ringering - 11/22/2024 08:58:12 PM - E-78
+        /// <summary>
+        /// Called when [deleting row].
+        /// </summary>
+        /// <param name="rowIndex">Index of the row.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool OnDeletingRow(int rowIndex)
         {
             var row = Rows[rowIndex];

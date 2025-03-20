@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 09-04-2024
+// Last Modified On : 11-22-2024
 // ***********************************************************************
 // <copyright file="DataEntryGridRow.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -248,6 +248,10 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         }
 
         //Peter Ringering - 11/22/2024 09:03:21 PM - E-78
+        /// <summary>
+        /// Called when [deleting row].
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool OnDeletingRow()
         {
             return true;

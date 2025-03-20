@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 11-20-2024
+//
+// Last Modified By : petem
+// Last Modified On : 11-20-2024
+// ***********************************************************************
+// <copyright file="EnhancedButton.cs" company="RingSoft">
+//     2024
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -6,38 +19,17 @@ using System.Windows.Media;
 namespace RingSoft.DataEntryControls.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:RingSoft.DataEntryControls.WPF;assembly=RingSoft.DataEntryControls.WPF"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:EnhancedButton/>
-    ///
+    /// Class EnhancedButton.
+    /// Implements the <see cref="Button" />
     /// </summary>
+    /// <seealso cref="Button" />
     [TemplatePart(Name = "Image", Type = typeof(Image))]
     [TemplatePart(Name = "EnhancedToolTip", Type = typeof(EnhancedToolTip))]
     public class EnhancedButton : Button
     {
+        /// <summary>
+        /// The image source property
+        /// </summary>
         public static readonly DependencyProperty ImageSourceProperty =
     DependencyProperty.RegisterAttached(
         nameof(ImageSource)
@@ -45,12 +37,21 @@ namespace RingSoft.DataEntryControls.WPF
         , typeof(EnhancedButton),
         new FrameworkPropertyMetadata(null, ImageSourceChangedCallback));
 
+        /// <summary>
+        /// Gets or sets the image source.
+        /// </summary>
+        /// <value>The image source.</value>
         public ImageSource ImageSource
         {
             get => (ImageSource)GetValue(ImageSourceProperty);
             set => SetValue(ImageSourceProperty, value);
         }
 
+        /// <summary>
+        /// Images the source changed callback.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="args">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void ImageSourceChangedCallback(DependencyObject obj,
             DependencyPropertyChangedEventArgs args)
         {
@@ -109,9 +110,20 @@ namespace RingSoft.DataEntryControls.WPF
         //    }
         //}
 
+        /// <summary>
+        /// Gets the tool tip.
+        /// </summary>
+        /// <value>The tool tip.</value>
         public new EnhancedToolTip ToolTip { get; }
 
+        /// <summary>
+        /// Gets or sets the image.
+        /// </summary>
+        /// <value>The image.</value>
         public Image Image { get; set; }
+        /// <summary>
+        /// Initializes static members of the <see cref="EnhancedButton"/> class.
+        /// </summary>
         static EnhancedButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
@@ -123,11 +135,17 @@ namespace RingSoft.DataEntryControls.WPF
             //    , new FrameworkPropertyMetadata(VisibilityChangedCallback));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnhancedButton"/> class.
+        /// </summary>
         public EnhancedButton()
         {
             base.ToolTip = ToolTip = new EnhancedToolTip();
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             Image = GetTemplateChild(nameof(Image)) as Image;
@@ -137,6 +155,9 @@ namespace RingSoft.DataEntryControls.WPF
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Sets the image.
+        /// </summary>
         private void SetImage()
         {
             if (Image != null)

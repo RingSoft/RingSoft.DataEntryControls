@@ -4,7 +4,7 @@
 // Created          : 11-11-2022
 //
 // Last Modified By : petem
-// Last Modified On : 12-22-2023
+// Last Modified On : 01-02-2025
 // ***********************************************************************
 // <copyright file="DataEntryGrid.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -1732,6 +1732,10 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             base.OnPreviewKeyDown(e);
         }
 
+        /// <summary>
+        /// Gets the header tab.
+        /// </summary>
+        /// <returns>TabItem.</returns>
         private TabItem GetHeaderTab()
         {
             var userControl = this.GetParentOfType<UserControl>();

@@ -4,7 +4,7 @@
 // Created          : 09-18-2023
 //
 // Last Modified By : petem
-// Last Modified On : 04-30-2024
+// Last Modified On : 01-16-2025
 // ***********************************************************************
 // <copyright file="VmUiControl.cs" company="Peter Ringering">
 //     Copyright (c)2023 . All rights reserved.
@@ -112,6 +112,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Commands the maximum length of the set.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void Command_SetMaxLength(object sender, UiMaxLengthArgs e)
         {
             OnSetMaxLength(e.MaxLength);
@@ -198,6 +203,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <summary>
         /// Called when [set focus].
         /// </summary>
+        /// <param name="ignoreTabFocus">if set to <c>true</c> [ignore tab focus].</param>
         protected virtual void OnSetFocus(bool ignoreTabFocus)
         {
             if (ignoreTabFocus)
@@ -260,6 +266,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Called when [set maximum length].
+        /// </summary>
+        /// <param name="maxLength">The maximum length.</param>
         protected void OnSetMaxLength(int maxLength)
         {
             if (Control is TextBox textBox)

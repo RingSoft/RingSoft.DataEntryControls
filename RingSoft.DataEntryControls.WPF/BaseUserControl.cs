@@ -1,9 +1,27 @@
-﻿using System.Windows;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 10-08-2024
+//
+// Last Modified By : petem
+// Last Modified On : 10-12-2024
+// ***********************************************************************
+// <copyright file="BaseUserControl.cs" company="RingSoft">
+//     2024
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF
 {
+    /// <summary>
+    /// Class BaseUserControl.
+    /// Implements the <see cref="UserControl" />
+    /// </summary>
+    /// <seealso cref="UserControl" />
     public class BaseUserControl : UserControl
     {
         /// <summary>
@@ -18,8 +36,16 @@ namespace RingSoft.DataEntryControls.WPF
         /// <value><c>true</c> if [enter to tab]; otherwise, <c>false</c>.</value>
         public bool EnterToTab { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [ignore tab].
+        /// </summary>
+        /// <value><c>true</c> if [ignore tab]; otherwise, <c>false</c>.</value>
         public bool IgnoreTab { get; set; }
 
+        /// <summary>
+        /// Gets the owner window.
+        /// </summary>
+        /// <value>The owner window.</value>
         public Window OwnerWindow { get; private set; }
 
         /// <summary>
@@ -31,6 +57,9 @@ namespace RingSoft.DataEntryControls.WPF
         /// </summary>
         private bool _readOnlyMode;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseUserControl"/> class.
+        /// </summary>
         public BaseUserControl()
         {
             Loaded += (sender, args) =>
@@ -62,6 +91,9 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
+        /// <summary>
+        /// Called when [tab selection changed].
+        /// </summary>
         private void OnTabSelectionChanged()
         {
             if (_readOnlyTabControl.SelectedContent is DependencyObject rootDependencyObject)
@@ -73,6 +105,11 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Sets the control read only mode.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public virtual void SetControlReadOnlyMode(Control control, bool readOnlyValue)
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
@@ -83,6 +120,10 @@ namespace RingSoft.DataEntryControls.WPF
         }
 
 
+        /// <summary>
+        /// Sets the read only mode.
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         public void SetReadOnlyMode(bool readOnlyValue)
         {
             _readOnlyMode = readOnlyValue;
@@ -108,6 +149,10 @@ namespace RingSoft.DataEntryControls.WPF
             OnReadOnlyModeSet(readOnlyValue);
         }
 
+        /// <summary>
+        /// Called when [read only mode set].
+        /// </summary>
+        /// <param name="readOnlyValue">if set to <c>true</c> [read only value].</param>
         protected virtual void OnReadOnlyModeSet(bool readOnlyValue)
         {
         }

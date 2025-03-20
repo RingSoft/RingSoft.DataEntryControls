@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : RingSoft.DataEntryControls.WPF
+// Author           : petem
+// Created          : 10-28-2024
+//
+// Last Modified By : petem
+// Last Modified On : 01-09-2025
+// ***********************************************************************
+// <copyright file="HotKeyProcessor.cs" company="RingSoft">
+//     2024
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using RingSoft.DataEntryControls.Engine;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,58 +21,138 @@ using System.Windows.Input;
 
 namespace RingSoft.DataEntryControls.WPF
 {
+    /// <summary>
+    /// Class HotKey.
+    /// </summary>
     public class HotKey
     {
+        /// <summary>
+        /// Gets the keys.
+        /// </summary>
+        /// <value>The keys.</value>
         public IReadOnlyList<Key> Keys { get; }
 
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <value>The command.</value>
         public RelayCommand Command { get; }
 
+        /// <summary>
+        /// The keys
+        /// </summary>
         private List<Key> _keys = new List<Key>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HotKey"/> class.
+        /// </summary>
+        /// <param name="command">The command.</param>
         public HotKey(RelayCommand command = null)
         {
             Keys = _keys.AsReadOnly();
             Command = command;
         }
 
+        /// <summary>
+        /// Adds the key.
+        /// </summary>
+        /// <param name="key">The key.</param>
         public void AddKey(Key key)
         {
             _keys.Add(key);
         }
     }
 
+    /// <summary>
+    /// Class HotKeyPressedArgs.
+    /// </summary>
     public class HotKeyPressedArgs
     {
+        /// <summary>
+        /// Gets the hot key pressed.
+        /// </summary>
+        /// <value>The hot key pressed.</value>
         public HotKey HotKeyPressed { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HotKeyPressedArgs"/> class.
+        /// </summary>
+        /// <param name="hotKeyPressed">The hot key pressed.</param>
         public HotKeyPressedArgs(HotKey hotKeyPressed)
         {
             HotKeyPressed = hotKeyPressed;
         }
     }
 
+    /// <summary>
+    /// Class HotKeyPressed.
+    /// </summary>
     internal class HotKeyPressed
     {
+        /// <summary>
+        /// Gets or sets the key.
+        /// </summary>
+        /// <value>The key.</value>
         public Key Key { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [key found].
+        /// </summary>
+        /// <value><c>true</c> if [key found]; otherwise, <c>false</c>.</value>
         public bool KeyFound { get; set; }
     }
+    /// <summary>
+    /// Class HotKeyProcessor.
+    /// </summary>
     public class HotKeyProcessor
     {
+        /// <summary>
+        /// Gets the hot keys.
+        /// </summary>
+        /// <value>The hot keys.</value>
         public IReadOnlyList<HotKey> HotKeys { get; }
 
+        /// <summary>
+        /// Gets the ignore keys.
+        /// </summary>
+        /// <value>The ignore keys.</value>
         public IReadOnlyList<Key> IgnoreKeys { get; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [top level].
+        /// </summary>
+        /// <value><c>true</c> if [top level]; otherwise, <c>false</c>.</value>
         public bool TopLevel { get; set; } //Peter Ringering - 12/10/2024 04:51:33 PM - E-73
 
+        /// <summary>
+        /// Occurs when [hot key pressed].
+        /// </summary>
         public event EventHandler<HotKeyPressedArgs> HotKeyPressed;
 
+        /// <summary>
+        /// The hot keys
+        /// </summary>
         private List<HotKey> _hotKeys = new List<HotKey>();
+        /// <summary>
+        /// The keys pressed
+        /// </summary>
         private List<HotKeyPressed> _keysPressed = new List<HotKeyPressed>();
+        /// <summary>
+        /// The ignore keys
+        /// </summary>
         private List<Key> _ignoreKeys = new List<Key>();
+        /// <summary>
+        /// The elapsed seconds
+        /// </summary>
         private int _elapsedSeconds;
+        /// <summary>
+        /// The timer
+        /// </summary>
         private Timer _timer = new Timer();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HotKeyProcessor"/> class.
+        /// </summary>
         public HotKeyProcessor()
         {
             HotKeys = _hotKeys.AsReadOnly();
@@ -90,11 +183,19 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
+        /// <summary>
+        /// Adds the hot key.
+        /// </summary>
+        /// <param name="hotKey">The hot key.</param>
         public void AddHotKey(HotKey hotKey)
         {
             _hotKeys.Add(hotKey);
         }
 
+        /// <summary>
+        /// Removes the hot key.
+        /// </summary>
+        /// <param name="hotKey">The hot key.</param>
         public void RemoveHotKey(HotKey hotKey)
         {
             if (_hotKeys.Contains(hotKey))
@@ -103,11 +204,19 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Adds the ignore key.
+        /// </summary>
+        /// <param name="ignoreKey">The ignore key.</param>
         public void AddIgnoreKey(Key ignoreKey)
         {
             _ignoreKeys.Add(ignoreKey);
         }
 
+        /// <summary>
+        /// Removes the ignore key.
+        /// </summary>
+        /// <param name="ignoreKey">The ignore key.</param>
         public void RemoveIgnoreKey(Key ignoreKey)
         {
             if (_ignoreKeys.Contains(ignoreKey))
@@ -116,6 +225,10 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the <see cref="E:KeyPressed" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         public void OnKeyPressed(KeyEventArgs e)
         {
             var maxHotKeyCount = 0;
@@ -257,11 +370,18 @@ namespace RingSoft.DataEntryControls.WPF
             }
         }
 
+        /// <summary>
+        /// Handles the <see cref="E:KeyUp" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         public void OnKeyUp(KeyEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Clears the key pressed.
+        /// </summary>
         private void ClearKeyPressed()
         {
             _timer.Stop();
