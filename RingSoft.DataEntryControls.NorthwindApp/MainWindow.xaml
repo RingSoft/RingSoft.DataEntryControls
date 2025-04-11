@@ -17,6 +17,7 @@
                 <MenuItem x:Name="OptionsMenu" Header="_Options..."/>
                 <MenuItem x:Name="ProcedureTest" Header="Procedure _Test..."/>
                 <MenuItem x:Name="AdvancedFindMenuItem" Header="_Advanced Find..."/>
+                <lc:WindowMenu/>
             </Menu>
             <ToolBar Background="LightSkyBlue">
                 <Button x:Name="ExitButton">
