@@ -595,6 +595,21 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 Notes = Notes
             };
 
+            if (order.CustomerId == "")
+            {
+                order.CustomerId = null;
+            }
+
+            if (order.EmployeeId == 0)
+            {
+                order.EmployeeId = null;
+            }
+
+            if (order.ShipVia == 0)
+            {
+                order.ShipVia = null;
+            }
+
             return order;
         }
 

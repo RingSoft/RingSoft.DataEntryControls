@@ -247,6 +247,18 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.Model
 
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
+                entity.HasOne(p => p.Customer)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(p => p.CustomerId).IsRequired();
+
+                entity.HasOne(p => p.Employee)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(p => p.EmployeeId).IsRequired();
+
+                entity.HasOne(p => p.Shipper)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(p => p.ShipVia).IsRequired();
+
                 entity.Property(e => e.Freight)
                     .HasColumnType("numeric")
                     .HasDefaultValueSql("0");
