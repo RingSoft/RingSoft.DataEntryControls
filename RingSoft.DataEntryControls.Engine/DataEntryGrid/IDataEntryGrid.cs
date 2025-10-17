@@ -150,5 +150,7 @@ namespace RingSoft.DataEntryControls.Engine.DataEntryGrid
         /// </summary>
         /// <returns>List&lt;ColumnMap&gt;.</returns>
         List<ColumnMap> GetColumns();
+
+        void HandleValFail();
     }
 }

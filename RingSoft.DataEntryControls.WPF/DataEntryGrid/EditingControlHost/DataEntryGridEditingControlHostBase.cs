@@ -155,6 +155,11 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid.EditingControlHost
             return !readOnlyMode;
         }
 
+        public virtual void HandleValFail()
+        {
+
+        }
+
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>

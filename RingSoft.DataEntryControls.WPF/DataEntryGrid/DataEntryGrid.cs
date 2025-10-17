@@ -1108,6 +1108,14 @@ namespace RingSoft.DataEntryControls.WPF.DataEntryGrid
             return result;
         }
 
+        public void HandleValFail()
+        {
+            if (EditingControlHost != null)
+            {
+                EditingControlHost.HandleValFail();
+            }
+        }
+
         /// <summary>
         /// Updates the row colors.
         /// </summary>
