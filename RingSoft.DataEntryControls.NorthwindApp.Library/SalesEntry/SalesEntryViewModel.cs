@@ -739,30 +739,36 @@ namespace RingSoft.DataEntryControls.NorthwindApp.Library.SalesEntry
                 orderDetail =
                     AppGlobals.DbContextProcessor.GetOrderDetail(orderDetail.OrderId, orderDetail.OrderDetailId);
 
-                if (orderDetail.ProductId != null) 
-                    filterProductId = (int) orderDetail.ProductId;
+                if (orderDetail != null)
+                {
+                    if (orderDetail.ProductId != null)
+                        filterProductId = (int)orderDetail.ProductId;
 
-                var sqlStringBuilder = new StringBuilder();
-                var sqlGen = AppGlobals.LookupContext.DataProcessor.SqlGenerator;
+                    var sqlStringBuilder = new StringBuilder();
+                    var sqlGen = AppGlobals.LookupContext.DataProcessor.SqlGenerator;
 
-                sqlStringBuilder.AppendLine(
-                    $"{sqlGen.FormatSqlObject(AppGlobals.LookupContext.Orders.TableName)}.{sqlGen.FormatSqlObject(AppGlobals.LookupContext.Orders.GetFieldDefinition(p => p.OrderId).FieldName)} IN");
+                    sqlStringBuilder.AppendLine(
+                        $"{sqlGen.FormatSqlObject(AppGlobals.LookupContext.Orders.TableName)}.{sqlGen.FormatSqlObject(AppGlobals.LookupContext.Orders.GetFieldDefinition(p => p.OrderId).FieldName)} IN");
 
-                sqlStringBuilder.AppendLine("(");
+                    sqlStringBuilder.AppendLine("(");
 
-                var query = new SelectQuery(AppGlobals.LookupContext.OrderDetails.TableName);
-                query.AddSelectColumn(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.OrderId).FieldName);
-                query.AddWhereItem(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId).FieldName,
-                    Conditions.Equals, filterProductId);
-                sqlStringBuilder.AppendLine(AppGlobals.LookupContext.DataProcessor.SqlGenerator.GenerateSelectStatement(query));
+                    var query = new SelectQuery(AppGlobals.LookupContext.OrderDetails.TableName);
+                    query.AddSelectColumn(AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.OrderId)
+                        .FieldName);
+                    query.AddWhereItem(
+                        AppGlobals.LookupContext.OrderDetails.GetFieldDefinition(p => p.ProductId).FieldName,
+                        Conditions.Equals, filterProductId);
+                    sqlStringBuilder.AppendLine(AppGlobals.LookupContext.DataProcessor.SqlGenerator
+                        .GenerateSelectStatement(query));
 
-                sqlStringBuilder.AppendLine(")");
+                    sqlStringBuilder.AppendLine(")");
 
-                var tableFilterDefinition = new TableFilterDefinition<Orders>(TableDefinition);
-                var sql = sqlStringBuilder.ToString();
-                tableFilterDefinition.AddFixedFilter("Order Details", null, "", sql);
+                    var tableFilterDefinition = new TableFilterDefinition<Orders>(TableDefinition);
+                    var sql = sqlStringBuilder.ToString();
+                    tableFilterDefinition.AddFixedFilter("Order Details", null, "", sql);
 
-                return tableFilterDefinition;
+                    return tableFilterDefinition;
+                }
             }
 
             return base.GetAddViewFilter();
