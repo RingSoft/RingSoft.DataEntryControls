@@ -1,2 +1,2 @@
-move C:\Users\petem\source\repos\RingSoft\RingSoft.DataEntryControls\RingSoft.DataEntryControls.NorthwindApp\bin\Release\net8.0-windows7.0\RingSoft.DataEntryControls.NorthwindApp.exe C:\Users\petem\source\repos\RingSoft\Nuget\Release\CodeSign
+move C:\Users\petem\source\repos\RingSoft\RingSoft.DataEntryControls\RingSoft.DataEntryControls.NorthwindApp\bin\Release\net10.0-windows\RingSoft.DataEntryControls.NorthwindApp.exe C:\Users\petem\source\repos\RingSoft\Nuget\Release\CodeSign
 pause
