@@ -10,8 +10,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RingSoft.DbLookup.EfCore" Version="10.0.5" />
-    <PackageReference Include="RingSoft.DbMaintenance" Version="10.0.5" />
+    <PackageReference Include="RingSoft.DbLookup.EfCore" Version="10.0.6" />
+    <PackageReference Include="RingSoft.DbMaintenance" Version="10.0.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RingSoft.DataEntryControls.Engine\RingSoft.DataEntryControls.Engine.csproj" />
