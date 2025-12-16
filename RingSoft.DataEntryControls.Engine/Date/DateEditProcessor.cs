@@ -13,9 +13,29 @@
 // ***********************************************************************
 using RingSoft.DataEntryControls.Engine.Date.Segments;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RingSoft.DataEntryControls.Engine.Date
 {
+    public enum DateSegmentTypes
+    {
+        Month,
+        Day,
+        Year,
+        Hour,
+        Minute,
+        Second,
+        AmPm
+    }
+
+    public class DateSegmentInfo
+    {
+        public DateSegmentTypes SegmentType { get; set; }
+        public int FirstIndex { get; set; }
+        public int LastIndex { get; set; }
+    }
     /// <summary>
     /// Class DateEditProcessor.
     /// </summary>
@@ -72,6 +92,70 @@ namespace RingSoft.DataEntryControls.Engine.Date
                 Control.Text = newValue.ToString(entryFormat, _setup.Culture);
             }
             Control.SetSelectAll();
+        }
+
+        public void OnPopupClosed(DateTime? value, DateFormatTypes formatType)
+        {
+            if (value != null && formatType == DateFormatTypes.DateTime)
+            {
+                var segInfos = new List<DateSegmentInfo>
+                {
+                    GetSegmentInfo(DateSegmentTypes.Hour),
+                    GetSegmentInfo(DateSegmentTypes.Minute),
+                    GetSegmentInfo(DateSegmentTypes.Second),
+                    GetSegmentInfo(DateSegmentTypes.AmPm)
+                };
+
+                var minIndex = segInfos.Min(p => p.FirstIndex);
+                Control.SelectionStart = minIndex;
+                Control.SelectionLength = 0;
+            }
+        }
+
+        private DateSegmentInfo GetSegmentInfo(DateSegmentTypes segmentType)
+        {
+            var result = new DateSegmentInfo
+            {
+                SegmentType = segmentType,
+            };
+
+            char segmentFormatChar = 'h';
+            switch (segmentType)
+            {
+                case DateSegmentTypes.Month:
+                    segmentFormatChar = 'M';
+                    break;
+                case DateSegmentTypes.Day:
+                    segmentFormatChar = 'd';
+                    break;
+                case DateSegmentTypes.Year:
+                    segmentFormatChar = 'y';
+                    break;
+                case DateSegmentTypes.Hour:
+                    segmentFormatChar = 'h';
+                    break;
+                case DateSegmentTypes.Minute:
+                    segmentFormatChar = 'm';
+                    break;
+                case DateSegmentTypes.Second:
+                    segmentFormatChar = 's';
+                    break;
+                case DateSegmentTypes.AmPm:
+                    segmentFormatChar = 't';
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(segmentType), segmentType, null);
+            }
+
+            var entryFormat = _setup.GetEntryFormat();
+
+            DateEditControlSetup.GetSegmentFirstLastPosition(entryFormat, segmentFormatChar, out var firstSegIndex,
+                out var lastSegIndex);
+
+            result.FirstIndex = firstSegIndex;
+            result.LastIndex = lastSegIndex;
+
+            return result;
         }
 
         /// <summary>

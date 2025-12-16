@@ -665,6 +665,11 @@ namespace RingSoft.DataEntryControls.WPF
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void _popup_Closed(object sender, EventArgs e)
         {
+            OnPopupClosed();
+        }
+
+        protected virtual void OnPopupClosed()
+        {
             if (TextBox != null)
                 TextBox.Focus();
         }

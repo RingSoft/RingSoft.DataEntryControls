@@ -707,5 +707,14 @@ namespace RingSoft.DataEntryControls.WPF
         {
             //TextBox.ScrollToTop();
         }
+
+        protected override void OnPopupClosed()
+        {
+            base.OnPopupClosed();
+            if (!ReadOnlyMode)
+            {
+                _processor.OnPopupClosed(Value, DateFormatType);
+            }
+        }
     }
 }
