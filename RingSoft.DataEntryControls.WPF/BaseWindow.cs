@@ -139,6 +139,7 @@ namespace RingSoft.DataEntryControls.WPF
         /// <value><c>true</c> if [enter to tab]; otherwise, <c>false</c>.</value>
         public bool EnterToTab { get; set; }
 
+        private bool _isWrapping;
         /// <summary>
         /// The read only tab control
         /// </summary>
@@ -165,7 +166,8 @@ namespace RingSoft.DataEntryControls.WPF
                 if (Application.Current.MainWindow != null)
                     Icon = Application.Current.MainWindow.Icon;
 
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            
             KeyDown += (sender, args) =>
             {
                 switch (args.Key)
@@ -212,6 +214,35 @@ namespace RingSoft.DataEntryControls.WPF
             };
         }
 
+        //protected override void OnContentChanged(object oldContent, object newContent)
+        //{
+        //    if (_isWrapping || newContent == null || newContent is ScrollViewer)
+        //    {
+        //        base.OnContentChanged(oldContent, newContent);
+        //        return;
+        //    }
+
+        //    _isWrapping = true;
+            
+        //    try
+        //    {
+        //        // Create the ScrollViewer and wrap the original content
+        //        var scrollViewer = new ScrollViewer
+        //        {
+        //            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+        //            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+        //            Content = newContent
+        //        };
+
+        //        // Re-assign the window content to the new ScrollViewer
+        //        this.Content = scrollViewer;
+        //    }
+        //    finally
+        //    {
+        //        _isWrapping = false;
+        //    }
+        //    base.OnContentChanged(oldContent, newContent);
+        //}
         /// <summary>
         /// Snugs the window.
         /// </summary>
