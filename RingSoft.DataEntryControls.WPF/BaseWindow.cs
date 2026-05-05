@@ -166,7 +166,7 @@ namespace RingSoft.DataEntryControls.WPF
                 if (Application.Current.MainWindow != null)
                     Icon = Application.Current.MainWindow.Icon;
 
-            //WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             
             KeyDown += (sender, args) =>
             {
